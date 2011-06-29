@@ -1,0 +1,17 @@
+<h2><?php print $this->row->user_name?></h2>
+<table>
+    <tr>
+        <td>Username:</td>
+        <td><?php print $this->row->user_name?>
+    </tr>
+    <tr>
+        <td>Email:</td>
+        <td><?php print $this->row->email?></td>
+    </tr>
+    <tr>
+        <td>Phone no:</td>
+        <td><?php print $this->row->mobile?></td>
+    </tr>
+</table>
+<div class = "edit-button"><?php print $this->l('Edit','user/user/edit/user_id/'.$this->row->user_id)?></div>
+<div class = "change-password"><?php print $this->l('Change Password','user/user/changepassword/user_id/'.$this->row->user_id)?></div>

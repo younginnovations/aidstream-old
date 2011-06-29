@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <routes>
+        <shortcutone  type="Zend_Controller_Router_Route_Static">
+            <route>iati/xml/validate</route>
+            <defaults>
+                <controller>iati</controller>
+                <action>validate</action>
+            </defaults>
+        </shortcutone>
+        <shortcuttwo  type="Zend_Controller_Router_Route_Static">
+            <route>iati/schema/validate</route>
+            <defaults>
+                <controller>iati</controller>
+                <action>validatexml</action>
+            </defaults>
+        </shortcuttwo>
+    </routes>
+</config>

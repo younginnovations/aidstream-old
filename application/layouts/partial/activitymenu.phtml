@@ -1,0 +1,24 @@
+<h3>Activity Menu</h3>
+<ul>
+
+<?php
+$identity = $this->userInfo();
+
+$url = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+$model = new Model_Wep();
+
+$defaultField = $model->getDefaults('default_field_groups', 'account_id', $identity->account_id);
+//print_r($defaultField->getProperties());exit();
+print "<li>".$this->l('Iati Identifier', "wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=IatiIdentifier")."</li>";
+print "<li>".$this->l('Reporting Organisation', "wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=ReportingOrganisation")."</li>";
+
+foreach($defaultField->getProperties() as $key => $eachData){
+    if($eachData == 1){
+        $key = ucwords(str_replace("_"," ",$key));
+        print "<li>".$this->l($key, "wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=".str_replace(" ", "", $key))."</li>";
+
+    }
+}//add-activity-elements?activity_id='.$activity_id .'&class='.$class
+?>
+
+</ul>

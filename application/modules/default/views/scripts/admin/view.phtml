@@ -1,0 +1,38 @@
+<?php if($this->message){
+
+    print $this->message;
+}?>
+<?php //print_r($this->user_info);exit();?>
+<div>
+<div>
+   <strong> Organisation </strong>
+</div>
+<table>
+<tr>
+<td>Name: </td><td><?php print $this->account_info['name']; ?></td>
+</tr>
+<tr><td>Address: </td><td><?php print $this->account_info['address'];?></td></tr>
+<tr><td>Username: </td> <td><?php print $this->account_info['username']?></td></tr>
+</table>
+</div>
+
+
+<div>
+<div><strong>Admin</strong></div>
+<table>
+<tr>
+<td>Name:</td><td><?php print $this->user_profile['first_name'] . " " . $this->user_profile['last_name']?></td>
+</tr>
+<tr>
+<td>Username: </td><td><?php print $this->user_info['user_name']?></td>
+</tr>
+<tr>
+<td>Email: </td><td><?php print $this->user_info['email']?></td>
+</tr>
+</table>
+</div>
+
+<div>
+<span><?php print $this->l('Approve', 'admin/approve/id/'. $this->user_info['user_id']);?></span>
+<span><?php print $this->l('Reject', 'admin/reject/id/' .$this->user_info['user_id']);?></span>
+</div>

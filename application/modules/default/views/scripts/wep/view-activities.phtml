@@ -1,0 +1,43 @@
+<?php if($this->activities_info):?>
+<div>
+<table>
+<tr>
+    <td>Version: </td><td><?php print $this->activities_info['@version'];?></td>
+</tr>
+<tr>
+    <td>Generated Date Time: </td><td><?php print $this->activities_info['@generated_datetime'];?></td>
+</tr>
+</table>
+</div>
+<?php endif;?>
+
+<?php $i = 1;?>
+
+<?php if($this->activity_array):?>
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>S.N.</th><th>Title</th><th>Last Updated DateTime</th><th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach($this->activity_array as $eachActivity):?>
+            <tr>
+                <td><?php print $i;?></td><td><?php print $eachActivity['title'];?></td>
+                <td><?php print $eachActivity['last_updated_datetime'];?></td>
+                <td><?php print $this->l('View', 'wep/edit-activity-elements/?activity_id='.$eachActivity['id'])?>
+        <?php print $this->l('Edit', 'wep/edit-activity/?activity_id='.$eachActivity['id'])?>
+                            
+        <?php print $this->l('Delete', 'wep/delete-activity/?activity_id='.$eachActivity['id'])?>
+                </td>
+            </tr>
+            
+         <?php $i++;?>
+        <?php endforeach;?>
+        </tbody>
+    </table>
+</div>
+<?php endif;?>
+
+<?php print $this->l('Add new', 'wep/add-activity?activities_id='.$_GET['activities_id']);?>

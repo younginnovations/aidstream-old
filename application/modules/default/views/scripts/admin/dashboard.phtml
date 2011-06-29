@@ -1,0 +1,17 @@
+<div id="admin-dashboard">
+    <div id="left-list">
+        <div id = "user-report">
+            <h2>User Reports</h2>
+            <?php
+				echo "<ul>";
+					echo "<li class='pending-request'><p class='dashboard-summary'>";
+                		echo $this->l('Awaiting Request', 'admin/awaiting');
+                		echo $this->l('Add Organisation', 'wep/register');
+                		echo $this->l('Organisation List', 'admin/list-organisation');
+//                		echo "<br />Shows the list of Changes made by Users.</p>";
+					echo "</li>";
+				echo "</ul>";
+            ?>
+        </div>
+    </div>
+</div>

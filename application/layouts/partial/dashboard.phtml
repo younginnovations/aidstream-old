@@ -1,0 +1,21 @@
+<?php if($this->userInfo()->role == 'superadmin'){
+    $link = 'admin/dashboard';
+}
+?>
+<?php if($this->userInfo()->role == 'admin'){
+    $link = 'wep/dashboard';
+    $link1 = 'wep/edit-defaults';
+    
+}?>
+
+<div>Navigation Menu</div>
+<ul>
+<li>
+<?php print $this->l('Dashboard', $link);?></li>
+<li>
+<?php print $this->l('Logout', 'user/user/logout');?>
+</li>
+<?php if($link1):?>
+<li><?php print $this->l('Change Defaults', $link1);?></li>
+<?php endif;?>
+</ul>

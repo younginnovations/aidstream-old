@@ -1,0 +1,17 @@
+<?php 
+//    print_r($this->menu);exit();
+    /*foreach($this->menu as  $key => $eachMenu){
+        print $this->l($key, $eachMenu);
+    }*/
+    
+    ?>
+    
+<form action = '<?php print $this->baseUrl();?>/wep/activitybar/?name=abc' method = 'post'>
+First name: <input type="text" name="firstname" /><br />
+Last name: <input type="text" name="lastname" />
+<input type='text'name='text[]'/>
+<input type='hidden'name='activity_id[]' value='1'/>
+<select name= 'xml_lang'><option value=''>Select anyone</option><option value='363' selected='363'>ab</option><option value='364'>aa</option><option value='365'>af</option><option value='366'>ak</option><option value='367'>sq</option><option value='368'>am</option><option value='369'>ar</option><option value='370'>an</option><option value='371'>hy</option>
+</select>
+<input type="submit" value="Submit" />
+</form>

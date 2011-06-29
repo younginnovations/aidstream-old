@@ -1,0 +1,2252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<iati-activities version="1.0">
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00063252</other-identifier>
+        <title>Renfocement Capa planification</title>
+        <description>Long Description: L'output 63252 a pour objectif principal le renforcement des capacités de planification stratégique des 13 régions du Burkina Faso</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <activity-date type="start" iso-date="2008-01-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">518177</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00011551</other-identifier>
+        <title>REFECTION LA ROUTE BOULSA - TO</title>
+        <description>Short Description: Cette révision budgétaire a été préparée pour refléter une augmentation d'un montant de 50 000 $US sur le budget de 2005.
+</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">UN Office for Project Services</participating-org>
+        <activity-date type="start" iso-date="2001-01-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <contact-info>
+            <person-name>SABO,ISIYAKA</person-name>
+        </contact-info>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00034697</other-identifier>
+        <title>PAPNA</title>
+        <description>Short Description: PROJET DE DEVELOPPEMENT DES RESSOURCES AGROPASTORALES DU NAMENTENGA
+Long Description: Réduire de manière durable la pauvreté des populations agropastorales de la Province du Namentenga par le biais d'un développement social et économique axé sur les principes de la bonne fouvernance démocratique.</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2004-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>74700</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">62571</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00011562</other-identifier>
+        <title>PROGRAMME PNUD/BURKINA</title>
+        <description>Short Description: APPUI AUX ACTIVITES OPERATIONNELLES DU PROGRAMME PNUD/BURKINA
+</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">UN Office for Project Services</participating-org>
+        <activity-date type="start" iso-date="2001-01-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <contact-info>
+            <person-name>SABO,ISIYAKA</person-name>
+        </contact-info>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>95</value>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00011565</other-identifier>
+        <title>Appui  Institutionnel  au PNLS</title>
+        <description>Short Description: Projet d'appui institutionnel au programme national de luttre contrre le SIDA
+Long Description: Les capacités organisationnelles et fonctionnelles du Secrétariat Permanent du comité National de Lutte contre le Sida et les Infections Sexuellement Transmissibles (IST) sont accrues : Cabinet; Départements du Secteur Privé; de la communication et trois antennes régionales._x000D__x000D_
+Les capacités techniques et les compétences de l'Unité Centrale de Planification et de Suivi Evaluation sont accrues.</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2001-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <contact-info>
+            <person-name>SABO,ISIYAKA</person-name>
+        </contact-info>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>513802</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">479071</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00011566</other-identifier>
+        <title>Programme encouragement Utilis</title>
+        <description>Short Description: Programme d'encouragement aux Utilisateurs Finaux dans le secteur du Froid
+Long Description: les utilisateurs des produits nocifs pour la couche d'ozone sont sensibilisés sur l'importance de changer de comportements et d'adopter des produits homologués.</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">UN Office for Project Services</participating-org>
+        <activity-date type="start" iso-date="2001-01-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <contact-info>
+            <person-name>SABO,ISIYAKA</person-name>
+        </contact-info>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>8</value>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00011568</other-identifier>
+        <title>ELEVAGE DE LA FAUNE SAUVAGE EN</title>
+        <description>Short Description: INTEGRATION DE LA DIVERSITE BIOLOGIQUE DANS LES SYSTEMES D'ELEVAGE DE LA FAUNE SAUVAGE.
+Long Description: La protection et la valorisation économique des ressources de la biodiversité et notamment du gibier sont améliorées.</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">UN Office for Project Services</participating-org>
+        <activity-date type="start" iso-date="2001-01-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <contact-info>
+            <person-name>SABO,ISIYAKA</person-name>
+        </contact-info>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>2880</value>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00011572</other-identifier>
+        <title>Plates formes Multifonctionnel</title>
+        <description>Short Description: Plates formes Multifonctionnelles pour la Lutte contre la Pauvreté
+</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">BKF-SHELL FOUDATION</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UN Office for Project Services</participating-org>
+        <activity-date type="start" iso-date="2001-01-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <contact-info>
+            <person-name>SABO,ISIYAKA</person-name>
+        </contact-info>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>6721</value>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00025489</other-identifier>
+        <title>DEVT AGRO FORESTIER</title>
+        <description>Short Description: DEVELOPPEMENT AGRO FORESTIER PAR LA REGENERATION DE ACACIA ALBIDA ET D'AUTRES ESPECES LOCALES
+</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF NORWAY</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2001-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00025491</other-identifier>
+        <title>2003 C/S balance</title>
+        <description>Short Description: Projet non opérationnel.
+</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF NETHERLANDS</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2001-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00034604</other-identifier>
+        <title>Programme National Plateformes</title>
+        <description>Long Description: Acces aux services energetiques pour les populations rurales au Burkina Faso est facilité.</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">GOVERNMENT OF LUXEMBOURG</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UN Office for Project Services</participating-org>
+        <activity-date type="start" iso-date="2004-06-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">-222</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00059244</other-identifier>
+        <title>Unité Coordination Nationale</title>
+        <description>Short Description: L'Unité de Coordination nationale coordonne le programme chargé de mettre à la disposition des populations rurales ;les femmes en particulier des paltes formes multifonctionnelles pour faciliter l'accès aux services énergétiques.
+Long Description: Promotion de stratégies; plans et programmes nationaux de développement à travers un processus participatif qui prend en compte dez cibles spécifiques de réduction de la pauvreté humaine et monétaire ainsi que les OMD</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">GOVERNMENT OF LUXEMBOURG</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2007-12-18"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>208681</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">196217</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00059247</other-identifier>
+        <title>PTF FNGN</title>
+        <description>Short Description: Le programme PTF favorise l’accès à l’énergie mécanique et électrique pour les populations rurales de la Région Nord du Burkina Faso; à travers l'ONG FNGN.
+Long Description: Promotion de stratégies; plans et programmes nationaux de développement à travers un processus participatif qui prend en compte dez cibles spécifiques de réduction de la pauvreté humaine et monétaire ainsi que les OMD</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF LUXEMBOURG</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <activity-date type="start" iso-date="2007-12-26"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>128242</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">214295</value>
+            <provider-org>GOVERNMENT OF LUXEMBOURG</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00059355</other-identifier>
+        <title>PTF Adis Amus</title>
+        <description>Short Description: Le projet met à disposition des populations rurales; notamment les femmes; des services énergétiques au moyen de la plate forme multifonctionnelle; dans la région du Centre Ouest.
+Long Description: Promotion de stratégies; plans et programmes nationaux de développement à travers un processus participatif qui prend en compte dez cibles spécifiques de réduction de la pauvreté humaine et monétaire ainsi que les OMD</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF LUXEMBOURG</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <activity-date type="start" iso-date="2007-12-26"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>67903</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">71338</value>
+            <provider-org>GOVERNMENT OF LUXEMBOURG</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00059356</other-identifier>
+        <title>PTF TinTua</title>
+        <description>Short Description: Le projet met à disposition des populations rurales; notamment les femmes; des services énergétiques au moyen de la plate forme multifonctionnelle; dans la région de l'Est et du Centre Est.
+Long Description: Promotion de stratégies; plans et programmes nationaux de développement à travers un processus participatif qui prend en compte dez cibles spécifiques de réduction de la pauvreté humaine et monétaire ainsi que les OMD</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF LUXEMBOURG</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <activity-date type="start" iso-date="2007-12-26"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>147402</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">270395</value>
+            <provider-org>GOVERNMENT OF LUXEMBOURG</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00059357</other-identifier>
+        <title>PTF Ocades</title>
+        <description>Short Description: Le projet met à disposition des populations rurales; notamment les femmes; des services énergétiques au moyen de la plate forme multifonctionnelle dans la région de la Boucle du Mouhoun.
+Long Description: Promotion de stratégies; plans et programmes nationaux de développement à travers un processus participatif qui prend en compte dez cibles spécifiques de réduction de la pauvreté humaine et monétaire ainsi que les OMD</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF LUXEMBOURG</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <activity-date type="start" iso-date="2007-12-26"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>150604</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">312068</value>
+            <provider-org>GOVERNMENT OF LUXEMBOURG</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00060514</other-identifier>
+        <title>PTF Bobo</title>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF LUXEMBOURG</participating-org>
+        <participating-org role="funding">Aarhus United A/S</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <activity-date type="start" iso-date="2008-01-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>63347</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">60913</value>
+            <provider-org>GOVERNMENT OF LUXEMBOURG</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00038990</other-identifier>
+        <title>PIMS 2705 CC AE Plan d' Action</title>
+        <description>Short Description: PIMS 2705 CC AE Plan d' Action National d' Adaptation
+Long Description: La plan d'action adaptation du Burkina Faso aux Changement Climatiques est elaborée.</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">Global Environment Fund Truste</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <activity-date type="start" iso-date="2004-01-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>20667</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">23172</value>
+            <provider-org>Global Environment Fund Truste</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00039106</other-identifier>
+        <title>PIMS 3291 CC AE Elaboration no</title>
+        <description>Short Description: PIMS 3291 CC AE Elaboration note CC
+Long Description: La deuxième note de communication nationale sur les changement climatiques est élaboré</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">Global Environment Fund Truste</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2004-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>123950</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">88892</value>
+            <provider-org>Global Environment Fund Truste</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00045861</other-identifier>
+        <title>Appui à la lutte contre le VIH</title>
+        <description>Long Description: L'incidence de la prévalence du vih/sida est réduit; par le renforcement des capacités de la structure chargée de la coordination (SP/CNLS); de l'exécution du cadre national multisectoriel de la lutte contre le vih/sida et par la mise en oeuvre  des activités opérationnelles de la lutte contre le vih/sida exécutées par le Programme d'appui au monde communautaire (PAMAC).</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">AFRICAN DEVELOPMENT BANK</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>138405</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">155349</value>
+            <provider-org>AFRICAN DEVELOPMENT BANK</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00047670</other-identifier>
+        <title>Comptabilité  environnementale</title>
+        <description>Long Description: la prise en compte de la contribution des ressources naturelles dans l'économie nationale est améliorée.</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <activity-date type="start" iso-date="2005-11-07"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>46</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">-590</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00047697</other-identifier>
+        <title>PIMS 2663 MU EA: NCSA</title>
+        <description>Long Description: Les priorités et le besoins nationaux en matière de renforcement des capacités de gestion de l'environnement mondial et national est identifié</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">Global Environment Fund Truste</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <activity-date type="start" iso-date="2005-11-16"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>7370</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">6318</value>
+            <provider-org>Global Environment Fund Truste</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00048029</other-identifier>
+        <title>Projet SIDA Communauté Burkina</title>
+        <description>Long Description: Le renforcement des capacités de gestion; le financement et le suivi des plans d'actions au profit des associations et structures communautaires de prise en charge et de promotion du dépistage.</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF BURKINA FASO</participating-org>
+        <participating-org role="funding">GOVERNMENT OF NETHERLANDS</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00051383</other-identifier>
+        <title>Appui aux associations PAMAC-F</title>
+        <description>Long Description: Renforcer les mesures de prévention de la transmission du VIH/Sida par l'extension des actions de prévention; de conseil/dépistage et de prise en charge; mises en oeuvre par les associations.</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF FRANCE</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>164943</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">166063</value>
+            <provider-org>GOVERNMENT OF FRANCE</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00051711</other-identifier>
+        <title>PAPAP(2006 -2007) - TRAC</title>
+        <description>Short Description: PAPAP(2006 -2007) - TRAC
+Long Description: Projet d'Appui au Programme d'Actions Prioritaires (PAPAP 2006 - 2007)</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">GOVERNMENT OF SWEDEN</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2006-01-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>194254</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">92656</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00051873</other-identifier>
+        <title>Appui à la décentralisation &amp;</title>
+        <description>Long Description: Le sous programme ADEPAC a pour objectifs stratégiques : le parachèvement du cadre juridique de mise en œuvre de la décentralisation ;le développement des capacités des communes et des acteurs de la décentralisation ; le développement des outils de Planification locale et de gestion communale (plan locaux de développement; guide du maire etc.) ainsi que sur l’approfondissement de la gouvernance locale.</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2006-07-19"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>937710</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">850221</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00051887</other-identifier>
+        <title>Composante 3 PRCIREG MAEP&quot;&quot;</title>
+        <description>Short Description: Rev Gen 07
+Long Description: La présente révision générale 09 est préparée pour réfleter les meilleures estimations de dépenses du projet en 2009 et l'allocation du budget PTA  2010</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2006-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>88785</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">90836</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00051888</other-identifier>
+        <title>PRCIREG Cpste2 Syst &amp;ProcElec&quot;</title>
+        <description>Short Description: PRCIREG Composante 2 Système et processus électoraux&quot;&quot;
+Long Description: PRCIREG - Composante 2 Système et processus électoraux&quot;&quot;</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2006-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>276001</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">187905</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00051890</other-identifier>
+        <title>Systématisation du genre dans</title>
+        <description>Short Description: Rev Gen 08
+Long Description: LA présente révision Générale 08 reflète les les meilleures estimations de dépenses pour l'année 2009 et l'allocation budgétaire pour le PTA 2010.</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2006-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>24400</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">15056</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00051962</other-identifier>
+        <title>PRGA-PNBG</title>
+        <description>Long Description: Le projet de Renforcement de la Gouvernance Administrative et de la coordination de la PNBG (PRGA-PNBG) s’inscrit dans le Programme de Renforcement des Capacités des Institutions Garantes de la Gouvernance Économique et Administrative. A travers ce projet; le Gouvernement et le PNUD contribuent à la réalisation de deux effets escomptés du programme de pays : (i) les capacités des institutions garantes de la bonne  gouvernance sont renforcées dans le respect des droits humains et (ii) une gestion publique renforcée; efficace et transparente. _x000D__x000D_
+_x000D__x000D_
+Pour le premier effet; un produit est attendu : les capacités du Secrétariat permanent du dispositif institutionnel de pilotage de la Politique Nationale Bonne Gouvernance (PNBG) sont renforcées. Pour le second effet; deux produits sont attendus : (i) la composante gouvernance administrative de la PNBG est mise en œuvre et évaluée  et (ii) la politique nationale de lutte contre la corruption est opérationnalisée.</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding"/>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2006-05-02"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00052020</other-identifier>
+        <title>Projet REGE</title>
+        <description>Long Description: Le Projet de Renforcement des capacités dans le domaine de la Gouvernance Economique (REGE) contribue au renforcement des capacités de formulation; de mise en œuvre; de suivi et d’évaluation et de gestion des Politiques; Programmes et Projets (PPP) de développement. Le programme REGE interviendra à trois niveaux : l’orientation stratégique des politiques de développement; le suivi-évaluation des PPP et l’amélioration de la gestion des PPP et de l’aide publique au Développement._x000D__x000D_
+_x000D__x000D_
+Dans le domaine de l’orientation stratégique des politiques de développement; l’étude Burkina 2025 sera opérationnalisée. Le programme REGE travaillera également à l’amélioration des capacités de suivi-évaluation des institutions garantes de gouvernance économique à travers le renforcement du mécanisme de suivi du Cadre stratégique de lutte contre la pauvreté; des OMD et du DHD. Des instruments comme le budget-programme; le Cadre des dépenses à moyen terme et le Programme d’investissement public bénéficieront d’un appui. _x000D__x000D_
+_x000D__x000D_
+Dans le même sens; des formations permettant le renforcement des capacités nationales en gestion des programmes et projets de développement seront assurées.  En outre; dans la perspective d’assurer un suivi de la Déclaration de Paris sur l’efficacité de l’Aide Publique au Développement; le PNUD appuiera la restructuration du Rapport sur la Coopération au Développement (RCD). Le RCD devra également contribuer au suivi du CSLP en mettant à disposition une information en temps utile; à la fois rétrospective et prospective</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2006-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>499500</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">454670</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00052181</other-identifier>
+        <title>ARSA Petite Irrigation</title>
+        <description>Short Description: le plan de travail 2008 du projet est mis en oeuvre
+Long Description: La production des petits exploitants agricoles est améliorée grâce à la vulgarisation de bonnes pratiques agricoles et des technologies appropriées.</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2006-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>173935</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">135694</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00052188</other-identifier>
+        <title>Programme de Gestion Durable d</title>
+        <description>Long Description: La gestion durable des ressources naturelles du Burkina Faso est renforcée</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">CPR-Chinese Academy of Forestr</participating-org>
+        <participating-org role="implementing">BGD-National Execution</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2006-07-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00062227</other-identifier>
+        <title>Opérationnalisation de CPP</title>
+        <description>Short Description: Mise en oeuvre/opérationnalisation de projet Country Partenership Programme
+Long Description: Mise en oeuvre/opérationnalisation de projet Country Partenership Programme</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2008-07-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>75000</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">67070</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00062229</other-identifier>
+        <title>Renforcement des capacités AND</title>
+        <description>Short Description: Renforcement des capacités et fonctionnement de l'AND
+Long Description: Renforcement des capacités et fonctionnement de l'AND</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">GOVERNMENT OF JAPAN</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2008-07-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>10000</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">20407</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00052536</other-identifier>
+        <title>Action 2</title>
+        <description>Long Description: La promotion et la protection des droits humains sont renforcées</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNESCO</participating-org>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">UNITED NATIONS POPULATION FUND</participating-org>
+        <participating-org role="funding">UNITED NATIONS CHILDREN'S FUND</participating-org>
+        <participating-org role="funding">UNDP AS AA FOR JP PASS THROUGH</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <participating-org role="implementing"/>
+        <activity-date type="start" iso-date="2006-07-18"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>10000</value>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00052984</other-identifier>
+        <title>PNV - Programme National de Vo</title>
+        <description>Short Description: Le Programme National de Volontariat vise la mise en place d'un dispositif de promotion et de gestion de volontaires au sein du Ministère de la Jeunesse et de l'Emploi du Burkina Faso.
+Long Description: 1.1.Un cadre légal et réglementaire nécessaire au dispositif est créé_x000D__x000D_
+1.2.La promotion du volontariat est renforcée dans toutes les sphères de la société burkinabè_x000D__x000D_
+2.1.Le dispositif de volontariat national est créé en Groupement d'Intérêt Public (GIP)_x000D__x000D_
+2.2La cellule de coordination nationale du programme est opérationnelle_x000D__x000D_
+2.3.Des centres régionaux de volontariat sont opérationnels_x000D__x000D_
+2.4.Le système de financement durable du PNV est établi_x000D__x000D_
+2.5.Un système d'administration et de suivi des volontaires est mis en place_x000D__x000D_
+2.6.Une première promotion de volontaires est lancée</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">United Nations Volunteers Prog</participating-org>
+        <activity-date type="start" iso-date="2006-09-08"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>173038</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">175321</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>United Nations Volunteers Prog</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00054500</other-identifier>
+        <title>Projet d'appui au PA de la Pol</title>
+        <description>Short Description: Projet d'appui au Plan d'Action de la Police de Proximité
+Long Description: Le Projet d’appui au Plan d’Action de mise en œuvre de la Police de proximité (PROPOLICE) s’inscrit dans le cadre de la politique du Gouvernement qui vise à assurer la sécurité des personnes et des biens sur l’étendue du territoire nationale avec la collaboration de l’ensemble de la population. Il vise donc à consolider la tranquillité et  la paix sociale; indispensable à tout processus de développement._x000D__x000D_
+_x000D__x000D_
+De façon spécifique; ce projet vise deux produits : (i) la formation des agents de sécurité déjà opérationnels sur le terrain et de ceux en formation à l’Ecole Nationale de Police et à l’Ecole Nationale de Gendarmerie sur la police de proximité; à partir de modules conçus avec l’appui du projet et (ii) la sensibilisation des acteurs autres que les agents de sécurité sur la police de proximité. _x000D__x000D_
+_x000D__x000D_
+Le budget du projet est de 500 593 $ dont une contribution de 300 000 euros du Royaume de Belgique et 105 000 USD du PNUD.</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <activity-date type="start" iso-date="2007-01-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>12850</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">45278</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00055445</other-identifier>
+        <title>ARSA Produit Secondaire NL</title>
+        <description>Long Description: Contribuer à l’augmentation des revenus et à la sécurisation alimentaire des groupes vulnérables; particulièrement des femmes; grâce à l’exploitation rentable et durable des ressources naturelles; spécifiquement des produits secondaires non ligneux.</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2007-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>167500</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">175480</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00056317</other-identifier>
+        <title>ONUSIDA Coalition Mondiale Fem</title>
+        <description>Long Description: Appui aux réponses nationales de lutte contre le VIH/SIDA à travers la promotion d’un leadership des femmes au sein de la riposte au Sida au Burkina Faso.</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNAIDS</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2007-03-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00056493</other-identifier>
+        <title>Projet Accélération de l'attei</title>
+        <description>Short Description: Projet pilote: Accéleration d e l'atteinte des OMD dans les régions de Boucle du Mouhoun et du Centre Sud dans les secteurs santé et éducation
+Long Description: Le projet vise à  (i) renforcer les capacités de programmation; d’exécution et de suivi/évaluation des politiques d’éducation et de santé au niveau local et régional ; (ii) fournir les moyens aux régions en vue de mobiliser des ressources financières et techniques pour accélérer l’atteinte des OMD et enfin (iii) tirer les enseignements qui seront versés dans le processus d’évaluation du CSLP.</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">SNV NETHERLANDS DEVELOPMENT OR</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2007-06-14"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>14000</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">-6375</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00056912</other-identifier>
+        <title>Fond Mondial Tuberculose PAMAC</title>
+        <description>Long Description: Renforcer la composante TB; de réduire la morbidité et la mortalité liées à la tuberculose dans le contexte de la co-infection Tuberculose/VIH en renforçant l'application de la DOTS (70% de taux de détection et 85% de taux de succès au traitement pour les TMPS+) tel que indiqué dans l'accord de subvention N° BUR-404-G05-T signé le 12 avril 2007.</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF BURKINA FASO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2007-06-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1071640</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">1061300</value>
+            <provider-org>GOVERNMENT OF BURKINA FASO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00057038</other-identifier>
+        <title>Extension intermédiat° financi</title>
+        <description>Long Description: Les infrastructures financières du Sud-Est du Burkina Faso sont modernisées et de nouveaux produits financiers sont disponibles grâce à la consolidation et à l’extension des activités du RCPB .</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2007-07-15"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>90730</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">63355</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00057039</other-identifier>
+        <title>Appui à la  mise en oeuvre de</title>
+        <description>Long Description: Un cadre légal; réglementaire et institutionnel amélioré est mis en oeuvre en vue de l’extension des services et de l’augmentation de la portée. Des IMF potentiels leaders vont développer leurs capacités organisationnelles (en terme de vision; stratégie d’entreprise et de conquête de marché; stratégie de gouvernance et de viabilité)  et assurer ainsi une offre pérenne de produits et services financiers y compris dans les zones insuffisamment couvertes mais à demande solvable.</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2007-07-15"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>70687</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">68669</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00057631</other-identifier>
+        <title>Projet de renforcement capacit</title>
+        <description>Short Description: Projet de renforcement des capacités de la DG-COOP dans la coordination et le suivi de la gestion des programmes/projets de développement (PRC/DGCOOP)
+Long Description: -	Les  capacités de la DG-COOP sont renforcées dans la coordination et le suivi de la gestion des programmes et projets de développement. _x000D__x000D_
+-	 Les capacités nationales en gestion des programmes et projets de développement  sont renforcées.</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">UN INDUSTRIAL DEVELOPMENT ORGA</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2007-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>246000</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">304187</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00057748</other-identifier>
+        <title>Projet d'appui au PNM VIH/Sida</title>
+        <description>Long Description: Accroître et améliorer la qualité de la prise en charge des PVVIH dans la région du Plateau Central:_x000D__x000D_
+- accroître la disponibilité du conseil et du test volontaire du VIH/SIDA à travers le développement des Centres Communautaires de Dépistage_x000D__x000D_
+- renforcer les activités de soutien de la communauté aux personnes infectées et affectées par le VIH/SIDA_x000D__x000D_
+- renforcer les capacités opérationnelles et institutionnelles des associations soutenues dans le cadre de l’intervention_x000D__x000D_
+- contribuer à une meilleure coordination des activités de prise en charge communautaire</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF BURKINA FASO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <activity-date type="start" iso-date="2007-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>103343</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">101130</value>
+            <provider-org>GOVERNMENT OF BURKINA FASO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00058938</other-identifier>
+        <title>Fonds Mondial Sida Round 6</title>
+        <description>Long Description: Contribuer à travers l’appui au PAMAC pour le renforcement et le soutien communautaire pour la prise en charge médicale et psychosociale des personnes vivant avec le VIH/SIDA</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF BURKINA FASO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2007-12-04"/>
+        <activity-date type="end" iso-date="2011-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1884888</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">1869510</value>
+            <provider-org>GOVERNMENT OF BURKINA FASO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00059049</other-identifier>
+        <title>Appui danois VIH/Sida PAMAC ph</title>
+        <description>Long Description: Contribuer à la mise en œuvre du CSLS à travers l’appui au PAMAC et au SP/CNLS</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF DENMARK</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2007-12-01"/>
+        <activity-date type="end" iso-date="2012-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>2150551</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">2154016</value>
+            <provider-org>GOVERNMENT OF DENMARK</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00059573</other-identifier>
+        <title>PAF Equipe conjointe - info ép</title>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNAIDS</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2008-01-10"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>51207</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">42691</value>
+            <provider-org>UNAIDS</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00061567</other-identifier>
+        <title>Projet de renforcement des cap</title>
+        <description>Long Description: Les capacités de participation de la société civile dans la gestion des affaires publiques sont renforcées</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2008-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>205084</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">141235</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00061723</other-identifier>
+        <title>Projet  d'appui  action pilote</title>
+        <description>Long Description: Ce projet vise à renforcer les opportunités immédiates de coopération; d’actions communes de développement et de dialogue/concertation à mettre au service de l’amélioration du bien être et de la sécurité des populations transfrontalières du triangle Sikasso – Bobo-Dioulasso - Banfora. Les trois produits prévus du projet sont :_x000D__x000D_
+(1)	Des projets réalisables à court terme sont mis en œuvre et de nouveaux projets transfrontaliers sont formulés_x000D__x000D_
+(2)	Des cadres de dialogue transfrontalier sont mis en place et fonctionnels_x000D__x000D_
+(3)	Un appui humain et logistique est fourni au processus</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2008-05-22"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>33338</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">32045</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00061949</other-identifier>
+        <title>PIMS 3978 CC PPG la phase prép</title>
+        <description>Long Description: Le document de projet pour la mis en ouevre du PANA est ealborée</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">Global Environment Fund Truste</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2008-06-11"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>36433</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">27984</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00062032</other-identifier>
+        <title>UCN</title>
+        <description>Long Description: Extension du modèle réussi de réduction de la pauvreté et d'autonomisation des femmes en Afrique de l'Ouest</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">BILL AND MELINDA GATES FOUNDAT</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <activity-date type="start" iso-date="2008-01-01"/>
+        <activity-date type="end" iso-date="2011-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>180755</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">143502</value>
+            <provider-org>BILL AND MELINDA GATES FOUNDAT</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00062033</other-identifier>
+        <title>TIN TUA</title>
+        <description>Long Description: extension du modèle réussi de réduction de la pauvreté et d'autonomisation des femmes en Afrique de l'Ouest</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">BILL AND MELINDA GATES FOUNDAT</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <activity-date type="start" iso-date="2008-01-01"/>
+        <activity-date type="end" iso-date="2011-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>325563</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">271781</value>
+            <provider-org>BILL AND MELINDA GATES FOUNDAT</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00062034</other-identifier>
+        <title>FNGN</title>
+        <description>Long Description: Extension du modèle réussi de réduction de la pauvreté et d'autonomisation des femmes en Afrique de l'Ouest</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">BILL AND MELINDA GATES FOUNDAT</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <activity-date type="start" iso-date="2008-01-01"/>
+        <activity-date type="end" iso-date="2011-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>266527</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">222716</value>
+            <provider-org>BILL AND MELINDA GATES FOUNDAT</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00062035</other-identifier>
+        <title>OCADES</title>
+        <description>Long Description: Extension du modèle réussi de réduction de la pauvreté ert d'autonomisation des femmes  en Afrique de l'Ouest</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">BILL AND MELINDA GATES FOUNDAT</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <activity-date type="start" iso-date="2008-01-01"/>
+        <activity-date type="end" iso-date="2011-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>116193</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">62287</value>
+            <provider-org>BILL AND MELINDA GATES FOUNDAT</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00062134</other-identifier>
+        <title>Fonds Mondial Paludisme PAMAC</title>
+        <description>Long Description: Contribuer à la réduction du taux de morbidité palustre au Burkina Faso par l'implication des organisations à base communautaire dans les activités de soutien au PNLP</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF BURKINA FASO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2008-06-23"/>
+        <activity-date type="end" iso-date="2013-03-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1059263</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">1059243</value>
+            <provider-org>GOVERNMENT OF BURKINA FASO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00062153</other-identifier>
+        <title>PROJET FONDS DSS</title>
+        <description>Long Description: Fonds DSS alloués par le siège pour aider le PNUD Burkina  Faso à développer son programme</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2008-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>75000</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">77416</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00062711</other-identifier>
+        <title>PASS - appui au secteur santé</title>
+        <description>Long Description: Contribuer à travers l’appui au PAMAC pour le renforcement et le soutien communautaire pour la prise en charge médicale et psychosociale des personnes vivant avec le VIH/SIDA</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF BURKINA FASO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2008-08-15"/>
+        <activity-date type="end" iso-date="2011-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>949262</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">956348</value>
+            <provider-org>GOVERNMENT OF BURKINA FASO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00062802</other-identifier>
+        <title>Projet d'appui à la promotion</title>
+        <description>Long Description: 1. L'information sur le marché de l'emploi et la formation professionnelle est fortement amelioré_x000D__x000D_
+_x000D__x000D_
+2. Les institutions concernées sont mieux outillées pour jouer leur role dans la mise en oeuvre de la Politique Nationale de l'Emploi (PNE) et de son Plan d'Action Opérationnel (PAO)</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2008-09-03"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>173220</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">172840</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00063479</other-identifier>
+        <title>VIH/Sida-Plateforme</title>
+        <description>Long Description: Les activités de lutte contre le VIH/Sida et les IST sont intégrées dans au moins 84 Plate-formes dans 5 régions du Burkina Faso.</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <activity-date type="start" iso-date="2008-11-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>252590</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">248513</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00063697</other-identifier>
+        <title>Projet de  Micro crédit de la</title>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">GOVERNMENT OF MONACO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <activity-date type="start" iso-date="2008-11-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>25000</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">23809</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00070274</other-identifier>
+        <title>PAF A  2008-2009</title>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNAIDS</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2009-03-12"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>242550</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">149067</value>
+            <provider-org>UNAIDS</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00070990</other-identifier>
+        <title>Intégration dimension sécurita</title>
+        <description>Long Description: L’insécurité publique et  la violence urbaine sont réduites  de de façon durable dans la Commune de Ouagadougou et la dimension sécuritaire est pleinement intégrée dans les outils nationaux et locaux de planification urbaine.</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2009-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>100218</value>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00070991</other-identifier>
+        <title>Gestion du Programme</title>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2009-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00071011</other-identifier>
+        <title>Renforcement Cap Adaptation CC</title>
+        <description>Short Description: Renforcement des capacités pour l'adaptation aux Changemetns Climatiques
+Long Description: Renforcer les capacités nationales spécifiques en matière de prévention et d'alerte précoce; d'amélioration soutenue de la production agrosylvopastorale; et de lutte contre l'ensablement et l'envasement des cours d'eau afin d’assurer la sécurité alimentaire tout en préservant les espèces et les écosystèmes naturels</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">Global Environment Fund Truste</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2009-06-01"/>
+        <activity-date type="end" iso-date="2012-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00071076</other-identifier>
+        <title>DANIDA capacités en CC</title>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF DENMARK</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00071165</other-identifier>
+        <title>Appui aux Communes Rurales et</title>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2009-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>76163</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">69652</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>BKF-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00071337</other-identifier>
+        <title>Développement desCapacités en</title>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">GOVERNMENT OF DENMARK</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <activity-date type="start" iso-date="2009-06-01"/>
+        <activity-date type="end" iso-date="2011-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>10500</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">8095</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00071656</other-identifier>
+        <title>Réponse au VIH/sida &amp; minorité</title>
+        <description>Long Description: Améliorer l’accès de façon pérenne à la prévention; aux soins et à la prise en charge des minorités sexuelles dans le cadre global de la réponse au VIH/sida et IST au Burkina Faso.</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2009-07-08"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00072011</other-identifier>
+        <title>Appui à la promotion et protec</title>
+        <description>Long Description: L’objectif général de ce projet est de favoriser une protection efficace et une promotion durable des droits humains au Burkina Faso. Ce projet vise à appuyer la mise en œuvre du Plan stratégique 2008-2010 du MPDH; adopté par le Gouvernement le 15 octobre 2008 et qui définit les actions prioritaires à mener à court et moyen terme. Le MPDH a sollicité les PTF pour qu’ils apportent leur contribution au financement de ses actions prioritaires et du Plan stratégique 2008-2010 à travers un panier commun qui a été mis en place en 2006 et auquel le PNUD participe depuis 2009.</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <activity-date type="start" iso-date="2009-06-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>80000</value>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00072015</other-identifier>
+        <title>Dévelopement des capacités en</title>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF JAPAN</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2009-08-01"/>
+        <activity-date type="end" iso-date="2011-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00072345</other-identifier>
+        <title>Emergency Response to Unpreced</title>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2009-09-10"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>100000</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">65291</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00072385</other-identifier>
+        <title>PIMS 3968 LD National Coordina</title>
+        <description>Short Description: PIMS N° 3968 - National Subprogram for Coordination and Institutional Development on Sustainable Land Management
+Long Description: Le présent projet constitue un des 4 sous programmes du Programme de partenariat pour la gestion durable des terres au Burkina Faso (Country Partnership Programme for Sustainable Land Management - CPP/SLM); qui sera exécuté en 3 phases._x000D__x000D_
+La présente phase d'une durée de 5 ans consiste en 4 composantes : le développement du partenariat pour une plateforme de coordination de la GDT; la promotion de reformes institionnelles et politiques; la promotion des meilleures pratiques de GDT et la gestion du sous programme et du CPP._x000D__x000D_
+Le budget de la sous composante s'élève à 1 million de dollar US du GEF et 500 000 US$ du PNUD/TRAC ; il bénéficie également de cofinancementS de 8;7 millions de dollars (du gouvernement; du PNUD et d'autres projets de divers donateurs).</description>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">Global Environment Fund Truste</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <activity-date type="start" iso-date="2009-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00072431</other-identifier>
+        <title>Renforcement Capacités Nationa</title>
+        <recipient-country code="BF"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">UNDETERMINED</participating-org>
+        <participating-org role="implementing">BKF-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2009-09-26"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00011578</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2001-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <contact-info>
+            <person-name>SABO,ISIYAKA</person-name>
+        </contact-info>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00020010</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2001-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <contact-info>
+            <person-name>SABO,ISIYAKA</person-name>
+        </contact-info>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00025490</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2001-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00041149</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2004-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00042770</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2000-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00042771</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2000-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00042772</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2000-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00043043</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2005-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00048024</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2006-01-14"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00049442</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2000-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00049443</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2000-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00049444</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2000-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00049445</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2000-01-01"/>
+        <activity-date type="end" iso-date="2025-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00050069</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2006-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00050182</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2006-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00051403</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2008-01-01"/>
+        <activity-date type="end" iso-date="2013-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00052103</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2006-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00054844</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2007-01-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00054846</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2007-01-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00054848</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2007-01-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00055241</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2007-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00057132</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2007-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00062708</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2008-08-22"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00063900</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2009-01-01"/>
+        <activity-date type="end" iso-date="2012-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00069225</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2009-01-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00069226</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2009-01-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00069227</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2009-01-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00069228</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2009-01-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00069229</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2009-01-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00069230</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2009-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00070127</other-identifier>
+        <recipient-country code="BF"></recipient-country>
+        <activity-date type="start" iso-date="2009-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+</iati-activities>

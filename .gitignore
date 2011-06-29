@@ -1,0 +1,8 @@
+*.orig
+application/configs/application.ini
+public/error_log
+tests/output
+public/iaticodes
+tests/annual_csv
+nbproject/
+*.komodoproject

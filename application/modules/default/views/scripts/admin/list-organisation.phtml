@@ -1,0 +1,22 @@
+<table>
+<thead>
+<tr>
+    <th>S.N.</th><th>Organisation Name</th>
+<!--    <th>Action</th>-->
+</tr>
+</thead>
+
+<?php //print_r($this->rowSet);exit;?>
+<?php $i = 1;?>
+<tbody>
+    <?php foreach($this->rowSet as $key=>$row):?>
+    <tr>
+    <td><?php print $i;?></td>
+    <td><?php print $row['name']?></td>
+<!--    <td><?php //print $this->l('Edit', 'admin/edit-organisation/?id='.$row['id']);?></td>-->
+    </tr>
+    <?php $i++;?>
+    <?php endforeach;?>
+</tbody>
+
+</table>

@@ -1,0 +1,34 @@
+<?php if(empty($this->rowSet)):?>
+There are no iati activities.
+
+<?php endif;?>
+
+<?php if($this->rowSet):?>
+<table>
+<thead>
+<tr>
+<td>S.N.</td><td>Version</td><td>Generated Date Time</td><td>Action</td>
+</tr>
+</thead>
+<?php $i = 1;?>
+<?php foreach($this->rowSet as $eachRow):?>
+<tr>
+<td><?php print $i;?></td>
+<td>
+    <?php print $eachRow['@version'];?>
+</td>
+<td>
+    <?php print $eachRow['@generated_datetime'];?>
+</td>
+<td>
+    <?php print $this->l('View', 'wep/view-activities/?activities_id='.$eachRow['id'])?>
+    <?php print $this->l('Delete', 'wep/delete/?id='.$eachRow['id'] . "&type=iati_activities");?>
+    
+</td>
+</tr>
+<?php $i++; ?>
+<?php endforeach;?>
+</table>
+<?php endif;?>
+
+<?php print $this->l('Add New', 'wep/add-activities');?>

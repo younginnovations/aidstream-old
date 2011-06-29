@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<phpunit bootstrap="./bootstrap.php" colors="true">
+    <testsuite name="webservice-iati">
+        <directory>./</directory>
+    </testsuite>
+
+    <!--
+    <filter>
+        <whitelist>
+            <directory suffix=".php">../application/</directory>
+            <exclude>
+                <directory suffix=".phtml">../application/</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+    -->
+</phpunit>

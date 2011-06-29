@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title>IATI</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	
+	
+    <script type="text/javascript">
+     var APP_BASEPATH = '<?php echo $this->baseUrl();?>';
+    </script>
+<script src="<?php echo $this->baseUrl()?>/js/dojo-1.5.0/dojo/dojo.js" djConfig="parseOnLoad: true">
+</script>
+	<?php 
+			$this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style.css');
+			/*$this->headLink()->appendStylesheet($this->baseUrl() . '/css/960.css');
+			$this->headLink()->appendStylesheet($this->baseUrl() . '/css/text.css');
+			$this->headLink()->appendStylesheet($this->baseUrl() . '/css/jquery-ui-1.7.2.custom.css');
+            $this->headLink()->appendStylesheet($this->baseUrl() . '/css/ui.core.css');
+            $this->headLink()->appendStylesheet($this->baseUrl() . '/css/ui.datepicker.css');*/
+            //$this->headLink()->appendStylesheet($this->baseUrl() . '/contactable/contactable.css');
+           // $this->headLink()->appendStylesheet($this->baseUrl() . '/css/jquery-ui-1.7.2.custom.css');
+           $this->headLink()->appendStylesheet($this->baseUrl() . '/js/dojo-1.5.0/dijit/themes/claro/claro.css');
+            
+			echo $this->headLink();
+	?>
+	<?php
+	 $this->headScript()->prependFile($this->baseUrl() . '/js/jquery-1.3.2.min.js', $type = 'text/javascript');
+     $this->headScript()->appendFile($this->baseUrl() . '/js/collapsable.js', $type = 'text/javascript');
+     $this->headScript()->appendFile($this->baseUrl() . '/js/xmltab.js', $type = 'text/javascript');
+     $this->headScript()->appendFile($this->baseUrl() . '/js/backtotop.js', $type = 'text/javascript');
+     $this->headScript()->appendFile($this->baseUrl() . '/js/headerfix.js', $type = 'text/javascript');
+//     $this->headScript()->appendFile($this->baseUrl() . '/js/common.js', $type = 'text/javascript');
+	   /*$this->headScript()->prependFile($this->baseUrl() . '/js/jquery-1.3.2.min.js', $type = 'text/javascript');
+        $this->headScript()->appeAPP_BASEPATHndFile($this->baseUrl() . '/js/ui.datepicker.js', $type = 'text/javascript');
+       // $this->headScript()->appendFile($this->baseUrl() . '/contactable/jquery.contactable.js', $type = 'text/javascript');
+     //  $this->headScript()->appendFile($this->baseUrl() . '/contactable/jquery.contactable.min.js', $type = 'text/javascript');
+       // $this->headScript()->appendFile($this->baseUrl() . '/contactable/jquery.validate.pack.js', $type = 'text/javascript');
+       // $this->headScript()->appendFile($this->baseUrl() . '/contactable/contact.js', $type = 'text/javascript');
+        
+        print $this->headScript();*/
+	   print $this->headScript();
+	?>
+	
+</head>
+	<body <?php if($this->body_id){print "id =". $this->body_id;}?>>
+	<?php //print $this->bodyTag() ?>
+            <div id="flash-messages"><?php $flashMessenger = $this->flashMessages();
+print $flashMessenger->getMessages();?></div>
+		
+		<div class="container-wrapper">
+	<div id="wrapper" class="">
+
+			<div id="header">
+				<a name="top"></a>
+				<div class="logo">
+					<a href="<?php print($this->baseUrl());?>"><img alt="logo" src="<?php print($this->baseUrl());?>/stylesheet/images/logo.jpg"></a>
+				</div> <!-- losog -->
+				
+				<div class="site-name"><?php print $this->placeholder('title')?></div>
+<!--				<h1 class="title">IATI Webservices</h1>-->
+
+			</div><!-- header -->
+			
+			<div id="navigation" class="menu">
+				<ul class="menu-list">
+					<li class="menu-item"><a class="active" href="<?php //print $this->baseUrl()?>/iati/xmlinputform">Home</a></li>
+					<li class="menu-item"><a href="<?php //print $this->baseUrl()?>/iati/iatixmlform">The IATI Standard</a></li>
+					<li class="menu-item"><a href="<?php //print $this->baseUrl()?>/iati/iatixmlform">Guidance Material</a></li>
+					<li class="menu-item"><a href="<?php //print $this->baseUrl()?>/iati/iatixmlform">Downloads</a></li>
+					<li class="menu-item"><a href="<?php //print $this->baseUrl()?>/iati/iatixmlform">Knowledge Base</a></li>
+					</ul>
+			</div>
+
+		<div class="page-content">
+			<div class="content">
+					<?php print $this->layout()->content;?>
+			</div>
+			<div class="rightbar">
+			
+			</div>
+		</div>
+	</div>
+	<div id="footer-wrapper" >
+		<div id="footer"><!--
+		Copyright 2010 YoungInnovations Pvt. Ltd.
+		--></div>
+	</div>
+	<div id="backtotop"><a href="#top"></a></div>
+</div>
+<div id = 'contact'></div>
+</body>
+
+</html>
+

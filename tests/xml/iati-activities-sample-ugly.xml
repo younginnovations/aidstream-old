@@ -1,0 +1,2843 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<iati-activ version="1.0">
+ddfafasfadsfsdf
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00071046</other-identifier>
+        <title>PAF 7 - UNFPA/WHO</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNAIDS</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2009-05-21"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>88920</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">61061</value>
+            <provider-org>UNAIDS</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00071350</other-identifier>
+        <title>PAF 8 - ILO W/place &amp;  Risk As</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNAIDS</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2009-06-16"/>
+        <activity-date type="end" iso-date="2009-06-16"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>6381</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">6380</value>
+            <provider-org>UNAIDS</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00071351</other-identifier>
+        <title>PAF 9 - UNDP/ILO Migrant Worke</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNAIDS</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2009-06-16"/>
+        <activity-date type="end" iso-date="2009-06-16"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>5859</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">5858</value>
+            <provider-org>UNAIDS</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00069209</other-identifier>
+        <title>TRP-Early Rec.&amp; Soc.Cohes.East</title>
+        <description>Short Description: Transition Recovery Programme - Early Recovery &amp; Social Cohesion in Eastern Sri Lanka
+Long Description: 1. Sustainable livelihood opportunities created for crisis affected communities_x000D__x000D_
+2. Micro-credit and Micro Enterprise Development support provided to vulnerable communities and individuals with limited access to credit._x000D__x000D_
+3. Community focused housing provided to crisis affected communities._x000D__x000D_
+4. Access of crisis affected communities to socio-economic services enhanced through rehabilitation of community infrastructure._x000D__x000D_
+5. Enhanced social cohesion and gender empowerment across and within communities in crisis affected areas._x000D__x000D_
+6. Community environmental management mainstreamed into the recovery process of crisis affected communities</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">GOVERNMENT OF DENMARK</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2009-01-09"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>389800</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">222009</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00070052</other-identifier>
+        <title>A2J - PH 2- (CPAP output 13)</title>
+        <description>Short Description: CPAP Output 13 - Duty Bearers better able to deal with grievances.
+Long Description: CPAP Output 13 - Duty Bearers better able to deal with grievances experienced by disadvantaged groups.</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF NETHERLANDS</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-date type="start" iso-date="2009-02-26"/>
+        <activity-date type="end" iso-date="2012-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>130000</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">122755</value>
+            <provider-org>GOVERNMENT OF NETHERLANDS</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00070053</other-identifier>
+        <title>A2J - PH 2 - CPAP output 14</title>
+        <description>Short Description: CPAP Output 14 : Disadvantaged groups have increased knowledge of their rights
+Long Description: CPAP Output 14 : Disadvantaged groups have increased knowledge of their rights and are able to access and benefit from legal services</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UN HIGH COMMISSIONER FOR REFUG</participating-org>
+        <participating-org role="funding">GOVERNMENT OF NETHERLANDS</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-date type="start" iso-date="2009-02-26"/>
+        <activity-date type="end" iso-date="2012-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>18500</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">18500</value>
+            <provider-org>UN HIGH COMMISSIONER FOR REFUG</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00073082</other-identifier>
+        <title>HR Jt. Prog._MDMHR</title>
+        <description>Short Description: HR Jt. Prog - (1) Ministry of Disaster Management &amp; Human Rights
+Long Description: Independent Commissions and oversight bodies strengthened to fulfill their mandate by capacity building measures and technical assistance</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-date type="start" iso-date="2009-12-01"/>
+        <activity-date type="end" iso-date="2011-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>3500</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">3072</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00070980</other-identifier>
+        <title>TRP - RECOVERY COORDI.INITIATI</title>
+        <description>Short Description: Recovery Coordinated Initiativ
+Long Description: (1) Sustainable livelihood opportunities created for crisis affected communities; (2) Micro-credit and micro enterprise development support provided to vulnerable communities and individuals with limited access to credit; (3) Community focused housing provided to crisis affected communities; (4) Access of crisis affected communities to socio-economic services enhanced through rehabilitation of community infrastructure; (5) Enhanced social cohesion and gender empowerment across and within communities in crisis affected areas; (6) Community environmental management mainstreamed into the recovery process of crisis affected communities</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2009-07-01"/>
+        <activity-date type="end" iso-date="2010-06-30"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>803877</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">533095</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00014800</other-identifier>
+        <title>RENEWABLE ENERGY</title>
+        <description>Short Description: SRI LANKA RENEWABLE ENERGY AND ENERGY EFFICIENCY CAPACITY BUILDING PROJECT
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">Global Environment Fund Truste</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-date type="start" iso-date="2001-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <contact-info>
+            <person-name>SABO,ISIYAKA</person-name>
+        </contact-info>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00014801</other-identifier>
+        <title>ENABLING SRI LANKA</title>
+        <description>Short Description: ENABLING SRI LANKA TO PREPARE ITS FIRST NATIONAL COMMUNICATION IN RESPONSE TO ITS COMMITMENTS TO THE UNFCCC
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">Global Environment Fund Truste</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-date type="start" iso-date="2001-01-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <contact-info>
+            <person-name>SABO,ISIYAKA</person-name>
+        </contact-info>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">-6</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00014802</other-identifier>
+        <title>ASSISTANCE TO LEGAL DRAFTSMANS</title>
+        <description>Short Description: ENHANCING INFRASTRUCTURE  FOR LEGAL DRAFTSMAN'S DEPARTMENT
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00014805</other-identifier>
+        <title>SUSTAINABLE MANAGEMENT OF LAND</title>
+        <description>Short Description: DEVELOPMENT OF A PROGRAMME FOR SUSTAINABLE MANAGEMENT OF LAND RESOURCES IN SRI LANKA
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00014807</other-identifier>
+        <title>ERD- AID MANAGMENT (Admin)</title>
+        <description>Short Description: STRENGTHENING CAPACITY FOR AID MANAGEMENT
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00014812</other-identifier>
+        <title>RUK-Project Management</title>
+        <description>Short Description: Conservation of Biodiversity in the Rekawa; Ussangoda; and Kalametiya Coastal ecosystem&quot;&quot;
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">Global Environment Fund Truste</participating-org>
+        <participating-org role="implementing">SRL-Ministry Of Fisheries &amp; Aq</participating-org>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">-63</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-Ministry Of Fisheries &amp; Aq</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00036901</other-identifier>
+        <title>RUK-Coastal Coll.Co.Commits.</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">Global Environment Fund Truste</participating-org>
+        <participating-org role="implementing">SRL-Ministry Of Fisheries &amp; Aq</participating-org>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">-32</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-Ministry Of Fisheries &amp; Aq</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00036902</other-identifier>
+        <title>RUK-Imrpove L/hood local comm.</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">Global Environment Fund Truste</participating-org>
+        <participating-org role="implementing">SRL-Ministry Of Fisheries &amp; Aq</participating-org>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">-85</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-Ministry Of Fisheries &amp; Aq</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00036903</other-identifier>
+        <title>RUK-Conserv.progs. for BD</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">Global Environment Fund Truste</participating-org>
+        <participating-org role="implementing">SRL-Ministry Of Fisheries &amp; Aq</participating-org>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">-263</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-Ministry Of Fisheries &amp; Aq</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00036904</other-identifier>
+        <title>RUK-Policy Coord /BD Conserv.</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">Global Environment Fund Truste</participating-org>
+        <participating-org role="implementing">SRL-Ministry Of Fisheries &amp; Aq</participating-org>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">-21</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-Ministry Of Fisheries &amp; Aq</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00014813</other-identifier>
+        <title>Exit Strategy</title>
+        <description>Short Description: Contributing to the Conservation of the Unique Biodiversity in the Threatened Rainforests of Southwest Sri Lanka
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">Global Environment Fund Truste</participating-org>
+        <participating-org role="funding">MONTREAL PROTOCOL</participating-org>
+        <participating-org role="implementing">SRL-Ministry Of Forestry &amp; Env</participating-org>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">-65</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-Ministry Of Forestry &amp; Env</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00036694</other-identifier>
+        <title>Rain Fo.-Buffer Zone Com. Dev.</title>
+        <description>Short Description: Integrated Buffer Zone Community Development forcussing on Bio-diversity; Conservation and livelihood issues
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">Global Environment Fund Truste</participating-org>
+        <participating-org role="implementing">SRL-Ministry Of Forestry &amp; Env</participating-org>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">14</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-Ministry Of Forestry &amp; Env</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00036695</other-identifier>
+        <title>RainFo-Institutional Prod.Mech</title>
+        <description>Short Description: Strengthened Institutional Products Mechanism to invovle the community in decision making
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">Global Environment Fund Truste</participating-org>
+        <participating-org role="implementing">SRL-Ministry Of Forestry &amp; Env</participating-org>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">-11</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-Ministry Of Forestry &amp; Env</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00036696</other-identifier>
+        <title>RainFo-Non-Timber Forest Prod.</title>
+        <description>Short Description: Use of Non-Timber Forest Products on a sustainable basis
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">Global Environment Fund Truste</participating-org>
+        <participating-org role="implementing">SRL-Ministry Of Forestry &amp; Env</participating-org>
+        <participating-org role="implementing">SRL-Ministry Of Fisheries &amp; Aq</participating-org>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">-26</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-Ministry Of Forestry &amp; Env</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00036697</other-identifier>
+        <title>Rainfo-Improve Forest Protecti</title>
+        <description>Short Description: Improve Forest Protection from encroachment and illicit logging
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">Global Environment Fund Truste</participating-org>
+        <participating-org role="implementing">SRL-Ministry Of Forestry &amp; Env</participating-org>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">-12</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-Ministry Of Forestry &amp; Env</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00014816</other-identifier>
+        <title>Incentive Programme-Management</title>
+        <description>Short Description: Incentive Programme for Commercial and Industrial Refrigeration End-User Sector
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">MONTREAL PROTOCOL</participating-org>
+        <participating-org role="implementing">SRL-Ministry Of Forestry &amp; Env</participating-org>
+        <participating-org role="implementing">UN Office for Project Services</participating-org>
+        <activity-date type="start" iso-date="2001-01-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <contact-info>
+            <person-name>SABO,ISIYAKA</person-name>
+        </contact-info>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>79249</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">11473</value>
+            <provider-org>MONTREAL PROTOCOL</provider-org>
+            <receiver-org>SRL-Ministry Of Forestry &amp; Env</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00035565</other-identifier>
+        <title>TP-Microcredit forL/hood Dev.</title>
+        <description>Short Description: 5658 vulnerable/marginalised individuals provided with micro-credit for livelihood development activities
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF CANADA</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00043435</other-identifier>
+        <title>TP-Tsunami Recov-Micro Enterpr</title>
+        <description>Short Description: German Contribution for Tsunami Recovery Programmes - Micro Enterprise Development
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF GERMANY</participating-org>
+        <participating-org role="funding">GOVERNMENT OF JAPAN</participating-org>
+        <participating-org role="funding">GOVERNMENT OF NETHERLANDS ANTI</participating-org>
+        <participating-org role="funding">UNFIP TURNER FOUNDATION</participating-org>
+        <participating-org role="funding">PRIVATE SECTOR</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>8738</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">8738</value>
+            <provider-org>GOVERNMENT OF GERMANY</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00043436</other-identifier>
+        <title>TP Tsunami Recov-Restor Housin</title>
+        <description>Short Description: German Contribution for Tsunami Recovery Programme - Restoration of Partially Damaged Houses
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF GERMANY</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2005-02-17"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>142</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">-20013</value>
+            <provider-org>GOVERNMENT OF GERMANY</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00043505</other-identifier>
+        <title>TP Com.Reconst. Projec AUSAID</title>
+        <description>Short Description: Community Reconstruction Project (AUSAID)
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">AUSTRALIA AG FOR INTNL DEV:UNC</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>3342</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">9843</value>
+            <provider-org>AUSTRALIA AG FOR INTNL DEV:UNC</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00014819</other-identifier>
+        <title>HUMAN RIGHTS COMMISSION PROJEC</title>
+        <description>Short Description: HUMAN RIGHTS COMMISSION PROJECT
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">SWEDISH INT'L DEVELOPMENT COOP</participating-org>
+        <participating-org role="implementing">SRL-Human Rights Commission of</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">-2</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-Human Rights Commission of</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00014821</other-identifier>
+        <title>MA - Sri Lanka Mine Action</title>
+        <description>Short Description: Support to the Sri Lanka National Mine Action Programme
+Long Description: Government institutions are better able to manage; coordinate; and quality assure mine action in Sri Lanka</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">WORLD BANK (INT'L. BANK FOR RE</participating-org>
+        <participating-org role="funding">UN CENTRE FOR HUMAN SETTLEMENT</participating-org>
+        <participating-org role="funding">GOVERNMENT OF SWEDEN</participating-org>
+        <participating-org role="funding">GOVERNMENT OF UNITED KINGDOM</participating-org>
+        <participating-org role="funding">UNITED NATIONS</participating-org>
+        <participating-org role="funding">AUSTRALIA AG FOR INTNL DEV:UNC</participating-org>
+        <participating-org role="funding">NEW ZEALAND AGY FOR INT'L DEVE</participating-org>
+        <participating-org role="funding">UNOCHA/Central_Emg_Resp_Fund</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2001-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <contact-info>
+            <person-name>SABO,ISIYAKA</person-name>
+        </contact-info>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>410814</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">346184</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00063167</other-identifier>
+        <title>MA - BCPR  funding for NMAC</title>
+        <description>Short Description: Drafting of the ToR for a National Mine Action Centre in Sri Lanka
+Long Description: Government institutions are better able to manage; coordinate and quality assure mine action in Sri Lanka</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">SWEDISH INT'L DEVELOPMENT COOP</participating-org>
+        <participating-org role="implementing">PRY-Provincia de Chaco-Ministe</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2008-10-02"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00014825</other-identifier>
+        <title>OCG-CREATING  DIVIDENDS</title>
+        <description>Short Description: CREATING DIVIDENDS  FOR  PEACE:STRENGTHENING CAPACITIES AT LOCAL; PROVINCIAL &amp; NATIONAL LEVELS FOR IMPLEMENT. OF RRR F/W&quot;&quot;
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">GOVERNMENT OF CANADA</participating-org>
+        <participating-org role="funding">GOVERNMENT OF UNITED KINGDOM</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">9</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00014831</other-identifier>
+        <title>Methyl Bromide Phase-out for</title>
+        <description>Short Description: Methyl Bromide Phase-out for all remaining uses in Sri Lanka excluding QPS Applications
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">MONTREAL PROTOCOL</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">61</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00014832</other-identifier>
+        <title>Millenium Development Goals</title>
+        <description>Short Description: Support to Millenium Develoment Goals
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">-14</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00014833</other-identifier>
+        <title>Millenium Development Goals</title>
+        <description>Short Description: Support to Millenium Develoment Goals SPPD Funds
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00014836</other-identifier>
+        <title>F3 - Floods Mngmt &amp; Operations</title>
+        <description>Short Description: TRANSITIONAL RECOVERY SUPPORT TO FLOOD DISASTER IN SOUTH AND SOUTHWEST SRI LANKA
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>2</value>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00040383</other-identifier>
+        <title>F3 - Floods Recovery (SIDA)</title>
+        <description>Short Description: RECOVERY - SIDA
+Long Description: RECOVERY PROJECT - SIDA</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">SWEDISH INT'L DEVELOPMENT COOP</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>370</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">310</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00025400</other-identifier>
+        <title>MID COUNTRY RURAL ROADS NETWOR</title>
+        <description>Short Description: MID COUNTRY RURAL ROADS NETWORK PROJECT
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2001-01-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00057540</other-identifier>
+        <title>PAF-5 Assessmt of HIV(conflict</title>
+        <description>Short Description: Assessment of HIV risk and vulnerability amongst conflict affected populations in Sri Lanka
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNAIDS</participating-org>
+        <participating-org role="implementing">UN High Commissioner for Refug</participating-org>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>20570</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">3943</value>
+            <provider-org>UNAIDS</provider-org>
+            <receiver-org>UN High Commissioner for Refug</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00071045</other-identifier>
+        <title>PAF 6 - UNDP/LANKA PLUS</title>
+        <description>Short Description: Functional Task Analysis and Capacity Needs Assessment of Lanka Plus
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNAIDS</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2009-05-21"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>13044</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">12689</value>
+            <provider-org>UNAIDS</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00072799</other-identifier>
+        <title>ILO-Apparel Industry - PAF Awa</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNAIDS</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2009-05-01"/>
+        <activity-date type="end" iso-date="2010-04-30"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>9014</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">9013</value>
+            <provider-org>UNAIDS</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00037907</other-identifier>
+        <title>A2J - LEGAL SERVICES</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">SWEDISH INT'L DEVELOPMENT COOP</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>139500</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">129971</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00037908</other-identifier>
+        <title>A2J - LEGAL LITERACY</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">SWEDISH INT'L DEVELOPMENT COOP</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>30000</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">27151</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00038926</other-identifier>
+        <title>A2J-ALTERNATE DISPUTE RESOLUTI</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">SWEDISH INT'L DEVELOPMENT COOP</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-date type="start" iso-date="2004-06-15"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00038927</other-identifier>
+        <title>A2J - HUMAN RIGHTS</title>
+        <description>Short Description: pRE-TRIAL DETAINEES IN WELIKADA PRISONS HAVE ACCESS TO LEGAL AID AND ARE BETTER PROTECTED AGAINST LONG PERIODS OF DETENTIONS WITHOUT TRIAL.  pRISONS AND pOLICE STATIONS ALSO PROVIDE ACCESS TO LEGAL AID AND RECEIVE TRAINING ON HUMAN RIGHTS.
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">GOVERNMENT OF NETHERLANDS</participating-org>
+        <participating-org role="funding">SWEDISH INT'L DEVELOPMENT COOP</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>41000</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">39981</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00038928</other-identifier>
+        <title>A2J-Programme Management &amp; Pre</title>
+        <description>Short Description: CAPACITY OF PROJECT PARTNERS AND STAFF TO UNDERSTAND AND APPLY A HRBA INCREASED AND CLAIM HOLDERS KNOW THEIR RIGHTS AND ADRESS COMPLAINTS INCREASED.  pROJECT STAFF PARTNERS AND THE PUBLIC BENEFIT FROM LESSONS LEARNED FROM IMPLEMENTING THE PROJECT
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">UN HIGH COMMISSIONER FOR REFUG</participating-org>
+        <participating-org role="funding">SWEDISH INT'L DEVELOPMENT COOP</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>78000</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">56265</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00039885</other-identifier>
+        <title>TP IRRP</title>
+        <description>Short Description: Integrated Recovery and Reintegration Programme
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">EUROPEAN UNION</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>150000</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">10345</value>
+            <provider-org>EUROPEAN UNION</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00041004</other-identifier>
+        <title>Poverty Reduction in Dry Zone</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>5</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">3</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00042376</other-identifier>
+        <title>Human Rights Commission Projec</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF SWITZERLAND</participating-org>
+        <participating-org role="funding">GOVERNMENT OF UNITED KINGDOM</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00043313</other-identifier>
+        <title>Tsunami- DRM (SIDA)</title>
+        <description>Short Description:  
+Long Description: Capacity and systems for effective preparedness; mitigation and response to natural and man made disasters developed at national and sub national levels</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">SWEDISH INT'L DEVELOPMENT COOP</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">-562</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00043440</other-identifier>
+        <title>MODERNIZING PARLIAMENT FOR DEM</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-date type="start" iso-date="2005-02-16"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>207660</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">118189</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00045949</other-identifier>
+        <title>TSUNAMI - STRONG PLACES</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">GOVERNMENT OF GERMANY</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-date type="start" iso-date="2005-07-03"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>61</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">43</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00046046</other-identifier>
+        <title>Tsunami -Restoration &amp; Rehab.D</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">GOVERNMENT OF NEW ZEALAND</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>470</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">459</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00046554</other-identifier>
+        <title>Tsunami CADREP Strength Pub Ad</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF GERMANY</participating-org>
+        <participating-org role="funding">GOVERNMENT OF NORWAY</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">4342</value>
+            <provider-org>GOVERNMENT OF GERMANY</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00046556</other-identifier>
+        <title>TSUNAMI-CADREP-PMU</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">GOVERNMENT OF GERMANY</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1300</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">1298</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00047437</other-identifier>
+        <title>TP LDP</title>
+        <description>Short Description: Livelihood Development Project
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">EUROPEAN UNION</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2005-10-01"/>
+        <activity-date type="end" iso-date="2009-04-30"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <contact-info>
+            <person-name>SIRAGUSA,Paola</person-name>
+        </contact-info>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>327066</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">326135</value>
+            <provider-org>EUROPEAN UNION</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00048203</other-identifier>
+        <title>Capacity Development for Disas</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF FRANCE</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">-1244</value>
+            <provider-org>GOVERNMENT OF FRANCE</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00049600</other-identifier>
+        <title>TOKTEN PROGRAMME</title>
+        <description>Short Description:  
+Long Description: Substantive technical knowledge transfered to local organizations in the areas of poverty/governce/environment and asssitance to conflict affected areas.</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-date type="start" iso-date="2006-01-13"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>15000</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">8350</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00049606</other-identifier>
+        <title>Cap.Bldg thro South South Corp</title>
+        <description>Short Description:  
+Long Description: Cooperative exchange programmes  implemented based on a  macro strategy developed  addressing the development needs of Sri Lanka.</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding"/>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">GOVERNMENT OF SRI LANKA</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00050602</other-identifier>
+        <title>MDGs - Campaigning &amp; capacity</title>
+        <description>Short Description:  
+Long Description: Capacity of national institutions; at central and local levels; to collect and utilize socio-economic data strengthened</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>146321</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">84632</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00050603</other-identifier>
+        <title>MDG Oper'ng inNationalPolicies</title>
+        <description>Short Description:  
+Long Description: 2. Pro-poor economic policies and programme options provided to inform MDG based planning and budgeting at both national and local level</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>37033</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">29135</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00050604</other-identifier>
+        <title>MDGs - Monitoring Progress</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>23268</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">19044</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00050884</other-identifier>
+        <title>Strengthening Plan Implementat</title>
+        <description>Short Description:  
+Long Description: (1). Strengthened institutional capacity of plan implememtaion (2) Enhanced performance monitoring syatems (3) Strengthened evalaution Systems (4) State of the Art Performamce Review unit in operation (5) Strengthened policy relavant analytical capacity.</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">1846</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00051811</other-identifier>
+        <title>PIMS 2955 CC EA: SNC</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">Global Environment Fund Truste</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-date type="start" iso-date="2006-06-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>153727</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">135871</value>
+            <provider-org>Global Environment Fund Truste</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00062849</other-identifier>
+        <title>SRILANKA - MOSS/TAR</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2008-01-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>23003</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">23003</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00052067</other-identifier>
+        <title>Green Belt Redevelopment of To</title>
+        <description>Short Description: This project aims to support the Government of Sri Lanka in the sustainable development of high quality tourism infrastructure and facilities in 25 designated coastal tourism zones under the jurisdiction of the SLTB; all of which were affected by tsunami
+Long Description: This project aims to support the Government of Sri Lanka in the sustainable development of high quality tourism infrastructure and facilities in 25 designated coastal tourism zones under the jurisdiction of the Sri Lanka Tourism Board; all of which were affected in some way by the Tsunami (in terms of loss of life; material destruction; loss of livelihoods; and loss of revenue from tourism); by developing; among others: Specifically the project would develop:_x000D__x000D_
+_x000D__x000D_
+A comprehensive general and area-specific development guidelines for the coastal tourism zones with practical and realistic set back requirements;_x000D__x000D_
+_x000D__x000D_
+And make proposals for _x000D__x000D_
+_x000D__x000D_
+Increased local community participation and better livelihood opportunities;_x000D__x000D_
+_x000D__x000D_
+The project will provide recommendations for concentrating future coastal tourism facilities in the 25zones; to develop a symbiotic relationship with existing small towns and villages in or close by these zones and to foster a policy of developing high quality coastal tourism products; thereby creating more and better livelihood opportunities for the local population and contributing towards the eradication of coastal and rural poverty.</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">-565</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00056371</other-identifier>
+        <title>MA Ausaid2007 Asst.to MA Coord</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">AUSTRALIA AG FOR INTNL DEV:UNC</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2007-04-12"/>
+        <activity-date type="end" iso-date="2009-01-01"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>163464</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">66501</value>
+            <provider-org>AUSTRALIA AG FOR INTNL DEV:UNC</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00053650</other-identifier>
+        <title>Emergency Response To Floods O</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">GOVERNMENT OF FRANCE</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">62</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00053862</other-identifier>
+        <title>SRL/SEV/50/INS/xx-Institutiona</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">MONTREAL PROTOCOL</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-date type="start" iso-date="2006-11-27"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">5166</value>
+            <provider-org>MONTREAL PROTOCOL</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00055494</other-identifier>
+        <title>Enhanced Womens' Political Rep</title>
+        <description>Short Description: Enhanced Women's Political Representation and Participation in Decision -Making
+Long Description: 1) enhanced capacities of activist women by developing their leadership; negotiation; networking; planning and other relevant skills in support of their participation in decision-making processes; national reconciliation processes; and entry into governance institutions; 2) sensitization of the key stakeholder groups including political parties; press; civil society and the general public; on the key issues related to women’s political empowerment and 3) stock-taking exercise conducted on the research and advocacy work undertaken.</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>79995</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">71655</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00055676</other-identifier>
+        <title>BUILDING A STABLE FOUNDATION F</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF GERMANY</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2007-03-02"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>39483</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">37352</value>
+            <provider-org>GOVERNMENT OF GERMANY</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00057124</other-identifier>
+        <title>Support to Implement the Sri L</title>
+        <description>Short Description:  
+Long Description: Improved capacity of devolved authorities and decentralised government administration to deliver public goods and services</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">IVC-HABITAT</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-date type="start" iso-date="2007-07-24"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00057196</other-identifier>
+        <title>ART GOLD SRI LANKA</title>
+        <description>Short Description:  
+Long Description: Improved capacity of devolved authorities and decentralised government administration to deliver public goods and services</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">AG. ESPANOLA DE COOPERACION IN</participating-org>
+        <participating-org role="funding">FOLIGNO DECENTRALIZED COOPERAT</participating-org>
+        <participating-org role="funding">FONS CATALA DE COOPERACIO</participating-org>
+        <participating-org role="funding">FONDO ANDALUZ DE MUNICIPIOS</participating-org>
+        <participating-org role="implementing">BHU-Telecom Division</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2007-06-25"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>2772</value>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00058271</other-identifier>
+        <title>DISTANCE LEARNING PROG.- MINIS</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-date type="start" iso-date="2007-10-18"/>
+        <activity-date type="end" iso-date="2009-01-01"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>63631</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">64294</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00059213</other-identifier>
+        <title>TRP- Pool Funding</title>
+        <description>Short Description:  
+Long Description: Cost-effective delivery and management of project</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding"/>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">GOVERNMENT OF AUSTRALIA</participating-org>
+        <participating-org role="funding">GOVERNMENT OF DENMARK</participating-org>
+        <participating-org role="funding">GOVERNMENT OF GERMANY</participating-org>
+        <participating-org role="funding">GOVERNMENT OF JAPAN</participating-org>
+        <participating-org role="funding">GOVERNMENT OF NORWAY</participating-org>
+        <participating-org role="funding">AUSTRALIA AG FOR INTNL DEV:UNC</participating-org>
+        <participating-org role="funding">CANADIAN INTERNATIONAL DEVELOP</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2007-12-18"/>
+        <activity-date type="end" iso-date="2012-09-30"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00060535</other-identifier>
+        <title>TRP - Livelihood Develompent P</title>
+        <description>Short Description:  
+Long Description: Sustainable livelihood opportunities created for crisis affected communities.</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF JAPAN</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2008-02-29"/>
+        <activity-date type="end" iso-date="2011-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>1558184</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">1195346</value>
+            <provider-org>GOVERNMENT OF JAPAN</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00060536</other-identifier>
+        <title>TRP - Community for Peace (C4P</title>
+        <description>Short Description:  
+Long Description: Improved social conditions and livelihoods of conflict-affected persons for positive social transformation.</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">AUSTRALIA AG FOR INTNL DEV:UNC</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2008-05-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>3002508</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">2303410</value>
+            <provider-org>AUSTRALIA AG FOR INTNL DEV:UNC</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00061076</other-identifier>
+        <title>TRP-CIDA Community Rehab.Proje</title>
+        <description>Short Description:  
+Long Description: (1) Sustainable livelihood opportunities created for crisis affected communities; (2) Micro-credit and micro enterprise development support provided to vulnerable communities and individuals with limited access to credit; (3) Community focused housing provided to crisis affected communities; (4) Access of crisis affected communities to socio-economic services enhanced through rehabilitation of community infrastructure; (5) Enhanced social cohesion and gender empowerment across and within communities in crisis affected areas; (6) Community environmental management mainstreamed into the recovery process of crisis affected communities</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">CANADIAN INTERNATIONAL DEVELOP</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2008-04-22"/>
+        <activity-date type="end" iso-date="2010-03-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>803692</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">637673</value>
+            <provider-org>CANADIAN INTERNATIONAL DEVELOP</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00061839</other-identifier>
+        <title>TRP - Enhanced Social Transfor</title>
+        <description>Short Description:  
+Long Description: Target communities assisted to establish equitable and inclusive community networks</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">GOVERNMENT OF DENMARK</participating-org>
+        <participating-org role="funding">GOVERNMENT OF NORWAY</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2008-01-01"/>
+        <activity-date type="end" iso-date="2011-01-01"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>807868</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">516379</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00062053</other-identifier>
+        <title>TRP - Income Generation for L/</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF AUSTRALIA</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2008-06-16"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>276125</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">265090</value>
+            <provider-org>GOVERNMENT OF AUSTRALIA</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00062054</other-identifier>
+        <title>TRP-Livelihood Recovery (CHAP)</title>
+        <description>Short Description: Socio - economic rehabilitation of crisis affected and risk prone communities and IDPs supported through an integrated
+</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF AUSTRALIA</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2008-06-16"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>399178</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">399258</value>
+            <provider-org>GOVERNMENT OF AUSTRALIA</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00062392</other-identifier>
+        <title>TRP IRF-funded Livelihood Deve</title>
+        <description>Short Description:  
+Long Description: Socio-economic rehabilitation of crisis-affected and risk-prone communities and IDPs supported through an integrated approach to social cohesion and livelihoods</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF AUSTRALIA</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>151931</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">147554</value>
+            <provider-org>GOVERNMENT OF AUSTRALIA</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00072383</other-identifier>
+        <title>BCPR North Soci. Eco. and Soci</title>
+        <description>Short Description:  
+Long Description: (1) Sustainable livelihood opportunities created for crisis affected communities; (2) Micro-credit and micro enterprise development support provided to vulnerable communities and individuals with limited access to credit; (3) Community focused housing provided to crisis affected communities; (4) Access of crisis affected communities to socio-economic services enhanced through rehabilitation of community infrastructure; (5) Enhanced social cohesion and gender empowerment across and within communities in crisis affected areas; (6) Community environmental management mainstreamed into the recovery process of crisis affected communities</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF NORWAY</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2009-10-01"/>
+        <activity-date type="end" iso-date="2012-09-30"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>444000</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">40004</value>
+            <provider-org>GOVERNMENT OF NORWAY</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00072832</other-identifier>
+        <title>Comunity Recovery Project EC</title>
+        <description>Short Description:  
+Long Description: (1) Sustainable livelihood opportunities created for crisis affected communities; (4) Access of crisis affected communities to socio-economic services enhanced through rehabilitation of community infrastructure;</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">EUROPEAN UNION</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2009-09-01"/>
+        <activity-date type="end" iso-date="2012-08-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>114694</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">16483</value>
+            <provider-org>EUROPEAN UNION</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00060490</other-identifier>
+        <title>Human Rights  - (Action 2)</title>
+        <description>Short Description:  
+Long Description: Priority human rights interventions identified in a national action plan; and human rights awareness raised in selected sectors.</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>38977</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">29452</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00062079</other-identifier>
+        <title>Cap. Dev of Plantation Communi</title>
+        <description>Short Description:  
+Long Description: National and local institutions strengthened to effectively deliver improved quality services for the achievement of the MDGs in selected UNDAF priority districts.</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-date type="start" iso-date="2008-06-18"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>74500</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">40695</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00062232</other-identifier>
+        <title>Anti-Corruption (SEAC)</title>
+        <description>Short Description: Support Efforts and Action againt Corruption (SEAC)
+Long Description: Independent Commissions and oversight bodies strengthened to fulfill their mandate by capacity building measures and technical assistance</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-date type="start" iso-date="2008-07-01"/>
+        <activity-date type="end" iso-date="2011-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>75000</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">55478</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00062622</other-identifier>
+        <title>National Policy for Re-settlem</title>
+        <description>Short Description:  
+Long Description: Capacities of public institutions and civil society organizations focusing on social cohesion strengthened.</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2008-12-05"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>98000</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">43159</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00062839</other-identifier>
+        <title>LOGOPRO - PID</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>75624</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">71059</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00069634</other-identifier>
+        <title>LOGOPRO - DECENTRALIZED  MAIN</title>
+        <description>Short Description: DECENTRALIZED - LOCAL GOVERNANCE PROJECT - MAIN
+Long Description: Improved capacity of devolved authorities and decentralised government administration to deliver public goods and services</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-date type="start" iso-date="2009-02-04"/>
+        <activity-date type="end" iso-date="2012-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>376000</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">26555</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00069649</other-identifier>
+        <title>LOGOPRO - SCOPE</title>
+        <description>Short Description: STRENGTHENING COMMUNITY ORGANIZATIONS AND PARTNERSHIP ENHANCEMENT - SCOPE
+Long Description: Improved capacity of CSOs/CBOs to a) act as accountable and transparent service providers complementing government functions; and b) to represent public needs and monitor service delivery</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-date type="start" iso-date="2009-02-04"/>
+        <activity-date type="end" iso-date="2012-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>146000</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">142187</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00069650</other-identifier>
+        <title>LOGOPRO-  PMU - DECENTRALIZED</title>
+        <description>Short Description: DECENTRALIZED - PROJECT MONITORING UNIT
+Long Description: Improved capacity of devolved authorities and decentralised government administration to deliver public goods and services</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding"/>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-date type="start" iso-date="2009-02-04"/>
+        <activity-date type="end" iso-date="2012-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00063127</other-identifier>
+        <title>UVA-WEL. L/HOOD DEV.ENTERPRISE</title>
+        <description>Short Description:  
+Long Description: The poor and most vulnerable have greater access to assets; markets and financial resources.</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2008-09-28"/>
+        <activity-date type="end" iso-date="2009-04-30"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>27724</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">15447</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00063269</other-identifier>
+        <title>Promoting Disaster Risk Reduct</title>
+        <description>Short Description:  
+Long Description: 7. Capacity and systems for effective preparedness; mitigation and response to natural and man-made disaster developed at national and sub-national levels.</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UN HIGH COMMISSIONER FOR REFUG</participating-org>
+        <participating-org role="funding">UNISDR</participating-org>
+        <participating-org role="funding">AMERICAN RED CROSS</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-date type="start" iso-date="2008-10-01"/>
+        <activity-date type="end" iso-date="2010-03-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>511118</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">274460</value>
+            <provider-org>UN HIGH COMMISSIONER FOR REFUG</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00063376</other-identifier>
+        <title>Control of Alien Invasive Spec</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">Global Environment Fund Truste</participating-org>
+        <participating-org role="implementing">SRL-Ministry Of Forestry &amp; Env</participating-org>
+        <activity-date type="start" iso-date="2008-10-24"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>105000</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">86451</value>
+            <provider-org>Global Environment Fund Truste</provider-org>
+            <receiver-org>SRL-Ministry Of Forestry &amp; Env</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00063881</other-identifier>
+        <title>Strengthening Plan Implementat</title>
+        <description>Short Description:  
+Long Description: Existing government aid and project management systems harmonized for effective use of development funds.</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-date type="start" iso-date="2008-12-15"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>162000</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">127914</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00069632</other-identifier>
+        <title>LOGOPRO- DEVOLVED</title>
+        <description>Short Description: DEVOLVED - LOCAL GOVERNANCE PROGRAMME
+Long Description: Improved capacity of devolved authorities and decentralised government administration to deliver public goods and services</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-date type="start" iso-date="2009-02-04"/>
+        <activity-date type="end" iso-date="2012-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>96200</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">84625</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00069761</other-identifier>
+        <title>OPERATIONALIZE THE ROAD MAP</title>
+        <description>Short Description:  
+Long Description: 7. Capacity and systems for effective preparedness; mitigation and response to natural and man-made disaster developed at national and sub-national levels.</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">GOVERNMENT OF NORWAY</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-date type="start" iso-date="2009-03-15"/>
+        <activity-date type="end" iso-date="2011-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>24000</value>
+        </budget-planned>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00069885</other-identifier>
+        <title>A2J  - PH 2 - Proj. Management</title>
+        <description>Short Description: Project Management
+Long Description: Duty bearers better able to deal with grievances experienced by disadvantaged groups AND Disadvantaged groups have increased knowledge of their rights and are able to access and benefit from legal services</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="funding">GOVERNMENT OF NETHERLANDS</participating-org>
+        <participating-org role="implementing">SRL-National Execution</participating-org>
+        <activity-date type="start" iso-date="2009-02-15"/>
+        <activity-date type="end" iso-date="2012-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>280000</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">168</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>SRL-National Execution</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00070963</other-identifier>
+        <title>Early Recovery Coordination &amp;</title>
+        <description>Short Description:  
+Long Description: Socio-economic rehabilitation of crisis-affected and risk-prone communities and IDPs supported through an integrated approach to social cohesion and livelihoods</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2009-06-01"/>
+        <activity-date type="end" iso-date="2010-06-30"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>256670</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">76690</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00071094</other-identifier>
+        <title>II National Human Development</title>
+        <description>Short Description:  
+Long Description: Pro-poor economic policies and programme options provided to inform MDG based planning and budgeting at both national and local level.</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">UNITED NATIONS DEVELOPMENT PRO</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2009-05-26"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>6851</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">6850</value>
+            <provider-org>UNITED NATIONS DEVELOPMENT PRO</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00072179</other-identifier>
+        <title>Strengthening UNDP's Technical</title>
+        <description>Short Description:  
+Long Description: Socio-economic rehabilitation of crisis-affected and risk-prone communities and IDPs supported through an integrated approach to social cohesion and livelihoods</description>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">GOVERNMENT OF NORWAY</participating-org>
+        <participating-org role="implementing">UNDP</participating-org>
+        <activity-date type="start" iso-date="2009-09-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>50000</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">20787</value>
+            <provider-org>GOVERNMENT OF NORWAY</provider-org>
+            <receiver-org>UNDP</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier owner-name="UNDP">00072279</other-identifier>
+        <title>Preparation of a HCFC Phase-ou</title>
+        <recipient-country code="LK"></recipient-country>
+        <participating-org role="funding">MONTREAL PROTOCOL</participating-org>
+        <participating-org role="implementing">SRL-Ministry Of Forestry &amp; Env</participating-org>
+        <activity-date type="start" iso-date="2009-09-03"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <activity-status ref="2">Implementation</activity-status>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <budget-planned type="annual">
+            <period-start>2009-01-01</period-start>
+            <period-end>2009-12-31</period-end>
+            <value>50000</value>
+        </budget-planned>
+        <transaction flow="outgoing" type="disbursement">
+            <value value-date="2009-01-01">8483</value>
+            <provider-org>MONTREAL PROTOCOL</provider-org>
+            <receiver-org>SRL-Ministry Of Forestry &amp; Env</receiver-org>
+            <milestone-date type="disbursement">2009-01-01</milestone-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00014810</other-identifier>
+        <recipient-country code="LK"></recipient-country>
+        <activity-date type="start" iso-date="2001-01-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <contact-info>
+            <person-name>SABO,ISIYAKA</person-name>
+        </contact-info>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00020075</other-identifier>
+        <recipient-country code="LK"></recipient-country>
+        <activity-date type="start" iso-date="2001-01-01"/>
+        <activity-date type="end" iso-date="1950-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <contact-info>
+            <person-name>SABO,ISIYAKA</person-name>
+        </contact-info>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00020353</other-identifier>
+        <recipient-country code="LK"></recipient-country>
+        <activity-date type="start" iso-date="2001-01-01"/>
+        <activity-date type="end" iso-date="1950-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+        <contact-info>
+            <person-name>SABO,ISIYAKA</person-name>
+        </contact-info>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00038925</other-identifier>
+        <recipient-country code="LK"></recipient-country>
+        <activity-date type="start" iso-date="2004-06-15"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00042086</other-identifier>
+        <recipient-country code="LK"></recipient-country>
+        <activity-date type="start" iso-date="2000-01-01"/>
+        <activity-date type="end" iso-date="2025-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00044232</other-identifier>
+        <recipient-country code="LK"></recipient-country>
+        <activity-date type="start" iso-date="2004-10-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00045294</other-identifier>
+        <recipient-country code="LK"></recipient-country>
+        <activity-date type="start" iso-date="2005-05-19"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00048749</other-identifier>
+        <recipient-country code="LK"></recipient-country>
+        <activity-date type="start" iso-date="2006-01-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00048925</other-identifier>
+        <recipient-country code="LK"></recipient-country>
+        <activity-date type="start" iso-date="2006-01-01"/>
+        <activity-date type="end" iso-date="2011-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00057413</other-identifier>
+        <recipient-country code="LK"></recipient-country>
+        <activity-date type="start" iso-date="2007-07-01"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00057878</other-identifier>
+        <recipient-country code="LK"></recipient-country>
+        <activity-date type="start" iso-date="2007-08-27"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00061742</other-identifier>
+        <recipient-country code="LK"></recipient-country>
+        <activity-date type="start" iso-date="2008-07-15"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00062856</other-identifier>
+        <recipient-country code="LK"></recipient-country>
+        <activity-date type="start" iso-date="2008-09-02"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00063089</other-identifier>
+        <recipient-country code="LK"></recipient-country>
+        <activity-date type="start" iso-date="2008-10-13"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00063673</other-identifier>
+        <recipient-country code="LK"></recipient-country>
+        <activity-date type="start" iso-date="2008-11-20"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00063674</other-identifier>
+        <recipient-country code="LK"></recipient-country>
+        <activity-date type="start" iso-date="2008-11-20"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00063675</other-identifier>
+        <recipient-country code="LK"></recipient-country>
+        <activity-date type="start" iso-date="2008-11-20"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00063676</other-identifier>
+        <recipient-country code="LK"></recipient-country>
+        <activity-date type="start" iso-date="2008-11-20"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00063677</other-identifier>
+        <recipient-country code="LK"></recipient-country>
+        <activity-date type="start" iso-date="2008-11-20"/>
+        <activity-date type="end" iso-date="2010-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00063678</other-identifier>
+        <recipient-country code="LK"></recipient-country>
+        <activity-date type="start" iso-date="2008-11-20"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00070483</other-identifier>
+        <recipient-country code="LK"></recipient-country>
+        <activity-date type="start" iso-date="2009-04-01"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00070559</other-identifier>
+        <recipient-country code="LK"></recipient-country>
+        <activity-date type="start" iso-date="2009-04-07"/>
+        <activity-date type="end" iso-date="2009-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00070978</other-identifier>
+        <recipient-country code="LK"></recipient-country>
+        <activity-date type="start" iso-date="2009-07-01"/>
+        <activity-date type="end" iso-date="2010-06-30"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+    <iati-activity default-currency="USD" xml:lang="en">
+        <reporting-org>UNDP</reporting-org>
+        <other-identifier>00073083</other-identifier>
+        <recipient-country code="LK"></recipient-country>
+        <activity-date type="start" iso-date="2009-12-01"/>
+        <activity-date type="end" iso-date="2011-12-31"/>
+        <flow-type ref="10">ODA</flow-type>
+        <finance-type ref="100" xml:lang="en">GRANT</finance-type>
+        <default-tied-status ref="3">untied</default-tied-status>
+    </iati-activity>
+</iati-activities>

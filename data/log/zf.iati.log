@@ -1,0 +1,62 @@
+2011-06-21T07:10:44+05:45 ERR (3): Custom_Email::setTemplate(user-register-approve): Unable to find e-mail template.
+2011-06-21T07:10:44+05:45 INFO (6): Email Recipients  (one email):  &lt;abhinav@yipl.com.np&gt;
+2011-06-21T07:10:44+05:45 INFO (6): Email Subject: 
+2011-06-21T07:10:44+05:45 DEBUG (7): Dev Email Redirect: This email has been redirected to you because it was sent from DEVELOPMENT<br />
+<br />
+Original recipients:<br />
+abhinav@yipl.com.np<br />
+<br />
+-----------------------------<br />
+<br />
+
+2011-06-21T07:10:44+05:45 NOTICE (5): Dev email redirected to manisha@yipl.com.np
+2011-06-21T07:10:44+05:45 CRIT (2): Send Email: Error sending dev email.
+2011-06-22T14:07:40+05:45 INFO (6): Custom_Email::setTemplate(): Rendering HTML "user-register" template.
+2011-06-22T14:07:40+05:45 INFO (6): Email Recipients  (one email):  &lt;manisha@yipl.com.np&gt;
+2011-06-22T14:07:40+05:45 INFO (6): Email Subject: 
+2011-06-22T14:07:40+05:45 DEBUG (7): Dev Email Redirect: This email has been redirected to you because it was sent from DEVELOPMENT<br />
+<br />
+Original recipients:<br />
+manisha@yipl.com.np<br />
+<br />
+-----------------------------<br />
+<br />
+Hi manisha@yipl.com.np,<br />
+<br />
+The user has send confirmation for the registration. <br />
+       <br />
+-- <br />
+
+2011-06-22T14:07:40+05:45 NOTICE (5): Dev email redirected to manisha@yipl.com.np
+2011-06-22T14:07:40+05:45 CRIT (2): Send Email: Error sending dev email.
+2011-06-28T14:01:35+05:45 INFO (6): Custom_Email::setTemplate(): Rendering HTML "user-register" template.
+2011-06-28T14:01:35+05:45 INFO (6): Email Recipients  (one email):  &lt;manisha@yipl.com.np&gt;
+2011-06-28T14:01:35+05:45 INFO (6): Email Subject: 
+2011-06-28T14:01:35+05:45 DEBUG (7): Dev Email Redirect: This email has been redirected to you because it was sent from DEVELOPMENT<br />
+<br />
+Original recipients:<br />
+manisha@yipl.com.np<br />
+<br />
+-----------------------------<br />
+<br />
+Hi manisha@yipl.com.np,<br />
+<br />
+The user has send confirmation for the registration. <br />
+       <br />
+-- <br />
+
+2011-06-28T14:01:35+05:45 NOTICE (5): Dev email redirected to manisha@yipl.com.np
+2011-06-28T14:01:35+05:45 CRIT (2): Send Email: Error sending dev email.
+2011-06-28T14:09:29+05:45 ERR (3): Custom_Email::setTemplate(user-register-approve): Unable to find e-mail template.
+2011-06-28T14:09:29+05:45 INFO (6): Email Recipients  (one email):  &lt;abhinav@yipl.com.np&gt;
+2011-06-28T14:09:29+05:45 INFO (6): Email Subject: 
+2011-06-28T14:09:29+05:45 DEBUG (7): Dev Email Redirect: This email has been redirected to you because it was sent from DEVELOPMENT<br />
+<br />
+Original recipients:<br />
+abhinav@yipl.com.np<br />
+<br />
+-----------------------------<br />
+<br />
+
+2011-06-28T14:09:29+05:45 NOTICE (5): Dev email redirected to manisha@yipl.com.np
+2011-06-28T14:09:29+05:45 CRIT (2): Send Email: Error sending dev email.

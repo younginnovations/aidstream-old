@@ -1,0 +1,16 @@
+<?php $this->headScript()->appendFile($this->baseUrl() . '/js/common.js', $type = 'text/javascript');
+?>
+
+<?php 
+    /*print $this->form;
+    print $this->form1;
+    print $this->form2;*/
+    
+    foreach($this->forms as $key => $eachForm):?>
+    <div>
+    <div><?php print $key;?></div>
+    <div>
+    <?php print $eachForm;?>
+    </div>
+    </div>
+<?php endforeach;?>
