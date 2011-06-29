@@ -1,5 +1,6 @@
 <?php if($this->userInfo()->role == 'superadmin'){
     $link = 'admin/dashboard';
+    $link2 = 'wep/register';
 }
 ?>
 <?php if($this->userInfo()->role == 'admin'){
@@ -18,4 +19,7 @@
 <?php if($link1):?>
 <li><?php print $this->l('Change Defaults', $link1);?></li>
 <?php endif;?>
+<?php if($link2): ?>
+<li><?php print $this->l('Register', $link2); ?></li>
+<?php endif; ?>
 </ul>
