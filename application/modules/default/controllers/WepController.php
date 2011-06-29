@@ -101,7 +101,7 @@ class WepController extends Zend_Controller_Action
             try{
                 $data = $this->getRequest()->getPost();
                 $model = new Model_Viewcode();
-                $result = $model->getRowsByFields('account', 'username', 'aaa');
+                $result = $model->getRowsByFields('account', 'username',$data['organisation_username']);
                 //                print_r($a);exit()
                 //                $result = $tbl->checkUnique($email);
                 if (!$form->isValid($data)) {
@@ -110,7 +110,8 @@ class WepController extends Zend_Controller_Action
                 //@todo check for unique username. fix the bug
                 else if(!empty($result)){
                     $this->_helper->FlashMessenger->addMessage(array('error' => "Username already exists."));
-                    $this->_redirect('wep/register');
+                    $form->populate($data);
+                    //$this->_redirect('wep/register');
                 }
                 else{
 
