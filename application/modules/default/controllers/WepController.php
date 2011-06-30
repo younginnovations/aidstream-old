@@ -215,7 +215,13 @@ class WepController extends Zend_Controller_Action
                     $defaultFieldId = $model->updateRowsToTable('default_field_groups', $defaultFields);
 
                     $this->_helper->FlashMessenger->addMessage(array('message' => "Defaults successfully updated."));
-                    $this->_redirect('wep/');
+                    if($identity->role == 'superadmin'){
+                        $this->_redirect('admin/dashboard');
+                    }
+                    else if($identity->role == 'admin'){
+                        $this->_redirect('wep/dashboard');
+                    }
+                    
                 }
                 //            print_r($_POST);exit();
 
