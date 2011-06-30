@@ -88,16 +88,17 @@ class User_UserController extends Zend_Controller_Action
 
     public function loginAction()
     {
+        
         $auth = Zend_Auth::getInstance();
         if ($auth->hasIdentity()) {
-            if($identity->roles == 'superadmin' ){
+            $identity = Zend_Auth::getInstance()->getIdentity();
+//            print_r($identity->roles);exit;
+            if($identity->role == 'superadmin' ){
                 $this->_redirect('admin/dashboard');
-            }elseif($identity->roles == 'admin'){
+            }elseif($identity->role == 'admin'){
                 $this->_redirect('wep/dashboard');
             }
-            else{
-                $this->_redirect('user/user/logout');
-            }
+            
         }
 
         $request = $this->getRequest();
@@ -141,13 +142,9 @@ class User_UserController extends Zend_Controller_Action
 
                     $this->_helper->FlashMessenger->addMessage(array('message' => 'Successfully Logged In'));
                     if($identity->role == 'superadmin' ){
-                        
                         $this->_redirect('admin/dashboard');
                     }elseif($identity->role == 'admin'){
                         $this->_redirect('wep/dashboard');
-                    }
-                    else{
-                        $this->_redirect('user/user/logout');
                     }
 
                     //                    $this->_redirect('wep/');
