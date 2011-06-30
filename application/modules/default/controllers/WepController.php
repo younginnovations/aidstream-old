@@ -360,6 +360,9 @@ class WepController extends Zend_Controller_Action
             $initial['@currency'] = $defaults['currency'];
             $initial['@xml_lang'] = $defaults['language'];
             $initial['text'] = '';
+            if($class == 'ReportingOrganisation'){
+                $initial['text'] = $defaults['reporting_org'];
+            }
 
             $obj = new $classname();
             $obj->setProperties($initial);
@@ -524,6 +527,9 @@ class WepController extends Zend_Controller_Action
                 $initial['@currency'] = $defaults['currency'];
                 $initial['@xml_lang'] = $defaults['language'];
                 $initial['text'] = '';
+                if($class == 'ReportingOrganisation'){
+                    $initial['text'] = $defaults['reporting_org'];
+                }
 
                 $classname = 'Iati_WEP_Activity_'. $class;
                  

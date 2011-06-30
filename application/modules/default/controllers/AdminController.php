@@ -3,6 +3,7 @@ class AdminController extends Zend_Controller_Action
 {
     public function init()
     {
+        $this->_helper->layout()->setLayout('layout_wep');
         /*$contextSwitch = $this->_helper->contextSwitch;
          $contextSwitch->addActionContext('', 'json')
          ->initContext('json');*/
@@ -20,7 +21,7 @@ class AdminController extends Zend_Controller_Action
         $identity = Zend_Auth::getInstance()->getIdentity();
         $this->view->user = $identity;
         $this->view->placeholder('title')->set("Admin Dashboard");
-        $this->_helper->layout()->setLayout('layout_wep');
+        //$this->_helper->layout()->setLayout('layout_wep');
         $this->view->blockManager()->enable('partial/dashboard.phtml');
     }
     public function awaitingAction(){
@@ -43,11 +44,11 @@ class AdminController extends Zend_Controller_Action
         $result = $userModel->updateStatus($status,$id);
         if($result){
             //@todo email params
-            $mailerParams = array('email'=> 'abhinav@yipl.com.np');
-            $toEmail = 'abhinav@yipl.com.np';
-            $template = 'user-register-approve';
+            /*$mailerParams = array('email'=> 'abhinav@yipl.com.np');
+            $toEmail = 'manisha@yipl.com.np';
+            $template = 'user-approve';
             $Wep = new App_Notification;
-            $Wep->sendemail($mailerParams,$toEmail,$template);
+            $Wep->sendemail($mailerParams,$toEmail,$template);*/
             $this->_helper->FlashMessenger->addMessage(array('message'=>"Your Changes have been saved."));
             $this->_redirect('admin/awaiting');
             $this->view->blockManager()->enable('partial/dashboard.phtml');

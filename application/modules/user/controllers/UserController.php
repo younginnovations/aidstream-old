@@ -145,11 +145,7 @@ class User_UserController extends Zend_Controller_Action
                         $this->_redirect('admin/dashboard');
                     }elseif($identity->role == 'admin'){
                         $this->_redirect('wep/dashboard');
-                    }
-
-                    //                    $this->_redirect('wep/');
-                    //                    $this->_redirect('code-list/code-list-index/langid/1');
-                }
+                    }                }
                 else
                 $this->_helper->FlashMessenger->addMessage(array('error' => 'Invalid username and password'));
             }

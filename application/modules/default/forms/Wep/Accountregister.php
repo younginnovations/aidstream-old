@@ -14,7 +14,16 @@ class Form_Wep_Accountregister extends App_Form
         ->setRequired();
 
         $form['organisation_username'] = new Zend_Form_Element_Text('organisation_username');
-        $form['organisation_username']->setLabel('Suffix')->setRequired();
+        $form['organisation_username']->setLabel("Suffix <a href='#' id='suffix'>?</a>")->setRequired()
+        ->setDescription('<div class="popup">Suffix is a unique text and it will be prepended to your user account. For example: If you type IATI in Suffix, your username will be IATI_admin.
+        </div>')
+        ->setDecorators(array(
+                        'ViewHelper',
+                        array('Description', array('escape' => false, 'tag' => false)),
+                        array('HtmlTag', array('tag' => 'dd')),
+                        array('Label', array('tag' => 'dt')),
+                        'Errors',
+                        ));
 
         $form['first_name'] = new Zend_Form_Element_Text('first_name');
         $form['first_name']->setLabel('First Name')->setRequired();

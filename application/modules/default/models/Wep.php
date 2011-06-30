@@ -111,11 +111,9 @@ class Model_Wep extends Zend_Db_Table_Abstract
         $this->_name = $tblName;
         if (isset($codeid))
         $rowSet = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART)->setIntegrityCheck(false)
-        ->where('id = ?', $codeid)
-        ->where('lang_id = ?',$lang);
+        ->where('id = ?', $codeid)->where('lang_id = ?',$lang);
         else
-        $rowSet = $this->select()
-        ->where('lang_id = ?',$lang);
+        $rowSet = $this->select()->where('lang_id = ?',$lang);
 
         $result = $this->fetchAll($rowSet)->toArray();
 //        print_r($result);exit();

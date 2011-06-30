@@ -144,6 +144,15 @@ function initialize() {
 				}
 			},
 			
+			"#suffix" : {
+				"onmouseover" : function (evt){
+					dojo.query('.popup').style('display','block');
+				},
+				"onmouseout" : function (evt){
+					dojo.query('.popup').style('display', 'none');
+				}
+			},
+			
 			"#add-more" : {
 				"onclick" : function (evt) {
 //				alert('dd');
