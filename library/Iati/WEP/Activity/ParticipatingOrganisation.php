@@ -12,11 +12,11 @@ class Iati_WEP_Activity_ParticipatingOrganisation
     protected $title_id;
     protected $tableName = 'iati_participating_org';
     protected $html = array(
-                        'text' => '<label for="">%s</label><input type= "text" name="%s" value="%s" />',
-                        'role' => '<label for="">%s</label><select name="%s">%s</select>',
-                        'ref' => '<label for="">%s</label><select name="%s">%s</select>',
-                        'type' => '<label for="">%s</label><select name="%s">%s</select>',
-                        'xml_lang' => '<label for="">%s</label><select name="%s">%s</select>',
+                        'text' => '<dt><label for="">%s</label></dt><dd><input type= "text" name="%s" value="%s" /></dd>',
+                        'role' => '<dt><label for="">%s</label></dt><dd><select name="%s">%s</select></dd>',
+                        'ref' => '<dt><label for="">%s</label></dt><dd><select name="%s">%s</select></dd>',
+                        'type' => '<dt><label for="">%s</label></dt><dd><select name="%s">%s</select></dd>',
+                        'xml_lang' => '<dt><label for="">%s</label></dt><dd><select name="%s">%s</select></dd>',
                         'activity_id' => '<input type="hidden" name="activity_id" value="%s"/>',
                         'title_id' => '<input type="hidden" name="title_id" class ="title_id" value="%s"/>', 
                     );
@@ -134,7 +134,7 @@ class Iati_WEP_Activity_ParticipatingOrganisation
     
     public function getProperties()
      {
-         $data = array('@xml_lang', 'text', '@iso_date', '@type');
+         $data = array('@xml_lang', 'text', '@type');
          return $data;
      }
      
@@ -155,7 +155,8 @@ public function getTableName()
 
     public function validate()
     {
-        $data['iso_date'] = $this->iso_date;
+        $data['ref'] = $this->ref;
+        $data['role'] = $this->role;
         $data['type'] = $this->type;
         $data['xml_lang'] = $this->xml_lang;
         $data['text'] = $this->text;
@@ -189,7 +190,8 @@ public function getTableName()
 
     public function insert()
     {
-        $data['@iso_date'] = $this->iso_date;
+        $data['@role'] = $this->role;
+        $data['@ref'] = $this->ref;
         $data['@type'] = $this->type;
         $data['@xml_lang'] = $this->xml_lang;
         $data['text'] = $this->text;
@@ -204,7 +206,8 @@ public function getTableName()
     }
     
     public function update(){
-        $data['@iso_date'] = $this->iso_date;
+        $data['@role'] = $this->role;
+        $data['@ref'] = $this->ref;
         $data['@type'] = $this->type;
         $data['@xml_lang'] = $this->xml_lang;
         $data['text'] = $this->text;
