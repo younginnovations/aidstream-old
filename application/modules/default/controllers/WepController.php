@@ -100,7 +100,7 @@ class WepController extends Zend_Controller_Action
         if($this->getRequest()->isPost()){
             try{
                 $data = $this->getRequest()->getPost();
-                $model = new Model_Viewcode();
+                $model = new Model_Wep();
                 $result = $model->getRowsByFields('account', 'username',$data['organisation_username']);
                 //                print_r($a);exit()
                 //                $result = $tbl->checkUnique($email);
@@ -117,11 +117,11 @@ class WepController extends Zend_Controller_Action
 
                     //@todo send email notification to super admin
 
-                    $mailerParams = array('email'=> 'manisha@yipl.com.np');
+                    /*$mailerParams = array('email'=> 'manisha@yipl.com.np');
                     $toEmail = 'manisha@yipl.com.np';
                     $template = 'user-register';
                     $Wep = new App_Notification;
-                    $Wep->sendemail($mailerParams,$toEmail,$template);
+                    $Wep->sendemail($mailerParams,$toEmail,$template);*/
 
                     //                    print_r($_POST);exit();
                     $account['name'] = $data['organisation_name'];

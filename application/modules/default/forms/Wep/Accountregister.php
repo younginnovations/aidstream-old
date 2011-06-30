@@ -51,24 +51,26 @@ class Form_Wep_Accountregister extends App_Form
         ->addFilter('stringTrim')
         ->setRequired();
         
-        $model = new Model_Viewcode();
-        $currency = $model->getCode('Currency',null,'1');
+        $model = new Model_Wep();
+        $currency = $model->getCodeArray('Currency',null,'1');
+//        print_r($currency);exit;
         $selectedCurrency = $model->findIdByFieldData('Currency', $defaultFields['field_values']['currency'], '1');
 //        print_r($selectedCurrency[0]);exit();
         $form['default_currency'] = new Zend_Form_Element_Select('default_currency');
         $form['default_currency']->setRequired()->setLabel('Default Currency')->addMultiOption('', 'Select anyone');
         $form['default_currency']->setValue($selectedCurrency[0]['id']);
-        foreach($currency[0] as $eachCurrency){
-            $form['default_currency']->addMultiOption($eachCurrency['id'], $eachCurrency['Code']);
+        foreach($currency as $key => $eachCurrency){
+            $form['default_currency']->addMultiOption($key, $eachCurrency);
         }
         
-        $language = $model->getCode('Language',null,'1');
+        $language = $model->getCodeArray('Language',null,'1');
         $selectedLanguage = $model->findIdByFieldData('Language', $defaultFields['field_values']['language'], '1');
+//        print_r($selectedLanguage);exit;
         $form['default_language'] = new Zend_Form_Element_Select('default_language');
         $form['default_language']->setRequired()->setLabel('Default Language')->addMultiOption('', 'Select anyone');
         $form['default_language']->setValue($selectedLanguage[0]['id']);
-        foreach($language[0] as $eachLanguage){
-            $form['default_language']->addMultiOption($eachLanguage['id'], $eachLanguage['Code']);
+        foreach($language as $key => $eachLanguage){
+            $form['default_language']->addMultiOption($key, $eachLanguage);
         }
         
         $form['default_reporting_org'] = new Zend_Form_Element_Text('default_reporting_org');

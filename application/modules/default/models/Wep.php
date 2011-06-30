@@ -106,6 +106,8 @@ class Model_Wep extends Zend_Db_Table_Abstract
         return $result;
     }
     
+    
+    
     public function getCodeArray($tblName, $codeid, $lang)
     {
         $this->_name = $tblName;
@@ -113,8 +115,8 @@ class Model_Wep extends Zend_Db_Table_Abstract
         $rowSet = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART)->setIntegrityCheck(false)
         ->where('id = ?', $codeid)->where('lang_id = ?',$lang);
         else
-        $rowSet = $this->select()->where('lang_id = ?',$lang);
-
+        $rowSet = $this->select()->where('lang_id = ?',$lang)->order(array('Code ASC'));
+        
         $result = $this->fetchAll($rowSet)->toArray();
 //        print_r($result);exit();
         $finalResult = array();
@@ -170,6 +172,14 @@ class Model_Wep extends Zend_Db_Table_Abstract
 
         $result = $this->fetchRow($rowSet)->toArray();
         return $result['id'];
+    }
+    
+    public function findIdByFieldData($tblName, $data, $lang){
+        $this->_name = $tblName;
+        $rowSet = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART)->setIntegrityCheck(false)
+        ->where('Code = ?', $data)
+        ->where('lang_id = ?',$lang);
+        return $this->fetchAll($rowSet)->toArray();
     }
     
     public function listOrganisation($tableName)
