@@ -376,7 +376,7 @@ class WepController extends Zend_Controller_Action
             $obj->setAccountAcitivty(array('account_id'=>$identity->account_id, 'activity_id'=>$activity_id));
             $obj->setAll();
             $objects = array($obj);
-
+            
             //        for($i = 0; $i<=5; $i++){
             $obj =  new $classname();
             $obj->setProperties($initial);

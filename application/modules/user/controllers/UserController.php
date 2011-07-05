@@ -111,12 +111,7 @@ class User_UserController extends Zend_Controller_Action
                 $password = $form->getValue('password');
 
                 $model = new User_Model_DbTable_User();
-                $status = $model->getUserByUsername($username);
-                //print_r($status);exit();
-                if($status['status'] != 1){
-                    $this->_helper->FlashMessenger->addMessage(array('error' => 'Your registration has not been confirmed.'));
-                    $this->_redirect('user/user/logout');
-                }
+                
                 $authAdapter->setIdentity($username)
                 ->setCredential($password);
 
@@ -127,6 +122,14 @@ class User_UserController extends Zend_Controller_Action
                 $result = $auth->authenticate($authAdapter);
 
                 if ($result->isvalid()) {
+                    
+                    $status = $model->getUserByUsername($username);
+                    //print_r($status);exit();
+                    if($status['status'] != 1){
+//                        print "dddsf";exit;
+                        $this->_helper->FlashMessenger->addMessage(array('error' => 'Your registration has not been confirmed.'));
+                        $this->_redirect('user/user/logout');
+                    }
                     $identity = $authAdapter->getResultRowObject();
 
                     //getting role from table role and merging it with $authAdapter->getResultRowObject() [adding role to identity]
@@ -147,7 +150,8 @@ class User_UserController extends Zend_Controller_Action
                         $this->_redirect('wep/dashboard');
                     }                }
                 else
-                $this->_helper->FlashMessenger->addMessage(array('error' => 'Invalid username and password'));
+//                print "dd";exit;
+                $this->_helper->FlashMessenger->addMessage(array('error' => 'Invalid username or password.'));
             }
         }
         $this->view->form = $form;

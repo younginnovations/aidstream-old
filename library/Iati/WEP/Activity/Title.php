@@ -99,7 +99,7 @@ class Iati_WEP_Activity_Title
         if($this->multiple){
             $name = $name . "[" . $this->object_id . "]";
         }
-        print $this->object;
+        //print $this->object;
         return $name;
     }
 
@@ -180,7 +180,6 @@ class Iati_WEP_Activity_Title
             $validator = new $string();
              
             if(!$validator->isValid($eachData)){
-                //                print_r($validator->getMessages());
                 $this->error[$key] = $validator->getMessages();
                 $this->hasError = true;
 

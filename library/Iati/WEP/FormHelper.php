@@ -17,7 +17,6 @@ class Iati_WEP_FormHelper {
         }
         
         $form = '';
-//        print_r($this->objects);exit;
         foreach ($this->objects as $obj) {
             $error_code = $obj->hasErrors();
             $form .= $obj->toHtml($error_code);
@@ -28,9 +27,9 @@ class Iati_WEP_FormHelper {
         $form = sprintf($form_string, $form);
         
         
-        if ($this->globalObject->hasMultiple()) {
+        /*if ($this->globalObject->hasMultiple()) {
             $form .= $this->_addMore(array('id'=>'add-more'));
-        }
+        }*/
         
         return $this->_wrap($form, 'div');
     }
@@ -38,7 +37,12 @@ class Iati_WEP_FormHelper {
     private function _form($name, $action, $method="post", $attribs=null) {
         $_form = sprintf('<fieldset><legend>%s</legend><form id = "element-form" name="%s" action="%s" method="%s" %s>',
                          $name,$name, $action, $method, $this->_attr($attribs));
-        $_form .= '<div id = "form-elements-wrapper">%s</div><input type="submit" id="Submit" value="Save" />';
+        
+        $_form .= '<div id = "form-elements-wrapper">%s</div>';
+        if ($this->globalObject->hasMultiple()) {
+            $_form .= $this->_addMore(array('id'=>'add-more'));
+        }
+        $_form .= '<input type="submit" id="Submit" value="Save" />';
         $_form .= '</form></fieldset>';
         return $_form;
     }
