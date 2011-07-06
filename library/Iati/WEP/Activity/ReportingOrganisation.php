@@ -148,6 +148,11 @@ class Iati_WEP_Activity_ReportingOrganisation
         return $this->options;
     }
     
+    public function getTableName()
+    {
+        return $this->tableName;
+    }
+    
     public function validate()
     {
         $data['xml_lang'] = $this->xml_lang;
