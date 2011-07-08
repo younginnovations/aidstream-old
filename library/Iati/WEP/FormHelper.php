@@ -5,10 +5,14 @@ class Iati_WEP_FormHelper {
     protected $objects = array();
     protected $globalObject;
     
-    public function __construct($objects=array()) {
-        $this->objects = $objects;
-//        $this->globalObject = array_shift($this->objects);
-        $this->globalObject = $this->objects[0];
+    public function __construct($object) {
+        
+        $this->globalObject = $object;
+        
+        $registryTree = Iati_WEP_TreeRegistry::getInstance();
+        //var_dump($registryTree->xml());exit;
+        $this->objects = $registryTree->getChildNodes($this->globalObject);
+        
     }
     
     public function getForm() {
@@ -17,7 +21,9 @@ class Iati_WEP_FormHelper {
         }
         
         $form = '';
+        $form .= $this->globalObject->toHtml();
         foreach ($this->objects as $obj) {
+//            print_r($obj);//exit;
             $error_code = $obj->hasErrors();
             $form .= $obj->toHtml($error_code);
         }

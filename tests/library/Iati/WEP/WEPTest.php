@@ -88,12 +88,12 @@ class Iati_WEP_WEPTest extends PHPUnit_Framework_TestCase
 
     }
 
-    public function testgetColumns()
+    /*public function testgetColumns()
     {
         $model = new Model_Wep();
         $a = $model->getColumns('iati_activities');
 
-    }
+    }*/
 
     public function testTitleForm()
     {
@@ -105,6 +105,26 @@ class Iati_WEP_WEPTest extends PHPUnit_Framework_TestCase
 
         $title->validate($data);
         //        print_r($title);exit();
+    }
+    
+    public function testTitles()
+    {
+        $account_id = 2;
+        $title = new Iati_WEP_Activity_Title();
+        
+        $initial = array();
+        $initial['text'] = '';
+        $initial['xml_lang'] = '363';
+        
+        $title->setProperties($initial);
+        $title->setAccountAcitivty(array('account_id' => $account_id, 'activity_id'=>'43'));
+        $title->setAll();
+        
+        $objects = array($title);
+        $formObj = new Iati_WEP_FormHelper($objects);
+        $a = $formObj->getForm();
+        print_r($a);
+//        $titleProperty = $title->getProperties($account_id, '1');
     }
 
     public function testFormHelper()
@@ -235,7 +255,7 @@ Iati Organization";
         print_r($a);exit();
     }
     
-    public function testTitle()
+    public function testTitleValidate()
     {
         
         $rowSet = array(
