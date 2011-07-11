@@ -35,11 +35,11 @@ class Iati_WEP_Activity_Title extends Iati_WEP_Activity_ElementBase
         //        print $this->object_id;
     }
 
-    public function propertySetter($initial)
+    public function propertySetter($initial, $title_id = 0)
     {
 //        $this->setAccountActivity($accountActivity);
         $this->setProperties($initial);
-        $this->setAll();    
+        $this->setAll($title_id);    
     }
     
     public function getTitleId()
@@ -90,21 +90,6 @@ class Iati_WEP_Activity_Title extends Iati_WEP_Activity_ElementBase
         $this->setHtml();
     }
 
-    /*public function getObjectName()
-    {
-        return parent::$objectName;
-    }
-
-    public function getTableName()
-    {
-        return $this->tableName;
-    }
-
-    public function getMultiple()
-    {
-        return $this->multiple;
-    }
-*/
     public function validate()
     {
         $data['xml_lang'] = $this->xml_lang;
@@ -125,15 +110,8 @@ class Iati_WEP_Activity_Title extends Iati_WEP_Activity_ElementBase
         $data['activity_id'] = parent::$activity_id;
 
         $id = parent::insert($data);
-        //print_r($id);//exit;
         $this->title_id = $id;
         $this->setHtml();
-        /*$model = new Model_Wep();
-        $title_id = $model->insertRowsToTable($this->tableName, $data);*/
-        
-        /*$activity['@last_updated_datetime'] = date('Y-m-d H:i:s');
-        $activity['id'] = parent::$activity_id;
-        $model->updateRowsToTable('iati_activity', $activity);*/
     }
 
     public function update()
@@ -142,13 +120,7 @@ class Iati_WEP_Activity_Title extends Iati_WEP_Activity_ElementBase
         $data['@xml_lang'] = $this->xml_lang;
         $data['activity_id'] = parent::$activity_id;
         $data['id'] = $this->title_id;
-        /*$model = new Model_Wep();
-        $id = $model->updateRowsToTable($this->tableName, $data);*/
         parent::update($data);
-        
-        /*$activity['@last_updated_datetime'] = date('Y-m-d H:i:s');
-        $activity['id'] = parent::$activity_id;
-        $model->updateRowsToTable('iati_activity', $activity);*/
     }
 
     public function retrieve($activity_id)

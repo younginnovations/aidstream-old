@@ -1,16 +1,26 @@
 <?php
-class Iati_WEP_Activity_ReportingOrganisation
+class Iati_WEP_Activity_ReportingOrganisation extends Iati_WEP_Activity_ElementBase
 {
-    protected static $objectName = 'ReportingOrganisation';
     protected $text = '';
-    protected $ref;
-    protected $type;
+    protected $type = '';
+    protected $iso_date = '';
     protected $xml_lang;
-    protected static $activity_id;
-    protected static $account_id;
-    protected $title_id;
-    protected $tableName = 'iati_reporting_org';
-    protected $html = array(
+    protected $title_id = 0;
+    protected static $count = 0;
+    protected $object_id;
+   
+
+
+    public function __construct($id = 0)
+    {
+        parent::__construct();
+        $this->title_id = $id;
+        $this->object_id = self::$count;
+        self::$count += 1;
+        
+        $this->objectName = 'ReportingOrganisation';
+        $this->tableName = 'iati_reporting_org';
+        $this->html = array(
                         'text' => '<dt><label for="">%s</label></dt><dd><input type= "text" name="%s" value="%s" /></dd>',
                         'ref' => '<dt><label for="">%s</label></dt><dd><select name="%s">%s</select></dd>',
                         'type' => '<dt><label for="">%s</label></dt><dd><select name="%s">%s</select></dd>',
@@ -18,32 +28,29 @@ class Iati_WEP_Activity_ReportingOrganisation
                         'activity_id' => '<dd><input type="hidden" name="activity_id" value="%s"/></dd>',
                         'title_id' => '<dd><input type="hidden" name="title_id" class ="title_id" value="%s"/></dd>', 
                     );
-
-    protected $validators = array(
+                    
+        $this->validators = array(
                         'ref' => 'NotEmpty',
                         'text' => 'NotEmpty',
                         'activity_id' => 'NotEmpty',
                     );
-    
-    protected static $count = 0;
-    protected $object_id;
-    protected $options = array();
-    protected $multiple = false;
-    protected $error = array();
-    protected $hasError = false;
-    /*
-     protected $text;
-     protected $xml_lang;
-     protected $activity_id;
-     */
+        $this->multiple = false;
+//        $this->setProperties();
+        //        print $this->object_id;
+    }
 
-    public function __construct($id ='')
+    public function propertySetter($initial, $title_id = 0)
     {
-        $this->title_id = $id;
-        $this->object_id = self::$count;
-        self::$count += 1;
+//        $this->setAccountActivity($accountActivity);
+        $this->setProperties($initial);
+        $this->setAll($title_id);    
     }
     
+    public function getTitleId()
+    {
+        return $this->title_id;
+    }
+
     public function setHtml()
     {
         $this->html['text'] = sprintf($this->html['text'], 'Text',$this->decorateName('text'), $this->text);
@@ -52,7 +59,7 @@ class Iati_WEP_Activity_ReportingOrganisation
         $this->html['xml_lang'] = sprintf($this->html['xml_lang'], 'Language', $this->decorateName('xml_lang'), $this->createOptionHtml('xml_lang'));
         $this->html['activity_id'] = sprintf($this->html['activity_id'],  self::$activity_id);
         $this->html['title_id'] = sprintf($this->html['title_id'],  $this->title_id);
-        
+        //        print $this->text; print $this->xml_lang; print "<br>";
         if($this->hasErrors()){
             foreach($this->error as $key => $eachError){
                 $msg = array_values($eachError);
@@ -60,23 +67,17 @@ class Iati_WEP_Activity_ReportingOrganisation
             }
         }
     }
-    
-    public function setAccountAcitivty($array)
-    {
-        self::$account_id = $array['account_id'];
-        self::$activity_id = $array['activity_id'];
-    }
-    
+
     public function setProperties($data){
-        
         $this->xml_lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
         $this->ref = (key_exists('@ref', $data))?$data['@ref']:$data['ref'];
         $this->type = (key_exists('@type', $data))?$data['@type']:$data['type'];
         $this->text = $data['text'];
-
+        
+        
     }
-    
-    public function setAll( $id = '')
+
+    public function setAll( $id = 0)
     {
         $model = new Model_Wep();
         $defaultFieldValues = $model->getDefaults('default_field_values',  'account_id', self::$account_id);
@@ -90,93 +91,16 @@ class Iati_WEP_Activity_ReportingOrganisation
         }
         $this->setHtml();
     }
-    
-    public function decorateName($name)
-    {
-//        if($this->multiple){
-            $name = $name . "[" . $this->object_id . "]";
-//        }
-        print $this->object;
-        return $name;
-    }
 
-    public function toHtml($error = 0)
-    {
-        $style = ($this->object_id == 0)?"style= 'display:none'":'';
-        $string = "<div id= '$this->object_id' $style>";
-        $htmlString = $string . implode("",array_values($this->html));
-        $htmlString .= ($this->object_id > 1)?"<span class ='remove'>Remove</span></div>" :"</div>";
-        return $htmlString;
-
-    }
-
-    public function createOptionHtml($name){
-        $optionArray = $this->options[$name];
-        $string = '<option value="" label="Select anyone">Select anyone</option>';
-        $stringSprint = '<option value= "%s" %s>%s</option>';
-        foreach($optionArray as $key => $val){
-            $_selected = ($this->$name == $key) ? 'selected="selected"' : '';
-            $string .= sprintf($stringSprint,$key,$_selected,$val);
-        }
-
-        return $string;
-    }
-    
-    public function hasMultiple()
-    {
-        return $this->multiple;
-    }
-
-    public function getObjectName()
-    {
-        return self::$objectName;
-    }
-    
-    public function getProperties()
-     {
-         $data = array('@xml_lang', '@text', '@ref');
-         return $data;
-     }
-
-    public function getMultiple()
-    {
-        return $this->multiple;
-    }
-
-    public function getOptions()
-    {
-        return $this->options;
-    }
-    
-    public function getTableName()
-    {
-        return $this->tableName;
-    }
-    
     public function validate()
     {
         $data['xml_lang'] = $this->xml_lang;
         $data['text'] = $this->text;
         $data['activity_id'] = self::$activity_id;
-//        print_r($data);exit();
-        foreach($data as $key => $eachData){
-            if(empty($this->validators[$key])){
-                continue;
-            }
-            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData))){
-                continue;
-            }
-            $string = "Zend_Validate_". $this->validators[$key];
-            $validator = new $string();
-             
-            if(!$validator->isValid($eachData)){
-                $this->error[$key] = $validator->getMessages();
-                $this->hasError = true;
-                
-            }
-        }
+        
+        parent::validate($data);
     }
-    
+
     public function hasErrors()
     {
         return $this->hasError;
@@ -184,41 +108,28 @@ class Iati_WEP_Activity_ReportingOrganisation
 
     public function insert()
     {
+        $data['iso_date'] = $this->iso_date;
+        $data['type'] = $this->type;
+        $data['xml_lang'] = $this->xml_lang;
         $data['text'] = $this->text;
-        $data['@ref'] = $this->ref;
-        $data['@type'] = $this->type;
-        $data['@xml_lang'] = $this->xml_lang;
-        $data['activity_id'] = self::$activity_id;
 
-        $model = new Model_Wep();
-        $title_id = $model->insertRowsToTable($this->tableName, $data);
-        
-        $activity['@last_updated_datetime'] = date('Y-m-d H:i:s');
-        $activity['id'] = self::$activity_id;
-        $model->updateRowsToTable('iati_activity', $activity);
+        parent::insert($data);
     }
 
     public function update()
     {
         $data['text'] = $this->text;
         $data['@xml_lang'] = $this->xml_lang;
-        $data['@ref'] = $this->ref;
-        $data['@type'] = $this->type;
-        $data['activity_id'] = self::$activity_id;
+        $data['activity_id'] = parent::$activity_id;
         $data['id'] = $this->title_id;
-        $model = new Model_Wep();
-        $id = $model->updateRowsToTable($this->tableName, $data);   
         
-        $activity['@last_updated_datetime'] = date('Y-m-d H:i:s');
-        $activity['id'] = self::$activity_id;
-        $model->updateRowsToTable('iati_activity', $activity);
+        parent::update($data);
     }
-    
+
     public function retrieve($activity_id)
     {
         $model = new Model_Wep();
         $rowSet = $model->listAll($this->tableName,'activity_id', $activity_id);
         return $rowSet;
     }
-    
 }
