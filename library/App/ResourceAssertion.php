@@ -59,7 +59,7 @@ class App_ResourceAssertion implements Zend_Acl_Assert_Interface
     {        
 
         
-        // if role is admin, he can always modify a post or a comment or any resource as necessary
+        // if role is superadmin, he can always modify a post or a comment or any resource as necessary        
         if ($this->getUserRole() == 'superadmin') {
             return true;
         }

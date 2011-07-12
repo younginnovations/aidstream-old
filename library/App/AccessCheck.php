@@ -26,7 +26,7 @@ class App_AccessCheck extends Zend_Controller_Plugin_Abstract
                     ->setActionName('login');
         }
 
-//        $this->_acl->setDynamicPermisssion();
+        $this->_acl->setDynamicPermisssion();
         
     }
 //    public function postDispatch()

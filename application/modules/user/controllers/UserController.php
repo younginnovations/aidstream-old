@@ -88,17 +88,16 @@ class User_UserController extends Zend_Controller_Action
 
     public function loginAction()
     {
-        
+
         $auth = Zend_Auth::getInstance();
         if ($auth->hasIdentity()) {
             $identity = Zend_Auth::getInstance()->getIdentity();
 //            print_r($identity->roles);exit;
-            if($identity->role == 'superadmin' ){
+            if ($identity->role == 'superadmin') {
                 $this->_redirect('admin/dashboard');
-            }elseif($identity->role == 'admin'){
+            } elseif ($identity->role == 'admin') {
                 $this->_redirect('wep/dashboard');
             }
-            
         }
 
         $request = $this->getRequest();
@@ -111,9 +110,9 @@ class User_UserController extends Zend_Controller_Action
                 $password = $form->getValue('password');
 
                 $model = new User_Model_DbTable_User();
-                
+
                 $authAdapter->setIdentity($username)
-                ->setCredential($password);
+                        ->setCredential($password);
 
 
                 //@todo before session make sure the status of the user is 1
@@ -122,10 +121,10 @@ class User_UserController extends Zend_Controller_Action
                 $result = $auth->authenticate($authAdapter);
 
                 if ($result->isvalid()) {
-                    
+
                     $status = $model->getUserByUsername($username);
                     //print_r($status);exit();
-                    if($status['status'] != 1){
+                    if ($status['status'] != 1) {
 //                        print "dddsf";exit;
                         $this->_helper->FlashMessenger->addMessage(array('error' => 'Your registration has not been confirmed.'));
                         $this->_redirect('user/user/logout');
@@ -144,14 +143,15 @@ class User_UserController extends Zend_Controller_Action
                     $authStorage->write($identity);
 
                     $this->_helper->FlashMessenger->addMessage(array('message' => 'Successfully Logged In'));
-                    if($identity->role == 'superadmin' ){
+                    if ($identity->role == 'superadmin') {
                         $this->_redirect('admin/dashboard');
-                    }elseif($identity->role == 'admin'){
+                    } elseif ($identity->role == 'admin') {
                         $this->_redirect('wep/dashboard');
-                    }                }
+                    }
+                }
                 else
 //                print "dd";exit;
-                $this->_helper->FlashMessenger->addMessage(array('error' => 'Invalid username or password.'));
+                    $this->_helper->FlashMessenger->addMessage(array('error' => 'Invalid username or password.'));
             }
         }
         $this->view->form = $form;
@@ -245,7 +245,6 @@ class User_UserController extends Zend_Controller_Action
         }//end of outer if
         $this->view->placeholder('title')->set('Reset Password');
         $this->_helper->layout()->setLayout('layout');
-
     }
 
     //end of else
@@ -306,7 +305,7 @@ class User_UserController extends Zend_Controller_Action
         $auth = Zend_Auth::getInstance()->getIdentity();
         Zend_Auth::getInstance()->clearIdentity();
         $this->_helper->FlashMessenger->addMessage(array('message' => 'Successfully logged out.'));
-                   
+
         $this->_redirect('user/user/login');
     }
 
@@ -314,9 +313,9 @@ class User_UserController extends Zend_Controller_Action
     {
         $authAdapter = new Zend_Auth_Adapter_DbTable(Zend_Db_Table::getDefaultAdapter());
         $authAdapter->setTableName('user')
-        ->setIdentityColumn('user_name')
-        ->setCredentialColumn('password')
-        ->setCredentialTreatment('md5(?)');
+                ->setIdentityColumn('user_name')
+                ->setCredentialColumn('password')
+                ->setCredentialTreatment('md5(?)');
 
         return $authAdapter;
     }
@@ -351,9 +350,9 @@ class User_UserController extends Zend_Controller_Action
         $mail = new Zend_Mail();
 
         $mail->setBodyText($body)
-        ->setFrom($fromEmail)
-        ->addTo($toEmail)
-        ->setSubject($subject);
+                ->setFrom($fromEmail)
+                ->addTo($toEmail)
+                ->setSubject($subject);
 
         $result = $mail->send();
 
@@ -365,8 +364,12 @@ class User_UserController extends Zend_Controller_Action
         $this->_helper->layout()->setLayout('login_page');
     }
 
-    public function testAction(){
-        
+    public function testAction()
+    {
+        $test = new Model_Test();
+        $role = $test->required();
+        $this->view->userRole = $role;
     }
+
 }
 

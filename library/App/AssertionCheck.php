@@ -9,9 +9,11 @@ class App_AssertionCheck extends Zend_Db_Table_Abstract
     {
         $select = $this->select()->where('owner_id = ?', $userId);
         $row = $this->fetchRow($select);
-        $row = $row->toArray();
+        if ($row) {
+            $row = $row->toArray();        
         $unserializedResources = unserialize($row['resource']);
         $result = in_array($resource, $unserializedResources);
+        }
         return $result;
     }
 

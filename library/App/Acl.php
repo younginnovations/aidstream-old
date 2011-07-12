@@ -25,7 +25,7 @@ class App_Acl extends Zend_Acl
 
 
         $this->add(new Zend_Acl_Resource('user'))
-             ->add(new Zend_Acl_Resource('user:user'), 'user');
+                ->add(new Zend_Acl_Resource('user:user'), 'user');
         //user controller of user module has been inherited from user module
 
 
@@ -56,15 +56,15 @@ class App_Acl extends Zend_Acl
         $this->allow('guest', 'default:wep', 'index');
         $this->allow('guest', 'nullresources');
 
-
-        //this allows the role user to use user module's user controller's logout action
-        $this->deny('user', 'user:user', 'login'); //deny users from trying to login again
+//        deny users from trying to login again
+        $this->deny('user', 'user:user', 'login');
         $this->deny('user', 'user:user', 'register');
+
+//        this allows the role user to use user module's user controller's logout action
         $this->allow('user', 'user:user', 'logout');
         $this->allow('user', 'user:user', 'changepassword');
         $this->allow('user', 'user:user', 'myaccount');
         $this->allow('user', 'user:user', 'edit');
-//        $this->allow('user', 'user:user', 'test', new App_ResourceAssertion());
         $this->allow('user', 'default:wep', 'list-activities');
         $this->allow('user', 'default:wep', 'view-activities');
         $this->allow('user', 'default:wep', 'view-activity');
@@ -81,10 +81,10 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'default:wep', 'remove-elements');
 
 
-//        $this->allow('admin', 'user');
+        $this->allow('admin', 'user');
 
         $this->allow('admin', 'default:code-list');
-        $this->allow('admin', 'user:user', 'test',new App_ResourceAssertion('edit'));
+        $this->allow('admin', 'user:user', 'test', new App_ResourceAssertion('edit'));
         $this->deny('user', 'user:user', 'register');
         $this->allow('superadmin', 'default:admin');
     }
@@ -116,8 +116,7 @@ class App_Acl extends Zend_Acl
          * @uses   Zend_Acl::setRule()
          * @return Zend_Acl Provides a fluent interface
          */
-//        $this->allow('user', 'resource', 'test', new App_ResourceAssertion());
-         $this->allow('admin', 'user:user', 'test',new App_ResourceAssertion());
+        $this->allow('admin', 'resource', 'test', new App_ResourceAssertion('edit'));
     }
 
 }
