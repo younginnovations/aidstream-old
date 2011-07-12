@@ -27,7 +27,7 @@ dojo.connect = function (source, event, object, method, once) {
 
 var count = 0;
 var cloneElementForm = function (boneNode, newId) {
-//	console.log(boneNode);
+//console.log(boneNode);
 	if (boneNode === null) {
 		return
 	}
@@ -95,7 +95,7 @@ function initialize() {
 		
 //		var a = dojo.query('.ajax_save').parents('form');
 			"onclick" : function (evt) {
-				
+		alert('sfssdsdsd');
 			var c_node = new dojo.NodeList(evt.target);
 //			console.log(c_node);
 //			var a = c_node.parents('form').attr('id');
@@ -121,6 +121,7 @@ function initialize() {
 //			var a = dojo.query('.ajax_save').parents('form');
 				"onclick" : function (evt) {
 			
+			alert('sfsd');
 				var c_node = new dojo.NodeList(evt.target);
 //				console.log(c_node);
 //				var a = c_node.parents('form').attr('id');
@@ -155,11 +156,14 @@ function initialize() {
 			
 			"#add-more" : {
 				"onclick" : function (evt) {
+//				console.log('ddsd');
 //				alert('dd');
 					var c = dojo.query('#element-form #form-elements-wrapper').children(':last-child');
+//					console.log(c);
 					count = parseInt(c.attr('id')[0].split('-')[2]) + 1;
 					var split = c.attr('id')[0].split('-');
 					split[2] = count;
+//					console.log(split);
 					
 					cloneElementForm(boneElement, split.join('-'));
 				}
@@ -170,11 +174,14 @@ function initialize() {
 					var form_id = dojo.attr(evt.target.parentNode, 'id');
 					current_url =  location.href;
 					var class_param = current_url.split('&');
-					var class_name = class_param[1].split('=');
+					var param_array = class_param[1].split('=');
+					var class_name = param_array[1].replace('#', '');
 					var title_node = dojo.query('#'+ form_id + ' .title_id')[0];
 					
 					if(title_node.getAttribute('value') == '0'){
-						dojo.empty(evt.target.parentNode);
+//						console.log(evt.target.parentNode);
+						dojo.destroy(evt.target.parentNode);
+//						console.log(evt.target.parentNode);
 					}
 					else{
 						dojo.xhrGet({
@@ -186,7 +193,7 @@ function initialize() {
 							},
 							load: function (data) {
 								if(data == 'success'){
-									dojo.empty(evt.target.parentNode);
+									dojo.destroy(evt.target.parentNode);
 								}
 								else{
 									console.log(data);

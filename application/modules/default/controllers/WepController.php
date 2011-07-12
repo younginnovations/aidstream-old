@@ -305,6 +305,38 @@ class WepController extends Zend_Controller_Action
         $this->view->blockManager()->enable('partial/dashboard.phtml');
     }
 
+    public function getInitialValues($activity_id)
+    {
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $model = new Model_Wep();
+        $defaultFieldValues = $model->getDefaults('default_field_values',  'account_id', $identity->account_id);
+        $defaults = $defaultFieldValues->getDefaultFields();
+        $initial['@currency'] = $defaults['currency'];
+        $initial['@xml_lang'] = $defaults['language'];
+        $initial['text'] = '';
+        if($class == 'ReportingOrganisation'){
+            $initial['text'] = $defaults['reporting_org'];
+        }
+        return $initial;
+    }
+    
+    public function createGlobalObject($activity_id, $class)
+    {
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $classname = 'Iati_WEP_Activity_'. $class;
+        $globalobj = new $classname();
+        $globalobj->setAccountActivity(array('account_id'=>$identity->account_id, 'activity_id'=>$activity_id));
+        $globalobj->propertySetter($this->getInitialValues($activity_id));
+        return $globalobj;
+    }
+    
+    public function addToRegistry($object, $parent = NULL)
+    {
+        $registryTree = Iati_WEP_TreeRegistry::getInstance();
+        $registryTree->addNode($globalobj, $parent);
+        return $registryTree;
+    }
+    
     public function addActivityElementsAction()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
@@ -315,7 +347,8 @@ class WepController extends Zend_Controller_Action
         if($_GET['activity_id']){
             $activity_id = $this->_request->getParam('activity_id');
         }
-
+        $model = new Model_Wep();
+        $initial = $this->getInitialValues($activity_id);
         $classname = 'Iati_WEP_Activity_'. $class;
 
         if($_POST){
@@ -327,63 +360,44 @@ class WepController extends Zend_Controller_Action
                 $_POST = $array;
             }
             $flatPostArray = $this->_flatPostArray($_POST);
-            $newObj = new $classname();
-            $newObj->setAccountAcitivty(array('account_id'=>$identity->account_id, 'activity_id'=>$activity_id));
-            $newObjects = array();
-            $newObj->setAll();
+            $globalobj = $this->createGlobalObject($activity_id, $class);
+            $registryTree = Iati_WEP_TreeRegistry::getInstance();
+            $registryTree->addNode($globalobj, $parent);
             $firstPost = array_shift($flatPostArray);
             foreach($flatPostArray as $eachArray){
-
-                $newOb =  new $classname();
-                $newOb->setProperties($eachArray);
-                $newOb->setAll();
-                $newOb->validate();
-                if($newOb->hasErrors()){
-                    $newOb->setHtml();
+                $newObj =  new $classname($eachArray['title_id']);
+                $newObj->propertySetter($eachArray, $eachArray['title_id']);
+                $newObj->setHtml();
+                $newObj->validate();
+                if($newObj->hasErrors()){
+                    $newObj->setHtml();
                     $errorFlag = true;
                 }
-                $newObjects[] = $newOb;
+                $registryTree->addNode($newObj, $globalobj);
             }
-            $newObj->setHtml();
             if(!$errorFlag){
-                foreach($newObjects as $eachObj){
+                foreach($registryTree->getChildNodes($globalobj) as $eachObj){
                     $eachObj->insert();
                 }
                 $this->_helper->FlashMessenger->addMessage(array('message' => "$class successfully inserted."));
-
                 $this->_redirect("wep/edit-activity-elements?activity_id=$activity_id");
             }
             else{
-                array_unshift($newObjects,$newObj);
-                $formObj = new Iati_WEP_FormHelper($newObjects);
+                $formObj = new Iati_WEP_FormHelper($globalobj);
                 $a = $formObj->getForm();
             }
         }
         else{
-            $model = new Model_Wep();
-            $defaultFieldValues = $model->getDefaults('default_field_values',  'account_id', $identity->account_id);
-            $defaults = $defaultFieldValues->getDefaultFields();
-            $initial['@currency'] = $defaults['currency'];
-            $initial['@xml_lang'] = $defaults['language'];
-            $initial['text'] = '';
-            if($class == 'ReportingOrganisation'){
-                $initial['text'] = $defaults['reporting_org'];
-            }
-
-            $obj = new $classname();
-            $obj->setProperties($initial);
-
-            $obj->setAccountAcitivty(array('account_id'=>$identity->account_id, 'activity_id'=>$activity_id));
-            $obj->setAll();
-            $objects = array($obj);
+            $globalobj = $this->createGlobalObject($activity_id, $class);
             
-            //        for($i = 0; $i<=5; $i++){
+            $registryTree = Iati_WEP_TreeRegistry::getInstance();
+            $registryTree->addNode($globalobj, $parent);
             $obj =  new $classname();
-            $obj->setProperties($initial);
-            $obj->setAll();
-
-            $objects[] = $obj;
-            $formObj = new Iati_WEP_FormHelper($objects);
+            $obj->propertySetter($initial);
+            $obj->setHtml();
+            $registryTree->addNode($obj, $globalobj);
+                    
+            $formObj = new Iati_WEP_FormHelper($globalobj);
             $a = $formObj->getForm();
         }
 
@@ -437,48 +451,12 @@ class WepController extends Zend_Controller_Action
             $activity = $activity_info[0];
             $activity['@xml_lang'] = $model->fetchValueById('Language', $activity_info[0]['@xml_lang'], 'Code');
             $activity['@default_currency'] = $model->fetchValueById('Currency', $activity_info[0]['@default_currency'], 'Code');
-
         }
         $this->view->activityInfo = $activity;
+        $initial = $this->getInitialValues($activity_id);
         $classname = 'Iati_WEP_Activity_'. $class;
         if($class){
-            //            var_dump($class);exit();
-            /*$defaultFieldValues = $model->getDefaults('default_field_values',  'account_id', $identity->account_id);
-            $defaults = $defaultFieldValues->getDefaultFields();
-            $initial['@currency'] = $defaults['currency'];
-            $initial['@xml_lang'] = $defaults['language'];
-            $initial['text'] = '';
-
-            $classname = 'Iati_WEP_Activity_'. $class;
-             
-            $obj = new $classname();
-            $obj->setAccountAcitivty(array('account_id'=>$identity->account_id, 'activity_id'=>$activity_id));
-            $obj->setProperties($initial);
-            $obj->setAll();
-            $rowSet = $obj->retrieve($activity_id);
-
-            if(empty($rowSet)){
-            $this->_helper->FlashMessenger->addMessage(array('message' => "$class not found for this activity. Please add $class"));
-
-            //                print_r('wep/add-activity-elements?activity_id='. $activity_id .'&class='.$class);exit();
-            $this->_redirect("wep/add-activity-elements/?activity_id=".$activity_id."&class=".$class);
-            }
-            $objects = array($obj);
-             
-            foreach($rowSet as $eachArray){
-            $obj =  new $classname();
-            $eachArray['title_id'] = $eachArray['id'];
-            $obj->setProperties($eachArray);
-            $obj->setAll($eachArray['id']);
-            $obj->setHtml();
-            $objects[] = $obj;
-            }
-
-            $formObj = new Iati_WEP_FormHelper($objects);
-            $a = $formObj->getForm();*/
-
             if($_POST){
-                //                print_r($_POST);exit;
                 if(count(array_filter($_POST,'is_array')) <= 0){
                     foreach($_POST as $key => $eachPost){
                         $array[$key] = array($eachPost);
@@ -487,82 +465,61 @@ class WepController extends Zend_Controller_Action
                 }
                 $errorFlag = false;
                 $flatPostArray = $this->_flatPostArray($_POST);
-                $newObj = new $classname($activity_id);
-                $newObj->setAccountAcitivty(array('account_id'=>$identity->account_id, 'activity_id'=>$activity_id));
-                $newObjects = array($newObj);
-                $newObj->setAll();
-                $firstArray = array_shift($flatPostArray);
+                
+                $globalobj = $this->createGlobalObject($activity_id, $class);
+                
+                $registryTree = Iati_WEP_TreeRegistry::getInstance();
+                $registryTree->addNode($globalobj);
+                
+                $firstObj = array_shift($flatPostArray);
                 foreach($flatPostArray as $eachArray){
-
-                    $newObj =  new $classname();
-                    $newObj->setProperties($eachArray);
-                    $newObj->setAll($eachArray['title_id']);
-                    //                    $newObj->validate();
-                    //                    var_dump($newObj);exit();
+                    $newObj =  new $classname($eachArray['title_id']);
+                    $newObj->propertySetter($eachArray, $eachArray['title_id'] );
+                    $newObj->setHtml();
+                    $newObj->validate();
+                    
                     if($newObj->hasErrors()){
                         $newObj->setHtml();
                         $errorFlag = true;
                     }
-                    $newObjects[] = $newObj;
+                    $registryTree->addNode($newObj, $globalobj);
                 }
-                //                var_dump($newObjects);exit;
-                $firstObj = array_shift($newObjects);
                 if(!$errorFlag){
-                    foreach($newObjects as $eachObj){
+                    foreach($registryTree->getChildNodes($globalobj) as $eachObj){
                         if($eachObj->getTitleId() != 0){
-                            //                            print_r('empty');exit();
                             $eachObj->update();
                         }
                         else{
                             $eachObj->insert();
                         }
-
                     }
-                    $formObj = new Iati_WEP_FormHelper($newObjects);
-                    $a = $formObj->getForm();
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "$class successfully inserted."));
+                    $this->_redirect("wep/edit-activity-elements/?activity_id=".$activity_id."&class=".$class);
+                
                 }
                 else{
-                    array_unshift($newObjects,$firstObj);
-                    $formObj = new Iati_WEP_FormHelper($newObjects);
+                    $formObj = new Iati_WEP_FormHelper($globalobj);
                     $a = $formObj->getForm();
                 }
             }
             else{
-                $defaultFieldValues = $model->getDefaults('default_field_values',  'account_id', $identity->account_id);
-                $defaults = $defaultFieldValues->getDefaultFields();
-                $initial['@currency'] = $defaults['currency'];
-                $initial['@xml_lang'] = $defaults['language'];
-                $initial['text'] = '';
-                if($class == 'ReportingOrganisation'){
-                    $initial['text'] = $defaults['reporting_org'];
-                }
-
-                $classname = 'Iati_WEP_Activity_'. $class;
-                 
-                $obj = new $classname();
-                $obj->setAccountAcitivty(array('account_id'=>$identity->account_id, 'activity_id'=>$activity_id));
-                $obj->setProperties($initial);
-                $obj->setAll();
-                $rowSet = $obj->retrieve($activity_id);
+                $globalobj = $this->createGlobalObject($activity_id, $class);
+                $registryTree = Iati_WEP_TreeRegistry::getInstance();
+                $registryTree->addNode($globalobj);
+                $rowSet = $globalobj->retrieve($activity_id);
 
                 if(empty($rowSet)){
                     $this->_helper->FlashMessenger->addMessage(array('message' => "$class not found for this activity. Please add $class"));
-
-                    //                print_r('wep/add-activity-elements?activity_id='. $activity_id .'&class='.$class);exit();
                     $this->_redirect("wep/add-activity-elements/?activity_id=".$activity_id."&class=".$class);
                 }
-                $objects = array($obj);
-                 
                 foreach($rowSet as $eachArray){
                     $obj =  new $classname();
                     $eachArray['title_id'] = $eachArray['id'];
-                    $obj->setProperties($eachArray);
-                    $obj->setAll($eachArray['id']);
+                    $obj->propertySetter($eachArray, $eachArray['title_id']);
                     $obj->setHtml();
-                    $objects[] = $obj;
+                    $registryTree->addNode($obj, $globalobj);
                 }
-
-                $formObj = new Iati_WEP_FormHelper($objects);
+                $formObj = new Iati_WEP_FormHelper($globalobj);
                 $a = $formObj->getForm();
             }
         }
