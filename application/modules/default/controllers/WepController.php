@@ -651,7 +651,7 @@ class WepController extends Zend_Controller_Action
 
         }
         else{
-            print "dd";exit();
+//            print "dd";exit();
         }
 
     }

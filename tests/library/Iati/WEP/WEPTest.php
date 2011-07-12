@@ -107,7 +107,7 @@ class Iati_WEP_WEPTest extends PHPUnit_Framework_TestCase
         //        print_r($title);exit();
     }
     
-    public function testTitles()
+    /*public function testTitles()
     {
         $account_id = 2;
         $title = new Iati_WEP_Activity_Title();
@@ -125,6 +125,52 @@ class Iati_WEP_WEPTest extends PHPUnit_Framework_TestCase
         $a = $formObj->getForm();
         print_r($a);
 //        $titleProperty = $title->getProperties($account_id, '1');
+    }*/
+    
+    public function testTitles()
+    {
+        $initial['@currency'] = '363';
+        $initial['@xml_lang'] = '363';
+        $initial['text'] = '';
+        
+        $identity = array('account_id'=> '2', 'activity_id'=>'2');
+        $classname = 'Iati_WEP_Activity_'. 'Title';
+        $globalobj = new $classname();
+        $globalobj->setAccountActivity(array('account_id'=>$identity['account_id'], 'activity_id'=>$identity['activity_id']));
+        $globalobj->propertySetter($initial);
+        
+        $initial['@currency'] = '363';
+        $initial['@xml_lang'] = '363';
+        $initial['text'] = 'obj';
+        $registryTree = Iati_WEP_TreeRegistry::getInstance();
+            $registryTree->addNode($globalobj);
+            $obj =  new $classname();
+            $obj->propertySetter($initial);
+            $obj->setHtml();
+            $registryTree->addNode($obj, $globalobj);
+            
+            $initial['@currency'] = '363';
+        $initial['@xml_lang'] = '363';
+        $initial['text'] = 'kkk';
+            $obj1 =  new $classname();
+            $obj1->propertySetter($initial);
+            $obj1->setHtml();
+            $registryTree->addNode($obj1, $obj);
+                    
+            $initial['@currency'] = '363';
+        $initial['@xml_lang'] = '363';
+        $initial['text'] = 'ooo';
+            $obj2 =  new $classname();
+            $obj2->propertySetter($initial);
+            $obj2->setHtml();
+            $registryTree->addNode($obj2, $obj);
+            
+//            $a = $registryTree->getChildNodes($globalobj);
+//            print_r($registryTree->getChildNodes($globalobj));exit;
+//            print_r($a);exit;
+//            print_r($registryTree->getChildNodes($a));exit;
+            $formObj = new Iati_WEP_FormHelper($globalobj);
+            $a = $formObj->getForm();
     }
 
     public function testFormHelper()

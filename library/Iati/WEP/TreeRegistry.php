@@ -103,6 +103,8 @@ class Iati_WEP_TreeRegistry {
     public function xml () {
         return self::$_tree->asXML();
     }
+    
+    
 }
 
 /*class TestA {

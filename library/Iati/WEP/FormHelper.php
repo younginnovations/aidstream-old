@@ -12,6 +12,7 @@ class Iati_WEP_FormHelper {
         $registryTree = Iati_WEP_TreeRegistry::getInstance();
         //var_dump($registryTree->xml());exit;
         $this->objects = $registryTree->getChildNodes($this->globalObject);
+//        print_r($this->objects);exit;
         
     }
     
@@ -28,17 +29,35 @@ class Iati_WEP_FormHelper {
             $form .= $obj->toHtml($error_code);
         }
         
+        $formArray = array();
+//        $this->getChildForm($this->objects, $formArray);
+
+//        $form .= implode("", $formArray);
         $form_string = $this->_form($this->globalObject->getObjectName(), '#');
         
         $form = sprintf($form_string, $form);
         
-        
-        /*if ($this->globalObject->hasMultiple()) {
-            $form .= $this->_addMore(array('id'=>'add-more'));
-        }*/
-        
         return $this->_wrap($form, 'div');
     }
+    
+    public function getChildForm($object, &$formArray)
+    {
+        $registryTree = Iati_WEP_TreeRegistry::getInstance();
+        foreach ($object as $obj) {
+            /*$error_code = $obj->hasErrors();
+            $formArray[] = $obj->toHtml($error_code);*/
+            if($registryTree->getChildNodes($obj) != null){
+                $obj = $registryTree->getChildNodes($obj);
+                $this->getChildForm($obj, $formArray);
+            }
+            else{
+               $error_code = $obj->hasErrors();
+               $formArray[] = $obj->toHtml($error_code); 
+            }
+            
+        }
+    }
+    
     
     private function _form($name, $action, $method="post", $attribs=null) {
         $_form = sprintf('<fieldset><legend>%s</legend><form id = "element-form" name="%s" action="%s" method="%s" %s>',
