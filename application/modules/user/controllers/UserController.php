@@ -365,5 +365,8 @@ class User_UserController extends Zend_Controller_Action
         $this->_helper->layout()->setLayout('login_page');
     }
 
+    public function testAction(){
+        
+    }
 }
 
