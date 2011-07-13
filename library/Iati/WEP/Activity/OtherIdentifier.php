@@ -1,8 +1,9 @@
 <?php
-class Iati_WEP_Activity_Title extends Iati_WEP_Activity_ElementBase
+class Iati_WEP_Activity_OtherIdentifier extends Iati_WEP_Activity_ElementBase
 {
     protected $text = '';
-    protected $xml_lang;
+    protected $owner_ref = '';
+    protected $owner_name = '';
     protected $title_id = 0;
     protected static $count = 0;
     protected $object_id;
@@ -16,32 +17,31 @@ class Iati_WEP_Activity_Title extends Iati_WEP_Activity_ElementBase
         $this->object_id = self::$count;
         self::$count += 1;
         
-        $this->objectName = 'Title';
-        $this->tableName = 'iati_title';
+        $this->objectName = 'OtherIdentifier';
+        $this->tableName = 'iati_other_identifier';
         $this->html = array(
-                        'text' => '<dt><label for="">%s</label></dt><dd><textarea rows="4" class ="input" name="%s">%s</textarea></dd>',
-                        'xml_lang' => '<dt><label for="">%s</label><dt><dd><select name="%s">%s</select></dd>',
+                        'text' => '<dt><label for="">%s</label></dt><dd><input type= "text" name="%s" value="%s" /></dd>',
+                        'owner_ref' => '<dt><label for="">%s</label></dt><dd><select name="%s">%s</select></dd>',
+                        'owner_name' => '<dt><label for="">%s</label></dt><dd><input type= "text" name="%s" value="%s" /></dd>',
                         'activity_id' => '<dd><input type="hidden" name="activity_id" value="%s"/></dd>',
-                        'title_id' => '<dd><input type="hidden" name="%s" class="title_id" value="%s"/></dd>', 
+                        'title_id' => '<dd><input type="hidden" name="title_id" class ="title_id" value="%s"/></dd>', 
                     );
                     
         $this->validators = array(
                         'text' => 'NotEmpty',
-                        'xml_lang' => 'NotEmpty',
                         'activity_id' => 'NotEmpty',
-                        );
+                    );
         $this->multiple = true;
 //        $this->setProperties();
         //        print $this->object_id;
     }
-
+    
     public function propertySetter($initial, $title_id = 0)
     {
-//        $this->setAccountActivity($accountActivity);
         $this->setProperties($initial);
         $this->setAll($title_id);    
     }
-    
+
     public function getTitleId()
     {
         return $this->title_id;
@@ -50,10 +50,10 @@ class Iati_WEP_Activity_Title extends Iati_WEP_Activity_ElementBase
     public function setHtml()
     {
         $this->html['text'] = sprintf($this->html['text'], 'Text',$this->decorateName('text'), $this->text);
-        $this->html['xml_lang'] = sprintf($this->html['xml_lang'], 'Language', $this->decorateName('xml_lang'), $this->createOptionHtml('xml_lang'));
-        $this->html['activity_id'] = sprintf($this->html['activity_id'],  parent::$activity_id);
-        $this->html['title_id'] = sprintf($this->html['title_id'], $this->decorateName('title_id'),  $this->title_id);
-
+        $this->html['owner_ref'] = sprintf($this->html['owner_ref'], 'Organisation Identifier', $this->decorateName('owner_ref'), $this->createOptionHtml('owner_ref'));
+        $this->html['owner_name'] = sprintf($this->html['owner_name'], 'Organisation Name',$this->decorateName('owner_name'), $this->owner_name);
+        $this->html['activity_id'] = sprintf($this->html['activity_id'],  self::$activity_id);
+        $this->html['title_id'] = sprintf($this->html['title_id'],  $this->title_id);
         //        print $this->text; print $this->xml_lang; print "<br>";
         if($this->hasErrors()){
             foreach($this->error as $key => $eachError){
@@ -62,28 +62,20 @@ class Iati_WEP_Activity_Title extends Iati_WEP_Activity_ElementBase
             }
         }
     }
-
+    
     public function setProperties($data){
-        if($data['@xml_lang']){
-            $xml_lang = $data['@xml_lang'];
-        }
-        elseif($data['xml_lang']){
-            $xml_lang = $data['xml_lang'];
-        }
-        $this->xml_lang = $xml_lang;
+        $this->owner_ref = (key_exists('@owner_ref', $data))?$data['@owner_ref']:$data['owner_ref'];
+        $this->owner_name = (key_exists('@owner_name', $data))?$data['@owner_name']:$data['owner_name'];
         $this->text = $data['text'];
-        
-        
     }
 
-    public function setAll($id = 0)
+    public function setAll( $id = 0)
     {
         $model = new Model_Wep();
-        $defaultFieldValues = $model->getDefaults('default_field_values',  'account_id', parent::$account_id);
+        $defaultFieldValues = $model->getDefaults('default_field_values',  'account_id', self::$account_id);
         $defaults = $defaultFieldValues->getDefaultFields();
          
-        $this->options['xml_lang'] = $model->getCodeArray('Language',null,'1');
-
+        $this->options['owner_ref'] = $model->getCodeArray('OrganisationIdentifier', null, '1');
         if($id){
             $this->title_id = $id;
         }
@@ -92,8 +84,10 @@ class Iati_WEP_Activity_Title extends Iati_WEP_Activity_ElementBase
 
     public function validate()
     {
-        $data['xml_lang'] = $this->xml_lang;
         $data['text'] = $this->text;
+        $data['owner_ref'] = $this->owner_ref;
+        $data['owner_name'] = $this->owner_name;
+        $data['activity_id'] = self::$activity_id;
         
         parent::validate($data);
     }
@@ -106,20 +100,20 @@ class Iati_WEP_Activity_Title extends Iati_WEP_Activity_ElementBase
     public function insert()
     {
         $data['text'] = $this->text;
-        $data['@xml_lang'] = $this->xml_lang;
+        $data['@owner_name'] = $this->owner_name;
+        $data['@owner_ref'] = $this->owner_ref;
         $data['activity_id'] = parent::$activity_id;
-
-        $id = parent::insert($data);
-        $this->title_id = $id;
-        $this->setHtml();
+        parent::insert($data);
     }
 
     public function update()
     {
         $data['text'] = $this->text;
-        $data['@xml_lang'] = $this->xml_lang;
+        $data['text'] = $this->text;
+        $data['@owner_name'] = $this->owner_name;
         $data['activity_id'] = parent::$activity_id;
         $data['id'] = $this->title_id;
+        
         parent::update($data);
     }
 

@@ -65,7 +65,7 @@ class Iati_WEP_Activity_ElementBase
         $style = ($this->object_id == 0)?"style= 'display:none'":'';
         $string = "<div id= 'new-div-$this->object_id' $style>";
         $htmlString = $string . implode("",array_values($this->html));
-        $htmlString .= ($this->object_id > -1)?"<span class='remove'>Remove</a></div>" :"</div>";
+        $htmlString .= ($this->object_id > 1)?"<span class='remove'>Remove</a></div>" :"</div>";
         return $htmlString;
     }
 
