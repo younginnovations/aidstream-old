@@ -6,3 +6,7 @@ public/iaticodes
 tests/annual_csv
 nbproject/
 *.komodoproject
+.buildpath
+.project
+.settings/
+
