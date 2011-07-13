@@ -81,18 +81,23 @@ class Iati_WEP_Activity_IatiIdentifier extends Iati_WEP_Activity_ElementBase
     {
         return $this->hasError;
     }
+    
+    public function getData()
+    {
+        $data['text'] = $this->text;
+        $data['activity_id'] = parent::$activity_id;
+        return $data;
+    }
 
     public function insert()
     {
-        $data['text'] = $this->text;
-
+        $data = $this->getData();   
         parent::insert($data);
     }
 
     public function update()
     {
-        $data['text'] = $this->text;
-        $data['activity_id'] = parent::$activity_id;
+        $data = $this->getData();
         $data['id'] = $this->title_id;
         
         parent::update($data);

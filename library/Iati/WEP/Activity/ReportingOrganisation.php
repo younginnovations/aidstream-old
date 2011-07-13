@@ -112,7 +112,7 @@ class Iati_WEP_Activity_ReportingOrganisation extends Iati_WEP_Activity_ElementB
         $data['type'] = $this->type;
         $data['xml_lang'] = $this->xml_lang;
         $data['text'] = $this->text;
-
+        $data['activity_id'] = parent::$activity_id;
         parent::insert($data);
     }
 
