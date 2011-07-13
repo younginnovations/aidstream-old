@@ -65,8 +65,7 @@ class App_ResourceAssertion implements Zend_Acl_Assert_Interface
         }
 
         $assertion = new App_AssertionCheck();
-        $result = $assertion->resourceCheck($this->userId, $this->getResource());
-
+        $result = $assertion->resourceCheck($this->userId, $this->getResource());        
         return $result;
         
     }

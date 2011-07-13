@@ -84,7 +84,8 @@ class App_Acl extends Zend_Acl
         $this->allow('admin', 'user');
 
         $this->allow('admin', 'default:code-list');
-        $this->allow('admin', 'user:user', 'test', new App_ResourceAssertion('edit'));
+//        $this->allow('admin', 'user:user', 'test', new App_ResourceAssertion('title'));
+//        $this->allow('admin', 'default:wep', 'edit-activity-elements', new App_sResourceAssertion('title'));
         $this->deny('user', 'user:user', 'register');
         $this->allow('superadmin', 'default:admin');
     }
@@ -115,8 +116,10 @@ class App_Acl extends Zend_Acl
          * @param  Zend_Acl_Assert_Interface                $assert
          * @uses   Zend_Acl::setRule()
          * @return Zend_Acl Provides a fluent interface
-         */
-        $this->allow('admin', 'resource', 'test', new App_ResourceAssertion('edit'));
+         */        
+        $this->allow('admin', 'resource', 'ActivityDate', new App_ResourceAssertion('activity_date'));
+        $this->allow('admin', 'resource', 'ParticipatingOrganisation', new App_ResourceAssertion('participating_organisation'));
+        $this->allow('admin', 'resource', 'Title', new App_ResourceAssertion('title'));
     }
 
 }
