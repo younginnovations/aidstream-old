@@ -13,7 +13,7 @@ class App_UserRole implements Zend_Acl_Role_Interface
 
     public function  __construct()
     {
-        $this->userId = Zend_Auth::getInstance()->getIdentity()->userId;
+        $this->userId = Zend_Auth::getInstance()->getIdentity()->user_id;
         $this->userRole = Zend_Auth::getInstance()->getIdentity()->role;
     }
 
