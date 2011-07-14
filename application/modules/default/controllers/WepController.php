@@ -163,6 +163,10 @@ class WepController extends Zend_Controller_Action
                     $defaultFields['account_id'] = $account_id;
                     $defaultFieldId = $model->insertRowsToTable('default_field_groups', $defaultFields);
 
+                    $privilegeFields['resource'] = $fieldString;
+                    $privilegeFields['owner_id'] = $user_id;
+                    $privilegeFieldId = $model->insertRowsToTable('Privilege', $privilegeFields);
+
                     $this->_helper->FlashMessenger->addMessage(array('message' => "Account successfully registered."));
                     $this->_redirect('user/user/login');
                 }
