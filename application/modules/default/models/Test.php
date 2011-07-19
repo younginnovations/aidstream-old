@@ -10,7 +10,7 @@ class Model_Test
 
         $resource->ownerUserId = $userRole->userId;
 
-        if (Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'test')) {
+        if (Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'edit-activity-elements')) {
             echo 'Model level test:: User is allowed to use the resource';
         }
         else

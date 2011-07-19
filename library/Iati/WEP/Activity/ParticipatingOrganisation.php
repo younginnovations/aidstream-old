@@ -14,6 +14,7 @@ class Iati_WEP_Activity_ParticipatingOrganisation extends Iati_WEP_Activity_Elem
 
     public function __construct($id = 0)
     {
+        $this->checkPrivilege();
         parent::__construct();
         $this->title_id = $id;
         $this->object_id = self::$count;
@@ -39,6 +40,19 @@ class Iati_WEP_Activity_ParticipatingOrganisation extends Iati_WEP_Activity_Elem
         $this->multiple = true;
 //        $this->setProperties();
         //        print $this->object_id;
+    }
+
+     public function checkPrivilege()
+    {
+        $userRole = new App_UserRole();
+        $resource = new App_Resource();
+        $resource->ownerUserId = $userRole->userId;
+        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'ParticipatingOrganisation')) {
+            $host  = $_SERVER['HTTP_HOST'];
+            $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+            $extra = 'user/user/login';
+            header("Location: http://$host$uri/$extra");
+        }
     }
 
     public function propertySetter($initial, $title_id = 0)

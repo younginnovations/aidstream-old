@@ -66,15 +66,15 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'user:user', 'myaccount');
         $this->allow('user', 'user:user', 'edit');
         $this->allow('user', 'default:wep', 'list-activities');
-        $this->allow('user', 'default:wep', 'view-activities');
+        $this->allow('user', 'default:wep', 'view-activities', new App_ResourceAssertion('view'));
         $this->allow('user', 'default:wep', 'view-activity');
         $this->allow('user', 'default:wep', 'add-activities');
-        $this->allow('user', 'default:wep', 'add-activity');
+        $this->allow('user', 'default:wep', 'add-activity', new App_ResourceAssertion('add'));
         $this->allow('user', 'default:wep', 'activitybar');
-        $this->allow('user', 'default:wep', 'add-activity-elements');
-        $this->allow('user', 'default:wep', 'edit-activity-elements');
+        $this->allow('user', 'default:wep', 'add-activity-elements', new App_ResourceAssertion('add'));
+        $this->allow('user', 'default:wep', 'edit-activity-elements', new App_ResourceAssertion('edit'));
         $this->allow('user', 'default:addelement');
-        $this->allow('user', 'default:wep', 'delete');
+        $this->allow('user', 'default:wep', 'delete', new App_ResourceAssertion('delete'));
         $this->allow('user', 'default:wep', 'edit-activity');
         $this->allow('user', 'default:wep', 'dashboard');
         $this->allow('user', 'default:wep', 'edit-defaults');
@@ -84,7 +84,14 @@ class App_Acl extends Zend_Acl
         $this->allow('admin', 'user');
 
         $this->allow('admin', 'default:code-list');
-        $this->allow('admin', 'user:user', 'test', new App_ResourceAssertion('edit'));
+        $this->allow('admin', 'default:wep', 'view-activities');
+        $this->allow('admin', 'default:wep', 'delete');
+        $this->allow('admin', 'default:wep', 'add-activity');
+        $this->allow('admin', 'default:wep', 'add-activity-elements');
+        $this->allow('admin', 'default:wep', 'edit-activity-elements');
+        $this->allow('admin', 'default:admin', 'register-user');
+//        $this->allow('admin', 'user:user', 'test', new App_ResourceAssertion('title'));
+//        $this->allow('admin', 'default:wep', 'edit-activity-elements', new App_sResourceAssertion('title'));
         $this->deny('user', 'user:user', 'register');
         $this->allow('superadmin', 'default:admin');
     }
@@ -105,7 +112,6 @@ class App_Acl extends Zend_Acl
     public function setDynamicPermisssion()
     {
         $this->addResource('resource');
-
         /**
          * Adds an "allow" rule to the ACL
          *
@@ -116,7 +122,13 @@ class App_Acl extends Zend_Acl
          * @uses   Zend_Acl::setRule()
          * @return Zend_Acl Provides a fluent interface
          */
-        $this->allow('admin', 'resource', 'test', new App_ResourceAssertion('edit'));
+//        $this->allow('admin', 'resource', 'ActivityDate', new App_ResourceAssertion('activity_date'));
+//        $this->allow('admin', 'resource', 'ParticipatingOrganisation', new App_ResourceAssertion('participating_organisation'));
+//        $this->allow('admin', 'resource', 'Title', new App_ResourceAssertion('title'));
+        $this->allow('user', 'resource', 'ActivityDate', new App_ResourceAssertion('activity_date'));
+        $this->allow('user', 'resource', 'ParticipatingOrganisation', new App_ResourceAssertion('participating_organisation'));
+        $this->allow('user', 'resource', 'Title', new App_ResourceAssertion('title'));
+        $this->allow('admin', 'user');
     }
 
 }
