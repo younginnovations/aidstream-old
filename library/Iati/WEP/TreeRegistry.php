@@ -12,6 +12,7 @@ class Iati_WEP_TreeRegistry {
     private static $_tree;
     private static $_objects = array();
     private static $_instance;
+    private static $_rootNodeId;
     
     private function __construct () {}
     
@@ -47,10 +48,13 @@ class Iati_WEP_TreeRegistry {
         $parentNode = ($parent == NULL) ? self::$_tree :
                                             $this->selectNode($parent);
         
-        $node = $parentNode->addChild(get_class($object));
+        $node = $parentNode->addChild($object->getClassName());
         $nodeId = $this->getNodeId($object);
         $node->addAttribute('id', $nodeId);
         self::$_objects[$nodeId] = $object;
+        if($parent == NULL){
+            self::$_rootNodeId = $nodeId;
+        }
 //        print_r(self::$_objects);exit;
     }
     
@@ -69,13 +73,37 @@ class Iati_WEP_TreeRegistry {
      * @return SimpleXml path object
      */
     public function selectNode ($object) {
-        $xpath = sprintf("//%s[@id='%s']", get_class($object),
+        $xpath = sprintf("//%s[@id='%s']", $object->getClassName(),
                                             $this->getNodeId($object));
         $path = self::$_tree->xpath($xpath);
         // this is because a single object can only belong to
         // one and only one path
         //print_r($path);
         return $path[0];
+    }
+    
+    /**
+     *
+     *
+     */
+    public function getParentNode ($obj) {
+        $currentNode = $this->selectNode($obj);
+        $parentNode = $currentNode->xpath('..');
+        $attr = $parentNode[0]->attributes();
+        if (isset($attr['id'])) {
+            $attr = (string)$attr['id'];
+            return self::$_objects[$attr];
+        }
+        return NULL;
+    }
+    
+    /**
+     *
+     *
+     */
+    public function getRootNode ()
+    {
+        return self::$_objects[self::$_rootNodeId];
     }
     
     /**
@@ -95,7 +123,6 @@ class Iati_WEP_TreeRegistry {
         return $objects;
     }
     
-    
     /**
      * test function
      *
@@ -106,43 +133,4 @@ class Iati_WEP_TreeRegistry {
     
     
 }
-
-/*class TestA {
-    
-    public $apple = 'Apple';
-    
-    public function __construct () {
-        
-    }
-}
-
-class TestB {
-    
-    public $apple = 'NoApple';
-    
-    public function __construct () {
-        
-    }
-}
-
-$test1 = TreeRegistry::getInstance();
-$test1->createTree('fruits');
-
-$a = new TestA();
-$aa = new TestA();
-$aaa = new TestA();
-$b = new TestB();
-$bb = new TestB();
-$bbb = new TestB();
-
-$test1->addNode($a);
-//var_dump($test1->xml());
-$test1->addNode($b, $a);
-$test1->addNode($bb, $a);
-$test1->addNode($bbb, $a);
-$test1->addNode($aa, $b);
-$test1->addNode($aaa, $b);
-var_dump($test1->xml());
-
-$test1->getChildNodes($b);*/
 ?>

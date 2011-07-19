@@ -5,11 +5,11 @@ class WepController extends Zend_Controller_Action
     public function init()
     {
         $this->_helper->layout()->setLayout('layout_wep');
-        
-//        $this->view->blockManager()->enable('partial/dashboard.phtml');
+
+        //        $this->view->blockManager()->enable('partial/dashboard.phtml');
         /*$contextSwitch = $this->_helper->contextSwitch;
-         $contextSwitch->addActionContext('', 'json')
-         ->initContext('json');*/
+        $contextSwitch->addActionContext('', 'json')
+        ->initContext('json');*/
 
 
     }
@@ -19,14 +19,15 @@ class WepController extends Zend_Controller_Action
         //$this->view->blockManager()->disable('partial/dashboard.phtml');
         $this->view->blockManager()->enable('partial/login.phtml');
     }
-    
-    
-    
+
+
+
     public function dashboardAction()
     {
+
         $identity = Zend_Auth::getInstance()->getIdentity();
         $model = new Model_Wep();
-        
+
         $activities_id = $model->listAll('iati_activities', 'account_id', $identity->account_id);
         if(empty($activities_id)){
             $data['@version'] = '01';
@@ -39,14 +40,14 @@ class WepController extends Zend_Controller_Action
         else{
             $activities_id = $activities_id[0]['id'];
         }
-        
+
         $this->view->blockManager()->enable('partial/dashboard.phtml');
         $this->view->activities_id = $activities_id;
     }
 
     public function listActivitiesAction()
     {
-         $this->view->blockManager()->enable('partial/dashboard.phtml');
+        $this->view->blockManager()->enable('partial/dashboard.phtml');
         //@todo list only activities related to the user
         if($_GET){
             if($this->getRequest()->getParam('type')){
@@ -73,8 +74,9 @@ class WepController extends Zend_Controller_Action
             $model = new Model_Wep();
             $rowSet = $model->listAll($tblName, $field, $id);
             $this->view->rowSet = $rowSet;
-            
+
         }
+
     }
 
     /*public function formAction(){
@@ -118,10 +120,10 @@ class WepController extends Zend_Controller_Action
                     //@todo send email notification to super admin
 
                     /*$mailerParams = array('email'=> 'manisha@yipl.com.np');
-                    $toEmail = 'manisha@yipl.com.np';
-                    $template = 'user-register';
-                    $Wep = new App_Notification;
-                    $Wep->sendemail($mailerParams,$toEmail,$template);*/
+                     $toEmail = 'manisha@yipl.com.np';
+                     $template = 'user-register';
+                     $Wep = new App_Notification;
+                     $Wep->sendemail($mailerParams,$toEmail,$template);*/
 
                     //                    print_r($_POST);exit();
                     $account['name'] = $data['organisation_name'];
@@ -172,7 +174,7 @@ class WepController extends Zend_Controller_Action
             }
         }
         $this->view->form = $form;
-         $this->view->blockManager()->enable('partial/login.phtml');
+        $this->view->blockManager()->enable('partial/login.phtml');
     }
 
     public function editDefaultsAction()
@@ -221,7 +223,7 @@ class WepController extends Zend_Controller_Action
                     else if($identity->role == 'admin'){
                         $this->_redirect('wep/dashboard');
                     }
-                    
+
                 }
                 //            print_r($_POST);exit();
 
@@ -230,7 +232,7 @@ class WepController extends Zend_Controller_Action
                 print $e;
             }
         }
-         $this->view->blockManager()->enable('partial/dashboard.phtml');
+        $this->view->blockManager()->enable('partial/dashboard.phtml');
         $this->view->form = $form;
     }
 
@@ -263,9 +265,9 @@ class WepController extends Zend_Controller_Action
                 print $e;
             }
         }
-        
+
         $this->view->form = $form;
-         $this->view->blockManager()->enable('partial/dashboard.phtml');
+        $this->view->blockManager()->enable('partial/dashboard.phtml');
     }
 
     public function addActivityAction()
@@ -319,24 +321,24 @@ class WepController extends Zend_Controller_Action
         }
         return $initial;
     }
-    
+
     public function createGlobalObject($activity_id, $class)
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
-        $classname = 'Iati_WEP_Activity_'. $class;
+        $classname = 'Iati_WEP_Activity_Elements_'. $class;
         $globalobj = new $classname();
-        $globalobj->setAccountActivity(array('account_id'=>$identity->account_id, 'activity_id'=>$activity_id));
-        $globalobj->propertySetter($this->getInitialValues($activity_id));
+        //        $globalobj->setAccountActivity(array('account_id'=>$identity->account_id, 'activity_id'=>$activity_id));
+        $globalobj->propertySetter(array('activity_id' => $activity_id));
         return $globalobj;
     }
-    
+
     public function addToRegistry($object, $parent = NULL)
     {
         $registryTree = Iati_WEP_TreeRegistry::getInstance();
-        $registryTree->addNode($globalobj, $parent);
+        $registryTree->addNode($object, $parent);
         return $registryTree;
     }
-    
+
     public function addActivityElementsAction()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
@@ -389,26 +391,26 @@ class WepController extends Zend_Controller_Action
         }
         else{
             $globalobj = $this->createGlobalObject($activity_id, $class);
-            
+
             $registryTree = Iati_WEP_TreeRegistry::getInstance();
             $registryTree->addNode($globalobj, $parent);
             $obj =  new $classname();
             $obj->propertySetter($initial);
             $obj->setHtml();
             $registryTree->addNode($obj, $globalobj);
-                    
+
             $formObj = new Iati_WEP_FormHelper($globalobj);
             $a = $formObj->getForm();
         }
 
 
         $this->view->form = $a;
-        
+
         $this->view->blockManager()->enable('partial/dashboard.phtml');
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
     }
 
-    function _flatPostArray($post) {
+    /*function _flatPostArray($post) {
         $postKeys = array();
         $return = array();
         $single = array();
@@ -432,9 +434,59 @@ class WepController extends Zend_Controller_Action
             array_push($return, $tmp);
         }
         return $return;
-    }
+    }*/
 
     public function editActivityElementsAction()
+    {
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $model = new Model_Wep();
+
+        $id = null;
+        if($_GET['class']){
+            $class = $this->_request->getParam('class');
+        }
+        if($_GET['activity_id']){
+            $activity_id = $this->_request->getParam('activity_id');
+            $activity_info = $model->listAll('iati_activity', 'id', $activity_id);
+            if(empty($activity_info)){
+                //@todo
+            }
+            $activity = $activity_info[0];
+            $activity['@xml_lang'] = $model->fetchValueById('Language', $activity_info[0]['@xml_lang'], 'Code');
+            $activity['@default_currency'] = $model->fetchValueById('Currency', $activity_info[0]['@default_currency'], 'Code');
+        }
+        $this->view->activityInfo = $activity;
+        $initial = $this->getInitialValues($activity_id, $class);
+        $classname = 'Iati_WEP_Activity_'. $class . 'Factory';
+        if(isset($class)){
+            if($_POST){
+                print_r($_POST);exit;
+            }
+            else{
+                $activity = new Iati_WEP_Activity_Elements_Activity();
+                $activity->setAttributes(array('activity_id' => $activity_id));
+                
+                $dbWrapper = new Iati_WEP_Activity_DbWrapper($activity);
+                $registryTree = Iati_WEP_TreeRegistry::getInstance();
+                $registryTree->addNode($dbWrapper);
+        
+                $factory = new $classname();
+                $factory->setInitialValues($initial);
+                $tree = $factory->factory($class);
+                
+                $formHelper = new Iati_WEP_FormHelper();
+                $a = $formHelper->getForm();
+                
+            }
+        }
+        $this->_helper->layout()->setLayout('layout_wep');
+        $this->view->blockManager()->enable('partial/dashboard.phtml');
+        $this->view->blockManager()->enable('partial/activitymenu.phtml');
+         
+        $this->view->form = $a;
+    }
+
+    public function editActivityElementsAction1()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
         $model = new Model_Wep();
@@ -453,7 +505,7 @@ class WepController extends Zend_Controller_Action
             $activity['@default_currency'] = $model->fetchValueById('Currency', $activity_info[0]['@default_currency'], 'Code');
         }
         $this->view->activityInfo = $activity;
-        $initial = $this->getInitialValues($activity_id);
+        $initial = $this->getInitialValues($activity_id, $class);
         $classname = 'Iati_WEP_Activity_'. $class;
         if($class){
             if($_POST){
@@ -465,19 +517,19 @@ class WepController extends Zend_Controller_Action
                 }
                 $errorFlag = false;
                 $flatPostArray = $this->_flatPostArray($_POST);
-                
+
                 $globalobj = $this->createGlobalObject($activity_id, $class);
-                
+
                 $registryTree = Iati_WEP_TreeRegistry::getInstance();
                 $registryTree->addNode($globalobj);
-                
+
                 $firstObj = array_shift($flatPostArray);
                 foreach($flatPostArray as $eachArray){
                     $newObj =  new $classname($eachArray['title_id']);
                     $newObj->propertySetter($eachArray, $eachArray['title_id'] );
                     $newObj->setHtml();
                     $newObj->validate();
-                    
+
                     if($newObj->hasErrors()){
                         $newObj->setHtml();
                         $errorFlag = true;
@@ -495,7 +547,7 @@ class WepController extends Zend_Controller_Action
                     }
                     $this->_helper->FlashMessenger->addMessage(array('message' => "$class successfully inserted."));
                     $this->_redirect("wep/edit-activity-elements/?activity_id=".$activity_id."&class=".$class);
-                
+
                 }
                 else{
                     $formObj = new Iati_WEP_FormHelper($globalobj);
@@ -507,6 +559,7 @@ class WepController extends Zend_Controller_Action
                 $registryTree = Iati_WEP_TreeRegistry::getInstance();
                 $registryTree->addNode($globalobj);
                 $rowSet = $globalobj->retrieve($activity_id);
+                 
 
                 if(empty($rowSet)){
                     $this->_helper->FlashMessenger->addMessage(array('message' => "$class not found for this activity. Please add $class"));
@@ -545,16 +598,16 @@ class WepController extends Zend_Controller_Action
             $this->view->activities_info = $activities_info[0];
 
             $activityArray = $wepModel->listAll('iati_activity', 'activities_id', $activities_id);
-            
+
             //foreach activity get activity title
             $wepModel = new Model_Wep();
             $titleArray = array();
             if($activityArray){
                 $i = 0;
                 foreach($activityArray as $key=>$activity){
-                    
+
                     $title = $wepModel->listAll('iati_title', 'activity_id', $activity['id']);
-//                    print_r($title[0]['text']);exit;
+                    //                    print_r($title[0]['text']);exit;
                     $activity_array[$i]['title'] = ($title[0]['text'])?$title[0]['text']:'No title';
                     $activity_array[$i]['last_updated_datetime'] = $activity['@last_updated_datetime'];
                     $activity_array[$i]['id'] = $activity['id'];
@@ -562,18 +615,18 @@ class WepController extends Zend_Controller_Action
                 }
             }
 
-           /* $i = 0;
-            foreach($activityArray as $key=> $eachActivity){
-                $xml_lang = $wepModel->getCode('Language', $eachActivity['@xml_lang'], '1');
-                $a[$i]['id'] = $eachActivity['id'];
-                $a[$i]['@xml_lang'] = $xml_lang[0][0]['Code'];
-                $currency = $wepModel->getCode('Currency', $eachActivity['@default_currency'], '1');
-                $a[$i]['@default_currency'] = $currency[0][0]['Code'];
-                $a[$i]['@hierarchy'] = $eachActivity['@hierarchy'];
-                $a[$i]['@last_updated_datetime'] = $eachActivity['@last_updated_datetime'];
-                $a[$i]['activities_id'] = $eachActivity['activities_id'];
-                $i++;
-            }*/
+            /* $i = 0;
+             foreach($activityArray as $key=> $eachActivity){
+             $xml_lang = $wepModel->getCode('Language', $eachActivity['@xml_lang'], '1');
+             $a[$i]['id'] = $eachActivity['id'];
+             $a[$i]['@xml_lang'] = $xml_lang[0][0]['Code'];
+             $currency = $wepModel->getCode('Currency', $eachActivity['@default_currency'], '1');
+             $a[$i]['@default_currency'] = $currency[0][0]['Code'];
+             $a[$i]['@hierarchy'] = $eachActivity['@hierarchy'];
+             $a[$i]['@last_updated_datetime'] = $eachActivity['@last_updated_datetime'];
+             $a[$i]['activities_id'] = $eachActivity['activities_id'];
+             $i++;
+             }*/
 
             $this->view->blockManager()->enable('partial/dashboard.phtml');
             $this->view->activity_array = $activity_array;
@@ -629,14 +682,14 @@ class WepController extends Zend_Controller_Action
             //            print_r($activityArray);
             //$this->view->activity_array = $activityArray;
         }
-         $this->view->blockManager()->enable('partial/dashboard.phtml');
+        $this->view->blockManager()->enable('partial/dashboard.phtml');
     }
 
     public function removeElementsAction()
     {
         if($this->_request->isGet()){
             try{
-//                print_r($this->_request->getParam('class'));exit;
+                //                print_r($this->_request->getParam('class'));exit;
                 $id = $this->_request->getParam('id');
                 $string = 'Iati_WEP_Activity_'.$this->_request->getParam('class');
                 $obj = new $string();
@@ -651,7 +704,7 @@ class WepController extends Zend_Controller_Action
 
         }
         else{
-//            print "dd";exit();
+            //            print "dd";exit();
         }
 
     }

@@ -321,4 +321,36 @@ Iati Organization";
         $obj = new Iati_WEP_Activity_Title();
         
     }
-}
+    
+    public function testTransactionFactory()
+    {
+//        $accountActivity = array('activity_id' => '2', 'account_id'=>'2');
+        $model = new Model_Wep();
+        $defaultFieldValues = $model->getDefaults('default_field_values',  'account_id', '2');
+        $defaults = $defaultFieldValues->getDefaultFields();
+        $initial['@currency'] = $defaults['currency'];
+        $initial['@xml_lang'] = $defaults['language'];
+        $initial['text'] = '';
+        
+        $activity_id = '2';
+        $activity = new Iati_WEP_Activity_Elements_Activity();
+        $activity->setAttributes(array('activity_id' => $activity_id));
+        
+        $dbWrapper = new Iati_WEP_Activity_DbWrapper($activity);
+        $registryTree = Iati_WEP_TreeRegistry::getInstance();
+        $registryTree->addNode($dbWrapper);
+
+       
+        $transactionFactory = new Iati_WEP_Activity_TransactionFactory();
+        $tree = $transactionFactory->factory();
+//         print_r($tree->xml());exit;
+        $formHelper = new Iati_WEP_FormHelper();
+        $a = $formHelper->getForm();
+        
+        print_r($a);exit;
+        /*$registryTree = Iati_WEP_TreeRegistry::getInstance();
+        $childNodes = $registryTree->getChildNodes($globalobj);*/
+//        print_r($tree->xml());exit;
+    }  
+    
+}   
