@@ -37,6 +37,10 @@ class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activi
         self::$count += 1;
     
         $this->setOptions();
+        $this->validators = array(
+                        'transaction_id' => 'NotEmpty',
+                    );
+        $this->multiple = false;
     }
     
     

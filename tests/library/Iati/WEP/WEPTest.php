@@ -353,4 +353,63 @@ Iati Organization";
 //        print_r($tree->xml());exit;
     }  
     
+    
+    public function testFlatPost()
+    {
+        $array = array(
+            'activity_id' => array(
+                '0' => array('0' => '1'),
+            ),
+            'TransactionType_id' => array(
+                '0' => array('0' => '88'),
+            ),
+            'TransactionType_text' => array(
+                '0' => array('1' => 'sdfsdf', 
+                    '2'=> 'sdfsss'),
+                '3' => array('3' => 'ss', 
+                    '5'=> 's'),
+            ),
+            'Provider_Org' => array(
+                '0' => array(
+                    '0'=> array('0' => 'asfasdf'),
+                    '1' => array('1' => 'jsdg')
+                ),
+            ),
+        );
+        
+        $a = $this->getFields('TransactionType', $array);
+//        print_r($a);exit;
+        $b = $this->flatArray($a);
+        print_r($b);exit;
+    }
+    
+    public function getFields($class, $array)
+    {
+        $newArray = array();
+        
+        foreach($array as $key => $value){
+            $key_array = explode('_', $key);
+            if($key_array[0] == $class){
+                array_shift($key_array);
+                $newArray[implode("", $key_array)] = $value;
+            }
+        }
+        return $newArray;
+    }    
+    
+    public function flatArray($array)
+    {
+//        print_r($array);exit;
+        $array_values = array_values($array);
+//        print_r($array_values[0]);exit;
+        $returnArray = array();
+        foreach(array_keys($array_values[0]) as $i ){
+            foreach($array as $key => $val){
+//                print_r($key);
+                $returnArray[$key][$i] = $val[$i];
+            }
+        }
+        return $returnArray;
+    }
+    
 }   

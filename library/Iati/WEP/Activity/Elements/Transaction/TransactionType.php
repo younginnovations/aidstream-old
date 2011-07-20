@@ -7,7 +7,12 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     protected $options = array();
     
     protected $attributes_html = array(
+                'id' => array(
+                    'name' => 'id',
+                    'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
+                ),
                 'text' => array(
+                    
                     'name' => 'text',
                     'label' => 'Text',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
@@ -30,13 +35,18 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
         self::$count += 1;
     
         $this->setOptions();
+        
+        $this->validators = array(
+                        'transaction_id' => 'NotEmpty',
+                        'code' => 'NoEmpty',
+                    );
+        $this->multiple = true;
     }
     
     public function setOptions()
     {
         $model = new Model_Wep();
         
-//        $this->options['code'] = $model->getCodeArray('TransactionType', null, '1');
         $this->options['code'] = array_merge(array('0' => 'Select anyone'), $model->getCodeArray('TransactionType', null, '1'));
     }
     

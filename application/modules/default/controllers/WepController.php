@@ -398,7 +398,7 @@ class WepController extends Zend_Controller_Action
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
     }
 
-    function flatArray ($array) {
+    public function flatArray ($array) {
         $result = array();
         $global = array();
         foreach ($array as $key => $val) {
@@ -484,7 +484,7 @@ class WepController extends Zend_Controller_Action
         $classname = 'Iati_WEP_Activity_'. $class . 'Factory';
         if(isset($class)){
             if($_POST){
-                               // print_r($_POST);exit;
+//                print_r($_POST);exit;
                 $activity = new Iati_WEP_Activity_Elements_Activity();
                 $activity->setAttributes(array('activity_id' => $activity_id));
 
@@ -492,16 +492,16 @@ class WepController extends Zend_Controller_Action
                 $registryTree = Iati_WEP_TreeRegistry::getInstance();
                 $registryTree->addNode($dbWrapper);
 
-                $flatArray = $this->flatArray($_POST);
-                print_r($flatArray);exit;
+//                $flatArray = $this->flatArray($_POST);
                 $factory = new $classname();
                 $factory->setInitialValues($flatArray);
-                $tree = $factory->factory($class);
+                $tree = $factory->factory($class, $_POST);
 
                 $formHelper = new Iati_WEP_FormHelper();
                 $a = $formHelper->getform();
             }
             else{
+//                print "dsdf";exit;
                 $activity = new Iati_WEP_Activity_Elements_Activity();
                 $activity->setAttributes(array('activity_id' => $activity_id));
 

@@ -35,6 +35,7 @@ class Iati_WEP_Activity_TransactionFactory
     public function factory($objectType = 'Transaction', $data = array())
     {
         $this->data = $data;
+//        print_r($this->getFields('TransactionType'));exit;
         $function = 'create'.$objectType;
         $this->globalObject = $this->getRootNode();
         $tree = $this->$function();
@@ -44,7 +45,15 @@ class Iati_WEP_Activity_TransactionFactory
     }
 
     public function createTransaction(){
+        $data = ($this->data) ? $this->getFields('Transaction') : '';
+        
         $transaction = new Iati_WEP_Activity_Elements_Transaction ();
+        $transaction->setAttributes($data);
+        if($this->data){
+            $flatArray = $this->flatArray($data);
+            $transaction->setAttributes($flatArray);
+            $transaction->validate();
+        }
         $dbWrapper = new Iati_WEP_Activity_DbWrapper ($transaction);
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
         $registryTree->addNode ($dbWrapper, $this->globalObject);
@@ -58,9 +67,13 @@ class Iati_WEP_Activity_TransactionFactory
 
     public function createTransactionType($parent = null)
     {
-        $data = ($this->data) ? $this->data['TransactionType'] : $this->getInitialValues();
+        $data = ($this->data) ? $this->getFields('TransactionType') : $this->getInitialValues();
+        $flatArray = $this->flatArray($data);//print_r($flatArray);exit;
         $transaction_type = new Iati_WEP_Activity_Elements_Transaction_TransactionType();
         $transaction_type->setAttributes($data);
+        if($this->data){
+            $transaction_type->validate($data);
+        }
         $dbWrapper = new Iati_WEP_Activity_DbWrapper($transaction_type);
         $registryTree = Iati_WEP_TreeRegistry::getInstance();
         $registryTree->addNode($dbWrapper, $parent);
@@ -69,9 +82,12 @@ class Iati_WEP_Activity_TransactionFactory
 
     public function createProviderOrg($parent = null)
     {
-        $data = ($this->data) ? $this->data['ProviderOrg'] : $this->getInitialValues();
+        $data = ($this->data) ? $this->getFields('ProviderOrg') : $this->getInitialValues();
         $provider_org = new Iati_WEP_Activity_Elements_Transaction_ProviderOrg();
         $provider_org->setAttributes($this->getInitialValues());
+        if($this->data){
+            $provider_org->validate($data);
+        }
         $dbWrapper = new Iati_WEP_Activity_DbWrapper($provider_org);
         $registryTree = Iati_WEP_TreeRegistry::getInstance();
         $registryTree->addNode($dbWrapper, $parent);
@@ -80,7 +96,7 @@ class Iati_WEP_Activity_TransactionFactory
     
     public function createReceiverOrg($parent = null)
     {
-        $data = ($this->data) ? $this->data['ReceiverOrg'] : $this->getInitialValues();
+        $data = ($this->data) ? $this->getFields('ReceiverOrg') : $this->getInitialValues();
         $receiver_org = new Iati_WEP_Activity_Elements_Transaction_ReceiverOrg();
         $receiver_org->setAttributes($this->getInitialValues());
         $dbWrapper = new Iati_WEP_Activity_DbWrapper($receiver_org);
@@ -91,7 +107,7 @@ class Iati_WEP_Activity_TransactionFactory
 
     public function createValue($parent = null)
     {
-        $data = ($this->data) ? $this->data['Value'] : $this->getInitialValues();
+        $data = ($this->data) ? $this->getFields('Value') : $this->getInitialValues();
         $value = new Iati_WEP_Activity_Elements_Transaction_Value();
         $value->setAttributes($this->getInitialValues());
         $dbWrapper = new Iati_WEP_Activity_DbWrapper($value);
@@ -111,10 +127,6 @@ class Iati_WEP_Activity_TransactionFactory
      */
     public function getInitialValues()
     {
-        /*$initial = array(
-                    'code' => '26',
-        );
-        return $initial;*/
         return $this->defaultValues;
     }
 
@@ -124,6 +136,33 @@ class Iati_WEP_Activity_TransactionFactory
         return $registry->getRootNode();
     }
 
+    public function getFields($class)
+    {
+        print_r($this->data);exit;
+        $newArray = array();
+        
+        foreach($this->data as $key => $value){
+            $key_array = explode('_', $key);
+            if($key_array[0] == $class){
+                array_shift($key_array);
+                $newArray[implode("", $key_array)] = $value;
+            }
+        }
+        return $newArray;
+    }    
+    
+    public function flatArray($array)
+    {
+        $array_values = array_values($array);
+        $returnArray = array();
+        foreach(array_keys($array_values[0]) as $i ){
+            foreach($array as $key => $val){
+                $returnArray[$key][$i] = $val[$i];
+            }
+        }
+        return $returnArray;
+    }
+    
     /**
      * need to check if transaction exists for given transaction_id
      * @return unknown_type
@@ -131,7 +170,6 @@ class Iati_WEP_Activity_TransactionFactory
     public function getRowSet()
     {
         $registry = Iati_WEP_TreeRegistry::getInstance();
-
     }
 
 
