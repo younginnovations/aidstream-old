@@ -44,7 +44,7 @@ class Iati_WEP_FormDecorator {
             $name = $this->_object->getClassName() . '_' . $variables['name'];
             //$name .= ($this->_object->hasMultiple()) ?
             //            sprintf('[%s][%s]', $this->_pid, $this->_oid) : '';
-            $name = sprintf('[%s][%s]', $this->_pid, $this->_oid);
+            $name .= sprintf('[%s][%s]', $this->_pid, $this->_oid);
             $options = '';
             if (isset($variables['options'])) {
                 $options = $this->makeOptions($this->_object->getAttr($attribute),
