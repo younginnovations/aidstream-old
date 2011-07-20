@@ -44,7 +44,7 @@ class Iati_WEP_FormDecorator {
                         sprintf('[%1s][%2s]', $this->_pid, $this->_oid) : '';
             $options = '';
             if (isset($htmlattrs[$attribute]['options'])) {
-                $options = $this->makeOptions($this->_object->getOptions($attribute));
+                $options = $this->makeOptions($this->_object->getAttr($attribute),$this->_object->getOptions($attribute));
             }
             $params = array(
                             'name' => $name,
@@ -67,13 +67,15 @@ class Iati_WEP_FormDecorator {
         return $this;
     }
     
-    private function makeOptions ($options=array()) {
+    private function makeOptions ($attr, $options=array()) {
         if (empty($options)) {
             return false;
         }
         $optionHtml = '';
         foreach ($options as $k => $v) {
-            $optionHtml .= sprintf('<option value="%1s">%2s</option>', $k, $v);
+            $sel = ($attr == $k) ? 'selected="selected"' : '';
+            $optionHtml .= sprintf('<option value="%1s" %2s>%3s</option>', $k, $sel, $v);
+//            print $optionHtml;exit;
         }
         return $optionHtml;
     }

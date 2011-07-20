@@ -1,12 +1,13 @@
 <?php 
 class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_ElementBase
 {
-    protected $attributes = array();
+    protected $attributes = array('transaction_id');
     protected $options = array();
+    protected $multiple = true;
     
     protected $attributes_html = array(
-                'text' => array(
-                    'name' => 'title_id',
+                'transaction_id' => array(
+                    'name' => 'transaction_id',
                     'label' => '',
                     'html' => '<input type="hidden" name="%(name)s" %(value)s />',
 //                    'attrs' => array('id' => 'id')
@@ -43,7 +44,6 @@ class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_
     public function getHtmlAttrs() {
         return $this->attributes_html;
     }
-
     
     
 }

@@ -46,29 +46,18 @@ class Iati_WEP_FormHelper {
         $decorate = new Iati_WEP_FormDecorator($obj,
                                     $this->registryTree->getParentNode($obj));
         $decoratedHtml = $decorate->html();
+        $formArray[] = '<fieldset>';
         foreach($decoratedHtml as $eachHtml){
              $formArray[] = "<p> $eachHtml </p>";
         }
-//        $formArray[] = $decorate->html();
+        $formArray[] = '</fieldset>';
         
         if ($this->registryTree->getChildNodes($obj) != NULL) {
             foreach ($this->registryTree->getChildNodes($obj) as $child) {
                 $this->getChildForm($child, $formArray);
             }
         }
-        //foreach ($object as $obj) {
-        //    /*$error_code = $obj->hasErrors();
-        //    $formArray[] = $obj->toHtml($error_code);*/
-        //    if($registryTree->getChildNodes($obj) != null){
-        //        $obj = $registryTree->getChildNodes($obj);
-        //        $this->getChildForm($obj, $formArray);
-        //    }
-        //    else{
-        //       $error_code = $obj->hasErrors();
-        //       $formArray[] = $obj->toHtml($error_code); 
-        //    }
-        //    
-        //}
+        
     }
     
     

@@ -26,7 +26,7 @@ protected $attributes = array('activity_id');
     }
     
     public function getClassName () {
-        return 'TransactionType';
+        return 'Activity';
     }
     
     public function setAttributes ($data) {
