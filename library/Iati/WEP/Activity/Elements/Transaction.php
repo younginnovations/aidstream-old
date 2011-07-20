@@ -14,9 +14,17 @@ class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_
                 ),
     );
     
-
     protected static $count = 0;
     protected $objectId;
+
+    public function __construct()
+    {
+        $this->objectId = self::$count;
+        self::$count += 1;
+    
+//        $this->setOptions();
+    }
+    
     
     
     public function setAttributes () {

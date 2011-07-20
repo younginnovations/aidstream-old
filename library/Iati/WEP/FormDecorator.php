@@ -16,7 +16,7 @@ class Iati_WEP_FormDecorator {
     public function setIds ($ids=array()) {
         if (empty($ids)) {
             $this->_oid = $this->_object->getObjectId();
-            print_r($this->_oid);
+//            var_dump($this->_oid);
             $this->_pid = (isset($this->_parent)) ?
                             $this->_parent->getObjectId() : 0;
         }
@@ -43,7 +43,7 @@ class Iati_WEP_FormDecorator {
             $name = $this->_object->getClassName() . '_' .
                                             $htmlattrs[$attribute]['name'];
             $name .= ($this->_object->hasMultiple()) ?
-                        sprintf('[%1s][%2s]', $this->_pid, $this->_oid) : '';
+                        sprintf('[%s][%s]', $this->_pid, $this->_oid) : '';
             $options = '';
             if (isset($htmlattrs[$attribute]['options'])) {
                 $options = $this->makeOptions($this->_object->getAttr($attribute),$this->_object->getOptions($attribute));

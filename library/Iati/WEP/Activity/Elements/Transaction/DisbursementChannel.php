@@ -26,6 +26,8 @@ class Iati_WEP_Activity_Elements_Transaction_DisbursementChannel extends Iati_WE
     
     public function __construct()
     {
+        $this->objectId = self::$count;
+        self::$count += 1;
         $this->setOptions();
     }
     

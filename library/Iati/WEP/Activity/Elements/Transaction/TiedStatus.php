@@ -33,6 +33,8 @@ class Iati_WEP_Activity_Elements_Transaction_TiedStatus extends Iati_WEP_Activit
     
     public function __construct()
     {
+        $this->objectId = self::$count;
+        self::$count += 1;
         $this->setOptions();
     }
     

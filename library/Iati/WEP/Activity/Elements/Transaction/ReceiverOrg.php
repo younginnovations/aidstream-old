@@ -30,11 +30,15 @@ class Iati_WEP_Activity_Elements_Transaction_ReceiverOrg extends Iati_WEP_Activi
     
     protected static $count = 0;
     protected $objectId;
-    
+
     public function __construct()
     {
+        $this->objectId = self::$count;
+        self::$count += 1;
+    
         $this->setOptions();
     }
+    
     
     public function setOptions()
     {

@@ -8,6 +8,7 @@ class Iati_WEP_Activity_TransactionFactory
 
     public function __construct()
     {
+        
         //        $this->accountActivity = $accountActivity;
     }
     

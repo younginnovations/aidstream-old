@@ -403,17 +403,22 @@ class WepController extends Zend_Controller_Action
         $global = array();
         foreach ($array as $key => $val) {
             if (is_array($val)) {
-                array_push($result, recurArray($key, $val, array()));
+                array_push($result, $this->recurArray($key, $val, array()));
             }
             else {
                 array_push($global, array($key => $val));
             }
         }
-        $final = arrayMerge($result[0], $result[1]);
+        //print_r($global);exit;
+        //print_r($result);exit;
+        $final = $this->arrayMerge($result[0], $result[1]);
         
         for ($i = 2; $i < sizeof($result); $i++) {
-            $final = arrayMerge($final, $result[i]);
+            $final = $this->arrayMerge($final, $result[$i]);
         }
+        
+        //print_r($final);exit;
+        return $final;
 //        print_r($final);
     }
 
@@ -425,7 +430,7 @@ class WepController extends Zend_Controller_Action
 
         if (is_array($arr)) {
             foreach ($arr as $k => $v) {
-                $array[$k] = recurArray($key, $v, array());
+                $array[$k] = $this->recurArray($key, $v, array());
             }
         }
         else {
@@ -444,7 +449,7 @@ class WepController extends Zend_Controller_Action
     function arrayMerge ($arr1, $arr2) {
         foreach ($arr1 as $key => $val) {
             if (is_array($val)) {
-                $arr1[$key] = arrayMerge($val, $arr2[$key]);
+                $arr1[$key] = $this->arrayMerge($val, $arr2[$key]);
             }
             else {
                 list($k, $v) = each($arr2);
@@ -479,7 +484,7 @@ class WepController extends Zend_Controller_Action
         $classname = 'Iati_WEP_Activity_'. $class . 'Factory';
         if(isset($class)){
             if($_POST){
-                //                print_r($_POST);exit;
+                               // print_r($_POST);exit;
                 $activity = new Iati_WEP_Activity_Elements_Activity();
                 $activity->setAttributes(array('activity_id' => $activity_id));
 
@@ -487,11 +492,14 @@ class WepController extends Zend_Controller_Action
                 $registryTree = Iati_WEP_TreeRegistry::getInstance();
                 $registryTree->addNode($dbWrapper);
 
+                $flatArray = $this->flatArray($_POST);
+                print_r($flatArray);exit;
                 $factory = new $classname();
-                $factory->setInitialValues($_POST);
+                $factory->setInitialValues($flatArray);
                 $tree = $factory->factory($class);
 
-
+                $formHelper = new Iati_WEP_FormHelper();
+                $a = $formHelper->getform();
             }
             else{
                 $activity = new Iati_WEP_Activity_Elements_Activity();

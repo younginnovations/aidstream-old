@@ -26,6 +26,8 @@ class Iati_WEP_Activity_Elements_Transaction_Description extends Iati_WEP_Activi
     
     public function __construct()
     {
+        $this->objectId = self::$count;
+        self::$count += 1;
         $this->setOptions();
     }
     

@@ -19,6 +19,14 @@ protected $attributes = array('activity_id');
     protected static $count = 0;
     protected $objectId;
     
+    public function __construct()
+    {
+        $this->objectId = self::$count;
+        self::$count += 1;
+//        $this->setOptions();
+    }
+    
+    
     public function setOptions()
     {
 //        $model = new Model_Wep();
@@ -51,6 +59,7 @@ public function getAttr ($attr) {
     
     public function getObjectId()
     {
+//        print_r()
         return $this->objectId;
     }
 }

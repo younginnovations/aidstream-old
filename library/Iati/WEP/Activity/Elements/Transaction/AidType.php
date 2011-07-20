@@ -33,6 +33,8 @@ class Iati_WEP_Activity_Elements_Transaction_AidType extends Iati_WEP_Activity_E
     
     public function __construct()
     {
+        $this->objectId = self::$count;
+        self::$count += 1;
         $this->setOptions();
     }
     

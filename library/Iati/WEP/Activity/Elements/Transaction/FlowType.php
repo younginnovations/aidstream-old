@@ -33,6 +33,8 @@ class Iati_WEP_Activity_Elements_Transaction_FlowType extends Iati_WEP_Activity_
     
     public function __construct()
     {
+        $this->objectId = self::$count;
+        self::$count += 1;
         $this->setOptions();
     }
     
