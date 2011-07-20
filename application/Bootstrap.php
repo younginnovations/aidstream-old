@@ -21,7 +21,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $frontController->addModuleDirectory(APPLICATION_PATH . '/modules');
 
         // forces the front controller to forward all errors to the default error controller (may already be false by default)
-        $frontController->throwExceptions(true);
+        $frontController->throwExceptions(false);
 
         return $frontController;
     }

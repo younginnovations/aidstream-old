@@ -6,9 +6,7 @@ class ErrorController extends Zend_Controller_Action
     public function errorAction()
     {
         $errors = $this->_getParam('error_handler');
-
-        var_dump($errors->exception);
-                echo"testing";exit;
+        var_dump($errors->exception);exit;
         switch(get_class($error->exception)) {            
             default:
                 break;

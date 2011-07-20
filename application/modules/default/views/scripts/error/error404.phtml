@@ -1,44 +1,4 @@
-<? #$Id:  $ 
+<h1>ERROR 404. </h1>
 
-    $this->headTitle('404 - Not Found', 'APPEND');
+Page Not Found!!!
 
-?>
-
-<tr class="layout_main"><td>
-<div class="content">
-<?=$this->partial('misc/title_bar.phtml', array('title' => '404'));?>
-<div style="float:left;padding-top:15px;padding-left:70px;padding-right:30px;">
-<img src="/images/404_zen.png" width="280" height="381">
-</div>
-
-<div style="padding-top:105px;">
-<img src="/images/404_blurb.png" width="492" height="195">
-</div>
-
-<? if (APPLICATION_ENV == 'development' || APPLICATION_ENV == 'staging'): ?>
-
-	<h1 style="clear:both;">Hello developer, wondering why you're seeing this?</h1>
-	If you just added a new module, and every time you load it you end up here, be sure you added it to the ACL (access control list).
-	<br />/library/Custom/Acl.php &lt;&lt;-- most likely here
-	<br />/library/Custom/Authentication.php
-	<br />/library/Custom/Controller/Plugin/Acl.php
-
-    <h2>The following error occurred:</h2> 
-    <?= $this->message ?> 
- 
-    <h3>Exception information:</h3> 
-    <b>Message:</b> <?= $this->exception->getMessage() ?> 
-
-    <h3>Stack Trace:</h3> 
-    <pre><?= $this->exception->getTraceAsString() ?></pre> 
-
-	<h3>Include Paths:</h3>
-	<pre><?= str_replace(';', ';<br />', get_include_path()) ?></pre>
-
-    <h3>Routing Info:</h3> 
-    <? Custom_Toolkit::printRouting($this->request) ?>
-
-<? endif ?>
-
-</div>
-</td></tr>
