@@ -19,6 +19,14 @@ protected $attributes = array('activity_id');
     protected static $count = 0;
     protected $objectId;
     
+    public function __construct()
+    {
+        $this->objectId = self::$count;
+        self::$count += 1;
+//        $this->setOptions();
+    }
+    
+    
     public function setOptions()
     {
 //        $model = new Model_Wep();
@@ -26,7 +34,7 @@ protected $attributes = array('activity_id');
     }
     
     public function getClassName () {
-        return 'TransactionType';
+        return 'Activity';
     }
     
     public function setAttributes ($data) {
@@ -47,5 +55,11 @@ public function getAttr ($attr) {
             }
         }
         return false;
+    }
+    
+    public function getObjectId()
+    {
+//        print_r()
+        return $this->objectId;
     }
 }

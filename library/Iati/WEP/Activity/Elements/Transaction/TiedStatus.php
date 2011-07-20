@@ -1,10 +1,10 @@
 <?php 
-class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activity_Elements_Transaction
+class Iati_WEP_Activity_Elements_Transaction_TiedStatus extends Iati_WEP_Activity_Elements_Transaction
 {
-    protected $attributes = array('text', 'ref', 'provider_activity_id');
+    protected $attributes = array('text', 'code', 'xml_lang');
     protected $text;
-    protected $ref;
-    protected $provider_activity_id;
+    protected $code;
+    protected $xml_lang;
     protected $options = array();
     
     protected $attributes_html = array(
@@ -14,36 +14,36 @@ class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activi
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('id' => 'id')
                 ),
-                'ref' => array(
+                'code' => array(
                     'name' => 'ref',
-                    'label' => 'Organisation Identifier Code',
+                    'label' => 'Tied Status Code',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
                 ),
-                'provider_activity_id' => array(
-                    'name' => 'provider_activity_id',
-                    'label' => 'Provider Activity Id',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('id' => 'id')
+                'xml_lang' => array(
+                    'name' => 'xml_lang',
+                    'label' => 'Language',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'options' => '',
                 ),
     );
     
     protected static $count = 0;
     protected $objectId;
-
+    
     public function __construct()
     {
         $this->objectId = self::$count;
         self::$count += 1;
-    
         $this->setOptions();
     }
-    
     
     public function setOptions()
     {
         $model = new Model_Wep();
-        $this->options['ref'] = array_merge(array('0' => 'Select anyone'),$model->getCodeArray('OrganisationIdentifier', null, '1'));
+        $this->options['code'] = array_merge(array('0' => 'Select anyone'),$model->getCodeArray('TiedStatus', null, '1'));
+        $this->options['xml_lang'] = array_merge(array('0' => 'Select anyone'),$model->getCodeArray('Language', null, '1'));
+        
     }
     
     public function getOptions($name = NULL)
@@ -52,13 +52,13 @@ class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activi
     }
     
     public function getClassName(){
-        return 'ProviderOrg';
+        return 'TiedStatus';
     }
     
     public function setAttributes ($data) {
-        $this->ref = (key_exists('@ref', $data))?$data['@ref']:$data['ref'];
+        $this->ref = (key_exists('@code', $data))?$data['@code']:$data['code'];
         $this->text = $data['text'];
-        $this->provider_activity_id = key_exists('@provider_activity_id', $data)?$data['@provider_activity_id']:$data['provider_activity_id'];
+        $this->xml_lang = key_exists('@xml_lang', $data)?$data['@xml_lang']:$data['xml_lang'];
     }
     
     public function getHtmlAttrs()

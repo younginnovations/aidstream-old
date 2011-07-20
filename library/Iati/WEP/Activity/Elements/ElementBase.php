@@ -88,6 +88,7 @@ class Iati_WEP_Activity_Elements_ElementBase
         return $this->multiple;
     }
 
+    
     public function getOptions()
     {
         return $this->options;
@@ -128,6 +129,11 @@ class Iati_WEP_Activity_Elements_ElementBase
 
             }
         }
+    }
+    
+    public function getErrorMessage($attr)
+    {
+        return (isset($this->error[$attr])) ? $this->error[$attr] : NULL;
     }
     
     public function hasErrors()

@@ -1,10 +1,10 @@
 <?php 
-class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activity_Elements_Transaction
+class Iati_WEP_Activity_Elements_Transaction_ReceiverOrg extends Iati_WEP_Activity_Elements_Transaction
 {
-    protected $attributes = array('text', 'ref', 'provider_activity_id');
+    protected $attributes = array('text', 'ref', 'receiver_activity_id');
     protected $text;
     protected $ref;
-    protected $provider_activity_id;
+    protected $receiver_activity_id;
     protected $options = array();
     
     protected $attributes_html = array(
@@ -20,9 +20,9 @@ class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activi
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
                 ),
-                'provider_activity_id' => array(
-                    'name' => 'provider_activity_id',
-                    'label' => 'Provider Activity Id',
+                'receiver_activity_id' => array(
+                    'name' => 'receiver_activity_id',
+                    'label' => 'Receiver Activity Id',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('id' => 'id')
                 ),
@@ -52,13 +52,13 @@ class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activi
     }
     
     public function getClassName(){
-        return 'ProviderOrg';
+        return 'ReceiverOrg';
     }
     
     public function setAttributes ($data) {
         $this->ref = (key_exists('@ref', $data))?$data['@ref']:$data['ref'];
         $this->text = $data['text'];
-        $this->provider_activity_id = key_exists('@provider_activity_id', $data)?$data['@provider_activity_id']:$data['provider_activity_id'];
+        $this->receiver_activity_id = (key_exists('@receiver_activity_id', $data))?$data['@receiver_activity_id']:$data['receiver_activity_id'];
     }
     
     public function getHtmlAttrs()

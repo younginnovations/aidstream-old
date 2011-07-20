@@ -51,7 +51,7 @@ class Iati_WEP_Activity_TitleFactory //extends Iati_WEP_Activity_BaseFactory
         return $this->defaultValues;
     }
     
-    public function getGlobalObj()
+    public function getRootNode()
     {
         $registry = Iati_WEP_TreeRegistry::getInstance();
         return $registry->getRootNode();

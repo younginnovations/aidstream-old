@@ -10,11 +10,13 @@ class Iati_WEP_FormDecorator {
     public function __construct ($obj, $parent=NULL) {
         $this->_object = $obj;
         $this->_parent = $parent;
+        $this->setIds();
     }
     
-    public static function setIds ($ids=array()) {
+    public function setIds ($ids=array()) {
         if (empty($ids)) {
             $this->_oid = $this->_object->getObjectId();
+//            var_dump($this->_oid);
             $this->_pid = (isset($this->_parent)) ?
                             $this->_parent->getObjectId() : 0;
         }
@@ -25,34 +27,42 @@ class Iati_WEP_FormDecorator {
     }
     
     public function html ($label=true) {
-        $attributes = $this->_object->getAttributes();
+        //$attributes = $this->_object->getAttributes();
         $htmlattrs = $this->_object->getHtmlAttrs();
-        foreach ($attributes as $attribute) {
+        foreach ($htmlattrs as $attribute => $variables) {
             $html = '';
             $params = array();
-            $id = isset($htmlattrs[$attribute]['attrs']['id']) ?
-                                $htmlattrs[$attribute]['attrs']['id'] .
-                                '-' . $this->_oid : '';
-            if ($label) {
+            $id = isset($variables['attrs']['id']) ?
+                                $variables['attrs']['id'] . '-' . $this->_oid : '';
+            
+            if ($label && isset($variables['label'])) {
                 $html .= sprintf('<label for="%1s">%2s</label>',
-                                 $id, $htmlattrs[$attribute]['label']
+                                 $id, $variables['label']
                                  );
             }
-            $name = $this->_object->getClassName() . '_' .
-                                            $htmlattrs[$attribute]['name'];
-            $name .= ($this->_object->hasMultiple()) ?
-                        sprintf('[%1s][%2s]', $this->_pid, $this->_oid) : '';
+            
+            $name = $this->_object->getClassName() . '_' . $variables['name'];
+            //$name .= ($this->_object->hasMultiple()) ?
+            //            sprintf('[%s][%s]', $this->_pid, $this->_oid) : '';
+            $name .= sprintf('[%s][%s]', $this->_pid, $this->_oid);
             $options = '';
-            if (isset($htmlattrs[$attribute]['options'])) {
-                $options = $this->makeOptions($this->_object->getOptions($attribute));
+            if (isset($variables['options'])) {
+                $options = $this->makeOptions($this->_object->getAttr($attribute),
+                                              $this->_object->getOptions($attribute));
             }
+            
             $params = array(
                             'name' => $name,
                             'value' => ($this->_object->getAttr($attribute)) ? $this->_object->getAttr($attribute) : '',
                             'options' => $options,
-                            'attrs' => $this->_attrs($htmlattrs[$attribute]['attrs'])
+                            'attrs' => $this->_attrs($variables['attrs'])
                             );
-            $html .= sprintfn($htmlattrs[$attribute]['html'], $params);
+            $html .= sprintfn($variables['html'], $params);
+            
+            if ($this->_object->hasErrors() && $this->_object->getErrorMessage($attribute)) {
+                $html .= '<p class="error">' . $this->_object->getErrorMessage($attribute) . '</p>';
+            }
+            
             array_push($this->_html, $html);
         }
         return $this->_html;
@@ -67,13 +77,15 @@ class Iati_WEP_FormDecorator {
         return $this;
     }
     
-    private function makeOptions ($options=array()) {
+    private function makeOptions ($attr, $options=array()) {
         if (empty($options)) {
             return false;
         }
         $optionHtml = '';
         foreach ($options as $k => $v) {
-            $optionHtml .= sprintf('<option value="%1s">%2s</option>', $k, $v);
+            $sel = ($attr == $k) ? 'selected="selected"' : '';
+            $optionHtml .= sprintf('<option value="%1s" %2s>%3s</option>', $k, $sel, $v);
+//            print $optionHtml;exit;
         }
         return $optionHtml;
     }
