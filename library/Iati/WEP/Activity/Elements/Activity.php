@@ -48,4 +48,9 @@ public function getAttr ($attr) {
         }
         return false;
     }
+    
+    public function getObjectId()
+    {
+        return $this->objectId;
+    }
 }

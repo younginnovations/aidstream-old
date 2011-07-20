@@ -10,11 +10,13 @@ class Iati_WEP_FormDecorator {
     public function __construct ($obj, $parent=NULL) {
         $this->_object = $obj;
         $this->_parent = $parent;
+        $this->setIds();
     }
     
-    public static function setIds ($ids=array()) {
+    public function setIds ($ids=array()) {
         if (empty($ids)) {
             $this->_oid = $this->_object->getObjectId();
+            print_r($this->_oid);
             $this->_pid = (isset($this->_parent)) ?
                             $this->_parent->getObjectId() : 0;
         }

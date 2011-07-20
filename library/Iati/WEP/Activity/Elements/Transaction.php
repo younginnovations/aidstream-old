@@ -45,5 +45,9 @@ class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_
         return $this->attributes_html;
     }
     
+    public function getObjectId()
+    {
+        return $this->objectId;
+    }
     
 }
