@@ -77,6 +77,10 @@ class Iati_WEP_FormDecorator {
                             );
             $html .= sprintfn($variables['html'], $params);
             
+            if ($this->_object->getValidator($attribute) == 'NotEmpty') {
+                $html .= '*';
+            }
+            
             if ($this->_object->hasErrors() && $this->_object->getErrorMessage($attribute)) {
                 $html .= '<p class="error">' . $this->_object->getErrorMessage($attribute) . '</p>';
             }
