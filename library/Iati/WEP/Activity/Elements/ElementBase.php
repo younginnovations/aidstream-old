@@ -112,6 +112,7 @@ class Iati_WEP_Activity_Elements_ElementBase
     
     public function validate($data)
     {
+        print_r($data);exit;
         foreach($data as $key => $eachData){
 
             if(empty($this->validators[$key])){

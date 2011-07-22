@@ -5,9 +5,14 @@ class Iati_WEP_Activity_Elements_Transaction_ReceiverOrg extends Iati_WEP_Activi
     protected $text;
     protected $ref;
     protected $receiver_activity_id;
+    protected $id = 0;
     protected $options = array();
     
     protected $attributes_html = array(
+                'id' => array(
+                    'name' => 'id',
+                    'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
+                ),
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Text',

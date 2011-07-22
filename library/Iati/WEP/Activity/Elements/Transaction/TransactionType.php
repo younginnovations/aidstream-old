@@ -4,6 +4,7 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     protected $attributes = array('text', 'code');
     protected $text;
     protected $code;
+    protected $id = 0;
     protected $options = array();
     
     protected $attributes_html = array(
@@ -37,9 +38,8 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
         $this->setOptions();
         
         $this->validators = array(
-                        'transaction_id' => 'NotEmpty',
-                        'code' => 'NoEmpty',
-                    );
+                                'code' => 'NotEmpty',
+                            );
         $this->multiple = true;
     }
     
@@ -47,7 +47,8 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     {
         $model = new Model_Wep();
         
-        $this->options['code'] = array_merge(array('0' => 'Select anyone'), $model->getCodeArray('TransactionType', null, '1'));
+        $this->options['code'] = array_merge(array('0' => 'Select anyone'), 
+                                                $model->getCodeArray('TransactionType', null, '1'));
     }
     
     public function getClassName () {
@@ -72,5 +73,13 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     public function getObjectId()
     {
         return $this->objectId;
+    }
+    
+    public function validate()
+    {
+        $data['code'] = $this->code;
+        $data['text'] = $this->text;
+        
+        parent::validate($data);
     }
 }

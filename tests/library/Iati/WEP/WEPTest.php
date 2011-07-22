@@ -356,18 +356,34 @@ Iati Organization";
     
     public function testFlatPost()
     {
-        $array = array(
+        
+        $array1 = array(
+//            '0'=> array(
+                'Title_id' => array(
+                    '0' => '1',
+                    '1'=>'2', 
+                ),
+                'Title_text' => array(
+                    '0' => 'title1',
+                    '1' => 'title2',
+                ),
+//            ),
+            
+        );
+        /*$array = array(
             'activity_id' => array(
                 '0' => array('0' => '1'),
             ),
-            'TransactionType_id' => array(
-                '0' => array('0' => '88'),
-            ),
+            
             'TransactionType_text' => array(
                 '0' => array('1' => 'sdfsdf', 
                     '2'=> 'sdfsss'),
                 '3' => array('3' => 'ss', 
                     '5'=> 's'),
+            ),
+            'TransactionType_id' => array(
+                '0' => array('0' => '88'),
+                '3' => array('0' => '7'),
             ),
             'Provider_Org' => array(
                 '0' => array(
@@ -375,15 +391,69 @@ Iati Organization";
                     '1' => array('1' => 'jsdg')
                 ),
             ),
-        );
+        );*/
         
-        $a = $this->getFields('TransactionType', $array);
-//        print_r($a);exit;
-        $b = $this->flatArray($a);
+        $array = array(
+    'Activity_activity_id' => '2',
+    'Transaction_transaction_id' => array(
+        '0' => '2',
+        '1' => '5'
+    ),
+    'TransactionType_name' => array(
+        '0' => array(
+            '1' => 'ab', '2' => 'cd', '3' => 'ef'
+        ),
+        '1' => array(
+            '1' => 'abc', '2' => 'cde', '3' => 'efg'
+        )
+    ),
+    'TransactionType_code' => array(
+        '0' => array(
+            '1' => 'abb', '2' => 'cdd', '3' => 'eff'
+        ),
+        '1' => array(
+            '1' => 'abbb', '2' => 'cddd', '3' => 'efff'
+        )
+    ),
+    'ProviderInfo_name' => array(
+        '0' => array(
+            '1' => 'ab', '2' => 'cd', '3' => 'ef'
+        ),
+        '1' => array(
+            '1' => 'abc', '2' => 'cde', '3' => 'efg'
+        )
+    ),
+    'ProviderInfo_code' => array(
+        '0' => array(
+            '1' => 'abb', '2' => 'cdd', '3' => 'eff'
+        ),
+        '1' => array(
+            '1' => 'abbb', '2' => 'cddd', '3' => 'efff'
+        )
+    ),
+    'ThirdLevel_subject' => array(
+        '0' => array(
+            '1' => array('0' => 'xxx'),
+            '2' => array('0' => 'xxx'),
+            '3' => array('0' => 'xxx')
+        ),
+        '1' => array(
+            '1' => array('0' => 'yyy'),
+            '2' => array('0' => 'yyy'),
+            '3' => array('0' => 'yyy')
+        )
+    ),
+    'submit' => 'Go'
+);
+        
+//        $a = $this->getFields('TransactionType', $array);
+//        print_r($a);exit;[0] => Array
+                       
+        $b = $this->flatArray($array1);
         print_r($b);exit;
     }
     
-    public function getFields($class, $array)
+    /*public function getFields($class, $array)
     {
         $newArray = array();
         
@@ -399,17 +469,146 @@ Iati Organization";
     
     public function flatArray($array)
     {
-//        print_r($array);exit;
+        print_r($array);testFlatPost
         $array_values = array_values($array);
-//        print_r($array_values[0]);exit;
         $returnArray = array();
+//        print_r($array_values);exit;
         foreach(array_keys($array_values[0]) as $i ){
             foreach($array as $key => $val){
-//                print_r($key);
                 $returnArray[$key][$i] = $val[$i];
             }
         }
-        return $returnArray;
+//        print_r($returnArray);
+        
+        $finalArray = array();
+        foreach($returnArray as $key => $value){
+            foreach($value as $k => $v){
+                $finalArray[$k][$key] = $v;
+            }
+        }
+        
+        print_r($finalArray);exit;
+//        return $returnArray;
+    }*/
+    
+
+function flatArray ($array) {
+    $result = array();
+    
+    foreach ($array as $key => $val) {
+        array_push($result, $this->recurArray($key, $val, array()));
     }
     
+//    print_r($result);
+    
+    $result_depths = array();
+    foreach($result as $array) {
+        $depth = (is_array($array)) ? $this->array_depth($array) : 1;
+        array_push($result_depths, $depth);
+    }
+    
+    $max_depth = max($result_depths);
+    
+    $final = $this->combineAll($result, $max_depth);
+    
+//    print_r($final);
+    
+    //print_r($final['0']);
+    foreach($final as $key => $val) {
+        if (!is_array($val)) {
+            continue;
+        }
+        
+        $result_depths = array();
+        foreach($final[$key] as $array) {
+            $depth = (is_array($array)) ? $this->array_depth($array) : 1;
+            array_push($result_depths, $depth);
+        }
+        $max_depth = max($result_depths);
+        $final[$key] = $this->combineAll($final[$key], $max_depth);
+    }
+    
+    
+    return $final;
+//    print_r($final);
+}
+
+function combineAll($array, $max_depth=4, $depth=1, $result=array()) {
+    $process = array();
+    foreach($array as $k => $a) {
+        if (is_array($a)) {
+            if ($this->array_depth($a) == $depth) {
+                array_push($process, $a);
+            }
+        }
+        else {
+            $result[$k] = $a;
+        }
+    }
+    
+    if ($depth > $max_depth) {
+        return $result;
+    }
+    
+    while (!empty($process)) {
+        $arr = array_shift($process);
+        
+        foreach ($arr as $key => $val) {
+            if (isset($result[$key]) && is_array($result[$key])) {
+                //print_r($result[$key]);
+                
+                if (sizeof($val) < 2) {
+                    list($k, $v) = each($val);
+                    $result[$key][$k] = $v;
+                }
+                else {
+                    array_push($result[$key], $val);
+                }
+            }
+            else {
+                $result[$key] = $val;
+            }
+        }
+    }
+    
+    return $this->combineAll($array, $max_depth, ++$depth, $result);
+}
+
+/**
+ * Actual recursion happens here
+ *
+ */
+function recurArray ($key, $arr, $array) {
+    
+    if (is_array($arr)) {
+        foreach ($arr as $k => $v) {
+            $array[$k] = $this->recurArray($key, $v, array());
+        }
+    }
+    else {
+        return array($key => $arr);
+    }
+    
+    return $array;
+}
+
+/**
+ *
+ * http://stackoverflow.com/questions/262891/
+ *    is-there-a-way-to-find-how-how-deep-a-php-array-is
+ */
+function array_depth ($array) {
+    $max_depth = 1;
+    
+    foreach ($array as $value) {
+        if (is_array($value)) {
+            $depth = $this->array_depth($value) + 1;
+            
+            if ($depth > $max_depth) {
+                $max_depth = $depth;
+            }
+        }
+    }
+    return $max_depth;
+}
 }   

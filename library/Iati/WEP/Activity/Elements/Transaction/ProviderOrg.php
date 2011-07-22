@@ -5,9 +5,15 @@ class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activi
     protected $text;
     protected $ref;
     protected $provider_activity_id;
+    protected $id = 0;
     protected $options = array();
+    protected $validators;
     
     protected $attributes_html = array(
+                'id' => array(
+                    'name' => 'id',
+                    'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
+                ),
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Text',
@@ -30,6 +36,7 @@ class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activi
     
     protected static $count = 0;
     protected $objectId;
+    protected $multiple;
 
     public function __construct()
     {
@@ -40,7 +47,7 @@ class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activi
         $this->validators = array(
                         'transaction_id' => 'NotEmpty',
                     );
-        $this->multiple = false;
+        $this->multiple = true;
     }
     
     
@@ -68,5 +75,9 @@ class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activi
     public function getHtmlAttrs()
     {
         return $this->attributes_html;
+    }
+    public function hasMultiple()
+    {
+        return $this->multiple;
     }
 }

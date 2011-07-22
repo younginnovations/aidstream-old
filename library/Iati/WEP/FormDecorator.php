@@ -42,20 +42,20 @@ class Iati_WEP_FormDecorator {
                                  );
             }
             
-            $name = $this->_object->getClassName() . '_' . $variables['name'];
+            $name = $this->_object->getClassName() . '_' . $variables['name'];            
             //$name .= ($this->_object->hasMultiple()) ?
             //            sprintf('[%s][%s]', $this->_pid, $this->_oid) : '';
-            
             foreach ($this->_parents as $par) {
+//                print_r(sizeof($par));exit;
                 $_id = NULL;
                 if (is_object($par) && $par->hasMultiple()) {
-                    $_id = $par->getObjectId();
+                    $_id = (string)$par->getObjectId();
                 }
                 elseif (is_int($par)) {
-                    $_id = (int)$par;
+                    $_id = (string)$par;
                 }
                 else {}
-                $name .= ($_id != NULL) ? sprintf('[%s]', $_id) : '';
+                $name .= ($_id != NULL) ? "[{$_id}]" : '';
             }
             
             

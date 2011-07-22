@@ -398,67 +398,6 @@ class WepController extends Zend_Controller_Action
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
     }
 
-    public function flatArray ($array) {
-        $result = array();
-        $global = array();
-        foreach ($array as $key => $val) {
-            if (is_array($val)) {
-                array_push($result, $this->recurArray($key, $val, array()));
-            }
-            else {
-                array_push($global, array($key => $val));
-            }
-        }
-        //print_r($global);exit;
-        //print_r($result);exit;
-        $final = $this->arrayMerge($result[0], $result[1]);
-        
-        for ($i = 2; $i < sizeof($result); $i++) {
-            $final = $this->arrayMerge($final, $result[$i]);
-        }
-        
-        //print_r($final);exit;
-        return $final;
-//        print_r($final);
-    }
-
-    /**
-     * Actual recursion happens here
-     *
-     */
-    function recurArray ($key, $arr, $array) {
-
-        if (is_array($arr)) {
-            foreach ($arr as $k => $v) {
-                $array[$k] = $this->recurArray($key, $v, array());
-            }
-        }
-        else {
-            return array($key => $arr);
-        }
-
-        return $array;
-    }
-
-    /**
-     * Merges the array elements
-     * array must be identical in shape and size
-     *
-     *
-     */
-    function arrayMerge ($arr1, $arr2) {
-        foreach ($arr1 as $key => $val) {
-            if (is_array($val)) {
-                $arr1[$key] = $this->arrayMerge($val, $arr2[$key]);
-            }
-            else {
-                list($k, $v) = each($arr2);
-                $arr1[$k] = $v;
-                return $arr1;
-            }
-        }
-        return $arr1;
-    }
 
     public function editActivityElementsAction()
     {
@@ -484,30 +423,37 @@ class WepController extends Zend_Controller_Action
         $classname = 'Iati_WEP_Activity_'. $class . 'Factory';
         if(isset($class)){
             if($_POST){
-//                print_r($_POST);exit;
+                print_r($_POST);exit;
                 $activity = new Iati_WEP_Activity_Elements_Activity();
                 $activity->setAttributes(array('activity_id' => $activity_id));
-
-                $dbWrapper = new Iati_WEP_Activity_DbWrapper($activity);
                 $registryTree = Iati_WEP_TreeRegistry::getInstance();
-                $registryTree->addNode($dbWrapper);
+                $registryTree->addNode($activity);
 
-//                $flatArray = $this->flatArray($_POST);
-                $factory = new $classname();
+                $factory = new $classname ();
+                $factory->setInitialValues($flatArray);
+                
+                /*$factory = new $classname();
                 $factory->setInitialValues($flatArray);
                 $tree = $factory->factory($class, $_POST);
-
-                $formHelper = new Iati_WEP_FormHelper();
-                $a = $formHelper->getform();
+                
+                if($factory->hasError()){
+                    $formHelper = new Iati_WEP_FormHelper();
+                    $a = $formHelper->getform();
+                }
+                else{
+                    print "Ssdf";exit;
+                }*/
             }
             else{
 //                print "dsdf";exit;
                 $activity = new Iati_WEP_Activity_Elements_Activity();
                 $activity->setAttributes(array('activity_id' => $activity_id));
 
-                $dbWrapper = new Iati_WEP_Activity_DbWrapper($activity);
+                
+                //@todo check if the element record exists for the activity_id (Db Layer)
+                
                 $registryTree = Iati_WEP_TreeRegistry::getInstance();
-                $registryTree->addNode($dbWrapper);
+                $registryTree->addNode($activity);
 
                 $factory = new $classname();
                 $factory->setInitialValues($initial);
@@ -805,10 +751,7 @@ class WepController extends Zend_Controller_Action
         $this->_helper->layout()->setLayout('layout_wep');
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
     }
-
-    public function testAction()
-    {
-
-    }
+    
+    
 
 }

@@ -2,8 +2,7 @@
 class Iati_WEP_Activity_Elements_Activity extends Iati_WEP_Activity_Elements_ElementBase
 {
 protected $attributes = array('activity_id');
-    protected $text;
-    protected $code;
+    protected $activity_id;
     protected $options = array();
     
     protected $attributes_html = array(
@@ -38,7 +37,7 @@ protected $attributes = array('activity_id');
     }
     
     public function setAttributes ($data) {
-        $this->text = $data['activity_id'];
+        $this->activity_id = $data['activity_id'];
     }
 public function getAttributes () {
         return $this->attributes;

@@ -2,6 +2,7 @@
 class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_ElementBase
 {
     protected $attributes = array('transaction_id');
+    protected $transaction_id;
     protected $options = array();
     protected $multiple = true;
     
@@ -9,7 +10,7 @@ class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_
                 'transaction_id' => array(
                     'name' => 'transaction_id',
                     'label' => '',
-                    'html' => '<input type="hidden" name="%(name)s" %(value)s />',
+                    'html' => '<input type="hidden" name="%(name)s" value="%(value)s" />',
 //                    'attrs' => array('id' => 'id')
                 ),
     );
@@ -35,8 +36,8 @@ class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_
     
     
     
-    public function setAttributes () {
-        
+    public function setAttributes ($data) {
+        $this->transaction_id = $data['transaction_id'];
     }
     
     public function getClassName () {
