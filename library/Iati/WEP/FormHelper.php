@@ -32,7 +32,7 @@ class Iati_WEP_FormHelper {
     public function getChildForm($obj, &$formArray)
     {
         $decorate = new Iati_WEP_FormDecorator($obj,
-                                    $this->registryTree->getParentNode($obj));
+                                    $this->registryTree->getParents($obj));
         $decoratedHtml = $decorate->html();
         
         $formArray[] = '<fieldset>';

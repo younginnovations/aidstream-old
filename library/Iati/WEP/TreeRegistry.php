@@ -101,6 +101,24 @@ class Iati_WEP_TreeRegistry {
      *
      *
      */
+    public function getParents ($obj) {
+        $parents = array();
+        
+        $parent = $this->getParentNode($obj);
+        
+        while ($parent != NULL) {
+            array_unshift($parents, $parent);
+            
+            $parent = $this->getParentNode($parent);
+        }
+        
+        return $parents;
+    }
+    
+    /**
+     *
+     *
+     */
     public function getRootNode ()
     {
         return self::$_objects[self::$_rootNodeId];

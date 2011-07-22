@@ -2,17 +2,17 @@
 class Iati_WEP_FormDecorator {
     
     private $_object;
-    private $_parent;
+    private $_parents;
     private $_html = array();
-    private $_oid;
-    private $_pid;
+    //private $_oid;
+    //private $_pid;
     
-    public function __construct ($obj, $parent=NULL) {
+    public function __construct ($obj, $parents=array()) {
         $this->_object = $obj;
-        $this->_parent = $parent;
-        $this->setIds();
+        $this->_parents = $parents;
     }
     
+    /*
     public function setIds ($ids=array()) {
         if (empty($ids)) {
             $this->_oid = $this->_object->getObjectId();
@@ -25,6 +25,7 @@ class Iati_WEP_FormDecorator {
             $this->_pid = $ids['parentId'];
         }
     }
+    */
     
     public function html ($label=true) {
         //$attributes = $this->_object->getAttributes();
@@ -44,7 +45,20 @@ class Iati_WEP_FormDecorator {
             $name = $this->_object->getClassName() . '_' . $variables['name'];
             //$name .= ($this->_object->hasMultiple()) ?
             //            sprintf('[%s][%s]', $this->_pid, $this->_oid) : '';
-            $name .= sprintf('[%s][%s]', $this->_pid, $this->_oid);
+            
+            foreach ($this->_parents as $par) {
+                $_id = NULL;
+                if (is_object($par) && $par->hasMultiple()) {
+                    $_id = $par->getObjectId();
+                }
+                elseif (is_int($par)) {
+                    $_id = (int)$par;
+                }
+                else {}
+                $name .= ($_id != NULL) ? sprintf('[%s]', $_id) : '';
+            }
+            
+            
             $options = '';
             if (isset($variables['options'])) {
                 $options = $this->makeOptions($this->_object->getAttr($attribute),
