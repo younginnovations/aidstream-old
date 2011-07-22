@@ -46,7 +46,7 @@ class Iati_WEP_FormDecorator {
             //$name .= ($this->_object->hasMultiple()) ?
             //            sprintf('[%s][%s]', $this->_pid, $this->_oid) : '';
             foreach ($this->_parents as $par) {
-//                print_r(sizeof($par));exit;
+                
                 $_id = NULL;
                 if (is_object($par) && $par->hasMultiple()) {
                     $_id = (string)$par->getObjectId();
@@ -54,10 +54,14 @@ class Iati_WEP_FormDecorator {
                 elseif (is_int($par)) {
                     $_id = (string)$par;
                 }
-                else {}
+                else {
+                    print_r($par);
+                }
                 $name .= ($_id != NULL) ? "[{$_id}]" : '';
             }
             
+            $name .= ($this->_object->hasMultiple()) ?
+                        sprintf("[%s]", $this->_object->getObjectId()) : '';
             
             $options = '';
             if (isset($variables['options'])) {
