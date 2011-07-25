@@ -40,6 +40,10 @@ class Iati_WEP_FormDecorator {
                 $html .= sprintf('<label for="%1s">%2s</label>',
                                  $id, $variables['label']
                                  );
+            
+            if ($this->_object->getValidator($attribute) == 'NotEmpty') {
+                $html .= '* ';
+            }
             }
             
             $name = $this->_object->getClassName() . '_' . $variables['name'];            
@@ -55,7 +59,7 @@ class Iati_WEP_FormDecorator {
                     $_id = (string)$par;
                 }
                 else {
-                    print_r($par);
+//                    print_r($par);
                 }
                 $name .= ($_id != NULL) ? "[{$_id}]" : '';
             }
@@ -77,9 +81,6 @@ class Iati_WEP_FormDecorator {
                             );
             $html .= sprintfn($variables['html'], $params);
             
-            if ($this->_object->getValidator($attribute) == 'NotEmpty') {
-                $html .= '*';
-            }
             
             if ($this->_object->hasErrors() && $this->_object->getErrorMessage($attribute)) {
                 $html .= '<p class="error">' . $this->_object->getErrorMessage($attribute) . '</p>';
@@ -103,7 +104,7 @@ class Iati_WEP_FormDecorator {
         if (empty($options)) {
             return false;
         }
-        $optionHtml = '';
+        $optionHtml = '<option value="" label="Select anyone">Select anyone</option>';
         foreach ($options as $k => $v) {
             $sel = ($attr == $k) ? 'selected="selected"' : '';
             $optionHtml .= sprintf('<option value="%1s" %2s>%3s</option>', $k, $sel, $v);

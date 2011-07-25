@@ -63,7 +63,6 @@ class Model_Wep extends Zend_Db_Table_Abstract
             $fieldName[$i] = $tmpName;
             $i++;
         }
-        //        print_r($fieldName);exit();
         return $fieldName;
     }
 
@@ -132,14 +131,11 @@ class Model_Wep extends Zend_Db_Table_Abstract
             
             $finalResult[$eachResult['id']] = $eachResult['Code']. $name;
         }
-//        print_r($finalResult);exit(); 
-//        $result[1] = $this->_getCols($rowSet);
         return $finalResult;
     }
 
     public function insertRowsToTable($tblName, $data){
         $this->_name = $tblName;
-//        print_r($data);exit();
         return parent::insert($data);
     }
 

@@ -7,7 +7,8 @@ class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activi
     protected $provider_activity_id;
     protected $id = 0;
     protected $options = array();
-    protected $validators;
+    protected $className = 'ProviderOrg';
+    protected $validators= array('ref' => 'NotEmpty');
     
     protected $attributes_html = array(
                 'id' => array(
@@ -36,7 +37,9 @@ class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activi
     
     protected static $count = 0;
     protected $objectId;
-    protected $multiple;
+    protected $error = array();
+    protected $hasError = false;
+    protected $multiple = false;
 
     public function __construct()
     {
@@ -44,17 +47,13 @@ class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activi
         self::$count += 1;
     
         $this->setOptions();
-        $this->validators = array(
-                        'transaction_id' => 'NotEmpty',
-                    );
-        $this->multiple = true;
     }
     
     
     public function setOptions()
     {
         $model = new Model_Wep();
-        $this->options['ref'] = array_merge(array('0' => 'Select anyone'),$model->getCodeArray('OrganisationIdentifier', null, '1'));
+        $this->options['ref'] = $model->getCodeArray('OrganisationIdentifier', null, '1');
     }
     
     public function getOptions($name = NULL)
@@ -62,8 +61,9 @@ class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activi
         return $this->options[$name];
     }
     
-    public function getClassName(){
-        return 'ProviderOrg';
+    public function getObjectId()
+    {
+        return $this->objectId;
     }
     
     public function setAttributes ($data) {
@@ -72,12 +72,33 @@ class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activi
         $this->provider_activity_id = key_exists('@provider_activity_id', $data)?$data['@provider_activity_id']:$data['provider_activity_id'];
     }
     
-    public function getHtmlAttrs()
+    public function getValidator($attr)
     {
-        return $this->attributes_html;
+        return $this->validators[$attr];
     }
-    public function hasMultiple()
+    
+    public function validate()
     {
-        return $this->multiple;
+        $data['id'] = $this->id;
+        $data['ref'] = $this->ref;
+        $data['provider_activity_id'] = $this->provider_activity_id;
+        $data['text'] = $this->text;
+        
+        foreach($data as $key => $eachData){
+            
+            if(empty($this->validators[$key])) continue;
+            
+            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData)))  continue;
+            
+            $string = "Zend_Validate_". $this->validators[$key];
+            $validator = new $string();
+            
+            if(!$validator->isValid($eachData)){
+                
+                $this->error[$key] = $validator->getMessages();
+                $this->hasError = true;
+
+            }
+        }
     }
 }

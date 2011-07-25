@@ -34,8 +34,8 @@ class Iati_WEP_FormHelper {
         $decorate = new Iati_WEP_FormDecorator($obj,
                                     $this->registryTree->getParents($obj));
         $decoratedHtml = $decorate->html();
+        $formArray[] = '<fieldset><legend>'.$obj->getClassName().'</legend>';
         
-        $formArray[] = '<fieldset>';
         foreach($decoratedHtml as $eachHtml){
              $formArray[] = "<p> $eachHtml </p>";
         }

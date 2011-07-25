@@ -412,7 +412,7 @@ Iati Organization";
             '1' => 'abb', '2' => 'cdd', '3' => 'eff'
         ),
         '1' => array(
-            '1' => 'abbb', '2' => 'cddd', '3' => 'efff'
+            '1' => 'abbb', '2' => 'cdd77d', //'3' => 'efff'
         )
     ),
     'ProviderInfo_name' => array(
@@ -449,7 +449,7 @@ Iati Organization";
 //        $a = $this->getFields('TransactionType', $array);
 //        print_r($a);exit;[0] => Array
                        
-        $b = $this->flatArray($array1);
+        $b = $this->flatArray($array);
         print_r($b);exit;
     }
     

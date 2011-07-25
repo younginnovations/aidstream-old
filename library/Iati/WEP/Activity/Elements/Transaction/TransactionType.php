@@ -6,7 +6,13 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     protected $code;
     protected $id = 0;
     protected $options = array();
+    protected $className = 'TransactionType';
     
+    protected $validators = array(
+                                'text' => 'NotEmpty',
+                                'code' => 'NotEmpty',
+                            );
+                            
     protected $attributes_html = array(
                 'id' => array(
                     'name' => 'id',
@@ -29,6 +35,9 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     
     protected static $count = 0;
     protected $objectId;
+    protected $error = array();
+    protected $hasError = false;
+    protected $multiple = false;
 
     public function __construct()
     {
@@ -36,33 +45,17 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
         self::$count += 1;
     
         $this->setOptions();
-        
-        $this->validators = array(
-                                'code' => 'NotEmpty',
-                            );
-        $this->multiple = true;
     }
     
     public function setOptions()
     {
         $model = new Model_Wep();
-        
-        $this->options['code'] = array_merge(array('0' => 'Select anyone'), 
-                                                $model->getCodeArray('TransactionType', null, '1'));
-    }
-    
-    public function getClassName () {
-        return 'TransactionType';
+        $this->options['code'] = $model->getCodeArray('TransactionType', null, '1');
     }
     
     public function setAttributes ($data) {
         $this->code = (key_exists('@code', $data))?$data['@code']:$data['code'];
         $this->text = $data['text'];
-    }
-    
-    public function getHtmlAttrs()
-    {
-        return $this->attributes_html;
     }
     
     public function getOptions($name = NULL)
@@ -75,11 +68,49 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
         return $this->objectId;
     }
     
+    public function getValidator($attr)
+    {
+        return $this->validators[$attr];
+    }
     public function validate()
     {
+        $data['id'] = $this->id;
         $data['code'] = $this->code;
         $data['text'] = $this->text;
-        
-        parent::validate($data);
+//        print_r($data);exit;
+        foreach($data as $key => $eachData){
+            
+            if(empty($this->validators[$key])){ continue; }
+            
+            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData))) {  continue; }
+            
+            $string = "Zend_Validate_". $this->validators[$key];
+            $validator = new $string();
+            
+            if(!$validator->isValid($eachData)){
+//                print "dd";exit;
+                $this->error[$key] = $validator->getMessages();
+                $this->hasError = true;
+
+            }
+        }
     }
+    
+    public function getCleanedData(){
+        $data = array();
+        $data ['id'] = $this->id;
+        $data['@code'] = $this->code;
+        $data['text'] = $this->text;
+        $data['transaction_id'] = $this->transaction_id;
+        
+        return $data;
+    }
+    
+    /*public function hasErrors()
+    {
+        return $this->hasError;
+    }*/
+    
+
+    
 }

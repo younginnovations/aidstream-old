@@ -4,9 +4,16 @@ class Iati_WEP_Activity_Elements_Transaction_Description extends Iati_WEP_Activi
     protected $attributes = array('text', 'xml_lang');
     protected $text;
     protected $xml_lang;
+    protected $id = 0;
     protected $options = array();
+    protected $className = 'Description';
+    protected $validators = array();
     
     protected $attributes_html = array(
+                'id' => array(
+                    'name' => 'id',
+                    'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
+                ),
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Text',
@@ -23,6 +30,9 @@ class Iati_WEP_Activity_Elements_Transaction_Description extends Iati_WEP_Activi
     
     protected static $count = 0;
     protected $objectId;
+    protected $error = array();
+    protected $hasError = false;
+    protected $multiple = false;
 
     public function __construct()
     {
@@ -36,16 +46,7 @@ class Iati_WEP_Activity_Elements_Transaction_Description extends Iati_WEP_Activi
     public function setOptions()
     {
         $model = new Model_Wep();
-        $this->options['xml_lang'] = array_merge(array('0' => 'Select anyone'),$model->getCodeArray('Language', null, '1'));
-    }
-    
-    public function getOptions($name = NULL)
-    {
-        return $this->options[$name];
-    }
-    
-    public function getClassName(){
-        return 'Description';
+        $this->options['xml_lang'] = $model->getCodeArray('Language', null, '1');
     }
     
     public function setAttributes ($data) {
@@ -53,8 +54,43 @@ class Iati_WEP_Activity_Elements_Transaction_Description extends Iati_WEP_Activi
         $this->text = $data['text'];
     }
     
-    public function getHtmlAttrs()
+    public function getOptions($name = NULL)
     {
-        return $this->attributes_html;
+        return $this->options[$name];
     }
+    
+    public function getValidator($attr)
+    {
+        return $this->validators[$attr];
+    }
+
+    public function getObjectId()
+    {
+        return $this->objectId;
+    }
+    
+    public function validate()
+    {
+        $data['id'] = $this->id;
+        $data['code'] = $this->code;
+        $data['text'] = $this->text;
+        
+        foreach($data as $key => $eachData){
+            
+            if(empty($this->validators[$key])) continue;
+            
+            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData)))  continue;
+            
+            $string = "Zend_Validate_". $this->validators[$key];
+            $validator = new $string();
+            
+            if(!$validator->isValid($eachData)){
+                
+                $this->error[$key] = $validator->getMessages();
+                $this->hasError = true;
+
+            }
+        }
+    }
+    
 }

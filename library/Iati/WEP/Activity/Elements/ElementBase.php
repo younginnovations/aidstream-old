@@ -56,6 +56,25 @@ class Iati_WEP_Activity_Elements_ElementBase
         return $name;
     }
 
+public function getClassName () {
+        return $this->className;
+//        return 'Transaction';
+    }
+    
+public function getHtmlAttrs()
+    {
+        return $this->attributes_html;
+    }
+    
+public function getAttr ($attr) {
+        $vars = get_object_vars($this);
+        if (in_array($attr, array_keys($vars))) {
+            if (isset($vars[$attr])) {
+                return $vars[$attr];
+            }
+        }
+        return false;
+    }
     /**
      * 
      * @return html string
@@ -112,7 +131,6 @@ class Iati_WEP_Activity_Elements_ElementBase
     
     public function validate($data)
     {
-        print_r($data);exit;
         foreach($data as $key => $eachData){
 
             if(empty($this->validators[$key])){
@@ -132,9 +150,15 @@ class Iati_WEP_Activity_Elements_ElementBase
         }
     }
     
-    public function getErrorMessage($attr)
+    public function getErrorMessage($attribute)
     {
-        return (isset($this->error[$attr])) ? $this->error[$attr] : NULL;
+        $error = NULL;
+        if($this->error[$attribute]){
+            $error = array_values($this->error[$attribute]);
+            $error = $error[0];
+        }
+        
+        return $error;
     }
     
     public function hasErrors()
@@ -142,6 +166,8 @@ class Iati_WEP_Activity_Elements_ElementBase
         return $this->hasError;
     }
 
+
+    
     public function insert($data)
     {
         $model = new Model_Wep();

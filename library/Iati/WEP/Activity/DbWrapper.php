@@ -4,6 +4,7 @@ class Iati_WEP_Activity_DbWrapper {
     
     private $object;
     private $primary_key = 0;
+    private $foreign_key = 0;
     
     public function __construct ($obj) {
         $this->object = $obj;

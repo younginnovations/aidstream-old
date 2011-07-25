@@ -5,7 +5,9 @@ class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_
     protected $transaction_id;
     protected $options = array();
     protected $multiple = true;
-    
+//    protected $validator = array(protected $hasError = false;
+//                                '' 
+//                            );
     protected $attributes_html = array(
                 'transaction_id' => array(
                     'name' => 'transaction_id',
@@ -14,52 +16,48 @@ class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_
 //                    'attrs' => array('id' => 'id')
                 ),
     );
+    protected $className = 'Transaction';
     
+    protected $validators = array();
     protected static $count = 0;
     protected $objectId;
+    protected $error = array();
+    protected $hasError = false;
     
     
 
     public function __construct()
     {
+        parent :: __construct();
         $this->objectId = self::$count;
         self::$count += 1;
-        
-        /*$this->validators = array(
-                        'transaction_id' => 'NotEmpty',
-                        'text' => 'NotEmpty',
-                    );*/
         $this->multiple = true;
-    
-//        $this->setOptions();
     }
-    
-    
     
     public function setAttributes ($data) {
         $this->transaction_id = $data['transaction_id'];
     }
     
-    public function getClassName () {
-        return 'Transaction';
-    }
-    
-    public function getAttr ($attr) {
-        $vars = get_object_vars($this);
-        if (in_array($attr, array_keys($vars))) {
-            if (isset($vars[$attr])) {
-                return $vars[$attr];
-            }
-        }
-        return false;
+    public function getOptions($attr)
+    {
+        return $this->options[$attr];
     }
     
     public function getAttributes () {
         return $this->attributes;
     }
+    public function getClassName ()
+    {
+        return $this->className;
+    }
     
-    public function getHtmlAttrs() {
-        return $this->attributes_html;
+    public function getValidator()
+    {
+        return $this->validators;
+    }
+    
+    public function validate(){
+        
     }
     
     public function getObjectId()
@@ -67,4 +65,11 @@ class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_
         return $this->objectId;
     }
     
+    public function getCleanedData(){
+        $data = array();
+        $data['id'] = $this->transaction_id;
+//        $data['activity_id'] = $this->activ
+        
+        return $data;
+    }
 }

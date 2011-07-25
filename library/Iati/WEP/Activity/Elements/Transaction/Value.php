@@ -5,8 +5,12 @@ class Iati_WEP_Activity_Elements_Transaction_Value extends Iati_WEP_Activity_Ele
     protected $text;
     protected $currency;
     protected $value_date;
+    protected $id = 0;
     protected $options = array();
-    
+    protected $className = 'Value';
+    protected $validators = array(
+                                'text' => 'NotEmpty',
+                            );
     protected $attributes_html = array(
                 'text' => array(
                     'name' => 'text',
@@ -30,6 +34,9 @@ class Iati_WEP_Activity_Elements_Transaction_Value extends Iati_WEP_Activity_Ele
     
     protected static $count = 0;
     protected $objectId;
+    protected $error = array();
+    protected $hasError = false;
+    protected $multiple = false;
 
     public function __construct()
     {
@@ -37,38 +44,58 @@ class Iati_WEP_Activity_Elements_Transaction_Value extends Iati_WEP_Activity_Ele
         self::$count += 1;
     
         $this->setOptions();
-        $this->validators = array(
-                        'transaction_id' => 'NotEmpty',
-                        'text' => 'NotEmpty',
-                    );
-        $this->multiple = false;
     }
     
     
     public function setOptions()
     {
         $model = new Model_Wep();
-        $this->options['currency'] = array_merge(array('0' => 'Select anyone'),$model->getCodeArray('Currency', null, '1'));
+        $this->options['currency'] = $model->getCodeArray('Currency', null, '1');
+    }
+    
+    public function setAttributes ($data) {
+        $this->currency = (key_exists('@currency', $data))?$data['@currency']:$data['currency'];
+        $this->text = $data['text'];
+        $this->value_date = (key_exists('@value_date', $data))?$data['@value_date']:$data['value_date'];
     }
     
     public function getOptions($name = NULL)
     {
         return $this->options[$name];
     }
-    
-    public function getClassName(){
-        return 'Value';
-    }
-    
-    public function setAttributes ($data) {
-//        print_r($data);exit;
-        $this->currency = (key_exists('@currency', $data))?$data['@currency']:$data['currency'];
-        $this->text = $data['text'];
-        $this->value_date = (key_exists('@value_date', $data))?$data['@value_date']:$data['value_date'];
-    }
-    
-    public function getHtmlAttrs()
+
+    public function getObjectId()
     {
-        return $this->attributes_html;
+        return $this->objectId;
     }
+    
+    public function getValidator($attr)
+    {
+        return $this->validators[$attr];
+    }
+    
+    public function validate()
+    {
+        $data['currency'] = $this->currency;
+        $data['text'] = $this->text;
+        $data['value_date'] = $this->value_date;
+        
+        foreach($data as $key => $eachData){
+            
+            if(empty($this->validators[$key])) continue;
+            
+            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData)))  continue;
+            
+            $string = "Zend_Validate_". $this->validators[$key];
+            $validator = new $string();
+            
+            if(!$validator->isValid($eachData)){
+                
+                $this->error[$key] = $validator->getMessages();
+                $this->hasError = true;
+
+            }
+        }
+    }
+    
 }

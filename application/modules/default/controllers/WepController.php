@@ -423,29 +423,31 @@ class WepController extends Zend_Controller_Action
         $classname = 'Iati_WEP_Activity_'. $class . 'Factory';
         if(isset($class)){
             if($_POST){
-                print_r($_POST);exit;
+                $flatArray = $this->flatArray($_POST);
                 $activity = new Iati_WEP_Activity_Elements_Activity();
                 $activity->setAttributes(array('activity_id' => $activity_id));
                 $registryTree = Iati_WEP_TreeRegistry::getInstance();
                 $registryTree->addNode($activity);
-
+                
                 $factory = new $classname ();
-                $factory->setInitialValues($flatArray);
+                $factory->setInitialValues($initial);
+                $tree = $factory->factory($class, $flatArray);
                 
-                /*$factory = new $classname();
-                $factory->setInitialValues($flatArray);
-                $tree = $factory->factory($class, $_POST);
-                
+                $factory->validateAll($activity);
                 if($factory->hasError()){
                     $formHelper = new Iati_WEP_FormHelper();
-                    $a = $formHelper->getform();
+                    $a = $formHelper->getForm();
                 }
                 else{
-                    print "Ssdf";exit;
-                }*/
+                    $element = null;
+                    $factory->cleanData($activity, $element);
+                    print_r($element);exit;
+                }
+                /*
+                $formHelper = new Iati_WEP_FormHelper();
+                $a = $formHelper->getForm();*/
             }
             else{
-//                print "dsdf";exit;
                 $activity = new Iati_WEP_Activity_Elements_Activity();
                 $activity->setAttributes(array('activity_id' => $activity_id));
 
@@ -752,6 +754,147 @@ class WepController extends Zend_Controller_Action
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
     }
     
+
+function flatArray ($array) {
+    $result = array();
     
+    foreach ($array as $key => $val) {
+        array_push($result, $this->recurArray($key, $val, array()));
+    }
+    
+//    print_r($result);
+    
+    $result_depths = array();
+    foreach($result as $array) {
+        $depth = (is_array($array)) ? $this->array_depth($array) : 1;
+        array_push($result_depths, $depth);
+    }
+    
+    $max_depth = max($result_depths);
+    
+    $final = $this->combineAll($result, $max_depth);
+    
+//    print_r($final);exit;
+    
+    //print_r($final['0']);
+    foreach($final as $key => $val) {
+        if (!is_array($val)) {
+            continue;
+        }
+        
+        $result_depths = array();
+        foreach($final[$key] as $array) {
+            $depth = (is_array($array)) ? $this->array_depth($array) : 1;
+            array_push($result_depths, $depth);
+        }
+        $max_depth = max($result_depths);
+        $final[$key] = $this->combineAll($final[$key], $max_depth);
+        
+    foreach($final[$key] as $k => $v) {
+        if (!is_array($v)) {
+            continue;
+        }
+        
+        $result_depths = array();
+        foreach($final[$key][$k] as $array) {
+            $depth = (is_array($array)) ? $this->array_depth($array) : 1;
+            array_push($result_depths, $depth);
+        }
+        $max_depth = max($result_depths);
+        $final[$key][$k] = $this->combineAll($final[$key][$k], $max_depth);
+       
+    }
+       
+    }
+//    print_r($final);exit;
+    
+    
+    return $final;
+//    print_r($final);
+}
+
+function combineAll($array, $max_depth=4, $depth=1, $result=array()) {
+    $process = array();
+    foreach($array as $k => $a) {
+        if (is_array($a)) {
+            if ($this->array_depth($a) == $depth) {
+                array_push($process, $a);
+            }
+        }
+        else {
+            $result[$k] = $a;
+        }
+    }
+    
+    if ($depth > $max_depth) {
+        return $result;
+    }
+    
+    while (!empty($process)) {
+        $arr = array_shift($process);
+        
+        foreach ($arr as $key => $val) {
+            if (isset($result[$key]) && is_array($result[$key])) {
+                //print_r($result[$key]);
+                /*
+                if (sizeof($val) < 2) {
+                    list($k, $v) = each($val);
+                    if (is_array($result[$key][$k])) {
+                        array_push($result[$key][$k], $v);
+                    }
+                    else {
+                        $result[$key][$k] = $v;
+                    }
+                }
+                else {*/
+                    array_push($result[$key], $val);
+                //}
+            }
+            else {
+                $result[$key] = $val;
+            }
+        }
+    }
+    
+    return $this->combineAll($array, $max_depth, ++$depth, $result);
+}
+
+/**
+ * Actual recursion happens here
+ *
+ */
+function recurArray ($key, $arr, $array) {
+    
+    if (is_array($arr)) {
+        foreach ($arr as $k => $v) {
+            $array[$k] = $this->recurArray($key, $v, array());
+        }
+    }
+    else {
+        return array($key => $arr);
+    }
+    
+    return $array;
+}
+
+/**
+ *
+ * http://stackoverflow.com/questions/262891/
+ *    is-there-a-way-to-find-how-how-deep-a-php-array-is
+ */
+function array_depth ($array) {
+    $max_depth = 1;
+    
+    foreach ($array as $value) {
+        if (is_array($value)) {
+            $depth = $this->array_depth($value) + 1;
+            
+            if ($depth > $max_depth) {
+                $max_depth = $depth;
+            }
+        }
+    }
+    return $max_depth;
+}
 
 }

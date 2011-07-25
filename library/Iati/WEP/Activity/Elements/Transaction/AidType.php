@@ -5,8 +5,12 @@ class Iati_WEP_Activity_Elements_Transaction_AidType extends Iati_WEP_Activity_E
     protected $text;
     protected $code;
     protected $xml_lang;
+    protected $id = 0;
     protected $options = array();
-    
+    protected $className = 'AidType';
+    protected $validators = array(
+                                'code' => 'NotEmpty',
+                            );
     protected $attributes_html = array(
                 'text' => array(
                     'name' => 'text',
@@ -30,6 +34,9 @@ class Iati_WEP_Activity_Elements_Transaction_AidType extends Iati_WEP_Activity_E
     
     protected static $count = 0;
     protected $objectId;
+    protected $error = array();
+    protected $hasError = false;
+    protected $multiple = false;
     
     public function __construct()
     {
@@ -41,9 +48,15 @@ class Iati_WEP_Activity_Elements_Transaction_AidType extends Iati_WEP_Activity_E
     public function setOptions()
     {
         $model = new Model_Wep();
-        $this->options['code'] = array_merge(array('0' => 'Select anyone'),$model->getCodeArray('AidType', null, '1'));
-        $this->options['xml_lang'] = array_merge(array('0' => 'Select anyone'),$model->getCodeArray('Language', null, '1'));
+        $this->options['code'] = $model->getCodeArray('AidType', null, '1');
+        $this->options['xml_lang'] = $model->getCodeArray('Language', null, '1');
         
+    }
+    
+    public function setAttributes ($data) {
+        $this->code = (key_exists('@code', $data))?$data['@code']:$data['code'];
+        $this->text = $data['text'];
+        $this->xml_lang = key_exists('@xml_lang', $data)?$data['@xml_lang']:$data['xml_lang'];
     }
     
     public function getOptions($name = NULL)
@@ -51,18 +64,37 @@ class Iati_WEP_Activity_Elements_Transaction_AidType extends Iati_WEP_Activity_E
         return $this->options[$name];
     }
     
-    public function getClassName(){
-        return 'AidType';
-    }
-    
-    public function setAttributes ($data) {
-        $this->ref = (key_exists('@code', $data))?$data['@code']:$data['code'];
-        $this->text = $data['text'];
-        $this->xml_lang = key_exists('@xml_lang', $data)?$data['@xml_lang']:$data['xml_lang'];
-    }
-    
-    public function getHtmlAttrs()
+    public function getObjectId()
     {
-        return $this->attributes_html;
+        return $this->objectId;
+    }
+    
+    public function getValidator($attr)
+    {
+        return $this->validators[$attr];
+    }
+    public function validate()
+    {
+        $data['id'] = $this->id;
+        $data['code'] = $this->code;
+        $data['text'] = $this->text;
+        $data['xml_lang'] = $this->xml_lang;
+         
+        foreach($data as $key => $eachData){
+            
+            if(empty($this->validators[$key])) continue;
+            
+            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData)))  continue;
+            
+            $string = "Zend_Validate_". $this->validators[$key];
+            $validator = new $string();
+            
+            if(!$validator->isValid($eachData)){
+                
+                $this->error[$key] = $validator->getMessages();
+                $this->hasError = true;
+
+            }
+        }
     }
 }
