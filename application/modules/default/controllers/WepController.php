@@ -423,6 +423,7 @@ class WepController extends Zend_Controller_Action
         $classname = 'Iati_WEP_Activity_'. $class . 'Factory';
         if(isset($class)){
             if($_POST){
+                
                 $flatArray = $this->flatArray($_POST);
                 $activity = new Iati_WEP_Activity_Elements_Activity();
                 $activity->setAttributes(array('activity_id' => $activity_id));
@@ -430,18 +431,24 @@ class WepController extends Zend_Controller_Action
                 $registryTree->addNode($activity);
                 
                 $factory = new $classname ();
+                
                 $factory->setInitialValues($initial);
                 $tree = $factory->factory($class, $flatArray);
-//                print_r($flatArray);exit;
+//                print "dd";exit;
                 $factory->validateAll($activity);
                 if($factory->hasError()){
                     $formHelper = new Iati_WEP_FormHelper();
                     $a = $formHelper->getForm();
                 }
                 else{
-                    $element = null;
-                    $factory->cleanData($activity, $element);
-                    print_r($element);exit;
+//                    print "dd";exit;
+                    $elementClassName = 'Iati_Activity_Element_Activity';
+                    $element = new $elementClassName ();
+                    $data = $activity->getCleanedData();
+                    $element->setAttribs($data);
+                    $factory = new $classname ();
+                    $sdf = $factory->cleanData($activity, $element);
+                      
                 }
                 /*
                 $formHelper = new Iati_WEP_FormHelper();
@@ -451,7 +458,6 @@ class WepController extends Zend_Controller_Action
                 $activity = new Iati_WEP_Activity_Elements_Activity();
                 $activity->setAttributes(array('activity_id' => $activity_id));
 
-                
                 //@todo check if the element record exists for the activity_id (Db Layer)
                 
                 $registryTree = Iati_WEP_TreeRegistry::getInstance();
@@ -475,7 +481,15 @@ class WepController extends Zend_Controller_Action
 
     public function getCloneNodeAction()
     {
-        
+       if($_GET['class']){
+           $class = $_GET['class'];
+       }
+       if($_GET['activity_id']){
+            $activity_id = $_GET['activity_id'];           
+       }
+       $string = 'Iati_WEP_Activity_Element_'. $class . 'Factory';
+       
+//       $factory = 
     }
     
     public function viewActivitiesAction()

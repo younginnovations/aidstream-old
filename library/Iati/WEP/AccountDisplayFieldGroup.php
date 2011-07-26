@@ -4,6 +4,8 @@ class Iati_WEP_AccountDisplayFieldGroup
     protected $title = '0';
     protected $activity_date = '0';
     protected $participating_organisation = '0';
+    protected $transaction = '0';
+    protected $default_tied_status = '0';
     
     public function getProperties(){
         return get_object_vars($this);
