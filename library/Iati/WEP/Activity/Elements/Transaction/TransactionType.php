@@ -10,7 +10,7 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     
     protected $validators = array(
                                 'text' => 'NotEmpty',
-                                'code' => 'NotEmpty',
+                                'xml_lang' => 'NotEmpty',
                             );
                             
     protected $attributes_html = array(

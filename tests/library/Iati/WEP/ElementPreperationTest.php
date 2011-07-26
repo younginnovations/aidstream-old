@@ -23,17 +23,27 @@ class Iati_WEP_ElementPreperationTest extends PHPUnit_Framework_TestCase
         $transactionType-> setAttributes($initial); 
         $providerOrg = new Iati_WEP_Activity_Elements_Transaction_ProviderOrg ();
         
+        
+        $transaction1 = new Iati_WEP_Activity_Elements_Transaction ();
+        $transaction1->setAttributes($initial);
+        $transactionType1 = new Iati_WEP_Activity_Elements_Transaction_TransactionType ();
+        $transactionType1-> setAttributes($initial); 
+        $providerOrg1 = new Iati_WEP_Activity_Elements_Transaction_ProviderOrg ();
+        
+        
         $registryTree->addNode($transaction, $activity); 
         $registryTree->addNode($transactionType, $transaction);
         $registryTree->addNode($providerOrg, $transaction);
+        
+        $registryTree->addNode($transaction1, $activity); 
+        $registryTree->addNode($transactionType1, $transaction1);
+        $registryTree->addNode($providerOrg1, $transaction1);
         
         $classname = 'Iati_Activity_Element_Activity';
         $element = new $classname ();
         $data = $activity->getCleanedData();
         $element->setAttribs($data);
-        $dbwrapper = new Iati_WEP_Activity_DbWrapper ($element);
-        $dbwrapper->setPrimary($data['id']);
-        
+//        print_r($element);exit;
         $factory = new Iati_WEP_Activity_TransactionFactory();
 //        $element = null;
        $a = $factory->cleanData($activity, $element);

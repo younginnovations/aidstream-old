@@ -28,14 +28,11 @@ class Iati_WEP_Activity_Elements_Activity extends Iati_WEP_Activity_Elements_Ele
     {
         $this->objectId = self::$count;
         self::$count += 1;
-        //        $this->setOptions();
     }
 
 
     public function setOptions()
     {
-        //        $model = new Model_Wep();
-        //        $this->options['code'] = $model->getCodeArray('TransactionTypeCode', null, '1');
     }
 
     public function getClassName () {
@@ -69,7 +66,6 @@ class Iati_WEP_Activity_Elements_Activity extends Iati_WEP_Activity_Elements_Ele
 
     public function getObjectId()
     {
-        //        print_r()
         return $this->objectId;
     }
 
@@ -81,10 +77,9 @@ class Iati_WEP_Activity_Elements_Activity extends Iati_WEP_Activity_Elements_Ele
         
     }
     
-public function getCleanedData(){
+    public function getCleanedData(){
         $data = array();
         $data['id'] = $this->activity_id;
-//        $data['activity_id'] = $this->activ
         
         return $data;
     }
