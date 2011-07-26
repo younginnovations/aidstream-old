@@ -9,6 +9,7 @@ class Iati_WEP_TableClassMapper
             'Transaction' => 'iati_transaction',
             'Transaction_TransactionType' => 'iati_transaction/transaction_type',
             'Transaction_ProviderOrg' => 'iati_transaction/provider_org',
+			'Activity' => 'iati_activity',    
             
     );
     

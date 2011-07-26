@@ -8,9 +8,10 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract
      *
      *
      */
-    public function save ($object) {
+    public function save ($object) {    	
         $tableClassMapper = new Iati_WEP_TableClassMapper();
         $tablename = $tableClassMapper->getTableName($object->getClassName());
+        var_dump($tablename);exit;
         if($tablename){
             $this->_name = $tablename;
             $data = $object->getData();

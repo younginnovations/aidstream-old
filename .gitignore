@@ -1,5 +1,5 @@
 *.orig
-brary/Zend/
+library/Zend/
 public/error_log
 tests/output
 public/iaticodes
