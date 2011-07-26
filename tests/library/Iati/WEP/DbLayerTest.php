@@ -25,8 +25,8 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
         $activity->addElement($reportingOrg);
         
         $dbWrapper = new Iati_WEP_Activity_DbWrapper($activity);
-        Zend_Debug::dump($dbWrapper);
+//        Zend_Debug::dump($dbWrapper);
         $dbLayer = new Iati_WEP_DbLayer();
-//        $dbLayer->save($dbWrapper);
+        $dbLayer->save($dbWrapper);
 	}
 }
