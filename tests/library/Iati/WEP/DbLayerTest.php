@@ -18,7 +18,7 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
         $registryTree->addNode($activity);
 
         $transaction = new Iati_WEP_Activity_Elements_Transaction ();
-        $transaction->setAttributes($initial);
+        $transaction->setAttributes($initial);        
         $transactionType = new Iati_WEP_Activity_Elements_Transaction_TransactionType ();
         $transactionType->setAttributes($initial);
         $providerOrg = new Iati_WEP_Activity_Elements_Transaction_ProviderOrg ();

@@ -12,44 +12,57 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract
 	 */
 	public function save($object)
 	{
-		foreach ($object->getElements() as $elements) {
-			$tableClassMapper = new Iati_WEP_TableClassMapper();
-			$tableName = $tableClassMapper->getTableName($elements->getType());
-			$parentType = $elements->getType();
-			if ($tableName) {
-				$this->_name = $tablename;
-				$attribs = $elements->getAttribs();
-				$parentId = $attribs['id'];
-				if ($parentId)
-				$this->update($attribs);
-				else
-				$parentId = $this->insert($attribs);
-			}
-			if ($elements->getElements()) {
-				foreach ($elements->getElements() as $childElements) {
-					$tableName = $tableClassMapper->getTableName($parentType . "_" . $childElements->getType());
-					if ($tableName) {
-						$this->_name = $tablename;
-						$childAttribs = $elements->getAttribs();
-						$childAttribs[lcfirst($parentType) . "_id"] = $parentId;
-						$childId = $childAttribs['id'];
-						if ($childId)
-						$this->update($childAttribs);
-						else
-						$childId = $this->insert($childAttribs);
+		if($object){
+			$superType = $object->getType();
+			$superAttribs = $object->getAttribs();
+			$superId = $superAttribs['id'];
+			foreach ($object->getElements() as $elements) {
+				$tableClassMapper = new Iati_WEP_TableClassMapper();
+				$tableName = $tableClassMapper->getTableName($elements->getType());
+				$parentType = $elements->getType();
+				if ($tableName) {
+					$this->_name = $tableName;
+					$attribs = $elements->getAttribs();
+					$parentId = $attribs['id'];
+					$attribs[$this->lcfirst($superType)."_id"] = $superId;
+					if ($parentId==NULL || $parentId == 0){
+						$attribs['id'] = NULL;
+						$parentId = $this->insert($attribs);
+					}else{
+						$this->update($attribs);
 					}
-					if ($childElements->getElements()) {
-						foreach ($childElements->getElements() as $childNodeElements) {
-							$tableName = $tableClassMapper->getTableName($type . "_" . $childNodeElements->getType());
-							if ($tableName) {
-								$this->_name = $tablename;
-								$childNodeAttribs = $elements->getAttribs();
-								$childNodeAttribs[lcfirst($parentType) . "_id"] = $parentId;
-								$childNodeId = $childNodeAttribs['id'];
-								if ($childNodeId)
-								$this->update($childNodeAttribs);
-								else
-								$childNodeId = $this->insert($childNodeAttribs);
+				}
+				if ($elements->getElements()) {
+					foreach ($elements->getElements() as $childElements) {
+						$tableName = $tableClassMapper->getTableName($parentType . "_" . $childElements->getType());
+						if ($tableName) {
+							$this->_name = $tableName;
+							$childType = $childElements->getType();
+							$childAttribs = $childElements->getAttribs();
+							$childAttribs[$this->lcfirst($parentType) . "_id"] = $parentId;
+							$childId = $childAttribs['id'];
+							if ($childId == NULL || $childId == 0){
+								$childAttribs['id'] = NULL;
+								$childId = $this->insert($childAttribs);
+							}else{
+								$this->update($childAttribs);
+							}
+						}
+						if ($childElements->getElements()) {
+							foreach ($childElements->getElements() as $childNodeElements) {
+								$tableName = $tableClassMapper->getTableName($childType . "_" . $childNodeElements->getType());
+								if ($tableName) {
+									$this->_name = $tableName;
+									$childNodeAttribs = $childNodeElements->getAttribs();
+									$childNodeAttribs[$this->lcfirst($parentType) . "_id"] = $parentId;
+									$childNodeId = $childNodeAttribs['id'];
+									if ($childNodeId==NULL || $childId==0){
+										$childNodeAttribs['id'] = NULL;
+										$childNodeId = $this->insert($childNodeAttribs);
+									}else {
+										$this->update($childNodeAttribs);
+									}
+								}
 							}
 						}
 					}
@@ -73,9 +86,12 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract
 	public function insert($data)
 	{
 		// try to insert data with $tablename
-		try {
-			parent::insert($data);
+		try {			
+			parent::insert($data);			
 			$lastId = $this->getAdapter()->lastInsertId();
+			return $lastId;
+
+
 		} catch (Exception $e) {
 			/* $object->setError(True);
 			 $object->setErrorMessage($e); */
@@ -90,12 +106,17 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract
 		if ($tableName) {
 			$this->_name = $tableName;
 			$query = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART)->setIntegrityCheck(false)
-						->where($fieldName, $value);
-			$result = $this->fetchAll($query);			
+			->where($fieldName, $value);
+			$result = $this->fetchAll($query);
 			$result = $result->toArray();
 
 
 		}
+	}
+
+	function lcfirst($string) {
+		$string{0} = strtolower($string{0});
+		return $string;
 	}
 
 	//        else
