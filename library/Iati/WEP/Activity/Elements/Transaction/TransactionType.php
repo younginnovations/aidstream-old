@@ -101,7 +101,6 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
         $data ['id'] = $this->id;
         $data['@code'] = $this->code;
         $data['text'] = $this->text;
-        $data['transaction_id'] = $this->transaction_id;
         
         return $data;
     }

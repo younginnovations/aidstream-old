@@ -1,135 +1,130 @@
 <?php
 class Iati_WEP_Activity_Elements_ReportingOrganisation extends Iati_WEP_Activity_Elements_ElementBase
-{
+{  
+    protected $attributes = array('text', 'xml_lang', 'ref', 'type');
     protected $text = '';
     protected $type = '';
-    protected $iso_date = '';
+    protected $ref = '';
     protected $xml_lang;
-    protected $title_id = 0;
+    protected $id = 0;
+    protected $options = array();
+    protected $validators = array(
+                                'ref' => 'NotEmpty',
+                            );
+    protected $className = 'ReportingOrganisation';
+    protected $attributes_html = array(
+                'id' => array(
+                    'name' => 'id',
+                    'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
+                ),
+                'ref' => array(
+                    'name' => 'ref',
+                    'label' => 'Organisation Identifier',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'options' => '',
+                ),
+                'type' => array(
+                    'name' => 'type',
+                    'label' => 'Organisation Type',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'options' => '',
+                ),
+                'text' => array(
+                    'name' => 'text',
+                    'label' => 'Text',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'attrs' => array('id' => 'id')
+                ),
+                'xml_lang' => array(
+                    'name' => 'xml_lang',
+                    'label' => 'Language',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'options' => '',
+                ),
+    );
     protected static $count = 0;
-    protected $object_id;
-   
-
+    protected $objectId;
+    protected $error = array();
+    protected $hasError = false;
+    protected $multiple = false;
 
     public function __construct($id = 0)
     {
+//        $this->checkPrivilege();
         parent::__construct();
-        $this->title_id = $id;
-        $this->object_id = self::$count;
+        $this->objectId = self::$count;
         self::$count += 1;
-        
-        $this->objectName = 'ReportingOrganisation';
-        $this->tableName = 'iati_reporting_org';
-        $this->html = array(
-                        'text' => '<dt><label for="">%s</label></dt><dd><input type= "text" name="%s" value="%s" /></dd>',
-                        'ref' => '<dt><label for="">%s</label></dt><dd><select name="%s">%s</select></dd>',
-                        'type' => '<dt><label for="">%s</label></dt><dd><select name="%s">%s</select></dd>',
-                        'xml_lang' => '<dt><label for="">%s</label></dt><dd><select name="%s">%s</select></dd>',
-                        'activity_id' => '<dd><input type="hidden" name="activity_id" value="%s"/></dd>',
-                        'title_id' => '<dd><input type="hidden" name="title_id" class ="title_id" value="%s"/></dd>', 
-                    );
-                    
-        $this->validators = array(
-                        'ref' => 'NotEmpty',
-                        'text' => 'NotEmpty',
-                        'activity_id' => 'NotEmpty',
-                    );
-        $this->multiple = false;
-//        $this->setProperties();
-        //        print $this->object_id;
+        $this->setOptions();
     }
 
-    public function propertySetter($initial, $title_id = 0)
+    public function setOptions()
     {
-//        $this->setAccountActivity($accountActivity);
-        $this->setProperties($initial);
-        $this->setAll($title_id);    
+        $model = new Model_Wep();
+        $this->options['ref'] = $model->getCodeArray('OrganisationIdentifier', null, '1');
+        $this->options['type'] = $model->getcodeArray('OrganisationType', null, '1');
+        $this->options['xml_lang'] = $model->getCodeArray('Language', null, '1');
     }
     
-    public function getTitleId()
-    {
-        return $this->title_id;
-    }
-
-    public function setHtml()
-    {
-        $this->html['text'] = sprintf($this->html['text'], 'Text',$this->decorateName('text'), $this->text);
-        $this->html['ref'] = sprintf($this->html['ref'], 'Organisation Identifier', $this->decorateName('ref'), $this->createOptionHtml('ref'));
-        $this->html['type'] = sprintf($this->html['type'], 'Organisation Type', $this->decorateName('type'), $this->createOptionHtml('type'));
-        $this->html['xml_lang'] = sprintf($this->html['xml_lang'], 'Language', $this->decorateName('xml_lang'), $this->createOptionHtml('xml_lang'));
-        $this->html['activity_id'] = sprintf($this->html['activity_id'],  self::$activity_id);
-        $this->html['title_id'] = sprintf($this->html['title_id'],  $this->title_id);
-        //        print $this->text; print $this->xml_lang; print "<br>";
-        if($this->hasErrors()){
-            foreach($this->error as $key => $eachError){
-                $msg = array_values($eachError);
-                $this->html[$key] .= "<p class='flash-message'>$msg[0]</p>";
-            }
-        }
-    }
-
-    public function setProperties($data){
+    public function setAttributes ($data) {
+        
         $this->xml_lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
         $this->ref = (key_exists('@ref', $data))?$data['@ref']:$data['ref'];
         $this->type = (key_exists('@type', $data))?$data['@type']:$data['type'];
         $this->text = $data['text'];
         
-        
     }
-
-    public function setAll( $id = 0)
+    
+    public function getOptions($name = NULL)
     {
-        $model = new Model_Wep();
-        $defaultFieldValues = $model->getDefaults('default_field_values',  'account_id', self::$account_id);
-        $defaults = $defaultFieldValues->getDefaultFields();
-         
-        $this->options['xml_lang'] = $model->getCodeArray('Language',null,'1');
-        $this->options['ref'] = $model->getCodeArray('OrganisationIdentifier', null, '1');
-        $this->options['type'] = $model->getCodeArray('OrganisationType', null, '1');
-        if($id){
-            $this->title_id = $id;
-        }
-        $this->setHtml();
+        return $this->options[$name];
     }
-
+    
+    public function getObjectId()
+    {
+        return $this->objectId;
+    }
+    
+    public function getValidator($attr)
+    {
+        return $this->validators[$attr];
+    }
+    
     public function validate()
     {
+        $data['id'] = $this->id;
         $data['xml_lang'] = $this->xml_lang;
+        $data['type'] = $this->type;
+        $data['ref'] = $this->ref;
         $data['text'] = $this->text;
-        $data['activity_id'] = self::$activity_id;
+//        print_r($data);exit;
+        //@todo parent id
+//        $data['activity_id'] = parent :: $activity_id;
         
         parent::validate($data);
     }
 
-    public function hasErrors()
-    {
-        return $this->hasError;
-    }
-
-    public function insert()
-    {
-        $data['iso_date'] = $this->iso_date;
-        $data['type'] = $this->type;
-        $data['xml_lang'] = $this->xml_lang;
-        $data['text'] = $this->text;
-        $data['activity_id'] = parent::$activity_id;
-        parent::insert($data);
-    }
-
-    public function update()
-    {
-        $data['text'] = $this->text;
+    public function getCleanedData(){
+        $data = array();
+        $data ['id'] = $this->id;
+        $data['@type'] = $this->type;
+        $data['@ref'] = $this->ref;
         $data['@xml_lang'] = $this->xml_lang;
-        $data['activity_id'] = parent::$activity_id;
-        $data['id'] = $this->title_id;
+        $data['text'] = $this->text;
         
-        parent::update($data);
+        return $data;
+    }
+    
+    public function checkPrivilege()
+    {
+        $userRole = new App_UserRole();
+        $resource = new App_Resource();
+        $resource->ownerUserId = $userRole->userId;
+        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'ReportingOrg')) {
+            $host = $_SERVER['HTTP_HOST'];
+            $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+            $extra = 'user/user/login';
+            header("Location: http://$host$uri/$extra");
+        }
     }
 
-    public function retrieve($activity_id)
-    {
-        $model = new Model_Wep();
-        $rowSet = $model->listAll($this->tableName,'activity_id', $activity_id);
-        return $rowSet;
-    }
 }

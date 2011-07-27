@@ -110,7 +110,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract
 			$result = $this->fetchAll($query);
 			$result = $result->toArray();
 
-
+            return $result;
 		}
 	}
 

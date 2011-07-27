@@ -82,6 +82,7 @@ class Iati_WEP_Activity_Elements_Transaction_TiedStatus extends Iati_WEP_Activit
         $data['id'] = $this->id;
         $data['code'] = $this->code;
         $data['text'] = $this->text;
+        $data['xml_lang'] = $this->xml_lang;
 //        print_r($data);exit;
         foreach($data as $key => $eachData){
             
@@ -99,5 +100,15 @@ class Iati_WEP_Activity_Elements_Transaction_TiedStatus extends Iati_WEP_Activit
 
             }
         }
+    }
+    
+public function getCleanedData(){
+        $data = array();
+        $data ['id'] = $this->id;
+        $data['@code'] = $this->code;
+        $data['text'] = $this->text;
+        $data['@xml_lang'] = $this->xml_lang;
+        
+        return $data;
     }
 }

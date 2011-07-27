@@ -87,4 +87,12 @@ class Iati_WEP_Activity_Elements_Transaction_Date extends Iati_WEP_Activity_Elem
             }
         }
     }
+    public function getCleanedData(){
+        $data = array();
+        $data ['id'] = $this->id;
+        $data['iso_date'] = $this->iso_date;
+        $data['text'] = $this->text;
+        
+        return $data;
+    }
 }
