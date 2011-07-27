@@ -93,4 +93,13 @@ class Iati_WEP_Activity_Elements_Transaction_Description extends Iati_WEP_Activi
         }
     }
     
+public function getCleanedData(){
+        $data = array();
+        $data ['id'] = $this->id;
+        $data['@code'] = $this->code;
+        $data['text'] = $this->text;
+        
+        return $data;
+    }
+    
 }

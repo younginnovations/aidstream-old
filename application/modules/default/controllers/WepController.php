@@ -434,20 +434,21 @@ class WepController extends Zend_Controller_Action
                 
                 $factory->setInitialValues($initial);
                 $tree = $factory->factory($class, $flatArray);
-//                print "dd";exit;
                 $factory->validateAll($activity);
                 if($factory->hasError()){
                     $formHelper = new Iati_WEP_FormHelper();
                     $a = $formHelper->getForm();
                 }
                 else{
-//                    print "dd";exit;
                     $elementClassName = 'Iati_Activity_Element_Activity';
                     $element = new $elementClassName ();
                     $data = $activity->getCleanedData();
                     $element->setAttribs($data);
                     $factory = new $classname ();
-                    $sdf = $factory->cleanData($activity, $element);
+                    $activityTree = $factory->cleanData($activity, $element);
+                    print_r($activityTree);exit;
+                    $dbLayer = new Iati_WEP_DbLayer();
+                    $dbLayer->save($activityTree);
                       
                 }
                 /*
@@ -462,7 +463,7 @@ class WepController extends Zend_Controller_Action
                 
                 $registryTree = Iati_WEP_TreeRegistry::getInstance();
                 $registryTree->addNode($activity);
-
+                
                 $factory = new $classname();
                 $factory->setInitialValues($initial);
                 $tree = $factory->factory($class);

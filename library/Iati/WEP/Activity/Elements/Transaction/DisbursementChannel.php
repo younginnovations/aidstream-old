@@ -99,5 +99,6 @@ class Iati_WEP_Activity_Elements_Transaction_DisbursementChannel extends Iati_WE
         $data['@code'] = $this->code;
         $data['text'] = $this->text;
         
+        return $data;
     }
 }

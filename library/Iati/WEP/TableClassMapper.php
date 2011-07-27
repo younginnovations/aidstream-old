@@ -5,7 +5,7 @@ class Iati_WEP_TableClassMapper
 
     protected $classMapper = array(
         'Title' => 'iati_title',
-        'Activity_Date' => 'iati_activity_date',
+        'ActivityDate' => 'iati_activity_date',
         'ReportingOrganisation' => 'iati_reporting_org',
         'IatiIdentifier' => 'iati_identifier',
         'Transaction' => 'iati_transaction',

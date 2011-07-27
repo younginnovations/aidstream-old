@@ -83,6 +83,7 @@ protected $attributes_html = array(
         $data['id'] = $this->id;
         $data['code'] = $this->code;
         $data['text'] = $this->text;
+        $data['xml_lang'] = $this->xml_lang;
 //        print_r($data);exit;
         foreach($data as $key => $eachData){
             
@@ -100,5 +101,14 @@ protected $attributes_html = array(
 
             }
         }
+    }
+    
+public function getCleanedData(){
+        $data = array();
+        $data ['id'] = $this->id;
+        $data['@code'] = $this->code;
+        $data['text'] = $this->text;
+        $data['@xml_lang'] = $this->xml_lang;
+        return $data;
     }
 }

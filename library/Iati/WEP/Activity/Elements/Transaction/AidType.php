@@ -97,4 +97,14 @@ class Iati_WEP_Activity_Elements_Transaction_AidType extends Iati_WEP_Activity_E
             }
         }
     }
+    
+public function getCleanedData(){
+        $data = array();
+        $data ['id'] = $this->id;
+        $data['@code'] = $this->code;
+        $data['text'] = $this->text;
+        $data['@xml_lang'] = $this->xml_lang;
+        
+        return $data;
+    }
 }

@@ -76,21 +76,8 @@ class Iati_WEP_Activity_Elements_Title extends Iati_WEP_Activity_Elements_Elemen
         $data['id'] = $this->id;
         $data['xml_lang'] = $this->xml_lang;
         $data['text'] = $this->text;
-        foreach($data as $key => $eachData){
-            
-            if(empty($this->validators[$key])){ continue; }
-            
-            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData))) {  continue; }
-            
-            $string = "Zend_Validate_". $this->validators[$key];
-            $validator = new $string();
-            
-            if(!$validator->isValid($eachData)){
-                $this->error[$key] = $validator->getMessages();
-                $this->hasError = true;
-
-            }
-        }
+        
+        parent :: validate($data);
     }
     
     public function getCleanedData(){

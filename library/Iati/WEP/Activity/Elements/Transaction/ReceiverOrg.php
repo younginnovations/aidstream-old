@@ -105,4 +105,15 @@ class Iati_WEP_Activity_Elements_Transaction_ReceiverOrg extends Iati_WEP_Activi
         }
     }
     
+
+public function getCleanedData(){
+        $data = array();
+        $data ['id'] = $this->id;
+        $data['@ref'] = $this->code;
+        $data['text'] = $this->text;
+        $data['@receiver_activity_id'] = $this->receiver_activity_id;
+        
+        return $data;
+    }
+    
 }

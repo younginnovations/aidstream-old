@@ -101,4 +101,13 @@ class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activi
             }
         }
     }
+public function getCleanedData(){
+        $data = array();
+        $data ['id'] = $this->id;
+        $data['@ref'] = $this->code;
+        $data['text'] = $this->text;
+        $data['@provider_activity_id'] = $this->provider_activity_id;
+        
+        return $data;
+    }
 }

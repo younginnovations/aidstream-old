@@ -13,7 +13,6 @@ class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_
                     'name' => 'transaction_id',
                     'label' => '',
                     'html' => '<input type="hidden" name="%(name)s" value="%(value)s" />',
-//                    'attrs' => array('id' => 'id')
                 ),
     );
     protected $className = 'Transaction';
