@@ -17,9 +17,11 @@ class Iati_WEP_TableClassMapper
 
     public function getTableName($classname)
     {
-        $strippedClassName = str_replace('Iati_WEP_Activity_Elements_', "", $classname);
+        $strippedClassName = str_replace('Iati_WEP_Activity_Elements_', "", $classname);        
         if (isset($this->classMapper[$strippedClassName]))
+        {
             return $this->classMapper[$strippedClassName];
+        }
         else
             return null;
     }

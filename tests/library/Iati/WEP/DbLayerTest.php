@@ -48,5 +48,17 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
         $dbLayer = new Iati_WEP_DbLayer();
         $dbLayer->save($activityTree);
     }
+    
+    public function testFetchRowSet()
+    {
+    	$className = 'Title';
+    	$fieldName = 'activity_id';
+    	$value = 2;
+    	$dbLayer = new Iati_WEP_DbLayer();
+    	$row = $dbLayer->getRowSet($className,$fieldName,$value,false);
+    	Zend_Debug::dump($row);
+    	
+    	
+    }
 
 }
