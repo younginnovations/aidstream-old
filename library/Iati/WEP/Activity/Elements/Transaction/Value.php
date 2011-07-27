@@ -97,5 +97,12 @@ class Iati_WEP_Activity_Elements_Transaction_Value extends Iati_WEP_Activity_Ele
             }
         }
     }
-    
+    public function getCleanedData(){
+        $data = array();
+        $data ['id'] = $this->id;
+        $data['@currency'] = $this->currency;
+        $data['text'] = $this->text;
+        $data['@value_date'] = $this->value_date;
+        return $data;
+    }
 }

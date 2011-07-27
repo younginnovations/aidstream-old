@@ -47,7 +47,6 @@ class Iati_WEP_Activity_Elements_Transaction_DisbursementChannel extends Iati_WE
     {
         $model = new Model_Wep();
         $this->options['code'] = $model->getCodeArray('DisbursementChannel', null, '1');
-        $this->options['xml_lang'] = $model->getCodeArray('Language', null, '1');
     }
     
     public function getOptions($name = NULL)
@@ -93,12 +92,13 @@ class Iati_WEP_Activity_Elements_Transaction_DisbursementChannel extends Iati_WE
         }
     }
     
-    public function getCleanData()
-    {
-        $data['id'] = $this->id;
+public function getCleanedData(){
+        $data = array();
+        $data ['id'] = $this->id;
         $data['@code'] = $this->code;
         $data['text'] = $this->text;
         
+//        print_r($data);exit;
         return $data;
     }
 }

@@ -67,6 +67,7 @@ class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activi
     }
     
     public function setAttributes ($data) {
+//        print_r($data);exit;
         $this->ref = (key_exists('@ref', $data))?$data['@ref']:$data['ref'];
         $this->text = $data['text'];
         $this->provider_activity_id = key_exists('@provider_activity_id', $data)?$data['@provider_activity_id']:$data['provider_activity_id'];
@@ -83,7 +84,7 @@ class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activi
         $data['ref'] = $this->ref;
         $data['provider_activity_id'] = $this->provider_activity_id;
         $data['text'] = $this->text;
-        
+//        print_r($data);exit;
         foreach($data as $key => $eachData){
             
             if(empty($this->validators[$key])) continue;
@@ -104,10 +105,9 @@ class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activi
 public function getCleanedData(){
         $data = array();
         $data ['id'] = $this->id;
-        $data['@ref'] = $this->code;
+        $data['@ref'] = $this->ref;
         $data['text'] = $this->text;
         $data['@provider_activity_id'] = $this->provider_activity_id;
-        
         return $data;
     }
 }
