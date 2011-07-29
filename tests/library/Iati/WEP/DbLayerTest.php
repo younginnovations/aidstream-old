@@ -18,7 +18,7 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
         $registryTree->addNode($activity);
 
         $transaction = new Iati_WEP_Activity_Elements_Transaction ();
-        $transaction->setAttributes($initial);        
+        $transaction->setAttributes($initial);
         $transactionType = new Iati_WEP_Activity_Elements_Transaction_TransactionType ();
         $transactionType->setAttributes($initial);
         $providerOrg = new Iati_WEP_Activity_Elements_Transaction_ProviderOrg ();
@@ -48,7 +48,7 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
         $dbLayer = new Iati_WEP_DbLayer();
         $dbLayer->save($activityTree);
     }
-    
+
     public function testFetchRowSet()
     {
     	$className = 'Title';
@@ -57,8 +57,21 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
     	$dbLayer = new Iati_WEP_DbLayer();
     	$row = $dbLayer->getRowSet($className,$fieldName,$value,false);
     	Zend_Debug::dump($row);
-    	
-    	
+
+
+    }
+
+public function testFetchRowTreeSet()
+    {
+    	$className = 'Activity';
+    	$fieldName = 'id';
+    	$value = 2;
+    	$tree = true;
+    	$dbLayer = new Iati_WEP_DbLayer();
+    	$row = $dbLayer->getRowSet($className,$fieldName,$value,$tree);
+    	Zend_Debug::dump($row);
+
+
     }
 
 }
