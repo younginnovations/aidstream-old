@@ -6,7 +6,6 @@ class Iati_WEP_AccountDisplayFieldGroup
     protected $participating_org = '0';
     protected $transaction = '0';
     protected $default_tied_status = '0';
-    protected $transaction = '0';
     
     public function getProperties(){
         return get_object_vars($this);
