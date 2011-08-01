@@ -6,7 +6,9 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 
 	/**
 	 * Save data for the current object
-	 *
+	 * Input object is of ElementType
+	 * Id of the object is embedded on function as atrrib
+	 * Data is inserted into database if the Id doesnot exist for object and is updated if the Id exists
 	 *
 	 */
 	public function save($object) {
@@ -84,7 +86,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 	public function update($data) {
 		// try to update data with $tablename and id
 		try {
-			return parent::update($data, array('id= ?' => $object->getPrimary()));
+			return parent::update($data, array('id= ?' => $data['id']));
 		} catch (Exception $e) {
 			/* $object->setError(True);
 			 $object->setErrorMessage($e); */
@@ -249,12 +251,14 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		}
 	}
 
-	public function deleteRows($className, $fieldName = 'id', $primaryId)
+	public function deleteRows($className, $fieldName = 'id', $id)
 	{
 		$activityTreeMapper = new Iati_WEP_ActivityTreeMapper();
 		$tableNames = $activityTreeMapper->getActivityTree($className);
 		foreach ($tableNames as $tableName){
 			$this->_name = $tableName;
+			$where = $this->getAdapter()->quoteInto($fieldName . "= ?", $id);
+			$this->delete($where);
 		}
 
 
