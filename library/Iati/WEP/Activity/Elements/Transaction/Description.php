@@ -50,6 +50,7 @@ class Iati_WEP_Activity_Elements_Transaction_Description extends Iati_WEP_Activi
     }
     
     public function setAttributes ($data) {
+        $this->id = (isset($data['id']))?$data['id']:0; 
         $this->currency = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
         $this->text = $data['text'];
     }

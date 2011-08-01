@@ -1,14 +1,14 @@
 <?php
-class Iati_WEP_Activity_TitleFactory extends Iati_WEP_Activity_BaseFactory
-{
+class Iati_WEP_Activity_ParticipatingOrgFactory extends Iati_WEP_Activity_BaseFactory
+{  
     public function __construct()
     {
+        
         parent :: __construct();
+        
     }
-
-
-
-    public function factory($objectType = 'Title', $data = array())
+    
+    public function factory($objectType = 'ParticipatingOrg', $data = array())
     {
         $this->globalObject = $this->getRootNode();
         if($data){
@@ -25,6 +25,4 @@ class Iati_WEP_Activity_TitleFactory extends Iati_WEP_Activity_BaseFactory
 
         return $tree;
     }
-    
-    
 }

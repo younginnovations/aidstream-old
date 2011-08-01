@@ -329,7 +329,7 @@ class WepController extends Zend_Controller_Action
         return $registryTree;
     }
 
-    public function addActivityElementsAction()
+    /*public function addActivityElementsAction()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
         $id = null;
@@ -396,8 +396,91 @@ class WepController extends Zend_Controller_Action
 
         $this->view->blockManager()->enable('partial/dashboard.phtml');
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
-    }
+    }*/
 
+    public function addActivityElementsAction ()
+    {
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $model = new Model_Wep();
+
+        $id = null;
+        if ($_GET['class']) {
+            $class = $this->_request->getParam('class');
+        }
+        if ($_GET['activity_id']) {
+            $activity_id = $this->_request->getParam('activity_id');
+            $activity_info = $model->listAll('iati_activity', 'id', $activity_id);
+            if (empty($activity_info)) {
+                //@todo
+            }
+            $activity = $activity_info[0];
+            $activity['@xml_lang'] = $model->fetchValueById('Language', $activity_info[0]['@xml_lang'], 'Code');
+            $activity['@default_currency'] = $model->fetchValueById('Currency', $activity_info[0]['@default_currency'], 'Code');
+        }
+        $this->view->activityInfo = $activity;
+        $initial = $this->getInitialValues($activity_id, $class);
+        $classname = 'Iati_WEP_Activity_'. $class . 'Factory';
+        if(isset($class)){
+            if($_POST){
+                $flatArray = $this->flatArray($_POST);
+                $activity = new Iati_WEP_Activity_Elements_Activity();
+                $activity->setAttributes(array('activity_id' => $activity_id));
+                $registryTree = Iati_WEP_TreeRegistry::getInstance();
+                $registryTree->addNode($activity);
+                $factory = new $classname ();
+                
+                $factory->setInitialValues($initial);
+                $tree = $factory->factory($class, $flatArray);
+                
+                $factory->validateAll($activity);
+                
+                if($factory->hasError()){
+                    $formHelper = new Iati_WEP_FormHelper();
+                    $a = $formHelper->getForm();
+                }
+                else{
+                    $elementClassName = 'Iati_Activity_Element_Activity';
+                    $element = new $elementClassName ();
+                    $data = $activity->getCleanedData();
+                    
+                    $element->setAttribs($data);
+                    $factory = new $classname ();
+                    $activityTree = $factory->cleanData($activity, $element);
+                     
+                    $dbLayer = new Iati_WEP_DbLayer();
+                    $dbLayer->save($activityTree);
+                    
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "$class successfully inserted."));
+                    $this->_redirect("wep/wep/edit-activity-elements/?activity_id=".$activity_id);
+                
+                      
+                }
+                /*
+                $formHelper = new Iati_WEP_FormHelper();
+                $a = $formHelper->getForm();*/
+            }
+            else{
+                $activity = new Iati_WEP_Activity_Elements_Activity();
+                $activity->setAttributes(array('activity_id' => $activity_id));
+                
+                $registryTree = Iati_WEP_TreeRegistry::getInstance();
+                $registryTree->addNode($activity);
+                
+                $factory = new $classname();
+                $factory->setInitialValues($initial);
+                $tree = $factory->factory($class);
+
+                $formHelper = new Iati_WEP_FormHelper();
+                $a = $formHelper->getForm();
+
+            }
+        }
+        $this->_helper->layout()->setLayout('layout_wep');
+        $this->view->blockManager()->enable('partial/dashboard.phtml');
+        $this->view->blockManager()->enable('partial/activitymenu.phtml');
+         
+        $this->view->form = $a;
+    }
 
     public function editActivityElementsAction()
     {
@@ -429,12 +512,13 @@ class WepController extends Zend_Controller_Action
                 $activity->setAttributes(array('activity_id' => $activity_id));
                 $registryTree = Iati_WEP_TreeRegistry::getInstance();
                 $registryTree->addNode($activity);
-                
                 $factory = new $classname ();
                 
                 $factory->setInitialValues($initial);
                 $tree = $factory->factory($class, $flatArray);
+                
                 $factory->validateAll($activity);
+                
                 if($factory->hasError()){
                     $formHelper = new Iati_WEP_FormHelper();
                     $a = $formHelper->getForm();
@@ -443,12 +527,15 @@ class WepController extends Zend_Controller_Action
                     $elementClassName = 'Iati_Activity_Element_Activity';
                     $element = new $elementClassName ();
                     $data = $activity->getCleanedData();
+                    
                     $element->setAttribs($data);
                     $factory = new $classname ();
                     $activityTree = $factory->cleanData($activity, $element);
-                    print_r($activityTree);exit;
+                     
                     $dbLayer = new Iati_WEP_DbLayer();
                     $dbLayer->save($activityTree);
+                    
+                    
                       
                 }
                 /*
@@ -456,18 +543,24 @@ class WepController extends Zend_Controller_Action
                 $a = $formHelper->getForm();*/
             }
             else{
-                $activity = new Iati_WEP_Activity_Elements_Activity();
-                $activity->setAttributes(array('activity_id' => $activity_id));
-
-                //@todo check if the element record exists for the activity_id (Db Layer)
+                $dbLayer = new Iati_WEP_DbLayer();
+                $rowSet = $dbLayer->getRowSet($class, 'activity_id', $activity_id, true);
+                $elements = $rowSet->getElements();
+                $attributes = $elements[0]->getAttribs();
+                if(empty($attributes)){
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "$class not found for this activity. Please add $class"));
+                    $this->_redirect("wep/add-activity-elements/?activity_id=".$activity_id."&class=".$class);
+                }
+                
                 
                 $registryTree = Iati_WEP_TreeRegistry::getInstance();
-                $registryTree->addNode($activity);
                 
                 $factory = new $classname();
                 $factory->setInitialValues($initial);
-                $tree = $factory->factory($class);
+                $tree = $factory->extractData($rowSet, $activity_id);
 
+                $a = $registryTree->getRootNode();
+                
                 $formHelper = new Iati_WEP_FormHelper();
                 $a = $formHelper->getForm();
 
@@ -480,17 +573,17 @@ class WepController extends Zend_Controller_Action
         $this->view->form = $a;
     }
 
-    public function getCloneNodeAction()
+    public function cloneNodeAction()
     {
-       if($_GET['class']){
+       if($_GET['class'])
+       {
            $class = $_GET['class'];
        }
-       if($_GET['activity_id']){
-            $activity_id = $_GET['activity_id'];           
-       }
-       $string = 'Iati_WEP_Activity_Element_'. $class . 'Factory';
-       
-//       $factory = 
+       $first = ($_GET['first'])?$_GET['first']:$_GET['first'];
+           
+       $second = ($_GET['second'])?$_GET['second']:NULL;
+           
+       $third = ($_GET['third'])?$_GET['third']:NULL;
     }
     
     public function viewActivitiesAction()

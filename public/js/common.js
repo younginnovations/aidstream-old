@@ -156,8 +156,7 @@ function initialize() {
 			
 			"#add-more" : {
 				"onclick" : function (evt) {
-//				console.log('ddsd');
-//				alert('dd');
+				console.log(evt.target);
 					var c = dojo.query('#element-form #form-elements-wrapper').children(':last-child');
 //					console.log(c);
 					count = parseInt(c.attr('id')[0].split('-')[2]) + 1;

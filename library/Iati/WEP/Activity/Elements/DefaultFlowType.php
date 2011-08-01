@@ -6,7 +6,10 @@ class Iati_WEP_Activity_Elements_DefaultFlowType extends Iati_WEP_Activity_Eleme
      protected $text;
      protected $xml_lang;
      protected $id = 0;
-     
+     protected $options = array();
+     protected $validators = array(
+                                'code' => 'NotEmpty',
+                            );
      protected $attributes_html = array(
         'id' => array(
                     'name' => 'id',
@@ -32,46 +35,36 @@ class Iati_WEP_Activity_Elements_DefaultFlowType extends Iati_WEP_Activity_Eleme
             'options' => '',
         )                   
      );
+     protected $className = "DefaultFlowType";
      
      protected static $count = 0;
      protected $objectId;
-     
-     public function __construct()
+     protected $error = array();
+     protected $hasError = false;
+     protected $multiple = false;
+
+    public function __construct($id = 0)
     {
+//        $this->checkPrivilege();
+        parent::__construct();
         $this->objectId = self::$count;
         self::$count += 1;
-    
         $this->setOptions();
-        
-        $this->validators = array(
-//                        'transaction_id' => 'NotEmpty',
-                        'code' => 'NotEmpty',
-                    );
-        $this->multiple = false;
     }
+     
     
     public function setOptions()
     {
         $model = new Model_Wep();
         
-        $select_anyone = array('0' => 'Select anyone');
-        $this->options['code'] = array_merge($select_anyone, $model->getCodeArray('FlowType', null, '1'));
-        $this->options['xml_lang'] = array_merge($select_anyone, $model->getCodeArray('Language', null, '1'));
-    }
-    
-    public function getClassName () {
-        return 'DefaultFlowType';
+        $this->options['code'] = $model->getCodeArray('FlowType', null, '1');
+        $this->options['xml_lang'] = $model->getCodeArray('Language', null, '1');
     }
     
     public function setAttributes ($data) {
         $this->code = (key_exists('@code', $data))?$data['@code']:$data['code'];
         $this->xml_lang = (key_exists('@xml_lang', $data))? $data['@xml_lang'] : $data['xml_lang'];
         $this->text = $data['text'];
-    }
-    
-    public function getHtmlAttrs()
-    {
-        return $this->attributes_html;
     }
     
     public function getOptions($name = NULL)
@@ -84,6 +77,10 @@ class Iati_WEP_Activity_Elements_DefaultFlowType extends Iati_WEP_Activity_Eleme
         return $this->objectId;
     }
     
+    public function getValidator($attr)
+    {
+        return $this->validators[$attr];
+    }
     public function validate()
     {
         $data['code'] = $this->code;
@@ -91,5 +88,28 @@ class Iati_WEP_Activity_Elements_DefaultFlowType extends Iati_WEP_Activity_Eleme
         $data['text'] = $this->text;
         
         parent::validate($data);
+    }
+    
+    public function getCleanedData(){
+        $data = array();
+        $data ['id'] = $this->id;
+        $data['@code'] = $this->code;
+        $data['@xml_lang'] = $this->xml_lang;
+        $data['text'] = $this->text;
+        
+        return $data;
+    }
+ 
+    public function checkPrivilege()
+    {
+        $userRole = new App_UserRole();
+        $resource = new App_Resource();
+        $resource->ownerUserId = $userRole->userId;
+        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'FlowType')) {
+            $host = $_SERVER['HTTP_HOST'];
+            $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+            $extra = 'user/user/login';
+            header("Location: http://$host$uri/$extra");
+        }
     }
 }

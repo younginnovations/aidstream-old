@@ -10,7 +10,7 @@ $model = new Model_Wep();
 $defaultField = $model->getDefaults('default_field_groups', 'account_id', $identity->account_id);
 //print_r($defaultField->getProperties());exit();
 print "<li>".$this->l('Iati Identifier', "wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=IatiIdentifier")."</li>";
-print "<li>".$this->l('Reporting Organisation', "wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=ReportingOrganisation")."</li>";
+print "<li>".$this->l('Reporting Organisation', "wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=ReportingOrg")."</li>";
 
 foreach($defaultField->getProperties() as $key => $eachData){
     if($eachData == 1){

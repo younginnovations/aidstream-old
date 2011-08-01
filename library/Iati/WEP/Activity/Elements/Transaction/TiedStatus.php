@@ -63,6 +63,7 @@ class Iati_WEP_Activity_Elements_Transaction_TiedStatus extends Iati_WEP_Activit
     }
     
     public function setAttributes ($data) {
+        $this->id = (isset($data['id']))?$data['id']:0; 
         $this->ref = (key_exists('@code', $data))?$data['@code']:$data['code'];
         $this->text = $data['text'];
         $this->xml_lang = key_exists('@xml_lang', $data)?$data['@xml_lang']:$data['xml_lang'];

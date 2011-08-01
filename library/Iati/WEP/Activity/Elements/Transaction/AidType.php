@@ -12,6 +12,10 @@ class Iati_WEP_Activity_Elements_Transaction_AidType extends Iati_WEP_Activity_E
                                 'code' => 'NotEmpty',
                             );
     protected $attributes_html = array(
+                'id' => array(
+                    'name' => 'id',
+                    'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
+                ),
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Text',
@@ -54,6 +58,7 @@ class Iati_WEP_Activity_Elements_Transaction_AidType extends Iati_WEP_Activity_E
     }
     
     public function setAttributes ($data) {
+        $this->id = (isset($data['id']))?$data['id']:0; 
         $this->code = (key_exists('@code', $data))?$data['@code']:$data['code'];
         $this->text = $data['text'];
         $this->xml_lang = key_exists('@xml_lang', $data)?$data['@xml_lang']:$data['xml_lang'];
@@ -98,7 +103,7 @@ class Iati_WEP_Activity_Elements_Transaction_AidType extends Iati_WEP_Activity_E
         }
     }
     
-public function getCleanedData(){
+    public function getCleanedData(){
         $data = array();
         $data ['id'] = $this->id;
         $data['@code'] = $this->code;
@@ -106,5 +111,18 @@ public function getCleanedData(){
         $data['@xml_lang'] = $this->xml_lang;
         
         return $data;
+    }
+    
+    public function checkPrivilege()
+    {
+        $userRole = new App_UserRole();
+        $resource = new App_Resource();
+        $resource->ownerUserId = $userRole->userId;
+        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'AidType')) {
+            $host = $_SERVER['HTTP_HOST'];
+            $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+            $extra = 'user/user/login';
+            header("Location: http://$host$uri/$extra");
+        }
     }
 }

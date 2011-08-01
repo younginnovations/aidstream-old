@@ -1,13 +1,10 @@
-<?php 
-class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_ElementBase
+<?php
+class Iati_WEP_Activity_Elements_ContactInfo extends Iati_WEP_Activity_Elements_ElementBase
 {
     protected $attributes = array('id');
-    protected $id;
+    protected $id = 0;
     protected $options = array();
     protected $multiple = true;
-//    protected $validator = array(protected $hasError = false;
-//                                '' 
-//                            );
     protected $attributes_html = array(
                     'id' => array(
                     'name' => 'id',
@@ -15,16 +12,14 @@ class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_
                     'html' => '<input type="hidden" name="%(name)s" value="%(value)s" />',
                 ),
     );
-    protected $className = 'Transaction';
+    protected $className = 'ContactInfo';
     
     protected $validators = array();
     protected static $count = 0;
     protected $objectId;
-    protected $error = array();
+    protected $error = array(); 
     protected $hasError = false;
     
-    
-
     public function __construct()
     {
         parent :: __construct();
@@ -34,7 +29,7 @@ class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_
     }
     
     public function setAttributes ($data) {
-        $this->id = (isset($data['id']))?$data['id']:0; 
+        $this->id = $data['id'];
     }
     
     public function getOptions($attr)
@@ -66,8 +61,7 @@ class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_
     
     public function getCleanedData(){
         $data = array();
-        $data['id'] = $this->transaction_id;
-//        $data['activity_id'] = $this->activ
+        $data['id'] = $this->id;
         
         return $data;
     }
