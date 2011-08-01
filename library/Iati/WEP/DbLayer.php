@@ -109,36 +109,99 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		try{
 			$tableClassMapper = new Iati_WEP_TableClassMapper();
 			$activityTreeMapper = new Iati_WEP_ActivityTreeMapper();
-			$class = "Iati_Activity_Element_" . $className;
-			$activity = new $class;
+
+			//activity
+
 			if ($tree) {
+				$conditionalClass = $this->checkConditionField($className,$fieldName);
+				if($conditionalClass){
+					$class = "Iati_Activity_Element_" . $conditionalClass;
+					$activityType  = new $class;
+					$activity = $activityType->addElement($className);
+					$classFlag = False;
+				}else{
+					$class = "Iati_Activity_Element_" . $className;
+					$activity = new $class;
+				}
+				//
 				$formattedResult = $this->getRows($className, $fieldName, $value, $tree);
+
 				foreach ($formattedResult[$className] as $result) {
+
+
+					if($conditionalClass && $classFlag == TRUE){
+						$activity = $activityType->addElement($className);
+					}
+					$classFlag = TRUE;
 					$activity->setAttribs($result);
+
+
 					$primaryId = $result['id'];
 					$conditionField = $this->conditionFormatter($className);
+
+
+
 					$elementTree = $activityTreeMapper->getActivityTree($className);
-					foreach ($elementTree as $classElement) {
-						$resultRow = $this->getRows($classElement, $conditionField, $primaryId, $tree);
-						if (is_array($resultRow)) {
-							$element = $activity->addElement($classElement);
-							$flag = false;
-							foreach ($resultRow[$classElement] as $eachRow) {
-								if($flag)
+
+					if(is_array($elementTree)){
+						foreach ($elementTree as $classElement) {
+
+
+
+							$nodeTree = $activityTreeMapper->getActivityTree($classElement);
+
+
+							$resultRow = $this->getRows($classElement, $conditionField, $primaryId, $tree);
+							if (is_array($resultRow)) {
+
 								$element = $activity->addElement($classElement);
-								$element->setAttribs($eachRow);
-								$flag = true;
+
+
+								$flag = false;
+								foreach ($resultRow[$classElement] as $eachRow) {
+									if($flag)
+									$element = $activity->addElement($classElement);
+									$element->setAttribs($eachRow);
+									$flag = true;
+
+
+
+									$nodeflag = false;
+									if(is_array($nodeTree)){
+										foreach ($nodeTree as $nodeElement){
+											$nodeId = $eachRow['id'];
+											$nodeConditionField = $this->conditionFormatter($classElement);
+
+
+											$nodeResultRow = $this->getRows($nodeElement, $nodeConditionField, $nodeId, $tree);
+
+											if (is_array($nodeResultRow)) {
+												$nodeElementClass = $element->addElement($nodeElement);
+												foreach ($nodeResultRow[$nodeElement] as $row) {
+													if($nodeflag)
+													$nodeElementClass = $element->addElement($nodeElement);
+													$nodeElementClass->setAttribs($row);
+													$nodeflag = true;
+												}
+											}
+										}
+									}
+								}
 							}
 						}
 					}
 				}
-				return $activity;
 			} else {
+				$class = "Iati_Activity_Element_" . $className;
+				$activity = new $class;
 				$formattedResult = $this->getRows($className, $fieldName, $value);
 				$result = $formattedResult[$className];
-				$activity->setAttribs($result);
-				return $activity;
+				$activity->setAttribs($result[0]);
 			}
+			if($conditionalClass){
+				return $activityType;
+			}
+			return $activity;
 		}
 		catch (Exception $e)
 		{
@@ -164,6 +227,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 			}
 			$result = $this->fetchAll($query);
 			$result = $result->toArray();
+
 			$arrayResult[$className] = $result;
 			return $arrayResult;
 		}
@@ -174,6 +238,27 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		return $conditionField . "_id";
 	}
 
-	//        else
-	//            throw
+
+	public function checkConditionField($className,$fieldName){
+		if($this->conditionFormatter($className) == $fieldName || $fieldName == 'id')
+		return false;
+		else{
+			$uCaseField = ucfirst($fieldName);
+			$className = str_replace("_id","",$uCaseField);
+			return $className;
+		}
+	}
+
+	public function deleteRows($className, $fieldName = 'id', $primaryId)
+	{
+		$activityTreeMapper = new Iati_WEP_ActivityTreeMapper();
+		$tableNames = $activityTreeMapper->getActivityTree($className);
+		foreach ($tableNames as $tableName){
+			$this->_name = $tableName;
+		}
+
+
+
+
+	}
 }

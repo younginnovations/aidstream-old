@@ -63,7 +63,7 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
 
 public function testFetchRowTreeSet()
     {
-    	$className = 'DocumentLink';
+    	$className = 'Transaction';
     	$fieldName = 'activity_id';
     	$value = 2;
     	$tree = true;
@@ -71,6 +71,29 @@ public function testFetchRowTreeSet()
     	$row = $dbLayer->getRowSet($className,$fieldName,$value,$tree);
     	Zend_Debug::dump($row);
 
+
+    }
+
+public function testFetchRowOwnTreeSet()
+    {
+    	$className = 'Transaction';
+    	$fieldName = 'id';
+    	$value = 1;
+    	$tree = true;
+    	$dbLayer = new Iati_WEP_DbLayer();
+    	$row = $dbLayer->getRowSet($className,$fieldName,$value,$tree);
+    	Zend_Debug::dump($row);
+
+
+    }
+
+    public function testDeleteRow()
+    {
+    	$className = 'Transaction';
+    	$fieldName = 'id';
+    	$value = 1;
+    	$dbLayer = new Iati_WEP_DbLayer();
+    	$del = $dbLayer->deleteRows($className, $fieldName, $value);
 
     }
 
