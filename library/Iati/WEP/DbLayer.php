@@ -36,6 +36,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 					$this->_name = $tableName;
 					$attribs = $elements->getAttribs();
 					$parentId = $attribs['id'];
+					if($attribs)
 					$attribs[$this->lcfirst($superType) . "_id"] = $superId;
 					if ($parentId == NULL || $parentId == 0) {
 						$attribs['id'] = NULL;
@@ -51,6 +52,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 							$this->_name = $tableName;
 							$childType = $childElements->getType();
 							$childAttribs = $childElements->getAttribs();
+							if($childAttribs)
 							$childAttribs[$this->lcfirst($parentType) . "_id"] = $parentId;
 							$childId = $childAttribs['id'];
 							if ($childId == NULL || $childId == 0) {
@@ -66,6 +68,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 								if ($tableName) {
 									$this->_name = $tableName;
 									$childNodeAttribs = $childNodeElements->getAttribs();
+									if($childNodeAttribs)
 									$childNodeAttribs[$this->lcfirst($parentType) . "_id"] = $parentId;
 									$childNodeId = $childNodeAttribs['id'];
 									if ($childNodeId == NULL || $childId == 0) {
@@ -256,13 +259,23 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		$activityTreeMapper = new Iati_WEP_ActivityTreeMapper();
 		$tableNames = $activityTreeMapper->getActivityTree($className);
 		foreach ($tableNames as $tableName){
-			$this->_name = $tableName;
-			$where = $this->getAdapter()->quoteInto($fieldName . "= ?", $id);
-			$this->delete($where);
+
 		}
 
 
 
 
 	}
+
+	public function delete($className, $fieldName, $value)
+	{
+		$tableClassMapper = new Iati_WEP_TableClassMapper();
+		$tableName = $tableClassMapper->getTableName($className);
+		if ($tableName) {
+			$this->_name = $tableName;
+			$where = $this->getAdapter()->quoteInto($fieldName . "= ?", $value);
+			$this->delete($where);
+		}
+	}
+
 }
