@@ -1,16 +1,18 @@
 <?php
-class Iati_WEP_Activity_Elements_OtherIdentifier extends Iati_WEP_Activity_Elements_ElementBase
+class Iati_WEP_Activity_Elements_ActivityStatus extends Iati_WEP_Activity_Elements_ElementBase
 {
-    protected $attributes = array('text', 'owner_ref', 'owner_name');
+   
+    protected $attributes = array('text', 'xml_lang');
     protected $text;
-    protected $owner_ref;
-    protected $owner_name;
+    protected $code;
+    protected $xml_lang;
     protected $id = 0;
     protected $options = array();
     protected $validators = array(
                                 'text' => 'NotEmpty',
                             );
-    protected $className = 'OtherIdentifier';
+    protected $className = 'ActivityStatus';
+
     protected $attributes_html = array(
                 'id' => array(
                     'name' => 'id',
@@ -23,15 +25,15 @@ class Iati_WEP_Activity_Elements_OtherIdentifier extends Iati_WEP_Activity_Eleme
                     'attrs' => array('id' => 'id')
                 ),
                 
-                'owner_name' => array(
-                    'name' => 'owner_name',
-                    'label' => 'Owner Name',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('id' => 'id')
+                'code' => array(
+                    'name' => 'code',
+                    'label' => 'Activity Status',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'options' => '',
                 ),
-                'owner_ref' => array(
-                    'name' => 'owner_ref',
-                    'label' => 'Organisation Identfier',
+                'xml_lang' => array(
+                    'name' => 'xml_lang',
+                    'label' => 'Language',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
                 ),
@@ -41,9 +43,9 @@ class Iati_WEP_Activity_Elements_OtherIdentifier extends Iati_WEP_Activity_Eleme
     protected $objectId;
     protected $error = array();
     protected $hasError = false;
-    protected $multiple = true;
+    protected $multiple = false;
 
-    public function __construct()
+    public function __construct($id = 0)
     {
 //        $this->checkPrivilege();
         parent::__construct();
@@ -51,17 +53,20 @@ class Iati_WEP_Activity_Elements_OtherIdentifier extends Iati_WEP_Activity_Eleme
         self::$count += 1;
         $this->setOptions();
     }
-    
+
     public function setOptions()
     {
         $model = new Model_Wep();
-        $this->options['owner_ref'] = $model->getCodeArray('OrganisationIdentifier', null, '1');
+        $this->options['code'] = $model->getCodeArray('ActivityStatus', null, '1');
+        $this->options['xml_lang'] = $model->getCodeArray('Language', null, '1');
     }
     
     public function setAttributes ($data) {
-        $this->owner_ref = (key_exists('@owner_ref', $data))?$data['@owner_ref']:$data['owner_ref'];
-        $this->owner_name = (key_exists('@owner_name', $data))?$data['@owner_name']:$data['owner_name'];
-        $this->text = $data['text'];
+        
+        $this->xml_lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
+        $this->type = (key_exists('@code', $data))?$data['@code']:$data['code'];
+        
+        $this->text = $data['text']; 
         
     }
     
@@ -82,35 +87,34 @@ class Iati_WEP_Activity_Elements_OtherIdentifier extends Iati_WEP_Activity_Eleme
     
     public function validate()
     {
+        $data['xml_lang'] = $this->xml_lang;
+        $data['code'] = $this->code;
         $data['text'] = $this->text;
-        $data['owner_ref'] = $this->owner_ref;
-        $data['owner_name'] = $this->owner_name;
-//        $data['activity_id'] = self::$activity_id;
         
         parent::validate($data);
     }
+
     
-    public function getCleanedData(){
-        $data = array();
-        $data ['id'] = $this->id;
-        $data['@owner_ref'] = $this->owner_ref;
-        $data['@owner_name'] = $this->owner_name;
+    public function getCleanedData()
+    {
+        $data['id'] = $this->id; 
         $data['text'] = $this->text;
+        $data['@code'] = $this->code;
+        $data['@xml_lang'] = $this->xml_lang;
         
         return $data;
     }
-    
+
     public function checkPrivilege()
     {
         $userRole = new App_UserRole();
         $resource = new App_Resource();
         $resource->ownerUserId = $userRole->userId;
-        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'OtherIdentifier')) {
+        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'ActivityStatus')) {
             $host = $_SERVER['HTTP_HOST'];
             $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
             $extra = 'user/user/login';
             header("Location: http://$host$uri/$extra");
         }
     }
-
 }

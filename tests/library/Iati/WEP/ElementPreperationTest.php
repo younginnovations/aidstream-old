@@ -29,11 +29,12 @@ class Iati_WEP_ElementPreperationTest extends PHPUnit_Framework_TestCase
         $transactionType1 = new Iati_WEP_Activity_Elements_Transaction_TransactionType ();
         $transactionType1-> setAttributes($initial); 
         $providerOrg1 = new Iati_WEP_Activity_Elements_Transaction_ProviderOrg ();
-        
+        $providerOrg1-> setAttributes($initial); 
         
         $registryTree->addNode($transaction, $activity); 
         $registryTree->addNode($transactionType, $transaction);
         $registryTree->addNode($providerOrg, $transaction);
+        $registryTree->addNode($transaction1, $providerOrg); 
         
         $registryTree->addNode($transaction1, $activity); 
         $registryTree->addNode($transactionType1, $transaction1);
@@ -47,7 +48,7 @@ class Iati_WEP_ElementPreperationTest extends PHPUnit_Framework_TestCase
         $factory = new Iati_WEP_Activity_TransactionFactory();
 //        $element = null;
        $a = $factory->cleanData($activity, $element);
-        print_r($a);exit;
+//        print_r($a);exit;
       
     }
     

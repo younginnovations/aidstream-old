@@ -64,6 +64,7 @@ protected $attributes_html = array(
     }
     
     public function setAttributes ($data) {
+        $this->id = (isset($data['id']))?$data['id']:0; 
         $this->ref = (key_exists('@code', $data))?$data['@code']:$data['code'];
         $this->text = $data['text'];
         $this->xml_lang = key_exists('@xml_lang', $data)?$data['@xml_lang']:$data['xml_lang'];

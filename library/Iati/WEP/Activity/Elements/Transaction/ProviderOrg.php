@@ -67,6 +67,7 @@ class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activi
     }
     
     public function setAttributes ($data) {
+        $this->id = (isset($data['id']))?$data['id']:0; 
 //        print_r($data);exit;
         $this->ref = (key_exists('@ref', $data))?$data['@ref']:$data['ref'];
         $this->text = $data['text'];

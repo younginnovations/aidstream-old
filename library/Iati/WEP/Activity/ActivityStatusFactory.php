@@ -1,12 +1,13 @@
 <?php
-class Iati_WEP_Activity_DefaultFlowTypeFactory extends Iati_WEP_Activity_BaseFactory
+
+class Iati_WEP_Activity_ActivityStatusFactory extends Iati_WEP_Activity_BaseFactory
 {
     public function __construct()
     {
         parent :: __construct();
     }
 
-    public function factory($objectType = 'DefaultFlowType', $data = array())
+    public function factory($objectType = 'ActivityStatus', $data = array())
     {
         $this->globalObject = $this->getRootNode();
         if($data){
@@ -18,6 +19,5 @@ class Iati_WEP_Activity_DefaultFlowTypeFactory extends Iati_WEP_Activity_BaseFac
 
         return $tree;
     }
-    
     
 }

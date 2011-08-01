@@ -88,6 +88,10 @@ class Iati_WEP_FormDecorator {
             
             array_push($this->_html, $html);
         }
+        /*if($this->_object->hasMultiple()){
+            $span = '<span class = "remove">Remove</span>';
+            array_push($this->_html, $span);
+        }*/
         return $this->_html;
     }
     

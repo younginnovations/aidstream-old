@@ -1,7 +1,7 @@
 <?php
-class Iati_WEP_Activity_Elements_DefaultTiedStatus extends Iati_WEP_Activity_Elements_ElementBase
+class Iati_WEP_Activity_Elements_DefaultAidType extends Iati_WEP_Activity_Elements_ElementBase
 {
-     protected $attributes = array('code', 'text', 'xml_lang');
+protected $attributes = array('code', 'text', 'xml_lang');
      protected $code;
      protected $text;
      protected $xml_lang;
@@ -24,7 +24,7 @@ class Iati_WEP_Activity_Elements_DefaultTiedStatus extends Iati_WEP_Activity_Ele
         ),
         'code' => array(
             'name' => 'code',
-            'label' => 'Tied Status Code',
+            'label' => 'Aid Type Code',
             'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
             'options' => '',
         ),
@@ -35,7 +35,7 @@ class Iati_WEP_Activity_Elements_DefaultTiedStatus extends Iati_WEP_Activity_Ele
             'options' => '',
         )                   
      );
-     protected $className = "DefaultTiedStatus";
+     protected $className = "DefaultAidType";
      
      protected static $count = 0;
      protected $objectId;
@@ -57,7 +57,7 @@ class Iati_WEP_Activity_Elements_DefaultTiedStatus extends Iati_WEP_Activity_Ele
     {
         $model = new Model_Wep();
         
-        $this->options['code'] = $model->getCodeArray('TiedStatus', null, '1');
+        $this->options['code'] = $model->getCodeArray('AidType', null, '1');
         $this->options['xml_lang'] = $model->getCodeArray('Language', null, '1');
     }
     
@@ -105,7 +105,7 @@ class Iati_WEP_Activity_Elements_DefaultTiedStatus extends Iati_WEP_Activity_Ele
         $userRole = new App_UserRole();
         $resource = new App_Resource();
         $resource->ownerUserId = $userRole->userId;
-        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'DefaultTiedStatus')) {
+        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'DefaultAidType')) {
             $host = $_SERVER['HTTP_HOST'];
             $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
             $extra = 'user/user/login';

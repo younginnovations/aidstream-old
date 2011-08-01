@@ -54,6 +54,7 @@ class Iati_WEP_Activity_Elements_Transaction_Value extends Iati_WEP_Activity_Ele
     }
     
     public function setAttributes ($data) {
+        $this->id = (isset($data['id']))?$data['id']:0; 
         $this->currency = (key_exists('@currency', $data))?$data['@currency']:$data['currency'];
         $this->text = $data['text'];
         $this->value_date = (key_exists('@value_date', $data))?$data['@value_date']:$data['value_date'];

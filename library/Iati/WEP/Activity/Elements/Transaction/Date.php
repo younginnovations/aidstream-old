@@ -46,6 +46,7 @@ class Iati_WEP_Activity_Elements_Transaction_Date extends Iati_WEP_Activity_Elem
     {}
     
     public function setAttributes ($data) {
+        $this->id = (isset($data['id']))?$data['id']:0; 
         $this->iso_date = (key_exists('@iso_date', $data))?$data['@iso_date']:$data['iso_date'];
         $this->text = $data['text'];
     }

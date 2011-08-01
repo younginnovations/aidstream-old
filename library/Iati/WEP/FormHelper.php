@@ -40,7 +40,9 @@ class Iati_WEP_FormHelper {
              $formArray[] = "<p> $eachHtml </p>";
         }
         $formArray[] = '</fieldset>';
-        
+        /*if($obj->hasMultiple()){
+            $fornArray[] = '<span class = "remove">Remove</span>';
+        }*/
         if ($this->registryTree->getChildNodes($obj) != NULL) {
             
             foreach ($this->registryTree->getChildNodes($obj) as $child) {
@@ -50,6 +52,9 @@ class Iati_WEP_FormHelper {
         }
         
     }
+   /* $fc = Zend_Controller_Front::getInstance();
+        $url = 'http://' . $_SERVER['HTTP_HOST'].$fc->getBaseUrl().'/wep/clone-node?class=' ;
+        return sprintf('<a href=%s %s>%s</a>', $_SERVER[''], $this->_attr($attribs), $text);*/
     
     
     private function _form($name, $action, $method="post", $attribs=null) {

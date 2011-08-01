@@ -9,7 +9,7 @@ class Iati_WEP_Activity_Elements_IatiIdentifier extends Iati_WEP_Activity_Elemen
     protected $id = 0;
     protected $options = array();
     protected $validators = array(
-                                'ref' => 'NotEmpty',
+                                'text' => 'NotEmpty',
                             );
     protected $className = 'IatiIdentifier';
     protected $attributes_html = array(
@@ -50,7 +50,7 @@ class Iati_WEP_Activity_Elements_IatiIdentifier extends Iati_WEP_Activity_Elemen
         
     }
     
-public function getOptions($name = NULL)
+    public function getOptions($name = NULL)
     {
         return $this->options[$name];
     }

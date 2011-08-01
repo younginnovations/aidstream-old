@@ -1,5 +1,5 @@
 <?php
-class Iati_WEP_Activity_TitleFactory extends Iati_WEP_Activity_BaseFactory
+class Iati_WEP_Activity_DescriptionFactory extends Iati_WEP_Activity_BaseFactory
 {
     public function __construct()
     {
@@ -8,7 +8,7 @@ class Iati_WEP_Activity_TitleFactory extends Iati_WEP_Activity_BaseFactory
 
 
 
-    public function factory($objectType = 'Title', $data = array())
+    public function factory($objectType = 'Description', $data = array())
     {
         $this->globalObject = $this->getRootNode();
         if($data){

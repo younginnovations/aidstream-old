@@ -4,7 +4,7 @@ class Iati_WEP_ActivityTreeMapper {
 
 	private $elementTree = array('Transaction' =>
 	array(
-	0 => 'Transaction_TransactionDate',
+	0 => 'Transaction_Date',
 	1 => 'Transaction_TransactionType',
 	2 => 'Transaction_AidType',
 	3 => 'Transaction_Description',
@@ -34,13 +34,24 @@ class Iati_WEP_ActivityTreeMapper {
 	0 => 'PlannedDisbursement_PeriodEnd',
 	1 => 'PlannedDisbursement_PeriodStart',
 	2 => 'PlannedDisbursement_Value',
-	),);
+	),
+       'ContactInfo' =>
+	array(
+	0 => 'ContactInfo_Organisation',
+	1 => 'ContactInfo_PersonName',
+	2 => 'ContactInfo_Telephone',
+	3 => 'ContactInfo_Email',
+	4 => 'ContactInfo_MailingAddress',
+	),
+	);
 	private $activityTree = array('Activity' =>
 	array(0 => 'Transaction',
 	1 => 'Conditions',
 	2 => 'DocumentLink',
 	3 => 'Result',
 	4 => 'PlannedDisbursement',
+	5 => 'IatiIdentifier',
+	6 => 'ContactInfo',
 	),);
 
 	public function getActivityTree($className, $parent = null) {

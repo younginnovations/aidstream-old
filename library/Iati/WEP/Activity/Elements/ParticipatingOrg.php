@@ -1,19 +1,19 @@
 <?php
-class Iati_WEP_Activity_Elements_ActivityDate extends Iati_WEP_Activity_Elements_ElementBase
-{
-    protected $attributes = array('text', 'type', 'iso_date', 'xml_lang');
-    protected $text = '';
-    protected $type = '';
-    protected $iso_date = '';
+class Iati_WEP_Activity_Elements_ParticipatingOrg extends Iati_WEP_Activity_Elements_ElementBase
+{  
+    protected $attributes = array('text', 'role', 'ref', 'type', 'xml_lang');
+    protected $text;
+    protected $ref;
+    protected $role;
+    protected $type;
     protected $xml_lang;
     protected $id = 0;
     protected $options = array();
     protected $validators = array(
-                                'type' => 'NotEmpty',
-                                'text' => 'NotEmpty',
+                                'role' => 'NotEmpty',
                             );
-    protected $className = 'ActivityDate';
-    
+    protected $className = 'ParticipatingOrg';
+
     protected $attributes_html = array(
                 'id' => array(
                     'name' => 'id',
@@ -26,15 +26,21 @@ class Iati_WEP_Activity_Elements_ActivityDate extends Iati_WEP_Activity_Elements
                     'attrs' => array('id' => 'id')
                 ),
                 
-                'iso_date' => array(
-                    'name' => 'iso_date',
-                    'label' => 'Date',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('class' => 'datepicker')
+                'role' => array(
+                    'name' => 'role',
+                    'label' => 'Organisation Role',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'options' => '',
+                ),
+                'ref' => array(
+                    'name' => 'ref',
+                    'label' => 'Organisation Identfier',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'options' => '',
                 ),
                 'type' => array(
                     'name' => 'type',
-                    'label' => 'Activity Date Type',
+                    'label' => 'Organisation Type',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
                 ),
@@ -64,7 +70,9 @@ class Iati_WEP_Activity_Elements_ActivityDate extends Iati_WEP_Activity_Elements
     public function setOptions()
     {
         $model = new Model_Wep();
-        $this->options['type'] = $model->getCodeArray('ActivityDateType', null, '1');
+        $this->options['ref'] = $model->getCodeArray('OrganisationIdentifier', null, '1');
+        $this->options['role'] = $model->getCodeArray('OrganisationRole', null, '1');
+        $this->options['type'] = $model->getCodeArray('OrganisationType', null, '1');
         $this->options['xml_lang'] = $model->getCodeArray('Language', null, '1');
     }
     
@@ -72,8 +80,9 @@ class Iati_WEP_Activity_Elements_ActivityDate extends Iati_WEP_Activity_Elements
         
         $this->xml_lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
         $this->type = (key_exists('@type', $data))?$data['@type']:$data['type'];
-        $this->iso_date = (key_exists('@iso_date', $data))?$data['@iso_date']:$data['iso_date'];
-        $this->text = $data['text'];
+        $this->role = (key_exists('@role', $data))?$data['@role']:$data['role'];
+        $this->ref = (key_exists('@ref', $data))?$data['@ref']:$data['ref'];
+        $this->text = $data['text'];       
         
     }
 
@@ -106,25 +115,26 @@ class Iati_WEP_Activity_Elements_ActivityDate extends Iati_WEP_Activity_Elements
         return $this->validators[$attr];
     }
     
-
-    public function validate()
-    {
-        $data['xml_lang'] = $this->xml_lang;
-        $data['type'] = $this->type;
-        $data['iso_date'] = $this->iso_date;
-        $data['text'] = $this->text;
-        
-        parent::validate($data);
-    }
-
-
+    
     public function getCleanedData()
     {
-        $data['@iso_date'] = $this->iso_date;
+        $data['@ref'] = $this->ref;
+        $data['@role'] = $this->role;
         $data['@type'] = $this->type;
         $data['@xml_lang'] = $this->xml_lang;
         $data['text'] = $this->text;
         return $data;
+    }
+
+    public function validate()
+    {
+        $data['ref'] = $this->ref;
+        $data['role'] = $this->role;
+        $data['type'] = $this->type;
+        $data['xml_lang'] = $this->xml_lang;
+        $data['text'] = $this->text;
+        
+        parent::validate($data);
     }
 
     public function hasErrors()
