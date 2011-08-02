@@ -90,10 +90,12 @@ function initialize() {
 			'onclick' : function (evt) {
 				//console.log('apple');
 				
-				var node = new dojo.NodeList(evt.target);
-				node = node.parents('#form-elements-wrapper').children('fieldset:last-child');
+				var node = new dojo.NodeList(evt.target.parentNode.parentNode);
+				//node = node.children('fieldset:last-child');
 				
-				var sp = node.query('input:first-child').attr('name')[0];
+				
+				var sp = node.query('input').attr('name')[0];
+				//console.log(sp);
 				
 				sp = sp.split(/\[(\d+)\]/);
 				
@@ -119,12 +121,13 @@ function initialize() {
 				    content : ajx,
 				    load : function (data) {
 					node.parents('#form-elements-wrapper').append(data);
+					dojo.behavior.apply();
 				    },
 				    error : function (err) {
 					
 				    }
 				});
-				
+				dojo.behavior.apply();
 				evt.preventDefault();
 			    }
 		 },

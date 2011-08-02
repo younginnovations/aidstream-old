@@ -578,18 +578,20 @@ class WepController extends Zend_Controller_Action
 
     public function cloneNodeAction()
     {
-        
+        //print "dd";exit;
         $identity = Zend_Auth::getInstance()->getIdentity();
         $initial = $this->getInitialValues($activity_id, $class);
        if($_GET['classname'])
        {
            $class = $_GET['classname'];
        }
-       $first = (isset($_GET['item0']))?$_GET['item0']:NULL;
+       $parents = array();
+       
+       (isset($_GET['item0'])) ? array_push($parents, $_GET['item0']) : NULL;
            
-       $second = (isset($_GET['item1']))?$_GET['item1']:NULL;
+       (isset($_GET['item1'])) ? array_push($parents, $_GET['item1']) : NULL;
            
-       $third = (isset($_GET['item2']))?$_GET['item2']:NULL;
+       (isset($_GET['item2'])) ? array_push($parents, $_GET['item2']) : NULL;
        
        $classname = 'Iati_WEP_Activity_' . $class . 'Factory';
        $factory = new $classname;
@@ -597,8 +599,8 @@ class WepController extends Zend_Controller_Action
         $tree = $factory->factory($class);
     
         $formHelper = new Iati_WEP_FormHelper();
-        $a = $formHelper->getForm();
-        print $a;
+        $a = $formHelper->getSubForm($parents);
+        print $a;exit;
        $this->_helper->layout->disableLayout();
 //     $this->_helper->viewRenderer->setNoRender(true);
     }
