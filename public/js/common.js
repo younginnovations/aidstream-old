@@ -85,6 +85,49 @@ function initialize() {
 	//alert(boneActivityDate);
 	// add behaviors
 	dojo.behavior.add({
+		
+		'.addmore' : {
+			'onclick' : function (evt) {
+				//console.log('apple');
+				
+				var node = new dojo.NodeList(evt.target);
+				node = node.parents('#form-elements-wrapper').children('fieldset:last-child');
+				
+				var sp = node.query('input:first-child').attr('name')[0];
+				
+				sp = sp.split(/\[(\d+)\]/);
+				
+				var values = new Array();
+		    
+				for (var i = 1; i < sp.length; i++) {
+				    if (sp[i] !== '') {
+					values.push(sp[i]);
+				    }
+				}
+				ajx = new Object();
+		    
+				ajx['classname'] = sp[0].split(/_/)[0];
+		    
+				for (var i = 0; i < values.length; i++) {
+				    ajx['item' + i] = values[i];
+				}
+				
+				
+				dojo.xhrGet({
+				    url : dojo.attr(evt.target, 'href'),
+				    handleAs : 'text',
+				    content : ajx,
+				    load : function (data) {
+					node.parents('#form-elements-wrapper').append(data);
+				    },
+				    error : function (err) {
+					
+				    }
+				});
+				
+				evt.preventDefault();
+			    }
+		 },
 		/*".datepicker" : {
 			"found" : function (element) {
 				createDateTextBox()

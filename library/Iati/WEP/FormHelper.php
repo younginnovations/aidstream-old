@@ -39,7 +39,16 @@ class Iati_WEP_FormHelper {
         foreach($decoratedHtml as $eachHtml){
              $formArray[] = "<p> $eachHtml </p>";
         }
+        
+        if ($obj->hasMultiple()) {
+            $formArray[] = $this->_addMore(
+                                           array('href' => ''), 'a'
+                                           );
+        }
         $formArray[] = '</fieldset>';
+        
+        
+        
         /*if($obj->hasMultiple()){
             $fornArray[] = '<span class = "remove">Remove</span>';
         }*/
@@ -65,6 +74,7 @@ class Iati_WEP_FormHelper {
         /*if ($this->registryTree->getRootNode()->hasMultiple()) {
             $_form .= $this->_addMore(array('id'=>'add-more'));
         }*/
+        
         $_form .= '<input type="submit" id="Submit" value="Save" />';
         $_form .= '</form></fieldset>';
         return $_form;
@@ -76,7 +86,8 @@ class Iati_WEP_FormHelper {
     }
     
     protected function _addMore($attribs=null, $tag='div', $text='Add More') {
-        return sprintf('<div %s>%s</div>', $this->_attr($attribs), $text);
+        $text = '<' . $tag . ' ' . $this->_attr($attribs) . '>' . $text . '</' . $tag . '>'; 
+        return sprintf('<div class="addmore">%s</div>', $text);
     }
     
     protected function _attr($attribs) {
