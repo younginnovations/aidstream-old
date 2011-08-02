@@ -79,6 +79,7 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'default:wep', 'dashboard');
         $this->allow('user', 'default:wep', 'edit-defaults');
         $this->allow('user', 'default:wep', 'remove-elements');
+        $this->allow('user', 'default:wep', 'clone-node');
 
 
         $this->allow('admin', 'user');

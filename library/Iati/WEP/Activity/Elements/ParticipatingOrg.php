@@ -1,7 +1,7 @@
 <?php
 class Iati_WEP_Activity_Elements_ParticipatingOrg extends Iati_WEP_Activity_Elements_ElementBase
 {  
-    protected $attributes = array('text', 'role', 'ref', 'type', 'xml_lang');
+    protected $attributes = array('id', 'text', 'role', 'ref', 'type', 'xml_lang');
     protected $text;
     protected $ref;
     protected $role;
@@ -78,6 +78,7 @@ class Iati_WEP_Activity_Elements_ParticipatingOrg extends Iati_WEP_Activity_Elem
     
     public function setAttributes ($data) {
         
+        $this->id = (key_exists('id', $data))?$data['id']:0;
         $this->xml_lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
         $this->type = (key_exists('@type', $data))?$data['@type']:$data['type'];
         $this->role = (key_exists('@role', $data))?$data['@role']:$data['role'];

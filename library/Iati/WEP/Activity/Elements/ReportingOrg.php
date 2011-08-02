@@ -66,7 +66,8 @@ class Iati_WEP_Activity_Elements_ReportingOrg extends Iati_WEP_Activity_Elements
     }
     
     public function setAttributes ($data) {
-        
+
+        $this->id = (key_exists('id', $data))?$data['id']:0;
         $this->xml_lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
         $this->ref = (key_exists('@ref', $data))?$data['@ref']:$data['ref'];
         $this->type = (key_exists('@type', $data))?$data['@type']:$data['type'];

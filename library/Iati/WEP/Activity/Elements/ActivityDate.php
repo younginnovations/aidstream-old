@@ -70,6 +70,7 @@ class Iati_WEP_Activity_Elements_ActivityDate extends Iati_WEP_Activity_Elements
     
     public function setAttributes ($data) {
         
+        $this->id = (key_exists('id', $data))?$data['id']:0;
         $this->xml_lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
         $this->type = (key_exists('@type', $data))?$data['@type']:$data['type'];
         $this->iso_date = (key_exists('@iso_date', $data))?$data['@iso_date']:$data['iso_date'];

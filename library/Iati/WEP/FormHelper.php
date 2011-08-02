@@ -41,8 +41,11 @@ class Iati_WEP_FormHelper {
         }
         
         if ($obj->hasMultiple()) {
+             $fc = Zend_Controller_Front::getInstance();
+            $url = 'http://' . $_SERVER['HTTP_HOST'].$fc->getBaseUrl().'/wep/clone-node' ;
+//            return sprintf('<a href=%s %s>%s</a>', $_SERVER[''], $this->_attr($attribs), $text);
             $formArray[] = $this->_addMore(
-                                           array('href' => ''), 'a'
+                                           array('href' => $url), 'a'
                                            );
         }
         $formArray[] = '</fieldset>';

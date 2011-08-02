@@ -59,6 +59,7 @@ class Iati_WEP_Activity_Elements_OtherIdentifier extends Iati_WEP_Activity_Eleme
     }
     
     public function setAttributes ($data) {
+        $this->id = (key_exists('id', $data))?$data['id']:0;
         $this->owner_ref = (key_exists('@owner_ref', $data))?$data['@owner_ref']:$data['owner_ref'];
         $this->owner_name = (key_exists('@owner_name', $data))?$data['@owner_name']:$data['owner_name'];
         $this->text = $data['text'];

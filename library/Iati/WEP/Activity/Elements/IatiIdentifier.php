@@ -45,7 +45,7 @@ class Iati_WEP_Activity_Elements_IatiIdentifier extends Iati_WEP_Activity_Elemen
     }
     
     public function setAttributes ($data) {
-        
+        $this->id = (isset($data['id']))?$data['id']:0;
         $this->text = $data['text'];
         
     }

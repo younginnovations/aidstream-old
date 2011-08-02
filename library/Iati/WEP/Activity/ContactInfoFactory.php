@@ -268,4 +268,6 @@ class Iati_WEP_Activity_ContactInfoFactory
 
         return $elementObj;
     }
+    
+    
 }

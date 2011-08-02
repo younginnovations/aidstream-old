@@ -12,6 +12,10 @@ class Iati_WEP_Activity_Elements_Transaction_Value extends Iati_WEP_Activity_Ele
                                 'text' => 'NotEmpty',
                             );
     protected $attributes_html = array(
+                'id' => array(
+                    'name' => 'id',
+                    'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
+                ),
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Text',
