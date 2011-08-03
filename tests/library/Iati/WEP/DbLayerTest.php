@@ -2,6 +2,12 @@
 
 class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
 {
+	private $testObj;
+
+	public function setUp()
+	{
+		$this->testObj = new Iati_WEP_DbLayer();
+	}
 
     public function testSaveElement()
     {
@@ -96,5 +102,18 @@ public function testFetchRowOwnTreeSet()
     	$del = $dbLayer->deleteRows($className, $fieldName, $value);
 
     }
+
+    public function testConditionFormatter()
+    {
+    	$className = 'Transaction';
+		$result = $this->testObj->conditionFormatter($className);
+		$this->assertEquals('transaction_id', $result);
+
+		$className = 'PlannedDisbursement';
+		$result = $this->testObj->conditionFormatter($className);
+		$this->assertEquals('planned_disbursement_id', $result);
+
+    }
+
 
 }

@@ -238,11 +238,18 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		}
 	}
 
+	/*  params : classname
+	 *  formats the classname to fetch parentId for the childElement
+	 *  replaces the camel casing with _
+	 *  returns : parentid
+	 */
 	public function conditionFormatter($className) {
-		$conditionField = $this->lcfirst($className);
-		return $conditionField . "_id";
+		$conditionField = strtolower(preg_replace('/([^A-Z_])([A-Z])/', '$1_$2', $className));
+		return $conditionField."_id";
 	}
 
+
+	//  check for the condition id supplied is ownId or parentId
 
 	public function checkConditionField($className,$fieldName){
 		if($this->conditionFormatter($className) == $fieldName || $fieldName == 'id')
@@ -254,17 +261,57 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		}
 	}
 
-	public function deleteRows($className, $fieldName = 'id', $id)
+	public function deleteRows($className, $fieldName, $id)
 	{
-		$activityTreeMapper = new Iati_WEP_ActivityTreeMapper();
-		$tableNames = $activityTreeMapper->getActivityTree($className);
-		foreach ($tableNames as $tableName){
-
+		$parentId = $this->checkConditionField($className, $fieldName);
+		if($parentID){
+			$this->deleteOnParentId($className, $fieldName, $id);
+		}else{
+			$this->deleteOnOwnId($className, $fieldName, $id);
 		}
+	}
 
+	public function deleteOnParentId($className, $fieldName, $id)
+	{
+		$this->delete($className, $fieldName, $id);
+		$tree = new Iati_WEP_ActivityTreeMapper();
+		$elementTree = $tree->getActivityTree($className);
+		if(is_array($elementTree)){
+			$ownRows = $this->getRows($className, $fieldName, $id);
+			$ownField = $this->conditionFormatter($className);
+			foreach($ownRows[$className] as $ownRow){
+				$ownId = $ownRow['id'];
+				$this->deleteChildElements($elementTree, $ownField, $ownId);
+			}
+		}
+	}
 
+	public function deleteOnOwnId($className, $fieldName, $id)
+	{
+		$this->delete($className, $fieldName, $id);
+		$tree = new Iati_WEP_ActivityTreeMapper();
+		$elementTree = $tree->getActivityTree($className);
+		if(is_array($elementTree)){
+				$fieldName = $this->conditionFormatter($className);
+				$this->deleteChildElements($elementTree, $fieldName, $id);
+		}
+	}
 
-
+	public function deleteChildElements($elementTree, $fieldName, $id)
+	{
+		foreach($elementTree as $elementClassName){
+			$this->delete($elementClassName, $fieldName, $id);
+			$tree = new Iati_WEP_ActivityTreeMapper();
+			$childElementTree = $tree->getActivityTree($elementClassName);
+			if(is_array($childElementTree)){
+				$ownRows = $this->getRows($elementClassName, $fieldName, $id);
+				$ownField = $this->conditionFormatter($elementClassName);
+				foreach($ownRows[$element] as $ownRow){
+					$ownId = $ownRow['id'];
+					$this->deleteChildElements($childElementTree, $ownField, $ownId);
+				}
+			}
+		}
 	}
 
 	public function delete($className, $fieldName, $value)

@@ -13,7 +13,7 @@ class Iati_WEP_TableClassMapper
         'Transaction_ProviderOrg' => 'iati_transaction/provider_org',
         'Transaction_AidType' => 'iati_transaction/aid_type',
         'Transaction_TransactionDate' => 'iati_transaction/transaction_date',
-        'Transaction_Description' => 'iati_transaction/description',        
+        'Transaction_Description' => 'iati_transaction/description',
         'Transaction_ReceiverOrg' => 'iati_transaction/receiver_org',
         'Transaction_Value' => 'iati_transaction/value',
         'Activity' => 'iati_activity',
@@ -28,12 +28,21 @@ class Iati_WEP_TableClassMapper
     public function getTableName($classname)
     {
         $strippedClassName = str_replace('Iati_WEP_Activity_Elements_', "", $classname);
-        if (isset($this->classMapper[$strippedClassName]))
-        {
-            return $this->classMapper[$strippedClassName];
-        }
-        else
-            return null;
+        $classNames = explode("_",$strippedClassName,3);
+		foreach($classNames as $eachClassName){
+			$result = $this->convertCamelCaseToDash($eachClassName);
+			if($tableName)
+			$tableName = $tableName."/".$result;
+			else
+			$tableName = $result;
+		}
+		return "iati_".$tableName;
+
     }
+
+	public function convertCamelCaseToDash($className) {
+		$conditionField = strtolower(preg_replace('/([^A-Z_])([A-Z])/', '$1_$2', $className));
+		return $conditionField;
+	}
 
 }
