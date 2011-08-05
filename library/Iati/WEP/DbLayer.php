@@ -115,7 +115,6 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 			$tableClassMapper = new Iati_WEP_TableClassMapper();
 			$activityTreeMapper = new Iati_WEP_ActivityTreeMapper();
 			//activity
-
 			if ($tree) {
 				$conditionalClass = $this->checkConditionField($className,$fieldName);
 				if($conditionalClass){
@@ -128,6 +127,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 					$activity = new $class;
 				}
 				//
+				var_dump($activityType);exit;
 				$formattedResult = $this->getRows($className, $fieldName, $value, $tree);
 				foreach ($formattedResult[$className] as $result) {
 					if($conditionalClass && $classFlag == TRUE){
@@ -191,7 +191,8 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		}
 		catch (Exception $e)
 		{
-			return;
+			var_dump('caught an error');exit;
+			return ;
 		}
 	}
 
