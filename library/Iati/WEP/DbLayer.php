@@ -127,7 +127,6 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 					$activity = new $class;
 				}
 				//
-				var_dump($activityType);exit;
 				$formattedResult = $this->getRows($className, $fieldName, $value, $tree);
 				foreach ($formattedResult[$className] as $result) {
 					if($conditionalClass && $classFlag == TRUE){
