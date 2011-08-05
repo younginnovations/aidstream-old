@@ -60,9 +60,10 @@ class Iati_WEP_Activity_TransactionFactory
         $this->createObjects ('Value',  $transaction, $flatArray);
         $this->createObjects ('TiedStatus', $transaction, $flatArray);
         $this->createObjects ('FlowType', $transaction, $flatArray);
+        $this->createObjects ('FinanceType', $transaction,  $flatArray);
         $this->createObjects ('DisbursementChannel', $transaction, $flatArray);
         $this->createObjects ('Description', $transaction, $flatArray);
-//        $this->createObjects ('Date', $transaction, $flatArray);
+        $this->createObjects ('Date', $transaction, $flatArray);
         $this->createObjects ('AidType', $transaction, $flatArray);
         return $registryTree;
 

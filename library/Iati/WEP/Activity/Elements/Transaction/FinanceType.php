@@ -1,5 +1,5 @@
 <?php 
-class Iati_WEP_Activity_Elements_Transaction_FlowType extends Iati_WEP_Activity_Elements_Transaction
+class Iati_WEP_Activity_Elements_Transaction_FinanceType extends Iati_WEP_Activity_Elements_Transaction
 {
 protected $attributes = array('text', 'code', 'xml_lang');
     protected $text;

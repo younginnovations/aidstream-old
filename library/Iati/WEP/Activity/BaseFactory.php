@@ -38,7 +38,6 @@ class Iati_WEP_Activity_BaseFactory
 
     public function createObjects ($class, $parent = null, $values = array ())
     {
-        //        print_r($values);exit;
         $string = 'Iati_WEP_Activity_Elements_' . $class;
         $object = new $string ();
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
