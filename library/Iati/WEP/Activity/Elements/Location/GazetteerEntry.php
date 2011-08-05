@@ -1,14 +1,16 @@
 <?php 
-class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Activity_Elements_Transaction
+class Iati_WEP_Activity_Elements_Location_GazetteerEntry extends Iati_WEP_Activity_Elements_Location
 {
-    protected $attributes = array('id', 'text', 'code');
+    protected $attributes = array('id', 'gazetteer_ref', 'text');
+    protected $gazetteer_ref;
     protected $text;
-    protected $code;
     protected $id = 0;
     protected $options = array();
-    protected $className = 'TransactionType';
+    protected $className = 'GazetteerEntry';
+    
     
     protected $validators = array(
+                                'gazetteer_ref' => 'NotEmpty',
                                 'text' => 'NotEmpty',
                             );
                             
@@ -24,19 +26,19 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('id' => 'id')
                 ),
-                'code' => array(
-                    'name' => 'code',
-                    'label' => 'Transaction Type Code',
+                'gazetteer_ref' => array(
+                    'name' => 'gazetteer_ref',
+                    'label' => 'Gazetteer Agency',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
-                )
+                ),
     );
     
     protected static $count = 0;
     protected $objectId;
     protected $error = array();
     protected $hasError = false;
-    protected $multiple = false;
+    protected $multiple = true;
 
     public function __construct()
     {
@@ -49,13 +51,15 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     public function setOptions()
     {
         $model = new Model_Wep();
-        $this->options['code'] = $model->getCodeArray('TransactionType', null, '1');
+        
+        $this->options['gazetteer_ref'] = $model->getCodeArray('GazetteerAgency', null, '1');
+         
     }
     
     public function setAttributes ($data) {
-//        print_r($data);exit;
         $this->id = (isset($data['id']))?$data['id']:0; 
-        $this->code = (key_exists('@code', $data))?$data['@code']:$data['code'];
+        $this->country = (key_exists('@gazetteer_ref', $data))?$data['@gazetteer_ref']:$data['gazetteer_ref'];
+
         $this->text = $data['text'];
     }
     
@@ -76,7 +80,7 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     public function validate()
     {
         $data['id'] = $this->id;
-        $data['code'] = $this->code;
+        $data['gazetteer_ref'] = $this->gazetteer_ref;
         $data['text'] = $this->text;
 //        print_r($data);exit;
         foreach($data as $key => $eachData){
@@ -100,7 +104,7 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     public function getCleanedData(){
         $data = array();
         $data ['id'] = $this->id;
-        $data['@code'] = $this->code;
+        $data['@gazetteer_ref'] = $this->gazetteer_ref;
         $data['text'] = $this->text;
         
         return $data;

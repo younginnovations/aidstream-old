@@ -1,11 +1,8 @@
 <?php
 class Iati_WEP_Activity_Elements_IatiIdentifier extends Iati_WEP_Activity_Elements_ElementBase
 {
-    protected $attributes = array('text',);
+    protected $attributes = array('id','text',);
     protected $text = '';
-    protected $type = '';
-    protected $ref = '';
-    protected $xml_lang;
     protected $id = 0;
     protected $options = array();
     protected $validators = array(

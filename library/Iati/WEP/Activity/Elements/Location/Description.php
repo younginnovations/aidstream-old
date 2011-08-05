@@ -1,12 +1,14 @@
 <?php 
-class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Activity_Elements_Transaction
+class Iati_WEP_Activity_Elements_Location_Description extends Iati_WEP_Activity_Elements_Location
 {
-    protected $attributes = array('id', 'text', 'code');
+    protected $attributes = array('id', 'text', 'xml_lang');
     protected $text;
     protected $code;
+    protected $xml_lang; 
     protected $id = 0;
     protected $options = array();
-    protected $className = 'TransactionType';
+    protected $className = 'LocationDescription';
+    
     
     protected $validators = array(
                                 'text' => 'NotEmpty',
@@ -24,9 +26,9 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('id' => 'id')
                 ),
-                'code' => array(
-                    'name' => 'code',
-                    'label' => 'Transaction Type Code',
+                'xml_lang' => array(
+                    'name' => 'xml_lang',
+                    'label' => 'Language Code',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
                 )
@@ -36,7 +38,7 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     protected $objectId;
     protected $error = array();
     protected $hasError = false;
-    protected $multiple = false;
+    protected $multiple = true;
 
     public function __construct()
     {
@@ -49,13 +51,14 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     public function setOptions()
     {
         $model = new Model_Wep();
-        $this->options['code'] = $model->getCodeArray('TransactionType', null, '1');
+        
+        $this->options['xml_lang'] = $model->getCodeArray('Language', null, '1');
     }
     
     public function setAttributes ($data) {
 //        print_r($data);exit;
         $this->id = (isset($data['id']))?$data['id']:0; 
-        $this->code = (key_exists('@code', $data))?$data['@code']:$data['code'];
+        $this->xml_lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
         $this->text = $data['text'];
     }
     
@@ -76,7 +79,7 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     public function validate()
     {
         $data['id'] = $this->id;
-        $data['code'] = $this->code;
+        $data['xml_lang'] = $this->xml_lang;
         $data['text'] = $this->text;
 //        print_r($data);exit;
         foreach($data as $key => $eachData){
@@ -100,7 +103,7 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     public function getCleanedData(){
         $data = array();
         $data ['id'] = $this->id;
-        $data['@code'] = $this->code;
+        $data['@xml_lang'] = $this->xml_lang;
         $data['text'] = $this->text;
         
         return $data;

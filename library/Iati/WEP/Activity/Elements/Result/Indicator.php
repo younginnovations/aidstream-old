@@ -1,15 +1,14 @@
 <?php 
-class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Activity_Elements_Transaction
+class Iati_WEP_Activity_Elements_Result_Description extends Iati_WEP_Activity_Elements_Transaction
 {
-    protected $attributes = array('id', 'text', 'code');
-    protected $text;
-    protected $code;
+    protected $attributes = array('id', 'measure');
+    protected $measure;
     protected $id = 0;
     protected $options = array();
-    protected $className = 'TransactionType';
+    protected $className = 'Indicator';
     
     protected $validators = array(
-                                'text' => 'NotEmpty',
+                                'measure' => 'NotEmpty',
                             );
                             
     protected $attributes_html = array(
@@ -17,26 +16,20 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
                     'name' => 'id',
                     'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
                 ),
-                'text' => array(
+                'measure' => array(
                     
-                    'name' => 'text',
-                    'label' => 'Text',
+                    'name' => 'measure',
+                    'label' => 'Measure',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('id' => 'id')
                 ),
-                'code' => array(
-                    'name' => 'code',
-                    'label' => 'Transaction Type Code',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
-                    'options' => '',
-                )
     );
     
     protected static $count = 0;
     protected $objectId;
     protected $error = array();
     protected $hasError = false;
-    protected $multiple = false;
+    protected $multiple = true;
 
     public function __construct()
     {
@@ -49,14 +42,13 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     public function setOptions()
     {
         $model = new Model_Wep();
-        $this->options['code'] = $model->getCodeArray('TransactionType', null, '1');
+        $this->options['measure'] = $model->getCodeArray('IndicatorMeasure', null, '1');
     }
     
     public function setAttributes ($data) {
-//        print_r($data);exit;
+        
         $this->id = (isset($data['id']))?$data['id']:0; 
-        $this->code = (key_exists('@code', $data))?$data['@code']:$data['code'];
-        $this->text = $data['text'];
+        $this->code = (key_exists('@measure', $data))?$data['@measure']:$data['measure'];
     }
     
     public function getOptions($name = NULL)
@@ -76,8 +68,7 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     public function validate()
     {
         $data['id'] = $this->id;
-        $data['code'] = $this->code;
-        $data['text'] = $this->text;
+        $data['measure'] = $this->measure;
 //        print_r($data);exit;
         foreach($data as $key => $eachData){
             
@@ -100,8 +91,7 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     public function getCleanedData(){
         $data = array();
         $data ['id'] = $this->id;
-        $data['@code'] = $this->code;
-        $data['text'] = $this->text;
+        $data['@measure'] = $this->measure;
         
         return $data;
     }

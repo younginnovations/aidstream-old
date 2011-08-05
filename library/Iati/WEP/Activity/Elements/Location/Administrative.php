@@ -1,12 +1,15 @@
 <?php 
-class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Activity_Elements_Transaction
+class Iati_WEP_Activity_Elements_Location_Administrative extends Iati_WEP_Activity_Elements_Location
 {
-    protected $attributes = array('id', 'text', 'code');
+    protected $attributes = array('id', 'text', 'xml_lang');
     protected $text;
-    protected $code;
+    protected $country;
+    protected $adm1;
+    protected $adm2;
     protected $id = 0;
     protected $options = array();
-    protected $className = 'TransactionType';
+    protected $className = 'Administrative';
+    
     
     protected $validators = array(
                                 'text' => 'NotEmpty',
@@ -24,12 +27,25 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('id' => 'id')
                 ),
-                'code' => array(
-                    'name' => 'code',
-                    'label' => 'Transaction Type Code',
+                'country' => array(
+                    'name' => 'country',
+                    'label' => 'Country',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
-                )
+                ),
+                'adm1' => array(
+                    'name' => 'adm1',
+                    'label' => 'Admin-1',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'options' => '',
+                ),
+                
+                'adm2' => array(
+                    'name' => 'adm2',
+                    'label' => 'Admin-2',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'options' => '',
+                ),
     );
     
     protected static $count = 0;
@@ -49,13 +65,18 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     public function setOptions()
     {
         $model = new Model_Wep();
-        $this->options['code'] = $model->getCodeArray('TransactionType', null, '1');
+        
+        $this->options['country'] = $model->getCodeArray('Country', null, '1');
+        $this->options['adm1'] = $model->getCodeArray('AdministrativeAreaCode(First-level)', null, '1');
+        $this->options['adm2'] = $model->getCodeArray('AdministrativeAreaCode(Second-level)', null, '1');
+        
     }
     
     public function setAttributes ($data) {
-//        print_r($data);exit;
         $this->id = (isset($data['id']))?$data['id']:0; 
-        $this->code = (key_exists('@code', $data))?$data['@code']:$data['code'];
+        $this->country = (key_exists('@country', $data))?$data['@country']:$data['country'];
+        $this->adm1 = (key_exists('@adm1', $data))?$data['@adm1']:$data['adm1'];
+        $this->adm2 = (key_exists('@adm2', $data))?$data['@adm2']:$data['adm2'];
         $this->text = $data['text'];
     }
     
@@ -76,7 +97,9 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     public function validate()
     {
         $data['id'] = $this->id;
-        $data['code'] = $this->code;
+        $data['country'] = $this->country;
+        $data['adm1'] = $this->adm1;
+        $data['adm2'] = $this->adm2;
         $data['text'] = $this->text;
 //        print_r($data);exit;
         foreach($data as $key => $eachData){
@@ -100,7 +123,9 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     public function getCleanedData(){
         $data = array();
         $data ['id'] = $this->id;
-        $data['@code'] = $this->code;
+        $data['@country'] = $this->country;
+        $data['@adm1'] = $this->adm1;
+        $data['@adm2'] = $this->adm2;
         $data['text'] = $this->text;
         
         return $data;

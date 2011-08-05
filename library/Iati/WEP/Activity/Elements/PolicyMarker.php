@@ -15,17 +15,35 @@ class Iati_WEP_Activity_Elements_Title extends Iati_WEP_Activity_Elements_Elemen
                     'name' => 'id',
                     'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
                 ),
-                'text' => array(
-                    'name' => 'text',
-                    'label' => 'Text',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('id' => 'id')
+                'significance' => array(
+                    'name' => 'significance',
+                    'label' => 'Significance',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'options' => '',
+                ),
+                'vocabulary' => array(
+                    'name' => 'vocabulary',
+                    'label' => 'Vocabulary',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'options' => '',
+                ),
+                'code' => array(
+                    'name' => 'code',
+                    'label' => 'Policy Marker',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'options' => '',
                 ),
                 'xml_lang' => array(
                     'name' => 'xml_lang',
                     'label' => 'Language',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
+                ),
+                'text' => array(
+                    'name' => 'text',
+                    'label' => 'Text',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'attrs' => array('id' => 'id')
                 ),
     );
     
@@ -47,6 +65,9 @@ class Iati_WEP_Activity_Elements_Title extends Iati_WEP_Activity_Elements_Elemen
     public function setOptions()
     {
         $model = new Model_Wep();
+        $this->options['significance'] = $model->getCodeArray('PolicySignificance', null, '1');
+        $this->options['vocabulary'] = $model->getCodeArray('Vocabulary', null, '1');
+        $this->options['code'] = $model->getCodeArray('PolicyMarker', null, '1');
         $this->options['xml_lang'] = $model->getCodeArray('Language', null, '1');
     }
     
@@ -95,7 +116,7 @@ class Iati_WEP_Activity_Elements_Title extends Iati_WEP_Activity_Elements_Elemen
         $userRole = new App_UserRole();
         $resource = new App_Resource();
         $resource->ownerUserId = $userRole->userId;
-        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'Title')) {
+        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'PolicyMarker')) {
             $host = $_SERVER['HTTP_HOST'];
             $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
             $extra = 'user/user/login';
