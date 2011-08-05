@@ -115,7 +115,6 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 			$tableClassMapper = new Iati_WEP_TableClassMapper();
 			$activityTreeMapper = new Iati_WEP_ActivityTreeMapper();
 			//activity
-
 			if ($tree) {
 				$conditionalClass = $this->checkConditionField($className,$fieldName);
 				if($conditionalClass){
@@ -191,7 +190,8 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		}
 		catch (Exception $e)
 		{
-			return;
+			var_dump('caught an error');exit;
+			return ;
 		}
 	}
 
