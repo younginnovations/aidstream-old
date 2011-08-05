@@ -114,7 +114,6 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		try{
 			$tableClassMapper = new Iati_WEP_TableClassMapper();
 			$activityTreeMapper = new Iati_WEP_ActivityTreeMapper();
-
 			//activity
 
 			if ($tree) {
@@ -130,47 +129,29 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 				}
 				//
 				$formattedResult = $this->getRows($className, $fieldName, $value, $tree);
-
 				foreach ($formattedResult[$className] as $result) {
-
-
 					if($conditionalClass && $classFlag == TRUE){
 						$activity = $activityType->addElement($className);
 					}
 					$classFlag = TRUE;
 					$activity->setAttribs($result);
-
-
 					$primaryId = $result['id'];
 					$conditionField = $this->conditionFormatter($className);
-
-
 
 					$elementTree = $activityTreeMapper->getActivityTree($className);
 
 					if(is_array($elementTree)){
 						foreach ($elementTree as $classElement) {
-
-
-
 							$nodeTree = $activityTreeMapper->getActivityTree($classElement);
-
-
 							$resultRow = $this->getRows($classElement, $conditionField, $primaryId, $tree);
 							if (is_array($resultRow)) {
-
 								$element = $activity->addElement($classElement);
-
-
 								$flag = false;
 								foreach ($resultRow[$classElement] as $eachRow) {
 									if($flag)
 									$element = $activity->addElement($classElement);
 									$element->setAttribs($eachRow);
 									$flag = true;
-
-
-
 									$nodeflag = false;
 									if(is_array($nodeTree)){
 										foreach ($nodeTree as $nodeElement){
@@ -212,6 +193,11 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		{
 			return;
 		}
+	}
+
+	public function fetchRowTreeSet()
+	{
+
 	}
 
 	function lcfirst($string) {
@@ -306,7 +292,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 			if(is_array($childElementTree)){
 				$ownRows = $this->getRows($elementClassName, $fieldName, $id);
 				$ownField = $this->conditionFormatter($elementClassName);
-				foreach($ownRows[$element] as $ownRow){
+				foreach($ownRows[$elementClassName] as $ownRow){
 					$ownId = $ownRow['id'];
 					$this->deleteChildElements($childElementTree, $ownField, $ownId);
 				}
@@ -321,7 +307,8 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		if ($tableName) {
 			$this->_name = $tableName;
 			$where = $this->getAdapter()->quoteInto($fieldName . "= ?", $value);
-			$this->delete($where);
+//			var_dump("Deleting From table ".$tableName. " where ".$fieldName." is equal to ".$value);
+			parent::delete($where);
 		}
 	}
 
