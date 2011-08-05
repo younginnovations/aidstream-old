@@ -115,32 +115,57 @@ class Iati_WEP_FormHelper {
     }
     
     public function getForm2() {
-        /*if (empty($this->objects)) {
-            throw new Exception("Nothing to do with empty object list");
-        }
-        */
-        $form = '';
+        $form = '<div>';
+        $root = $this->registryTree->getRootNode();
         
-        //$formArray = array();
-        $this->getChildForm2($this->registryTree->getRootNode(), $form);
-
-        //$form .= implode("", $formArray);
-        $form_string = $this->_form($this->registryTree->getRootNode()->getClassName(), '#');
-        
-        if ($this->registryTree->getRootNode()->hasMultiple()) {
-                    $fc = Zend_Controller_Front::getInstance();
-                    $url = 'http://' . $_SERVER['HTTP_HOST'].$fc->getBaseUrl().'/wep/clone-node' ;
-                    // return sprintf('<a href=%s %s>%s</a>', $_SERVER[''], $this->_attr($attribs), $text);
+        $fc = Zend_Controller_Front::getInstance();
+        $url = 'http://' . $_SERVER['HTTP_HOST'].$fc->getBaseUrl().'/wep/clone-node' ;
+        //print_r($root);
+        //print_r($this->registryTree->getChildNodes($root));
+        if ($this->registryTree->getChildNodes($root) != NULL) {
+            $childs = $this->registryTree->getChildNodes($root);
+            
+            foreach ($childs as $key => $ch) {
+                $form .= '<div>';
+                $form .= $this->getChildForm2($ch);
+                
+                if ($this->registryTree->getChildNodes($ch) != NULL) {
+                    $childsInner = $this->registryTree->getChildNodes($ch);
+            
+                    foreach ($childsInner as $k => $chi) {
+                        $form .= '<div>';
+                        $form .= $this->getChildForm2($chi);
+                        //print_r($form);
+                        
+                        if ($this->registryTree->getChildNodes($chi) != NULL) {
+                            $childs2 = $this->registryTree->getChildNodes($chi);
+            
+                            $form .= $this->getInnerForm($childs2);
+                        }
+                        
+                        if ($chi->hasMultiple()) {
+                            $form .= $this->_addMore(
+                                           array('href' => $url), 'a'
+                                           );
+                        }
+                        $form .= '</div>';
+                    }
+                }
+                
+                //print_r($form);
+                if (($key == (sizeof($childs) - 1)) && $ch->hasMultiple()) {
                     $form .= $this->_addMore(
                                            array('href' => $url), 'a'
                                            );
                 }
-        $form = sprintf($form_string, $form);
-        
-        return $this->_wrap($form, 'div');
+                $form .= '</div>';
+            }
+        }
+        $form .= '</div>';
+        return $form;
     }
     
-    public function getChildForm2($obj, &$form)
+    public function getChildForm2($obj)
     {
         $decorate = new Iati_WEP_FormDecorator($obj,
                                     $this->registryTree->getParents($obj));
@@ -151,30 +176,27 @@ class Iati_WEP_FormHelper {
              $form .= "<p> $eachHtml </p>";
         }
         
-        /*if($obj->hasMultiple()){
-            $fornArray[] = '<span class = "remove">Remove</span>';
-        }*/
-        if ($this->registryTree->getChildNodes($obj) != NULL) {
-            
-            foreach ($this->registryTree->getChildNodes($obj) as $key => $child) {
-                $this->getChildForm2($child, $form);
-                
-                if (($key == (sizeof($obj) - 1)) && $obj->hasMultiple()) {
-                    $fc = Zend_Controller_Front::getInstance();
-                    $url = 'http://' . $_SERVER['HTTP_HOST'].$fc->getBaseUrl().'/wep/clone-node' ;
-                    // return sprintf('<a href=%s %s>%s</a>', $_SERVER[''], $this->_attr($attribs), $text);
-                    $form .= $this->_addMore(
-                                           array('href' => $url), 'a'
-                                           );
-                }
-            }
-            
-        }
-        
         $form .= '</fieldset>';
-        //return $form;
+        return $form;
         
     }
+    
+    public function getInnerForm ($child) {
+        $form = '';
+        foreach ($child as $key => $ch) {
+            $form .= '<div>';
+            $form .= $this->getChildForm2($ch);
+            //print_r($form);
+            if ($ch->hasMultiple()) {
+                $form .= $this->_addMore(
+                            array('href' => $url), 'a'
+                                );
+            }
+            $form .= '</div>';
+        }
+        return $form;
+    }
+    
    /* $fc = Zend_Controller_Front::getInstance();
         $url = 'http://' . $_SERVER['HTTP_HOST'].$fc->getBaseUrl().'/wep/clone-node?class=' ;
         return sprintf('<a href=%s %s>%s</a>', $_SERVER[''], $this->_attr($attribs), $text);*/
