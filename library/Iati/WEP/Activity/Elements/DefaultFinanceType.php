@@ -62,6 +62,7 @@ protected $attributes = array('code', 'text', 'xml_lang');
     }
     
     public function setAttributes ($data) {
+        $this->id = (key_exists('id', $data))?$data['id']:0;
         $this->code = (key_exists('@code', $data))?$data['@code']:$data['code'];
         $this->xml_lang = (key_exists('@xml_lang', $data))? $data['@xml_lang'] : $data['xml_lang'];
         $this->text = $data['text'];

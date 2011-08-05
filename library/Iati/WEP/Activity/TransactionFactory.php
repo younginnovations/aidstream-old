@@ -190,22 +190,21 @@ class Iati_WEP_Activity_TransactionFactory
    
     public function extractData($elementTree, $activity_id)
     {
-//        print_r($elementTree);exit;
         $registryTree = Iati_WEP_TreeRegistry::getInstance();
         $activity = new Iati_WEP_Activity_Elements_Activity();
         $activity->setAttributes(array('activity_id', $activity_id));
         $registryTree->addNode($activity);
-        $transactions = $elementTree->getElements();
-        foreach($transactions as $eachTransaction){
+        $elementArray = $elementTree->getElements();
+        foreach($elementArray as $eachElement){
             
-            $className =  'Iati_WEP_Activity_Elements_' . $eachTransaction->getType();
+            $className =  'Iati_WEP_Activity_Elements_' . $eachElement->getType();
             
             $object = new $className;
-            $object->setAttributes($eachTransaction->getAttribs());
+            $object->setAttributes($eachElement->getAttribs());
             $registryTree->addNode($object, $activity);
-            if($eachTransaction->getElements()){
-                $children = $eachTransaction->getElements();
-                $parent = $eachTransaction->getType();
+            if($eachElement->getElements()){
+                $children = $eachElement->getElements();
+                $parent = $eachElement->getType();
                 foreach($children as $eachChild){
                     
                     $className1 = 'Iati_WEP_Activity_Elements_' . $parent . "_" . $eachChild->getType();

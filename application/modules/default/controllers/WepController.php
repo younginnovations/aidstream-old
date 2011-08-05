@@ -531,6 +531,7 @@ class WepController extends Zend_Controller_Action
                     $element->setAttribs($data);
                     $factory = new $classname ();
                     $activityTree = $factory->cleanData($activity, $element);
+                    print_r($activityTree);exit;
                      
                     $dbLayer = new Iati_WEP_DbLayer();
                     $dbLayer->save($activityTree);
@@ -546,6 +547,7 @@ class WepController extends Zend_Controller_Action
                 $dbLayer = new Iati_WEP_DbLayer();
                 $rowSet = $dbLayer->getRowSet($class, 'activity_id', $activity_id, true);
                 $elements = $rowSet->getElements();
+//                print_r($elements);exit;
                 $attributes = $elements[0]->getAttribs();
                 if(empty($attributes)){
                     $this->_helper->FlashMessenger->addMessage(array('message' => "$class not found for this activity. Please add $class"));
@@ -558,8 +560,9 @@ class WepController extends Zend_Controller_Action
                 $factory = new $classname();
                 $factory->setInitialValues($initial);
                 $tree = $factory->extractData($rowSet, $activity_id);
+//                print_r($elements);exit;
 
-                $a = $registryTree->getRootNode();
+//                $a = $registryTree->getRootNode();
                 
                 $formHelper = new Iati_WEP_FormHelper();
                 $a = $formHelper->getForm();
@@ -575,15 +578,31 @@ class WepController extends Zend_Controller_Action
 
     public function cloneNodeAction()
     {
-       if($_GET['class'])
+        //print "dd";exit;
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $initial = $this->getInitialValues($activity_id, $class);
+       if($_GET['classname'])
        {
-           $class = $_GET['class'];
+           $class = $_GET['classname'];
        }
-       $first = ($_GET['first'])?$_GET['first']:$_GET['first'];
+       $parents = array();
+       
+       (isset($_GET['item0'])) ? array_push($parents, $_GET['item0']) : NULL;
            
-       $second = ($_GET['second'])?$_GET['second']:NULL;
+       (isset($_GET['item1'])) ? array_push($parents, $_GET['item1']) : NULL;
            
-       $third = ($_GET['third'])?$_GET['third']:NULL;
+       (isset($_GET['item2'])) ? array_push($parents, $_GET['item2']) : NULL;
+       
+       $classname = 'Iati_WEP_Activity_' . $class . 'Factory';
+       $factory = new $classname;
+       $factory->setInitialValues($initial);
+        $tree = $factory->factory($class);
+    
+        $formHelper = new Iati_WEP_FormHelper();
+        $a = $formHelper->getSubForm($parents);
+        print $a;exit;
+       $this->_helper->layout->disableLayout();
+//     $this->_helper->viewRenderer->setNoRender(true);
     }
     
     public function viewActivitiesAction()

@@ -54,6 +54,7 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     }
     
     public function setAttributes ($data) {
+//        print_r($data);exit;
         $this->id = (isset($data['id']))?$data['id']:0; 
         $this->code = (key_exists('@code', $data))?$data['@code']:$data['code'];
         $this->text = $data['text'];

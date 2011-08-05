@@ -29,7 +29,7 @@ class Iati_WEP_Activity_Elements_ContactInfo extends Iati_WEP_Activity_Elements_
     }
     
     public function setAttributes ($data) {
-        $this->id = $data['id'];
+        $this->id = (key_exists('id', $data))?$data['id']:0;
     }
     
     public function getOptions($attr)
