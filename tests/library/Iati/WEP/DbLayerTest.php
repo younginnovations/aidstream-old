@@ -55,6 +55,10 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
 		$dbLayer->save($activityTree);
 	}
 
+	/*
+	 * Test for single row i.e. tree = false
+	 */
+
 	public function testFetchRowSet()
 	{
 		$className = 'Title';
@@ -63,28 +67,32 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
 		$dbLayer = new Iati_WEP_DbLayer();
 		$row = $dbLayer->getRowSet($className,$fieldName,$value,false);
 		Zend_Debug::dump($row);
-
-
 	}
 
+	/*
+	 * test for fetching row given parent_id
+	 */
 	public function testFetchRowTreeSet()
 	{
-		$className = 'Identifier';
+		$className = 'DocumentLink';
 		$fieldName = 'activity_id';
-		$value = 2;
+		$value = 1;
 		$tree = true;
 		$dbLayer = new Iati_WEP_DbLayer();
 		$row = $dbLayer->getRowSet($className,$fieldName,$value,$tree);
 		Zend_Debug::dump($row);
-
-
 	}
+
+	/*
+	 *test for fetching row given own_id (primaryKey)
+	 *
+	 */
 
 	public function testFetchRowOwnTreeSet()
 	{
-		$className = 'Activity';
+		$className = 'Transaction';
 		$fieldName = 'id';
-		$value = 2;
+		$value = 22;
 		$tree = true;
 		$dbLayer = new Iati_WEP_DbLayer();
 		$row = $dbLayer->getRowSet($className,$fieldName,$value,$tree);
