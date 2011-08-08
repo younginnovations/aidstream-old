@@ -90,6 +90,8 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 					$activity = new $class;
 					$resultTree = $activityType;
 					$formattedResult = $this->getRows($className, $fieldName, $value, $tree);
+					if(!$formattedResult[$className])
+					$activityType->addElement($className);
 					foreach ($formattedResult[$className] as $result) {
 						$parentClass = $activity;
 						$resultTree = $this->fetchRowTreeSet($parentClass, $className, $result);
