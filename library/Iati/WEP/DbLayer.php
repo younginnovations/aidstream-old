@@ -25,7 +25,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 				}
 				$primaryId = $attribs['id'];
 				$tableClassMapper = new Iati_WEP_TableClassMapper();
-				$tableName = $tableClassMapper->getTableName($objectType);
+				$tableName = $tableClassMapper->getTableName($objectType, $parentType);
 				if ($tableName){
 					$this->_name = $tableName;
 					if ($primaryId == NULL || $primaryId == 0) {
@@ -59,6 +59,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 	public function insert($data) {
 		// try to insert data with $tablename
 		try {
+			var_dump($this->_name);var_dump($data);
 			parent::insert($data);
 			$lastId = $this->getAdapter()->lastInsertId();
 			return $lastId;

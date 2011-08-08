@@ -13,7 +13,7 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
 		$activities = new Iati_Activity_Element_ActivityCollection();
         $activity = $activities->addElement('activity');
         $activity->setAttribs(array(
-            'id' => '14',
+            'id' => '15',
         ));
         $iatiIdentifier = $activity->addElement('identifier');
         // fill up properties of $iatiIdentifier
@@ -24,8 +24,17 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
             '@ref' => "GB-1",
             '@type' => "INGO",
             '@xml_lang' => "en",
-        	'text' => 'TestingTest',
+        	'text' => 'TestingText',
         ));
+        $transaction = $activity->addElement('Transaction');
+        $transaction->setAttribs(array('@ref' => 'ghin',
+        							));
+		$transactionType = $transaction->addElement('Transaction_TransactionType');
+		$transactionType->setAttribs(array('@code' => '1',
+											'text' => 'testtext',
+											));
+		$transactionDescription = $transaction->addElement('Transaction_Description');
+
         $activity->addElement($reportingOrg);
         $dbLayer = new Iati_WEP_DbLayer();
 		$dbLayer->save($activity);
