@@ -27,12 +27,15 @@ class Iati_WEP_TableClassMapper
 
     public function getTableName($classname,$parentName = null)
     {
+    	if($parentName!= 'Activity' && $parentName != NULL){
+    		$classname = $parentName."_".$classname;
+    	}
         $strippedClassName = str_replace('Iati_WEP_Activity_Elements_', "", $classname);
         $classNames = explode("_",$strippedClassName,3);
 		foreach($classNames as $eachClassName){
 			$result = $this->convertCamelCaseToDash($eachClassName);
-			if($parentName != "Activity")
-			$tableName = $this->lcfirst($parentName)."/".$result;
+			if($tableName)
+			$tableName = $tableName."/".$result;
 			else
 			$tableName = $result;
 		}

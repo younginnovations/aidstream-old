@@ -59,7 +59,6 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 	public function insert($data) {
 		// try to insert data with $tablename
 		try {
-			var_dump($this->_name);var_dump($data);
 			parent::insert($data);
 			$lastId = $this->getAdapter()->lastInsertId();
 			return $lastId;
@@ -266,7 +265,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		if ($tableName) {
 			$this->_name = $tableName;
 			$where = $this->getAdapter()->quoteInto($fieldName . "= ?", $value);
-			//			var_dump("Deleting From table ".$tableName. " where ".$fieldName." is equal to ".$value);
+//						var_dump("Deleting From table ".$tableName. " where ".$fieldName." is equal to ".$value);
 			parent::delete($where);
 		}
 	}

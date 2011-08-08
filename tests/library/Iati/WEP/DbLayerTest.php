@@ -134,7 +134,7 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testFetchRowTreeSet()
 	{
-		$className = 'DocumentLink';
+		$className = 'Transaction';
 		$fieldName = 'activity_id';
 		$value = 1;
 		$tree = true;
