@@ -11,6 +11,18 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 	 * Data is inserted into database if the Id doesnot exist for object and is updated if the Id exists
 	 *
 	 */
+
+	public function checkIsEmptyAttribs($attribs)
+	{
+		foreach($attribs as $indiAttrib){
+				if($indiAttrib){
+					return true;
+				}else{
+				 $attribResult = false;
+				}
+			}
+			return $attribResult;
+	}
 	public function save($object, $parentId = null) {
 
 	if ($object) {
@@ -18,7 +30,9 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 			$objectType = $object->getType();
 			$parentType = $object->getParentType();
 			$attribs = $object->getAttribs();
-			if($attribs){
+			$attribResult = $this->checkIsEmptyAttribs($attribs);
+			var_dump($attribResult);exit;
+			if($attribResult){
 				if($parentId){
 				$parentField = $this->conditionFormatter($parentType);
 				$attribs[$parentField] = $parentId;

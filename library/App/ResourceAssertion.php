@@ -17,12 +17,14 @@ class App_ResourceAssertion implements Zend_Acl_Assert_Interface
     public $userRole;
 
     public function __construct($resource)
-    { 
-        $userId = Zend_Auth::getInstance()->getIdentity()->user_id;
+    {
+        if(Zend_Auth::getInstance()->getIdentity()){
+    	$userId = Zend_Auth::getInstance()->getIdentity()->user_id;
         $userRole = Zend_Auth::getInstance()->getIdentity()->role;
+        }
         $this->setResource($resource);
         $this->setUserId($userId);
-        $this->setUserRole($userRole);        
+        $this->setUserRole($userRole);
     }
 
     public function getUserRole()
@@ -56,12 +58,12 @@ class App_ResourceAssertion implements Zend_Acl_Assert_Interface
     }
 
     public function assert(Zend_Acl $acl, Zend_Acl_Role_Interface $user = null, Zend_Acl_Resource_Interface $resource = null, $privilege = null)
-    {       
+    {
         // if role is superadmin, he can always modify a post or a comment or any resource as necessary
         if ($this->getUserRole() == 'superadmin') {
             return true;
         }
-        
+
         $assertion = new App_AssertionCheck();
         $result = $assertion->resourceCheck($this->userId, $this->getResource());
         return $result;
