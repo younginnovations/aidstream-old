@@ -14,6 +14,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 	public function save($object, $parentId = null) {
 
 	if ($object) {
+			$defaultParentId = $parentId;
 			$objectType = $object->getType();
 			$parentType = $object->getParentType();
 			$attribs = $object->getAttribs();
@@ -29,8 +30,10 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 					$this->_name = $tableName;
 					if ($primaryId == NULL || $primaryId == 0) {
 						$attribs['id'] = NULL;
+						if($defaultParentId != null)
 						$primaryId = $this->insert($attribs);
 					} else {
+						if($defaultParentId != null)
 						$this->update($attribs);
 					}
 					foreach ($object->getElements() as $elements) {

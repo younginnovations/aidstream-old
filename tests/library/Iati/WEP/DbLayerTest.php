@@ -12,12 +12,8 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
 	public function testInsertElement(){
 		$activities = new Iati_Activity_Element_ActivityCollection();
         $activity = $activities->addElement('activity');
-        $activity->setAttrib('@xml_lang', 'en');
-        $activity->setAttrib('@default_currency', 'USD');
         $activity->setAttribs(array(
-            '@hierarchy' => '0',
-            '@last_updated_datetime' => '2011-02-01',
-        	'activities_id' => '2',
+            'id' => '14',
         ));
         $iatiIdentifier = $activity->addElement('identifier');
         // fill up properties of $iatiIdentifier
