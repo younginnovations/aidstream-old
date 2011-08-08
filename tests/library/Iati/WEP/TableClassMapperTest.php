@@ -10,8 +10,9 @@ class Iati_WEP_TableClassMapperTest extends PHPUnit_Framework_TestCase
 
 	public function testGetTableName()
 	{
-		$className = 'Transaction_TransactionType';
-		$tableName = $this->testObj->getTableName($className);
+		$className = 'TransactionType';
+		$parentName = "Transaction";
+		$tableName = $this->testObj->getTableName($className,$parentName);
 		$this->assertEquals('iati_transaction/transaction_type', $tableName);
 
 		$className = 'PlannedDisbursement_PeriodStart';

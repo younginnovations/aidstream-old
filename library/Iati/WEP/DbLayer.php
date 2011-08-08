@@ -11,80 +11,53 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 	 * Data is inserted into database if the Id doesnot exist for object and is updated if the Id exists
 	 *
 	 */
-	public function save($object) {
-		if ($object) {
-			$superType = $object->getType();
-			$superAttribs = $object->getAttribs();
-			$superId = $superAttribs['id'];
-			$tableClassMapper = new Iati_WEP_TableClassMapper();
-			if ($superType != "Activity") {
-				$tableName = $tableClassMapper->getTableName($superType);
-				if ($tableName) {
-					$this->_name = $tableName;
-					if ($superId == NULL || $superId == 0) {
-						$superAttribs['id'] = NULL;
-						$superId = $this->insert($superAttribs);
-					} else {
-						$this->update($superAttribs);
-					}
+
+	public function checkIsEmptyAttribs($attribs)
+	{
+		foreach($attribs as $indiAttrib){
+				if($indiAttrib){
+					return true;
+				}else{
+				 $attribResult = false;
 				}
 			}
-			foreach ($object->getElements() as $elements) {
-				$tableName = $tableClassMapper->getTableName($elements->getType());
-				$parentType = $elements->getType();
-				if ($tableName) {
+			return $attribResult;
+	}
+	public function save($object, $parentId = null) {
+
+	if ($object) {
+			$defaultParentId = $parentId;
+			$objectType = $object->getType();
+			$parentType = $object->getParentType();
+			$attribs = $object->getAttribs();
+			$attribResult = $this->checkIsEmptyAttribs($attribs);
+			var_dump($attribResult);exit;
+			if($attribResult){
+				if($parentId){
+				$parentField = $this->conditionFormatter($parentType);
+				$attribs[$parentField] = $parentId;
+				}
+				$primaryId = $attribs['id'];
+				$tableClassMapper = new Iati_WEP_TableClassMapper();
+				$tableName = $tableClassMapper->getTableName($objectType, $parentType);
+				if ($tableName){
 					$this->_name = $tableName;
-					$attribs = $elements->getAttribs();
-					$parentId = $attribs['id'];
-					if($attribs)
-					$attribs[$this->lcfirst($superType) . "_id"] = $superId;
-					if ($parentId == NULL || $parentId == 0) {
+					if ($primaryId == NULL || $primaryId == 0) {
 						$attribs['id'] = NULL;
-						$parentId = $this->insert($attribs);
+						if($defaultParentId != null)
+						$primaryId = $this->insert($attribs);
 					} else {
+						if($defaultParentId != null)
 						$this->update($attribs);
 					}
-				}
-				if ($elements->getElements()) {
-					foreach ($elements->getElements() as $childElements) {
-						$tableName = $tableClassMapper->getTableName($parentType . "_" . $childElements->getType());
-						if ($tableName) {
-							$this->_name = $tableName;
-							$childType = $childElements->getType();
-							$childAttribs = $childElements->getAttribs();
-							if($childAttribs)
-							$childAttribs[$this->lcfirst($parentType) . "_id"] = $parentId;
-							$childId = $childAttribs['id'];
-							if ($childId == NULL || $childId == 0) {
-								$childAttribs['id'] = NULL;
-								$childId = $this->insert($childAttribs);
-							} else {
-								$this->update($childAttribs);
-							}
-						}
-						if ($childElements->getElements()) {
-							foreach ($childElements->getElements() as $childNodeElements) {
-								$tableName = $tableClassMapper->getTableName($childType . "_" . $childNodeElements->getType());
-								if ($tableName) {
-									$this->_name = $tableName;
-									$childNodeAttribs = $childNodeElements->getAttribs();
-									if($childNodeAttribs)
-									$childNodeAttribs[$this->lcfirst($parentType) . "_id"] = $parentId;
-									$childNodeId = $childNodeAttribs['id'];
-									if ($childNodeId == NULL || $childId == 0) {
-										$childNodeAttribs['id'] = NULL;
-										$childNodeId = $this->insert($childNodeAttribs);
-									} else {
-										$this->update($childNodeAttribs);
-									}
-								}
-							}
-						}
+					foreach ($object->getElements() as $elements) {
+						$this->save($elements, $primaryId);
 					}
 				}
 			}
 		}
 	}
+
 
 	public function update($data) {
 		// try to update data with $tablename and id
@@ -110,71 +83,48 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		}
 	}
 
+	/*
+	 * method: getRowSet - process and retrive database datas
+	 * params: className (string),
+	 * 			fieldName (string),
+	 * 			value (int/string),
+	 * 			tree (boolean)
+	 * returns: Element Object
+	 */
+
 	public function getRowSet($className, $fieldName, $value, $tree = false) {
 		try{
 			$tableClassMapper = new Iati_WEP_TableClassMapper();
 			$activityTreeMapper = new Iati_WEP_ActivityTreeMapper();
 			//activity
 			if ($tree) {
+				//check If the field supplied is own Id or parent_id;
 				$conditionalClass = $this->checkConditionField($className,$fieldName);
 				if($conditionalClass){
 					$class = "Iati_Activity_Element_" . $conditionalClass;
 					$activityType  = new $class;
-					$activity = $activityType->addElement($className);
-					$classFlag = False;
+					$class = "Iati_Activity_Element_" . $className;
+					$activity = new $class;
+					$resultTree = $activityType;
+					$formattedResult = $this->getRows($className, $fieldName, $value, $tree);
+					if(!$formattedResult[$className])
+					$activityType->addElement($className);
+					foreach ($formattedResult[$className] as $result) {
+						$parentClass = $activity;
+						$resultTree = $this->fetchRowTreeSet($parentClass, $className, $result);
+						$activityType->addElement($resultTree);
+					}
+					return $activityType;
 				}else{
 					$class = "Iati_Activity_Element_" . $className;
 					$activity = new $class;
-				}
-				//
-				$formattedResult = $this->getRows($className, $fieldName, $value, $tree);
-				foreach ($formattedResult[$className] as $result) {
-					if($conditionalClass && $classFlag == TRUE){
-						$activity = $activityType->addElement($className);
+					$parentClass = $activity;
+					$resultTree = $activity;
+					$formattedResult = $this->getRows($className, $fieldName, $value, $tree);
+					foreach ($formattedResult[$className] as $result) {
+						$resultTree = $this->fetchRowTreeSet($parentClass, $className, $result);
 					}
-					$classFlag = TRUE;
-					$activity->setAttribs($result);
-					$primaryId = $result['id'];
-					$conditionField = $this->conditionFormatter($className);
-
-					$elementTree = $activityTreeMapper->getActivityTree($className);
-
-					if(is_array($elementTree)){
-						foreach ($elementTree as $classElement) {
-							$nodeTree = $activityTreeMapper->getActivityTree($classElement);
-							$resultRow = $this->getRows($classElement, $conditionField, $primaryId, $tree);
-							if (is_array($resultRow)) {
-								$element = $activity->addElement($classElement);
-								$flag = false;
-								foreach ($resultRow[$classElement] as $eachRow) {
-									if($flag)
-									$element = $activity->addElement($classElement);
-									$element->setAttribs($eachRow);
-									$flag = true;
-									$nodeflag = false;
-									if(is_array($nodeTree)){
-										foreach ($nodeTree as $nodeElement){
-											$nodeId = $eachRow['id'];
-											$nodeConditionField = $this->conditionFormatter($classElement);
-
-
-											$nodeResultRow = $this->getRows($nodeElement, $nodeConditionField, $nodeId, $tree);
-
-											if (is_array($nodeResultRow)) {
-												$nodeElementClass = $element->addElement($nodeElement);
-												foreach ($nodeResultRow[$nodeElement] as $row) {
-													if($nodeflag)
-													$nodeElementClass = $element->addElement($nodeElement);
-													$nodeElementClass->setAttribs($row);
-													$nodeflag = true;
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
+					return $resultTree;
 				}
 			} else {
 				$class = "Iati_Activity_Element_" . $className;
@@ -182,28 +132,50 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 				$formattedResult = $this->getRows($className, $fieldName, $value);
 				$result = $formattedResult[$className];
 				$activity->setAttribs($result[0]);
+				return $activity;
 			}
-			if($conditionalClass){
-				return $activityType;
-			}
-			return $activity;
 		}
 		catch (Exception $e)
 		{
-			var_dump('caught an error');exit;
-			return ;
+			return false;
 		}
 	}
 
-	public function fetchRowTreeSet()
-	{
 
+	public function fetchRowTreeSet($parentClass, $className, $data)
+	{
+		$tableClassMapper = new Iati_WEP_TableClassMapper();
+		$activityTreeMapper = new Iati_WEP_ActivityTreeMapper();
+		$parentClass->setAttribs($data);
+		$elementTree = $activityTreeMapper->getActivityTree($className);
+		if(is_array($elementTree)){
+			$primaryId = $data['id'];
+			$conditionField = $this->conditionFormatter($className);
+			foreach ($elementTree as $classElement) {
+				$element = $parentClass->addElement($classElement);
+				$flag = false;
+				$resultRow = $this->getRows($classElement, $conditionField, $primaryId);
+				if (($resultRow[$classElement])) {
+					foreach ($resultRow[$classElement] as $eachRow) {
+						if($flag)
+						$element = $parentClass->addElement($classElement);
+						$flag = true;
+						$this->fetchRowTreeSet($element, $classElement, $eachRow);
+					}
+				}
+			}
+		}
+		return $parentClass;
 	}
 
 	function lcfirst($string) {
 		$string{0} = strtolower($string{0});
 		return $string;
 	}
+
+	/*
+	 * Interaction with Database
+	 */
 
 	public function getRows($className, $fieldName = null, $value = null, $tree = false) {
 		$tableClassMapper = new Iati_WEP_TableClassMapper();
@@ -278,8 +250,8 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		$tree = new Iati_WEP_ActivityTreeMapper();
 		$elementTree = $tree->getActivityTree($className);
 		if(is_array($elementTree)){
-				$fieldName = $this->conditionFormatter($className);
-				$this->deleteChildElements($elementTree, $fieldName, $id);
+			$fieldName = $this->conditionFormatter($className);
+			$this->deleteChildElements($elementTree, $fieldName, $id);
 		}
 	}
 
@@ -307,7 +279,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		if ($tableName) {
 			$this->_name = $tableName;
 			$where = $this->getAdapter()->quoteInto($fieldName . "= ?", $value);
-//			var_dump("Deleting From table ".$tableName. " where ".$fieldName." is equal to ".$value);
+//						var_dump("Deleting From table ".$tableName. " where ".$fieldName." is equal to ".$value);
 			parent::delete($where);
 		}
 	}

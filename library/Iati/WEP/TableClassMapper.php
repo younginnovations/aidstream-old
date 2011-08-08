@@ -25,8 +25,11 @@ class Iati_WEP_TableClassMapper
         'PlannedDisbursment' => 'iati_planned_disbursment'
     );
 
-    public function getTableName($classname)
+    public function getTableName($classname,$parentName = null)
     {
+    	if($parentName!= 'Activity' && $parentName != NULL){
+    		$classname = $parentName."_".$classname;
+    	}
         $strippedClassName = str_replace('Iati_WEP_Activity_Elements_', "", $classname);
         $classNames = explode("_",$strippedClassName,3);
 		foreach($classNames as $eachClassName){
@@ -43,6 +46,12 @@ class Iati_WEP_TableClassMapper
 	public function convertCamelCaseToDash($className) {
 		$conditionField = strtolower(preg_replace('/([^A-Z_])([A-Z])/', '$1_$2', $className));
 		return $conditionField;
+	}
+
+
+	function lcfirst($string) {
+		$string{0} = strtolower($string{0});
+		return $string;
 	}
 
 }
