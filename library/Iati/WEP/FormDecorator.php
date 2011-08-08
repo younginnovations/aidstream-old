@@ -135,6 +135,8 @@ class Iati_WEP_FormDecorator {
 }
 
 function sprintfn ($format, array $args = array()) {
+    
+    //var_dump($args);
     // map of argument names to their corresponding sprintf numeric argument value
     $arg_nums = array_slice(array_flip(array_keys(array(0 => 0) + $args)), 1);
 

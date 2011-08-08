@@ -602,7 +602,7 @@ class WepController extends Zend_Controller_Action
         $tree = $factory->factory($class);
     
         $formHelper = new Iati_WEP_FormHelper();
-        $a = $formHelper->getSubForm($parents);
+        $a = $formHelper->genForm();
         print $a;exit;
        $this->_helper->layout->disableLayout();
 //     $this->_helper->viewRenderer->setNoRender(true);

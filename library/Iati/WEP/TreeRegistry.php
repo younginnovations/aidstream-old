@@ -115,6 +115,24 @@ class Iati_WEP_TreeRegistry {
         return $parents;
     }
     
+    public function getParentById ($classname, $objectId) {
+        $xpath = sprintf("//%s[@id='%s']", $classname, $objectId);
+        $path = self::$_tree->xpath($xpath);
+        $parentNode = $path[0]->xpath('..');
+        $attr = $parentNode[0]->attributes();
+        if (isset($attr['id'])) {
+            return ((string)$attr['id']);
+        }
+        return NULL;
+    }
+    
+    public function getNodeById ($nodeId) {
+        if (array_key_exists($nodeId, self::$_objects)) {
+            return self::$_objects[$nodeId];
+        }
+        return NULL;
+    }
+    
     /**
      *
      *
