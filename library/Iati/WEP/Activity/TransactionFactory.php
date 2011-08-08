@@ -20,15 +20,13 @@ class Iati_WEP_Activity_TransactionFactory
 
     public function factory($objectType = 'Transaction', $data = array())
     {
-
         $this->globalObject = $this->getRootNode();
 
         if($data){
-            //            print_r($data);exit;
             $this->globalObject = $this->getRootNode();
             foreach($data as $key => $values){
                 if(is_array($values)){
-                    $tree = $this->createObjects ($objectType, null, $data);
+                    $tree = $this->createObjects ($objectType, null, $values);
                 }
             }
         }
@@ -41,7 +39,6 @@ class Iati_WEP_Activity_TransactionFactory
 
     public function createTransaction($flatArray = array())
     {
-        //        var_dump($flatArray);exit;
         $transaction = new Iati_WEP_Activity_Elements_Transaction ();
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
         if($flatArray){
@@ -52,18 +49,19 @@ class Iati_WEP_Activity_TransactionFactory
             $transaction->setAttributes( $this->getInitialValues() );
         }
         $registryTree->addNode ($transaction, $this->globalObject);
-        $this->createObjects ( 'TransactionType', $transaction, $flatArray);
-        
 //        $this->createObjects ( 'TransactionType', $transaction, $flatArray);
+        
+        $this->createObjects ( 'TransactionType', $transaction, $flatArray);
         $this->createObjects ( 'ProviderOrg', $transaction, $flatArray);
         $this->createObjects ( 'ReceiverOrg', $transaction, $flatArray);
         $this->createObjects ('Value',  $transaction, $flatArray);
         $this->createObjects ('TiedStatus', $transaction, $flatArray);
+//print_r($flatArray);exit;
         $this->createObjects ('FlowType', $transaction, $flatArray);
         $this->createObjects ('FinanceType', $transaction,  $flatArray);
         $this->createObjects ('DisbursementChannel', $transaction, $flatArray);
         $this->createObjects ('Description', $transaction, $flatArray);
-        $this->createObjects ('Date', $transaction, $flatArray);
+        $this->createObjects ('TransactionDate', $transaction, $flatArray);
         $this->createObjects ('AidType', $transaction, $flatArray);
         return $registryTree;
 
@@ -80,6 +78,7 @@ class Iati_WEP_Activity_TransactionFactory
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
 
         if($values){
+            
             $data = $this->getFields($class, $values);
             $object->setAttributes($data);
             $registryTree->addNode($object, $parent);
@@ -115,16 +114,21 @@ class Iati_WEP_Activity_TransactionFactory
     public function getFields($class, $data)
     {
         $newArray = array();
-
         foreach($data as $key => $value){
             if(is_array($value)){
                 foreach($value as $k => $v){
-                
                 $key_array = explode('_', $k);
+                    if($key_array[0] == $class){
+                        array_shift($key_array);
+                        $newArray[implode("_", $key_array)] = $v;
+                    }
+                }
+            }
+            else{
+                $key_array = explode('_', $key);
                 if($key_array[0] == $class){
                     array_shift($key_array);
-                    $newArray[implode("_", $key_array)] = $v;
-                }
+                    $newArray[implode("_", $key_array)] = $value;
                 }
             }
         }
@@ -207,7 +211,6 @@ class Iati_WEP_Activity_TransactionFactory
                 $children = $eachElement->getElements();
                 $parent = $eachElement->getType();
                 foreach($children as $eachChild){
-                    
                     $className1 = 'Iati_WEP_Activity_Elements_' . $parent . "_" . $eachChild->getType();
 
                     $object1 = new $className1;

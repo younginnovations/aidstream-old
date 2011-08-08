@@ -422,6 +422,7 @@ class WepController extends Zend_Controller_Action
         $initial = $this->getInitialValues($activity_id, $class);
         $classname = 'Iati_WEP_Activity_'. $class . 'Factory';
         if(isset($class)){
+            try{
             if($_POST){
                 $flatArray = $this->flatArray($_POST);
                 $activity = new Iati_WEP_Activity_Elements_Activity();
@@ -447,9 +448,9 @@ class WepController extends Zend_Controller_Action
                     $factory = new $classname ();
                     $activityTree = $factory->cleanData($activity, $element);
                      
+//                    print_r($activityTree);exit;
                     $dbLayer = new Iati_WEP_DbLayer();
                     $dbLayer->save($activityTree);
-                    
                     $this->_helper->FlashMessenger->addMessage(array('message' => "$class successfully inserted."));
                     $this->_redirect("/wep/edit-activity-elements/?activity_id=".$activity_id);
                 
@@ -472,6 +473,10 @@ class WepController extends Zend_Controller_Action
                 $formHelper = new Iati_WEP_FormHelper();
                 $a = $formHelper->getForm();
 
+            }
+            }
+            catch (Exception $e){
+                print_r($e);exit;
             }
         }
         $this->_helper->layout()->setLayout('layout_wep');
@@ -528,12 +533,9 @@ class WepController extends Zend_Controller_Action
                     $element = new $elementClassName ();
                     $data = $activity->getCleanedData();
                     
-//                    print_r($data);exit;
                     $element->setAttribs($data);
                     $factory = new $classname ();
                     $activityTree = $factory->cleanData($activity, $element);
-                    print_r($activityTree);exit;
-                     
                     
                     $dbLayer = new Iati_WEP_DbLayer();
                     $dbLayer->save($activityTree);

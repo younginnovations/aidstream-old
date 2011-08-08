@@ -76,7 +76,7 @@ class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_
     public function getCleanedData(){
         $data = array();
         $data['id'] = $this->id;
-        $data['ref'] = $this->ref;
+        $data['@ref'] = $this->ref;
         
         return $data;
     }

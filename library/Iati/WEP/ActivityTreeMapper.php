@@ -13,6 +13,8 @@ class Iati_WEP_ActivityTreeMapper {
 	6 => 'Transaction_ReceiverOrg',
 	7 => 'Transaction_Value',
 	8 => 'Transaction_TiedStatus',
+	9 => 'Transaction_DisbursementChannel',
+	10 => 'Transaction_FlowType',
 	),
         'Conditions' =>
 	array(

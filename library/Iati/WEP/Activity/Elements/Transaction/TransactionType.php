@@ -7,7 +7,7 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     protected $id = 0;
     protected $options = array();
     protected $className = 'TransactionType';
-    
+    protected $required = false;
     protected $validators = array(
                                 'text' => 'NotEmpty',
                             );
@@ -78,12 +78,12 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
         $data['id'] = $this->id;
         $data['code'] = $this->code;
         $data['text'] = $this->text;
-//        print_r($data);exit;
         foreach($data as $key => $eachData){
             
             if(empty($this->validators[$key])){ continue; }
             
-            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData))) {  continue; }
+            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData)) || 
+            (empty($this->required))) {  continue; }
             
             $string = "Zend_Validate_". $this->validators[$key];
             $validator = new $string();

@@ -31,7 +31,6 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 			$parentType = $object->getParentType();
 			$attribs = $object->getAttribs();
 			$attribResult = $this->checkIsEmptyAttribs($attribs);
-			var_dump($attribResult);exit;
 			if($attribResult){
 				if($parentId){
 				$parentField = $this->conditionFormatter($parentType);

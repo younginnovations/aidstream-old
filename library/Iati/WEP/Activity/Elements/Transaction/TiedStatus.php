@@ -23,7 +23,7 @@ class Iati_WEP_Activity_Elements_Transaction_TiedStatus extends Iati_WEP_Activit
                     'attrs' => array('id' => 'id')
                 ),
                 'code' => array(
-                    'name' => 'ref',
+                    'name' => 'code',
                     'label' => 'Tied Status Code',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
@@ -64,7 +64,7 @@ class Iati_WEP_Activity_Elements_Transaction_TiedStatus extends Iati_WEP_Activit
     
     public function setAttributes ($data) {
         $this->id = (isset($data['id']))?$data['id']:0; 
-        $this->ref = (key_exists('@code', $data))?$data['@code']:$data['code'];
+        $this->code = (key_exists('@code', $data))?$data['@code']:$data['code'];
         $this->text = $data['text'];
         $this->xml_lang = key_exists('@xml_lang', $data)?$data['@xml_lang']:$data['xml_lang'];
     }
@@ -109,6 +109,7 @@ public function getCleanedData(){
         $data['@code'] = $this->code;
         $data['text'] = $this->text;
         $data['@xml_lang'] = $this->xml_lang;
+        
         
         return $data;
     }

@@ -1,7 +1,7 @@
 <?php 
 class Iati_WEP_Activity_Elements_Transaction_FlowType extends Iati_WEP_Activity_Elements_Transaction
 {
-    protected $attributes = array('text', 'code', 'xml_lang');
+    protected $attributes = array('id','text', 'code', 'xml_lang');
     protected $text;
     protected $code;
     protected $xml_lang;
@@ -10,6 +10,7 @@ class Iati_WEP_Activity_Elements_Transaction_FlowType extends Iati_WEP_Activity_
     protected $className = 'FlowType';
     protected $validators = array(
                                 'text' => 'NotEmpty',
+                                'code' => 'NotEmpty',
                             );
     
 protected $attributes_html = array(
@@ -24,7 +25,7 @@ protected $attributes_html = array(
                     'attrs' => array('id' => 'id')
                 ),
                 'code' => array(
-                    'name' => 'ref',
+                    'name' => 'code',
                     'label' => 'Flow Type Code',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
@@ -64,8 +65,9 @@ protected $attributes_html = array(
     }
     
     public function setAttributes ($data) {
+//        print_r($data);exit;
         $this->id = (isset($data['id']))?$data['id']:0; 
-        $this->ref = (key_exists('@code', $data))?$data['@code']:$data['code'];
+        $this->code = (key_exists('@code', $data))?$data['@code']:$data['code'];
         $this->text = $data['text'];
         $this->xml_lang = key_exists('@xml_lang', $data)?$data['@xml_lang']:$data['xml_lang'];
     }
@@ -81,6 +83,7 @@ protected $attributes_html = array(
     }
     public function validate()
     {
+        
         $data['id'] = $this->id;
         $data['code'] = $this->code;
         $data['text'] = $this->text;
@@ -110,6 +113,7 @@ public function getCleanedData(){
         $data['@code'] = $this->code;
         $data['text'] = $this->text;
         $data['@xml_lang'] = $this->xml_lang;
+//        print_r($data);exit;
         return $data;
     }
 }

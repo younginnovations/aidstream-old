@@ -1,13 +1,15 @@
 <?php 
-class Iati_WEP_Activity_Elements_Transaction_Description extends Iati_WEP_Activity_Elements_Transaction
+class Iati_WEP_Activity_Elements_Transaction_TransactionDate extends Iati_WEP_Activity_Elements_Transaction
 {
-    protected $attributes = array('text', 'xml_lang');
+    protected $attributes = array('text', 'iso_date');
     protected $text;
-    protected $xml_lang;
+    protected $iso_date;
     protected $id = 0;
     protected $options = array();
-    protected $className = 'Description';
-    protected $validators = array();
+    protected $className = 'TransactionDate';
+    protected $validators = array(
+                                'iso_date' => 'NotEmpty',
+                            );
     
     protected $attributes_html = array(
                 'id' => array(
@@ -20,10 +22,10 @@ class Iati_WEP_Activity_Elements_Transaction_Description extends Iati_WEP_Activi
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('id' => 'id')
                 ),
-                'xml_lang' => array(
-                    'name' => 'xml_lang',
-                    'label' => 'Language',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                'iso_date' => array(
+                    'name' => 'iso_date',
+                    'label' => 'Date',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'options' => '',
                 ),
     );
@@ -33,47 +35,40 @@ class Iati_WEP_Activity_Elements_Transaction_Description extends Iati_WEP_Activi
     protected $error = array();
     protected $hasError = false;
     protected $multiple = false;
-
+    
     public function __construct()
     {
         $this->objectId = self::$count;
         self::$count += 1;
-    
-        $this->setOptions();
     }
-    
     
     public function setOptions()
-    {
-        $model = new Model_Wep();
-        $this->options['xml_lang'] = $model->getCodeArray('Language', null, '1');
-    }
+    {}
     
     public function setAttributes ($data) {
         $this->id = (isset($data['id']))?$data['id']:0; 
-        $this->currency = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
+        $this->iso_date = (key_exists('@iso_date', $data))?$data['@iso_date']:$data['iso_date'];
         $this->text = $data['text'];
     }
-    
+        
     public function getOptions($name = NULL)
     {
         return $this->options[$name];
+    }
+    
+    public function getObjectId()
+    {
+        return $this->objectId;
     }
     
     public function getValidator($attr)
     {
         return $this->validators[$attr];
     }
-
-    public function getObjectId()
-    {
-        return $this->objectId;
-    }
-    
     public function validate()
     {
         $data['id'] = $this->id;
-        $data['xml_lang'] = $this->xml_lang;
+        $data['iso_date'] = $this->iso_date;
         $data['text'] = $this->text;
         
         foreach($data as $key => $eachData){
@@ -93,14 +88,12 @@ class Iati_WEP_Activity_Elements_Transaction_Description extends Iati_WEP_Activi
             }
         }
     }
-    
-public function getCleanedData(){
+    public function getCleanedData(){
         $data = array();
         $data ['id'] = $this->id;
-        $data['@xml_lang'] = $this->xml_lang;
+        $data['@iso_date'] = $this->iso_date;
         $data['text'] = $this->text;
         
         return $data;
     }
-    
 }
