@@ -9,6 +9,61 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
 		$this->testObj = new Iati_WEP_DbLayer();
 	}
 
+	public function testInsertElement(){
+		$activities = new Iati_Activity_Element_ActivityCollection();
+        $activity = $activities->addElement('activity');
+        $activity->setAttrib('@xml_lang', 'en');
+        $activity->setAttrib('@default_currency', 'USD');
+        $activity->setAttribs(array(
+            '@hierarchy' => '0',
+            '@last_updated_datetime' => '2011-02-01',
+        	'activities_id' => '2',
+        ));
+        $iatiIdentifier = $activity->addElement('identifier');
+        // fill up properties of $iatiIdentifier
+
+        // Another technique for adding new element is
+        $reportingOrg = $activity->createElement('reportingOrg');
+        $reportingOrg->setAttribs(array(
+            '@ref' => "GB-1",
+            '@type' => "INGO",
+            '@xml_lang' => "en",
+        	'text' => 'TestingTest',
+        ));
+        $activity->addElement($reportingOrg);
+        $dbLayer = new Iati_WEP_DbLayer();
+		$dbLayer->save($activity);
+	}
+
+	public function testUpdateElement(){
+		$activities = new Iati_Activity_Element_ActivityCollection();
+        $activity = $activities->addElement('activity');
+        $activity->setAttrib('@xml_lang', 'en');
+        $activity->setAttrib('@default_currency', 'USD');
+        $activity->setAttribs(array(
+            '@hierarchy' => '0',
+            '@last_updated_datetime' => '2011-08-08',
+        	'activities_id' => '2',
+        	'id' => '8',
+        ));
+        $iatiIdentifier = $activity->addElement('identifier');
+        // fill up properties of $iatiIdentifier
+
+        // Another technique for adding new element is
+        $reportingOrg = $activity->createElement('reportingOrg');
+        $reportingOrg->setAttribs(array(
+            '@ref' => "GB-1",
+            '@type' => "INGO",
+            '@xml_lang' => "en",
+        	'text' => 'texting',
+        	'id' => '3',
+        ));
+        $activity->addElement($reportingOrg);
+        $dbLayer = new Iati_WEP_DbLayer();
+		$dbLayer->save($activity);
+	}
+
+
 	public function testSaveElement()
 	{
 
