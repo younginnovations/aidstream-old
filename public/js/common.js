@@ -91,7 +91,7 @@ function initialize() {
 				//console.log('apple');
 				
 				var node = new dojo.NodeList(evt.target.parentNode.parentNode);
-				//node = node.children('fieldset:last-child');
+				node = node.children('div:first-child');
 				
 				
 				var sp = node.query('input').attr('name')[0];
