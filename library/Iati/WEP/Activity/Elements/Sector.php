@@ -1,18 +1,18 @@
 <?php
-class Iati_WEP_Activity_Elements_RecipientCountry extends Iati_WEP_Activity_Elements_ElementBase
-{  
-    protected $attributes = array('id','text', 'code', 'percentage',  'xml_lang');
+class Iati_WEP_Activity_Elements_Sector extends Iati_WEP_Activity_Elements_ElementBase
+{
+    protected $attributes = array('id', 'text', 'vocabulary', 'code', 'percentage', 'xml_lang');
     protected $text;
     protected $code;
+    protected $vocabulary;
     protected $percentage;
     protected $xml_lang;
     protected $id = 0;
     protected $options = array();
     protected $validators = array(
-                                'code' => 'NotEmpty',
+                                'text' => 'NotEmpty',
                             );
-    protected $className = 'RecipientCountry';
-
+    protected $className = 'Sector';
     protected $attributes_html = array(
                 'id' => array(
                     'name' => 'id',
@@ -24,12 +24,23 @@ class Iati_WEP_Activity_Elements_RecipientCountry extends Iati_WEP_Activity_Elem
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('id' => 'id')
                 ),
-                
                 'code' => array(
                     'name' => 'code',
-                    'label' => 'Country Code',
+                    'label' => 'Sector',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
+                ),
+                'vocabulary' => array(
+                    'name' => 'vocabulary',
+                    'label' => 'Vocabulary',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'options' => '',
+                ),
+                'percentage' => array(
+                    'name' => 'percentage',
+                    'label' => 'Percentage',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'attrs' => array('id' => 'id')
                 ),
                 'xml_lang' => array(
                     'name' => 'xml_lang',
@@ -38,13 +49,13 @@ class Iati_WEP_Activity_Elements_RecipientCountry extends Iati_WEP_Activity_Elem
                     'options' => '',
                 ),
     );
-
+    
     protected static $count = 0;
     protected $objectId;
     protected $error = array();
     protected $hasError = false;
     protected $multiple = true;
-
+   
     public function __construct()
     {
 //        $this->checkPrivilege();
@@ -57,33 +68,21 @@ class Iati_WEP_Activity_Elements_RecipientCountry extends Iati_WEP_Activity_Elem
     public function setOptions()
     {
         $model = new Model_Wep();
-        $this->options['code'] = $model->getCodeArray('Country', null, '1');
+        $this->options['vocabulary'] = $model->getCodeArray('Vocabulary', NULL, '1');
+        $this->options['code'] = $model->getCodeArray('Sector', NULL, '1');
         $this->options['xml_lang'] = $model->getCodeArray('Language', null, '1');
     }
     
     public function setAttributes ($data) {
+        $this->id = (isset($data['id']))?$data['id']:0;
         
-        $this->id = (key_exists('id', $data))?$data['id']:0;
-        $this->xml_lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
-        $this->percentage = (key_exists('@percentage', $data))?$data['@percentage']:$data['percentage'];
+        $this->vocabulary = (key_exists('@vocabulary', $data))?$data['@vocabulary']:$data['vocabulary'];
         $this->code = (key_exists('@code', $data))?$data['@code']:$data['code'];
-        $this->text = $data['text'];       
+        $this->percentage = (key_exists('@percentage', $data))?$data['@percentage']:$data['percentage'];
+        $this->xml_lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
+        $this->text = $data['text'];
         
     }
-
-     public function checkPrivilege()
-    {
-        $userRole = new App_UserRole();
-        $resource = new App_Resource();
-        $resource->ownerUserId = $userRole->userId;
-        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'RecipientCountry')) {
-            $host  = $_SERVER['HTTP_HOST'];
-            $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-            $extra = 'user/user/login';
-            header("Location: http://$host$uri/$extra");
-        }
-    }
-
     
     public function getOptions($name = NULL)
     {
@@ -100,28 +99,35 @@ class Iati_WEP_Activity_Elements_RecipientCountry extends Iati_WEP_Activity_Elem
         return $this->validators[$attr];
     }
     
-    
-    public function getCleanedData()
-    {
-        $data['@code'] = $this->code;
-        $data['@percentage'] = $this->percentage;
-        $data['@xml_lang'] = $this->xml_lang;
-        $data['text'] = $this->text;
-        return $data;
-    }
-
     public function validate()
     {
-        $data['code'] = $this->code;
-        $data['percentage'] = $this->percentage;
+        $data['id'] = $this->id;
         $data['xml_lang'] = $this->xml_lang;
         $data['text'] = $this->text;
         
-        parent::validate($data);
+        parent :: validate($data);
+    }
+    
+    public function getCleanedData(){
+        $data = array();
+        $data ['id'] = $this->id;
+        $data['@xml_lang'] = $this->xml_lang;
+        $data['text'] = $this->text;
+        
+        return $data;
+    }
+    
+    public function checkPrivilege()
+    {
+        $userRole = new App_UserRole();
+        $resource = new App_Resource();
+        $resource->ownerUserId = $userRole->userId;
+        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'Sector')) {
+            $host = $_SERVER['HTTP_HOST'];
+            $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+            $extra = 'user/user/login';
+            header("Location: http://$host$uri/$extra");
+        }
     }
 
-    public function hasErrors()
-    {
-        return $this->hasError;
-    }
 }

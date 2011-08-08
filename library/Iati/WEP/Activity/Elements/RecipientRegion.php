@@ -1,5 +1,5 @@
 <?php
-class Iati_WEP_Activity_Elements_RecipientCountry extends Iati_WEP_Activity_Elements_ElementBase
+class Iati_WEP_Activity_Elements_RecipientRegion extends Iati_WEP_Activity_Elements_ElementBase
 {  
     protected $attributes = array('id','text', 'code', 'percentage',  'xml_lang');
     protected $text;
@@ -11,7 +11,7 @@ class Iati_WEP_Activity_Elements_RecipientCountry extends Iati_WEP_Activity_Elem
     protected $validators = array(
                                 'code' => 'NotEmpty',
                             );
-    protected $className = 'RecipientCountry';
+    protected $className = 'RecipientRegion';
 
     protected $attributes_html = array(
                 'id' => array(
@@ -57,7 +57,7 @@ class Iati_WEP_Activity_Elements_RecipientCountry extends Iati_WEP_Activity_Elem
     public function setOptions()
     {
         $model = new Model_Wep();
-        $this->options['code'] = $model->getCodeArray('Country', null, '1');
+        $this->options['code'] = $model->getCodeArray('Region', null, '1');
         $this->options['xml_lang'] = $model->getCodeArray('Language', null, '1');
     }
     
@@ -76,7 +76,7 @@ class Iati_WEP_Activity_Elements_RecipientCountry extends Iati_WEP_Activity_Elem
         $userRole = new App_UserRole();
         $resource = new App_Resource();
         $resource->ownerUserId = $userRole->userId;
-        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'RecipientCountry')) {
+        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'RecipientRegion')) {
             $host  = $_SERVER['HTTP_HOST'];
             $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
             $extra = 'user/user/login';

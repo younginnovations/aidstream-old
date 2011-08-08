@@ -1,15 +1,14 @@
 <?php
-class Iati_WEP_Activity_Elements_Title extends Iati_WEP_Activity_Elements_ElementBase
+class Iati_WEP_Activity_Elements_Identifier extends Iati_WEP_Activity_Elements_ElementBase
 {
-    protected $attributes = array('id', 'text', 'xml_lang');
-    protected $text;
-    protected $xml_lang;
+    protected $attributes = array('id','text',);
+    protected $text = '';
     protected $id = 0;
     protected $options = array();
     protected $validators = array(
                                 'text' => 'NotEmpty',
                             );
-    protected $className = 'Title';
+    protected $className = 'Identifier';
     protected $attributes_html = array(
                 'id' => array(
                     'name' => 'id',
@@ -21,21 +20,15 @@ class Iati_WEP_Activity_Elements_Title extends Iati_WEP_Activity_Elements_Elemen
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('id' => 'id')
                 ),
-                'xml_lang' => array(
-                    'name' => 'xml_lang',
-                    'label' => 'Language',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
-                    'options' => '',
-                ),
     );
-    
     protected static $count = 0;
     protected $objectId;
     protected $error = array();
     protected $hasError = false;
-    protected $multiple = true;
-   
-    public function __construct()
+    protected $multiple = false;
+    
+    
+    public function __construct($id = 0)
     {
 //        $this->checkPrivilege();
         parent::__construct();
@@ -43,16 +36,13 @@ class Iati_WEP_Activity_Elements_Title extends Iati_WEP_Activity_Elements_Elemen
         self::$count += 1;
         $this->setOptions();
     }
-    
+
     public function setOptions()
     {
-        $model = new Model_Wep();
-        $this->options['xml_lang'] = $model->getCodeArray('Language', null, '1');
     }
     
     public function setAttributes ($data) {
         $this->id = (isset($data['id']))?$data['id']:0;
-        $this->xml_lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
         $this->text = $data['text'];
         
     }
@@ -75,16 +65,16 @@ class Iati_WEP_Activity_Elements_Title extends Iati_WEP_Activity_Elements_Elemen
     public function validate()
     {
         $data['id'] = $this->id;
-        $data['xml_lang'] = $this->xml_lang;
         $data['text'] = $this->text;
+        //@todo parent id
+//        $data['activity_id'] = parent :: $activity_id;
         
-        parent :: validate($data);
+        parent::validate($data);
     }
-    
+
     public function getCleanedData(){
         $data = array();
         $data ['id'] = $this->id;
-        $data['@xml_lang'] = $this->xml_lang;
         $data['text'] = $this->text;
         
         return $data;
@@ -95,12 +85,11 @@ class Iati_WEP_Activity_Elements_Title extends Iati_WEP_Activity_Elements_Elemen
         $userRole = new App_UserRole();
         $resource = new App_Resource();
         $resource->ownerUserId = $userRole->userId;
-        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'Title')) {
+        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'IatiIdentifier')) {
             $host = $_SERVER['HTTP_HOST'];
             $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
             $extra = 'user/user/login';
             header("Location: http://$host$uri/$extra");
         }
     }
-
 }

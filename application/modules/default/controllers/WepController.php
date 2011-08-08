@@ -201,6 +201,7 @@ class WepController extends Zend_Controller_Action
                     $fieldString = serialize($defaultFieldsValuesObj);
                     $defaultValues['id'] = $model->getIdByField('default_field_values', 'account_id', $identity->account_id);
                     $defaultValues['object'] = $fieldString;
+//                    print_r($defaultValues);exit;
                     //                    $defaultValues['account_id'] = $identity->account_id;
                     $defaultValuesId = $model->updateRowsToTable('default_field_values', $defaultValues);
 
@@ -428,10 +429,8 @@ class WepController extends Zend_Controller_Action
                 $registryTree = Iati_WEP_TreeRegistry::getInstance();
                 $registryTree->addNode($activity);
                 $factory = new $classname ();
-                
                 $factory->setInitialValues($initial);
                 $tree = $factory->factory($class, $flatArray);
-                
                 $factory->validateAll($activity);
                 
                 if($factory->hasError()){
@@ -439,6 +438,7 @@ class WepController extends Zend_Controller_Action
                     $a = $formHelper->getForm();
                 }
                 else{
+                    
                     $elementClassName = 'Iati_Activity_Element_Activity';
                     $element = new $elementClassName ();
                     $data = $activity->getCleanedData();
@@ -451,9 +451,8 @@ class WepController extends Zend_Controller_Action
                     $dbLayer->save($activityTree);
                     
                     $this->_helper->FlashMessenger->addMessage(array('message' => "$class successfully inserted."));
-                    $this->_redirect("wep/wep/edit-activity-elements/?activity_id=".$activity_id);
+                    $this->_redirect("/wep/edit-activity-elements/?activity_id=".$activity_id);
                 
-                      
                 }
                 /*
                 $formHelper = new Iati_WEP_FormHelper();
@@ -499,6 +498,7 @@ class WepController extends Zend_Controller_Action
             }
             $activity = $activity_info[0];
             $activity['@xml_lang'] = $model->fetchValueById('Language', $activity_info[0]['@xml_lang'], 'Code');
+
             $activity['@default_currency'] = $model->fetchValueById('Currency', $activity_info[0]['@default_currency'], 'Code');
         }
         $this->view->activityInfo = $activity;
@@ -528,11 +528,13 @@ class WepController extends Zend_Controller_Action
                     $element = new $elementClassName ();
                     $data = $activity->getCleanedData();
                     
+//                    print_r($data);exit;
                     $element->setAttribs($data);
                     $factory = new $classname ();
                     $activityTree = $factory->cleanData($activity, $element);
                     print_r($activityTree);exit;
                      
+                    
                     $dbLayer = new Iati_WEP_DbLayer();
                     $dbLayer->save($activityTree);
                     
@@ -547,7 +549,6 @@ class WepController extends Zend_Controller_Action
                 $dbLayer = new Iati_WEP_DbLayer();
                 $rowSet = $dbLayer->getRowSet($class, 'activity_id', $activity_id, true);
                 $elements = $rowSet->getElements();
-//                print_r($elements);exit;
                 $attributes = $elements[0]->getAttribs();
                 if(empty($attributes)){
                     $this->_helper->FlashMessenger->addMessage(array('message' => "$class not found for this activity. Please add $class"));

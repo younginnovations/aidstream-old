@@ -1,12 +1,12 @@
 <?php 
-class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Activity_Elements_Transaction
+class Iati_WEP_Activity_Elements_Budget_PeriodEnd extends Iati_WEP_Activity_Elements_Budget
 {
-    protected $attributes = array('id', 'text', 'code');
+    protected $attributes = array('id', 'text', 'iso_date');
     protected $text;
-    protected $code;
+    protected $iso_date;
     protected $id = 0;
     protected $options = array();
-    protected $className = 'TransactionType';
+    protected $className = 'PeriodEnd';
     
     protected $validators = array(
                                 'text' => 'NotEmpty',
@@ -24,11 +24,11 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('id' => 'id')
                 ),
-                'code' => array(
-                    'name' => 'code',
-                    'label' => 'Transaction Type Code',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
-                    'options' => '',
+                'iso_date' => array(
+                    'name' => 'iso_date',
+                    'label' => 'Date',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'attrs' => array('id' => 'id')
                 )
     );
     
@@ -48,14 +48,14 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     
     public function setOptions()
     {
-        $model = new Model_Wep();
-        $this->options['code'] = $model->getCodeArray('TransactionType', null, '1');
+//        $model = new Model_Wep();
+//        $this->options['code'] = $model->getCodeArray('TransactionType', null, '1');
     }
     
     public function setAttributes ($data) {
 //        print_r($data);exit;
         $this->id = (isset($data['id']))?$data['id']:0; 
-        $this->code = (key_exists('@code', $data))?$data['@code']:$data['code'];
+        $this->iso_date = (key_exists('@iso_date', $data))?$data['@iso_date']:$data['iso_date'];
         $this->text = $data['text'];
     }
     
@@ -76,7 +76,7 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     public function validate()
     {
         $data['id'] = $this->id;
-        $data['code'] = $this->code;
+        $data['iso_date'] = $this->iso_date;
         $data['text'] = $this->text;
 //        print_r($data);exit;
         foreach($data as $key => $eachData){
@@ -100,7 +100,7 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     public function getCleanedData(){
         $data = array();
         $data ['id'] = $this->id;
-        $data['@code'] = $this->code;
+        $data['@iso_date'] = $this->iso_date;
         $data['text'] = $this->text;
         
         return $data;

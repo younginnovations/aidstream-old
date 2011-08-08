@@ -6,7 +6,7 @@ class Iati_WEP_AccountDisplayFieldGroup
     protected $participating_org = '0';
     protected $transaction = '0';
     protected $other_identifier = '0';
-    protected $descripton = '0';
+    protected $description = '0';
     protected $activity_status = '0';
     protected $contact_info = '0';
     protected $recipient_country = '0';

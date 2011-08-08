@@ -1,5 +1,5 @@
 <?php
-class Iati_WEP_Activity_TransactionFactory
+class Iati_WEP_Activity_ResultFactory
 {
     protected $defaultValues = array();
     protected $globalObject;
@@ -18,7 +18,7 @@ class Iati_WEP_Activity_TransactionFactory
     }
 
 
-    public function factory($objectType = 'Transaction', $data = array())
+    public function factory($objectType = 'Result', $data = array())
     {
 
         $this->globalObject = $this->getRootNode();
@@ -39,7 +39,7 @@ class Iati_WEP_Activity_TransactionFactory
         return $tree;
     }
 
-    public function createTransaction($flatArray = array())
+    public function createResult($flatArray = array())
     {
         //        var_dump($flatArray);exit;
         $transaction = new Iati_WEP_Activity_Elements_Transaction ();
@@ -60,10 +60,9 @@ class Iati_WEP_Activity_TransactionFactory
         $this->createObjects ('Value',  $transaction, $flatArray);
         $this->createObjects ('TiedStatus', $transaction, $flatArray);
         $this->createObjects ('FlowType', $transaction, $flatArray);
-        $this->createObjects ('FinanceType', $transaction,  $flatArray);
         $this->createObjects ('DisbursementChannel', $transaction, $flatArray);
         $this->createObjects ('Description', $transaction, $flatArray);
-        $this->createObjects ('Date', $transaction, $flatArray);
+//        $this->createObjects ('Date', $transaction, $flatArray);
         $this->createObjects ('AidType', $transaction, $flatArray);
         return $registryTree;
 
@@ -71,11 +70,11 @@ class Iati_WEP_Activity_TransactionFactory
 
     public function createObjects($class, $parent = null, $values = array())
     {
-        if($class == 'Transaction'){
-            return $this->createTransaction($values);
+        if($class == 'Result'){
+            return $this->createResult($values);
         }
 
-        $string = 'Iati_WEP_Activity_Elements_Transaction_' . $class;
+        $string = 'Iati_WEP_Activity_Elements_Result_' . $class;
         $object = new $string ();
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
 

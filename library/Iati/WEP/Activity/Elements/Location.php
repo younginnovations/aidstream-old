@@ -1,10 +1,11 @@
 <?php 
-class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_ElementBase
+class Iati_WEP_Activity_Elements_Location extends Iati_WEP_Activity_Elements_ElementBase
 {
-    protected $attributes = array('id', 'ref');
-    protected $ref;
+    protected $attributes = array('id', 'percentage');
+    protected $percentage;
     protected $id = 0;
     protected $options = array();
+    protected $multiple = true;
 //    protected $validator = array(protected $hasError = false;
 //                                '' 
 //                            );
@@ -14,17 +15,19 @@ class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_
                     'label' => '',
                     'html' => '<input type="hidden" name="%(name)s" value="%(value)s" />',
                     ),
-                    'ref' => array(
-                    'name' => 'ref',
-                    'label' => 'Text',
+                    'percentage' => array(
+                    'name' => 'percentage',
+                    'label' => 'Percentage',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('id' => 'id')
                 
                 ),
     );
-    protected $className = 'Transaction';
+    protected $className = 'Location';
     
-    protected $validators = array();
+    protected $validators = array(
+                                'percentage' => 'Int',
+                            );
     protected static $count = 0;
     protected $objectId;
     protected $error = array();
@@ -43,7 +46,7 @@ class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_
     
     public function setAttributes ($data) {
         $this->id = (isset($data['id']))?$data['id']:0; 
-        $this->ref = (isset($data['@ref']))?$data['@ref']:$data['ref'];
+        $this->percentage = (isset($data['@percentage']))?$data['@percentage']:$data['percentage'];
     }
     
     public function getOptions($attr)
@@ -76,7 +79,7 @@ class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_
     public function getCleanedData(){
         $data = array();
         $data['id'] = $this->id;
-        $data['ref'] = $this->ref;
+        $data['percentage'] = $this->percentage;
         
         return $data;
     }

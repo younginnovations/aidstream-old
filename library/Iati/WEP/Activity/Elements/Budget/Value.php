@@ -1,15 +1,16 @@
 <?php 
-class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Activity_Elements_Transaction
+class Iati_WEP_Activity_Elements_Budget_Value extends Iati_WEP_Activity_Elements_Budget
 {
-    protected $attributes = array('id', 'text', 'code');
+    protected $attributes = array('id', 'text', 'value_date', 'currency');
     protected $text;
-    protected $code;
+    protected $currency;
+    protected $value_date;
     protected $id = 0;
     protected $options = array();
-    protected $className = 'TransactionType';
+    protected $className = 'Value';
     
     protected $validators = array(
-                                'text' => 'NotEmpty',
+                                'value_date' => 'NotEmpty',
                             );
                             
     protected $attributes_html = array(
@@ -24,11 +25,17 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('id' => 'id')
                 ),
-                'code' => array(
-                    'name' => 'code',
-                    'label' => 'Transaction Type Code',
+                'currency' => array(
+                    'name' => 'currency',
+                    'label' => 'currency',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
+                    ),
+                'value_date' => array(
+                    'name' => 'value_date',
+                    'label' => 'Value Date',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'attrs' => array('id' => 'id')
                 )
     );
     
@@ -48,14 +55,15 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     
     public function setOptions()
     {
-        $model = new Model_Wep();
-        $this->options['code'] = $model->getCodeArray('TransactionType', null, '1');
+//        $model = new Model_Wep();
+//        $this->options['code'] = $model->getCodeArray('TransactionType', null, '1');
     }
     
     public function setAttributes ($data) {
 //        print_r($data);exit;
         $this->id = (isset($data['id']))?$data['id']:0; 
-        $this->code = (key_exists('@code', $data))?$data['@code']:$data['code'];
+        $this->currency = (key_exists('@currency', $data))?$data['@currency']:$data['currency'];
+        $this->value_date = (key_exists('@value_date', $data))?$data['@value_date']:$data['value_date'];
         $this->text = $data['text'];
     }
     
@@ -76,7 +84,8 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     public function validate()
     {
         $data['id'] = $this->id;
-        $data['code'] = $this->code;
+        $data['value_date'] = $this->value_date;
+        $data['currency'] = $this->currency;
         $data['text'] = $this->text;
 //        print_r($data);exit;
         foreach($data as $key => $eachData){
@@ -100,7 +109,8 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     public function getCleanedData(){
         $data = array();
         $data ['id'] = $this->id;
-        $data['@code'] = $this->code;
+        $data['@value_date'] = $this->value_date;
+        $data['@currency'] = $this->currency;
         $data['text'] = $this->text;
         
         return $data;

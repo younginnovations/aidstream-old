@@ -1,10 +1,11 @@
 <?php 
 class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_ElementBase
 {
-    protected $attributes = array('id', 'ref');
-    protected $ref;
+    protected $attributes = array('id', 'type');
+    protected $type;
     protected $id = 0;
     protected $options = array();
+    protected $multiple = true;
 //    protected $validator = array(protected $hasError = false;
 //                                '' 
 //                            );
@@ -14,22 +15,23 @@ class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_
                     'label' => '',
                     'html' => '<input type="hidden" name="%(name)s" value="%(value)s" />',
                     ),
-                    'ref' => array(
-                    'name' => 'ref',
-                    'label' => 'Text',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('id' => 'id')
+                    'type' => array(
+                    'name' => 'type',
+                    'label' => 'Result Type',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'options' => '',
+                    ),
                 
-                ),
     );
-    protected $className = 'Transaction';
+    protected $className = 'Result';
     
-    protected $validators = array();
+    protected $validators = array(
+                                'type' => 'NotEmpty',
+                            );
     protected static $count = 0;
     protected $objectId;
     protected $error = array();
     protected $hasError = false;
-    protected $multiple = true;
     
     
 
@@ -43,7 +45,7 @@ class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_
     
     public function setAttributes ($data) {
         $this->id = (isset($data['id']))?$data['id']:0; 
-        $this->ref = (isset($data['@ref']))?$data['@ref']:$data['ref'];
+        $this->ref = (isset($data['@type']))?$data['@type']:$data['type'];
     }
     
     public function getOptions($attr)
@@ -76,7 +78,7 @@ class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_
     public function getCleanedData(){
         $data = array();
         $data['id'] = $this->id;
-        $data['ref'] = $this->ref;
+        $data['type'] = $this->type;
         
         return $data;
     }

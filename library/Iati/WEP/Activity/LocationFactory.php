@@ -1,5 +1,5 @@
 <?php
-class Iati_WEP_Activity_TransactionFactory
+class Iati_WEP_Activity_LocationFactory
 {
     protected $defaultValues = array();
     protected $globalObject;
@@ -18,7 +18,7 @@ class Iati_WEP_Activity_TransactionFactory
     }
 
 
-    public function factory($objectType = 'Transaction', $data = array())
+    public function factory($objectType = 'Location', $data = array())
     {
 
         $this->globalObject = $this->getRootNode();
@@ -39,43 +39,38 @@ class Iati_WEP_Activity_TransactionFactory
         return $tree;
     }
 
-    public function createTransaction($flatArray = array())
+    public function createLocation($flatArray = array())
     {
         //        var_dump($flatArray);exit;
-        $transaction = new Iati_WEP_Activity_Elements_Transaction ();
+        $transaction = new Iati_WEP_Activity_Elements_Location ();
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
         if($flatArray){
-            $data = $this->getFields('Transaction', $flatArray);
+            $data = $this->getFields('Location', $flatArray);
             $transaction->setAttributes($data);
         }
         else{
             $transaction->setAttributes( $this->getInitialValues() );
         }
         $registryTree->addNode ($transaction, $this->globalObject);
-        $this->createObjects ( 'TransactionType', $transaction, $flatArray);
+        $this->createObjects ( 'LocationType', $transaction, $flatArray);
         
 //        $this->createObjects ( 'TransactionType', $transaction, $flatArray);
-        $this->createObjects ( 'ProviderOrg', $transaction, $flatArray);
-        $this->createObjects ( 'ReceiverOrg', $transaction, $flatArray);
-        $this->createObjects ('Value',  $transaction, $flatArray);
-        $this->createObjects ('TiedStatus', $transaction, $flatArray);
-        $this->createObjects ('FlowType', $transaction, $flatArray);
-        $this->createObjects ('FinanceType', $transaction,  $flatArray);
-        $this->createObjects ('DisbursementChannel', $transaction, $flatArray);
-        $this->createObjects ('Description', $transaction, $flatArray);
-        $this->createObjects ('Date', $transaction, $flatArray);
-        $this->createObjects ('AidType', $transaction, $flatArray);
+        $this->createObjects ( 'Name', $transaction, $flatArray);
+        $this->createObjects ( 'Description', $transaction, $flatArray);
+        $this->createObjects ('Administrative',  $transaction, $flatArray);
+        $this->createObjects ('Coordinates', $transaction, $flatArray);
+        $this->createObjects ('GazetteerEntry', $transaction, $flatArray);
         return $registryTree;
 
     }
 
     public function createObjects($class, $parent = null, $values = array())
     {
-        if($class == 'Transaction'){
-            return $this->createTransaction($values);
+        if($class == 'Location'){
+            return $this->createLocation($values);
         }
 
-        $string = 'Iati_WEP_Activity_Elements_Transaction_' . $class;
+        $string = 'Iati_WEP_Activity_Elements_Location_' . $class;
         $object = new $string ();
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
 
