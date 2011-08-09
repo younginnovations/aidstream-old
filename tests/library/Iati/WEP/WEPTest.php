@@ -611,4 +611,11 @@ function array_depth ($array) {
     }
     return $max_depth;
 }
+
+public function testExplode()
+{
+    $a = 'parent0';
+    $b = explode('item', $a);
+    print_r($b);
+}
 }   
