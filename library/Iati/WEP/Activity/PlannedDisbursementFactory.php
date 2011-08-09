@@ -1,5 +1,5 @@
 <?php
-class Iati_WEP_Activity_TransactionFactory
+class Iati_WEP_Activity_PlannedDisbursementFactory
 {
     protected $defaultValues = array();
     protected $globalObject;
@@ -18,7 +18,7 @@ class Iati_WEP_Activity_TransactionFactory
     }
 
 
-    public function factory($objectType = 'Transaction', $data = array())
+    public function factory($objectType = 'PlannedDisbursement', $data = array())
     {
         $this->globalObject = $this->getRootNode();
 
@@ -39,41 +39,32 @@ class Iati_WEP_Activity_TransactionFactory
 
     public function createTransaction($flatArray = array())
     {
-        $transaction = new Iati_WEP_Activity_Elements_Transaction ();
+        $plannedDisbursement = new Iati_WEP_Activity_Elements_PlannedDisbursement ();
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
         if($flatArray){
-            $data = $this->getFields('Transaction', $flatArray);
-            $transaction->setAttributes($data);
+            $data = $this->getFields('PlannedDisbursement', $flatArray);
+            $plannedDisbursement->setAttributes($data);
         }
         else{
-            $transaction->setAttributes( $this->getInitialValues() );
+            $plannedDisbursement->setAttributes( $this->getInitialValues() );
         }
-        $registryTree->addNode ($transaction, $this->globalObject);
-//        $this->createObjects ( 'TransactionType', $transaction, $flatArray);
+        $registryTree->addNode ($plannedDisbursement, $this->globalObject);
         
-        $this->createObjects ( 'TransactionType', $transaction, $flatArray);
-        $this->createObjects ( 'ProviderOrg', $transaction, $flatArray);
-        $this->createObjects ( 'ReceiverOrg', $transaction, $flatArray);
-        $this->createObjects ('Value',  $transaction, $flatArray);
-        $this->createObjects ('TiedStatus', $transaction, $flatArray);
-//print_r($flatArray);exit;
-        $this->createObjects ('FlowType', $transaction, $flatArray);
-        $this->createObjects ('FinanceType', $transaction,  $flatArray);
-        $this->createObjects ('DisbursementChannel', $transaction, $flatArray);
-        $this->createObjects ('Description', $transaction, $flatArray);
-        $this->createObjects ('TransactionDate', $transaction, $flatArray);
-        $this->createObjects ('AidType', $transaction, $flatArray);
+        $this->createObjects ( 'PeriodStart', $plannedDisbursement, $flatArray);
+        $this->createObjects ( 'PeriodEnd', $plannedDisbursement, $flatArray);
+        $this->createObjects ('Value',  $plannedDisbursement, $flatArray);
+        
         return $registryTree;
 
     }
 
     public function createObjects($class, $parent = null, $values = array())
     {
-        if($class == 'Transaction'){
+        if($class == 'PlannedDisbursement'){
             return $this->createTransaction($values);
         }
 
-        $string = 'Iati_WEP_Activity_Elements_Transaction_' . $class;
+        $string = 'Iati_WEP_Activity_Elements_PlannedDisbursement_' . $class;
         $object = new $string ();
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
 

@@ -1,8 +1,8 @@
 <?php 
-class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_ElementBase
+class Iati_WEP_Activity_Elements_PlannedDisbursement extends Iati_WEP_Activity_Elements_ElementBase
 {
-    protected $attributes = array('id', 'ref');
-    protected $ref;
+    protected $attributes = array('id', 'updated');
+    protected $updated;
     protected $id = 0;
     protected $options = array();
 //    protected $validator = array(protected $hasError = false;
@@ -14,11 +14,11 @@ class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_
                     'label' => '',
                     'html' => '<input type="hidden" name="%(name)s" value="%(value)s" />',
                     ),
-                    'ref' => array(
-                    'name' => 'ref',
+                    'updated' => array(
+                    'name' => 'updated',
                     'label' => 'Text',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('id' => 'id')
+                    'attrs' => array('class' => 'datepicker')
                 
                 ),
     );
@@ -43,7 +43,7 @@ class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_
     
     public function setAttributes ($data) {
         $this->id = (isset($data['id']))?$data['id']:0; 
-        $this->ref = (isset($data['@ref']))?$data['@ref']:$data['ref'];
+        $this->updated = (isset($data['@updated']))?$data['@updated']:$data['updated'];
     }
     
     public function getOptions($attr)
@@ -76,7 +76,7 @@ class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_
     public function getCleanedData(){
         $data = array();
         $data['id'] = $this->id;
-        $data['@ref'] = $this->ref;
+        $data['@updated'] = $this->updated;
         
         return $data;
     }

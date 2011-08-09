@@ -1,31 +1,43 @@
 <?php 
-class Iati_WEP_Activity_Elements_Transaction_Description extends Iati_WEP_Activity_Elements_Transaction
+class Iati_WEP_Activity_Elements_PlannedDisbursement_Value 
+                                extends Iati_WEP_Activity_Elements_PlannedDisbursement
 {
-    protected $attributes = array('text', 'xml_lang');
+    protected $attributes = array('id', 'text', 'value_date', 'currency');
     protected $text;
-    protected $xml_lang;
+    protected $currency;
+    protected $value_date;
     protected $id = 0;
     protected $options = array();
-    protected $className = 'Description';
-    protected $validators = array();
+    protected $className = 'Value';
     
+    protected $validators = array(
+                                'text' => 'NotEmpty',
+                            );
+                            
     protected $attributes_html = array(
                 'id' => array(
                     'name' => 'id',
                     'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
                 ),
                 'text' => array(
+                    
                     'name' => 'text',
                     'label' => 'Text',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('id' => 'id')
                 ),
-                'xml_lang' => array(
-                    'name' => 'xml_lang',
-                    'label' => 'Language',
+                'currency' => array(
+                    'name' => 'currency',
+                    'label' => 'currency',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
-                ),
+                    ),
+                'value_date' => array(
+                    'name' => 'value_date',
+                    'label' => 'Value Date',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'attrs' => array('id' => 'id')
+                )
     );
     
     protected static $count = 0;
@@ -42,16 +54,17 @@ class Iati_WEP_Activity_Elements_Transaction_Description extends Iati_WEP_Activi
         $this->setOptions();
     }
     
-    
     public function setOptions()
     {
-        $model = new Model_Wep();
-        $this->options['xml_lang'] = $model->getCodeArray('Language', null, '1');
+//        $model = new Model_Wep();
+//        $this->options['code'] = $model->getCodeArray('TransactionType', null, '1');
     }
     
     public function setAttributes ($data) {
+//        print_r($data);exit;
         $this->id = (isset($data['id']))?$data['id']:0; 
-        $this->currency = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
+        $this->currency = (key_exists('@currency', $data))?$data['@currency']:$data['currency'];
+        $this->value_date = (key_exists('@value_date', $data))?$data['@value_date']:$data['value_date'];
         $this->text = $data['text'];
     }
     
@@ -60,33 +73,33 @@ class Iati_WEP_Activity_Elements_Transaction_Description extends Iati_WEP_Activi
         return $this->options[$name];
     }
     
-    public function getValidator($attr)
-    {
-        return $this->validators[$attr];
-    }
-
     public function getObjectId()
     {
         return $this->objectId;
     }
     
+    public function getValidator($attr)
+    {
+        return $this->validators[$attr];
+    }
     public function validate()
     {
         $data['id'] = $this->id;
-        $data['xml_lang'] = $this->xml_lang;
+        $data['value_date'] = $this->value_date;
+        $data['currency'] = $this->currency;
         $data['text'] = $this->text;
-        
+//        print_r($data);exit;
         foreach($data as $key => $eachData){
             
-            if(empty($this->validators[$key])) continue;
+            if(empty($this->validators[$key])){ continue; }
             
-            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData)))  continue;
+            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData))) {  continue; }
             
             $string = "Zend_Validate_". $this->validators[$key];
             $validator = new $string();
             
             if(!$validator->isValid($eachData)){
-                
+//                print "dd";exit;
                 $this->error[$key] = $validator->getMessages();
                 $this->hasError = true;
 
@@ -94,13 +107,21 @@ class Iati_WEP_Activity_Elements_Transaction_Description extends Iati_WEP_Activi
         }
     }
     
-public function getCleanedData(){
+    public function getCleanedData(){
         $data = array();
         $data ['id'] = $this->id;
-        $data['@xml_lang'] = $this->xml_lang;
+        $data['@value_date'] = $this->value_date;
+        $data['@currency'] = $this->currency;
         $data['text'] = $this->text;
         
         return $data;
     }
+    
+    /*public function hasErrors()
+    {
+        return $this->hasError;
+    }*/
+    
+
     
 }

@@ -1,62 +1,51 @@
-<?php 
-class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Activity_Elements_Transaction
+<?php
+class Iati_WEP_Activity_Elements_ActivityWebsite extends Iati_WEP_Activity_Elements_ElementBase
 {
-    protected $attributes = array('id', 'text', 'code');
+    protected $attributes = array('id', 'text');
     protected $text;
-    protected $code;
+    protected $xml_lang;
     protected $id = 0;
     protected $options = array();
-    protected $className = 'TransactionType';
-    protected $required = false;
     protected $validators = array(
                                 'text' => 'NotEmpty',
                             );
-                            
+    protected $className = 'ActivityWebsite';
     protected $attributes_html = array(
                 'id' => array(
                     'name' => 'id',
                     'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
                 ),
                 'text' => array(
-                    
                     'name' => 'text',
                     'label' => 'Text',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('id' => 'id')
                 ),
-                'code' => array(
-                    'name' => 'code',
-                    'label' => 'Transaction Type Code',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
-                    'options' => '',
-                )
     );
     
     protected static $count = 0;
     protected $objectId;
     protected $error = array();
     protected $hasError = false;
-    protected $multiple = false;
-
+    protected $multiple = true;
+   
     public function __construct()
     {
+//        $this->checkPrivilege();
+        parent::__construct();
         $this->objectId = self::$count;
         self::$count += 1;
-    
         $this->setOptions();
     }
     
     public function setOptions()
     {
-        $model = new Model_Wep();
-        $this->options['code'] = $model->getCodeArray('TransactionType', null, '1');
     }
     
     public function setAttributes ($data) {
-//        print_r($data);exit;
-        $this->id = (isset($data['id']))?$data['id']:0; 
-        $this->code = (key_exists('@code', $data))?$data['@code']:$data['code'];
+        $this->id = (isset($data['id']))?$data['id']:0;
         $this->text = $data['text'];
+        
     }
     
     public function getOptions($name = NULL)
@@ -73,44 +62,34 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     {
         return $this->validators[$attr];
     }
+    
     public function validate()
     {
         $data['id'] = $this->id;
-        $data['code'] = $this->code;
         $data['text'] = $this->text;
-        foreach($data as $key => $eachData){
-            
-            if(empty($this->validators[$key])){ continue; }
-            
-            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData)) || 
-            (empty($this->required))) {  continue; }
-            
-            $string = "Zend_Validate_". $this->validators[$key];
-            $validator = new $string();
-            
-            if(!$validator->isValid($eachData)){
-//                print "dd";exit;
-                $this->error[$key] = $validator->getMessages();
-                $this->hasError = true;
-
-            }
-        }
+        
+        parent :: validate($data);
     }
     
     public function getCleanedData(){
         $data = array();
         $data ['id'] = $this->id;
-        $data['@code'] = $this->code;
         $data['text'] = $this->text;
         
         return $data;
     }
     
-    /*public function hasErrors()
+    public function checkPrivilege()
     {
-        return $this->hasError;
-    }*/
-    
+        $userRole = new App_UserRole();
+        $resource = new App_Resource();
+        $resource->ownerUserId = $userRole->userId;
+        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'ActivityWebsite')) {
+            $host = $_SERVER['HTTP_HOST'];
+            $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+            $extra = 'user/user/login';
+            header("Location: http://$host$uri/$extra");
+        }
+    }
 
-    
 }
