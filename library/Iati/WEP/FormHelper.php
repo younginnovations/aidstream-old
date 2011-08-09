@@ -58,7 +58,7 @@ class Iati_WEP_FormHelper {
         foreach ($finalNodes as $ele) {
             $_ht = array();
             if (!$this->ajaxCall) {
-                $_ht[] = sprintf('<div class="title">%s</div>', $ele[0]->getClassName());
+                $_ht[] = sprintf('<span class="title">%s</span>', $ele[0]->getClassName());
             }
             foreach($ele as $key => $obj) {
                 
@@ -129,6 +129,8 @@ class Iati_WEP_FormHelper {
             $form .= "%(".(string)$this->registryTree->getNodeId($obj).")s";
             //$form .= "<div>%s</div>";
         }
+        
+        $form .= '<span class="remove">Remove</span>';
         $form .= "</div>";
         return $form;
         
