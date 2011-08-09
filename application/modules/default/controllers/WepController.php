@@ -581,7 +581,6 @@ class WepController extends Zend_Controller_Action
 
     public function cloneNodeAction()
     {
-        //print "dd";exit;
         $identity = Zend_Auth::getInstance()->getIdentity();
         $initial = $this->getInitialValues($activity_id, $class);
        if($_GET['classname'])
@@ -589,20 +588,28 @@ class WepController extends Zend_Controller_Action
            $class = $_GET['classname'];
        }
        $parents = array();
+       $item = array();
+       $parentExp = "/^parent/";
+       $itemExp = "/^item/";
+       foreach($_GET as $key => $eachValue){
+           if(preg_match($parentExp, $key)){
+               $a = explode('parent', $key);
+               $parent[$a[1]] = $eachValue;
+           }
+           if(preg_match($itemExp, $key)){
+               $a = explode('item', $key);
+               $item[$a[1]] = $eachValue;
+           }
+       }
        
-       (isset($_GET['item0'])) ? array_push($parents, $_GET['item0']) : NULL;
-           
-       (isset($_GET['item1'])) ? array_push($parents, $_GET['item1']) : NULL;
-           
-       (isset($_GET['item2'])) ? array_push($parents, $_GET['item2']) : NULL;
        
        $classname = 'Iati_WEP_Activity_' . $class . 'Factory';
        $factory = new $classname;
        $factory->setInitialValues($initial);
-        $tree = $factory->factory($class);
+       $tree = $factory->factory($class);
     
         $formHelper = new Iati_WEP_FormHelper();
-        $a = $formHelper->genForm();
+        $a = $formHelper->getFormWithAjax($parents, $items);
         print $a;exit;
        $this->_helper->layout->disableLayout();
 //     $this->_helper->viewRenderer->setNoRender(true);
@@ -730,6 +737,30 @@ class WepController extends Zend_Controller_Action
             $this->_helper->FlashMessenger->addMessage(array('message' => "Activities Saved."));
 
             $this->_redirect('wep/list-activities?account_id=' . $identity->account_id . '&type=iati_activities');
+        }
+    }
+    
+    public function deleteActivityAction()
+    {
+        try{
+             $activity_id = (isset($_GET['activity_id']))?$_GET['activity_id']:NULL;
+            $className = (isset($_GET['classname']))?$_GET['classname']:NULL;
+            
+            $dbLayer = new Iati_WEP_DbLayer();
+            $del = $dbLayer->deleteRows($className, 'id', $activity_id);
+            
+            $identity = Zend_Auth::getInstance()->getIdentity();
+            $model = new Model_Wep();
+    
+            $activities_id = $model->listAll('iati_activities', 'account_id', $identity->account_id);
+            
+            $activities_id = $activities_id[0]['id'];
+            
+            $this->_helper->FlashMessenger->addMessage(array('message' => "Activity Deleted."));
+            $this->_redirect('wep/view-activities/?activities_id='.$activities_id);
+        }
+        catch(Exception $e){
+            
         }
     }
 
