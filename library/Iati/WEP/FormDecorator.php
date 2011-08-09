@@ -56,15 +56,12 @@ class Iati_WEP_FormDecorator {
                 if (is_object($par) && $par->hasMultiple()) {
                     $_id = (string)$par->getObjectId();
                 }
-                /*
                 elseif (is_int($par) || is_string($par)) {
                     $_id = (string)((int)$par + 1);
                 }
                 else {
-                    $name .= ($this->_object->hasMultiple()) ?
-                        sprintf("[%s]", $this->_object->getObjectId()) : '';
+                    // pass
                 }
-                */
                 $name .= ($_id != NULL) ? "[{$_id}]" : '';
                 
             }
@@ -141,7 +138,7 @@ function sprintfn ($format, array $args = array()) {
     $arg_nums = array_slice(array_flip(array_keys(array(0 => 0) + $args)), 1);
 
     // find the next named argument. each search starts at the end of the previous replacement.
-    for ($pos = 0; preg_match('/(?<=%)\(([a-zA-Z_]\w*)\)/', $format, $match, PREG_OFFSET_CAPTURE, $pos);) {
+    for ($pos = 0; preg_match('/(?<=%)\(([0-9a-zA-Z_]\w*)\)/', $format, $match, PREG_OFFSET_CAPTURE, $pos);) {
         $arg_pos = $match[0][1];
         $arg_len = strlen($match[0][0]);
         $arg_key = $match[1][0];
