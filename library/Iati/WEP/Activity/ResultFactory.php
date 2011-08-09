@@ -45,13 +45,13 @@ class Iati_WEP_Activity_ResultFactory
         $transaction = new Iati_WEP_Activity_Elements_Transaction ();
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
         if($flatArray){
-            $data = $this->getFields('Transaction', $flatArray);
+            $data = $this->getFields('Result', $flatArray);
             $transaction->setAttributes($data);
         }
         else{
             $transaction->setAttributes( $this->getInitialValues() );
         }
-        $registryTree->addNode ($transaction, $this->globalObject);
+        $registryTree->addNode ($transaction, $this->globalObject);/*
         $this->createObjects ( 'TransactionType', $transaction, $flatArray);
         
 //        $this->createObjects ( 'TransactionType', $transaction, $flatArray);
@@ -63,7 +63,7 @@ class Iati_WEP_Activity_ResultFactory
         $this->createObjects ('DisbursementChannel', $transaction, $flatArray);
         $this->createObjects ('Description', $transaction, $flatArray);
 //        $this->createObjects ('Date', $transaction, $flatArray);
-        $this->createObjects ('AidType', $transaction, $flatArray);
+        $this->createObjects ('AidType', $transaction, $flatArray);*/
         return $registryTree;
 
     }

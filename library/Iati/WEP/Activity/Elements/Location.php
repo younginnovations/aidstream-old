@@ -5,7 +5,6 @@ class Iati_WEP_Activity_Elements_Location extends Iati_WEP_Activity_Elements_Ele
     protected $percentage;
     protected $id = 0;
     protected $options = array();
-    protected $multiple = true;
 //    protected $validator = array(protected $hasError = false;
 //                                '' 
 //                            );

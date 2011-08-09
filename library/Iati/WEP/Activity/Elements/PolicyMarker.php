@@ -1,7 +1,7 @@
 <?php
-class Iati_WEP_Activity_Elements_Title extends Iati_WEP_Activity_Elements_ElementBase
+class Iati_WEP_Activity_Elements_PolicyMarker extends Iati_WEP_Activity_Elements_ElementBase
 {
-    protected $attributes = array('id', 'text', 'xml_lang');
+    protected $attributes = array('id', 'text', 'significance', 'vocabulary', 'code', 'xml_lang');
     protected $text;
     protected $xml_lang;
     protected $id = 0;
@@ -9,7 +9,7 @@ class Iati_WEP_Activity_Elements_Title extends Iati_WEP_Activity_Elements_Elemen
     protected $validators = array(
                                 'text' => 'NotEmpty',
                             );
-    protected $className = 'Title';
+    protected $className = 'PolicyMarker';
     protected $attributes_html = array(
                 'id' => array(
                     'name' => 'id',

@@ -603,7 +603,8 @@ class WepController extends Zend_Controller_Action
        }
        
        
-       $classname = 'Iati_WEP_Activity_' . $class . 'Factory';
+       
+       $classname = 'Iati_WEP_Activity_' . $parents[1] . 'Factory';
        $factory = new $classname;
        $factory->setInitialValues($initial);
        $tree = $factory->factory($class);
