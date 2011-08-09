@@ -588,17 +588,17 @@ class WepController extends Zend_Controller_Action
            $class = $_GET['classname'];
        }
        $parents = array();
-       $item = array();
+       $items = array();
        $parentExp = "/^parent/";
        $itemExp = "/^item/";
        foreach($_GET as $key => $eachValue){
            if(preg_match($parentExp, $key)){
                $a = explode('parent', $key);
-               $parent[$a[1]] = $eachValue;
+               $parents[$a[1]] = $eachValue;
            }
            if(preg_match($itemExp, $key)){
                $a = explode('item', $key);
-               $item[$a[1]] = $eachValue;
+               $items[$a[1]] = $eachValue;
            }
        }
        

@@ -2,7 +2,7 @@
 class Iati_WEP_FormDecorator {
     
     private $_object;
-    private $_parents;
+    private $_parents = array();
     private $_html = array();
     //private $_oid;
     //private $_pid;

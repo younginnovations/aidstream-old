@@ -88,11 +88,12 @@ function initialize() {
 		
 		'.addmore' : {
 			'onclick' : function (evt) {
+				
 				//console.log('apple');
 				
 				var node = new dojo.NodeList(evt.target.parentNode.parentNode);
-				node = node.children('div:first-child');
-				
+				node = node.children('div:last-of-type');
+				//console.log(node);
 				
 				var sp = node.query('input').attr('name')[0];
 				//console.log(sp);
@@ -108,7 +109,7 @@ function initialize() {
 				}
 				ajx = new Object();
 		    
-				ajx['classname'] = sp[0].split(/_/)[0];
+				//ajx['classname'] = sp[0].split(/_/)[0];
 		    
 				for (var i = 0; i < values.length; i++) {
 				    ajx['item' + i] = values[i];
@@ -120,7 +121,7 @@ function initialize() {
 				    handleAs : 'text',
 				    content : ajx,
 				    load : function (data) {
-					node.parents('#form-elements-wrapper').append(data);
+					dojo.place(data, evt.target.parentNode, "before");
 					dojo.behavior.apply();
 				    },
 				    error : function (err) {
@@ -128,6 +129,7 @@ function initialize() {
 				    }
 				});
 				dojo.behavior.apply();
+				
 				evt.preventDefault();
 			    }
 		 },

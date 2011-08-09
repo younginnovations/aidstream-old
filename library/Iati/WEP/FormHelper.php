@@ -4,7 +4,7 @@ class Iati_WEP_FormHelper {
     
     protected $objects = array();
     protected $registryTree;
-    protected $ajaxCall;
+    protected $ajaxCall = false;
     protected $indexValues;
     protected $parentNames;
     
@@ -18,7 +18,7 @@ class Iati_WEP_FormHelper {
     }
     
     public function getFormWithAjax ($parents, $items) {
-        $this->ajaxCall = $ajax;
+        $this->ajaxCall = true;
         $this->parentNames = $parents;
         $this->indexValues = $items;
         $this->incrementIndex();
@@ -193,7 +193,7 @@ class Iati_WEP_FormHelper {
     
     protected function _addMore($attribs=null, $tag='div', $text='Add More') {
         $text = '<' . $tag . ' ' . $this->_attr($attribs) . '>' . $text . '</' . $tag . '>'; 
-        return sprintf('<div class="addmore">%s</div>', $text);
+        return sprintf('<span class="addmore">%s</span>', $text);
     }
     
     protected function _attr($attribs) {
