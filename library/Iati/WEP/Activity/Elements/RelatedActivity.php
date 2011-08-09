@@ -60,6 +60,7 @@ class Iati_WEP_Activity_Elements_RelatedActivity extends Iati_WEP_Activity_Eleme
     
     public function setOptions()
     {
+        $model = new Model_Wep();
         $this->options['code'] = $model->getCodeArray('RelatedActivityType', null, '1');
         $this->options['xml_lang'] = $model->getCodeArray('Language', null, '1');
     }

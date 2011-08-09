@@ -5,7 +5,6 @@ class Iati_WEP_Activity_Elements_Budget extends Iati_WEP_Activity_Elements_Eleme
     protected $type;
     protected $id = 0;
     protected $options = array();
-    protected $multiple = true;
 //    protected $validator = array(protected $hasError = false;
 //                                '' 
 //                            );
@@ -40,11 +39,18 @@ class Iati_WEP_Activity_Elements_Budget extends Iati_WEP_Activity_Elements_Eleme
         $this->objectId = self::$count;
         self::$count += 1;
         $this->multiple = true;
+        $this->setOptions();
     }
     
     public function setAttributes ($data) {
         $this->id = (isset($data['id']))?$data['id']:0; 
-        $this->percentage = (isset($data['@type']))?$data['@type']:$data['type'];
+        $this->type = (isset($data['@type']))?$data['@type']:$data['type'];
+    }
+    
+    public function setOptions()
+    {
+        $model = new Model_Wep();
+        $this->options['type'] = $model->getCodeArray('BudgetType', null, '1');
     }
     
     public function getOptions($attr)

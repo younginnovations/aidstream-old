@@ -16,7 +16,7 @@ class Iati_WEP_AccountDisplayFieldGroup
     protected $policy_marker = '0';
     protected $collaboration_type = '0';
     protected $default_flow_type = '0';
-    protected $default_finanace_type = '0';
+    protected $default_finance_type = '0';
     protected $default_aid_type = '0';
     protected $default_tied_status = '0';
     protected $budget = '0';
