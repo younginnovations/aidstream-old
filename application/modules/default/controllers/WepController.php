@@ -470,6 +470,7 @@ class WepController extends Zend_Controller_Action
                 $factory->setInitialValues($initial);
                 $tree = $factory->factory($class);
 
+//                print_r($registryTree->xml());exit;
                 $formHelper = new Iati_WEP_FormHelper();
                 $a = $formHelper->getForm();
 
@@ -602,9 +603,11 @@ class WepController extends Zend_Controller_Action
            }
        }
        
+//       print_r($_GET);exit;
        
+       $class1 = (isset($parents[1]))?$parents[1]:$class;
        
-       $classname = 'Iati_WEP_Activity_' . $parents[1] . 'Factory';
+       $classname = 'Iati_WEP_Activity_' . $class1 . 'Factory';
        $factory = new $classname;
        $factory->setInitialValues($initial);
        $tree = $factory->factory($class);
