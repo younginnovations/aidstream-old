@@ -115,10 +115,12 @@ class Iati_WEP_FormHelper {
             //$form .= "<div>%s</div>";
         }
         
-        $url = $this->getUrl($obj, '/wep/remove');
-        
-        $form .= sprintf('<span class="remove"><a href="%s">Remove</a></span>',
+        if ($obj->hasMultiple()) {
+            $url = $this->getUrl($obj, '/wep/remove-elements');
+            $form .= sprintf('<span class="remove"><a href="%s">Remove</a></span>',
                          $url);
+        }
+        
         $form .= "</div>";
         return $form;
         
