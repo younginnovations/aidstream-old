@@ -532,7 +532,7 @@ class WepController extends Zend_Controller_Action
        
 //       print_r($_GET);exit;
        
-       $class1 = (isset($parents[1]))?$parents[1]:$class;
+       $class1 = (isset($parents[0]))?$parents[0]:$class;
        
        $classname = 'Iati_WEP_Activity_' . $class1 . 'Factory';
        $factory = new $classname;
