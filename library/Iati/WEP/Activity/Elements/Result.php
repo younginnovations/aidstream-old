@@ -1,5 +1,5 @@
 <?php 
-class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_ElementBase
+class Iati_WEP_Activity_Elements_Result extends Iati_WEP_Activity_Elements_ElementBase
 {
     protected $attributes = array('id', 'type');
     protected $type;
@@ -41,6 +41,13 @@ class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_
         $this->objectId = self::$count;
         self::$count += 1;
         $this->multiple = true;
+        $this->setOptions();
+    }
+    
+    public function setOptions()
+    {
+        $model = new Model_Wep();
+        $this->options['type'] = $model->getCodeArray('ResultType', null, '1');
     }
     
     public function setAttributes ($data) {
