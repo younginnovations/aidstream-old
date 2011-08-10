@@ -13,7 +13,7 @@ class Iati_WEP_FormHelper {
         $this->registryTree = Iati_WEP_TreeRegistry::getInstance();
         
         $fc = Zend_Controller_Front::getInstance();
-        $this->url = 'http://' . $_SERVER['HTTP_HOST'].$fc->getBaseUrl().'/wep/clone-node' ;
+        $this->baseurl = 'http://' . $_SERVER['HTTP_HOST'].$fc->getBaseUrl();
         
     }
     
@@ -68,24 +68,9 @@ class Iati_WEP_FormHelper {
                                 && $this->ajaxCall) ? false : true;
                 
                 if ($key == (sizeof($ele) - 1) && $obj->hasMultiple() && $addMoreCond) {
-                    $parents = array();
-                    if ($this->ajaxCall) {
-                        $parents = $this->parentNames;
-                    }
-                    else {
-                        $parentObjects = $this->registryTree->getParents($obj);
-                        foreach ($parentObjects as $par) {
-                            array_push($parents, $par->getClassName());
-                        }
-                    }
                     
-                    $url = $this->url;
-                    $urlParts = array();
-                    foreach ($parents as $key => $par) {
-                        $urlParts[$key] = 'parent' . $key . '=' . $par;
-                    }
-                    $url .= '?' . implode('&', $urlParts) . '&classname=' .
-                                $obj->getClassName();
+                    $url = $this->getUrl($obj, '/wep/clone-node');
+                    
                     $_ht[] =
                                $this->_addMore(array("href" => $url), "a");
                 }
@@ -130,7 +115,10 @@ class Iati_WEP_FormHelper {
             //$form .= "<div>%s</div>";
         }
         
-        $form .= '<span class="remove">Remove</span>';
+        $url = $this->getUrl($obj, '/wep/remove');
+        
+        $form .= sprintf('<span class="remove"><a href="%s">Remove</a></span>',
+                         $url);
         $form .= "</div>";
         return $form;
         
@@ -167,6 +155,31 @@ class Iati_WEP_FormHelper {
             
             return $arr;
         }
+    }
+    
+    private function getUrl($obj, $urlPath) {
+        $parents = array();
+        if ($this->ajaxCall) {
+            $parents = $this->parentNames;
+        }
+        else {
+            $parentObjects = $this->registryTree->getParents($obj);
+            foreach ($parentObjects as $par) {
+                if ($par != $this->registryTree->getRootNode()) {
+                    array_push($parents, $par->getClassName());
+                }
+            }
+        }
+        
+        $url = $this->baseurl . $urlPath;
+        $urlParts = array();
+        foreach ($parents as $key => $par) {
+            $urlParts[$key] = 'parent' . $key . '=' . $par;
+        }
+        array_push($urlParts, 'classname=' . $obj->getClassName());
+        $url .= '?' . implode('&', $urlParts);
+        
+        return $url;
     }
     
     private function incrementIndex () {
