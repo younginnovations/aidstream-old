@@ -48,7 +48,7 @@ class Iati_WEP_TreeRegistry {
         $parentNode = ($parent == NULL) ? self::$_tree :
                                             $this->selectNode($parent);
         
-        $node = $parentNode->addChild(strtolower($object->getClassName()));
+        $node = $parentNode->addChild($object->getClassName());
         $nodeId = $this->getNodeId($object);
         $node->addAttribute('id', $nodeId);
         self::$_objects[$nodeId] = $object;

@@ -358,6 +358,7 @@ class WepController extends Zend_Controller_Action
             try{
             if($_POST){
                 $flatArray = $this->flatArray($_POST);
+//                print_r($flatArray);exit;
                 $activity = new Iati_WEP_Activity_Elements_Activity();
                 $activity->setAttributes(array('activity_id' => $activity_id));
                 $registryTree = Iati_WEP_TreeRegistry::getInstance();
@@ -381,6 +382,8 @@ class WepController extends Zend_Controller_Action
                     $factory = new $classname ();
                     $activityTree = $factory->cleanData($activity, $element);
                      
+                    
+//                    print_r($activityTree);exit;
                     $dbLayer = new Iati_WEP_DbLayer();
                     $dbLayer->save($activityTree);
                     $this->_helper->FlashMessenger

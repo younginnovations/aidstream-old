@@ -18,14 +18,14 @@ class Iati_WEP_Activity_Elements_Result_IndicatorFactory
     }
 
 
-    public function factory($objectType = 'Indicator', $data = array())
+    public function factory($objectType = 'Indicator', $parent = NULL, $data = array())
     {
 
-        $this->globalObject = $this->getRootNode();
+        $this->globalObject = $parent;
 
         $function = 'create' . $objectType;
         if($data){
-            $this->globalObject = $this->getRootNode();
+            $this->globalObject = $parent;
             foreach($data as $key => $values){
                 if(is_array($values)){
                     $tree = $this->$function ($data);
@@ -41,32 +41,53 @@ class Iati_WEP_Activity_Elements_Result_IndicatorFactory
 
     public function createIndicator($flatArray = array())
     {
-        $contactInfo = new Iati_WEP_Activity_Elements_ContactInfo ();
+        $indicator = new Iati_WEP_Activity_Elements_Result_Indicator ();
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
         if($flatArray){
-            $data = $this->getFields('Indicator', $flatArray);
-            $contactInfo->setAttributes($data);
+            $data = $this->getFields('Result_Indicator', $flatArray);
+            $indicator->setAttributes($data);
         }
         else{
-            $contactInfo->setAttributes( $this->getInitialValues() );
+            $indicator->setAttributes( $this->getInitialValues() );
         }
-        $registryTree->addNode ($contactInfo, $this->globalObject);
-        $this->createOrganisation ( $contactInfo, $flatArray);
-        $this->createPersonName ( $contactInfo, $flatArray);
-        $this->createTelephone ($contactInfo, $flatArray);
-        $this->createEmail ( $contactInfo, $flatArray);
-        $this->createMailingAddress ( $contactInfo, $flatArray);
+        $registryTree->addNode ($indicator, $this->globalObject);
+        $this->createTitle ( $indicator, $flatArray);
+        $this->createDescription ( $indicator, $flatArray);
+//        $this->createBaseline ($indicator, $flatArray);
+//        $this->createTarget ( $indicator, $flatArray);
+//        $this->createActual ( $indicator, $flatArray);
+        
         return $registryTree;
-
     }
 
-    public function createOrganisation($parent = null, $values = array())
+    public function createTitle($parent = null, $values = array())
     {
-        $object = new Iati_WEP_Activity_Elements_ContactInfo_Organisation ();
+        $object = new Iati_WEP_Activity_Elements_Result_Indicator_Title ();
+//        print_r($object);exit;
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
 
         if($values){
-            $data = $this->getFields('Organisation', $values);
+            $data = $this->getFields('Title', $values);
+            $object->setAttributes($data);
+            $registryTree->addNode($object, $parent);
+        }
+        else{
+            $object->setAttributes( $this->getInitialValues() );
+//            print_r($object);exit;
+            $registryTree->addNode ($object, $parent);
+//            print_r($registryTree->xml());exit;
+        }
+
+        return $registryTree;
+    }
+
+    public function createDescription($parent = null, $values = array())
+    {
+        $object = new Iati_WEP_Activity_Elements_Result_Indicator_Description ();
+        $registryTree = Iati_WEP_TreeRegistry::getInstance ();
+
+        if($values){
+            $data = $this->getFields('Result_Description', $values);
             $object->setAttributes($data);
             $registryTree->addNode($object, $parent);
         }
@@ -78,35 +99,17 @@ class Iati_WEP_Activity_Elements_Result_IndicatorFactory
         return $registryTree;
     }
 
-    public function createPersonName($parent = null, $values = array())
+    public function createBaseline($parent = null, $values = array())
     {
-        $object = new Iati_WEP_Activity_Elements_ContactInfo_PersonName ();
-        $registryTree = Iati_WEP_TreeRegistry::getInstance ();
-
-        if($values){
-            $data = $this->getFields('PersonName', $values);
-            $object->setAttributes($data);
-            $registryTree->addNode($object, $parent);
-        }
-        else{
-            $object->setAttributes( $this->getInitialValues() );
-            $registryTree->addNode ($object, $parent);
-        }
-
-        return $registryTree;
-    }
-
-    public function createTelephone($parent = null, $values = array())
-    {
-        $object = new Iati_WEP_Activity_Elements_ContactInfo_Telephone ();
+        $object = new Iati_WEP_Activity_Elements_Result_Indicator_Baseline ();
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
 
         if($values){
             foreach($values as $k => $v)
             {
                 if(is_array($v)){
-                    $object = new Iati_WEP_Activity_Elements_ContactInfo_Telephone ();
-                    $data = $this->getFields('Telephone', $v);
+                    $object = new Iati_WEP_Activity_Elements_Result_Baseline ();
+                    $data = $this->getFields('BaseLine', $v);
                     $object->setAttributes($data);
                     $registryTree->addNode($object, $parent);
                 }
@@ -122,17 +125,17 @@ class Iati_WEP_Activity_Elements_Result_IndicatorFactory
         return $registryTree;
     }
     
-    public function createEmail($parent = null, $values = array())
+    public function createTarget($parent = null, $values = array())
     {
-        $object = new Iati_WEP_Activity_Elements_ContactInfo_Email ();
+        $object = new Iati_WEP_Activity_Elements_Result_Indicator_Target ();
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
 
         if($values){
             foreach($values as $k => $v)
             {
                 if(is_array($v)){
-                    $object = new Iati_WEP_Activity_Elements_ContactInfo_Email ();
-                    $data = $this->getFields('Email', $v);
+                    $object = new Iati_WEP_Activity_Elements_Result_Indicator_Target ();
+                    $data = $this->getFields('Target', $v);
                     $object->setAttributes($data);
                     $registryTree->addNode($object, $parent);
                 }
@@ -148,17 +151,17 @@ class Iati_WEP_Activity_Elements_Result_IndicatorFactory
         return $registryTree;
     }
     
-    public function createMailingAddress($parent = null, $values = array())
+    public function createActual($parent = null, $values = array())
     {
-        $object = new Iati_WEP_Activity_Elements_ContactInfo_MailingAddress ();
+        $object = new Iati_WEP_Activity_Elements_Result_Indicator_Actual ();
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
 
         if($values){
             foreach($values as $k => $v)
             {
                 if(is_array($v)){
-                    $object = new Iati_WEP_Activity_Elements_ContactInfo_MailingAddress ();
-                    $data = $this->getFields('MailingAddress', $v);
+                    $object = new Iati_WEP_Activity_Elements_Result_Indicator_Actual ();
+                    $data = $this->getFields('Actual', $v);
                     $object->setAttributes($data);
                     $registryTree->addNode($object, $parent);
                 }

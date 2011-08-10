@@ -24,7 +24,6 @@ class Iati_WEP_Activity_ResultFactory
         $this->globalObject = $this->getRootNode();
 
         if($data){
-            //            print_r($data);exit;
             $this->globalObject = $this->getRootNode();
             foreach($data as $key => $values){
                 if(is_array($values)){
@@ -54,7 +53,8 @@ class Iati_WEP_Activity_ResultFactory
         $registryTree->addNode ($result, $this->globalObject);
         $this->createObjects ( 'Title', $result, $flatArray);
         $this->createObjects ( 'Description', $result, $flatArray);
-//        $this->createObjects ( 'Indicator', $result, $flatArray);
+        $this->createObjects ( 'Indicator', $result, $flatArray);
+
         return $registryTree;
 
     }
@@ -86,6 +86,7 @@ class Iati_WEP_Activity_ResultFactory
             $registryTree->addNode ($object, $parent);
         }
 */
+        
         return $registryTree;
     }
 

@@ -1,5 +1,5 @@
 <?php 
-class Iati_WEP_Activity_Elements_Result_Description extends Iati_WEP_Activity_Elements_Transaction
+class Iati_WEP_Activity_Elements_Result_Indicator extends Iati_WEP_Activity_Elements_Transaction
 {
     protected $attributes = array('id', 'measure');
     protected $measure;

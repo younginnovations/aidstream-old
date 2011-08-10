@@ -55,7 +55,7 @@ class Iati_WEP_Activity_Elements_Result_Description extends Iati_WEP_Activity_El
     public function setAttributes ($data) {
 //        print_r($data);exit;
         $this->id = (isset($data['id']))?$data['id']:0; 
-        $this->code = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
+        $this->xml_lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
         $this->text = $data['text'];
     }
     
