@@ -649,6 +649,9 @@ class WepController extends Zend_Controller_Action
                {
                    $class = $_GET['classname'];
                }
+               if($_GET['id']){
+                   $id = $_GET['id'];
+               }
                $parents = array();
                $items = array();
                $parentExp = "/^parent/";
@@ -659,9 +662,14 @@ class WepController extends Zend_Controller_Action
                    }
                }
                
-               $class1 = (isset($parents[0]))?$parents[0]:$class;
-               
-               
+               $class1 = (isset($parents[0]))?$parents[0]. "_" . $class:$class;
+//               $className = 'Activity';
+                $fieldName = 'id';
+                $value = $id;
+                $dbLayer = new Iati_WEP_DbLayer();
+                $del = $dbLayer->deleteRows($class1, $fieldName, $value);
+               print 'success';
+                exit();
                
             } catch (Exception $e) {
                 
