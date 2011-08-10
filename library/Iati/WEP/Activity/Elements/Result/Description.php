@@ -1,5 +1,5 @@
 <?php 
-class Iati_WEP_Activity_Elements_Result_Description extends Iati_WEP_Activity_Elements_Transaction
+class Iati_WEP_Activity_Elements_Result_Description extends Iati_WEP_Activity_Elements_Result
 {
     protected $attributes = array('id', 'text', 'xml_lang');
     protected $text;
