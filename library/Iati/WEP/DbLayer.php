@@ -109,6 +109,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 					if(!$formattedResult[$className])
 					$activityType->addElement($className);
 					foreach ($formattedResult[$className] as $result) {
+						$activity = new $class;
 						$parentClass = $activity;
 						$resultTree = $this->fetchRowTreeSet($parentClass, $className, $result);
 						$activityType->addElement($resultTree);
@@ -201,6 +202,9 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 	 *  returns : parentid
 	 */
 	public function conditionFormatter($className) {
+
+		if(ucfirst($className) == "Result_Indicator")
+		return "indicator_id";
 		$conditionField = strtolower(preg_replace('/([^A-Z_])([A-Z])/', '$1_$2', $className));
 		return $conditionField."_id";
 	}
@@ -212,6 +216,8 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		if($this->conditionFormatter($className) == $fieldName || $fieldName == 'id')
 		return false;
 		else{
+			if($fieldName == 'indicator_id')
+			return "Result_Indicator";
 			$uCaseField = ucfirst($fieldName);
 			$className = str_replace("_id","",$uCaseField);
 			return $className;

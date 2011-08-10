@@ -191,6 +191,11 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
 		$result = $this->testObj->conditionFormatter($className);
 		$this->assertEquals('planned_disbursement_id', $result);
 
+		$className = 'Result_Indicator';
+		$result = $this->testObj->conditionFormatter($className);
+		$this->assertEquals('indicator_id', $result);
+
+
 	}
 
 

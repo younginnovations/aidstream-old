@@ -32,6 +32,14 @@ class Iati_WEP_ActivityTreeMapper {
         	1 => 'Result_Indicator',
         	2 => 'Result_Title',
         	),
+    'Result_Indicator' =>
+        	array(
+        	0 => 'Result_Indicator_Actual',
+        	1 => 'Result_Indicator_Baseline',
+        	2 => 'Result_Indicator_Description',
+        	3 => 'Result_Indicator_Target',
+        	4 => 'Result_Indicator_Title',
+        	),
     'PlannedDisbursement' =>
         	array(
         	0 => 'PlannedDisbursement_PeriodEnd',
@@ -46,7 +54,7 @@ class Iati_WEP_ActivityTreeMapper {
         	3 => 'ContactInfo_Email',
         	4 => 'ContactInfo_MailingAddress',
         	),
-	'Location' => 
+	'Location' =>
         	array(
         	0 => 'Location_LocationType',
         	1 => 'Location_Name',
@@ -60,7 +68,7 @@ class Iati_WEP_ActivityTreeMapper {
         	0 => 'Budget_PeriodEnd',
         	1 => 'Budget_PeriodStart',
         	2 => 'Budget_Value'
-        	),   	
+        	),
 	);
 	private $activityTree = array('Activity' =>
 	array(
@@ -92,8 +100,8 @@ class Iati_WEP_ActivityTreeMapper {
 	25 => 'Budget',
 	25 => 'ActivityWebsite',
 	26 => 'RelatedActivity',
-	
-	
+
+
 	),);
 
 	public function getActivityTree($className, $parent = null) {
