@@ -24,6 +24,23 @@ var createDateTextBox = function (id, name) {
     }, id);
 }
 */
+
+var messageDialog = function (title, msg) {
+    
+    var msgDlg = new dijit.Dialog({
+                    title: title,
+                    style: "width: 240px",
+                    parseOnLoad: true,
+                    content: '<p>' + msg + '</p><p style="margin-left:90px"><button dojoType="dijit.form.Button" type="button" id="msg-ok">OK</button></p>'
+    });
+    
+    dojo.connect(dojo.byId('msg-ok'), 'onclick', function (e) {
+        msgDlg.destroyRecursive();
+    });
+    
+    msgDlg.show();
+}
+
 function initialize() {
     
     // start of dojo.behavior.add
@@ -90,6 +107,7 @@ function initialize() {
             "onclick" : function (evt) {
                 
                 var removeNode = evt.target.parentNode;
+                var removeUrl = dojo.attr(evt.target, 'href');
                 //var grandParent = new dojo.NodeList(evt.target.parentNode.parentNode);
                 //var parentNode = new dojo.NodeList(evt.target.parentNode);
                 
@@ -113,22 +131,37 @@ function initialize() {
                     confirmDlg.destroyRecursive();
                     var grandParent = dojo.NodeList(removeNode.parentNode.parentNode);
                     if (grandParent.children('div').length < 2) {
-                        var msgDlg = new dijit.Dialog({
-                            title: "Warning!",
-                            style: "width: 240px",
-                            parseOnLoad: true,
-                            content: '<p> Sorry! you cannot remove last item.</p><p style="margin-left:90px"><button dojoType="dijit.form.Button" type="button" id="msg-ok">OK</button></p>'
-                        });
                         
-                        dojo.connect(dojo.byId('msg-ok'), 'onclick', function (e) {
-                            msgDlg.destroyRecursive();
-                        });
-                        
-                        msgDlg.show();
+                        messageDialog("Warning!", "Sorry! you cannot remove last item.");
                         
                     }
                     else {
-                        console.log(grandParent.children('div').length);
+                        var parentNode = dojo.NodeList(removeNode.parentNode);
+                        var removeId = dojo.attr(parentNode.query('input[type="hidden"]')[0], 'value');
+                        
+                        if (parseInt(removeId)) {
+                            dojo.xhrGet({
+                                url: removeUrl ,
+                                handleAs: 'text',
+                                content: {
+                                    "id": removeId
+                                },
+                                load: function (data) {
+                                    if(data == 'success'){
+                                        dojo.destroy(parentNode[0]);
+                                    }
+                                    else{
+                                        messageDialog("Error", data);
+                                    }
+                                },
+                                error: function (data) {
+                                    messageDialog("Error", "Something went wrong! Please try again");
+                                }
+                            });
+                        }
+                        else {
+                            dojo.destroy(parentNode[0]);
+                        }
                     }
                 });
                 

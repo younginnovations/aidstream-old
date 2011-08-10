@@ -13,7 +13,7 @@ class Iati_WEP_FormHelper {
         $this->registryTree = Iati_WEP_TreeRegistry::getInstance();
         
         $fc = Zend_Controller_Front::getInstance();
-        $this->url = 'http://' . $_SERVER['HTTP_HOST'].$fc->getBaseUrl().'/wep/clone-node' ;
+        $this->baseurl = 'http://' . $_SERVER['HTTP_HOST'].$fc->getBaseUrl();
         
     }
     
@@ -69,7 +69,7 @@ class Iati_WEP_FormHelper {
                 
                 if ($key == (sizeof($ele) - 1) && $obj->hasMultiple() && $addMoreCond) {
                     
-                    $url = $this->getUrl($obj);
+                    $url = $this->getUrl($obj, '/wep/clone-node');
                     
                     $_ht[] =
                                $this->_addMore(array("href" => $url), "a");
@@ -115,7 +115,7 @@ class Iati_WEP_FormHelper {
             //$form .= "<div>%s</div>";
         }
         
-        $url = $this->getUrl($obj);
+        $url = $this->getUrl($obj, '/wep/remove');
         
         $form .= sprintf('<span class="remove"><a href="%s">Remove</a></span>',
                          $url);
@@ -157,7 +157,7 @@ class Iati_WEP_FormHelper {
         }
     }
     
-    private function getUrl($obj) {
+    private function getUrl($obj, $urlPath) {
         $parents = array();
         if ($this->ajaxCall) {
             $parents = $this->parentNames;
@@ -171,7 +171,7 @@ class Iati_WEP_FormHelper {
             }
         }
         
-        $url = $this->url;
+        $url = $this->baseurl . $urlPath;
         $urlParts = array();
         foreach ($parents as $key => $par) {
             $urlParts[$key] = 'parent' . $key . '=' . $par;
