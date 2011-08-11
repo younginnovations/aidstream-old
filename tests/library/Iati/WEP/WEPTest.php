@@ -618,4 +618,26 @@ public function testExplode()
     $b = explode('item', $a);
     print_r($b);
 }
+
+
+
+    public function testContantInfo()
+    {
+        $class = 'ContactInfo';
+        $activity_id = 13;
+        $dbLayer = new Iati_WEP_DbLayer();
+        $rowSet = $dbLayer->getRowSet($class, 'activity_id', $activity_id, true);
+        
+        $registryTree = Iati_WEP_TreeRegistry::getInstance();
+                
+        $classname = 'Iati_WEP_Activity_'. $class . 'Factory';
+        $factory = new $classname();
+        $factory->setInitialValues($initial);
+        $tree = $factory->extractData($rowSet, $activity_id);
+        
+        $formHelper = new Iati_WEP_FormHelper();
+        $a = $formHelper->getForm();
+    }
+
+
 }   
