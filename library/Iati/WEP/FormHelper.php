@@ -161,18 +161,21 @@ class Iati_WEP_FormHelper {
     
     private function getUrl($obj, $urlPath) {
         $parents = array();
+        //print_r($parents);
         if ($this->ajaxCall) {
             $parents = $this->parentNames;
         }
-        else {
-            $parentObjects = $this->registryTree->getParents($obj);
-            foreach ($parentObjects as $par) {
-                if ($par != $this->registryTree->getRootNode()) {
-                    array_push($parents, $par->getClassName());
+        $parentObjects = $this->registryTree->getParents($obj);
+        foreach ($parentObjects as $par) {
+            $parName = $par->getClassName();
+            if ($this->ajaxCall == false && $par != $this->registryTree->getRootNode()) {
+                if (!in_array($parName, $parents)) {
+                    array_push($parents, $parName);
                 }
             }
         }
         
+        print_r($parents);
         $url = $this->baseurl . $urlPath;
         $urlParts = array();
         foreach ($parents as $key => $par) {
@@ -198,7 +201,7 @@ class Iati_WEP_FormHelper {
             $_form .= $this->_addMore(array('id'=>'add-more'));
         }*/
         
-        $_form .= '<input type="submit" id="Submit" value="Save" />';
+        $_form .= '<input type="submit" id="Submit" value="Save" class="form-submit"/>';
         $_form .= '</form>';
         return $_form;
     }

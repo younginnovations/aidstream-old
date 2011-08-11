@@ -35,6 +35,16 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
 											));
 		$transactionDescription = $transaction->addElement('Transaction_Description');
 
+		$contactInfo = $activity->addElement('ContactInfo');
+
+		$contactInfoEmail = $contactInfo->addElement('ContactInfo_Email');
+		$contactInfoEmail->setAttribs(array('text' => 'testtext',
+											));
+
+
+
+
+
         $activity->addElement($reportingOrg);
         $dbLayer = new Iati_WEP_DbLayer();
 		$dbLayer->save($activity);
@@ -134,7 +144,18 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testFetchRowTreeSet()
 	{
-		$className = 'Transaction';
+		$className = 'ContactInfo';
+		$fieldName = 'activity_id';
+		$value = 1;
+		$tree = true;
+		$dbLayer = new Iati_WEP_DbLayer();
+		$row = $dbLayer->getRowSet($className,$fieldName,$value,$tree);
+		Zend_Debug::dump($row);
+	}
+
+	public function testFetchRowTreeSetResult()
+	{
+		$className = 'Result';
 		$fieldName = 'activity_id';
 		$value = 1;
 		$tree = true;
