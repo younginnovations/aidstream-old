@@ -20,20 +20,21 @@ class Iati_WEP_Activity_Elements_OtherIdentifier extends Iati_WEP_Activity_Eleme
                     'name' => 'text',
                     'label' => 'Text',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('id' => 'id')
+                    'attrs' => array('class' => array('form-text'))
                 ),
                 
                 'owner_name' => array(
                     'name' => 'owner_name',
                     'label' => 'Owner Name',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('id' => 'id')
+                    'attrs' => array('class' => array('form-text'))
                 ),
                 'owner_ref' => array(
                     'name' => 'owner_ref',
                     'label' => 'Organisation Identfier',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
+                    'attrs' => array('class' => array('form-select'))
                 ),
     );
     

@@ -20,14 +20,14 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionDate extends Iati_WEP_Ac
                     'name' => 'text',
                     'label' => 'Text',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('id' => 'id')
+                    'attrs' => array('class' => array('form-text'))
                 ),
                 'iso_date' => array(
                     'name' => 'iso_date',
                     'label' => 'Date',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'options' => '',
-                    'attrs' => array('class' => 'datepicker')
+                    'attrs' => array('class' => 'datepicker form-text')
                 ),
     );
     

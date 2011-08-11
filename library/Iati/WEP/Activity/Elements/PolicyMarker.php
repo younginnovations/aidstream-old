@@ -20,30 +20,34 @@ class Iati_WEP_Activity_Elements_PolicyMarker extends Iati_WEP_Activity_Elements
                     'label' => 'Significance',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
+                    'attrs' => array('class' => array('form-select'))
                 ),
                 'vocabulary' => array(
                     'name' => 'vocabulary',
                     'label' => 'Vocabulary',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
+                    'attrs' => array('class' => array('form-select'))
                 ),
                 'code' => array(
                     'name' => 'code',
                     'label' => 'Policy Marker',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
+                    'attrs' => array('class' => array('form-select'))
                 ),
                 'xml_lang' => array(
                     'name' => 'xml_lang',
                     'label' => 'Language',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
+                    'attrs' => array('class' => array('form-select'))
                 ),
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Text',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('id' => 'id')
+                    'attrs' => array('class' => array('form-text'))
                 ),
     );
     

@@ -19,19 +19,20 @@ class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activi
                     'name' => 'text',
                     'label' => 'Text',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('id' => 'id')
+                    'attrs' => array('class' => array('form-text'))
                 ),
                 'ref' => array(
                     'name' => 'ref',
                     'label' => 'Organisation Identifier Code',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
+                    'attrs' => array('class' => array('form-select'))
                 ),
                 'provider_activity_id' => array(
                     'name' => 'provider_activity_id',
                     'label' => 'Provider Activity Id',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('id' => 'id')
+                    'attrs' => array('class' => array('form-text'))
                 ),
     );
     

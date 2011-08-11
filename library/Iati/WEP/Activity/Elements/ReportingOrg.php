@@ -22,24 +22,27 @@ class Iati_WEP_Activity_Elements_ReportingOrg extends Iati_WEP_Activity_Elements
                     'label' => 'Organisation Identifier',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
+                    'attrs' => array('class' => array('form-select'))
                 ),
                 'type' => array(
                     'name' => 'type',
                     'label' => 'Organisation Type',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
+                    'attrs' => array('class' => array('form-select'))
                 ),
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Text',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('id' => 'id')
+                    'attrs' => array('class' => array('form-text'))
                 ),
                 'xml_lang' => array(
                     'name' => 'xml_lang',
                     'label' => 'Language',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
+                    'attrs' => array('class' => array('form-select'))
                 ),
     );
     protected static $count = 0;
