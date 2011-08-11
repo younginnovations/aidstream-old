@@ -20,19 +20,21 @@ protected $attributes = array('code', 'text', 'xml_lang');
             'name' => 'text',
             'label' => 'Text',
             'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-            'attrs' => array('id' => 'id')
+                    'attrs' => array('class' => array('form-text'))
         ),
         'code' => array(
             'name' => 'code',
             'label' => 'Finance Type Code',
             'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
             'options' => '',
+            'attrs' => array('class' => array('form-select'))
         ),
         'xml_lang' => array(
             'name' => 'xml_lang',
             'label' => 'Language',
             'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
             'options' => '',
+            'attrs' => array('class' => array('form-select'))
         )                   
      );
      protected $className = "DefaultFinanceType";

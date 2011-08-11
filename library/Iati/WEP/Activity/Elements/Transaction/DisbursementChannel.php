@@ -20,13 +20,14 @@ class Iati_WEP_Activity_Elements_Transaction_DisbursementChannel extends Iati_WE
                     'name' => 'text',
                     'label' => 'Text',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('id' => 'id')
+                    'attrs' => array('class' => array('form-text'))
                 ),
                 'code' => array(
                     'name' => 'code',
                     'label' => 'Disbursement Channel Code',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
+                    'attrs' => array('class' => array('form-select'))
                 ),
     );
     

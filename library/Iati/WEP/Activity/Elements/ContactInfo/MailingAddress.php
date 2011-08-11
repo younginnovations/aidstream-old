@@ -20,7 +20,7 @@ class Iati_WEP_Activity_Elements_ContactInfo_MailingAddress extends
                     'name' => 'text',
                     'label' => 'Text',
                     'html' => '<textarea rows="2" cols="20" name="%(name)s %(attrs)s">%(value)s</textarea>',
-                    'attrs' => array('id' => 'id')
+                    'attrs' => array('class' => array('form-text'))
                 ),
     );
     

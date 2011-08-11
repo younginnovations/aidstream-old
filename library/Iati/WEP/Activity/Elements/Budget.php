@@ -19,6 +19,7 @@ class Iati_WEP_Activity_Elements_Budget extends Iati_WEP_Activity_Elements_Eleme
                     'label' => 'Budget Type',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
+                    'attrs' => array('class' => array('form-select'))
                     )
     );
     protected $className = 'Budget';
