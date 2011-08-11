@@ -542,6 +542,7 @@ class WepController extends Zend_Controller_Action
        $factory->setInitialValues($initial);
        $tree = $factory->factory($class);
     
+       array_push($parents, $class);
         $formHelper = new Iati_WEP_FormHelper();
         $a = $formHelper->getFormWithAjax($parents, $items);
         print $a;exit;
