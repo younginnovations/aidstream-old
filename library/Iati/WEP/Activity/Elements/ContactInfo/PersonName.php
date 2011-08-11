@@ -18,7 +18,7 @@ class Iati_WEP_Activity_Elements_ContactInfo_PersonName extends Iati_WEP_Activit
                     'name' => 'text',
                     'label' => 'Text',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('id' => 'id')
+                    'attrs' => array('class' => array('form-text'))
                 ),
     );
     

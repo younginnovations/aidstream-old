@@ -23,26 +23,28 @@ class Iati_WEP_Activity_Elements_ActivityDate extends Iati_WEP_Activity_Elements
                     'name' => 'text',
                     'label' => 'Text',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('id' => 'id')
+                    'attrs' => array('class' => array('form-text'))
                 ),
                 
                 'iso_date' => array(
                     'name' => 'iso_date',
                     'label' => 'Date',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('class' => 'datepicker')
+                    'attrs' => array('class' => 'datepicker form-text')
                 ),
                 'type' => array(
                     'name' => 'type',
                     'label' => 'Activity Date Type',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
+                    'attrs' => array('class' => array('form-select'))
                 ),
                 'xml_lang' => array(
                     'name' => 'xml_lang',
                     'label' => 'Language',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
+                    'attrs' => array('class' => array('form-select'))
                 ),
     );
 

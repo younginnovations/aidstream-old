@@ -24,19 +24,20 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement_Value
                     'name' => 'text',
                     'label' => 'Text',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('id' => 'id')
+                    'attrs' => array('class' => array('form-text'))
                 ),
                 'currency' => array(
                     'name' => 'currency',
                     'label' => 'currency',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
+                    'attrs' => array('class' => array('form-select'))
                     ),
                 'value_date' => array(
                     'name' => 'value_date',
                     'label' => 'Value Date',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('id' => 'id')
+                    'attrs' => array('class' => array('form-text'))
                 )
     );
     

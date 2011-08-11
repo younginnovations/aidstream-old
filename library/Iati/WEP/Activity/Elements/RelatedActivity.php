@@ -21,25 +21,27 @@ class Iati_WEP_Activity_Elements_RelatedActivity extends Iati_WEP_Activity_Eleme
                     'name' => 'text',
                     'label' => 'Text',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('id' => 'id')
+                    'attrs' => array('class' => array('form-text'))
                 ),
                 'code' => array(
                     'name' => 'code',
                     'label' => 'Flow Type Code',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
+                    'attrs' => array('class' => array('form-select'))
                 ),
                 'ref' => array(
                     'name' => 'ref',
                     'label' => 'Identifier',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('id' => 'id')
+                    'attrs' => array('class' => array('form-text'))
                 ),
                 'xml_lang' => array(
                     'name' => 'xml_lang',
                     'label' => 'Language',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
+                    'attrs' => array('class' => array('form-select'))
                 ),
     );
     

@@ -23,7 +23,7 @@ class Iati_WEP_Activity_Elements_ParticipatingOrg extends Iati_WEP_Activity_Elem
                     'name' => 'text',
                     'label' => 'Text',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('id' => 'id')
+                    'attrs' => array('class' => array('form-text'))
                 ),
                 
                 'role' => array(
@@ -31,24 +31,28 @@ class Iati_WEP_Activity_Elements_ParticipatingOrg extends Iati_WEP_Activity_Elem
                     'label' => 'Organisation Role',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
+                    'attrs' => array('class' => array('form-select'))
                 ),
                 'ref' => array(
                     'name' => 'ref',
                     'label' => 'Organisation Identfier',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
+                    'attrs' => array('class' => array('form-select'))
                 ),
                 'type' => array(
                     'name' => 'type',
                     'label' => 'Organisation Type',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
+                    'attrs' => array('class' => array('form-select'))
                 ),
                 'xml_lang' => array(
                     'name' => 'xml_lang',
                     'label' => 'Language',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
+                    'attrs' => array('class' => array('form-select'))
                 ),
     );
 
