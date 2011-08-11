@@ -1,5 +1,5 @@
 <?php 
-class Iati_WEP_Activity_Elements_Result_Description extends Iati_WEP_Activity_Elements_Transaction
+class Iati_WEP_Activity_Elements_Result_Indicator extends Iati_WEP_Activity_Elements_Transaction
 {
     protected $attributes = array('id', 'measure');
     protected $measure;
@@ -21,7 +21,7 @@ class Iati_WEP_Activity_Elements_Result_Description extends Iati_WEP_Activity_El
                     'name' => 'measure',
                     'label' => 'Measure',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('id' => 'id')
+                    'attrs' => array('class' => array('form-text'))
                 ),
     );
     

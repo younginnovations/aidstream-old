@@ -18,7 +18,7 @@ class Iati_WEP_Activity_Elements_Result_TitleFactory //extends Iati_WEP_Activity
 //        print_r($parent);exit;
         $this->globalObject = $parent;
         if($data){
-            $this->globalObject = $this->getRootNode();
+            $this->globalObject = $parent;
             foreach ($data as $key => $values){
                 if(is_array ($values)){
                     $tree = $this->createObjects ('Result_'.$objectType, $this->globalObject, $values);
@@ -26,7 +26,7 @@ class Iati_WEP_Activity_Elements_Result_TitleFactory //extends Iati_WEP_Activity
             }
         }
         else{
-            $tree = $this->createObjects ('Result_'.$objectType, $parent);
+            $tree = $this->createObjects ('Result_'.$objectType, $this->globalObject);
         }
 
         return $tree;
@@ -51,11 +51,10 @@ class Iati_WEP_Activity_Elements_Result_TitleFactory //extends Iati_WEP_Activity
         }
         else{
             $object->setAttributes( $this->getInitialValues() );
-//        print_r($object);exit;
             $registryTree->addNode ($object, $parent);
-            //            print_r($registryTree->getChildNodes($this->globalObject));exit;
         }
 
+        
         return $registryTree;
     }
 

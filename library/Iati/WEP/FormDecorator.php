@@ -113,9 +113,11 @@ class Iati_WEP_FormDecorator {
     private function _attrs ($attrs=array()) {
         if (!empty($attrs)) {
             $_attrs = array();
-            foreach ($attrs as $key=>$value) {
-                array_push($attrs, $key . '="' . $value . '"');
+            foreach ($attrs as $key=>$val) {
+                $value = (is_array($val)) ? implode(' ', $val) : $val;
+                array_push($_attrs, $key . '="' . $value . '"');
             }
+            //print_r($_attrs);
             return implode(' ', $_attrs);
         }
         return '';

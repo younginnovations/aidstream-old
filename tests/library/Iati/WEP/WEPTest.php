@@ -434,12 +434,12 @@ Iati Organization";
     'ThirdLevel_subject' => array(
         '0' => array(
             '1' => array('0' => 'xxx'),
-            '2' => array('0' => 'xxx'),
+            '2' => array('0' => '0xxx'),
             '3' => array('0' => 'xxx')
         ),
         '1' => array(
             '1' => array('0' => 'yyy'),
-            '2' => array('0' => 'yyy'),
+            '2' => array('0' => 'y'),
             '3' => array('0' => 'yyy')
         )
     ),

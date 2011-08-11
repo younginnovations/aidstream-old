@@ -358,6 +358,7 @@ class WepController extends Zend_Controller_Action
             try{
             if($_POST){
                 $flatArray = $this->flatArray($_POST);
+//                print_r($flatArray);exit;
                 $activity = new Iati_WEP_Activity_Elements_Activity();
                 $activity->setAttributes(array('activity_id' => $activity_id));
                 $registryTree = Iati_WEP_TreeRegistry::getInstance();
@@ -381,6 +382,8 @@ class WepController extends Zend_Controller_Action
                     $factory = new $classname ();
                     $activityTree = $factory->cleanData($activity, $element);
                      
+                    
+                    //print_r($activityTree);exit;
                     $dbLayer = new Iati_WEP_DbLayer();
                     $dbLayer->save($activityTree);
                     $this->_helper->FlashMessenger
@@ -628,19 +631,49 @@ class WepController extends Zend_Controller_Action
 
     public function removeElementsAction()
     {
+        
+       $this->_helper->layout->disableLayout();
         if($this->_request->isGet()){
             try{
                 //                print_r($this->_request->getParam('class'));exit;
-                $id = $this->_request->getParam('id');
+                /*$id = $this->_request->getParam('id');
                 $string = 'Iati_WEP_Activity_' . $this->_request->getParam('class');
                 $obj = new $string();
                 $class = $obj->getTableName();
                 $model = new Model_Wep();
                 $model->deleteRowById($id, $class);
                 print 'success';
+                exit();*/
+                
+               if($_GET['classname'])
+               {
+                   $class = $_GET['classname'];
+               }
+               if($_GET['id']){
+                   $id = $_GET['id'];
+               }
+               $parents = array();
+               $items = array();
+               $parentExp = "/^parent/";
+               foreach($_GET as $key => $eachValue){
+                   if(preg_match($parentExp, $key)){
+                       $a = explode('parent', $key);
+                       $parents[$a[1]] = $eachValue;
+                   }
+               }
+               
+               $class1 = (isset($parents[0]))?$parents[0]. "_" . $class:$class;
+//               $className = 'Activity';
+                $fieldName = 'id';
+                $value = $id;
+                $dbLayer = new Iati_WEP_DbLayer();
+                $del = $dbLayer->deleteRows($class1, $fieldName, $value);
+               print 'success';
                 exit();
+               
             } catch (Exception $e) {
-                print $e;
+                
+                print 'Error occured while deleting.';
                 exit();
             }
             catch(Exception $e){
@@ -650,6 +683,7 @@ class WepController extends Zend_Controller_Action
         }
         else{
         }
+        
     }
 
     

@@ -25,12 +25,14 @@ class Iati_WEP_Activity_Elements_Location_Coordinates extends Iati_WEP_Activity_
                     'label' => 'Country',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
+                    'attrs' => array('class' => array('form-select'))
                 ),
                 'adm1' => array(
                     'name' => 'adm1',
                     'label' => 'Admin-1',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
+                    'attrs' => array('class' => array('form-select'))
                 ),
                 
                 'adm2' => array(
@@ -38,6 +40,7 @@ class Iati_WEP_Activity_Elements_Location_Coordinates extends Iati_WEP_Activity_
                     'label' => 'Admin-2',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
+                    'attrs' => array('class' => array('form-select'))
                 ),
     );
     
