@@ -5,7 +5,7 @@ class Iati_WEP_FormHelper {
     protected $objects = array();
     protected $registryTree;
     protected $ajaxCall = false;
-    protected $indexValues;
+    protected $indexValues = array();
     protected $parentNames;
     
     public function __construct () {
@@ -20,8 +20,18 @@ class Iati_WEP_FormHelper {
     public function getFormWithAjax ($parents, $items) {
         $this->ajaxCall = true;
         $this->parentNames = $parents;
-        $this->indexValues = $items;
-        $this->incrementIndex();
+        
+        print_r($items);
+        
+        $items = $this->incrementIndex($items);
+        
+        foreach($this->parentNames as $key => $val) {
+            $this->indexValues[$this->parentNames[$key]] = $items[$key];
+        }
+        //$this->indexValues = $items;
+        print_r($this->parentNames);
+        print_r($this->indexValues);
+        
         
         $root = $this->registryTree->getRootNode();
         $finalHtml = $this->genHtml(array($root)); 
@@ -140,7 +150,34 @@ class Iati_WEP_FormHelper {
         }
     }
     
-    public function getIndexValues ($object) {
+    public function getIndexValues ($obj) {
+        $index = array();
+        //print_r($parents);
+        if ($this->ajaxCall) {
+            $index = $this->indexValues;
+        }
+        $parentObjects = $this->registryTree->getParents($obj);
+        foreach ($parentObjects as $par) {
+            $parName = $par->getClassName();
+            if ($this->ajaxCall) {
+                if (!array_key_exists($parName, $index) && $par->hasMultiple()) {
+                    $index[$parName] = $par->getObjectId();
+                    //array_push($index, $parName);
+                }
+            }
+            else {
+                if (!array_key_exists($parName, $index) && $par != $this->registryTree->getRootNode() && $par->hasMultiple()) {
+                    $index[$parName] = $par->getObjectId();
+                }
+            }
+        }
+        
+        if ($obj->hasMultiple() && !array_key_exists($obj->getClassName(), $index)) {
+            $index[$obj->getClassName()] = $obj->getObjectId();
+        }
+        
+        return $index;
+        /*
         if ($this->ajaxCall) {
             return $this->indexValues;
         }
@@ -157,6 +194,7 @@ class Iati_WEP_FormHelper {
             
             return $arr;
         }
+        */
     }
     
     private function getUrl($obj, $urlPath) {
@@ -192,9 +230,10 @@ class Iati_WEP_FormHelper {
         return $url;
     }
     
-    private function incrementIndex () {
-        $current = (int)array_pop($this->indexValues) + 1;
-        array_push($this->indexValues, $current);
+    private function incrementIndex ($index) {
+        $current = (int)array_pop($index) + 1;
+        array_push($index, $current);
+        return $index;
     }
     
     private function _form($name, $action, $method="post", $attribs=null) {

@@ -49,9 +49,10 @@ class Iati_WEP_FormDecorator {
             //$name .= ($this->_object->hasMultiple()) ?
             //            sprintf('[%s][%s]', $this->_pid, $this->_oid) : '';
             //print_r($this->_parents);
-            foreach ($this->_parents as $par) {
+            //var_dump($this->_parents);
+            foreach ($this->_parents as $par => $val) {
                 //print_r($par);
-                $_id = (string)((int)$par);
+                $_id = (string)((int)$val);
                 $name .= ($_id != NULL) ? "[{$_id}]" : '';
                 
             }
