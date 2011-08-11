@@ -28,14 +28,13 @@ class Iati_WEP_Activity_ContactInfoFactory
             $this->globalObject = $this->getRootNode();
             foreach($data as $key => $values){
                 if(is_array($values)){
-                    $tree = $this->$function ($data);
+                    $tree = $this->$function ($values);
                 }
             }
         }
         else{
             $tree = $this->$function ($data);
         }
-
         return $tree;
     }
 
@@ -102,23 +101,19 @@ class Iati_WEP_Activity_ContactInfoFactory
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
 
         if($values){
-            foreach($values as $k => $v)
-            {
-                if(is_array($v)){
-                    $object = new Iati_WEP_Activity_Elements_ContactInfo_Telephone ();
-                    $data = $this->getFields('Telephone', $v);
-                    $object->setAttributes($data);
+                    $data = $this->getFields('Telephone', $values, true);
+//                    print_r($data);
+                    foreach($data as $eachData){
+                    $object = new Iati_WEP_Activity_Elements_ContactInfo_Telephone ();    
+                    $object->setAttributes($eachData);
                     $registryTree->addNode($object, $parent);
-                }
-
-            }
+                    }
 
         }
         else{
             $object->setAttributes( $this->getInitialValues() );
             $registryTree->addNode ($object, $parent);
         }
-
         return $registryTree;
     }
     
@@ -128,16 +123,13 @@ class Iati_WEP_Activity_ContactInfoFactory
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
 
         if($values){
-            foreach($values as $k => $v)
-            {
-                if(is_array($v)){
-                    $object = new Iati_WEP_Activity_Elements_ContactInfo_Email ();
-                    $data = $this->getFields('Email', $v);
-                    $object->setAttributes($data);
+                    $data = $this->getFields('Email', $values, true);
+//                    print_r($data);
+                    foreach($data as $eachData){
+                    $object = new Iati_WEP_Activity_Elements_ContactInfo_Email ();    
+                    $object->setAttributes($eachData);
                     $registryTree->addNode($object, $parent);
-                }
-
-            }
+                    }
 
         }
         else{
@@ -154,16 +146,12 @@ class Iati_WEP_Activity_ContactInfoFactory
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
 
         if($values){
-            foreach($values as $k => $v)
-            {
-                if(is_array($v)){
-                    $object = new Iati_WEP_Activity_Elements_ContactInfo_MailingAddress ();
-                    $data = $this->getFields('MailingAddress', $v);
-                    $object->setAttributes($data);
+                    $data = $this->getFields('MailingAddress', $values, true);
+                    foreach($data as $eachData){
+                    $object = new Iati_WEP_Activity_Elements_ContactInfo_MailingAddress ();    
+                    $object->setAttributes($eachData);
                     $registryTree->addNode($object, $parent);
-                }
-
-            }
+                    }
 
         }
         else{
@@ -194,19 +182,33 @@ class Iati_WEP_Activity_ContactInfoFactory
         return $registry->getRootNode();
     }
 
-    public function getFields($class, $data)
+    public function getFields($class, $data, $array = false)
     {
         $newArray = array();
-
-        foreach($data as $key => $value){
-            if(is_array($value)){
-                foreach($value as $k => $v){
-
-                    $key_array = explode('_', $k);
-                    if($key_array[0] == $class){
-                        array_shift($key_array);
-                        $newArray[implode("_", $key_array)] = $v;
+        $i = 0;
+        if($array){
+            foreach($data as $key => $value){
+                if(is_array($value)){
+                    foreach($value as $k => $v){
+    
+                        $key_array = explode('_', $k);
+                        if($key_array[0] == $class){
+                            array_shift($key_array);
+                            $newArray[$i][implode("_", $key_array)] = $v;
+                           
+                        }
                     }
+                     $i++;
+                }
+            }
+        }
+        else{
+            foreach($data as $key => $value){
+                $key_array = explode('_', $key);
+                if($key_array[0] == $class){
+                    array_shift($key_array);
+                    $newArray[implode("_", $key_array)] = $value;
+                   
                 }
             }
         }
@@ -269,5 +271,46 @@ class Iati_WEP_Activity_ContactInfoFactory
         return $elementObj;
     }
     
+    public function extractData($elementTree, $activity_id)
+    {
+//        print_r($elementTree);exit;
+        $registryTree = Iati_WEP_TreeRegistry::getInstance();
+        $activity = new Iati_WEP_Activity_Elements_Activity();
+        $activity->setAttributes(array('activity_id', $activity_id));
+        $registryTree->addNode($activity);
+        $elementArray = $elementTree->getElements();
+        foreach($elementArray as $eachElement){
+            
+            $className =  'Iati_WEP_Activity_Elements_' . $eachElement->getType();
+            
+            $object = new $className;
+            $object->setAttributes($eachElement->getAttribs());
+            $registryTree->addNode($object, $activity);
+            if($eachElement->getElements()){
+                $children = $eachElement->getElements();
+                $parent = $eachElement->getType();
+                foreach($children as $eachChild){
+                    $className1 = 'Iati_WEP_Activity_Elements_' . $parent . "_" . $eachChild->getType();
+
+                    $object1 = new $className1;
+                    $object1->setAttributes($eachChild->getAttribs());
+                    $registryTree->addNode($object1, $object);
+                    
+                    if($eachChild->getElements()){
+                        $subChildren = $eachChild->getElements();
+                        $parent = $eachChild->getType();
+                        foreach($subChildren as $eachSubChild){
+                            $className1 = 'Iati_WEP_Activity_Elements_' . $parent . "_" . $eachSubChild->getType();
+                            $object2 = new $className1;
+                            $object2->setAttributes($eachChild->getAttribs());
+                            $registryTree->addNode($object2, $object1);
+                        }
+                    }
+                }
+            }
+        }
+        
+//        print_r($registryTree->xml());exit;
+    }
     
 }
