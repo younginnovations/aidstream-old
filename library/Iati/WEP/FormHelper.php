@@ -21,7 +21,7 @@ class Iati_WEP_FormHelper {
         $this->ajaxCall = true;
         $this->parentNames = $parents;
         
-        print_r($items);
+        //print_r($items);
         
         $items = $this->incrementIndex($items);
         
@@ -29,8 +29,8 @@ class Iati_WEP_FormHelper {
             $this->indexValues[$this->parentNames[$key]] = $items[$key];
         }
         //$this->indexValues = $items;
-        print_r($this->parentNames);
-        print_r($this->indexValues);
+        //print_r($this->parentNames);
+        //print_r($this->indexValues);
         
         
         $root = $this->registryTree->getRootNode();
