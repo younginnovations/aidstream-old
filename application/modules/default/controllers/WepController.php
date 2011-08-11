@@ -383,7 +383,7 @@ class WepController extends Zend_Controller_Action
                     $activityTree = $factory->cleanData($activity, $element);
                      
                     
-                    print_r($activityTree);exit;
+                    //print_r($activityTree);exit;
                     $dbLayer = new Iati_WEP_DbLayer();
                     $dbLayer->save($activityTree);
                     $this->_helper->FlashMessenger
