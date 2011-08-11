@@ -161,18 +161,19 @@ class Iati_WEP_FormHelper {
     
     private function getUrl($obj, $urlPath) {
         $parents = array();
+        //print_r($parents);
         if ($this->ajaxCall) {
             $parents = $this->parentNames;
         }
-        else {
-            $parentObjects = $this->registryTree->getParents($obj);
-            foreach ($parentObjects as $par) {
-                if ($par != $this->registryTree->getRootNode()) {
-                    array_push($parents, $par->getClassName());
-                }
+        $parentObjects = $this->registryTree->getParents($obj);
+        foreach ($parentObjects as $par) {
+            $parName = $par->getClassName();
+            if ((!in_array($parName, $parents)) && (!($this->ajaxCall) && $par != $this->registryTree->getRootNode())) {
+                array_push($parents, $parName);
             }
         }
         
+        //print_r($parents);
         $url = $this->baseurl . $urlPath;
         $urlParts = array();
         foreach ($parents as $key => $par) {
