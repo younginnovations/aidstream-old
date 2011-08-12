@@ -59,7 +59,7 @@ class Iati_WEP_Activity_Elements_Location_GazetteerEntry extends Iati_WEP_Activi
     
     public function setAttributes ($data) {
         $this->id = (isset($data['id']))?$data['id']:0; 
-        $this->country = (key_exists('@gazetteer_ref', $data))?$data['@gazetteer_ref']:$data['gazetteer_ref'];
+        $this->gazetteer_ref = (key_exists('@gazetteer_ref', $data))?$data['@gazetteer_ref']:$data['gazetteer_ref'];
 
         $this->text = $data['text'];
     }

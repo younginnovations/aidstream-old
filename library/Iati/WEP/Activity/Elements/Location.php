@@ -78,7 +78,7 @@ class Iati_WEP_Activity_Elements_Location extends Iati_WEP_Activity_Elements_Ele
     public function getCleanedData(){
         $data = array();
         $data['id'] = $this->id;
-        $data['percentage'] = $this->percentage;
+        $data['@percentage'] = $this->percentage;
         
         return $data;
     }

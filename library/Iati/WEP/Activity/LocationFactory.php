@@ -23,63 +23,66 @@ class Iati_WEP_Activity_LocationFactory
 
         $this->globalObject = $this->getRootNode();
 
+        $function = 'create' . $objectType;
         if($data){
-            //            print_r($data);exit;
             $this->globalObject = $this->getRootNode();
             foreach($data as $key => $values){
                 if(is_array($values)){
-                    $tree = $this->createObjects ($objectType, null, $data);
+                    $tree = $this->$function ($values);
                 }
             }
         }
         else{
-            $tree = $this->createObjects ($objectType);
+            $tree = $this->$function ($data);
         }
-
         return $tree;
     }
 
     public function createLocation($flatArray = array())
-    {
-        //        var_dump($flatArray);exit;
-        $transaction = new Iati_WEP_Activity_Elements_Location ();
+    {/*
+
+        $this->createOrganisation ( $contactInfo, $flatArray);
+        $this->createPersonName ( $contactInfo, $flatArray);
+        $this->createTelephone ($contactInfo, $flatArray);
+        $this->createEmail ( $contactInfo, $flatArray);
+        $this->createMailingAddress ( $contactInfo, $flatArray);
+        return $registryTree;*/
+
+
+        $location = new Iati_WEP_Activity_Elements_Location ();
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
         if($flatArray){
             $data = $this->getFields('Location', $flatArray);
-            $transaction->setAttributes($data);
+            $location->setAttributes($data);
         }
         else{
-            $transaction->setAttributes( $this->getInitialValues() );
+            $location->setAttributes( $this->getInitialValues() );
         }
-        $registryTree->addNode ($transaction, $this->globalObject);
-        $this->createObjects ( 'LocationType', $transaction, $flatArray);
-        
-//        $this->createObjects ( 'TransactionType', $transaction, $flatArray);
-        $this->createObjects ( 'Name', $transaction, $flatArray);
-        $this->createObjects ( 'Description', $transaction, $flatArray);
-        $this->createObjects ('Administrative',  $transaction, $flatArray);
-        $this->createObjects ('Coordinates', $transaction, $flatArray);
-        $this->createObjects ('GazetteerEntry', $transaction, $flatArray);
+        $registryTree->addNode ($location, $this->globalObject);
+
+        $this->createLocationType ($location, $flatArray);
+        $this->createName ($location, $flatArray);
+        $this->createDescription ($location, $flatArray);
+        $this->createAdministrative ($location, $flatArray);
+        $this->createCoordinates ($location, $flatArray);
+        $this->createGazetteerEntry ($location, $flatArray);
         return $registryTree;
 
     }
 
-    public function createObjects($class, $parent = null, $values = array())
+    public function createLocationType ($parent = null, $values = array())
     {
-        if($class == 'Location'){
-            return $this->createLocation($values);
-        }
-
-        $string = 'Iati_WEP_Activity_Elements_Location_' . $class;
-        $object = new $string ();
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
 
         if($values){
-            $data = $this->getFields($class, $values);
+
+            $object = new Iati_WEP_Activity_Elements_Location_LocationType ();
+            $data = $this->getFields('LocationType', $values);
             $object->setAttributes($data);
             $registryTree->addNode($object, $parent);
         }
         else{
+            $object = new Iati_WEP_Activity_Elements_Location_LocationType ();
             $object->setAttributes( $this->getInitialValues() );
             $registryTree->addNode ($object, $parent);
         }
@@ -87,6 +90,109 @@ class Iati_WEP_Activity_LocationFactory
         return $registryTree;
     }
 
+    public function createName ($parent = null, $values = array())
+    {
+        $registryTree = Iati_WEP_TreeRegistry::getInstance ();
+
+        if($values){
+            $data = $this->getFields('Name', $values, true);
+            //                    print_r($data);
+            foreach($data as $eachData){
+                $object = new Iati_WEP_Activity_Elements_Location_Name ();
+                $object->setAttributes($eachData);
+                $registryTree->addNode($object, $parent);
+            }
+
+        }
+        else{
+            $object = new Iati_WEP_Activity_Elements_Location_Name ();
+            $object->setAttributes( $this->getInitialValues() );
+            $registryTree->addNode ($object, $parent);
+        }
+        return $registryTree;
+    }
+
+    public function createDescription ($parent = null, $values = array())
+    {
+        $registryTree = Iati_WEP_TreeRegistry::getInstance ();
+
+        if($values){
+            $data = $this->getFields('Description', $values, true);
+            foreach($data as $eachData){
+                $object = new Iati_WEP_Activity_Elements_Location_Description ();
+                $object->setAttributes($eachData);
+                $registryTree->addNode($object, $parent);
+            }
+
+        }
+        else{
+            $object = new Iati_WEP_Activity_Elements_Location_Description ();
+            $object->setAttributes( $this->getInitialValues() );
+            $registryTree->addNode ($object, $parent);
+        }
+        return $registryTree;
+    }
+
+    public function createAdministrative ($parent = null, $values = array())
+    {
+        $registryTree = Iati_WEP_TreeRegistry::getInstance ();
+
+        if($values){
+
+            $object = new Iati_WEP_Activity_Elements_Location_Administrative ();
+            $data = $this->getFields('Administrative', $values);
+            $object->setAttributes($data);
+            $registryTree->addNode($object, $parent);
+        }
+        else{
+            $object = new Iati_WEP_Activity_Elements_Location_Administrative ();
+            $object->setAttributes( $this->getInitialValues() );
+            $registryTree->addNode ($object, $parent);
+        }
+
+        return $registryTree;
+    }
+
+    public function createCoordinates ($parent = null, $values = array())
+    {
+        $registryTree = Iati_WEP_TreeRegistry::getInstance ();
+
+        if($values){
+            $object = new Iati_WEP_Activity_Elements_Location_Coordinates();
+            $data = $this->getFields('Coordinates', $values);
+            $object->setAttributes($data);
+            $registryTree->addNode($object, $parent);
+        }
+        else{
+            $object = new Iati_WEP_Activity_Elements_Location_Coordinates();
+            $object->setAttributes( $this->getInitialValues() );
+            $registryTree->addNode ($object, $parent);
+        }
+
+        return $registryTree;
+    }
+
+    public function createGazetteerEntry ($parent = null, $values = array())
+    {
+        $registryTree = Iati_WEP_TreeRegistry::getInstance ();
+
+        if($values){
+            $data = $this->getFields('GazetteerEntry', $values, true);
+            foreach($data as $eachData){
+                $object = new Iati_WEP_Activity_Elements_Location_GazetteerEntry ();
+                $object->setAttributes($eachData);
+                $registryTree->addNode($object, $parent);
+            }
+
+        }
+        else{
+            $object = new Iati_WEP_Activity_Elements_Location_GazetteerEntry ();
+            $object->setAttributes( $this->getInitialValues() );
+            $registryTree->addNode ($object, $parent);
+        }
+        return $registryTree;
+    }
+    
     public function setInitialValues($initial)
     {
         $this->defaultValues = $initial;
@@ -107,25 +213,39 @@ class Iati_WEP_Activity_LocationFactory
         return $registry->getRootNode();
     }
 
-    public function getFields($class, $data)
+    public function getFields($class, $data, $array = false)
     {
         $newArray = array();
-
-        foreach($data as $key => $value){
-            if(is_array($value)){
-                foreach($value as $k => $v){
-                
-                $key_array = explode('_', $k);
+        $i = 0;
+        if($array){
+            foreach($data as $key => $value){
+                if(is_array($value)){
+                    foreach($value as $k => $v){
+    
+                        $key_array = explode('_', $k);
+                        if($key_array[0] == $class){
+                            array_shift($key_array);
+                            $newArray[$i][implode("_", $key_array)] = $v;
+                           
+                        }
+                    }
+                     $i++;
+                }
+            }
+        }
+        else{
+            foreach($data as $key => $value){
+                $key_array = explode('_', $key);
                 if($key_array[0] == $class){
                     array_shift($key_array);
-                    $newArray[implode("_", $key_array)] = $v;
-                }
+                    $newArray[implode("_", $key_array)] = $value;
+                   
                 }
             }
         }
         return $newArray;
     }
-
+    
     /**
      * recursive validation function
      * @param $obj
@@ -182,8 +302,8 @@ class Iati_WEP_Activity_LocationFactory
 
         return $elementObj;
     }
-    
-   
+
+     
     public function extractData($elementTree, $activity_id)
     {
         $registryTree = Iati_WEP_TreeRegistry::getInstance();
@@ -192,9 +312,9 @@ class Iati_WEP_Activity_LocationFactory
         $registryTree->addNode($activity);
         $elementArray = $elementTree->getElements();
         foreach($elementArray as $eachElement){
-            
+
             $className =  'Iati_WEP_Activity_Elements_' . $eachElement->getType();
-            
+
             $object = new $className;
             $object->setAttributes($eachElement->getAttribs());
             $registryTree->addNode($object, $activity);
@@ -202,13 +322,13 @@ class Iati_WEP_Activity_LocationFactory
                 $children = $eachElement->getElements();
                 $parent = $eachElement->getType();
                 foreach($children as $eachChild){
-                    
+
                     $className1 = 'Iati_WEP_Activity_Elements_' . $parent . "_" . $eachChild->getType();
 
                     $object1 = new $className1;
                     $object1->setAttributes($eachChild->getAttribs());
                     $registryTree->addNode($object1, $object);
-                    
+
                     if($eachChild->getElements()){
                         $subChildren = $eachChild->getElements();
                         $parent = $eachChild->getType();
