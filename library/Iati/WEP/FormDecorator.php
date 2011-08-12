@@ -37,22 +37,22 @@ class Iati_WEP_FormDecorator {
                                 $variables['attrs']['id'] . '-' . $this->_oid : '';
             
             if ($label && isset($variables['label'])) {
-                $html .= sprintf('<label for="%1s">%2s</label>',
-                                 $id, $variables['label']
-                                 );
+                $html .= '<label for="'.$id.'">'.$variables['label'];
+                if ($this->_object->getValidator($attribute) == 'NotEmpty') {
+                    $html .= '<span class="required">*</span>';
+                }
+                $html .= '</label>';
             
-            if ($this->_object->getValidator($attribute) == 'NotEmpty') {
-                $html .= '* ';
-            }
             }
             
             $name = $this->_object->getClassName() . '_' . $variables['name'];            
             //$name .= ($this->_object->hasMultiple()) ?
             //            sprintf('[%s][%s]', $this->_pid, $this->_oid) : '';
             //print_r($this->_parents);
-            foreach ($this->_parents as $par) {
+            //var_dump($this->_parents);
+            foreach ($this->_parents as $par => $val) {
                 //print_r($par);
-                $_id = (string)((int)$par);
+                $_id = (string)((int)$val);
                 $name .= ($_id != NULL) ? "[{$_id}]" : '';
                 
             }

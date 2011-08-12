@@ -350,30 +350,51 @@ ul.error
 
 label
 {
-	/*float:left;*/
+	float:left;
 	width:160px;
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:12px;
 	color:#887272;
-	margin-top:10px;
 	display: block;
-	
+	font-weight: bold;
 }
 
 #default_fields-element label{
     display: inline;	
 }
 	
-input
+input.form-text, select.form-select
 {
-	width:200px;
-	height:20px;
-	margin-top:10px;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-color: #999999 #CCCCCC #CCCCCC;
+    border-right: 1px solid #CCCCCC;
+    border-style: solid;
+    border-width: 1px;
+    color: #333333;
+    padding: 2px;
+    width: 300px;
+}
+select.form-select {
+    background: url(images/select_arrow.gif) no-repeat right center;
+}
+input.form-submit {
+
+    background: url("images/buttons.png") repeat-x scroll 0 0 transparent;
+    border-color: #E4E4E4 #D2D2D2 #B4B4B4;
+    border-radius: 20px 20px 20px 20px;
+    border-style: solid;
+    border-width: 1px;
+    color: #5A5A5A;
+    cursor: pointer;
+    font-family: "Lucida Grande",Verdana,sans-serif;
+    font-size: 1.077em;
+    font-weight: normal;
+    margin-bottom: 1em;
+    margin-right: 1em;
+    padding: 4px 17px;
+    text-align: center;
 }
 
-select{
-    margin-top: 10px;	
-}
 
 textarea{
     width: 325px;

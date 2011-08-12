@@ -358,6 +358,7 @@ class WepController extends Zend_Controller_Action
             try{
             if($_POST){
                 $flatArray = $this->flatArray($_POST);
+                
 //                print_r($flatArray);exit;
                 $activity = new Iati_WEP_Activity_Elements_Activity();
                 $activity->setAttributes(array('activity_id' => $activity_id));
@@ -382,8 +383,8 @@ class WepController extends Zend_Controller_Action
                     $factory = new $classname ();
                     $activityTree = $factory->cleanData($activity, $element);
                      
+//                    print_r($activityTree);exit;
                     
-                    //print_r($activityTree);exit;
                     $dbLayer = new Iati_WEP_DbLayer();
                     $dbLayer->save($activityTree);
                     $this->_helper->FlashMessenger
@@ -408,7 +409,6 @@ class WepController extends Zend_Controller_Action
                 $factory->setInitialValues($initial);
                 $tree = $factory->factory($class);
 
-//                print_r($registryTree->xml());exit;
                 $formHelper = new Iati_WEP_FormHelper();
                 $a = $formHelper->getForm();
 
@@ -484,7 +484,6 @@ class WepController extends Zend_Controller_Action
             else{
                 $dbLayer = new Iati_WEP_DbLayer();
                 $rowSet = $dbLayer->getRowSet($class, 'activity_id', $activity_id, true);
-//                print_r($rowSet);exit;
                 $elements = $rowSet->getElements();
                 $attributes = $elements[0]->getAttribs();
                 if(empty($attributes)){
@@ -542,6 +541,7 @@ class WepController extends Zend_Controller_Action
        $factory->setInitialValues($initial);
        $tree = $factory->factory($class);
     
+       array_push($parents, $class);
         $formHelper = new Iati_WEP_FormHelper();
         $a = $formHelper->getFormWithAjax($parents, $items);
         print $a;exit;

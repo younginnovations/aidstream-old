@@ -5,7 +5,7 @@ class Iati_WEP_FormHelper {
     protected $objects = array();
     protected $registryTree;
     protected $ajaxCall = false;
-    protected $indexValues;
+    protected $indexValues = array();
     protected $parentNames;
     
     public function __construct () {
@@ -20,8 +20,18 @@ class Iati_WEP_FormHelper {
     public function getFormWithAjax ($parents, $items) {
         $this->ajaxCall = true;
         $this->parentNames = $parents;
-        $this->indexValues = $items;
-        $this->incrementIndex();
+        
+        //print_r($items);
+        
+        $items = $this->incrementIndex($items);
+        
+        foreach($this->parentNames as $key => $val) {
+            $this->indexValues[$this->parentNames[$key]] = $items[$key];
+        }
+        //$this->indexValues = $items;
+        //print_r($this->parentNames);
+        //print_r($this->indexValues);
+        
         
         $root = $this->registryTree->getRootNode();
         $finalHtml = $this->genHtml(array($root)); 
@@ -57,9 +67,15 @@ class Iati_WEP_FormHelper {
         
         foreach ($finalNodes as $ele) {
             $_ht = array();
-            if (!$this->ajaxCall) {
+            if ($this->ajaxCall) {
+                if ($ele[0] != $this->registryTree->getRootNode()) {
+                    $_ht[] = sprintf('<h2 class="form-title">%s</h2>', $ele[0]->getClassName());
+                }
+            }
+            else {
                 $_ht[] = sprintf('<h2 class="form-title">%s</h2>', $ele[0]->getClassName());
             }
+            
             foreach($ele as $key => $obj) {
                 
                 $_ht[] = $this->myForm($obj);
@@ -140,7 +156,34 @@ class Iati_WEP_FormHelper {
         }
     }
     
-    public function getIndexValues ($object) {
+    public function getIndexValues ($obj) {
+        $index = array();
+        //print_r($parents);
+        if ($this->ajaxCall) {
+            $index = $this->indexValues;
+        }
+        $parentObjects = $this->registryTree->getParents($obj);
+        foreach ($parentObjects as $par) {
+            $parName = $par->getClassName();
+            if ($this->ajaxCall) {
+                if (!array_key_exists($parName, $index) && $par->hasMultiple()) {
+                    $index[$parName] = $par->getObjectId();
+                    //array_push($index, $parName);
+                }
+            }
+            else {
+                if (!array_key_exists($parName, $index) && $par != $this->registryTree->getRootNode() && $par->hasMultiple()) {
+                    $index[$parName] = $par->getObjectId();
+                }
+            }
+        }
+        
+        if ($obj->hasMultiple() && !array_key_exists($obj->getClassName(), $index)) {
+            $index[$obj->getClassName()] = $obj->getObjectId();
+        }
+        
+        return $index;
+        /*
         if ($this->ajaxCall) {
             return $this->indexValues;
         }
@@ -157,22 +200,31 @@ class Iati_WEP_FormHelper {
             
             return $arr;
         }
+        */
     }
     
     private function getUrl($obj, $urlPath) {
         $parents = array();
+        //print_r($parents);
         if ($this->ajaxCall) {
             $parents = $this->parentNames;
         }
-        else {
-            $parentObjects = $this->registryTree->getParents($obj);
-            foreach ($parentObjects as $par) {
-                if ($par != $this->registryTree->getRootNode()) {
-                    array_push($parents, $par->getClassName());
+        $parentObjects = $this->registryTree->getParents($obj);
+        foreach ($parentObjects as $par) {
+            $parName = $par->getClassName();
+            if ($this->ajaxCall) {
+                if (!in_array($parName, $parents)) {
+                    array_push($parents, $parName);
+                }
+            }
+            else {
+                if (!in_array($parName, $parents) && $par != $this->registryTree->getRootNode()) {
+                    array_push($parents, $parName);
                 }
             }
         }
         
+        //print_r($parents);
         $url = $this->baseurl . $urlPath;
         $urlParts = array();
         foreach ($parents as $key => $par) {
@@ -184,9 +236,10 @@ class Iati_WEP_FormHelper {
         return $url;
     }
     
-    private function incrementIndex () {
-        $current = (int)array_pop($this->indexValues) + 1;
-        array_push($this->indexValues, $current);
+    private function incrementIndex ($index) {
+        $current = (int)array_pop($index) + 1;
+        array_push($index, $current);
+        return $index;
     }
     
     private function _form($name, $action, $method="post", $attribs=null) {
@@ -198,7 +251,7 @@ class Iati_WEP_FormHelper {
             $_form .= $this->_addMore(array('id'=>'add-more'));
         }*/
         
-        $_form .= '<input type="submit" id="Submit" value="Save" />';
+        $_form .= '<input type="submit" id="Submit" value="Save" class="form-submit"/>';
         $_form .= '</form>';
         return $_form;
     }

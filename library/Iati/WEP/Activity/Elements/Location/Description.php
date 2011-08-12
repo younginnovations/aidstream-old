@@ -7,7 +7,7 @@ class Iati_WEP_Activity_Elements_Location_Description extends Iati_WEP_Activity_
     protected $xml_lang; 
     protected $id = 0;
     protected $options = array();
-    protected $className = 'LocationDescription';
+    protected $className = 'Description';
     
     
     protected $validators = array(
