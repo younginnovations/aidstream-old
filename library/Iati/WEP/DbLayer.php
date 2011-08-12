@@ -14,13 +14,19 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 
 	public function checkIsEmptyAttribs($attribs)
 	{
+		$count = 0;
 		foreach($attribs as $indiAttrib){
 				if($indiAttrib){
 					return true;
 				}else{
+					$count++;
 				 $attribResult = false;
 				}
 			}
+
+			//if the only attrib is null and that only attribs key is id then return true
+			if(array_key_exists('id', $attribs) && $count == 1)
+			return true;
 			return $attribResult;
 	}
 	public function save($object, $parentId = null) {
@@ -31,7 +37,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 			$parentType = $object->getParentType();
 			$attribs = $object->getAttribs();
 			$attribResult = $this->checkIsEmptyAttribs($attribs);
-			if($objectType == 'ContactInfo')
+			if($attribResult == false && $object->getElements())
 			$attribResult = true;
 			if($attribResult){
 				if($parentId){

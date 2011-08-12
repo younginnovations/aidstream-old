@@ -13,7 +13,7 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
 		$activities = new Iati_Activity_Element_ActivityCollection();
         $activity = $activities->addElement('activity');
         $activity->setAttribs(array(
-            'id' => '5',
+            'id' => '11',
         ));
         $iatiIdentifier = $activity->addElement('identifier');
         // fill up properties of $iatiIdentifier
@@ -36,24 +36,47 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
 		$transactionDescription = $transaction->addElement('Transaction_Description');
 
 		$contactInfo = $activity->addElement('ContactInfo');
+		$contactInfo->setAttribs(array('id' => null,
+											));
 
 		$contactInfoEmail = $contactInfo->addElement('ContactInfo_Email');
 		$contactInfoEmail->setAttribs(array('text' => 'testtext',
 											));
 
 		$location = $activity->addElement('Location');
-        $location->setAttribs(array('@percentage' => 'reference',
+        $location->setAttribs(array('@percentage' => '',
         							));
 		$locationName = $location->addElement('Location_Name');
-		$locationName->setAttribs(array('@xml:lang' => '1',
+		$locationName->setAttribs(array('@xml_lang' => '1',
 											'text' => 'testText',
-											));
-
+										));
 
 
         $activity->addElement($reportingOrg);
         $dbLayer = new Iati_WEP_DbLayer();
 		$dbLayer->save($activity);
+	}
+
+	public function testSaveNullableAttribs()
+	{
+		$location = new Iati_Activity_Element_Location();
+		$location->setAttribs(array('@percentage' => '',
+        							));
+		$locationName = $location->addElement('Location_Name');
+		$locationName->setAttribs(array('@xml_lang' => '1',
+											'text' => 'testText',
+										));
+		$dbLayer = new Iati_WEP_DbLayer();
+		$dbLayer->save($location);
+
+		$location = new Iati_Activity_Element_Location();
+		$location->setAttribs(array('@percentage' => '',
+        							));
+
+		$dbLayer = new Iati_WEP_DbLayer();
+		$dbLayer->save($location);
+
+
 	}
 
 	public function testUpdateElement(){
@@ -222,6 +245,36 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
 		$result = $this->testObj->conditionFormatter($className);
 		$this->assertEquals('indicator_id', $result);
 
+
+	}
+
+	public function testAttribs()
+	{
+		$dbLayer = new Iati_WEP_DbLayer();
+
+		$attribs = array(
+            '@ref' => "GB-1",
+            '@type' => "INGO",
+            '@xml_lang' => "en",
+        	'text' => 'TestingText',
+        );
+        $attrib = $dbLayer->checkIsEmptyAttribs($attribs);
+		$this->assertTrue($attrib);
+
+		$attribs = array(
+            'id' => "0",
+            '@type' => "",
+            '@xml_lang' => "",
+        	'text' => '',
+        );
+        $attrib = $dbLayer->checkIsEmptyAttribs($attribs);
+		$this->assertFalse($attrib);
+
+		$attribs = array(
+            'id' => null,
+        );
+        $attrib = $dbLayer->checkIsEmptyAttribs($attribs);
+		$this->assertTrue($attrib);
 
 	}
 
