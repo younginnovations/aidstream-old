@@ -67,9 +67,15 @@ class Iati_WEP_FormHelper {
         
         foreach ($finalNodes as $ele) {
             $_ht = array();
-            if (!$this->ajaxCall) {
+            if ($this->ajaxCall) {
+                if ($ele[0] != $this->registryTree->getRootNode()) {
+                    $_ht[] = sprintf('<h2 class="form-title">%s</h2>', $ele[0]->getClassName());
+                }
+            }
+            else {
                 $_ht[] = sprintf('<h2 class="form-title">%s</h2>', $ele[0]->getClassName());
             }
+            
             foreach($ele as $key => $obj) {
                 
                 $_ht[] = $this->myForm($obj);
