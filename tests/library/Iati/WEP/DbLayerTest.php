@@ -13,7 +13,7 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
 		$activities = new Iati_Activity_Element_ActivityCollection();
         $activity = $activities->addElement('activity');
         $activity->setAttribs(array(
-            'id' => '15',
+            'id' => '5',
         ));
         $iatiIdentifier = $activity->addElement('identifier');
         // fill up properties of $iatiIdentifier
@@ -27,11 +27,11 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
         	'text' => 'TestingText',
         ));
         $transaction = $activity->addElement('Transaction');
-        $transaction->setAttribs(array('@ref' => 'ghin',
+        $transaction->setAttribs(array('@ref' => 'reference',
         							));
 		$transactionType = $transaction->addElement('Transaction_TransactionType');
 		$transactionType->setAttribs(array('@code' => '1',
-											'text' => 'testtext',
+											'text' => 'testText',
 											));
 		$transactionDescription = $transaction->addElement('Transaction_Description');
 
@@ -41,7 +41,13 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
 		$contactInfoEmail->setAttribs(array('text' => 'testtext',
 											));
 
-
+		$location = $activity->addElement('Location');
+        $location->setAttribs(array('@percentage' => 'reference',
+        							));
+		$locationName = $location->addElement('Location_Name');
+		$locationName->setAttribs(array('@xml:lang' => '1',
+											'text' => 'testText',
+											));
 
 
 
