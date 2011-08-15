@@ -36,14 +36,24 @@ class Form_Wep_EditDefaults extends App_Form
                                 ->setValue($defaults['field_values']['reporting_org'])
                                 ->setRequired()->setAttrib('class', 'form-text');
         
-        $form['default_fields'] = new Zend_Form_Element_MultiCheckbox('default_fields');
+      /*  $form['default_fields'] = new Zend_Form_Element_MultiCheckbox('default_fields');
         foreach($defaults['fields'] as $key=>$eachDefault){
             $form['default_fields']->addMultiOption($key, ucwords(str_replace("_", " ", $key)));
             if($eachDefault == '1'){
                 $checked[] = $key;
             }
         }
-        $form['default_fields']->setValue($checked);
+        $form['default_fields']->setValue($checked);*/
+//        print_r($defaults['fields']);exit;
+        foreach($defaults['fields'] as $key=>$eachDefault){
+            $default_fields[$key] =  ucwords(str_replace("_", " ", $key));
+            if($eachDefault == '1'){
+                $checked[] = $key;
+            }
+        }
+        
+        
+        
         
         //@todo reCaptcha
         
@@ -52,6 +62,17 @@ class Form_Wep_EditDefaults extends App_Form
                                          $signup->setValue('save')->setAttrib('class', 'form-submit');
                                          
         $this->addElements($form);
+        $this->addElement('multiCheckbox', 'default_fields', array(
+                        'disableLoadDefaultDecorators' => true,
+                        'separator'    => '&nbsp;',
+                        'multiOptions' => $default_fields,
+                        'value' => $checked,
+                        'decorators'   => array(
+                                    'ViewHelper',
+                                    'Errors',
+                                array('HtmlTag', array('tag' => 'p'))          
+                        )
+        ));
         $this->addDisplayGroup(array('default_currency', 'default_language', 'default_reporting_org', 'default_hierarchy'), 'field2',array('legend'=>'Default Field Values'));
        
         $this->addDisplayGroup(array('default_fields',), 'field3',array('legend'=>'Default Field Groups'));

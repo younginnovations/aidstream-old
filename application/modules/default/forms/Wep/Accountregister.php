@@ -85,16 +85,6 @@ class Form_Wep_Accountregister extends App_Form
         $form['default_hierarchy']->setLabel('Default Hierarchy')
                                 ->setValue($defaultFields['hierarchy'])->setAttrib('class', 'form-text');
         
-                                
-        $form['default_fields'] = new Zend_Form_Element_MultiCheckbox('default_fields');
-        foreach($defaultFields['fields'] as $key=>$eachDefault){
-            $form['default_fields']->addMultiOption($key, ucwords(str_replace("_", " ", $key)));
-            if($eachDefault == '1'){
-                $checked[] = $key;
-            }
-        }
-        $form['default_fields']->setValue($checked);
-        
         //@todo reCaptcha
         
                                 
@@ -103,12 +93,26 @@ class Form_Wep_Accountregister extends App_Form
                                          
         $this->addElements($form);
         
+        foreach($defaultFields['fields'] as $key=>$eachDefault){
+            $default_fields[$key] =  ucwords(str_replace("_", " ", $key));
+            
+            }
+        $this->addElement('multiCheckbox', 'default_fields', array(
+                        'disableLoadDefaultDecorators' => true,
+                        'separator'    => '&nbsp;',
+                        'multiOptions' => $default_fields,
+                        'decorators'   => array(
+                                    'ViewHelper',
+                                    'Errors',
+                                array('HtmlTag', array('tag' => 'p'))          
+                        )
+        ));
         
         $this->addDisplayGroup(array('organisation_name', 'organisation_address', 'organisation_username'), 'field',array('legend'=>'Organisation Information'));
         $this->addDisplayGroup(array('first_name', 'middle_name', 'last_name', 'password', 'confirmpassword', 'email'), 
                                         'field1',array('legend'=>'Admin Information'));
 //        $this->addDisplayGroup()
-        $this->addDisplayGroup(array('default_currency', 'default_language', 'default_reporting_org'), 'field2',array('legend'=>'Default Field Values'));
+        $this->addDisplayGroup(array('default_currency', 'default_language', 'default_reporting_org','default_hierarchy'), 'field2',array('legend'=>'Default Field Values'));
        
         $this->addDisplayGroup(array('default_fields',), 'field3',array('legend'=>'Default Field Groups'));
        
