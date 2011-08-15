@@ -24,6 +24,11 @@ class Form_Wep_EditDefaults extends App_Form
             $form['default_language']->addMultiOption($eachLanguage['id'], $eachLanguage['Code']);
         }
         
+        $form['default_hierarchy'] = new Zend_Form_Element_Text('default_hierarchy');
+        $form['default_hierarchy']->setLabel('Default Hierarchy')
+                                ->setValue($defaults['field_values']['default_hierarchy']);
+        
+        
         $form['default_reporting_org'] = new Zend_Form_Element_Text('default_reporting_org');
         $form['default_reporting_org']->setLabel('Default Reporting Organisation Name')
                                 ->setValue($defaults['field_values']['reporting_org'])
@@ -45,7 +50,7 @@ class Form_Wep_EditDefaults extends App_Form
                                          $signup->setValue('save')->setAttrib('id', 'Submit');
                                          
         $this->addElements($form);
-        $this->addDisplayGroup(array('default_currency', 'default_language', 'default_reporting_org'), 'field2',array('legend'=>'Default Field Values'));
+        $this->addDisplayGroup(array('default_currency', 'default_language', 'default_reporting_org', 'default_hierarchy'), 'field2',array('legend'=>'Default Field Values'));
        
         $this->addDisplayGroup(array('default_fields',), 'field3',array('legend'=>'Default Field Groups'));
        

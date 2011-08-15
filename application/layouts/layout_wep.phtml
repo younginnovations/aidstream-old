@@ -39,21 +39,21 @@
                         <!--<h1></h1>-->
                         <?$auth = Zend_Auth::getInstance();
                              if ($auth->hasIdentity()):?>
-                        <a class="user-logout" href="<?php print $this->baseUrl() ?>/user/user/logout">Logout</a>
+                             <?php $identity = $auth->getIdentity();?>
+                            You are logged in as  <?php echo $identity->user_name;?>
+                            (<a  href="<?php print $this->baseUrl() ?>/user/user/logout">Logout</a>)
                                 
                         <?endif;?>                                                                
-                        <? if (!$auth->hasIdentity()):?>
-                        <a class="user-login" href="<?php print $this->baseUrl() ?>/user/user/login">Login</a>                                  
-                        <?endif;?>                                                                                                                  
+                        <? //if (!$auth->hasIdentity()):?>
+<!--                        <a class="user-login" href="<?php //print $this->baseUrl() ?>/user/user/login">Login</a>                                  -->
+                        <?//endif;?>                                                                                                                  
                     </div>
                     <!--search div start-->
                     <div id="search-tab">
-                        <table>
-                            <tr>
-                                <td><input id="search"name="search" type="text"></td>
-                                <td><input id="submit" name="Search" type="submit" value="Search"></td>
-                            </tr>
-                        </table>
+                        
+                   <?php if ($auth->hasIdentity())
+                         print $this->partial('partial/section/top-bar.phtml');
+                    ?>
                     </div>
                     
                     <div id="header">
@@ -69,7 +69,7 @@
                 </div>  
         </div>
         <div id="navigation-wrapper">   
-                <div id="wrapper">
+                <!--<div id="wrapper">
                     <div id="navigation" class="menu">
                         <ul class="menu-list">
                             <li class="menu-item"><a class="active" href="#">Home</a></li>
@@ -80,6 +80,7 @@
                             </ul>
                     </div>
             </div>
+        -->
         </div>
         <!--header closed-->
             
@@ -111,8 +112,9 @@
                             <div id="contain-inner">
 <!--                                <h1>Vertical Navigation list</h1>-->
                                 <div id="nav-list">
-                                    <?php //print_r($this->userInfo());exit();?>
-                                    <?php //if($this->userInfo()){
+                                <?php //var_dump($auth->hasIdentity());?>
+                                    <?php if ($auth->hasIdentity())
+//                                    print "df";exit;
                                      print $this->partial('partial/section/left-bar.phtml');
                                     ?>
                                 </div>                            

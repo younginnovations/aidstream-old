@@ -8,18 +8,12 @@
     $link1 = 'wep/edit-defaults';
     
 }?>
-
-<div>Navigation Menu</div>
-<ul>
-<li>
-<?php print $this->l('Dashboard', $link);?></li>
-<li>
-<?php print $this->l('Logout', 'user/user/logout');?>
-</li>
+<div>
+<span><?php print $this->l('Dashboard', $link);?></span>
 <?php if($link1):?>
-<li><?php print $this->l('Change Defaults', $link1);?></li>
+<span><?php print $this->l('Change Defaults', $link1);?></span>
 <?php endif;?>
 <?php if($link2): ?>
-<li><?php print $this->l('Register', $link2); ?></li>
+<span><?php print $this->l('Register', $link2); ?></span>
 <?php endif; ?>
-</ul>
+</div>

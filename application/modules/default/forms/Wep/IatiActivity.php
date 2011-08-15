@@ -1,7 +1,7 @@
 <?php
 class Form_Wep_IatiActivity extends App_Form
 {
-    public function add($status = "add", $activities_id,$account_id = '')
+    public function add($status = "add", $account_id = '')
     {
         $form = array();
 //        print $status;exit;
@@ -9,6 +9,8 @@ class Form_Wep_IatiActivity extends App_Form
         $model = new Model_Viewcode();
         $language = $model->getCode('Language',null,'1');
         $currency = $model->getCode('Currency', null, '1');
+//        $currency = $model->getCode('OrganisationIdentifier', null, '1');
+        
 //        print_r($language);exit();
         //print_r($language);exit();
         if($status != 'edit'){
@@ -40,15 +42,26 @@ class Form_Wep_IatiActivity extends App_Form
         $form['hierarchy'] = new Zend_Form_Element_Text('hierarchy');
         $form['hierarchy']->setLabel('Hierarchy');
 
-
-        $form['activities_id'] = new Zend_Form_Element_Hidden('activities_id');
-        $form['activities_id']->setValue($activities_id);
-
-        $form['save'] = new Zend_Form_Element_Submit('save');
-        $form['save']->setValue('Save')->setAttrib('id', 'Submit');
-
-        //        $form['']
         $this->addElements($form);
+
+        $this->addDisplayGroup(array('xml_lang', 'default_currency', 'hierarchy'), 
+                                    'field1',array('legend'=>'Activity'));
+        
+        $form1 = new Form_Wep_ReportingOrganisation();
+        $form1->add('add', $account_id);
+        
+        $iati_identifier = new Zend_Form_Element_Text('iati_identifier_text');
+        $iati_identifier->setLabel('Iati Identifier')->setRequired();
+        
+        $this->addSubForm($form1, 'Reporting Organisation');
+        $this->addElement($iati_identifier);
+        
+        
+        //        $form['']
+        $this->addDisplayGroup(array('iati_identifier_text'), 'field',array('legend'=>'Iati Identifier'));
+        $save = new Zend_Form_Element_Submit('save');
+        $save->setValue('Save')->setAttrib('class','form-submit');
+        $this->addElement($save);
         $this->setMethod('post');
     }
 }

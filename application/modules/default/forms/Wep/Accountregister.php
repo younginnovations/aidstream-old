@@ -77,7 +77,12 @@ class Form_Wep_Accountregister extends App_Form
         $form['default_reporting_org']->setLabel('Default Reporting Organisation Name')
                                 ->setValue($defaultFields['reporting_org'])
                                 ->setRequired();
+
+        $form['default_hierarchy'] = new Zend_Form_Element_Text('default_hierarchy');
+        $form['default_hierarchy']->setLabel('Default Hierarchy')
+                                ->setValue($defaultFields['hierarchy']);
         
+                                
         $form['default_fields'] = new Zend_Form_Element_MultiCheckbox('default_fields');
         foreach($defaultFields['fields'] as $key=>$eachDefault){
             $form['default_fields']->addMultiOption($key, ucwords(str_replace("_", " ", $key)));

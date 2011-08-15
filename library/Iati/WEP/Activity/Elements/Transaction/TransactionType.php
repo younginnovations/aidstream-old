@@ -7,7 +7,7 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
     protected $id = 0;
     protected $options = array();
     protected $className = 'TransactionType';
-    protected $required = false;
+    protected $required = true;
     protected $validators = array(
                                 'text' => 'NotEmpty',
                             );

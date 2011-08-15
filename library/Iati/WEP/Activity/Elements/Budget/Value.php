@@ -56,8 +56,8 @@ class Iati_WEP_Activity_Elements_Budget_Value extends Iati_WEP_Activity_Elements
     
     public function setOptions()
     {
-//        $model = new Model_Wep();
-//        $this->options['code'] = $model->getCodeArray('TransactionType', null, '1');
+        $model = new Model_Wep();
+        $this->options['currency'] = $model->getCodeArray('Currency', null, '1');
     }
     
     public function setAttributes ($data) {
