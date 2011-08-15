@@ -8,12 +8,11 @@
     $link1 = 'wep/edit-defaults';
     
 }?>
-<div>
-<span><?php print $this->l('Dashboard', $link);?></span>
+<div><?php print $this->l('Dashboard', $link);?>
 <?php if($link1):?>
-<span><?php print $this->l('Change Defaults', $link1);?></span>
+<?php print $this->l('Change Defaults', $link1);?>
 <?php endif;?>
 <?php if($link2): ?>
-<span><?php print $this->l('Register', $link2); ?></span>
+<?php print $this->l('Register', $link2); ?>
 <?php endif; ?>
 </div>
