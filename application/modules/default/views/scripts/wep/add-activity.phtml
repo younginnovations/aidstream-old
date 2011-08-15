@@ -1,20 +1,23 @@
-<span><?php echo $this->l('Override Activity Default', 'wep/edit-activity/?activities_id='
+<div class = "activity-info-wrapper">
+<span class = "override-link"><?php echo $this->l('Override Activity Default', 'wep/edit-activity/?activities_id='
                                                             . $this->activities_id)?></span>
 
-<div>
-<table>
-<tr>
-    <th>Default Language:</th><td><?php echo $this->activity_info['language'];?></td>
-</tr>
-<tr>
-    <th>Default Currency:</th><td><?php echo $this->activity_info['currency'];?></td>
-</tr>
-<tr>
-    <th>Hierarchy:</th><td><?php echo $this->activity_info['hierarchy'];?></td>
-</tr>
-</table>
-
+    <div class = "activity-info">
+        <table>
+            <tr>
+                <th>Default Language:</th><td><?php echo $this->activity_info['language'];?></td>
+            </tr>
+            <tr>
+                <th>Default Currency:</th><td><?php echo $this->activity_info['currency'];?></td>
+            </tr>
+            <tr>
+                <th>Hierarchy:</th><td><?php echo $this->activity_info['hierarchy'];?></td>
+            </tr>
+        </table>
+    
+    </div>
 </div>
 
-<div><?php //echo $this->form;?>
-<?php echo $this->form;?></div>
+<div>
+<?php echo $this->form;?>
+</div> 
