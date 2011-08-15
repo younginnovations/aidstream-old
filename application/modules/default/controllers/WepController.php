@@ -7,8 +7,8 @@ class WepController extends Zend_Controller_Action
     public function init()
     {
         $this->_helper->layout()->setLayout('layout_wep');
-$this->view->blockManager()->enable('partial/dashboard.phtml');
-$this->view->blockManager()->enable('partial/primarymenu.phtml');
+        $this->view->blockManager()->enable('partial/dashboard.phtml');
+        $this->view->blockManager()->enable('partial/primarymenu.phtml');
         //        $this->view->blockManager()->enable('partial/dashboard.phtml');
         /* $contextSwitch = $this->_helper->contextSwitch;
         $contextSwitch->addActionContext('', 'json')
@@ -18,7 +18,7 @@ $this->view->blockManager()->enable('partial/primarymenu.phtml');
     public function indexAction()
     {
         //$this->view->blockManager()->disable('partial/dashboard.phtml');
-//        $this->view->blockManager()->enable('partial/login.phtml');
+        //        $this->view->blockManager()->enable('partial/login.phtml');
     }
 
     public function dashboardAction()
@@ -39,7 +39,7 @@ $this->view->blockManager()->enable('partial/primarymenu.phtml');
         }
 
         $this->view->activities_id = $activities_id;
-        
+
         $this->view->blockManager()->enable('partial/primarymenu.phtml');
     }
 
@@ -115,13 +115,7 @@ $this->view->blockManager()->enable('partial/primarymenu.phtml');
 
                     //@todo send email notification to super admin
 
-                    /* $mailerParams = array('email'=> 'manisha@yipl.com.np');
-                     $toEmail = 'manisha@yipl.com.np';
-                     $template = 'user-register';
-                     $Wep = new App_Notification;
-                     $Wep->sendemail($mailerParams,$toEmail,$template); */
 
-                    //                    print_r($_POST);exit();
                     $account['name'] = $data['organisation_name'];
 
                     $account['address'] = $data['organisation_address'];
@@ -168,6 +162,27 @@ $this->view->blockManager()->enable('partial/primarymenu.phtml');
                     $privilegeFields['owner_id'] = $user_id;
                     $privilegeFieldId = $model->insertRowsToTable('Privilege', $privilegeFields);
 
+                    
+                    $identity = Zend_Auth::getInstance();
+                    if($identity->hasIdentity()){
+                        $identity = $identity->getIdentity();
+                        $from['email'] = $identity->email;
+                    }
+                    else{
+                        $bootstrap = $this->getInvokeArg('bootstrap');
+                        $config = $bootstrap->getOptions();
+                        $from['email'] = $config['email']['fromAddress'];
+//                        $form['name'] = $config['email']['fromName'];
+                    }
+                    
+
+                    $mailerParams = array($from);
+                    $toEmail = $data['email'];
+                    $template = 'user-register';
+                    $Wep = new App_Notification;
+                    $Wep->sendemail($mailerParams,$toEmail,$template);
+                    
+                    
                     $this->_helper->FlashMessenger->addMessage(array('message' => "Account successfully registered."));
                     $this->_redirect('user/user/login');
                 }
@@ -548,8 +563,8 @@ $this->view->blockManager()->enable('partial/primarymenu.phtml');
             }
         }
         $this->_helper->layout()->setLayout('layout_wep');
-//        $this->view->blockManager()->enable('partial/dashboard.phtml');
-        
+        //        $this->view->blockManager()->enable('partial/dashboard.phtml');
+
          
         $this->view->form = $a;
     }
