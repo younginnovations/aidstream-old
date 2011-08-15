@@ -106,21 +106,15 @@
                     </div>
                 </div> 
                 <div class="grid_3">
-                    <div id="contain-right">
-                        <div id="contain-right-top"></div>
-                        <div id="contain-right-area">
-                            <div id="contain-inner">
-<!--                                <h1>Vertical Navigation list</h1>-->
-                                <div id="nav-list">
-                                <?php //var_dump($auth->hasIdentity());?>
-                                    <?php if ($auth->hasIdentity())
-//                                    print "df";exit;
-                                     print $this->partial('partial/section/left-bar.phtml');
-                                    ?>
-                                </div>                            
-                            </div>
+                    <div id="sidebar-right">
+                        <div id="sidebar-right-inner">
+                    <?php //var_dump($auth->hasIdentity());?>
+                        <?php if ($auth->hasIdentity())
+//                        print "df";exit;
+                            print $this->partial('partial/section/left-bar.phtml');
+                        ?>
                         </div>
-                        <div id="contain-right-bottom"></div>
+                    </div>
                     </div> 
                 </div>                                  
             </div>
