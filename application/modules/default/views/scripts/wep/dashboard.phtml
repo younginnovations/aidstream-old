@@ -1,6 +1,7 @@
 <?php $identity = $this->userInfo();?>
 <ul>
-<li><?php print $this->l('Add new', 'wep/add-activity/?activities_id='.$this->activities_id)?></li>
+<li><?php print $this->l('Add new', 'wep/add-activity/?activities_id='.$this->activities_id,
+                             array('attributes' => array('class' => 'button')))?></li>
 <!--<li><?php //print $this->l('List Activities', 'wep/list-activities/?account_id='.$identity->account_id ."&type=iati_activities");?></li>-->
 
 <li><?php print $this->l('List', 'wep/view-activities/?activities_id='.$this->activities_id);?></li>
