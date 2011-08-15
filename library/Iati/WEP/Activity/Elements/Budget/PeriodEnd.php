@@ -37,6 +37,7 @@ class Iati_WEP_Activity_Elements_Budget_PeriodEnd extends Iati_WEP_Activity_Elem
     protected $error = array();
     protected $hasError = false;
     protected $multiple = false;
+    protected $required = true;
 
     public function __construct()
     {
@@ -83,7 +84,8 @@ class Iati_WEP_Activity_Elements_Budget_PeriodEnd extends Iati_WEP_Activity_Elem
             
             if(empty($this->validators[$key])){ continue; }
             
-            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData))) {  continue; }
+            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData)) || 
+            (empty($this->required))) {  continue; }
             
             $string = "Zend_Validate_". $this->validators[$key];
             $validator = new $string();

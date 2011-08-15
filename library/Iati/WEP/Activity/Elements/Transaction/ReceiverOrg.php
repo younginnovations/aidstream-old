@@ -44,6 +44,7 @@ class Iati_WEP_Activity_Elements_Transaction_ReceiverOrg extends Iati_WEP_Activi
     protected $error = array();
     protected $hasError = false;
     protected $multiple = false;
+    protected $required = false;
 
     public function __construct()
     {
@@ -93,7 +94,8 @@ class Iati_WEP_Activity_Elements_Transaction_ReceiverOrg extends Iati_WEP_Activi
             
             if(empty($this->validators[$key])) continue;
             
-            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData)))  continue;
+            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData)) || 
+            (empty($this->required)))  continue;
             
             $string = "Zend_Validate_". $this->validators[$key];
             $validator = new $string();
