@@ -10,7 +10,7 @@ class Form_Wep_IatiIdentifier extends App_Form
         $form1->add('add', $account_id);
         
         $form['iati_identifier_text'] = new Zend_Form_Element_Text('iati_identifier_text');
-        $form['iati_identifier_text']->setLabel('Iati Identifier')->setRequired();
+        $form['iati_identifier_text']->setLabel('Iati Identifier')->setRequired()->setAttrib('class', 'form-text');
         
         $this->addSubForm($form1, 'Reporting Organisation');
         
@@ -19,7 +19,7 @@ class Form_Wep_IatiIdentifier extends App_Form
        
         
         $save = new Zend_Form_Element_Submit('save');
-        $save->setValue('Save')->setAttrib('class',$state);
+        $save->setValue('Save')->setAttrib('class','form-submit');
         $this->addElement($save);
         $this->setMethod('post');
     }
