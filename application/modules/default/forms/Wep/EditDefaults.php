@@ -10,7 +10,8 @@ class Form_Wep_EditDefaults extends App_Form
 //        print_r($selectedCurrency[0]);exit();
         $form['default_currency'] = new Zend_Form_Element_Select('default_currency');
         $form['default_currency']->setRequired()->setLabel('Default Currency')->addMultiOption('', 'Select anyone');
-        $form['default_currency']->setValue($defaults['field_values']['currency']);
+        $form['default_currency']->setValue($defaults['field_values']['currency'])
+        ->setAttrib('class', 'form-select');
         foreach($currency[0] as $eachCurrency){
             $form['default_currency']->addMultiOption($eachCurrency['id'], $eachCurrency['Code']);
         }
@@ -19,7 +20,8 @@ class Form_Wep_EditDefaults extends App_Form
 //        $selectedLanguage = $model->findIdByFieldData('Language', $defaultFields['field_values']['language'], '1');
         $form['default_language'] = new Zend_Form_Element_Select('default_language');
         $form['default_language']->setRequired()->setLabel('Default Language')->addMultiOption('', 'Select anyone');
-        $form['default_language']->setValue($defaults['field_values']['language']);
+        $form['default_language']->setValue($defaults['field_values']['language'])
+        ->setAttrib('class', 'form-select');
         foreach($language[0] as $eachLanguage){
             $form['default_language']->addMultiOption($eachLanguage['id'], $eachLanguage['Code']);
         }
@@ -32,7 +34,7 @@ class Form_Wep_EditDefaults extends App_Form
         $form['default_reporting_org'] = new Zend_Form_Element_Text('default_reporting_org');
         $form['default_reporting_org']->setLabel('Default Reporting Organisation Name')
                                 ->setValue($defaults['field_values']['reporting_org'])
-                                ->setRequired();
+                                ->setRequired()->setAttrib('class', 'form-text');
         
         $form['default_fields'] = new Zend_Form_Element_MultiCheckbox('default_fields');
         foreach($defaults['fields'] as $key=>$eachDefault){
@@ -47,7 +49,7 @@ class Form_Wep_EditDefaults extends App_Form
         
                                 
         $signup = new Zend_Form_Element_Submit('Save');
-                                         $signup->setValue('save')->setAttrib('id', 'Submit');
+                                         $signup->setValue('save')->setAttrib('class', 'form-submit');
                                          
         $this->addElements($form);
         $this->addDisplayGroup(array('default_currency', 'default_language', 'default_reporting_org', 'default_hierarchy'), 'field2',array('legend'=>'Default Field Values'));
