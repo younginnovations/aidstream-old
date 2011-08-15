@@ -28,15 +28,14 @@
         <?php foreach($this->activity_array as $eachActivity):?>
             <tr class="activity-row1">
                 <td ><?php print $i;?></td>
-                <td><?php print $eachActivity['title'];?></td>
-                <td><?php print $eachActivity['identifier'];?></td>
-                <td><?php print $eachActivity['last_updated_datetime'];?>
+                <td><?php print $eachActivity['title'];?>
                 <div class = "list-action"><?php print $this->l('View', 'wep/edit-activity-elements/?activity_id='.$eachActivity['id'])?>
         <?php print $this->l('Edit', 'wep/edit-activity/?activity_id='.$eachActivity['id'])?>
                             
         <?php print $this->l('Delete', 'wep/delete-activity/?classname=Activity&activity_id='.$eachActivity['id'])?>
-                </div>
-                </td>
+                </div></td>
+                <td><?php print $eachActivity['identifier'];?></td>
+                <td><?php print $eachActivity['last_updated_datetime'];?></td>
             </tr>
             
          <?php $i++;?>
