@@ -1,3 +1,6 @@
+<?php $this->headScript()->appendFile($this->baseUrl() . '/js/common.js', $type = 'text/javascript');
+?>
+
 <?php if($this->activities_info):?>
 <div>
 <table>
@@ -18,18 +21,21 @@
     <table>
         <thead>
             <tr>
-                <th>S.N.</th><th>Title</th><th>Last Updated DateTime</th><th>Action</th>
+                <th>S.N.</th><th>Title</th><th>Iati Identifier</th><th>Last Updated DateTime</th>
             </tr>
         </thead>
         <tbody>
         <?php foreach($this->activity_array as $eachActivity):?>
-            <tr>
-                <td><?php print $i;?></td><td><?php print $eachActivity['title'];?></td>
-                <td><?php print $eachActivity['last_updated_datetime'];?></td>
-                <td><?php print $this->l('View', 'wep/edit-activity-elements/?activity_id='.$eachActivity['id'])?>
+            <tr class="activity-row1">
+                <td ><?php print $i;?></td>
+                <td><?php print $eachActivity['title'];?></td>
+                <td><?php print $eachActivity['identifier'];?></td>
+                <td><?php print $eachActivity['last_updated_datetime'];?>
+                <div class = "list-action"><?php print $this->l('View', 'wep/edit-activity-elements/?activity_id='.$eachActivity['id'])?>
         <?php print $this->l('Edit', 'wep/edit-activity/?activity_id='.$eachActivity['id'])?>
                             
         <?php print $this->l('Delete', 'wep/delete-activity/?classname=Activity&activity_id='.$eachActivity['id'])?>
+                </div>
                 </td>
             </tr>
             
@@ -40,4 +46,5 @@
 </div>
 <?php endif;?>
 
-<?php print $this->l('Add new', 'wep/add-activity?activities_id='.$this->activities_id);?>
+<?php print $this->l('Add new', 'wep/add-activity?activities_id='.$this->activities_id,
+                                             array('attributes' => array('class' => 'button')));?>

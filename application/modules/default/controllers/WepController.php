@@ -636,8 +636,10 @@ class WepController extends Zend_Controller_Action
             foreach($activityArray as $key=>$activity){
 
                 $title = $wepModel->listAll('iati_title', 'activity_id', $activity['id']);
+                $identifier = $wepModel->listAll('iati_identifier', 'activity_id', $activity['id']);
                 //                    print_r($title[0]['text']);exit;
                 $activity_array[$i]['title'] = ($title[0]['text'])?$title[0]['text']:'No title';
+                $activity_array[$i]['identifier'] = ($identifier[0]['text'])?$identifier[0]['text']:'No Iati Identifier';
                 $activity_array[$i]['last_updated_datetime'] = $activity['@last_updated_datetime'];
                 $activity_array[$i]['id'] = $activity['id'];
                 $i++;

@@ -133,7 +133,7 @@ class Iati_WEP_FormHelper {
         
         if ($obj->hasMultiple()) {
             $url = $this->getUrl($obj, '/wep/remove-elements');
-            $form .= sprintf('<span class="remove"><a href="%s">Remove</a></span>',
+            $form .= sprintf('<span class="remove button"><a href="%s">Remove</a></span>',
                          $url);
         }
         
@@ -263,7 +263,7 @@ class Iati_WEP_FormHelper {
     
     protected function _addMore($attribs=null, $tag='div', $text='Add More') {
         $text = '<' . $tag . ' ' . $this->_attr($attribs) . '>' . $text . '</' . $tag . '>'; 
-        return sprintf('<span class="addmore">%s</span>', $text);
+        return sprintf('<span class="addmore button">%s</span>', $text);
     }
     
     protected function _attr($attribs) {
