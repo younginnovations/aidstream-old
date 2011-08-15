@@ -205,17 +205,17 @@ function initialize() {
         },
         "tr": {
             "onmouseenter" : function (evt) {
-        		console.log(evt);
+//        		console.log(evt);
         		var node = dojo.NodeList(evt.target.parentNode);
-        		console.log(node);
+//        		console.log(node);
         		node.query('.list-action').style('display', 'block');;
         
         		evt.stopPropagation();
         	},
         	"onmouseleave" : function (evt) {
-        		console.log(evt);
+//        		console.log(evt);
         		var node = dojo.NodeList(evt.target.parentNode);
-        		console.log(node);
+//        		console.log(node);
         		node.query('.list-action').style('display', 'none');;
         
         		evt.stopPropagation();
