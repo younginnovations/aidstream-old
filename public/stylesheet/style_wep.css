@@ -134,6 +134,9 @@ body
 	text-decoration:underline;
 }*/
 
+.list-action {
+	display: none;
+}
 h2.form-title {
 	margin: 0 0 25px;
 	    font-size: 2em;
