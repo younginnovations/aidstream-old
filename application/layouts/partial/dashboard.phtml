@@ -8,9 +8,9 @@
     $link1 = 'wep/edit-defaults';
     
 }?>
-<div><?php print $this->l('Dashboard', $link);?>
+<div class="user-nav-inner"><?php print $this->l('Dashboard', $link, array('attributes'=>array('class'=>'user-dashboard')));?>
 <?php if($link1):?>
-<?php print $this->l('Change Defaults', $link1);?>
+<?php print $this->l('Change Defaults', $link1, array('attributes'=> array('class'=>'user-change-defaults')));?>
 <?php endif;?>
 <?php if($link2): ?>
 <?php print $this->l('Register', $link2); ?>

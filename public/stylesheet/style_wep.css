@@ -13,9 +13,7 @@ h3{
 	
 a
 {
-	text-decoration:underline;
 	color:#009ada;
-	padding-right:5px;
 	font-family:Arial, Helvetica, sans-serif;
 }
 p
@@ -34,6 +32,27 @@ body
 {
 	margin:0px;
 	padding:0px;
+}
+
+/**
+ * Markup free clearing.
+ *
+ * @see http://perishablepress.com/press/2009/12/06/new-clearfix-hack
+ */
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+/* IE6 */
+* html .clearfix {
+  height: 1%;
+}
+/* IE7 */
+*:first-child + html .clearfix {
+  min-height: 1%;
 }
 /*#header
 {
@@ -114,45 +133,33 @@ body
 {
 	text-decoration:underline;
 }*/
-#search-tab
+
+h2.form-title {
+	margin: 0 0 25px;
+	    font-size: 2em;
+	    line-height: 1.5em;
+}
+.user-nav
 {
 	float:right;
 	clear:both;
-	margin-top:45px;
-	!margin-top:60px;
+	margin-top:40px;
 }
-#search-tab table
+.user-nav a {
+	background: #009ada;
+	padding: 10px 20px;
+	color: #FFF;
+	font-size: 14px;
+	text-decoration: none;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+.user-nav .user-dashboard
 {
-	border:1px solid #c9c9c9;
-	margin:5px 10px 0 0;
-	background:#e5e5e5;	
+	margin-right: 10px;
 }
-#search-tab #search
-{
-	border:none;
-	height:20px;
-	background:#e5e5e5;
-	width:150px;
-	font-family:Arial, Helvetica, sans-serif;
-	font-size:12px;
-	margin-top:0px;
-}
-#search-tab #submit
-{
-	background:#e5e5e5;
-	font-family:Arial, Helvetica, sans-serif;
-	font-size:12px;
-	color:#b4aaaa;
-	cursor:pointer;
-	height:20px;
-	width:auto;
-	border:none;
-	margin-top:0px;
-}
-#search-tab input
-{
-	margin-bottom:0px;
-}
+
 
 #contain-body
 {
@@ -214,6 +221,51 @@ body
 #contain-inner
 {
 	margin:0 10px 0 10px;
+}
+
+/* sidebar */
+
+#sidebar-right .block
+{
+	background: #f6f6f6;
+	border: 1px solid #bfbfbf;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+#block-list-menu .action-icon a,
+#block-add-menu .action-icon a
+{
+	display: block;
+	width: 48px;
+	height: 48px;
+	text-indent: -9999px;
+	outline: none;
+	float: left;
+	margin-right: 12px;
+}
+#block-list-menu .action-icon a
+{
+	background: url(../images/action-list.png) no-repeat left top;
+}
+#block-add-menu .action-icon a
+{
+	background: url(../images/action-add.png) no-repeat left top;
+}
+#block-list-menu a,
+#block-add-menu a
+{
+	font-weight: bold;
+	font-size: 14px;
+}
+#block-activity-menu .content li a {
+	display: block;
+	border-bottom: 1px solid #dbd9d9;
+	padding: 6px 0 7px 25px;
+	background: url(../images/tick.png) no-repeat left center;
 }
 #nav-list ul li
 {
@@ -363,7 +415,7 @@ label
     display: inline;	
 }
 	
-input.form-text, select.form-select
+input.form-text, select.form-select, textarea
 {
     background: none repeat scroll 0 0 #FFFFFF;
     border-color: #999999 #CCCCCC #CCCCCC;
@@ -375,9 +427,9 @@ input.form-text, select.form-select
     width: 300px;
 }
 select.form-select {
-    background: url(images/select_arrow.gif) no-repeat right center;
+    background: #FFF url(images/select_arrow.gif) no-repeat right center;
 }
-input.form-submit {
+input.form-submit, a.button {
 
     background: url("images/buttons.png") repeat-x scroll 0 0 transparent;
     border-color: #E4E4E4 #D2D2D2 #B4B4B4;
@@ -395,13 +447,7 @@ input.form-submit {
     text-align: center;
 }
 
-
-textarea{
-    width: 325px;
-    
-}
-
-#login-element #login, #create_new_account, #email_new_password, #Submit
+#login-element #login, #create_new_account, #email_new_password
 {
 	float:none;
 	height:20px;
@@ -631,13 +677,18 @@ dt{
 }
 
 dd{
-	
+	margin-bottom: 15px;
 }
 
 fieldset{
-    margin-bottom: 20px;	
-    border: 1px solid #000;
-    padding: 10px;
+    margin-bottom: 20px;
+    padding: 20px 10px;
+    background: #f6f6f6;
+}
+legend {
+	font-size: 13px;
+	font-weight: bold;
+	color: #336666;
 }
 
 .activity-div{
