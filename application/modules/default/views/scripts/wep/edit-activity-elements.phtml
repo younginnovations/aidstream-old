@@ -6,8 +6,9 @@
 <div class = "activity-info-wrapper">
 <span class = "override-link"><?php echo $this->l('Override Activity Default', 'wep/edit-activity/?activity_id='
                                                             . $this->activityInfo['id'])?></span>
+<div class="title">Activity Default</div>
 <div class = "activity-info">
-<table>
+<table class ="activity-info-table">
 <tr>
     <td>Language: </td><td><?php print $this->activityInfo['@xml_lang'];?></td>
 </tr>
