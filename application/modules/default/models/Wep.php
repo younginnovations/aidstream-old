@@ -79,6 +79,7 @@ class Model_Wep extends Zend_Db_Table_Abstract
         $rowSet = $this->select()->where("$fieldName = ?",$data);
 
         $result = $this->fetchAll($rowSet)->toArray();
+//        print_r($result);exit;
         return $result;
     }
     
