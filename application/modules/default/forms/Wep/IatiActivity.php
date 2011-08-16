@@ -20,7 +20,7 @@ class Form_Wep_IatiActivity extends App_Form
 
         }
         $form['xml_lang'] = new Zend_Form_Element_Select('xml_lang');
-        $form['xml_lang']->setLabel('Language')->addMultiOption('', 'Select anyone');
+        $form['xml_lang']->setLabel('Language')->setAttrib('class', 'form-select')->addMultiOption('', 'Select anyone');
         if($status != 'edit'){
             $form['xml_lang']->setValue($default['language']);
         }
@@ -30,7 +30,8 @@ class Form_Wep_IatiActivity extends App_Form
         }
          
         $form['default_currency'] = new Zend_Form_Element_Select('default_currency');
-        $form['default_currency']->setLabel('Default Currency')->addMultiOption('', 'Select anyone');
+        $form['default_currency']->setLabel('Default Currency')
+        ->setAttrib('class', 'form-select')->addMultiOption('', 'Select anyone');
          if($status != 'edit'){
             $form['default_currency']->setValue($default['currency']);
         }
@@ -40,7 +41,7 @@ class Form_Wep_IatiActivity extends App_Form
         }
 
         $form['hierarchy'] = new Zend_Form_Element_Text('hierarchy');
-        $form['hierarchy']->setLabel('Hierarchy');
+        $form['hierarchy']->setAttrib('class', 'form-text')->setLabel('Hierarchy');
 
         $this->addElements($form);
 
@@ -51,7 +52,7 @@ class Form_Wep_IatiActivity extends App_Form
         $form1->add('add', $account_id);
         
         $iati_identifier = new Zend_Form_Element_Text('iati_identifier_text');
-        $iati_identifier->setLabel('Iati Identifier')->setRequired();
+        $iati_identifier->setLabel('Iati Identifier')->setAttrib('class', 'form-text')->setRequired();
         
         $this->addSubForm($form1, 'Reporting Organisation');
         $this->addElement($iati_identifier);

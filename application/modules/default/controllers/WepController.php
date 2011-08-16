@@ -659,6 +659,13 @@ class WepController extends Zend_Controller_Action
         if ($_GET) {
             $wepModel = new Model_Wep();
             if(isset($_GET['activities_id'])){
+                $exists = $wepModel->getRowById('iati_activities', 'id', $_GET['activities_id']);
+                if(!$exists){
+                   $this->_helper->FlashMessenger->addMessage(array('message' => "Activities does not exist."));
+
+                    $this->_redirect('/user/user/login');
+                }
+                
                 $activities_id = $this->getRequest()->getParam('activities_id');
                 $rowSet = $wepModel->getRowsByFields('default_field_values', 'account_id', $identity->account_id);
                 $defaultValues = unserialize($rowSet[0]['object']);
@@ -672,6 +679,12 @@ class WepController extends Zend_Controller_Action
             
             }
             if(isset($_GET['activity_id'])){
+                $exists = $wepModel->getRowById('iati_activity', 'id', $_GET['activity_id']);
+                if(!$exists){
+                   $this->_helper->FlashMessenger->addMessage(array('message' => "Activity does not exist."));
+
+                    $this->_redirect('/user/user/login');
+                }
                 $activity_id = $this->getRequest()->getParam('activity_id');
 //                print $activity_id;exit;
                 $rowSet = $wepModel->getRowsByFields('iati_activity', 'id', $activity_id);

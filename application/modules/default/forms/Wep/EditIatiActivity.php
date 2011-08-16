@@ -11,7 +11,8 @@ class Form_Wep_EditIatiActivity extends App_Form
         $currency = $model->getCode('Currency', null, '1');
 
         $form['xml_lang'] = new Zend_Form_Element_Select('xml_lang');
-        $form['xml_lang']->setLabel('Language')->addMultiOption('', 'Select anyone')->setRequired();
+        $form['xml_lang']->setLabel('Language')
+        ->setAttrib('class', 'form-select')->addMultiOption('', 'Select anyone')->setRequired();
        
         
         foreach($language[0] as $eachLanguage){
@@ -19,7 +20,7 @@ class Form_Wep_EditIatiActivity extends App_Form
         }
          
         $form['default_currency'] = new Zend_Form_Element_Select('default_currency');
-        $form['default_currency']->setLabel('Default Currency')
+        $form['default_currency']->setAttrib('class', 'form-select')->setLabel('Default Currency')
         ->setRequired()->addMultiOption('', 'Select anyone');
       
         
@@ -28,7 +29,7 @@ class Form_Wep_EditIatiActivity extends App_Form
         }
 
         $form['hierarchy'] = new Zend_Form_Element_Text('hierarchy');
-        $form['hierarchy']->setLabel('Hierarchy');
+        $form['hierarchy']->setAttrib('class', 'form-text')->setLabel('Hierarchy');
 
         $this->addElements($form);
         $this->addDisplayGroup(array('xml_lang', 'default_currency', 'hierarchy'), 
