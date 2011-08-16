@@ -503,6 +503,7 @@ class WepController extends Zend_Controller_Action
             $activity['@xml_lang'] = $model->fetchValueById('Language', $activity_info[0]['@xml_lang'], 'Code');
 
             $activity['@default_currency'] = $model->fetchValueById('Currency', $activity_info[0]['@default_currency'], 'Code');
+            
         }
         $this->view->activityInfo = $activity;
         $initial = $this->getInitialValues($activity_id, $class);
@@ -656,23 +657,33 @@ class WepController extends Zend_Controller_Action
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
         if ($_GET) {
-            $activities_id = $this->getRequest()->getParam('activities_id');
-
             $wepModel = new Model_Wep();
-
-            $rowSet = $wepModel->getRowsByFields('default_field_values', 'account_id', $identity->account_id);
-            $defaultValues = unserialize($rowSet[0]['object']);
-            $default = $defaultValues->getDefaultFields();
-            //            print_r($default);exit;
-            $activity['xml_lang'] = $default['language'];
-            $activity['default_currency'] = $default['currency'];
-            $activity['hierarchy'] = $default['hierarchy'];
-            $form = new Form_Wep_IatiActivity();
-            $form->add('add', $identity->account_id);
-            //            $form->populate($activity_info);
+            if(isset($_GET['activities_id'])){
+                $activities_id = $this->getRequest()->getParam('activities_id');
+                $rowSet = $wepModel->getRowsByFields('default_field_values', 'account_id', $identity->account_id);
+                $defaultValues = unserialize($rowSet[0]['object']);
+                $default = $defaultValues->getDefaultFields();
+                //            print_r($default);exit;
+                $activity['xml_lang'] = $default['language'];
+                $activity['default_currency'] = $default['currency'];
+                $activity['hierarchy'] = $default['hierarchy'];
+                $form = new Form_Wep_IatiActivity();
+                $form->add('add', $identity->account_id);
+            
+            }
+            if(isset($_GET['activity_id'])){
+                $activity_id = $this->getRequest()->getParam('activity_id');
+//                print $activity_id;exit;
+                $rowSet = $wepModel->getRowsByFields('iati_activity', 'id', $activity_id);
+                $activity['xml_lang'] = $rowSet[0]['@xml_lang'];
+                $activity['default_currency'] = $rowSet[0]['@currency'];
+                $activity['hierarchy'] = $rowSet[0]['@hierarchy'];
+                $activity['activities_id'] = $rowSet[0]['activities_id'];
+                $form = new Form_Wep_EditIatiActivity();
+                $form->edit($identity->account_id);
+            }
 
             if ($this->getRequest()->isPost()) {
-                //                print_r($_POST);exit;
                 $formData = $this->getRequest()->getPost();
                 if (!$form->isValid($formData)) {
 
@@ -683,8 +694,10 @@ class WepController extends Zend_Controller_Action
                     $data['@default_currency'] = $formData['default_currency'];
                     $data['@hierarchy'] = $formData['hierarchy'];
                     $data['@last_updated_datetime'] = date('Y-m-d H:i:s');
+                    
+                    
+                    if(isset($_GET['activities_id'])){
                     $data['activities_id'] = $activities_id;
-
                     $wepModel = new Model_Wep();
                     $activity_id = $wepModel->insertRowsToTable('iati_activity', $data);
 
@@ -699,7 +712,18 @@ class WepController extends Zend_Controller_Action
                     $iati_identifier['text'] = $this->getRequest()->getParam('iati_identifier_text');
                     $iati_identifier['activity_id'] = $activity_id;
                     $iati_identifier_id = $wepModel->insertRowsToTable('iati_identifier', $iati_identifier);
-
+                    
+                    }
+                    if(isset($_GET['activity_id'])){
+                        $data['activities_id'] = $rowSet[0]['activities_id'];
+                        $data['id'] = $activity_id;
+                        $wepModel = new Model_Wep();
+                        $result = $wepModel->updateRowsToTable('iati_activity', $data);
+                        if($result){
+                            
+                        }
+                    }
+                    
                     $this->_helper->FlashMessenger->addMessage(array('message' => "Activity overrided."));
 
                     $this->_redirect('wep/edit-activity-elements?activity_id=' . $activity_id);
