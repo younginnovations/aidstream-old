@@ -69,11 +69,15 @@ class Iati_WEP_FormHelper {
             $_ht = array();
             if ($this->ajaxCall) {
                 if ($ele[0] != $this->registryTree->getRootNode()) {
-                    $_ht[] = sprintf('<h2 class="form-title">%s</h2>', $ele[0]->getClassName());
+                    $camelCaseToSeperator = new Zend_Filter_Word_CamelCaseToSeparator(" ");
+                    $title = $camelCaseToSeperator->filter($ele[0]->getClassName());
+                    $_ht[] = sprintf('<h2 class="form-title">%s</h2>', $title);
                 }
             }
             else {
-                $_ht[] = sprintf('<h2 class="form-title">%s</h2>', $ele[0]->getClassName());
+                $camelCaseToSeperator = new Zend_Filter_Word_CamelCaseToSeparator(" ");
+                $title = $camelCaseToSeperator->filter($ele[0]->getClassName());
+                $_ht[] = sprintf('<h2 class="form-title">%s</h2>', $title);
             }
             
             foreach($ele as $key => $obj) {

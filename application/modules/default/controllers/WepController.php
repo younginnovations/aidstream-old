@@ -162,7 +162,7 @@ class WepController extends Zend_Controller_Action
                     $privilegeFields['owner_id'] = $user_id;
                     $privilegeFieldId = $model->insertRowsToTable('Privilege', $privilegeFields);
 
-                    
+
                     $identity = Zend_Auth::getInstance();
                     if($identity->hasIdentity()){
                         $identity = $identity->getIdentity();
@@ -172,17 +172,17 @@ class WepController extends Zend_Controller_Action
                         $bootstrap = $this->getInvokeArg('bootstrap');
                         $config = $bootstrap->getOptions();
                         $from['email'] = $config['email']['fromAddress'];
-//                        $form['name'] = $config['email']['fromName'];
+                        //                        $form['name'] = $config['email']['fromName'];
                     }
-                    
+
 
                     $mailerParams = array($from);
                     $toEmail = $data['email'];
                     $template = 'user-register';
                     $Wep = new App_Notification;
                     $Wep->sendemail($mailerParams,$toEmail,$template);
-                    
-                    
+
+
                     $this->_helper->FlashMessenger->addMessage(array('message' => "Account successfully registered."));
                     $this->_redirect('user/user/login');
                 }
@@ -445,9 +445,13 @@ class WepController extends Zend_Controller_Action
 
                         $dbLayer = new Iati_WEP_DbLayer();
                         $dbLayer->save($activityTree);
+                        
+                        $camelCaseToSeperator = new Zend_Filter_Word_CamelCaseToSeparator(" ");
+                        $title = $camelCaseToSeperator->filter($class);
+                        
                         $this->_helper->FlashMessenger
                         ->addMessage(array(
-                                                    'message' => "$class successfully inserted."
+                                                    'message' => "$title successfully inserted."
                         ));
                         $this->_redirect("/wep/edit-activity-elements/?activity_id=".$activity_id);
 
@@ -492,8 +496,16 @@ class WepController extends Zend_Controller_Action
         $id = null;
         if ($_GET['class']) {
             $class = $this->_request->getParam('class');
+            $camelCaseToSeperator = new Zend_Filter_Word_CamelCaseToSeparator(" ");
+            $title = $camelCaseToSeperator->filter($class);
         }
         if ($_GET['activity_id']) {
+            $exists = $model->getRowById('iati_activity', 'id', $_GET['activity_id']);
+            if(!$exists){
+                $this->_helper->FlashMessenger->addMessage(array('message' => "Activity does not exist."));
+
+                $this->_redirect('/user/user/login');
+            }
             $activity_id = $this->_request->getParam('activity_id');
             $activity_info = $model->listAll('iati_activity', 'id', $activity_id);
             if (empty($activity_info)) {
@@ -503,12 +515,13 @@ class WepController extends Zend_Controller_Action
             $activity['@xml_lang'] = $model->fetchValueById('Language', $activity_info[0]['@xml_lang'], 'Code');
 
             $activity['@default_currency'] = $model->fetchValueById('Currency', $activity_info[0]['@default_currency'], 'Code');
-            
+
         }
         $this->view->activityInfo = $activity;
         $initial = $this->getInitialValues($activity_id, $class);
         $classname = 'Iati_WEP_Activity_'. $class . 'Factory';
         if(isset($class)){
+            
             if($_POST){
                 $flatArray = $this->flatArray($_POST);
                 $activity = new Iati_WEP_Activity_Elements_Activity();
@@ -538,7 +551,7 @@ class WepController extends Zend_Controller_Action
                     $dbLayer = new Iati_WEP_DbLayer();
                     $dbLayer->save($activityTree);
 
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "$class updated successfully."));
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "$title updated successfully."));
                     $this->_redirect("wep/edit-activity-elements/?activity_id=".$activity_id);
                 }
             }
@@ -548,7 +561,7 @@ class WepController extends Zend_Controller_Action
                 $elements = $rowSet->getElements();
                 $attributes = $elements[0]->getAttribs();
                 if(empty($attributes)){
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "$class not found for this activity. Please add $class"));
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "$title not found for this activity. Please add $title."));
                     $this->_redirect("wep/add-activity-elements/?activity_id=".$activity_id."&class=".$class);
                 }
 
@@ -661,11 +674,11 @@ class WepController extends Zend_Controller_Action
             if(isset($_GET['activities_id'])){
                 $exists = $wepModel->getRowById('iati_activities', 'id', $_GET['activities_id']);
                 if(!$exists){
-                   $this->_helper->FlashMessenger->addMessage(array('message' => "Activities does not exist."));
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "Activities does not exist."));
 
                     $this->_redirect('/user/user/login');
                 }
-                
+
                 $activities_id = $this->getRequest()->getParam('activities_id');
                 $rowSet = $wepModel->getRowsByFields('default_field_values', 'account_id', $identity->account_id);
                 $defaultValues = unserialize($rowSet[0]['object']);
@@ -676,17 +689,17 @@ class WepController extends Zend_Controller_Action
                 $activity['hierarchy'] = $default['hierarchy'];
                 $form = new Form_Wep_IatiActivity();
                 $form->add('add', $identity->account_id);
-            
+
             }
             if(isset($_GET['activity_id'])){
                 $exists = $wepModel->getRowById('iati_activity', 'id', $_GET['activity_id']);
                 if(!$exists){
-                   $this->_helper->FlashMessenger->addMessage(array('message' => "Activity does not exist."));
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "Activity does not exist."));
 
                     $this->_redirect('/user/user/login');
                 }
                 $activity_id = $this->getRequest()->getParam('activity_id');
-//                print $activity_id;exit;
+                //                print $activity_id;exit;
                 $rowSet = $wepModel->getRowsByFields('iati_activity', 'id', $activity_id);
                 $activity['xml_lang'] = $rowSet[0]['@xml_lang'];
                 $activity['default_currency'] = $rowSet[0]['@currency'];
@@ -707,25 +720,25 @@ class WepController extends Zend_Controller_Action
                     $data['@default_currency'] = $formData['default_currency'];
                     $data['@hierarchy'] = $formData['hierarchy'];
                     $data['@last_updated_datetime'] = date('Y-m-d H:i:s');
-                    
-                    
+
+
                     if(isset($_GET['activities_id'])){
-                    $data['activities_id'] = $activities_id;
-                    $wepModel = new Model_Wep();
-                    $activity_id = $wepModel->insertRowsToTable('iati_activity', $data);
+                        $data['activities_id'] = $activities_id;
+                        $wepModel = new Model_Wep();
+                        $activity_id = $wepModel->insertRowsToTable('iati_activity', $data);
 
-                    $reporting_org = array();
-                    $reporting_org['@xml_lang'] = $this->getRequest()->getParam('reporting_org_xmllang');
-                    $reporting_org['@ref'] = $this->getRequest()->getParam('reporting_org_ref');
-                    $reporting_org['text'] = $this->getRequest()->getParam('reporting_org_text');
-                    $reporting_org['activity_id'] = $activity_id;
-                    $reproting_org_id = $wepModel->insertRowsToTable('iati_reporting_org', $reporting_org);
+                        $reporting_org = array();
+                        $reporting_org['@xml_lang'] = $this->getRequest()->getParam('reporting_org_xmllang');
+                        $reporting_org['@ref'] = $this->getRequest()->getParam('reporting_org_ref');
+                        $reporting_org['text'] = $this->getRequest()->getParam('reporting_org_text');
+                        $reporting_org['activity_id'] = $activity_id;
+                        $reproting_org_id = $wepModel->insertRowsToTable('iati_reporting_org', $reporting_org);
 
-                    $iati_identifier = array();
-                    $iati_identifier['text'] = $this->getRequest()->getParam('iati_identifier_text');
-                    $iati_identifier['activity_id'] = $activity_id;
-                    $iati_identifier_id = $wepModel->insertRowsToTable('iati_identifier', $iati_identifier);
-                    
+                        $iati_identifier = array();
+                        $iati_identifier['text'] = $this->getRequest()->getParam('iati_identifier_text');
+                        $iati_identifier['activity_id'] = $activity_id;
+                        $iati_identifier_id = $wepModel->insertRowsToTable('iati_identifier', $iati_identifier);
+
                     }
                     if(isset($_GET['activity_id'])){
                         $data['activities_id'] = $rowSet[0]['activities_id'];
@@ -733,10 +746,10 @@ class WepController extends Zend_Controller_Action
                         $wepModel = new Model_Wep();
                         $result = $wepModel->updateRowsToTable('iati_activity', $data);
                         if($result){
-                            
+
                         }
                     }
-                    
+
                     $this->_helper->FlashMessenger->addMessage(array('message' => "Activity overrided."));
 
                     $this->_redirect('wep/edit-activity-elements?activity_id=' . $activity_id);

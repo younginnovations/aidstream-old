@@ -168,6 +168,10 @@ class User_UserController extends Zend_Controller_Action
 
         $userModel = new User_Model_DbTable_User();
         $row = $userModel->getUserById($user_id);
+        $profileModel = new User_Model_DbTable_Profile();
+        $row1 = $profileModel->getProfileByUserId($user_id);
+//        print_r($row1->first_name);exit;
+        $this->view->profile = $row1;
         $this->view->row = $row;
         $this->_helper->layout()->setLayout('layout');
     }
