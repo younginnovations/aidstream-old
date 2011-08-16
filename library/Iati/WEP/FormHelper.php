@@ -88,7 +88,7 @@ class Iati_WEP_FormHelper {
                     $url = $this->getUrl($obj, '/wep/clone-node');
                     
                     $_ht[] =
-                               $this->_addMore(array("href" => $url), "a");
+                               $this->_addMore(array("href" => $url, "class" => 'button'), "a");
                 }
             }
             $_html = implode('', $_ht);
@@ -133,7 +133,7 @@ class Iati_WEP_FormHelper {
         
         if ($obj->hasMultiple()) {
             $url = $this->getUrl($obj, '/wep/remove-elements');
-            $form .= sprintf('<span class="remove button"><a href="%s">Remove</a></span>',
+            $form .= sprintf('<span class="remove button"><a  class="button" href="%s">Remove</a></span>',
                          $url);
         }
         
