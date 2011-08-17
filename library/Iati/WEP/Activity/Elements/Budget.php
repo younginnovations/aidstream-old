@@ -31,6 +31,7 @@ class Iati_WEP_Activity_Elements_Budget extends Iati_WEP_Activity_Elements_Eleme
     protected $error = array();
     protected $hasError = false;
     protected $multiple = true;
+    protected $required = true;
     
     
 
@@ -57,6 +58,11 @@ class Iati_WEP_Activity_Elements_Budget extends Iati_WEP_Activity_Elements_Eleme
     public function getOptions($attr)
     {
         return $this->options[$attr];
+    }
+
+    public function isRequired()
+    {
+        return $this->required;
     }
     
     public function getAttributes () {

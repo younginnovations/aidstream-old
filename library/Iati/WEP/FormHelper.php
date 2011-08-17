@@ -72,19 +72,20 @@ class Iati_WEP_FormHelper {
                 if ($ele[0] != $this->registryTree->getRootNode()) {
                     $camelCaseToSeperator = new Zend_Filter_Word_CamelCaseToSeparator(" ");
                     $title = $camelCaseToSeperator->filter($ele[0]->getClassName());
-                    $_title = sprintf('<legend class="form-title">%s</legend>', $title);
                 }
             }
             else {
                 $camelCaseToSeperator = new Zend_Filter_Word_CamelCaseToSeparator(" ");
                 $title = $camelCaseToSeperator->filter($ele[0]->getClassName());
-                $_title = sprintf('<legend class="form-title">%s</legend>', $title);
+                
+                
             }
-            /*
-            if ($ele[0]->isRequired()) {
-                $_title .= '<span class="required-block">**</span>';
-            }
-            */
+            /*if ($ele[0]->isRequired()) {
+                    $title .= '<span class="required">**</span>';
+                }*/
+            $_title = sprintf('<legend class="form-title">%s</legend>', $title);
+            
+            
             
             if (!$this->ajaxCall && $ele[0] == $this->registryTree->getRootNode()) {
                 $_title = '';
@@ -176,7 +177,7 @@ class Iati_WEP_FormHelper {
         $form .= sprintf("<%s class=\"%s %s\">", $_tag, $obj->getClassName(), $_cls);
         
         foreach($decoratedHtml as $eachHtml){
-             $form .= "<div class='form-item'> $eachHtml </div>";
+             $form .= "<div class='form-item clearfix'> $eachHtml </div>";
         }
         
         if ($this->registryTree->getChildNodes($obj) != NULL) {

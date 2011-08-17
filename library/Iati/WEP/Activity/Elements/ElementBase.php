@@ -2,10 +2,10 @@
 class Iati_WEP_Activity_Elements_ElementBase
 {
     /*protected static $activity_id;
-    protected static $account_id;*/
+     protected static $account_id;*/
     protected static $objectName = '';
     //protected $text = '';
-//    protected $xml_lang;
+    //    protected $xml_lang;
     //protected $title_id = 0;
     protected $tableName = '';
     protected $html = array();
@@ -18,21 +18,22 @@ class Iati_WEP_Activity_Elements_ElementBase
     protected $multiple;
     protected $error = array();
     protected $hasError = false;
+    protected $required = false;
 
-     public function __construct()
+    public function __construct()
     {
-        
+
     }
-    
+
     /**
      * setAccountActivity sets the properties $activity_id and $account_id
      * @param $array - contains account_id and activity_id in their respective indexes
-     * 
+     *
      */
     public function setAccountActivity($array)
     {
         /*self::$account_id = $array['account_id'];
-        self::$activity_id = $array['activity_id'];*/
+         self::$activity_id = $array['activity_id'];*/
     }
 
     /**
@@ -40,7 +41,7 @@ class Iati_WEP_Activity_Elements_ElementBase
      * it sets the element attributes eg: text, ref, role etc
      * @param array
      */
-//    abstract public function setProperties($data);
+    //    abstract public function setProperties($data);
 
     /**
      * decorateName decorates the form html name according to the occurance of the element in the form
@@ -56,17 +57,17 @@ class Iati_WEP_Activity_Elements_ElementBase
         return $name;
     }
 
-public function getClassName () {
+    public function getClassName () {
         return $this->className;
-//        return 'Transaction';
+        //        return 'Transaction';
     }
-    
-public function getHtmlAttrs()
+
+    public function getHtmlAttrs()
     {
         return $this->attributes_html;
     }
-    
-public function getAttr ($attr) {
+
+    public function getAttr ($attr) {
         $vars = get_object_vars($this);
         if (in_array($attr, array_keys($vars))) {
             if (isset($vars[$attr])) {
@@ -76,12 +77,12 @@ public function getAttr ($attr) {
         return false;
     }
     /**
-     * 
+     *
      * @return html string
      */
     public function toHtml()
     {
-//        print $this->object_id;
+        //        print $this->object_id;
         $style = ($this->object_id == 0)?"style= 'display:none'":'';
         $string = "<div id= 'new-div-$this->object_id' $style>";
         $htmlString = $string . implode("",array_values($this->html));
@@ -107,12 +108,17 @@ public function getAttr ($attr) {
         return $this->multiple;
     }
 
-    
+
     public function getOptions()
     {
         return $this->options;
     }
 
+    public function isRequired()
+    {
+        return $this->required;
+    }
+    
     public function getObjectName()
     {
         return self::$objectName;
@@ -127,8 +133,8 @@ public function getAttr ($attr) {
     {
         return $this->multiple;
     }
-    
-    
+
+
     public function validate($data)
     {
         foreach($data as $key => $eachData){
@@ -149,7 +155,7 @@ public function getAttr ($attr) {
             }
         }
     }
-    
+
     public function getErrorMessage($attribute)
     {
         $error = NULL;
@@ -157,22 +163,22 @@ public function getAttr ($attr) {
             $error = array_values($this->error[$attribute]);
             $error = $error[0];
         }
-        
+
         return $error;
     }
-    
+
     public function hasErrors()
     {
         return $this->hasError;
     }
 
 
-    
+
     public function insert($data)
     {
         $model = new Model_Wep();
         $title_id = $model->insertRowsToTable($this->tableName, $data);
-        
+
         $activity['@last_updated_datetime'] = date('Y-m-d H:i:s');
         $activity['id'] = self::$activity_id;
         $model->updateRowsToTable('iati_activity', $activity);
@@ -183,7 +189,7 @@ public function getAttr ($attr) {
     {
         $model = new Model_Wep();
         $id = $model->updateRowsToTable($this->tableName, $data);
-        
+
         $activity['@last_updated_datetime'] = date('Y-m-d H:i:s');
         $activity['id'] = self::$activity_id;
         $model->updateRowsToTable('iati_activity', $activity);
