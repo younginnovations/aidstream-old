@@ -33,6 +33,9 @@ body
 	margin:0px;
 	padding:0px;
 }
+table {
+	border-collapse: collapse;
+}
 
 /**
  * Markup free clearing.
@@ -192,6 +195,7 @@ h2.form-title {
 	border-left:1px solid #b4aaaa;
 	border-right:1px solid #b4aaaa;
 	background:#FFF;
+	padding-top: 10px;
 }
 #contain
 {
@@ -268,7 +272,10 @@ h2.form-title {
 	display: block;
 	border-bottom: 1px solid #dbd9d9;
 	padding: 6px 0 7px 25px;
-	background: url(../images/tick.png) no-repeat left center;
+	background: url(../images/tick.png) no-repeat left top;
+}
+#block-activity-menu .content li a.active {
+	background-position: 0 -31px;
 }
 #nav-list ul li
 {
@@ -298,7 +305,6 @@ h2.form-title {
 	font-size:12px;
 	font-family:Arial, Helvetica, sans-serif;
 	color:#000;
-	border:1px solid #fff;
 	padding:5px 5px;
 	line-height:18px;
 	text-align:left;
@@ -418,6 +424,10 @@ label
     display: inline;	
 }
 	
+
+.form-item {
+	margin-bottom: 10px;
+}
 input.form-text, select.form-select, textarea
 {
     background: none repeat scroll 0 0 #FFFFFF;
@@ -694,6 +704,30 @@ legend {
 	color: #336666;
 }
 
+/* Activity page fieldset */
+.activity-list {
+	margin-bottom: 20px;
+}
+.activity-list fieldset {
+	background: none;
+	padding: 0;
+	margin: 0;
+}
+.activity-list legend {
+	color: #000;
+	font-size: 14px;
+}
+.activity-list fieldset.innermost-wrapper{
+    margin-bottom: 20px;
+    padding: 20px 10px;
+    background: #f6f6f6;
+}
+.activity-list .innermost-wrapper legend {
+	font-size: 13px;
+	font-weight: bold;
+	color: #336666;
+}
+
 .activity-div{
     margin-bottom: 20px;   
 }
@@ -701,4 +735,57 @@ legend {
 .popup{
 	display:none;
 	
+}
+
+/* Activity Info */
+
+#contain table.activity-info-table {
+	border: 0;
+	background: #F6F6F6;
+}
+#contain table.activity-info-table th {
+	padding-right: 15px;
+}
+.activity-info-wrapper {
+	position: relative;
+	margin-bottom: 20px;
+}
+.activity-info-wrapper .override-link {
+	display: block;
+	position: absolute;
+	right: 0;
+	top: 3px;
+}
+.activity-info-wrapper .override-link {
+	font-weight: bold;
+	background: url(../images/left-arrow.png) no-repeat left center;
+	padding-left: 12px;
+}
+.activity-info-wrapper .title {
+	color: #000;
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 20px;
+	padding-left: 5px;
+}
+table.activity-list-table .title{
+	width: 350px;
+}
+table.activity-list-table .title a {
+	font-weight: bold;
+	padding-right: 5px;
+}
+#contain table.activity-list-table {
+	margin-bottom: 20px;
+	border: 1px solid #dcdcdc;
+}
+table.activity-list-table .title .list-action {
+	float: right;
+}
+table.activity-list-table tr {
+	background: #f2f2f2;
+	border-bottom: 1px solid #dcdcdc;
+}
+table.activity-list-table tr:hover {
+	background: #fefae9;
 }
