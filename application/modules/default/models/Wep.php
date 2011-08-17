@@ -86,7 +86,11 @@ class Model_Wep extends Zend_Db_Table_Abstract
     public function fetchValueById($tblName, $id, $getField){
         $this->_name = $tblName;
         $rowSet = $this->select()->where("id =?", $id);
-        $result = $this->fetchRow($rowSet)->toArray();
+        
+        $result = $this->fetchRow($rowSet);
+        if($result){
+            $result = $result->toArray();
+        }
         return $result['Code'];
     }
 
