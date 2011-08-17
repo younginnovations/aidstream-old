@@ -302,7 +302,8 @@ class WepController extends Zend_Controller_Action
         $identity = Zend_Auth::getInstance()->getIdentity();
         if ($_GET) {
             $activities_id = $this->getRequest()->getParam('activities_id');
-            $exists = $model->getRowById('iati_activities', 'id', $_GET['activities_id']);
+            $wepModel = new Model_Wep();
+            $exists = $wepModel->getRowById('iati_activities', 'id', $_GET['activities_id']);
             if(!$exists){
                 $this->_helper->FlashMessenger->addMessage(array('message' => "Invalid Id."));
 
@@ -651,7 +652,8 @@ class WepController extends Zend_Controller_Action
         $identity = Zend_Auth::getInstance()->getIdentity();
         if ($_GET) {
             $activities_id = $this->getRequest()->getParam('activities_id');
-            $exists = $model->getRowById('iati_activities', 'id', $_GET['activities_id']);
+            $wepModel = new Model_Wep();
+            $exists = $wepModel->getRowById('iati_activities', 'id', $_GET['activities_id']);
             if(!$exists){
                 $this->_helper->FlashMessenger->addMessage(array('message' => "Invalid Id."));
 
