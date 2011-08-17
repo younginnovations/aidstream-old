@@ -1,7 +1,7 @@
 <?php
 class Iati_WEP_Activity_Elements_DefaultAidType extends Iati_WEP_Activity_Elements_ElementBase
 {
-protected $attributes = array('code', 'text', 'xml_lang');
+protected $attributes = array('id', 'code', 'text', 'xml_lang');
      protected $code;
      protected $text;
      protected $xml_lang;
@@ -89,7 +89,6 @@ protected $attributes = array('code', 'text', 'xml_lang');
         $data['code'] = $this->code;
         $data['xml_lang'] = $this->xml_lang;
         $data['text'] = $this->text;
-        
         parent::validate($data);
     }
     
@@ -99,7 +98,6 @@ protected $attributes = array('code', 'text', 'xml_lang');
         $data['@code'] = $this->code;
         $data['@xml_lang'] = $this->xml_lang;
         $data['text'] = $this->text;
-        
         return $data;
     }
  
