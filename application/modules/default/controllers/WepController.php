@@ -191,7 +191,8 @@ class WepController extends Zend_Controller_Action
             }
         }
         $this->view->form = $form;
-        $this->view->blockManager()->enable('partial/login.phtml');
+//        $this->view->blockManager()->enable('partial/login.phtml');
+        $this->view->blockManager()->disable('partial/primarymenu.phtml');
     }
 
     public function editDefaultsAction()
