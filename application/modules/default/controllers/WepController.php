@@ -307,16 +307,19 @@ class WepController extends Zend_Controller_Action
 
         $rowSet = $model->getRowsByFields('default_field_values',
                                             'account_id', $identity->account_id);
-
+        
         $defaultValues = unserialize($rowSet[0]['object']);
         $default = $defaultValues->getDefaultFields();
+        $wepModel = new Model_Wep();
 
-        $activity_info['@xml_lang'] = $default['language'];
-        $activity_info['@default_currency'] = $default['currency'];
+        $activity_info['@xml_lang'] = $wepModel->fetchValueById('Language',
+                                                                $default['language'], 'Code');
+        $activity_info['@default_currency'] = $wepModel->fetchValueById('Currency',
+                                                                $default['currency'], 'Code');
         $activity_info['@hierarchy'] = $default['hierarchy'];
         $activity_info['@last_updated_datetime'] = date('Y-m-d H:i:s');
         $activity_info['activities_id'] = $activities_id;
-        $this->view->activity_info = $default;
+        $this->view->activity_info = $activity_info;
 
         $form = new Form_Wep_IatiIdentifier('add', $identity->account_id);
         $form->add('add', $identity->account_id);
@@ -486,7 +489,7 @@ class WepController extends Zend_Controller_Action
                 }
             }
             catch (Exception $e){
-                print_r($e);exit;
+                print_r($e->getMessage());exit;
             }
         }
         $this->_helper->layout()->setLayout('layout_wep');
