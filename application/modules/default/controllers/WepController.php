@@ -27,17 +27,21 @@ class WepController extends Zend_Controller_Action
         $model = new Model_Wep();
 
         $activities_id = $model->listAll('iati_activities', 'account_id', $identity->account_id);
+//        print_r($activities_id);exit;
         if (empty($activities_id)) {
+//            print "ddd";exit;
             $data['@version'] = '01';
             $data['@generated_datetime'] = date('Y-m-d H:i:s');
             $data['user_id'] = $identity->user_id;
             $data['account_id'] = $identity->account_id;
             $data['unqid'] = uniqid();
+//            print_r($data);exit;
             $activities_id = $model->insertRowsToTable('iati_activities', $data);
         } else {
             $activities_id = $activities_id[0]['id'];
         }
 
+//            print_r($activities_id);exit;
         $this->view->activities_id = $activities_id;
 
         $this->view->blockManager()->enable('partial/primarymenu.phtml');
@@ -298,6 +302,12 @@ class WepController extends Zend_Controller_Action
         $identity = Zend_Auth::getInstance()->getIdentity();
         if ($_GET) {
             $activities_id = $this->getRequest()->getParam('activities_id');
+            $exists = $model->getRowById('iati_activities', 'id', $_GET['activities_id']);
+            if(!$exists){
+                $this->_helper->FlashMessenger->addMessage(array('message' => "Invalid Id."));
+
+                $this->_redirect('/user/user/login');
+            }
         }
         else{
             $wepModel = new Model_Wep();
@@ -641,6 +651,12 @@ class WepController extends Zend_Controller_Action
         $identity = Zend_Auth::getInstance()->getIdentity();
         if ($_GET) {
             $activities_id = $this->getRequest()->getParam('activities_id');
+            $exists = $model->getRowById('iati_activities', 'id', $_GET['activities_id']);
+            if(!$exists){
+                $this->_helper->FlashMessenger->addMessage(array('message' => "Invalid Id."));
+
+                $this->_redirect('/user/user/login');
+            }
         }
         else{
             $wepModel = new Model_Wep();
