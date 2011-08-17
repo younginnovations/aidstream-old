@@ -22,7 +22,7 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement extends Iati_WEP_Activity_E
                 
                 ),
     );
-    protected $className = 'Transaction';
+    protected $className = 'PlannedDisbursement';
     
     protected $validators = array();
     protected static $count = 0;

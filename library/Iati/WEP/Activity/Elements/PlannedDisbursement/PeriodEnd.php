@@ -70,6 +70,11 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement_PeriodEnd extends Iati_WEP_
         return $this->objectId;
     }
     
+    public function isRequired()
+    {
+        return $this->required;
+    }
+    
     public function getValidator($attr)
     {
         return $this->validators[$attr];
