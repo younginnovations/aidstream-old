@@ -299,7 +299,7 @@ class Iati_WEP_FormHelper {
         $_form = sprintf('<form id="element-form" name="%s" action="%s" method="%s" %s>',
                          $name, $action, $method, $this->_attr($attribs));
         
-        $_form .= '<div id = "form-elements-wrapper activity-list">%s</div>';
+        $_form .= '<div id = "form-elements-wrapper " class="activity-list">%s</div>';
         /*if ($this->registryTree->getRootNode()->hasMultiple()) {
             $_form .= $this->_addMore(array('id'=>'add-more'));
         }*/
