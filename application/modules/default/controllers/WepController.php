@@ -91,10 +91,10 @@ class WepController extends Zend_Controller_Action
     {
         $auth = Zend_Auth::getInstance();
         if($auth->hasIdentity()){
-            $admin = false;
+            $is_admin = false;
             $identity = $auth->getIdentity();
             if($identity->role == "superadmin"){
-                $admin = true;
+                $is_admin = true;
             }
         }
         $defaultFieldsValues = new Iati_WEP_AccountDefaultFieldValues();
@@ -121,7 +121,7 @@ class WepController extends Zend_Controller_Action
                 } else {
 
                     //@todo send email notification to super admin
-
+//print_r($data);exit;
 
                     $account['name'] = $data['organisation_name'];
 
@@ -136,12 +136,13 @@ class WepController extends Zend_Controller_Action
                     $user['email'] = $data['email'];
                     $user['account_id'] = $account_id;
                     $user['status'] = 0;
-                    if($admin){
+                    if($is_admin){
                         $user['status'] = 1;
                     }
                     //@todo make the status of the user "0"
                     $user_id = $model->insertRowsToTable('user', $user);
-
+//print_r($)
+//                   print_r($data);exit;
                     $admin['first_name'] = $data['first_name'];
                     $admin['middle_name'] = $data['middle_name'];
                     $admin['last_name'] = $data['last_name'];
