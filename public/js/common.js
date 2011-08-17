@@ -131,7 +131,7 @@ function initialize() {
                 dojo.connect(dojo.byId('cd-ok'), 'onclick', function (e) {
                     confirmDlg.destroyRecursive();
                     var grandParent = dojo.NodeList(removeNode.parentNode.parentNode);
-                    if (grandParent.children('div').length < 2) {
+                    if (grandParent.children('fieldset').length < 2) {
                         
                         messageDialog("Warning!", "Sorry! you cannot remove last item.");
                         
