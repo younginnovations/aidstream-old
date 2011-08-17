@@ -89,6 +89,14 @@ class WepController extends Zend_Controller_Action
 
     public function registerAction()
     {
+        $auth = Zend_Auth::getInstance();
+        if($auth->hasIdentity()){
+            $admin = false;
+            $identity = $auth->getIdentity();
+            if($identity->role == "superadmin"){
+                $admin = true;
+            }
+        }
         $defaultFieldsValues = new Iati_WEP_AccountDefaultFieldValues();
         $default['field_values'] = $defaultFieldsValues->getDefaultFields();
         $defaultFieldGroup = new Iati_WEP_AccountDisplayFieldGroup();
@@ -110,7 +118,6 @@ class WepController extends Zend_Controller_Action
                 else if (!empty($result)) {
                     $this->_helper->FlashMessenger->addMessage(array('error' => "Username already exists."));
                     $form->populate($data);
-                    //$this->_redirect('wep/register');
                 } else {
 
                     //@todo send email notification to super admin
@@ -129,6 +136,9 @@ class WepController extends Zend_Controller_Action
                     $user['email'] = $data['email'];
                     $user['account_id'] = $account_id;
                     $user['status'] = 0;
+                    if($admin){
+                        $user['status'] = 1;
+                    }
                     //@todo make the status of the user "0"
                     $user_id = $model->insertRowsToTable('user', $user);
 
@@ -176,18 +186,16 @@ class WepController extends Zend_Controller_Action
                     }
 
 
-                    $mailerParams = array($from);
-                    $toEmail = $data['email'];
+                    $toEmail['email'] = $data['email'];
+                    $mailerParams = $toEmail;
                     $template = 'user-register';
                     $Wep = new App_Notification;
-                    $Wep->sendemail($mailerParams,$toEmail,$template);
-
-
+                    $Wep->sendemail($mailerParams,$toEmail['email'],$template);
+                  
                     $this->_helper->FlashMessenger->addMessage(array('message' => "Account successfully registered."));
                     $this->_redirect('user/user/login');
                 }
             } catch (Exception $e) {
-
             }
         }
         $this->view->form = $form;
