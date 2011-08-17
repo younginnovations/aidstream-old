@@ -37,7 +37,7 @@ class Iati_WEP_Activity_PlannedDisbursementFactory
         return $tree;
     }
 
-    public function createTransaction($flatArray = array())
+    public function createPlannedDisbursement($flatArray = array())
     {
         $plannedDisbursement = new Iati_WEP_Activity_Elements_PlannedDisbursement ();
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
@@ -61,7 +61,7 @@ class Iati_WEP_Activity_PlannedDisbursementFactory
     public function createObjects($class, $parent = null, $values = array())
     {
         if($class == 'PlannedDisbursement'){
-            return $this->createTransaction($values);
+            return $this->createPlannedDisbursement($values);
         }
 
         $string = 'Iati_WEP_Activity_Elements_PlannedDisbursement_' . $class;

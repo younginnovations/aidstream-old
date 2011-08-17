@@ -1,7 +1,7 @@
 <?php 
 class Iati_WEP_Activity_Elements_Budget_PeriodEnd extends Iati_WEP_Activity_Elements_Budget
 {
-    protected $attributes = array('id', 'text', 'iso_date');
+protected $attributes = array('id', 'text', 'iso_date');
     protected $text;
     protected $iso_date;
     protected $id = 0;
@@ -68,6 +68,11 @@ class Iati_WEP_Activity_Elements_Budget_PeriodEnd extends Iati_WEP_Activity_Elem
     public function getObjectId()
     {
         return $this->objectId;
+    }
+    
+    public function isRequired()
+    {
+        return $this->required;
     }
     
     public function getValidator($attr)

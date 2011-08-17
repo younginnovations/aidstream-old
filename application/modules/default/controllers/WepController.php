@@ -465,7 +465,6 @@ class WepController extends Zend_Controller_Action
                         $factory = new $classname ();
                         $activityTree = $factory->cleanData($activity, $element);
                          
-                        //                    print_r($activityTree);exit;
 
                         $dbLayer = new Iati_WEP_DbLayer();
                         $dbLayer->save($activityTree);
@@ -571,7 +570,7 @@ class WepController extends Zend_Controller_Action
                     $element->setAttribs($data);
                     $factory = new $classname ();
                     $activityTree = $factory->cleanData($activity, $element);
-
+// print_r($activityTree);exit;
                     $dbLayer = new Iati_WEP_DbLayer();
                     $dbLayer->save($activityTree);
 

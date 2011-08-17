@@ -1,10 +1,22 @@
 <?php
-class Iati_WEP_Activity_BudgetFactory extends Iati_WEP_Activity_BaseFactory
+class Iati_WEP_Activity_BudgetFactory
 {
+    protected $defaultValues = array();
+    protected $globalObject;
+    protected $initial;
+    protected $data = array();
+    protected $hasError = false;
+
+
     public function __construct()
     {
-        parent :: __construct();
     }
+
+    public function hasError()
+    {
+        return $this->hasError;
+    }
+
 
     public function factory($objectType = 'Budget', $data = array())
     {
@@ -25,7 +37,7 @@ class Iati_WEP_Activity_BudgetFactory extends Iati_WEP_Activity_BaseFactory
         return $tree;
     }
 
-    public function createTransaction($flatArray = array())
+    public function createBudget($flatArray = array())
     {
         $budget = new Iati_WEP_Activity_Elements_Budget ();
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
@@ -49,7 +61,7 @@ class Iati_WEP_Activity_BudgetFactory extends Iati_WEP_Activity_BaseFactory
     public function createObjects($class, $parent = null, $values = array())
     {
         if($class == 'Budget'){
-            return $this->createTransaction($values);
+            return $this->createBudget($values);
         }
 
         $string = 'Iati_WEP_Activity_Elements_Budget_' . $class;
@@ -124,6 +136,7 @@ class Iati_WEP_Activity_BudgetFactory extends Iati_WEP_Activity_BaseFactory
         $registryTree = Iati_WEP_TreeRegistry::getInstance();
         $obj->validate();
         if($obj->hasErrors()){
+            print_r($obj);exit;
             $this->hasError = true;
         }
 
@@ -132,6 +145,7 @@ class Iati_WEP_Activity_BudgetFactory extends Iati_WEP_Activity_BaseFactory
                 $this->validateAll($child);
             }
         }
+        
 
     }
 
@@ -163,8 +177,6 @@ class Iati_WEP_Activity_BudgetFactory extends Iati_WEP_Activity_BaseFactory
             $element = new $classname ();
             $data = $obj->getCleanedData();
             $element->setAttribs($data);
-            $dbwrapper = new Iati_WEP_Activity_DbWrapper ($element);
-            $dbwrapper->setPrimary($data['id']);
             $elementObj->addElement($element);
         }
 
@@ -210,6 +222,4 @@ class Iati_WEP_Activity_BudgetFactory extends Iati_WEP_Activity_BaseFactory
             }
         }
     }
-    
-    
 }

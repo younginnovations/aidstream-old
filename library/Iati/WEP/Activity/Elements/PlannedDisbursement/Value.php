@@ -11,7 +11,7 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement_Value
     protected $className = 'Value';
     
     protected $validators = array(
-                                'text' => 'NotEmpty',
+                                'value_date' => 'NotEmpty',
                             );
                             
     protected $attributes_html = array(
@@ -75,6 +75,11 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement_Value
         return $this->options[$name];
     }
     
+    public function isRequired()
+    {
+        return $this->required;
+    }
+    
     public function getObjectId()
     {
         return $this->objectId;
@@ -128,3 +133,4 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement_Value
 
     
 }
+    

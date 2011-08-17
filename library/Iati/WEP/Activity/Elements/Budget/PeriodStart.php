@@ -37,7 +37,7 @@ class Iati_WEP_Activity_Elements_Budget_PeriodStart extends Iati_WEP_Activity_El
     protected $error = array();
     protected $hasError = false;
     protected $multiple = false;
-    protected $required = true;
+    protected $required = false;
 
     public function __construct()
     {
@@ -63,6 +63,11 @@ class Iati_WEP_Activity_Elements_Budget_PeriodStart extends Iati_WEP_Activity_El
     public function getOptions($name = NULL)
     {
         return $this->options[$name];
+    }
+    
+    public function isRequired()
+    {
+        return $this->required;
     }
     
     public function getObjectId()
@@ -116,3 +121,4 @@ class Iati_WEP_Activity_Elements_Budget_PeriodStart extends Iati_WEP_Activity_El
 
     
 }
+    

@@ -27,7 +27,7 @@ class Iati_WEP_Activity_Elements_Budget_Value extends Iati_WEP_Activity_Elements
                 ),
                 'currency' => array(
                     'name' => 'currency',
-                    'label' => 'currency',
+                    'label' => 'Currency',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
@@ -72,6 +72,11 @@ class Iati_WEP_Activity_Elements_Budget_Value extends Iati_WEP_Activity_Elements
     public function getOptions($name = NULL)
     {
         return $this->options[$name];
+    }
+    
+    public function isRequired()
+    {
+        return $this->required;
     }
     
     public function getObjectId()
