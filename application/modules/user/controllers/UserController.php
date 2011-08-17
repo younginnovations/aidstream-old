@@ -5,6 +5,7 @@ class User_UserController extends Zend_Controller_Action
 
     public function init()
     {
+        $this->_helper->layout()->setLayout('layout_wep');
         /* Initialize action controller here */
     }
 

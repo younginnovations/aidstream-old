@@ -27,17 +27,21 @@ class WepController extends Zend_Controller_Action
         $model = new Model_Wep();
 
         $activities_id = $model->listAll('iati_activities', 'account_id', $identity->account_id);
+//        print_r($activities_id);exit;
         if (empty($activities_id)) {
+//            print "ddd";exit;
             $data['@version'] = '01';
             $data['@generated_datetime'] = date('Y-m-d H:i:s');
             $data['user_id'] = $identity->user_id;
             $data['account_id'] = $identity->account_id;
             $data['unqid'] = uniqid();
+//            print_r($data);exit;
             $activities_id = $model->insertRowsToTable('iati_activities', $data);
         } else {
             $activities_id = $activities_id[0]['id'];
         }
 
+//            print_r($activities_id);exit;
         $this->view->activities_id = $activities_id;
 
         $this->view->blockManager()->enable('partial/primarymenu.phtml');
@@ -91,10 +95,10 @@ class WepController extends Zend_Controller_Action
     {
         $auth = Zend_Auth::getInstance();
         if($auth->hasIdentity()){
-            $admin = false;
+            $is_admin = false;
             $identity = $auth->getIdentity();
             if($identity->role == "superadmin"){
-                $admin = true;
+                $is_admin = true;
             }
         }
         $defaultFieldsValues = new Iati_WEP_AccountDefaultFieldValues();
@@ -121,7 +125,7 @@ class WepController extends Zend_Controller_Action
                 } else {
 
                     //@todo send email notification to super admin
-
+//print_r($data);exit;
 
                     $account['name'] = $data['organisation_name'];
 
@@ -136,12 +140,13 @@ class WepController extends Zend_Controller_Action
                     $user['email'] = $data['email'];
                     $user['account_id'] = $account_id;
                     $user['status'] = 0;
-                    if($admin){
+                    if($is_admin){
                         $user['status'] = 1;
                     }
                     //@todo make the status of the user "0"
                     $user_id = $model->insertRowsToTable('user', $user);
-
+//print_r($)
+//                   print_r($data);exit;
                     $admin['first_name'] = $data['first_name'];
                     $admin['middle_name'] = $data['middle_name'];
                     $admin['last_name'] = $data['last_name'];
@@ -297,6 +302,13 @@ class WepController extends Zend_Controller_Action
         $identity = Zend_Auth::getInstance()->getIdentity();
         if ($_GET) {
             $activities_id = $this->getRequest()->getParam('activities_id');
+            $wepModel = new Model_Wep();
+            $exists = $wepModel->getRowById('iati_activities', 'id', $_GET['activities_id']);
+            if(!$exists){
+                $this->_helper->FlashMessenger->addMessage(array('message' => "Invalid Id."));
+
+                $this->_redirect('/user/user/login');
+            }
         }
         else{
             $wepModel = new Model_Wep();
@@ -307,16 +319,19 @@ class WepController extends Zend_Controller_Action
 
         $rowSet = $model->getRowsByFields('default_field_values',
                                             'account_id', $identity->account_id);
-
+        
         $defaultValues = unserialize($rowSet[0]['object']);
         $default = $defaultValues->getDefaultFields();
+        $wepModel = new Model_Wep();
 
-        $activity_info['@xml_lang'] = $default['language'];
-        $activity_info['@default_currency'] = $default['currency'];
+        $activity_info['@xml_lang'] = $wepModel->fetchValueById('Language',
+                                                                $default['language'], 'Code');
+        $activity_info['@default_currency'] = $wepModel->fetchValueById('Currency',
+                                                                $default['currency'], 'Code');
         $activity_info['@hierarchy'] = $default['hierarchy'];
         $activity_info['@last_updated_datetime'] = date('Y-m-d H:i:s');
         $activity_info['activities_id'] = $activities_id;
-        $this->view->activity_info = $default;
+        $this->view->activity_info = $activity_info;
 
         $form = new Form_Wep_IatiIdentifier('add', $identity->account_id);
         $form->add('add', $identity->account_id);
@@ -486,7 +501,7 @@ class WepController extends Zend_Controller_Action
                 }
             }
             catch (Exception $e){
-                print_r($e);exit;
+                print_r($e->getMessage());exit;
             }
         }
         $this->_helper->layout()->setLayout('layout_wep');
@@ -637,6 +652,13 @@ class WepController extends Zend_Controller_Action
         $identity = Zend_Auth::getInstance()->getIdentity();
         if ($_GET) {
             $activities_id = $this->getRequest()->getParam('activities_id');
+            $wepModel = new Model_Wep();
+            $exists = $wepModel->getRowById('iati_activities', 'id', $_GET['activities_id']);
+            if(!$exists){
+                $this->_helper->FlashMessenger->addMessage(array('message' => "Invalid Id."));
+
+                $this->_redirect('/user/user/login');
+            }
         }
         else{
             $wepModel = new Model_Wep();
