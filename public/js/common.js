@@ -49,7 +49,8 @@ function initialize() {
             'onclick' : function (evt) {
                 
                 var node = new dojo.NodeList(evt.target.parentNode.parentNode);
-                node = node.children('div:last-of-type');
+                node = node.children('fieldset:last-of-type');
+                //console.log(node);
                 
                 var sp = node.query('input').attr('name')[0];
                 

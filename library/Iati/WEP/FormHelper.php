@@ -81,11 +81,19 @@ class Iati_WEP_FormHelper {
                 $_title = sprintf('<legend class="form-title">%s</legend>', $title);
             }
             /*
-            if ($obj->isRequired()) {
+            if ($ele[0]->isRequired()) {
                 $_title .= '<span class="required-block">**</span>';
             }
             */
-            $_ht[] = $_title;
+            
+            if (!$this->ajaxCall && $ele[0] == $this->registryTree->getRootNode()) {
+                $_title = '';
+            }
+            
+            if ($_title != '') {
+                $_ht[] = $_title;
+            }
+            
             
             $_cls = '';
             
@@ -154,7 +162,7 @@ class Iati_WEP_FormHelper {
         $_tag = 'fieldset';
         $_cls = ($this->registryTree->getChildNodes($obj) == NULL) ? 'innermost' : '';
         $_cls = (!$this->ajaxCall && $obj == $this->registryTree->getRootNode()) ? 'ancestor' : $_cls;
-        $_cls = ($this->ajaxCall && $obj == $this->registryTree->getRootNode()) ? $_cls . ' inner' : $_cls;
+        $_cls = ($this->ajaxCall && $obj == $this->registryTree->getRootNode() && $_cls != 'innermost') ? $_cls . ' inner' : $_cls;
         
         if (!$this->ajaxCall) {
             $_mainEle = $this->registryTree->getChildNodes($this->registryTree->getRootNode());
@@ -291,7 +299,7 @@ class Iati_WEP_FormHelper {
         $_form = sprintf('<form id="element-form" name="%s" action="%s" method="%s" %s>',
                          $name, $action, $method, $this->_attr($attribs));
         
-        $_form .= '<div id = "form-elements-wrapper">%s</div>';
+        $_form .= '<div id = "form-elements-wrapper activity-list">%s</div>';
         /*if ($this->registryTree->getRootNode()->hasMultiple()) {
             $_form .= $this->_addMore(array('id'=>'add-more'));
         }*/
