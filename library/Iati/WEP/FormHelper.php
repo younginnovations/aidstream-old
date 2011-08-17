@@ -67,18 +67,27 @@ class Iati_WEP_FormHelper {
         
         foreach ($finalNodes as $ele) {
             $_ht = array();
+            $_title = '';
             if ($this->ajaxCall) {
                 if ($ele[0] != $this->registryTree->getRootNode()) {
                     $camelCaseToSeperator = new Zend_Filter_Word_CamelCaseToSeparator(" ");
                     $title = $camelCaseToSeperator->filter($ele[0]->getClassName());
-                    $_ht[] = sprintf('<h2 class="form-title">%s</h2>', $title);
+                    $_title = sprintf('<legend class="form-title">%s</legend>', $title);
                 }
             }
             else {
                 $camelCaseToSeperator = new Zend_Filter_Word_CamelCaseToSeparator(" ");
                 $title = $camelCaseToSeperator->filter($ele[0]->getClassName());
-                $_ht[] = sprintf('<h2 class="form-title">%s</h2>', $title);
+                $_title = sprintf('<legend class="form-title">%s</legend>', $title);
             }
+            /*
+            if ($obj->isRequired()) {
+                $_title .= '<span class="required-block">**</span>';
+            }
+            */
+            $_ht[] = $_title;
+            
+            $_cls = '';
             
             foreach($ele as $key => $obj) {
                 
@@ -94,13 +103,31 @@ class Iati_WEP_FormHelper {
                     $_ht[] =
                                $this->_addMore(array("href" => $url, "class" => 'button'), "a");
                 }
+                
+                $_childs = $this->registryTree->getChildNodes($obj);
+                if ($_childs != NULL) {
+                    foreach ($_childs as $key => $val) {
+                        if ($this->registryTree->getChildNodes($val) == NULL) {
+                            $_cls = 'inner-wrapper';
+                        }
+                        else {
+                            $_cls = '';
+                            break;
+                        }
+                    }
+                }
+                else {
+                    $_cls = 'innermost-wrapper';
+                }
             }
+            
             $_html = implode('', $_ht);
+            
             $html[] = (sizeof($_ht) > 1) ?
-                                sprintf('<div>%s</div>', $_html) : $_html;
+                                sprintf('<fieldset class="form-group %s">%s</fieldset>', $_cls, $_html) : $_html;
         }
         $htmls = (sizeof($html) > 1) ?
-                                sprintf('<div>%s</div>', implode('', $html)) :
+                                sprintf('<div class="nested-items">%s</div>', implode('', $html)) :
                                 implode('', $html);
         return $htmls;
     }
@@ -124,7 +151,21 @@ class Iati_WEP_FormHelper {
         $decorate = new Iati_WEP_FormDecorator($obj, $this->getIndexValues($obj));
         $decoratedHtml = $decorate->html();
         
-        $form .= sprintf("<div class=\"%s\">", $obj->getClassName());
+        $_tag = 'fieldset';
+        $_cls = ($this->registryTree->getChildNodes($obj) == NULL) ? 'innermost' : '';
+        $_cls = (!$this->ajaxCall && $obj == $this->registryTree->getRootNode()) ? 'ancestor' : $_cls;
+        $_cls = ($this->ajaxCall && $obj == $this->registryTree->getRootNode()) ? $_cls . ' inner' : $_cls;
+        
+        if (!$this->ajaxCall) {
+            $_mainEle = $this->registryTree->getChildNodes($this->registryTree->getRootNode());
+            if (sizeof($_mainEle) == 1 && $obj == $_mainEle[0]) {
+                $_cls .= ' inner';
+            }
+        }
+        //$_cls = ($this->registryTree->getChildNodes($obj) == NULL) ? 'innermost' : '';
+        
+        
+        $form .= sprintf("<%s class=\"%s %s\">", $_tag, $obj->getClassName(), $_cls);
         
         foreach($decoratedHtml as $eachHtml){
              $form .= "<div class='form-item'> $eachHtml </div>";
@@ -141,7 +182,7 @@ class Iati_WEP_FormHelper {
                          $url);
         }
         
-        $form .= "</div>";
+        $form .= sprintf("</%s>", $_tag);
         return $form;
         
     }
