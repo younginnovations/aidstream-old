@@ -174,7 +174,7 @@ class User_UserController extends Zend_Controller_Action
 //        print_r($row1->first_name);exit;
         $this->view->profile = $row1;
         $this->view->row = $row;
-        $this->_helper->layout()->setLayout('layout');
+//        $this->_helper->layout()->setLayout('layout');
     }
 
     public function editAction()

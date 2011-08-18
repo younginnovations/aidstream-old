@@ -31,7 +31,6 @@ class Iati_WEP_Activity_Elements_Budget extends Iati_WEP_Activity_Elements_Eleme
     protected $error = array();
     protected $hasError = false;
     protected $multiple = true;
-    protected $required = true;
     
     
 

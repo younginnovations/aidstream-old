@@ -18,7 +18,7 @@ class Iati_WEP_Activity_Elements_ElementBase
     protected $multiple;
     protected $error = array();
     protected $hasError = false;
-    protected $required = false;
+    protected $required = true;
 
     public function __construct()
     {
