@@ -302,7 +302,7 @@ class User_UserController extends Zend_Controller_Action
             }
         }
         $this->view->user = $user;
-        $this->_helper->layout()->setLayout('layout');
+//        $this->_helper->layout()->setLayout('layout');
     }
 
     public function logoutAction()
