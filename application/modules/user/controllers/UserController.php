@@ -249,7 +249,7 @@ class User_UserController extends Zend_Controller_Action
             }
         }//end of outer if
         $this->view->placeholder('title')->set('Reset Password');
-        $this->_helper->layout()->setLayout('layout');
+//        $this->_helper->layout()->setLayout('layout');
     }
 
     //end of else
