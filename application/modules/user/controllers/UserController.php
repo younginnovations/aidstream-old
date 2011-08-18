@@ -207,7 +207,7 @@ class User_UserController extends Zend_Controller_Action
             $form->populate($row->toArray());
         }
         $this->view->placeholder('title')->set('Edit account');
-        $this->_helper->layout()->setLayout('layout');
+//        $this->_helper->layout()->setLayout('layout');
     }
 
     /**
