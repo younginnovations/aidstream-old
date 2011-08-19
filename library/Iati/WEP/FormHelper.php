@@ -208,7 +208,7 @@ class Iati_WEP_FormHelper {
         if ($childs != NULL) {
 
             $parentId = $this->registryTree->getNodeId($root);
-            $result = sprintfn($result,
+            $result = sprintfn2($result,
             array($parentId => $this->genHtml($childs)));
             foreach($childs as $obj) {
                 $this->generateForm($obj, $result);
