@@ -1,7 +1,7 @@
 <?php
 class Iati_WEP_Activity_Elements_ActivityStatus extends Iati_WEP_Activity_Elements_ElementBase
 {
-   
+
     protected $attributes = array('text', 'xml_lang');
     protected $text;
     protected $code;
@@ -16,7 +16,7 @@ class Iati_WEP_Activity_Elements_ActivityStatus extends Iati_WEP_Activity_Elemen
     protected $attributes_html = array(
                 'id' => array(
                     'name' => 'id',
-                    'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
+                    'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />'
                 ),
                 'text' => array(
                     'name' => 'text',
@@ -24,7 +24,7 @@ class Iati_WEP_Activity_Elements_ActivityStatus extends Iati_WEP_Activity_Elemen
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('class' => array('form-text'))
                 ),
-                
+
                 'code' => array(
                     'name' => 'code',
                     'label' => 'Activity Status',
@@ -40,7 +40,7 @@ class Iati_WEP_Activity_Elements_ActivityStatus extends Iati_WEP_Activity_Elemen
                     'attrs' => array('class' => array('form-select'))
                 ),
     );
-    
+
     protected static $count = 0;
     protected $objectId;
     protected $error = array();
@@ -62,62 +62,62 @@ class Iati_WEP_Activity_Elements_ActivityStatus extends Iati_WEP_Activity_Elemen
         $this->options['code'] = $model->getCodeArray('ActivityStatus', null, '1');
         $this->options['xml_lang'] = $model->getCodeArray('Language', null, '1');
     }
-    
+
     public function setAttributes ($data) {
-        
+
         $this->id = (key_exists('id', $data))?$data['id']:0;
         $this->xml_lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
         $this->type = (key_exists('@code', $data))?$data['@code']:$data['code'];
-        
-        $this->text = $data['text']; 
-        
+
+        $this->text = $data['text'];
+
     }
-    
+
     public function getOptions($name = NULL)
     {
         return $this->options[$name];
     }
-    
+
     public function getObjectId()
     {
         return $this->objectId;
     }
-    
+
     public function getValidator($attr)
     {
         return $this->validators[$attr];
     }
-    
+
     public function validate()
     {
         $data['xml_lang'] = $this->xml_lang;
         $data['code'] = $this->code;
         $data['text'] = $this->text;
-        
+
         parent::validate($data);
     }
 
-    
+
     public function getCleanedData()
     {
-        $data['id'] = $this->id; 
+        $data['id'] = $this->id;
         $data['text'] = $this->text;
         $data['@code'] = $this->code;
         $data['@xml_lang'] = $this->xml_lang;
-        
+
         return $data;
     }
 
-    public function checkPrivilege()
-    {
-        $userRole = new App_UserRole();
-        $resource = new App_Resource();
-        $resource->ownerUserId = $userRole->userId;
-        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'ActivityStatus')) {
-            $host = $_SERVER['HTTP_HOST'];
-            $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-            $extra = 'user/user/login';
-            header("Location: http://$host$uri/$extra");
-        }
-    }
+//    public function checkPrivilege()
+//    {
+//        $userRole = new App_UserRole();
+//        $resource = new App_Resource();
+//        $resource->ownerUserId = $userRole->userId;
+//        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'ActivityStatus')) {
+//            $host = $_SERVER['HTTP_HOST'];
+//            $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+//            $extra = 'user/user/login';
+//            header("Location: http://$host$uri/$extra");
+//        }
+//    }
 }

@@ -1,6 +1,6 @@
 <?php
 class Iati_WEP_Activity_Elements_ParticipatingOrg extends Iati_WEP_Activity_Elements_ElementBase
-{  
+{
     protected $attributes = array('id', 'text', 'role', 'ref', 'type', 'xml_lang');
     protected $text;
     protected $ref;
@@ -17,7 +17,7 @@ class Iati_WEP_Activity_Elements_ParticipatingOrg extends Iati_WEP_Activity_Elem
     protected $attributes_html = array(
                 'id' => array(
                     'name' => 'id',
-                    'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
+                    'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />'
                 ),
                 'text' => array(
                     'name' => 'text',
@@ -25,7 +25,7 @@ class Iati_WEP_Activity_Elements_ParticipatingOrg extends Iati_WEP_Activity_Elem
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('class' => array('form-text'))
                 ),
-                
+
                 'role' => array(
                     'name' => 'role',
                     'label' => 'Organisation Role',
@@ -64,13 +64,13 @@ class Iati_WEP_Activity_Elements_ParticipatingOrg extends Iati_WEP_Activity_Elem
 
     public function __construct()
     {
-//        $this->checkPrivilege();
+//        $this->checkPrivilege($this->className);
         parent::__construct();
         $this->objectId = self::$count;
         self::$count += 1;
         $this->setOptions();
     }
-    
+
     public function setOptions()
     {
         $model = new Model_Wep();
@@ -79,48 +79,48 @@ class Iati_WEP_Activity_Elements_ParticipatingOrg extends Iati_WEP_Activity_Elem
         $this->options['type'] = $model->getCodeArray('OrganisationType', null, '1');
         $this->options['xml_lang'] = $model->getCodeArray('Language', null, '1');
     }
-    
+
     public function setAttributes ($data) {
-        
+
         $this->id = (key_exists('id', $data))?$data['id']:0;
         $this->xml_lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
         $this->type = (key_exists('@type', $data))?$data['@type']:$data['type'];
         $this->role = (key_exists('@role', $data))?$data['@role']:$data['role'];
         $this->ref = (key_exists('@ref', $data))?$data['@ref']:$data['ref'];
-        $this->text = $data['text'];       
-        
+        $this->text = $data['text'];
+
     }
 
-     public function checkPrivilege()
-    {
-        $userRole = new App_UserRole();
-        $resource = new App_Resource();
-        $resource->ownerUserId = $userRole->userId;
-        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'ParticipatingOrg')) {
-            $host  = $_SERVER['HTTP_HOST'];
-            $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-            $extra = 'user/user/login';
-            header("Location: http://$host$uri/$extra");
-        }
-    }
+//     public function checkPrivilege()
+//    {
+//        $userRole = new App_UserRole();
+//        $resource = new App_Resource();
+//        $resource->ownerUserId = $userRole->userId;
+//        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'ParticipatingOrg')) {
+//            $host  = $_SERVER['HTTP_HOST'];
+//            $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+//            $extra = 'user/user/login';
+//            header("Location: http://$host$uri/$extra");
+//        }
+//    }
 
-    
+
     public function getOptions($name = NULL)
     {
         return $this->options[$name];
     }
-    
+
     public function getObjectId()
     {
         return $this->objectId;
     }
-    
+
     public function getValidator($attr)
     {
         return $this->validators[$attr];
     }
-    
-    
+
+
     public function getCleanedData()
     {
         $data['@ref'] = $this->ref;
@@ -138,7 +138,7 @@ class Iati_WEP_Activity_Elements_ParticipatingOrg extends Iati_WEP_Activity_Elem
         $data['type'] = $this->type;
         $data['xml_lang'] = $this->xml_lang;
         $data['text'] = $this->text;
-        
+
         parent::validate($data);
     }
 

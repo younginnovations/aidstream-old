@@ -13,11 +13,11 @@ class Iati_WEP_Activity_Elements_ActivityDate extends Iati_WEP_Activity_Elements
                                 'text' => 'NotEmpty',
                             );
     protected $className = 'ActivityDate';
-    
+
     protected $attributes_html = array(
                 'id' => array(
                     'name' => 'id',
-                    'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
+                    'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />'
                 ),
                 'text' => array(
                     'name' => 'text',
@@ -25,7 +25,7 @@ class Iati_WEP_Activity_Elements_ActivityDate extends Iati_WEP_Activity_Elements
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('class' => array('form-text'))
                 ),
-                
+
                 'iso_date' => array(
                     'name' => 'iso_date',
                     'label' => 'Date',
@@ -56,59 +56,44 @@ class Iati_WEP_Activity_Elements_ActivityDate extends Iati_WEP_Activity_Elements
 
     public function __construct()
     {
-//        $this->checkPrivilege();
         parent::__construct();
         $this->objectId = self::$count;
         self::$count += 1;
         $this->setOptions();
     }
-    
+
     public function setOptions()
     {
         $model = new Model_Wep();
         $this->options['type'] = $model->getCodeArray('ActivityDateType', null, '1');
         $this->options['xml_lang'] = $model->getCodeArray('Language', null, '1');
     }
-    
+
     public function setAttributes ($data) {
-        
+
         $this->id = (key_exists('id', $data))?$data['id']:0;
         $this->xml_lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
         $this->type = (key_exists('@type', $data))?$data['@type']:$data['type'];
         $this->iso_date = (key_exists('@iso_date', $data))?$data['@iso_date']:$data['iso_date'];
         $this->text = $data['text'];
-        
+
     }
 
-     public function checkPrivilege()
-    {
-        $userRole = new App_UserRole();
-        $resource = new App_Resource();
-        $resource->ownerUserId = $userRole->userId;
-        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'ParticipatingOrg')) {
-            $host  = $_SERVER['HTTP_HOST'];
-            $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-            $extra = 'user/user/login';
-            header("Location: http://$host$uri/$extra");
-        }
-    }
-
-    
     public function getOptions($name = NULL)
     {
         return $this->options[$name];
     }
-    
+
     public function getObjectId()
     {
         return $this->objectId;
     }
-    
+
     public function getValidator($attr)
     {
         return $this->validators[$attr];
     }
-    
+
 
     public function validate()
     {
@@ -116,7 +101,7 @@ class Iati_WEP_Activity_Elements_ActivityDate extends Iati_WEP_Activity_Elements
         $data['type'] = $this->type;
         $data['iso_date'] = $this->iso_date;
         $data['text'] = $this->text;
-        
+
         parent::validate($data);
     }
 
