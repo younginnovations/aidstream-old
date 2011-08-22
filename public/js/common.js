@@ -49,7 +49,8 @@ function initialize() {
             'onclick' : function (evt) {
                 
                 var node = new dojo.NodeList(evt.target.parentNode.parentNode);
-                node = node.children('div:last-of-type');
+                node = node.children('fieldset:last-of-type');
+                //console.log(node);
                 
                 var sp = node.query('input').attr('name')[0];
                 
@@ -130,7 +131,7 @@ function initialize() {
                 dojo.connect(dojo.byId('cd-ok'), 'onclick', function (e) {
                     confirmDlg.destroyRecursive();
                     var grandParent = dojo.NodeList(removeNode.parentNode.parentNode);
-                    if (grandParent.children('div').length < 2) {
+                    if (grandParent.children('fieldset').length < 2) {
                         
                         messageDialog("Warning!", "Sorry! you cannot remove last item.");
                         
@@ -202,6 +203,26 @@ function initialize() {
                 }
                 */
             }
+        },
+        "tr": {
+            "onmouseenter" : function (evt) {
+//        		console.log(evt);
+        		var node = dojo.NodeList(evt.target.parentNode);
+//        		console.log(node);
+        		node.query('.list-action').style('display', 'block');;
+        
+        		evt.stopPropagation();
+        	},
+        	"onmouseleave" : function (evt) {
+//        		console.log(evt);
+        		var node = dojo.NodeList(evt.target.parentNode);
+//        		console.log(node);
+        		node.query('.list-action').style('display', 'none');;
+        
+        		evt.stopPropagation();
+        	}
+        
+        	
         }
     });
     // End of dojo.behavior.add

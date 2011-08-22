@@ -3,8 +3,12 @@
 
 
 <?php if($this->activityInfo):?>
-<div class="activity-div">
-<table>
+<div class = "activity-info-wrapper">
+<span class = "override-link"><?php echo $this->l('Override Activity Default', 'wep/edit-activity/?activity_id='
+                                                            . $this->activityInfo['id'])?></span>
+<div class="title">Activity Default</div>
+<div class = "activity-info">
+<table class ="activity-info-table">
 <tr>
     <td>Language: </td><td><?php print $this->activityInfo['@xml_lang'];?></td>
 </tr>
@@ -18,6 +22,7 @@
     <td>Last Updated Date Time: </td><td><?php print $this->activityInfo['@last_updated_datetime'];?></td>
 </tr>
 </table>
+</div>
 </div>
 
 <?php endif;?>

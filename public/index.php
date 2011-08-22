@@ -4,7 +4,18 @@
 defined('APPLICATION_PATH')
     || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
 
-// Define application environment
+/* -- Define App Environment -- */
+if (strstr($_SERVER['SERVER_NAME'],'dev.yipl.net'))
+    define('APPLICATION_ENV', 'staging');
+else if (strstr($_SERVER['SERVER_NAME'],'dev') )
+    define('APPLICATION_ENV', 'development');
+ 
+else if (strstr($_SERVER['SERVER_NAME'],'demo'))
+    define('APPLICATION_ENV', 'demo');
+else
+    define('APPLICATION_ENV', 'production');
+    
+    
 defined('APPLICATION_ENV')
     || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 

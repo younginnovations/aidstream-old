@@ -28,6 +28,11 @@ class Iati_WEP_TableClassMapper
 		return $conditionField;
 	}
 
+	public function convertUnderscoreToCamelCase($name)
+	{
+	     $underscoreToCamelCase = new Zend_Filter_Word_UnderscoreToCamelCase();
+	     return $underscoreToCamelCase->filter($name);
+	}
 
 	function lcfirst($string) {
 		$string{0} = strtolower($string{0});

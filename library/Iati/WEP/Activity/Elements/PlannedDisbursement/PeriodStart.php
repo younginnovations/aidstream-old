@@ -38,6 +38,7 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement_PeriodStart
     protected $error = array();
     protected $hasError = false;
     protected $multiple = false;
+    protected $required = false;
 
     public function __construct()
     {
@@ -65,6 +66,11 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement_PeriodStart
         return $this->options[$name];
     }
     
+    public function isRequired()
+    {
+        return $this->required;
+    }
+    
     public function getObjectId()
     {
         return $this->objectId;
@@ -84,7 +90,8 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement_PeriodStart
             
             if(empty($this->validators[$key])){ continue; }
             
-            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData))) {  continue; }
+            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData)) || 
+            (empty($this->required))) {  continue; }
             
             $string = "Zend_Validate_". $this->validators[$key];
             $validator = new $string();

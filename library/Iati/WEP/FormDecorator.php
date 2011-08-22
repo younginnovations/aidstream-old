@@ -149,3 +149,19 @@ function sprintfn ($format, array $args = array()) {
 
     return vsprintf($format, array_values($args));
 }
+
+function sprintfn2 ($format, array $args = array()) {
+    
+    //$arg_nums = array_slice(array_flip(array_keys(array(0 => 0) + $args)), 1);
+    
+    foreach ($args as $key => $val) {
+        
+        if (preg_match("/%\($key\)s/", $format)) {
+            
+            $format = preg_replace("/%\($key\)s/", $val, $format);
+            
+        }
+    }
+    
+    return $format;
+}

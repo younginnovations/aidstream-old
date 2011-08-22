@@ -79,13 +79,18 @@ class Model_Wep extends Zend_Db_Table_Abstract
         $rowSet = $this->select()->where("$fieldName = ?",$data);
 
         $result = $this->fetchAll($rowSet)->toArray();
+//        print_r($result);exit;
         return $result;
     }
     
     public function fetchValueById($tblName, $id, $getField){
         $this->_name = $tblName;
         $rowSet = $this->select()->where("id =?", $id);
-        $result = $this->fetchRow($rowSet)->toArray();
+        
+        $result = $this->fetchRow($rowSet);
+        if($result){
+            $result = $result->toArray();
+        }
         return $result['Code'];
     }
 
@@ -189,11 +194,14 @@ class Model_Wep extends Zend_Db_Table_Abstract
     
     public function getRowById($tableName, $fieldName, $data)
     {
-        $this->name = $tableName;
+        $this->_name = $tableName;
         $rowSet = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART)->setIntegrityCheck(false)
          ->where("$fieldName = ?",$data);
          
-        $result = $this->fetchRow($rowSet)->toArray();
+        $result = $this->fetchRow($rowSet);
+        if($result){
+            $result = $result->toArray();
+        }
         return $result;
         
     }

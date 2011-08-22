@@ -21,7 +21,8 @@ class Zend_View_Helper_BlockManager extends Zend_View_Helper_Abstract
   	
   	public function disable($blockName)
   	{
-  	    unset($obj->enableBlocks[$blockName]);
+  	    $obj = $this->blockManager();
+  	    unset($obj->enabledBlocks[array_search($blockName, $obj->enabledBlocks)]);
   	}
   	
   	/**

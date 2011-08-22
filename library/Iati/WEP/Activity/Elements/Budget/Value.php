@@ -27,7 +27,7 @@ class Iati_WEP_Activity_Elements_Budget_Value extends Iati_WEP_Activity_Elements
                 ),
                 'currency' => array(
                     'name' => 'currency',
-                    'label' => 'currency',
+                    'label' => 'Currency',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
@@ -45,6 +45,7 @@ class Iati_WEP_Activity_Elements_Budget_Value extends Iati_WEP_Activity_Elements
     protected $error = array();
     protected $hasError = false;
     protected $multiple = false;
+    protected $required = true;
 
     public function __construct()
     {
@@ -56,8 +57,8 @@ class Iati_WEP_Activity_Elements_Budget_Value extends Iati_WEP_Activity_Elements
     
     public function setOptions()
     {
-//        $model = new Model_Wep();
-//        $this->options['code'] = $model->getCodeArray('TransactionType', null, '1');
+        $model = new Model_Wep();
+        $this->options['currency'] = $model->getCodeArray('Currency', null, '1');
     }
     
     public function setAttributes ($data) {
@@ -71,6 +72,11 @@ class Iati_WEP_Activity_Elements_Budget_Value extends Iati_WEP_Activity_Elements
     public function getOptions($name = NULL)
     {
         return $this->options[$name];
+    }
+    
+    public function isRequired()
+    {
+        return $this->required;
     }
     
     public function getObjectId()
@@ -93,7 +99,8 @@ class Iati_WEP_Activity_Elements_Budget_Value extends Iati_WEP_Activity_Elements
             
             if(empty($this->validators[$key])){ continue; }
             
-            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData))) {  continue; }
+            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData)) || 
+            (empty($this->required))) {  continue; }
             
             $string = "Zend_Validate_". $this->validators[$key];
             $validator = new $string();

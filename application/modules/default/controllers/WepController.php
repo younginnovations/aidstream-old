@@ -7,7 +7,8 @@ class WepController extends Zend_Controller_Action
     public function init()
     {
         $this->_helper->layout()->setLayout('layout_wep');
-
+        $this->view->blockManager()->enable('partial/dashboard.phtml');
+        $this->view->blockManager()->enable('partial/primarymenu.phtml');
         //        $this->view->blockManager()->enable('partial/dashboard.phtml');
         /* $contextSwitch = $this->_helper->contextSwitch;
         $contextSwitch->addActionContext('', 'json')
@@ -17,7 +18,7 @@ class WepController extends Zend_Controller_Action
     public function indexAction()
     {
         //$this->view->blockManager()->disable('partial/dashboard.phtml');
-        $this->view->blockManager()->enable('partial/login.phtml');
+        //        $this->view->blockManager()->enable('partial/login.phtml');
     }
 
     public function dashboardAction()
@@ -26,19 +27,24 @@ class WepController extends Zend_Controller_Action
         $model = new Model_Wep();
 
         $activities_id = $model->listAll('iati_activities', 'account_id', $identity->account_id);
+//        print_r($activities_id);exit;
         if (empty($activities_id)) {
+//            print "ddd";exit;
             $data['@version'] = '01';
             $data['@generated_datetime'] = date('Y-m-d H:i:s');
             $data['user_id'] = $identity->user_id;
             $data['account_id'] = $identity->account_id;
             $data['unqid'] = uniqid();
+//            print_r($data);exit;
             $activities_id = $model->insertRowsToTable('iati_activities', $data);
         } else {
             $activities_id = $activities_id[0]['id'];
         }
 
-        $this->view->blockManager()->enable('partial/dashboard.phtml');
+//            print_r($activities_id);exit;
         $this->view->activities_id = $activities_id;
+
+        $this->view->blockManager()->enable('partial/primarymenu.phtml');
     }
 
     public function listActivitiesAction()
@@ -87,6 +93,14 @@ class WepController extends Zend_Controller_Action
 
     public function registerAction()
     {
+        $auth = Zend_Auth::getInstance();
+        if($auth->hasIdentity()){
+            $is_admin = false;
+            $identity = $auth->getIdentity();
+            if($identity->role == "superadmin"){
+                $is_admin = true;
+            }
+        }
         $defaultFieldsValues = new Iati_WEP_AccountDefaultFieldValues();
         $default['field_values'] = $defaultFieldsValues->getDefaultFields();
         $defaultFieldGroup = new Iati_WEP_AccountDisplayFieldGroup();
@@ -108,18 +122,11 @@ class WepController extends Zend_Controller_Action
                 else if (!empty($result)) {
                     $this->_helper->FlashMessenger->addMessage(array('error' => "Username already exists."));
                     $form->populate($data);
-                    //$this->_redirect('wep/register');
                 } else {
 
                     //@todo send email notification to super admin
+//print_r($data);exit;
 
-                    /* $mailerParams = array('email'=> 'manisha@yipl.com.np');
-                     $toEmail = 'manisha@yipl.com.np';
-                     $template = 'user-register';
-                     $Wep = new App_Notification;
-                     $Wep->sendemail($mailerParams,$toEmail,$template); */
-
-                    //                    print_r($_POST);exit();
                     $account['name'] = $data['organisation_name'];
 
                     $account['address'] = $data['organisation_address'];
@@ -133,9 +140,13 @@ class WepController extends Zend_Controller_Action
                     $user['email'] = $data['email'];
                     $user['account_id'] = $account_id;
                     $user['status'] = 0;
+                    if($is_admin){
+                        $user['status'] = 1;
+                    }
                     //@todo make the status of the user "0"
                     $user_id = $model->insertRowsToTable('user', $user);
-
+//print_r($)
+//                   print_r($data);exit;
                     $admin['first_name'] = $data['first_name'];
                     $admin['middle_name'] = $data['middle_name'];
                     $admin['last_name'] = $data['last_name'];
@@ -145,6 +156,7 @@ class WepController extends Zend_Controller_Action
                     $defaultFieldsValues->setLanguage($data['default_language']);
                     $defaultFieldsValues->setCurrency($data['default_currency']);
                     $defaultFieldsValues->setReporting_org($data['default_reporting_org']);
+                    $defaultFieldsValues->setHierarchy($data['default_hierarchy']);
                     $fieldString = serialize($defaultFieldsValues);
                     $defaultValues['object'] = $fieldString;
                     $defaultValues['account_id'] = $account_id;
@@ -165,15 +177,35 @@ class WepController extends Zend_Controller_Action
                     $privilegeFields['owner_id'] = $user_id;
                     $privilegeFieldId = $model->insertRowsToTable('Privilege', $privilegeFields);
 
+
+                    $identity = Zend_Auth::getInstance();
+                    if($identity->hasIdentity()){
+                        $identity = $identity->getIdentity();
+                        $from['email'] = $identity->email;
+                    }
+                    else{
+                        $bootstrap = $this->getInvokeArg('bootstrap');
+                        $config = $bootstrap->getOptions();
+                        $from['email'] = $config['email']['fromAddress'];
+                        //                        $form['name'] = $config['email']['fromName'];
+                    }
+
+
+                    $toEmail['email'] = $data['email'];
+                    $mailerParams = $toEmail;
+                    $template = 'user-register';
+                    $Wep = new App_Notification;
+                    $Wep->sendemail($mailerParams,$toEmail['email'],$template);
+                  
                     $this->_helper->FlashMessenger->addMessage(array('message' => "Account successfully registered."));
                     $this->_redirect('user/user/login');
                 }
             } catch (Exception $e) {
-
             }
         }
         $this->view->form = $form;
-        $this->view->blockManager()->enable('partial/login.phtml');
+//        $this->view->blockManager()->enable('partial/login.phtml');
+        $this->view->blockManager()->disable('partial/primarymenu.phtml');
     }
 
     public function editDefaultsAction()
@@ -198,10 +230,11 @@ class WepController extends Zend_Controller_Action
                     $defaultFieldsValuesObj->setLanguage($data['default_language']);
                     $defaultFieldsValuesObj->setCurrency($data['default_currency']);
                     $defaultFieldsValuesObj->setReporting_org($data['default_reporting_org']);
+                    $defaultFieldsValuesObj->setHierarchy($data['default_hierarchy']);
                     $fieldString = serialize($defaultFieldsValuesObj);
                     $defaultValues['id'] = $model->getIdByField('default_field_values', 'account_id', $identity->account_id);
                     $defaultValues['object'] = $fieldString;
-//                    print_r($defaultValues);exit;
+                    //                    print_r($defaultValues);exit;
                     //                    $defaultValues['account_id'] = $identity->account_id;
                     $defaultValuesId = $model->updateRowsToTable('default_field_values', $defaultValues);
 
@@ -269,9 +302,39 @@ class WepController extends Zend_Controller_Action
         $identity = Zend_Auth::getInstance()->getIdentity();
         if ($_GET) {
             $activities_id = $this->getRequest()->getParam('activities_id');
+            $wepModel = new Model_Wep();
+            $exists = $wepModel->getRowById('iati_activities', 'id', $_GET['activities_id']);
+            if(!$exists){
+                $this->_helper->FlashMessenger->addMessage(array('message' => "Invalid Id."));
+
+                $this->_redirect('/user/user/login');
+            }
         }
-        $form = new Form_Wep_IatiActivity();
-        $form->add(null, $activities_id, $identity->account_id);
+        else{
+            $wepModel = new Model_Wep();
+            $activities = $wepModel->listAll('iati_activities', 'account_id', $identity->account_id);
+            $activities_id = $activities[0]['id'];
+        }
+        $model = new Model_Viewcode();
+
+        $rowSet = $model->getRowsByFields('default_field_values',
+                                            'account_id', $identity->account_id);
+        
+        $defaultValues = unserialize($rowSet[0]['object']);
+        $default = $defaultValues->getDefaultFields();
+        $wepModel = new Model_Wep();
+
+        $activity_info['@xml_lang'] = $wepModel->fetchValueById('Language',
+                                                                $default['language'], 'Code');
+        $activity_info['@default_currency'] = $wepModel->fetchValueById('Currency',
+                                                                $default['currency'], 'Code');
+        $activity_info['@hierarchy'] = $default['hierarchy'];
+        $activity_info['@last_updated_datetime'] = date('Y-m-d H:i:s');
+        $activity_info['activities_id'] = $activities_id;
+        $this->view->activity_info = $activity_info;
+
+        $form = new Form_Wep_IatiIdentifier('add', $identity->account_id);
+        $form->add('add', $identity->account_id);
 
         if ($_POST) {
             try {
@@ -279,13 +342,30 @@ class WepController extends Zend_Controller_Action
                 if (!$form->isValid($data)) {
                     $form->populate($data);
                 } else {
-                    $data1['@xml_lang'] = $this->_request->getParam('xml_lang');
-                    $data1['@default_currency'] = $this->_request->getParam('default_currency');
-                    $data1['@last_updated_datetime'] = date('Y-m-d H:i:s');
-                    $data1['activities_id'] = $this->_request->getParam('activities_id');
-                    //                    print_r($data1);exit();
+                    /*
+                     $data1['@xml_lang'] = $this->_request->getParam('xml_lang');
+                     $data1['@default_currency'] = $this->_request->getParam('default_currency');
+                     $data1['@last_updated_datetime'] = date('Y-m-d H:i:s');
+                     $data1['activities_id'] = $this->_request->getParam('activities_id');
+                     $wepModel = new Model_Wep();
+                     $activity_id = $wepModel->insertRowsToTable('iati_activity', $data1);
+                     */
+
                     $wepModel = new Model_Wep();
-                    $activity_id = $wepModel->insertRowsToTable('iati_activity', $data1);
+                    $activity_id = $wepModel->insertRowsToTable('iati_activity', $activity_info);
+
+                    $reporting_org = array();
+                    $reporting_org['@xml_lang'] = $this->getRequest()->getParam('reporting_org_xmllang');
+                    $reporting_org['@ref'] = $this->getRequest()->getParam('reporting_org_ref');
+                    $reporting_org['text'] = $this->getRequest()->getParam('reporting_org_text');
+                    $reporting_org['activity_id'] = $activity_id;
+                    $reproting_org_id = $wepModel->insertRowsToTable('iati_reporting_org', $reporting_org);
+
+                    $iati_identifier = array();
+                    $iati_identifier['text'] = $this->getRequest()->getParam('iati_identifier_text');
+                    $iati_identifier['activity_id'] = $activity_id;
+                    $iati_identifier_id = $wepModel->insertRowsToTable('iati_identifier', $iati_identifier);
+
                     $this->_helper->FlashMessenger->addMessage(array('message' => "Activity inserted."));
 
                     $this->_redirect('wep/edit-activity-elements?activity_id=' . $activity_id);
@@ -294,7 +374,9 @@ class WepController extends Zend_Controller_Action
                 print $e;
             }
         }
+        $this->view->activities_id = $activities_id;
         $this->view->form = $form;
+        //        $this->view->form = $form1;
         $this->view->blockManager()->enable('partial/dashboard.phtml');
     }
 
@@ -346,76 +428,79 @@ class WepController extends Zend_Controller_Action
                 //@todo
             }
             $activity = $activity_info[0];
-            $activity['@xml_lang'] = $model->fetchValueById('Language', 
-                                                    $activity_info[0]['@xml_lang'], 'Code');
-            $activity['@default_currency'] = $model->fetchValueById('Currency', 
-                                                    $activity_info[0]['@default_currency'], 'Code');
+            $activity['@xml_lang'] = $model->fetchValueById('Language',
+            $activity_info[0]['@xml_lang'], 'Code');
+            $activity['@default_currency'] = $model->fetchValueById('Currency',
+            $activity_info[0]['@default_currency'], 'Code');
         }
         $this->view->activityInfo = $activity;
         $initial = $this->getInitialValues($activity_id, $class);
         $classname = 'Iati_WEP_Activity_'. $class . 'Factory';
         if(isset($class)){
             try{
-            if($_POST){
-                $flatArray = $this->flatArray($_POST);
-                
-//                print_r($flatArray);exit;
-                $activity = new Iati_WEP_Activity_Elements_Activity();
-                $activity->setAttributes(array('activity_id' => $activity_id));
-                $registryTree = Iati_WEP_TreeRegistry::getInstance();
-                $registryTree->addNode($activity);
-                $factory = new $classname ();
-                $factory->setInitialValues($initial);
-                $tree = $factory->factory($class, $flatArray);
-                $factory->validateAll($activity);
-                
-                if($factory->hasError()){
-                    $formHelper = new Iati_WEP_FormHelper();
-                    $a = $formHelper->getForm();
+                if($_POST){
+                    $flatArray = $this->flatArray($_POST);
+
+                    //                print_r($flatArray);exit;
+                    $activity = new Iati_WEP_Activity_Elements_Activity();
+                    $activity->setAttributes(array('activity_id' => $activity_id));
+                    $registryTree = Iati_WEP_TreeRegistry::getInstance();
+                    $registryTree->addNode($activity);
+                    $factory = new $classname ();
+                    $factory->setInitialValues($initial);
+                    $tree = $factory->factory($class, $flatArray);
+                    $factory->validateAll($activity);
+
+                    if($factory->hasError()){
+                        $formHelper = new Iati_WEP_FormHelper();
+                        $a = $formHelper->getForm();
+                    }
+                    else{
+
+                        $elementClassName = 'Iati_Activity_Element_Activity';
+                        $element = new $elementClassName ();
+                        $data = $activity->getCleanedData();
+
+                        $element->setAttribs($data);
+                        $factory = new $classname ();
+                        $activityTree = $factory->cleanData($activity, $element);
+                         
+
+                        $dbLayer = new Iati_WEP_DbLayer();
+                        $dbLayer->save($activityTree);
+                        
+                        $camelCaseToSeperator = new Zend_Filter_Word_CamelCaseToSeparator(" ");
+                        $title = $camelCaseToSeperator->filter($class);
+                        
+                        $this->_helper->FlashMessenger
+                        ->addMessage(array(
+                                                    'message' => "$title successfully inserted."
+                        ));
+                        $this->_redirect("/wep/edit-activity-elements/?activity_id=".$activity_id);
+
+                    }
+                    /*
+                     $formHelper = new Iati_WEP_FormHelper();
+                     $a = $formHelper->getForm();*/
                 }
                 else{
-                    
-                    $elementClassName = 'Iati_Activity_Element_Activity';
-                    $element = new $elementClassName ();
-                    $data = $activity->getCleanedData();
-                    
-                    $element->setAttribs($data);
-                    $factory = new $classname ();
-                    $activityTree = $factory->cleanData($activity, $element);
-                     
-//                    print_r($activityTree);exit;
-                    
-                    $dbLayer = new Iati_WEP_DbLayer();
-                    $dbLayer->save($activityTree);
-                    $this->_helper->FlashMessenger
-                                ->addMessage(array(
-                                                    'message' => "$class successfully inserted."
-                                                ));
-                    $this->_redirect("/wep/edit-activity-elements/?activity_id=".$activity_id);
-                
+                    $activity = new Iati_WEP_Activity_Elements_Activity();
+                    $activity->setAttributes(array('activity_id' => $activity_id));
+
+                    $registryTree = Iati_WEP_TreeRegistry::getInstance();
+                    $registryTree->addNode($activity);
+
+                    $factory = new $classname();
+                    $factory->setInitialValues($initial);
+                    $tree = $factory->factory($class);
+
+                    $formHelper = new Iati_WEP_FormHelper();
+                    $a = $formHelper->getForm();
+
                 }
-                /*
-                $formHelper = new Iati_WEP_FormHelper();
-                $a = $formHelper->getForm();*/
-            }
-            else{
-                $activity = new Iati_WEP_Activity_Elements_Activity();
-                $activity->setAttributes(array('activity_id' => $activity_id));
-                
-                $registryTree = Iati_WEP_TreeRegistry::getInstance();
-                $registryTree->addNode($activity);
-                
-                $factory = new $classname();
-                $factory->setInitialValues($initial);
-                $tree = $factory->factory($class);
-
-                $formHelper = new Iati_WEP_FormHelper();
-                $a = $formHelper->getForm();
-
-            }
             }
             catch (Exception $e){
-                print_r($e);exit;
+                print_r($e->getMessage());exit;
             }
         }
         $this->_helper->layout()->setLayout('layout_wep');
@@ -427,13 +512,23 @@ class WepController extends Zend_Controller_Action
 
     public function editActivityElementsAction()
     {
+        $this->view->blockManager()->enable('partial/activitymenu.phtml');
+        $this->view->blockManager()->enable('partial/primarymenu.phtml');
         $identity = Zend_Auth::getInstance()->getIdentity();
         $model = new Model_Wep();
         $id = null;
         if ($_GET['class']) {
             $class = $this->_request->getParam('class');
+            $camelCaseToSeperator = new Zend_Filter_Word_CamelCaseToSeparator(" ");
+            $title = $camelCaseToSeperator->filter($class);
         }
         if ($_GET['activity_id']) {
+            $exists = $model->getRowById('iati_activity', 'id', $_GET['activity_id']);
+            if(!$exists){
+                $this->_helper->FlashMessenger->addMessage(array('message' => "Activity does not exist."));
+
+                $this->_redirect('/user/user/login');
+            }
             $activity_id = $this->_request->getParam('activity_id');
             $activity_info = $model->listAll('iati_activity', 'id', $activity_id);
             if (empty($activity_info)) {
@@ -443,11 +538,13 @@ class WepController extends Zend_Controller_Action
             $activity['@xml_lang'] = $model->fetchValueById('Language', $activity_info[0]['@xml_lang'], 'Code');
 
             $activity['@default_currency'] = $model->fetchValueById('Currency', $activity_info[0]['@default_currency'], 'Code');
+
         }
         $this->view->activityInfo = $activity;
         $initial = $this->getInitialValues($activity_id, $class);
         $classname = 'Iati_WEP_Activity_'. $class . 'Factory';
         if(isset($class)){
+            
             if($_POST){
                 $flatArray = $this->flatArray($_POST);
                 $activity = new Iati_WEP_Activity_Elements_Activity();
@@ -455,12 +552,12 @@ class WepController extends Zend_Controller_Action
                 $registryTree = Iati_WEP_TreeRegistry::getInstance();
                 $registryTree->addNode($activity);
                 $factory = new $classname ();
-                
+
                 $factory->setInitialValues($initial);
                 $tree = $factory->factory($class, $flatArray);
-                
+
                 $factory->validateAll($activity);
-                
+
                 if($factory->hasError()){
                     $formHelper = new Iati_WEP_FormHelper();
                     $a = $formHelper->getForm();
@@ -469,15 +566,15 @@ class WepController extends Zend_Controller_Action
                     $elementClassName = 'Iati_Activity_Element_Activity';
                     $element = new $elementClassName ();
                     $data = $activity->getCleanedData();
-                    
+
                     $element->setAttribs($data);
                     $factory = new $classname ();
                     $activityTree = $factory->cleanData($activity, $element);
-                    
+// print_r($activityTree);exit;
                     $dbLayer = new Iati_WEP_DbLayer();
                     $dbLayer->save($activityTree);
-                    
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "$class updated successfully."));
+
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "$title updated successfully."));
                     $this->_redirect("wep/edit-activity-elements/?activity_id=".$activity_id);
                 }
             }
@@ -487,24 +584,24 @@ class WepController extends Zend_Controller_Action
                 $elements = $rowSet->getElements();
                 $attributes = $elements[0]->getAttribs();
                 if(empty($attributes)){
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "$class not found for this activity. Please add $class"));
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "$title not found for this activity. Please add $title."));
                     $this->_redirect("wep/add-activity-elements/?activity_id=".$activity_id."&class=".$class);
                 }
-                
+
                 $registryTree = Iati_WEP_TreeRegistry::getInstance();
-                
+
                 $factory = new $classname();
                 $factory->setInitialValues($initial);
                 $tree = $factory->extractData($rowSet, $activity_id);
-                
+
                 $formHelper = new Iati_WEP_FormHelper();
                 $a = $formHelper->getForm();
 
             }
         }
         $this->_helper->layout()->setLayout('layout_wep');
-        $this->view->blockManager()->enable('partial/dashboard.phtml');
-        $this->view->blockManager()->enable('partial/activitymenu.phtml');
+        //        $this->view->blockManager()->enable('partial/dashboard.phtml');
+
          
         $this->view->form = $a;
     }
@@ -513,90 +610,207 @@ class WepController extends Zend_Controller_Action
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
         $initial = $this->getInitialValues($activity_id, $class);
-       if($_GET['classname'])
-       {
-           $class = $_GET['classname'];
-       }
-       $parents = array();
-       $items = array();
-       $parentExp = "/^parent/";
-       $itemExp = "/^item/";
-       foreach($_GET as $key => $eachValue){
-           if(preg_match($parentExp, $key)){
-               $a = explode('parent', $key);
-               $parents[$a[1]] = $eachValue;
-           }
-           if(preg_match($itemExp, $key)){
-               $a = explode('item', $key);
-               $items[$a[1]] = $eachValue;
-           }
-       }
-       
-//       print_r($_GET);exit;
-       
-       $class1 = (isset($parents[0]))?$parents[0]:$class;
-       
-       $classname = 'Iati_WEP_Activity_' . $class1 . 'Factory';
-       $factory = new $classname;
-       $factory->setInitialValues($initial);
-       $tree = $factory->factory($class);
-    
-       array_push($parents, $class);
+        if($_GET['classname'])
+        {
+            $class = $_GET['classname'];
+        }
+        $parents = array();
+        $items = array();
+        $parentExp = "/^parent/";
+        $itemExp = "/^item/";
+        foreach($_GET as $key => $eachValue){
+            if(preg_match($parentExp, $key)){
+                $a = explode('parent', $key);
+                $parents[$a[1]] = $eachValue;
+            }
+            if(preg_match($itemExp, $key)){
+                $a = explode('item', $key);
+                $items[$a[1]] = $eachValue;
+            }
+        }
+         
+        //       print_r($_GET);exit;
+         
+        $class1 = (isset($parents[0]))?$parents[0]:$class;
+         
+        $classname = 'Iati_WEP_Activity_' . $class1 . 'Factory';
+        $factory = new $classname;
+        $factory->setInitialValues($initial);
+        $tree = $factory->factory($class);
+
+        array_push($parents, $class);
         $formHelper = new Iati_WEP_FormHelper();
         $a = $formHelper->getFormWithAjax($parents, $items);
         print $a;exit;
-       $this->_helper->layout->disableLayout();
-//     $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+        //     $this->_helper->viewRenderer->setNoRender(true);
     }
-    
+
     public function viewActivitiesAction()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
         if ($_GET) {
             $activities_id = $this->getRequest()->getParam('activities_id');
             $wepModel = new Model_Wep();
-            $activities = $wepModel->listAll('iati_activities', 'id', $activities_id);
+            $exists = $wepModel->getRowById('iati_activities', 'id', $_GET['activities_id']);
+            if(!$exists){
+                $this->_helper->FlashMessenger->addMessage(array('message' => "Invalid Id."));
 
-            $this->view->activities_info = $activities_info[0];
-
-            $activityArray = $wepModel->listAll('iati_activity', 'activities_id', $activities_id);
-
-            //foreach activity get activity title
-            $wepModel = new Model_Wep();
-            $titleArray = array();
-            if ($activityArray) {
-                $i = 0;
-                foreach($activityArray as $key=>$activity){
-
-                    $title = $wepModel->listAll('iati_title', 'activity_id', $activity['id']);
-                    //                    print_r($title[0]['text']);exit;
-                    $activity_array[$i]['title'] = ($title[0]['text'])?$title[0]['text']:'No title';
-                    $activity_array[$i]['last_updated_datetime'] = $activity['@last_updated_datetime'];
-                    $activity_array[$i]['id'] = $activity['id'];
-                    $i++;
-                }
+                $this->_redirect('/user/user/login');
             }
-
-            $this->view->blockManager()->enable('partial/dashboard.phtml');
-            $this->view->activity_array = $activity_array;
         }
+        else{
+            $wepModel = new Model_Wep();
+            $activities = $wepModel->listAll('iati_activities', 'account_id', $identity->account_id);
+            $activities_id = $activities[0]['id'];
+        }
+        $wepModel = new Model_Wep();
+        //            $activities = $wepModel->listAll('iati_activities', 'id', $activities_id);
+
+        //            $this->view->activities_info = $activities_info[0];
+
+        $this->view->activities_id = $activities_id;
+        $activityArray = $wepModel->listAll('iati_activity', 'activities_id', $activities_id);
+
+        //foreach activity get activity title
+        $wepModel = new Model_Wep();
+        $titleArray = array();
+        if ($activityArray) {
+            $i = 0;
+            foreach($activityArray as $key=>$activity){
+
+                $title = $wepModel->listAll('iati_title', 'activity_id', $activity['id']);
+                $identifier = $wepModel->listAll('iati_identifier', 'activity_id', $activity['id']);
+                //                    print_r($title[0]['text']);exit;
+                $activity_array[$i]['title'] = ($title[0]['text'])?$title[0]['text']:'No title';
+                $activity_array[$i]['identifier'] = ($identifier[0]['text'])?$identifier[0]['text']:'No Iati Identifier';
+                $activity_array[$i]['last_updated_datetime'] = $activity['@last_updated_datetime'];
+                $activity_array[$i]['id'] = $activity['id'];
+                $i++;
+            }
+        }
+
+        $this->view->blockManager()->enable('partial/dashboard.phtml');
+        $this->view->activity_array = $activity_array;
+
     }
+
 
     public function editActivityAction()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
         if ($_GET) {
-            $activity_id = $this->getRequest()->getParam('activity_id');
-            
             $wepModel = new Model_Wep();
-            
+            if(isset($_GET['activities_id'])){
+                $exists = $wepModel->getRowById('iati_activities', 'id', $_GET['activities_id']);
+                if(!$exists){
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "Activities does not exist."));
+
+                    $this->_redirect('/user/user/login');
+                }
+
+                $activities_id = $this->getRequest()->getParam('activities_id');
+                $rowSet = $wepModel->getRowsByFields('default_field_values', 'account_id', $identity->account_id);
+                $defaultValues = unserialize($rowSet[0]['object']);
+                $default = $defaultValues->getDefaultFields();
+                //            print_r($default);exit;
+                $activity['xml_lang'] = $default['language'];
+                $activity['default_currency'] = $default['currency'];
+                $activity['hierarchy'] = $default['hierarchy'];
+                $form = new Form_Wep_IatiActivity();
+                $form->add('add', $identity->account_id);
+
+            }
+            if(isset($_GET['activity_id'])){
+                $exists = $wepModel->getRowById('iati_activity', 'id', $_GET['activity_id']);
+                if(!$exists){
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "Activity does not exist."));
+
+                    $this->_redirect('/user/user/login');
+                }
+                $activity_id = $this->getRequest()->getParam('activity_id');
+                //                print $activity_id;exit;
+                $rowSet = $wepModel->getRowsByFields('iati_activity', 'id', $activity_id);
+                $activity['xml_lang'] = $rowSet[0]['@xml_lang'];
+                $activity['default_currency'] = $rowSet[0]['@currency'];
+                $activity['hierarchy'] = $rowSet[0]['@hierarchy'];
+                $activity['activities_id'] = $rowSet[0]['activities_id'];
+                $form = new Form_Wep_EditIatiActivity();
+                $form->edit($identity->account_id);
+            }
+
+            if ($this->getRequest()->isPost()) {
+                $formData = $this->getRequest()->getPost();
+                if (!$form->isValid($formData)) {
+
+                    $form->populate($formData);
+                } else {
+
+                    $data['@xml_lang'] = $formData['xml_lang'];
+                    $data['@default_currency'] = $formData['default_currency'];
+                    $data['@hierarchy'] = $formData['hierarchy'];
+                    $data['@last_updated_datetime'] = date('Y-m-d H:i:s');
+
+
+                    if(isset($_GET['activities_id'])){
+                        $data['activities_id'] = $activities_id;
+                        $wepModel = new Model_Wep();
+                        $activity_id = $wepModel->insertRowsToTable('iati_activity', $data);
+
+                        $reporting_org = array();
+                        $reporting_org['@xml_lang'] = $this->getRequest()->getParam('reporting_org_xmllang');
+                        $reporting_org['@ref'] = $this->getRequest()->getParam('reporting_org_ref');
+                        $reporting_org['text'] = $this->getRequest()->getParam('reporting_org_text');
+                        $reporting_org['activity_id'] = $activity_id;
+                        $reproting_org_id = $wepModel->insertRowsToTable('iati_reporting_org', $reporting_org);
+
+                        $iati_identifier = array();
+                        $iati_identifier['text'] = $this->getRequest()->getParam('iati_identifier_text');
+                        $iati_identifier['activity_id'] = $activity_id;
+                        $iati_identifier_id = $wepModel->insertRowsToTable('iati_identifier', $iati_identifier);
+
+                    }
+                    if(isset($_GET['activity_id'])){
+                        $data['activities_id'] = $rowSet[0]['activities_id'];
+                        $data['id'] = $activity_id;
+                        $wepModel = new Model_Wep();
+                        $result = $wepModel->updateRowsToTable('iati_activity', $data);
+                        if($result){
+
+                        }
+                    }
+
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "Activity overrided."));
+
+                    $this->_redirect('wep/edit-activity-elements?activity_id=' . $activity_id);
+                }//end of inner if
+            } else {
+
+                $form->populate($activity);
+
+            }
+
+            $this->view->form = $form;
+
+        }
+
+        $this->view->blockManager()->enable('partial/dashboard.phtml');
+    }
+    public function overrideActivityAction()
+    {
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        if ($_GET) {
+            $activity_id = $this->getRequest()->getParam('activity_id');
+
+            $wepModel = new Model_Wep();
+
             $activity_info = $wepModel->listAll('iati_activity', 'id', $activity_id);
             $activity['xml_lang'] = $activity_info[0]['@xml_lang'];
             $activity['default_currency'] = $activity_info[0]['@default_currency'];
             $activity['hierarchy'] = $activity_info[0]['@hierarchy'];
             $activity['last_updated_datetime'] = $activity_info[0]['@last_updated_datetime'];
             $activity['activities_id'] = $activity_info[0]['activities_id'];
-            
+
             $form = new Form_Wep_IatiActivity();
             $form->add('edit', $activity_info[0]['activities_id'], $identity->account_id);
 
@@ -606,7 +820,7 @@ class WepController extends Zend_Controller_Action
 
                     $form->populate($formData);
                 } else {
-                    
+
                     $data['id'] = $activity_info[0]['id'];
                     $data['@xml_lang'] = $formData['xml_lang'];
                     $data['@default_currency'] = $formData['default_currency'];
@@ -618,9 +832,9 @@ class WepController extends Zend_Controller_Action
                     $this->_redirect('wep/view-activities/?activities_id=' . $data['activities_id']);
                 }//end of inner if
             } else {
-                
+
                 $form->populate($activity);
-                
+
             }
 
             $this->view->form = $form;
@@ -631,8 +845,8 @@ class WepController extends Zend_Controller_Action
 
     public function removeElementsAction()
     {
-        
-       $this->_helper->layout->disableLayout();
+
+        $this->_helper->layout->disableLayout();
         if($this->_request->isGet()){
             try{
                 //                print_r($this->_request->getParam('class'));exit;
@@ -644,35 +858,35 @@ class WepController extends Zend_Controller_Action
                 $model->deleteRowById($id, $class);
                 print 'success';
                 exit();*/
-                
-               if($_GET['classname'])
-               {
-                   $class = $_GET['classname'];
-               }
-               if($_GET['id']){
-                   $id = $_GET['id'];
-               }
-               $parents = array();
-               $items = array();
-               $parentExp = "/^parent/";
-               foreach($_GET as $key => $eachValue){
-                   if(preg_match($parentExp, $key)){
-                       $a = explode('parent', $key);
-                       $parents[$a[1]] = $eachValue;
-                   }
-               }
-               
-               $class1 = (isset($parents[0]))?$parents[0]. "_" . $class:$class;
-//               $className = 'Activity';
+
+                if($_GET['classname'])
+                {
+                    $class = $_GET['classname'];
+                }
+                if($_GET['id']){
+                    $id = $_GET['id'];
+                }
+                $parents = array();
+                $items = array();
+                $parentExp = "/^parent/";
+                foreach($_GET as $key => $eachValue){
+                    if(preg_match($parentExp, $key)){
+                        $a = explode('parent', $key);
+                        $parents[$a[1]] = $eachValue;
+                    }
+                }
+                 
+                $class1 = (isset($parents[0]))?$parents[0]. "_" . $class:$class;
+                //               $className = 'Activity';
                 $fieldName = 'id';
                 $value = $id;
                 $dbLayer = new Iati_WEP_DbLayer();
                 $del = $dbLayer->deleteRows($class1, $fieldName, $value);
-               print 'success';
+                print 'success';
                 exit();
-               
+                 
             } catch (Exception $e) {
-                
+
                 print 'Error occured while deleting.';
                 exit();
             }
@@ -683,10 +897,10 @@ class WepController extends Zend_Controller_Action
         }
         else{
         }
-        
+
     }
 
-    
+
 
     public function deleteAction()
     {
@@ -704,28 +918,28 @@ class WepController extends Zend_Controller_Action
             $this->_redirect('wep/list-activities?account_id=' . $identity->account_id . '&type=iati_activities');
         }
     }
-    
+
     public function deleteActivityAction()
     {
         try{
-             $activity_id = (isset($_GET['activity_id']))?$_GET['activity_id']:NULL;
+            $activity_id = (isset($_GET['activity_id']))?$_GET['activity_id']:NULL;
             $className = (isset($_GET['classname']))?$_GET['classname']:NULL;
-            
+
             $dbLayer = new Iati_WEP_DbLayer();
             $del = $dbLayer->deleteRows($className, 'id', $activity_id);
-            
+
             $identity = Zend_Auth::getInstance()->getIdentity();
             $model = new Model_Wep();
-    
+
             $activities_id = $model->listAll('iati_activities', 'account_id', $identity->account_id);
-            
+
             $activities_id = $activities_id[0]['id'];
-            
+
             $this->_helper->FlashMessenger->addMessage(array('message' => "Activity Deleted."));
             $this->_redirect('wep/view-activities/?activities_id='.$activities_id);
         }
         catch(Exception $e){
-            
+
         }
     }
 
@@ -748,148 +962,148 @@ class WepController extends Zend_Controller_Action
         $this->_helper->layout()->setLayout('layout_wep');
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
     }
-    
 
-function flatArray ($array) {
-    $result = array();
-    
-    foreach ($array as $key => $val) {
-        array_push($result, $this->recurArray($key, $val, array()));
-    }
-    
-//    print_r($result);
-    
-    $result_depths = array();
-    foreach($result as $array) {
-        $depth = (is_array($array)) ? $this->array_depth($array) : 1;
-        array_push($result_depths, $depth);
-    }
-    
-    $max_depth = max($result_depths);
-    
-    $final = $this->combineAll($result, $max_depth);
-    
-//    print_r($final);exit;
-    
-    //print_r($final['0']);
-    foreach($final as $key => $val) {
-        if (!is_array($val)) {
-            continue;
+
+    function flatArray ($array) {
+        $result = array();
+
+        foreach ($array as $key => $val) {
+            array_push($result, $this->recurArray($key, $val, array()));
         }
-        
+
+        //    print_r($result);
+
         $result_depths = array();
-        foreach($final[$key] as $array) {
+        foreach($result as $array) {
             $depth = (is_array($array)) ? $this->array_depth($array) : 1;
             array_push($result_depths, $depth);
         }
-        $max_depth = max($result_depths);
-        $final[$key] = $this->combineAll($final[$key], $max_depth);
-        
-    foreach($final[$key] as $k => $v) {
-        if (!is_array($v)) {
-            continue;
-        }
-        
-        $result_depths = array();
-        foreach($final[$key][$k] as $array) {
-            $depth = (is_array($array)) ? $this->array_depth($array) : 1;
-            array_push($result_depths, $depth);
-        }
-        $max_depth = max($result_depths);
-        $final[$key][$k] = $this->combineAll($final[$key][$k], $max_depth);
-       
-    }
-       
-    }
-//    print_r($final);exit;
-    
-    
-    return $final;
-//    print_r($final);
-}
 
-function combineAll($array, $max_depth=4, $depth=1, $result=array()) {
-    $process = array();
-    foreach($array as $k => $a) {
-        if (is_array($a)) {
-            if ($this->array_depth($a) == $depth) {
-                array_push($process, $a);
+        $max_depth = max($result_depths);
+
+        $final = $this->combineAll($result, $max_depth);
+
+        //    print_r($final);exit;
+
+        //print_r($final['0']);
+        foreach($final as $key => $val) {
+            if (!is_array($val)) {
+                continue;
+            }
+
+            $result_depths = array();
+            foreach($final[$key] as $array) {
+                $depth = (is_array($array)) ? $this->array_depth($array) : 1;
+                array_push($result_depths, $depth);
+            }
+            $max_depth = max($result_depths);
+            $final[$key] = $this->combineAll($final[$key], $max_depth);
+
+            foreach($final[$key] as $k => $v) {
+                if (!is_array($v)) {
+                    continue;
+                }
+
+                $result_depths = array();
+                foreach($final[$key][$k] as $array) {
+                    $depth = (is_array($array)) ? $this->array_depth($array) : 1;
+                    array_push($result_depths, $depth);
+                }
+                $max_depth = max($result_depths);
+                $final[$key][$k] = $this->combineAll($final[$key][$k], $max_depth);
+                 
+            }
+             
+        }
+        //    print_r($final);exit;
+
+
+        return $final;
+        //    print_r($final);
+    }
+
+    function combineAll($array, $max_depth=4, $depth=1, $result=array()) {
+        $process = array();
+        foreach($array as $k => $a) {
+            if (is_array($a)) {
+                if ($this->array_depth($a) == $depth) {
+                    array_push($process, $a);
+                }
+            }
+            else {
+                $result[$k] = $a;
+            }
+        }
+
+        if ($depth > $max_depth) {
+            return $result;
+        }
+
+        while (!empty($process)) {
+            $arr = array_shift($process);
+
+            foreach ($arr as $key => $val) {
+                if (isset($result[$key]) && is_array($result[$key])) {
+                    //print_r($result[$key]);
+                    /*
+                    if (sizeof($val) < 2) {
+                    list($k, $v) = each($val);
+                    if (is_array($result[$key][$k])) {
+                    array_push($result[$key][$k], $v);
+                    }
+                    else {
+                    $result[$key][$k] = $v;
+                    }
+                    }
+                    else {*/
+                    array_push($result[$key], $val);
+                    //}
+                }
+                else {
+                    $result[$key] = $val;
+                }
+            }
+        }
+
+        return $this->combineAll($array, $max_depth, ++$depth, $result);
+    }
+
+    /**
+     * Actual recursion happens here
+     *
+     */
+    function recurArray ($key, $arr, $array) {
+
+        if (is_array($arr)) {
+            foreach ($arr as $k => $v) {
+                $array[$k] = $this->recurArray($key, $v, array());
             }
         }
         else {
-            $result[$k] = $a;
+            return array($key => $arr);
         }
+
+        return $array;
     }
-    
-    if ($depth > $max_depth) {
-        return $result;
-    }
-    
-    while (!empty($process)) {
-        $arr = array_shift($process);
-        
-        foreach ($arr as $key => $val) {
-            if (isset($result[$key]) && is_array($result[$key])) {
-                //print_r($result[$key]);
-                /*
-                if (sizeof($val) < 2) {
-                    list($k, $v) = each($val);
-                    if (is_array($result[$key][$k])) {
-                        array_push($result[$key][$k], $v);
-                    }
-                    else {
-                        $result[$key][$k] = $v;
-                    }
+
+    /**
+     *
+     * http://stackoverflow.com/questions/262891/
+     *    is-there-a-way-to-find-how-how-deep-a-php-array-is
+     */
+    function array_depth ($array) {
+        $max_depth = 1;
+
+        foreach ($array as $value) {
+            if (is_array($value)) {
+                $depth = $this->array_depth($value) + 1;
+
+                if ($depth > $max_depth) {
+                    $max_depth = $depth;
                 }
-                else {*/
-                    array_push($result[$key], $val);
-                //}
-            }
-            else {
-                $result[$key] = $val;
             }
         }
+        return $max_depth;
     }
-    
-    return $this->combineAll($array, $max_depth, ++$depth, $result);
-}
-
-/**
- * Actual recursion happens here
- *
- */
-function recurArray ($key, $arr, $array) {
-    
-    if (is_array($arr)) {
-        foreach ($arr as $k => $v) {
-            $array[$k] = $this->recurArray($key, $v, array());
-        }
-    }
-    else {
-        return array($key => $arr);
-    }
-    
-    return $array;
-}
-
-/**
- *
- * http://stackoverflow.com/questions/262891/
- *    is-there-a-way-to-find-how-how-deep-a-php-array-is
- */
-function array_depth ($array) {
-    $max_depth = 1;
-    
-    foreach ($array as $value) {
-        if (is_array($value)) {
-            $depth = $this->array_depth($value) + 1;
-            
-            if ($depth > $max_depth) {
-                $max_depth = $depth;
-            }
-        }
-    }
-    return $max_depth;
-}
 
 }

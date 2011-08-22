@@ -40,6 +40,7 @@ class Iati_WEP_Activity_Elements_Location_Description extends Iati_WEP_Activity_
     protected $error = array();
     protected $hasError = false;
     protected $multiple = true;
+    protected $required = false;
 
     public function __construct()
     {
@@ -87,7 +88,8 @@ class Iati_WEP_Activity_Elements_Location_Description extends Iati_WEP_Activity_
             
             if(empty($this->validators[$key])){ continue; }
             
-            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData))) {  continue; }
+            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData)) || 
+            (empty($this->required))) {  continue; }
             
             $string = "Zend_Validate_". $this->validators[$key];
             $validator = new $string();

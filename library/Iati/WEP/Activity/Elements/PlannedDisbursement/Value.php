@@ -11,7 +11,7 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement_Value
     protected $className = 'Value';
     
     protected $validators = array(
-                                'text' => 'NotEmpty',
+                                'value_date' => 'NotEmpty',
                             );
                             
     protected $attributes_html = array(
@@ -46,6 +46,7 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement_Value
     protected $error = array();
     protected $hasError = false;
     protected $multiple = false;
+    protected $required = true;
 
     public function __construct()
     {
@@ -74,6 +75,11 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement_Value
         return $this->options[$name];
     }
     
+    public function isRequired()
+    {
+        return $this->required;
+    }
+    
     public function getObjectId()
     {
         return $this->objectId;
@@ -94,7 +100,8 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement_Value
             
             if(empty($this->validators[$key])){ continue; }
             
-            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData))) {  continue; }
+            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData)) || 
+            (empty($this->required))) {  continue; }
             
             $string = "Zend_Validate_". $this->validators[$key];
             $validator = new $string();
@@ -126,3 +133,4 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement_Value
 
     
 }
+    

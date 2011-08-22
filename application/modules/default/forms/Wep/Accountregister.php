@@ -7,16 +7,16 @@ class Form_Wep_Accountregister extends App_Form
 
         $form['organisation_name'] = new Zend_Form_Element_Text('organisation_name');
         $form['organisation_name']->setLabel('Name')
-        ->setRequired();
+        ->setRequired()->setAttrib('class', 'form-text');
 
         $form['organisation_address'] = new Zend_Form_Element_Textarea('organisation_address');
         $form['organisation_address']->setLabel('Address')->setAttrib('rows', '4')
-        ->setRequired();
+        ->setRequired()->setAttrib('class', 'form-textarea');
 
         $form['organisation_username'] = new Zend_Form_Element_Text('organisation_username');
         $form['organisation_username']->setLabel("Suffix <a href='#' id='suffix'>?</a>")->setRequired()
         ->setDescription('<div class="popup">Suffix is a unique text and it will be prepended to your user account. For example: If you type IATI in Suffix, your username will be IATI_admin.
-        </div>')
+        </div>')->setAttrib('class', 'form-text')
         ->setDecorators(array(
                         'ViewHelper',
                         array('Description', array('escape' => false, 'tag' => false)),
@@ -26,28 +26,30 @@ class Form_Wep_Accountregister extends App_Form
                         ));
 
         $form['first_name'] = new Zend_Form_Element_Text('first_name');
-        $form['first_name']->setLabel('First Name')->setRequired();
+        $form['first_name']->setLabel('First Name')->setRequired()->setAttrib('class', 'form-text');
 
         $form['middle_name'] = new Zend_Form_Element_Text('middle_name');
-        $form['middle_name']->setLabel('Middle Name');
+        $form['middle_name']->setLabel('Middle Name')->setAttrib('class', 'form-text');
 
         $form['last_name'] = new Zend_Form_Element_Text('last_name');
-        $form['last_name']->setLabel('Last Name')->setRequired();
+        $form['last_name']->setLabel('Last Name')->setRequired()->setAttrib('class', 'form-text');
 
         /*$form['admin_username'] = new Zend_Form_Element_Text('admin_username');
         $form['admin_username']->setLabel('Username')->setRequired();*/
 
         $passwordConfirmation = new App_PasswordConfirmation();
         $form['password'] = new Zend_Form_Element_Password('password');
-        $form['password']->setLabel('Password')->setRequired()->addValidator($passwordConfirmation);
+        $form['password']->setLabel('Password')->setRequired()->addValidator($passwordConfirmation)
+        ->setAttrib('class', 'form-text');
 
         $form['confirmpassword'] = new Zend_Form_Element_Password('confirmpassword');
         $form['confirmpassword']->setLabel('Confirm Password')->setAttrib('class', 'input_box confirmpassword');
-        $form['confirmpassword']->setRequired()->addValidator($passwordConfirmation);
+        $form['confirmpassword']->setRequired()
+        ->setAttrib('class', 'form-text')->addValidator($passwordConfirmation);
         
         $form['email'] = new Zend_Form_Element_Text('email');
         $form['email']->setLabel('Email')
-        ->addValidator('emailAddress', false)
+        ->addValidator('emailAddress', false)->setAttrib('class', 'form-text')
         ->addFilter('stringTrim')
         ->setRequired();
         
@@ -58,7 +60,8 @@ class Form_Wep_Accountregister extends App_Form
 //        print_r($selectedCurrency[0]);exit();
         $form['default_currency'] = new Zend_Form_Element_Select('default_currency');
         $form['default_currency']->setRequired()->setLabel('Default Currency')->addMultiOption('', 'Select anyone');
-        $form['default_currency']->setValue($selectedCurrency[0]['id']);
+        $form['default_currency']->setValue($selectedCurrency[0]['id'])
+        ->setAttrib('class', 'form-select');
         foreach($currency as $key => $eachCurrency){
             $form['default_currency']->addMultiOption($key, $eachCurrency);
         }
@@ -68,7 +71,7 @@ class Form_Wep_Accountregister extends App_Form
 //        print_r($selectedLanguage);exit;
         $form['default_language'] = new Zend_Form_Element_Select('default_language');
         $form['default_language']->setRequired()->setLabel('Default Language')->addMultiOption('', 'Select anyone');
-        $form['default_language']->setValue($selectedLanguage[0]['id']);
+        $form['default_language']->setValue($selectedLanguage[0]['id'])->setAttrib('class', 'form-select');
         foreach($language as $key => $eachLanguage){
             $form['default_language']->addMultiOption($key, $eachLanguage);
         }
@@ -76,31 +79,40 @@ class Form_Wep_Accountregister extends App_Form
         $form['default_reporting_org'] = new Zend_Form_Element_Text('default_reporting_org');
         $form['default_reporting_org']->setLabel('Default Reporting Organisation Name')
                                 ->setValue($defaultFields['reporting_org'])
-                                ->setRequired();
-        
-        $form['default_fields'] = new Zend_Form_Element_MultiCheckbox('default_fields');
-        foreach($defaultFields['fields'] as $key=>$eachDefault){
-            $form['default_fields']->addMultiOption($key, ucwords(str_replace("_", " ", $key)));
-            if($eachDefault == '1'){
-                $checked[] = $key;
-            }
-        }
-        $form['default_fields']->setValue($checked);
+                                ->setRequired()->setAttrib('class', 'form-text');
+
+        $form['default_hierarchy'] = new Zend_Form_Element_Text('default_hierarchy');
+        $form['default_hierarchy']->setLabel('Default Hierarchy')
+                                ->setValue($defaultFields['hierarchy'])->setAttrib('class', 'form-text');
         
         //@todo reCaptcha
         
                                 
         $signup = new Zend_Form_Element_Submit('Signup');
-        $signup->setValue('signup')->setAttrib('id', 'Submit');
+        $signup->setValue('signup')->setAttrib('class', 'form-submit');
                                          
         $this->addElements($form);
         
+        foreach($defaultFields['fields'] as $key=>$eachDefault){
+            $default_fields[$key] =  ucwords(str_replace("_", " ", $key));
+            
+            }
+        $this->addElement('multiCheckbox', 'default_fields', array(
+                        'disableLoadDefaultDecorators' => true,
+                        'separator'    => '&nbsp;',
+                        'multiOptions' => $default_fields,
+                        'decorators'   => array(
+                                    'ViewHelper',
+                                    'Errors',
+                                array('HtmlTag', array('tag' => 'p'))          
+                        )
+        ));
         
         $this->addDisplayGroup(array('organisation_name', 'organisation_address', 'organisation_username'), 'field',array('legend'=>'Organisation Information'));
         $this->addDisplayGroup(array('first_name', 'middle_name', 'last_name', 'password', 'confirmpassword', 'email'), 
                                         'field1',array('legend'=>'Admin Information'));
 //        $this->addDisplayGroup()
-        $this->addDisplayGroup(array('default_currency', 'default_language', 'default_reporting_org'), 'field2',array('legend'=>'Default Field Values'));
+        $this->addDisplayGroup(array('default_currency', 'default_language', 'default_reporting_org','default_hierarchy'), 'field2',array('legend'=>'Default Field Values'));
        
         $this->addDisplayGroup(array('default_fields',), 'field3',array('legend'=>'Default Field Groups'));
        

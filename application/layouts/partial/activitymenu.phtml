@@ -1,24 +1,59 @@
-<h3>Activity Menu</h3>
-<ul>
+<div id="block-activity-menu" class="block">
+    <div class="block-inner">
+        <h2 class="title">Activity Menu</h2>
+        <div class="content">
+            <ul>
+            
+            <?php
+            $identity = $this->userInfo();
+            
+            $url = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+            $model = new Model_Wep();
+            
+            $defaultField = $model->getDefaults('default_field_groups', 'account_id', $identity->account_id);
+            $attributes = (getRowSet('Identifier', $url['activity_id']))?'class = "active"':'';
+            $href1 = $this->baseUrl() . "/wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=Identifier";
+            
+            print "<li><a $attributes href=$href1>Iati Identifier</a></li>";
+            
+            $href2 = $this->baseUrl(). "/wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=ReportingOrg";
+            $attributes = (getRowSet('ReportingOrg', $url['activity_id']))?'class = "active"':'';
+            
+            print "<li><a $attributes href=$href2>Reporting Organisation</a></li>";
+            
+            foreach($defaultField->getProperties() as $key => $eachData){
+                if($eachData == 1){
+                   $attributes = '';
+                    if(getRowSet($key, $url['activity_id'])){
+                        $attributes = 'class = "active"';
+                    }
+                    
+                    $key = ucwords(str_replace("_"," ",$key));
+                    $href = $this->baseUrl()."/wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=".str_replace(" ", "", $key);
+                    print "<li><a $attributes href='". $href ."'>" .$key ."</a></li>";
+                    
+                }
+            }//add-activity-elements?activity_id='.$activity_id .'&class='.$class
+            ?>
+            
+            </ul>
+        </div>
+</div>
+</div>
 
-<?php
-$identity = $this->userInfo();
-
-$url = Zend_Controller_Front::getInstance()->getRequest()->getParams();
-$model = new Model_Wep();
-
-$defaultField = $model->getDefaults('default_field_groups', 'account_id', $identity->account_id);
-//print_r($defaultField->getProperties());exit();
-print "<li>".$this->l('Iati Identifier', "wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=Identifier")."</li>";
-print "<li>".$this->l('Reporting Organisation', "wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=ReportingOrg")."</li>";
-
-foreach($defaultField->getProperties() as $key => $eachData){
-    if($eachData == 1){
-        $key = ucwords(str_replace("_"," ",$key));
-        print "<li>".$this->l($key, "wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=".str_replace(" ", "", $key))."</li>";
-
-    }
-}//add-activity-elements?activity_id='.$activity_id .'&class='.$class
+<?php 
+function getRowSet($name, $id)
+{
+    $tableName = "";
+    $tableMapper = new Iati_WEP_TableClassMapper();
+    $tableName = $tableMapper->getTableName(
+                    $tableMapper->convertUnderscoreToCamelCase($name)
+                );
+    $wepModel = new Model_Wep();
+    $rowSet = $wepModel->getRowsByFields($tableName, 'activity_id', $id);
+//    print_r($rowSet);exit;
+    if($rowSet)
+        $rowSet = true;
+    return $rowSet;
+}
 ?>
-
-</ul>

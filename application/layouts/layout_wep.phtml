@@ -39,37 +39,36 @@
                         <!--<h1></h1>-->
                         <?$auth = Zend_Auth::getInstance();
                              if ($auth->hasIdentity()):?>
-                        <a class="user-logout" href="<?php print $this->baseUrl() ?>/user/user/logout">Logout</a>
+                             <?php $identity = $auth->getIdentity();?>
+                            You are logged in as  <?php echo $this->l($identity->user_name, '/user/user/myaccount');?>
+                            <?php print "(". $this->l('Logout', 'user/user/logout') . ")";?>
                                 
                         <?endif;?>                                                                
-                        <? if (!$auth->hasIdentity()):?>
-                        <a class="user-login" href="<?php print $this->baseUrl() ?>/user/user/login">Login</a>                                  
-                        <?endif;?>                                                                                                                  
+                        <? //if (!$auth->hasIdentity()):?>
+<!--                        <a class="user-login" href="<?php //print $this->baseUrl() ?>/user/user/login">Login</a>                                  -->
+                        <?//endif;?>                                                                                                                  
                     </div>
                     <!--search div start-->
-                    <div id="search-tab">
-                        <table>
-                            <tr>
-                                <td><input id="search"name="search" type="text"></td>
-                                <td><input id="submit" name="Search" type="submit" value="Search"></td>
-                            </tr>
-                        </table>
+                    <div class = "user-nav">
+                        
+                   <?php if ($auth->hasIdentity())
+                         print $this->partial('partial/section/top-bar.phtml');
+                    ?>
                     </div>
                     
                     <div id="header">
                         <a name="top"></a>
-                        <div class="logo"> <a href="<?php print($this->baseUrl());?>/"><img alt="logo" src="<?php print($this->baseUrl());?>/stylesheet/images/logo.jpg"></a>
+                        <div class="logo"> <a href="<?php print($this->baseUrl(). "/user/user/login");?>/"><img alt="logo" src="<?php print($this->baseUrl());?>/stylesheet/images/logo.jpg"></a>
                       </div> <!-- losog -->
                         
-                        <div class="site-name"><?php print $this->placeholder('title')?></div>
-                    <!--<h1 class="title">IATI Webservices</h1>-->
+<!--                        <div class="site-name"><?php //print $this->placeholder('title')?></div>-->
 
                     </div>
                     <!-- header -->                 
                 </div>  
         </div>
         <div id="navigation-wrapper">   
-                <div id="wrapper">
+                <!--<div id="wrapper">
                     <div id="navigation" class="menu">
                         <ul class="menu-list">
                             <li class="menu-item"><a class="active" href="#">Home</a></li>
@@ -80,6 +79,7 @@
                             </ul>
                     </div>
             </div>
+        -->
         </div>
         <!--header closed-->
             
@@ -105,20 +105,15 @@
                     </div>
                 </div> 
                 <div class="grid_3">
-                    <div id="contain-right">
-                        <div id="contain-right-top"></div>
-                        <div id="contain-right-area">
-                            <div id="contain-inner">
-<!--                                <h1>Vertical Navigation list</h1>-->
-                                <div id="nav-list">
-                                    <?php //print_r($this->userInfo());exit();?>
-                                    <?php //if($this->userInfo()){
-                                     print $this->partial('partial/section/left-bar.phtml');
-                                    ?>
-                                </div>                            
-                            </div>
+                    <div id="sidebar-right">
+                        <div id="sidebar-right-inner">
+                    <?php //var_dump($auth->hasIdentity());?>
+                        <?php if ($auth->hasIdentity())
+//                        print "df";exit;
+                            print $this->partial('partial/section/left-bar.phtml');
+                        ?>
                         </div>
-                        <div id="contain-right-bottom"></div>
+                    </div>
                     </div> 
                 </div>                                  
             </div>

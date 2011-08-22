@@ -43,7 +43,7 @@ class Iati_WEP_Activity_Elements_Transaction_AidType extends Iati_WEP_Activity_E
     protected $error = array();
     protected $hasError = false;
     protected $multiple = false;
-    
+    protected $required = false;
     public function __construct()
     {
         $this->objectId = self::$count;
@@ -91,7 +91,8 @@ class Iati_WEP_Activity_Elements_Transaction_AidType extends Iati_WEP_Activity_E
             
             if(empty($this->validators[$key])) continue;
             
-            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData)))  continue;
+            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData)) || 
+            (empty($this->required)))  continue;
             
             $string = "Zend_Validate_". $this->validators[$key];
             $validator = new $string();

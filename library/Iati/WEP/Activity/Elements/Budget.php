@@ -15,7 +15,7 @@ class Iati_WEP_Activity_Elements_Budget extends Iati_WEP_Activity_Elements_Eleme
                     'html' => '<input type="hidden" name="%(name)s" value="%(value)s" />',
                     ),
                     'type' => array(
-                    'name' => 'code',
+                    'name' => 'type',
                     'label' => 'Budget Type',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
@@ -29,7 +29,7 @@ class Iati_WEP_Activity_Elements_Budget extends Iati_WEP_Activity_Elements_Eleme
     protected static $count = 0;
     protected $objectId;
     protected $error = array();
-    protected $hasError = true;
+    protected $hasError = false;
     protected $multiple = true;
     
     
@@ -58,6 +58,11 @@ class Iati_WEP_Activity_Elements_Budget extends Iati_WEP_Activity_Elements_Eleme
     {
         return $this->options[$attr];
     }
+
+    public function isRequired()
+    {
+        return $this->required;
+    }
     
     public function getAttributes () {
         return $this->attributes;
@@ -84,7 +89,7 @@ class Iati_WEP_Activity_Elements_Budget extends Iati_WEP_Activity_Elements_Eleme
     public function getCleanedData(){
         $data = array();
         $data['id'] = $this->id;
-        $data['type'] = $this->type;
+        $data['@type'] = $this->type;
         
         return $data;
     }

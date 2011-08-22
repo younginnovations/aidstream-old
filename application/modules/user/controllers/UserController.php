@@ -5,6 +5,7 @@ class User_UserController extends Zend_Controller_Action
 
     public function init()
     {
+        $this->_helper->layout()->setLayout('layout_wep');
         /* Initialize action controller here */
     }
 
@@ -168,8 +169,12 @@ class User_UserController extends Zend_Controller_Action
 
         $userModel = new User_Model_DbTable_User();
         $row = $userModel->getUserById($user_id);
+        $profileModel = new User_Model_DbTable_Profile();
+        $row1 = $profileModel->getProfileByUserId($user_id);
+//        print_r($row1->first_name);exit;
+        $this->view->profile = $row1;
         $this->view->row = $row;
-        $this->_helper->layout()->setLayout('layout');
+//        $this->_helper->layout()->setLayout('layout');
     }
 
     public function editAction()
@@ -202,7 +207,7 @@ class User_UserController extends Zend_Controller_Action
             $form->populate($row->toArray());
         }
         $this->view->placeholder('title')->set('Edit account');
-        $this->_helper->layout()->setLayout('layout');
+//        $this->_helper->layout()->setLayout('layout');
     }
 
     /**
@@ -244,7 +249,7 @@ class User_UserController extends Zend_Controller_Action
             }
         }//end of outer if
         $this->view->placeholder('title')->set('Reset Password');
-        $this->_helper->layout()->setLayout('layout');
+//        $this->_helper->layout()->setLayout('layout');
     }
 
     //end of else
@@ -297,7 +302,7 @@ class User_UserController extends Zend_Controller_Action
             }
         }
         $this->view->user = $user;
-        $this->_helper->layout()->setLayout('layout');
+//        $this->_helper->layout()->setLayout('layout');
     }
 
     public function logoutAction()
