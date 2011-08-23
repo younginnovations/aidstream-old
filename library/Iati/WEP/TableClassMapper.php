@@ -14,10 +14,11 @@ class Iati_WEP_TableClassMapper
         $classNames = explode("_",$strippedClassName,3);
 		foreach($classNames as $eachClassName){
 			$result = $this->convertCamelCaseToDash($eachClassName);
-			if($tableName)
+			if(isset($tableName)){
 			$tableName = $tableName."/".$result;
-			else
+			}else{
 			$tableName = $result;
+			}
 		}
 		return "iati_".$tableName;
 
