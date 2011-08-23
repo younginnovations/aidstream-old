@@ -57,6 +57,25 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
 		$dbLayer->save($activity);
 	}
 
+	public function testInsertActivityDateElement(){
+		$activities = new Iati_Activity_Element_ActivityCollection();
+        $activity = $activities->addElement('activity');
+        $activity->setAttribs(array(
+            'id' => '27',
+        ));
+        $activityDate = $activity->createElement('activityDate');
+        $activityDate->setAttribs(array(
+            '@iso_date' => "2010-09-20",
+            '@type' => "INGO-2",
+            '@xml_lang' => "En",
+        	'text' => 'TestingActivityDate',
+        ));
+        $activity->addElement($activityDate);
+        $dbLayer = new Iati_WEP_DbLayer();
+		$dbLayer->save($activity);
+	}
+
+
 	public function testSaveNullableAttribs()
 	{
 		$location = new Iati_Activity_Element_Location();
