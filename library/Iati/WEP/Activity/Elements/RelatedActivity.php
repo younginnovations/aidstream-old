@@ -9,7 +9,7 @@ class Iati_WEP_Activity_Elements_RelatedActivity extends Iati_WEP_Activity_Eleme
     protected $id = 0;
     protected $options = array();
     protected $validators = array(
-                                'text' => 'NotEmpty',
+                                'text' => array('NotEmpty',)
                             );
     protected $className = 'RelatedActivity';
     protected $attributes_html = array(

@@ -27,7 +27,7 @@ class Iati_WEP_Activity_Elements_Result extends Iati_WEP_Activity_Elements_Eleme
     protected $className = 'Result';
     
     protected $validators = array(
-                                'type' => 'NotEmpty',
+                                'type' => array('NotEmpty'),
                             );
     protected static $count = 0;
     protected $objectId;
@@ -75,7 +75,10 @@ class Iati_WEP_Activity_Elements_Result extends Iati_WEP_Activity_Elements_Eleme
     }
     
     public function validate(){
+        $data['id'] = $this->id;
+        $data['type'] = $this->type;
         
+        parent::validate($data);
     }
     
     public function getObjectId()

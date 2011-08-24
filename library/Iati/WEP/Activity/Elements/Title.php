@@ -7,7 +7,7 @@ class Iati_WEP_Activity_Elements_Title extends Iati_WEP_Activity_Elements_Elemen
     protected $id = 0;
     protected $options = array();
     protected $validators = array(
-                                'text' => 'NotEmpty',
+                                'text' => array('NotEmpty',)
                             );
     protected $className = 'Title';
     protected $attributes_html = array(

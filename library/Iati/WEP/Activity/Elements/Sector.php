@@ -10,8 +10,8 @@ class Iati_WEP_Activity_Elements_Sector extends Iati_WEP_Activity_Elements_Eleme
     protected $id = 0;
     protected $options = array();
     protected $validators = array(
-                                'code' => 'NotEmpty',
-                                'percentage' => 'Int',
+                                'code' => array('NotEmpty'),
+                                'percentage' => array('Int')
                             );
     protected $className = 'Sector';
     protected $attributes_html = array(

@@ -8,7 +8,7 @@ class Iati_WEP_Activity_Elements_OtherIdentifier extends Iati_WEP_Activity_Eleme
     protected $id = 0;
     protected $options = array();
     protected $validators = array(
-                                'text' => 'NotEmpty',
+                                'text' => array('NotEmpty',)
                             );
     protected $className = 'OtherIdentifier';
     protected $attributes_html = array(

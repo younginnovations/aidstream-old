@@ -9,7 +9,7 @@ class Iati_WEP_Activity_Elements_RecipientRegion extends Iati_WEP_Activity_Eleme
     protected $id = 0;
     protected $options = array();
     protected $validators = array(
-                                'code' => 'NotEmpty',
+                                'code' => array('NotEmpty',)
                             );
     protected $className = 'RecipientRegion';
 

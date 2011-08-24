@@ -7,7 +7,7 @@ class Iati_WEP_Activity_Elements_PolicyMarker extends Iati_WEP_Activity_Elements
     protected $id = 0;
     protected $options = array();
     protected $validators = array(
-                               // 'text' => 'NotEmpty',
+                                'text' => array('NotEmpty',)
                             );
     protected $className = 'PolicyMarker';
     protected $attributes_html = array(
