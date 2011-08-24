@@ -13,8 +13,10 @@ class Iati_WEP_Activity_Elements_ElementBase
     protected $hasError = false;
     protected $required = true;
 
-    public function __construct()
-    {
+	public function __construct()
+	{
+//		$this->checkPrivilege();
+	}
 
     }
 

@@ -21,10 +21,10 @@ class App_ResourceAssertion implements Zend_Acl_Assert_Interface
         if(Zend_Auth::getInstance()->getIdentity()){
     	$userId = Zend_Auth::getInstance()->getIdentity()->user_id;
         $userRole = Zend_Auth::getInstance()->getIdentity()->role;
-        }
         $this->setResource($resource);
         $this->setUserId($userId);
         $this->setUserRole($userRole);
+        }
     }
 
     public function getUserRole()
