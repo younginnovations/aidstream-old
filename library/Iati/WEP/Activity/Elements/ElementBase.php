@@ -21,7 +21,7 @@ class Iati_WEP_Activity_Elements_ElementBase
 
 	public function __construct()
 	{
-		$this->checkPrivilege();
+//		$this->checkPrivilege();
 	}
 
 	/**

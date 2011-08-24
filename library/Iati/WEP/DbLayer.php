@@ -9,7 +9,6 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 	 * Input object is of ElementType
 	 * Id of the object is embedded on function as atrrib
 	 * Data is inserted into database if the Id doesnot exist for object and is updated if the Id exists
-	 *
 	 */
 
 	public function checkIsEmptyAttribs($attribs)
@@ -163,12 +162,12 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 				$element = $parentClass->addElement($classElement);
 				$flag = false;
 				$resultRow = $this->getRows($classElement, $conditionField, $primaryId, false, $parentClass);
-				if (($resultRow[$classElement])) {
+				if ((is_array($resultRow[$classElement]))) {
 					foreach ($resultRow[$classElement] as $eachRow) {
 						if($flag)
 						$element = $parentClass->addElement($classElement);
 						$flag = true;
-						$this->fetchRowTreeSet($element, $classElement, $eachRow);
+						$result = $this->fetchRowTreeSet($element, $classElement, $eachRow);
 					}
 				}
 			}
@@ -202,7 +201,6 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 			}
 			$result = $this->fetchAll($query);
 			$result = $result->toArray();
-
 			$arrayResult[$objectType] = $result;
 			return $arrayResult;
 		}

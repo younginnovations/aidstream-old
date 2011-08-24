@@ -221,7 +221,7 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
 	{
 		$className = 'Transaction';
 		$fieldName = 'id';
-		$value = 45;
+		$value = 2;
 		$tree = true;
 		$dbLayer = new Iati_WEP_DbLayer();
 		$row = $dbLayer->getRowSet($className,$fieldName,$value,$tree);
