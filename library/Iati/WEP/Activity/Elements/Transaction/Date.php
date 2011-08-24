@@ -1,14 +1,14 @@
 <?php 
 class Iati_WEP_Activity_Elements_Transaction_Date extends Iati_WEP_Activity_Elements_Transaction
 {
-    protected $attributes = array('text', 'iso_date');
+    protected $attributes = array('id', 'text', 'iso_date');
     protected $text;
     protected $iso_date;
     protected $id = 0;
     protected $options = array();
     protected $className = 'Date';
     protected $validators = array(
-                                'iso_date' => 'NotEmpty',
+                                'iso_date' => array('NotEmpty', 'Date')
                             );
     
     protected $attributes_html = array(
@@ -75,19 +75,22 @@ class Iati_WEP_Activity_Elements_Transaction_Date extends Iati_WEP_Activity_Elem
         
         foreach($data as $key => $eachData){
             
-            if(empty($this->validators[$key])) continue;
+            if(empty($this->validators[$key])){ continue; }
             
-            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData)) || 
-            (empty($this->required)))  continue;
+            if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)) && 
+            (empty($this->required))) {  continue; }
             
-            $string = "Zend_Validate_". $this->validators[$key];
-            $validator = new $string();
-            
-            if(!$validator->isValid($eachData)){
-                
-                $this->error[$key] = $validator->getMessages();
-                $this->hasError = true;
-
+            foreach($this->validators[$key] as $validator){
+                $string = "Zend_Validate_". $validator;
+              $validator = new $string();
+              $error = '';
+              if(!$validator->isValid($eachData)){
+                $error = isset($this->error[$key])?array_merge($this->error[$key], $validator->getMessages())
+                                :$validator->getMessages();
+                  $this->error[$key] = $error;
+                  $this->hasError = true;
+  
+              }  
             }
         }
     }

@@ -20,9 +20,8 @@ class Iati_WEP_Activity_Elements_ReportingOrg extends Iati_WEP_Activity_Elements
                 'ref' => array(
                     'name' => 'ref',
                     'label' => 'Organisation Identifier',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
-                    'options' => '',
-                    'attrs' => array('class' => array('form-select'))
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'attrs' => array('class' => array('form-text'))
                 ),
                 'type' => array(
                     'name' => 'type',
@@ -53,7 +52,6 @@ class Iati_WEP_Activity_Elements_ReportingOrg extends Iati_WEP_Activity_Elements
 
     public function __construct($id = 0)
     {
-//        $this->checkPrivilege();
         parent::__construct();
         $this->objectId = self::$count;
         self::$count += 1;
@@ -63,7 +61,7 @@ class Iati_WEP_Activity_Elements_ReportingOrg extends Iati_WEP_Activity_Elements
     public function setOptions()
     {
         $model = new Model_Wep();
-        $this->options['ref'] = $model->getCodeArray('OrganisationIdentifier', null, '1');
+        //$this->options['ref'] = $model->getCodeArray('OrganisationIdentifier', null, '1');
         $this->options['type'] = $model->getcodeArray('OrganisationType', null, '1');
         $this->options['xml_lang'] = $model->getCodeArray('Language', null, '1');
     }
@@ -116,18 +114,4 @@ class Iati_WEP_Activity_Elements_ReportingOrg extends Iati_WEP_Activity_Elements
         
         return $data;
     }
-    
-    public function checkPrivilege()
-    {
-        $userRole = new App_UserRole();
-        $resource = new App_Resource();
-        $resource->ownerUserId = $userRole->userId;
-        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'ReportingOrg')) {
-            $host = $_SERVER['HTTP_HOST'];
-            $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-            $extra = 'user/user/login';
-            header("Location: http://$host$uri/$extra");
-        }
-    }
-
 }

@@ -9,7 +9,7 @@ class Iati_WEP_Activity_Elements_ContactInfo_MailingAddress extends
     protected $options = array();
     protected $className = 'MailingAddress';
     protected $validators = array(
-                                'text' => 'NotEmpty',
+                                'text' => array('NotEmpty'),
                             );
     protected $attributes_html = array(
                 'id' => array(
@@ -45,6 +45,7 @@ class Iati_WEP_Activity_Elements_ContactInfo_MailingAddress extends
     }
     
     public function setAttributes ($data) {
+        $this->id = (key_exists('id', $data))?$data['id']:0;
         $this->text = $data['text'];
     }
     
@@ -69,19 +70,22 @@ class Iati_WEP_Activity_Elements_ContactInfo_MailingAddress extends
          
         foreach($data as $key => $eachData){
             
-            if(empty($this->validators[$key])) continue;
+            if(empty($this->validators[$key])){ continue; }
             
-            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData)) || 
-            (empty($this->required)))  continue;
+            if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)) && 
+            (empty($this->required))) {  continue; }
             
-            $string = "Zend_Validate_". $this->validators[$key];
-            $validator = new $string();
-            
-            if(!$validator->isValid($eachData)){
-                
-                $this->error[$key] = $validator->getMessages();
-                $this->hasError = true;
-
+            foreach($this->validators[$key] as $validator){
+                $string = "Zend_Validate_". $validator;
+              $validator = new $string();
+              $error = '';
+              if(!$validator->isValid($eachData)){
+                $error = isset($this->error[$key])?array_merge($this->error[$key], $validator->getMessages())
+                                :$validator->getMessages();
+                  $this->error[$key] = $error;
+                  $this->hasError = true;
+  
+              }  
             }
         }
     }
@@ -94,16 +98,4 @@ class Iati_WEP_Activity_Elements_ContactInfo_MailingAddress extends
         return $data;
     }
     
-    public function checkPrivilege()
-    {
-        $userRole = new App_UserRole();
-        $resource = new App_Resource();
-        $resource->ownerUserId = $userRole->userId;
-        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'MailingAddress')) {
-            $host = $_SERVER['HTTP_HOST'];
-            $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-            $extra = 'user/user/login';
-            header("Location: http://$host$uri/$extra");
-        }
-    }
 }                                    

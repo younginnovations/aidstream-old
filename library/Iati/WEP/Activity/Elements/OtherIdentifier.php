@@ -1,7 +1,7 @@
 <?php
 class Iati_WEP_Activity_Elements_OtherIdentifier extends Iati_WEP_Activity_Elements_ElementBase
 {
-    protected $attributes = array('text', 'owner_ref', 'owner_name');
+    protected $attributes = array('id', 'text', 'owner_ref', 'owner_name');
     protected $text;
     protected $owner_ref;
     protected $owner_name;
@@ -18,7 +18,7 @@ class Iati_WEP_Activity_Elements_OtherIdentifier extends Iati_WEP_Activity_Eleme
                 ),
                 'text' => array(
                     'name' => 'text',
-                    'label' => 'Text',
+                    'label' => 'Activity Identifier',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('class' => array('form-text'))
                 ),
@@ -32,9 +32,8 @@ class Iati_WEP_Activity_Elements_OtherIdentifier extends Iati_WEP_Activity_Eleme
                 'owner_ref' => array(
                     'name' => 'owner_ref',
                     'label' => 'Organisation Identfier',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
-                    'options' => '',
-                    'attrs' => array('class' => array('form-select'))
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'attrs' => array('class' => array('form-text'))
                 ),
     );
     
@@ -56,7 +55,7 @@ class Iati_WEP_Activity_Elements_OtherIdentifier extends Iati_WEP_Activity_Eleme
     public function setOptions()
     {
         $model = new Model_Wep();
-        $this->options['owner_ref'] = $model->getCodeArray('OrganisationIdentifier', null, '1');
+        //$this->options['owner_ref'] = $model->getCodeArray('OrganisationIdentifier', null, '1');
     }
     
     public function setAttributes ($data) {
@@ -102,17 +101,4 @@ class Iati_WEP_Activity_Elements_OtherIdentifier extends Iati_WEP_Activity_Eleme
         return $data;
     }
     
-    public function checkPrivilege()
-    {
-        $userRole = new App_UserRole();
-        $resource = new App_Resource();
-        $resource->ownerUserId = $userRole->userId;
-        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'OtherIdentifier')) {
-            $host = $_SERVER['HTTP_HOST'];
-            $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-            $extra = 'user/user/login';
-            header("Location: http://$host$uri/$extra");
-        }
-    }
-
 }

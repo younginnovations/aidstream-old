@@ -9,7 +9,7 @@ class Iati_WEP_Activity_Elements_RecipientCountry extends Iati_WEP_Activity_Elem
     protected $id = 0;
     protected $options = array();
     protected $validators = array(
-                                'code' => 'NotEmpty',
+                                'code' => array('NotEmpty',)
                             );
     protected $className = 'RecipientCountry';
 
@@ -73,20 +73,6 @@ class Iati_WEP_Activity_Elements_RecipientCountry extends Iati_WEP_Activity_Elem
         
     }
 
-     public function checkPrivilege()
-    {
-        $userRole = new App_UserRole();
-        $resource = new App_Resource();
-        $resource->ownerUserId = $userRole->userId;
-        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'RecipientCountry')) {
-            $host  = $_SERVER['HTTP_HOST'];
-            $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-            $extra = 'user/user/login';
-            header("Location: http://$host$uri/$extra");
-        }
-    }
-
-    
     public function getOptions($name = NULL)
     {
         return $this->options[$name];
@@ -105,6 +91,7 @@ class Iati_WEP_Activity_Elements_RecipientCountry extends Iati_WEP_Activity_Elem
     
     public function getCleanedData()
     {
+        $data['id'] = $this->id;
         $data['@code'] = $this->code;
         $data['@percentage'] = $this->percentage;
         $data['@xml_lang'] = $this->xml_lang;

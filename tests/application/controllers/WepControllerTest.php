@@ -37,7 +37,29 @@ class WepControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
     
     public function testDashboard()
     {
-
+//        $this->resetRequest();
+//        $this->resetResponse();
+        $this->request
+             ->setMethod('POST')
+             ->setPost(array(
+                 'username' => 'unicef_admin',
+                 'password' => 'admin'
+             ));
+        $this->dispatch('/user/user/login');
+        
+        $this->assertRedirectTo('/wep/dashboard');
+        $this->assertController("user");
+        $this->assertTrue(Zend_Auth::getInstance()->hasIdentity());
+        $this->resetRequest();
+        $this->resetResponse();
+        $this->assertTrue(Zend_Auth::getInstance()->hasIdentity());
+        
+        /*
+        $this->dispatch('/wep/dashboard');
+        $this->assertTrue(Zend_Auth::getInstance()->hasIdentity());
+        $this->assertController('wep');*/
+        
+        
     }
     
 }

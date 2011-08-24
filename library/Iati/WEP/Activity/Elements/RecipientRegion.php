@@ -27,7 +27,7 @@ class Iati_WEP_Activity_Elements_RecipientRegion extends Iati_WEP_Activity_Eleme
                 
                 'code' => array(
                     'name' => 'code',
-                    'label' => 'Country Code',
+                    'label' => 'Region Code',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
@@ -105,6 +105,7 @@ class Iati_WEP_Activity_Elements_RecipientRegion extends Iati_WEP_Activity_Eleme
     
     public function getCleanedData()
     {
+        $data['id'] = $this->id;
         $data['@code'] = $this->code;
         $data['@percentage'] = $this->percentage;
         $data['@xml_lang'] = $this->xml_lang;

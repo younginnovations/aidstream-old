@@ -38,7 +38,7 @@ class Iati_WEP_FormDecorator {
             
             if ($label && isset($variables['label'])) {
                 $html .= '<label for="'.$id.'">'.$variables['label'];
-                if ($this->_object->getValidator($attribute) == 'NotEmpty') {
+                if (in_array('NotEmpty', $this->_object->getValidator($attribute))) {
                     $html .= '<span class="required">*</span>';
                 }
                 $html .= '</label>';

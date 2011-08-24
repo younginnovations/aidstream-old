@@ -9,7 +9,7 @@ protected $attributes = array('id', 'text', 'iso_date');
     protected $className = 'PeriodEnd';
     
     protected $validators = array(
-                                'text' => 'NotEmpty',
+                                'iso_date' => array('NotEmpty', 'Date')
                             );
                             
     protected $attributes_html = array(
@@ -49,12 +49,9 @@ protected $attributes = array('id', 'text', 'iso_date');
     
     public function setOptions()
     {
-//        $model = new Model_Wep();
-//        $this->options['code'] = $model->getCodeArray('TransactionType', null, '1');
     }
     
     public function setAttributes ($data) {
-//        print_r($data);exit;
         $this->id = (isset($data['id']))?$data['id']:0; 
         $this->iso_date = (key_exists('@iso_date', $data))?$data['@iso_date']:$data['iso_date'];
         $this->text = $data['text'];
@@ -81,25 +78,28 @@ protected $attributes = array('id', 'text', 'iso_date');
     }
     public function validate()
     {
+        
         $data['id'] = $this->id;
         $data['iso_date'] = $this->iso_date;
         $data['text'] = $this->text;
-//        print_r($data);exit;
         foreach($data as $key => $eachData){
             
             if(empty($this->validators[$key])){ continue; }
             
-            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData)) || 
+            if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)) && 
             (empty($this->required))) {  continue; }
             
-            $string = "Zend_Validate_". $this->validators[$key];
-            $validator = new $string();
-            
-            if(!$validator->isValid($eachData)){
-//                print "dd";exit;
-                $this->error[$key] = $validator->getMessages();
-                $this->hasError = true;
-
+            foreach($this->validators[$key] as $validator){
+                $string = "Zend_Validate_". $validator;
+              $validator = new $string();
+              $error = '';
+              if(!$validator->isValid($eachData)){
+                $error = isset($this->error[$key])?array_merge($this->error[$key], $validator->getMessages())
+                                :$validator->getMessages();
+                  $this->error[$key] = $error;
+                  $this->hasError = true;
+  
+              }  
             }
         }
     }
@@ -109,7 +109,6 @@ protected $attributes = array('id', 'text', 'iso_date');
         $data ['id'] = $this->id;
         $data['@iso_date'] = $this->iso_date;
         $data['text'] = $this->text;
-        
         return $data;
     }
     

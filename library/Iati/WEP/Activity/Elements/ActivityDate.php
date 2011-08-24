@@ -9,8 +9,8 @@ class Iati_WEP_Activity_Elements_ActivityDate extends Iati_WEP_Activity_Elements
     protected $id = 0;
     protected $options = array();
     protected $validators = array(
-                                'type' => 'NotEmpty',
-                                'text' => 'NotEmpty',
+                                'type' => array('NotEmpty'),
+                                'iso_date' => array('Date')
                             );
     protected $className = 'ActivityDate';
     
@@ -56,7 +56,6 @@ class Iati_WEP_Activity_Elements_ActivityDate extends Iati_WEP_Activity_Elements
 
     public function __construct()
     {
-//        $this->checkPrivilege();
         parent::__construct();
         $this->objectId = self::$count;
         self::$count += 1;
@@ -78,19 +77,6 @@ class Iati_WEP_Activity_Elements_ActivityDate extends Iati_WEP_Activity_Elements
         $this->iso_date = (key_exists('@iso_date', $data))?$data['@iso_date']:$data['iso_date'];
         $this->text = $data['text'];
         
-    }
-
-     public function checkPrivilege()
-    {
-        $userRole = new App_UserRole();
-        $resource = new App_Resource();
-        $resource->ownerUserId = $userRole->userId;
-        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'ParticipatingOrg')) {
-            $host  = $_SERVER['HTTP_HOST'];
-            $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-            $extra = 'user/user/login';
-            header("Location: http://$host$uri/$extra");
-        }
     }
 
     
@@ -123,6 +109,7 @@ class Iati_WEP_Activity_Elements_ActivityDate extends Iati_WEP_Activity_Elements
 
     public function getCleanedData()
     {
+        $data['id'] = $this->id;
         $data['@iso_date'] = $this->iso_date;
         $data['@type'] = $this->type;
         $data['@xml_lang'] = $this->xml_lang;

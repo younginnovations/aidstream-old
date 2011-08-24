@@ -10,7 +10,8 @@ class Iati_WEP_Activity_Elements_Sector extends Iati_WEP_Activity_Elements_Eleme
     protected $id = 0;
     protected $options = array();
     protected $validators = array(
-                                'text' => 'NotEmpty',
+                                'code' => 'NotEmpty',
+                                'percentage' => 'Int',
                             );
     protected $className = 'Sector';
     protected $attributes_html = array(
@@ -61,7 +62,6 @@ class Iati_WEP_Activity_Elements_Sector extends Iati_WEP_Activity_Elements_Eleme
    
     public function __construct()
     {
-//        $this->checkPrivilege();
         parent::__construct();
         $this->objectId = self::$count;
         self::$count += 1;
@@ -106,6 +106,9 @@ class Iati_WEP_Activity_Elements_Sector extends Iati_WEP_Activity_Elements_Eleme
     {
         $data['id'] = $this->id;
         $data['xml_lang'] = $this->xml_lang;
+        $data['code'] = $this->code;
+        $data['vocabulary'] = $this->vocabulary;
+        $data['percentage'] = $this->percentage;
         $data['text'] = $this->text;
         
         parent :: validate($data);
@@ -115,22 +118,13 @@ class Iati_WEP_Activity_Elements_Sector extends Iati_WEP_Activity_Elements_Eleme
         $data = array();
         $data ['id'] = $this->id;
         $data['@xml_lang'] = $this->xml_lang;
+        $data['@code'] = $this->code;
+        $data['@vocabulary'] = $this->vocabulary;
+        $data['@percentage'] = $this->percentage;
         $data['text'] = $this->text;
         
         return $data;
     }
-    
-    public function checkPrivilege()
-    {
-        $userRole = new App_UserRole();
-        $resource = new App_Resource();
-        $resource->ownerUserId = $userRole->userId;
-        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'Sector')) {
-            $host = $_SERVER['HTTP_HOST'];
-            $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-            $extra = 'user/user/login';
-            header("Location: http://$host$uri/$extra");
-        }
-    }
+
 
 }

@@ -89,6 +89,7 @@ class Iati_WEP_Activity_Elements_ParticipatingOrg extends Iati_WEP_Activity_Elem
         $this->ref = (key_exists('@ref', $data))?$data['@ref']:$data['ref'];
         $this->text = $data['text'];       
         
+//        print_r($data);exit;
     }
 
      public function checkPrivilege()
@@ -123,6 +124,7 @@ class Iati_WEP_Activity_Elements_ParticipatingOrg extends Iati_WEP_Activity_Elem
     
     public function getCleanedData()
     {
+        $data['id'] = $this->id;
         $data['@ref'] = $this->ref;
         $data['@role'] = $this->role;
         $data['@type'] = $this->type;

@@ -1,14 +1,14 @@
 <?php
 class Iati_WEP_Activity_Elements_Description extends Iati_WEP_Activity_Elements_ElementBase
 {
-    protected $attributes = array('text', 'xml_lang');
+    protected $attributes = array('id', 'text', 'xml_lang');
     protected $text;
     protected $type;
     protected $xml_lang;
     protected $id = 0;
     protected $options = array();
     protected $validators = array(
-                                'text' => 'NotEmpty',
+                                'text' => array('NotEmpty',)
                             );
     protected $className = 'Description';
 
@@ -97,6 +97,7 @@ class Iati_WEP_Activity_Elements_Description extends Iati_WEP_Activity_Elements_
 
     public function getCleanedData()
     {
+        $data['id'] = $this->id;
         $data['text'] = $this->text;
         $data['@type'] = $this->type;
         $data['@xml_lang'] = $this->xml_lang;

@@ -8,7 +8,7 @@ protected $attributes = array('id', 'code', 'text', 'xml_lang');
      protected $id = 0;
      protected $options = array();
      protected $validators = array(
-                                'code' => 'NotEmpty',
+                                'code' => array('NotEmpty',)
                             );
      protected $attributes_html = array(
         'id' => array(
@@ -100,17 +100,5 @@ protected $attributes = array('id', 'code', 'text', 'xml_lang');
         $data['text'] = $this->text;
         return $data;
     }
- 
-    public function checkPrivilege()
-    {
-        $userRole = new App_UserRole();
-        $resource = new App_Resource();
-        $resource->ownerUserId = $userRole->userId;
-        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'DefaultAidType')) {
-            $host = $_SERVER['HTTP_HOST'];
-            $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-            $extra = 'user/user/login';
-            header("Location: http://$host$uri/$extra");
-        }
-    }
+    
 }

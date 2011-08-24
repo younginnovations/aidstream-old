@@ -6,7 +6,7 @@ class Iati_WEP_Activity_Elements_Identifier extends Iati_WEP_Activity_Elements_E
     protected $id = 0;
     protected $options = array();
     protected $validators = array(
-                                'text' => 'NotEmpty',
+                                'text' => array('NotEmpty',)
                             );
     protected $className = 'Identifier';
     protected $attributes_html = array(

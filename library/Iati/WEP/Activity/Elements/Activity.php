@@ -5,7 +5,7 @@ class Iati_WEP_Activity_Elements_Activity extends Iati_WEP_Activity_Elements_Ele
     protected $activity_id;
     protected $options = array();
     protected $validators = array(
-                                'activity_id' => 'NotEmpty',
+                                'activity_id' => array('NotEmpty',)
     );
 
     protected $attributes_html = array(

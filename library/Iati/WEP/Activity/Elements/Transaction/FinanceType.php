@@ -1,7 +1,7 @@
 <?php 
 class Iati_WEP_Activity_Elements_Transaction_FinanceType extends Iati_WEP_Activity_Elements_Transaction
 {
-protected $attributes = array('text', 'code', 'xml_lang');
+protected $attributes = array('id', 'text', 'code', 'xml_lang');
     protected $text;
     protected $code;
     protected $xml_lang;
@@ -9,7 +9,7 @@ protected $attributes = array('text', 'code', 'xml_lang');
     protected $options = array();
     protected $className = 'FinanceType';
     protected $validators = array(
-                                'text' => 'NotEmpty',
+                                'code' => array('NotEmpty'),
                             );
     
 protected $attributes_html = array(
@@ -93,17 +93,20 @@ protected $attributes_html = array(
             
             if(empty($this->validators[$key])){ continue; }
             
-            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData)) || 
+            if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)) && 
             (empty($this->required))) {  continue; }
             
-            $string = "Zend_Validate_". $this->validators[$key];
-            $validator = new $string();
-            
-            if(!$validator->isValid($eachData)){
-//                print "dd";exit;
-                $this->error[$key] = $validator->getMessages();
-                $this->hasError = true;
-
+            foreach($this->validators[$key] as $validator){
+                $string = "Zend_Validate_". $validator;
+              $validator = new $string();
+              $error = '';
+              if(!$validator->isValid($eachData)){
+                $error = isset($this->error[$key])?array_merge($this->error[$key], $validator->getMessages())
+                                :$validator->getMessages();
+                  $this->error[$key] = $error;
+                  $this->hasError = true;
+  
+              }  
             }
         }
     }

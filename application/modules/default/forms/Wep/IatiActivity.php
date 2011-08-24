@@ -4,15 +4,11 @@ class Form_Wep_IatiActivity extends App_Form
     public function add($status = "add", $account_id = '')
     {
         $form = array();
-//        print $status;exit;
 
-        $model = new Model_Viewcode();
-        $language = $model->getCode('Language',null,'1');
-        $currency = $model->getCode('Currency', null, '1');
-//        $currency = $model->getCode('OrganisationIdentifier', null, '1');
-        
-//        print_r($language);exit();
-        //print_r($language);exit();
+        $model = new Model_Wep();
+        $language = $model->getCodeArray('Language',null,'1');
+        $currency = $model->getCodeArray('Currency', null, '1');
+
         if($status != 'edit'){
         $rowSet = $model->getRowsByFields('default_field_values', 'account_id', $account_id);
         $defaultValues = unserialize($rowSet[0]['object']);
@@ -25,8 +21,8 @@ class Form_Wep_IatiActivity extends App_Form
             $form['xml_lang']->setValue($default['language']);
         }
         
-        foreach($language[0] as $eachLanguage){
-            $form['xml_lang']->addMultiOption($eachLanguage['id'], $eachLanguage['Code']);
+        foreach($language as $key => $eachLanguage){
+            $form['xml_lang']->addMultiOption($key, $eachLanguage);
         }
          
         $form['default_currency'] = new Zend_Form_Element_Select('default_currency');
@@ -36,8 +32,8 @@ class Form_Wep_IatiActivity extends App_Form
             $form['default_currency']->setValue($default['currency']);
         }
         
-        foreach($currency[0] as $eachCurrency){
-            $form['default_currency']->addMultiOption($eachCurrency['id'], $eachCurrency['Code']);
+        foreach($currency as $key => $eachCurrency){
+            $form['default_currency']->addMultiOption($key, $eachCurrency);
         }
 
         $form['hierarchy'] = new Zend_Form_Element_Text('hierarchy');

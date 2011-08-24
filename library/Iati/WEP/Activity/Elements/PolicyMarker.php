@@ -7,7 +7,7 @@ class Iati_WEP_Activity_Elements_PolicyMarker extends Iati_WEP_Activity_Elements
     protected $id = 0;
     protected $options = array();
     protected $validators = array(
-                                'text' => 'NotEmpty',
+                               // 'text' => 'NotEmpty',
                             );
     protected $className = 'PolicyMarker';
     protected $attributes_html = array(
@@ -59,7 +59,6 @@ class Iati_WEP_Activity_Elements_PolicyMarker extends Iati_WEP_Activity_Elements
    
     public function __construct()
     {
-//        $this->checkPrivilege();
         parent::__construct();
         $this->objectId = self::$count;
         self::$count += 1;
@@ -114,18 +113,4 @@ class Iati_WEP_Activity_Elements_PolicyMarker extends Iati_WEP_Activity_Elements
         
         return $data;
     }
-    
-    public function checkPrivilege()
-    {
-        $userRole = new App_UserRole();
-        $resource = new App_Resource();
-        $resource->ownerUserId = $userRole->userId;
-        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'PolicyMarker')) {
-            $host = $_SERVER['HTTP_HOST'];
-            $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-            $extra = 'user/user/login';
-            header("Location: http://$host$uri/$extra");
-        }
-    }
-
 }

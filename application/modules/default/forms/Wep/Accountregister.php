@@ -78,8 +78,13 @@ class Form_Wep_Accountregister extends App_Form
         
         $form['default_reporting_org'] = new Zend_Form_Element_Text('default_reporting_org');
         $form['default_reporting_org']->setLabel('Default Reporting Organisation Name')
-                                ->setValue($defaultFields['reporting_org'])
-                                ->setRequired()->setAttrib('class', 'form-text');
+                                        ->setValue($defaultFields['reporting_org'])
+                                        ->setRequired()->setAttrib('class', 'form-text');
+        
+        $form['reporting_org_ref'] = new Zend_Form_Element_Text('reporting_org_ref');
+        $form['reporting_org_ref']->setLabel('Default Reporting Organisation Identifier')
+                                    ->setValue($defaultFields['reporting_org_ref'])
+                                    ->setAttrib('class', 'form-text');
 
         $form['default_hierarchy'] = new Zend_Form_Element_Text('default_hierarchy');
         $form['default_hierarchy']->setLabel('Default Hierarchy')
@@ -112,7 +117,7 @@ class Form_Wep_Accountregister extends App_Form
         $this->addDisplayGroup(array('first_name', 'middle_name', 'last_name', 'password', 'confirmpassword', 'email'), 
                                         'field1',array('legend'=>'Admin Information'));
 //        $this->addDisplayGroup()
-        $this->addDisplayGroup(array('default_currency', 'default_language', 'default_reporting_org','default_hierarchy'), 'field2',array('legend'=>'Default Field Values'));
+        $this->addDisplayGroup(array('default_currency', 'default_language', 'default_reporting_org', 'reporting_org_ref', 'default_hierarchy'), 'field2',array('legend'=>'Default Field Values'));
        
         $this->addDisplayGroup(array('default_fields',), 'field3',array('legend'=>'Default Field Groups'));
        

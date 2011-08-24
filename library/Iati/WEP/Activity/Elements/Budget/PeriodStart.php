@@ -9,8 +9,8 @@ class Iati_WEP_Activity_Elements_Budget_PeriodStart extends Iati_WEP_Activity_El
     protected $className = 'PeriodStart';
     
     protected $validators = array(
-                                'text' => 'NotEmpty',
-                            );
+                                'iso_date' => array('NotEmpty', 'Date')
+                             );
                             
     protected $attributes_html = array(
                 'id' => array(
@@ -54,7 +54,6 @@ class Iati_WEP_Activity_Elements_Budget_PeriodStart extends Iati_WEP_Activity_El
     }
     
     public function setAttributes ($data) {
-//        print_r($data);exit;
         $this->id = (isset($data['id']))?$data['id']:0; 
         $this->iso_date = (key_exists('@iso_date', $data))?$data['@iso_date']:$data['iso_date'];
         $this->text = $data['text'];
@@ -89,17 +88,20 @@ class Iati_WEP_Activity_Elements_Budget_PeriodStart extends Iati_WEP_Activity_El
             
             if(empty($this->validators[$key])){ continue; }
             
-            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData)) || 
+            if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)) && 
             (empty($this->required))) {  continue; }
             
-            $string = "Zend_Validate_". $this->validators[$key];
-            $validator = new $string();
-            
-            if(!$validator->isValid($eachData)){
-//                print "dd";exit;
-                $this->error[$key] = $validator->getMessages();
-                $this->hasError = true;
-
+            foreach($this->validators[$key] as $validator){
+                $string = "Zend_Validate_". $validator;
+              $validator = new $string();
+              $error = '';
+              if(!$validator->isValid($eachData)){
+                $error = isset($this->error[$key])?array_merge($this->error[$key], $validator->getMessages())
+                                :$validator->getMessages();
+                  $this->error[$key] = $error;
+                  $this->hasError = true;
+  
+              }  
             }
         }
     }

@@ -10,7 +10,7 @@ class Iati_WEP_Activity_Elements_Location_Name extends Iati_WEP_Activity_Element
     protected $className = 'Name';
     
     protected $validators = array(
-                                'text' => 'NotEmpty',
+                                'text' => array('NotEmpty'),
                             );
                             
     protected $attributes_html = array(
@@ -87,17 +87,20 @@ class Iati_WEP_Activity_Elements_Location_Name extends Iati_WEP_Activity_Element
             
             if(empty($this->validators[$key])){ continue; }
             
-            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData)) || 
+            if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)) && 
             (empty($this->required))) {  continue; }
             
-            $string = "Zend_Validate_". $this->validators[$key];
-            $validator = new $string();
-            
-            if(!$validator->isValid($eachData)){
-//                print "dd";exit;
-                $this->error[$key] = $validator->getMessages();
-                $this->hasError = true;
-
+            foreach($this->validators[$key] as $validator){
+                $string = "Zend_Validate_". $validator;
+              $validator = new $string();
+              $error = '';
+              if(!$validator->isValid($eachData)){
+                $error = isset($this->error[$key])?array_merge($this->error[$key], $validator->getMessages())
+                                :$validator->getMessages();
+                  $this->error[$key] = $error;
+                  $this->hasError = true;
+  
+              }  
             }
         }
     }

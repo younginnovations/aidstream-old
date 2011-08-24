@@ -156,6 +156,7 @@ class WepController extends Zend_Controller_Action
                     $defaultFieldsValues->setLanguage($data['default_language']);
                     $defaultFieldsValues->setCurrency($data['default_currency']);
                     $defaultFieldsValues->setReporting_org($data['default_reporting_org']);
+                    $defaultFieldsValues->setReporting_org_ref($data['reporting_org_ref']);
                     $defaultFieldsValues->setHierarchy($data['default_hierarchy']);
                     $fieldString = serialize($defaultFieldsValues);
                     $defaultValues['object'] = $fieldString;
@@ -226,12 +227,15 @@ class WepController extends Zend_Controller_Action
                 } else {
                     $defaultFieldsValuesObj = new Iati_WEP_AccountDefaultFieldValues();
                     $defaultFieldGroupObj = new Iati_WEP_AccountDisplayFieldGroup();
-
+                    
                     $defaultFieldsValuesObj->setLanguage($data['default_language']);
                     $defaultFieldsValuesObj->setCurrency($data['default_currency']);
                     $defaultFieldsValuesObj->setReporting_org($data['default_reporting_org']);
-                    $defaultFieldsValuesObj->setHierarchy($data['default_hierarchy']);
+                    $defaultFieldsValuesObj->setHierarchy($data['hierarchy']);
+                    $defaultFieldsValuesObj->setReporting_org_ref($data['reporting_org_ref']);
                     $fieldString = serialize($defaultFieldsValuesObj);
+                    
+                   
                     $defaultValues['id'] = $model->getIdByField('default_field_values', 'account_id', $identity->account_id);
                     $defaultValues['object'] = $fieldString;
                     //                    print_r($defaultValues);exit;
@@ -359,7 +363,7 @@ class WepController extends Zend_Controller_Action
                     $reporting_org['@ref'] = $this->getRequest()->getParam('reporting_org_ref');
                     $reporting_org['text'] = $this->getRequest()->getParam('reporting_org_text');
                     $reporting_org['activity_id'] = $activity_id;
-                    $reproting_org_id = $wepModel->insertRowsToTable('iati_reporting_org', $reporting_org);
+                    $reporting_org_id = $wepModel->insertRowsToTable('iati_reporting_org', $reporting_org);
 
                     $iati_identifier = array();
                     $iati_identifier['text'] = $this->getRequest()->getParam('iati_identifier_text');
@@ -380,8 +384,12 @@ class WepController extends Zend_Controller_Action
         $this->view->blockManager()->enable('partial/dashboard.phtml');
     }
 
-    public function getInitialValues($activity_id)
+    public function getInitialValues($activity_id, $class)
     {
+        $refArray = array(
+            'ReportingOrg', 'ParticipatingOrg', 'Transaction'
+            
+        );
         $identity = Zend_Auth::getInstance()->getIdentity();
         $model = new Model_Wep();
         $defaultFieldValues = $model->getDefaults('default_field_values', 'account_id', $identity->account_id);
@@ -389,8 +397,14 @@ class WepController extends Zend_Controller_Action
         $initial['@currency'] = $defaults['currency'];
         $initial['@xml_lang'] = $defaults['language'];
         $initial['text'] = '';
-        if ($class == 'ReportingOrganisation') {
+        if ($class == 'ReportingOrg') {
             $initial['text'] = $defaults['reporting_org'];
+        }
+        if ($class == 'ReportingOrg') {
+            $initial['@ref'] = $defaults['reporting_org_ref'];
+        }
+        if ($class == 'OtherActivityIdentifier') {
+            $initial['@owner_ref'] = $defaults['reporting_org_ref'];
         }
         return $initial;
     }
@@ -450,7 +464,6 @@ class WepController extends Zend_Controller_Action
                     $factory->setInitialValues($initial);
                     $tree = $factory->factory($class, $flatArray);
                     $factory->validateAll($activity);
-
                     if($factory->hasError()){
                         $formHelper = new Iati_WEP_FormHelper();
                         $a = $formHelper->getForm();
@@ -464,8 +477,7 @@ class WepController extends Zend_Controller_Action
                         $element->setAttribs($data);
                         $factory = new $classname ();
                         $activityTree = $factory->cleanData($activity, $element);
-                         
-
+                
                         $dbLayer = new Iati_WEP_DbLayer();
                         $dbLayer->save($activityTree);
                         
@@ -492,6 +504,7 @@ class WepController extends Zend_Controller_Action
 
                     $factory = new $classname();
                     $factory->setInitialValues($initial);
+                    
                     $tree = $factory->factory($class);
 
                     $formHelper = new Iati_WEP_FormHelper();
@@ -570,7 +583,7 @@ class WepController extends Zend_Controller_Action
                     $element->setAttribs($data);
                     $factory = new $classname ();
                     $activityTree = $factory->cleanData($activity, $element);
-// print_r($activityTree);exit;
+                    //print_r($activityTree);exit;
                     $dbLayer = new Iati_WEP_DbLayer();
                     $dbLayer->save($activityTree);
 
@@ -581,6 +594,7 @@ class WepController extends Zend_Controller_Action
             else{
                 $dbLayer = new Iati_WEP_DbLayer();
                 $rowSet = $dbLayer->getRowSet($class, 'activity_id', $activity_id, true);
+                //print_r($rowSet);exit;
                 $elements = $rowSet->getElements();
                 $attributes = $elements[0]->getAttribs();
                 if(empty($attributes)){
@@ -590,7 +604,7 @@ class WepController extends Zend_Controller_Action
 
                 $registryTree = Iati_WEP_TreeRegistry::getInstance();
 
-                $factory = new $classname();
+                $factory = new $classname;
                 $factory->setInitialValues($initial);
                 $tree = $factory->extractData($rowSet, $activity_id);
 
@@ -732,7 +746,7 @@ class WepController extends Zend_Controller_Action
                 //                print $activity_id;exit;
                 $rowSet = $wepModel->getRowsByFields('iati_activity', 'id', $activity_id);
                 $activity['xml_lang'] = $rowSet[0]['@xml_lang'];
-                $activity['default_currency'] = $rowSet[0]['@currency'];
+                $activity['default_currency'] = $rowSet[0]['@default_currency'];
                 $activity['hierarchy'] = $rowSet[0]['@hierarchy'];
                 $activity['activities_id'] = $rowSet[0]['activities_id'];
                 $form = new Form_Wep_EditIatiActivity();
@@ -750,7 +764,6 @@ class WepController extends Zend_Controller_Action
                     $data['@default_currency'] = $formData['default_currency'];
                     $data['@hierarchy'] = $formData['hierarchy'];
                     $data['@last_updated_datetime'] = date('Y-m-d H:i:s');
-
 
                     if(isset($_GET['activities_id'])){
                         $data['activities_id'] = $activities_id;

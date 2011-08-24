@@ -23,8 +23,8 @@ class Iati_WEP_Activity_Elements_RelatedActivity extends Iati_WEP_Activity_Eleme
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('class' => array('form-text'))
                 ),
-                'code' => array(
-                    'name' => 'code',
+                'type' => array(
+                    'name' => 'type',
                     'label' => 'Flow Type Code',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
@@ -53,7 +53,6 @@ class Iati_WEP_Activity_Elements_RelatedActivity extends Iati_WEP_Activity_Eleme
    
     public function __construct()
     {
-//        $this->checkPrivilege();
         parent::__construct();
         $this->objectId = self::$count;
         self::$count += 1;
@@ -63,14 +62,14 @@ class Iati_WEP_Activity_Elements_RelatedActivity extends Iati_WEP_Activity_Eleme
     public function setOptions()
     {
         $model = new Model_Wep();
-        $this->options['code'] = $model->getCodeArray('RelatedActivityType', null, '1');
+        $this->options['type'] = $model->getCodeArray('RelatedActivityType', null, '1');
         $this->options['xml_lang'] = $model->getCodeArray('Language', null, '1');
     }
     
     public function setAttributes ($data) {
         $this->id = (isset($data['id']))?$data['id']:0;
         $this->text = $data['text'];
-        $this->code = (key_exists('@code', $data))?$data['@code']:$data['code'];
+        $this->type = (key_exists('@type', $data))?$data['@type']:$data['type'];
         $this->ref = (key_exists('@ref', $data))?$data['@ref']:$data['ref'];
         $this->xml_lang = key_exists('@xml_lang', $data)?$data['@xml_lang']:$data['xml_lang'];
         
@@ -95,7 +94,7 @@ class Iati_WEP_Activity_Elements_RelatedActivity extends Iati_WEP_Activity_Eleme
     {
         $data['id'] = $this->id;
         $data['text'] = $this->text;
-        $data['code'] = $this->code;
+        $data['type'] = $this->type;
         $data['ref'] = $this->ref;
         $data['xml_lang'] = $this->xml_lang;
         
@@ -106,24 +105,12 @@ class Iati_WEP_Activity_Elements_RelatedActivity extends Iati_WEP_Activity_Eleme
         $data = array();
         $data ['id'] = $this->id;
         $data['text'] = $this->text;
-        $data['@code'] = $this->code;
+        $data['@type'] = $this->type;
         $data['@ref'] = $this->ref;
         $data['@xml_lang'] = $this->xml_lang;
         
         return $data;
     }
     
-    public function checkPrivilege()
-    {
-        $userRole = new App_UserRole();
-        $resource = new App_Resource();
-        $resource->ownerUserId = $userRole->userId;
-        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'RelatedActivity')) {
-            $host = $_SERVER['HTTP_HOST'];
-            $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-            $extra = 'user/user/login';
-            header("Location: http://$host$uri/$extra");
-        }
-    }
 
 }

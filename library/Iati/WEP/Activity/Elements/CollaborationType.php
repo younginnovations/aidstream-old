@@ -8,7 +8,7 @@ class Iati_WEP_Activity_Elements_CollaborationType extends Iati_WEP_Activity_Ele
     protected $id = 0;
     protected $options = array();
     protected $validators = array(
-                                'text' => 'NotEmpty',
+                                'code' => array('NotEmpty',)
                             );
     protected $className = 'CollaborationType';
     protected $attributes_html = array(
@@ -46,7 +46,6 @@ class Iati_WEP_Activity_Elements_CollaborationType extends Iati_WEP_Activity_Ele
     
     public function __construct($id = 0)
     {
-//        $this->checkPrivilege();
         parent::__construct();
         $this->objectId = self::$count;
         self::$count += 1;
@@ -106,16 +105,4 @@ class Iati_WEP_Activity_Elements_CollaborationType extends Iati_WEP_Activity_Ele
         return $data;
     }
     
-    public function checkPrivilege()
-    {
-        $userRole = new App_UserRole();
-        $resource = new App_Resource();
-        $resource->ownerUserId = $userRole->userId;
-        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'CollaborationType')) {
-            $host = $_SERVER['HTTP_HOST'];
-            $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-            $extra = 'user/user/login';
-            header("Location: http://$host$uri/$extra");
-        }
-    }
 }

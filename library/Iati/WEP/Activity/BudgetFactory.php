@@ -136,7 +136,6 @@ class Iati_WEP_Activity_BudgetFactory
         $registryTree = Iati_WEP_TreeRegistry::getInstance();
         $obj->validate();
         if($obj->hasErrors()){
-            print_r($obj);exit;
             $this->hasError = true;
         }
 
@@ -179,7 +178,6 @@ class Iati_WEP_Activity_BudgetFactory
             $element->setAttribs($data);
             $elementObj->addElement($element);
         }
-
         return $elementObj;
     }
     

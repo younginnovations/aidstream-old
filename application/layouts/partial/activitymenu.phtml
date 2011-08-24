@@ -46,9 +46,11 @@ function getRowSet($name, $id)
 {
     $tableName = "";
     $tableMapper = new Iati_WEP_TableClassMapper();
-    $tableName = $tableMapper->getTableName(
-                    $tableMapper->convertUnderscoreToCamelCase($name)
-                );
+    $string = "Iati_Activity_Element_". $tableMapper->convertUnderscoreToCamelCase($name);
+    $obj = new $string ();
+    $name = $obj->getType();
+    unset($obj);
+    $tableName = $tableMapper->getTableName($name);
     $wepModel = new Model_Wep();
     $rowSet = $wepModel->getRowsByFields($tableName, 'activity_id', $id);
 //    print_r($rowSet);exit;

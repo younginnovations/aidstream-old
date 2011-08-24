@@ -1,18 +1,11 @@
 <?php
 class Iati_WEP_Activity_Elements_ElementBase
 {
-    /*protected static $activity_id;
-     protected static $account_id;*/
     protected static $objectName = '';
-    //protected $text = '';
-    //    protected $xml_lang;
-    //protected $title_id = 0;
     protected $tableName = '';
     protected $html = array();
 
     protected $validators = array();
-    //protected static $count = 0;
-    //protected $object_id;
     protected $remove;
     protected $options = array();
     protected $multiple;
@@ -138,20 +131,23 @@ class Iati_WEP_Activity_Elements_ElementBase
     public function validate($data)
     {
         foreach($data as $key => $eachData){
-
-            if(empty($this->validators[$key])){
-                continue;
-            }
-            if(($this->validators[$key] != 'NotEmpty') && (empty($eachData))){
-                continue;
-            }
-            $string = "Zend_Validate_". $this->validators[$key];
-            $validator = new $string();
-             
-            if(!$validator->isValid($eachData)){
-                $this->error[$key] = $validator->getMessages();
-                $this->hasError = true;
-
+            
+            if(empty($this->validators[$key])){ continue; }
+            
+            if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)) && 
+            (empty($this->required))) {  continue; }
+            
+            foreach($this->validators[$key] as $validator){
+                $string = "Zend_Validate_". $validator;
+              $validator = new $string();
+              $error = '';
+              if(!$validator->isValid($eachData)){
+                $error = isset($this->error[$key])?array_merge($this->error[$key], $validator->getMessages())
+                                :$validator->getMessages();
+                  $this->error[$key] = $error;
+                  $this->hasError = true;
+  
+              }  
             }
         }
     }

@@ -5,6 +5,7 @@ class Iati_WEP_AccountDefaultFieldValues
     protected $currency = 'USD';
     protected $reporting_org = '';
     protected $hierarchy = 0;
+    protected $reporting_org_ref = '';
 
     public function setLanguage($data){
         $this->language = $data;
@@ -18,6 +19,11 @@ class Iati_WEP_AccountDefaultFieldValues
     
     public function setHierarchy($data){
         $this->hierarchy = $data;
+    }
+    
+    public function setReporting_org_ref($data)
+    {
+        $this->reporting_org_ref = $data;   
     }
     
     public function getDefaultFields()
