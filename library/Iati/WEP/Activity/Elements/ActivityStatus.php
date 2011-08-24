@@ -1,7 +1,7 @@
 <?php
 class Iati_WEP_Activity_Elements_ActivityStatus extends Iati_WEP_Activity_Elements_ElementBase
 {
-   
+
     protected $attributes = array('id','text', 'xml_lang');
     protected $text;
     protected $code;
@@ -106,20 +106,4 @@ class Iati_WEP_Activity_Elements_ActivityStatus extends Iati_WEP_Activity_Elemen
 
         return $data;
     }
-
-<<<<<<< HEAD
-=======
-//    public function checkPrivilege()
-//    {
-//        $userRole = new App_UserRole();
-//        $resource = new App_Resource();
-//        $resource->ownerUserId = $userRole->userId;
-//        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'ActivityStatus')) {
-//            $host = $_SERVER['HTTP_HOST'];
-//            $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-//            $extra = 'user/user/login';
-//            header("Location: http://$host$uri/$extra");
-//        }
-//    }
->>>>>>> 26fee41a334eff3ace92544e89d75a4df945c2f2
 }
