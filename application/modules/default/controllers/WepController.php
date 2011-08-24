@@ -496,6 +496,7 @@ class WepController extends Zend_Controller_Action
                      $a = $formHelper->getForm();*/
                 }
                 else{
+                    
                     $activity = new Iati_WEP_Activity_Elements_Activity();
                     $activity->setAttributes(array('activity_id' => $activity_id));
 
@@ -506,7 +507,6 @@ class WepController extends Zend_Controller_Action
                     $factory->setInitialValues($initial);
                     
                     $tree = $factory->factory($class);
-
                     $formHelper = new Iati_WEP_FormHelper();
                     $a = $formHelper->getForm();
 

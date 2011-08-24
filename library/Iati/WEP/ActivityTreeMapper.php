@@ -81,7 +81,7 @@ class Iati_WEP_ActivityTreeMapper {
 	6 => 'ContactInfo',
 	7 => 'ReportingOrg',
 	8 => 'Identifier',
-	9 => 'OtherIdentifier',
+	9 => 'OtherActivityIdentifier',
 	10 => 'Title',
 	11 => 'Description',
 	12 => 'ActivityStatus',

@@ -1,5 +1,5 @@
 <?php
-class Iati_WEP_Activity_OtherIdentifierFactory extends Iati_WEP_Activity_BaseFactory
+class Iati_WEP_Activity_OtherActivityIdentifierFactory extends Iati_WEP_Activity_BaseFactory
 {
     
     public function __construct()
@@ -9,7 +9,7 @@ class Iati_WEP_Activity_OtherIdentifierFactory extends Iati_WEP_Activity_BaseFac
         
     }
     
-    public function factory($objectType = 'OtherIdentifier', $data = array())
+    public function factory($objectType = 'OtherActivityIdentifier', $data = array())
     {
         $this->globalObject = $this->getRootNode();
         if($data){
@@ -23,7 +23,6 @@ class Iati_WEP_Activity_OtherIdentifierFactory extends Iati_WEP_Activity_BaseFac
         else{
             $tree = $this->createObjects ($objectType);
         }
-
         return $tree;
     }
     

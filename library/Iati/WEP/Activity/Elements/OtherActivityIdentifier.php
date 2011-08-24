@@ -1,5 +1,5 @@
 <?php
-class Iati_WEP_Activity_Elements_OtherIdentifier extends Iati_WEP_Activity_Elements_ElementBase
+class Iati_WEP_Activity_Elements_OtherActivityIdentifier extends Iati_WEP_Activity_Elements_ElementBase
 {
     protected $attributes = array('id', 'text', 'owner_ref', 'owner_name');
     protected $text;
@@ -10,7 +10,7 @@ class Iati_WEP_Activity_Elements_OtherIdentifier extends Iati_WEP_Activity_Eleme
     protected $validators = array(
                                 'text' => array('NotEmpty',)
                             );
-    protected $className = 'OtherIdentifier';
+    protected $className = 'OtherActivityIdentifier';
     protected $attributes_html = array(
                 'id' => array(
                     'name' => 'id',
