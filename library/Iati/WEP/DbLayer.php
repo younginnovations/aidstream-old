@@ -162,7 +162,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 			foreach ($elementTree as $classElement) {
 				$element = $parentClass->addElement($classElement);
 				$flag = false;
-				$resultRow = $this->getRows($classElement, $conditionField, $primaryId);
+				$resultRow = $this->getRows($classElement, $conditionField, $primaryId, false, $parentClass);
 				if (($resultRow[$classElement])) {
 					foreach ($resultRow[$classElement] as $eachRow) {
 						if($flag)
@@ -182,12 +182,16 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 	}
 
 	/*
-	 * Interaction with Database
+	 * fetch the selected rows with given condition from database
 	 */
 
-	public function getRows($className, $fieldName = null, $value = null, $tree = false) {
+	public function getRows($className, $fieldName = null, $value = null, $tree = false, $parentType = null)
+	{
+
+		$objectType = $this->getType($className, $parentType);
 		$tableClassMapper = new Iati_WEP_TableClassMapper();
-		$tableName = $tableClassMapper->getTableName($className);
+		$tableName = $tableClassMapper->getTableName($objectType);
+
 		if ($tableName) {
 			$this->_name = $tableName;
 			if (!$fieldName || !$value) {
@@ -199,9 +203,28 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 			$result = $this->fetchAll($query);
 			$result = $result->toArray();
 
-			$arrayResult[$className] = $result;
+			$arrayResult[$objectType] = $result;
 			return $arrayResult;
 		}
+	}
+
+		/*
+		 * Get the type from the Element Class
+		 * If Parent class exists get Parent type from the Element Class
+		 * Process it and use it as Class Name to get tableName
+		 */
+	public function getType($className, $parentType)
+	{
+		$class = "Iati_Activity_Element_" .$className;
+		$element = new $class;
+		$type = $element->getType();
+		$parentClass = $element->getParentType();
+		if($parentType)
+		$objectType = $parentClass."_".$type;
+		else
+		$objectType = $type;
+
+		return $objectType;
 	}
 
 	/*  params : classname
