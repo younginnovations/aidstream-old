@@ -10,7 +10,7 @@ class Iati_WEP_Activity_Elements_ParticipatingOrg extends Iati_WEP_Activity_Elem
     protected $id = 0;
     protected $options = array();
     protected $validators = array(
-                                'role' => 'NotEmpty',
+                                'role' => array('NotEmpty',)
                             );
     protected $className = 'ParticipatingOrg';
 
@@ -92,23 +92,9 @@ class Iati_WEP_Activity_Elements_ParticipatingOrg extends Iati_WEP_Activity_Elem
 //        print_r($data);exit;
     }
 
-    }
+  
 
-//     public function checkPrivilege()
-//    {
-//        $userRole = new App_UserRole();
-//        $resource = new App_Resource();
-//        $resource->ownerUserId = $userRole->userId;
-//        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'ParticipatingOrg')) {
-//            $host  = $_SERVER['HTTP_HOST'];
-//            $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-//            $extra = 'user/user/login';
-//            header("Location: http://$host$uri/$extra");
-//        }
-//    }
-
-
-    public function getOptions($name = NULL)
+    public function getOptions($name = NULL)  
     {
         return $this->options[$name];
     }
