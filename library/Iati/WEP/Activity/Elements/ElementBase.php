@@ -17,9 +17,6 @@ class Iati_WEP_Activity_Elements_ElementBase
 	{
 //		$this->checkPrivilege();
 	}
-
-    }
-
     /**
      * setAccountActivity sets the properties $activity_id and $account_id
      * @param $array - contains account_id and activity_id in their respective indexes
@@ -113,7 +110,7 @@ class Iati_WEP_Activity_Elements_ElementBase
     {
         return $this->required;
     }
-    
+
     public function getObjectName()
     {
         return self::$objectName;
@@ -133,12 +130,12 @@ class Iati_WEP_Activity_Elements_ElementBase
     public function validate($data)
     {
         foreach($data as $key => $eachData){
-            
+
             if(empty($this->validators[$key])){ continue; }
-            
-            if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)) && 
+
+            if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)) &&
             (empty($this->required))) {  continue; }
-            
+
             foreach($this->validators[$key] as $validator){
                 $string = "Zend_Validate_". $validator;
               $validator = new $string();
@@ -148,8 +145,8 @@ class Iati_WEP_Activity_Elements_ElementBase
                                 :$validator->getMessages();
                   $this->error[$key] = $error;
                   $this->hasError = true;
-  
-              }  
+
+              }
             }
         }
     }
