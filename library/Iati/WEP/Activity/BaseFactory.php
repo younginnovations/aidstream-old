@@ -155,7 +155,8 @@ class Iati_WEP_Activity_BaseFactory
         $registryTree->addNode($activity);
         $elementArray = $elementTree->getElements();
         foreach($elementArray as $eachElement){
-            $className =  'Iati_WEP_Activity_Elements_' . $eachElement->getType();
+            $className = str_replace("Iati_Activity_Element_", "Iati_WEP_Activity_Elements_", get_class($eachElement));
+            //$className =  'Iati_WEP_Activity_Element_' . $eachElement->getType();
 
             $object = new $className;
             $object->setAttributes($eachElement->getAttribs());
