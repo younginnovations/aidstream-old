@@ -1,12 +1,14 @@
 <?php
-class Iati_WEP_Activity_Elements_ContactInfo_Telephone extends 
-                                    Iati_WEP_Activity_Elements_ContactInfo
+class Iati_WEP_Activity_Elements_Conditions_Condition extends 
+                                    Iati_WEP_Activity_Elements_Conditions
 {
-    protected $attributes = array('id', 'text',);
+    protected $attributes = array('id', 'text', 'type', 'xml_lang');
     protected $text;
+    protected $type;
+    protected $xml_lang;
     protected $id = 0;
     protected $options = array();
-    protected $className = 'Telephone';
+    protected $className = 'Condition';
     protected $validators = array(
                                 'text' => array('NotEmpty'),
                             );
@@ -20,6 +22,20 @@ class Iati_WEP_Activity_Elements_ContactInfo_Telephone extends
                     'label' => 'Text',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('class' => array('form-text'))
+                ),
+                'type' => array(
+                    'name' => 'type',
+                    'label' => 'Organisation Type',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'options' => '',
+                    'attrs' => array('class' => array('form-select'))
+                ),
+                'xml_lang' => array(
+                    'name' => 'xml_lang',
+                    'label' => 'Language',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'options' => '',
+                    'attrs' => array('class' => array('form-select'))
                 ),
     );
     
@@ -39,11 +55,15 @@ class Iati_WEP_Activity_Elements_ContactInfo_Telephone extends
     
     public function setOptions()
     {
-        
+        $model = new Model_Wep();
+        $this->options['type'] = $model->getCodeArray('ConditionType', null, '1');
+        $this->options['xml_lang'] = $model->getCodeArray('Language', null, '1');
     }
     
     public function setAttributes ($data) {
         $this->id = (key_exists('id', $data))?$data['id']:0;
+        $this->type = (key_exists('@type', $data))?$data['@type']:$data['type'];
+        $this->xml_lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
         $this->text = $data['text'];
     }
     
@@ -65,6 +85,8 @@ class Iati_WEP_Activity_Elements_ContactInfo_Telephone extends
     {
         $data['id'] = $this->id;
         $data['text'] = $this->text;
+        $data['type'] = $this->type;
+        $data['xml_lang'] = $this->xml_lang;
          
         foreach($data as $key => $eachData){
             
@@ -92,8 +114,11 @@ class Iati_WEP_Activity_Elements_ContactInfo_Telephone extends
         $data = array();
         $data ['id'] = $this->id;
         $data['text'] = $this->text;
+        $data['@type'] = $this->type;
+        $data['@xml_lang'] = $this->xml_lang;
         
         return $data;
     }
+    
     
 }

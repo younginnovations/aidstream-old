@@ -15,7 +15,7 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
         $activity->setAttribs(array(
             'id' => '11',
         ));
-        $iatiIdentifier = $activity->addElement('identifier');
+   /*     $iatiIdentifier = $activity->addElement('identifier');
         // fill up properties of $iatiIdentifier
 
         // Another technique for adding new element is
@@ -50,9 +50,21 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
 		$locationName->setAttribs(array('@xml_lang' => '1',
 											'text' => 'testText',
 										));
+*/
 
+	$conditions = $activity->addElement('Conditions');
+	$conditions->setAttribs(array(
+		    '@attached' => "1",
+		));
+	
+	$condition = $conditions->addElement('Conditions_Condition');
+	$condition->setAttribs(array('@type' => '1',
+			     '@xml_lang'=> '133',
+			'text' => 'testText',
+				));
+		
 
-        $activity->addElement($reportingOrg);
+        //$activity->addElement($conditions);
         $dbLayer = new Iati_WEP_DbLayer();
 		$dbLayer->save($activity);
 	}

@@ -59,9 +59,9 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement extends Iati_WEP_Activity_E
         return $this->className;
     }
     
-    public function getValidator()
+    public function getValidator($attr)
     {
-        return $this->validators;
+        return $this->validators[$attr];
     }
     
     public function validate(){

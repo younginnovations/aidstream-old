@@ -1,48 +1,59 @@
-<?php 
-class Iati_WEP_Activity_Elements_Location extends Iati_WEP_Activity_Elements_ElementBase
+<?php
+class Iati_WEP_Activity_Elements_Conditions extends Iati_WEP_Activity_Elements_ElementBase
 {
-    protected $attributes = array('id', 'percentage');
-    protected $percentage;
+    protected $attributes = array('id', 'attached');
     protected $id = 0;
+    protected $attached;
     protected $options = array();
-    protected $validators = array(
-                                'percentage' => array('Int'),
-                            );
+    protected $multiple = true;
     protected $attributes_html = array(
                     'id' => array(
                     'name' => 'id',
                     'label' => '',
                     'html' => '<input type="hidden" name="%(name)s" value="%(value)s" />',
-                    ),
-                    'percentage' => array(
-                    'name' => 'percentage',
-                    'label' => 'Percentage',
+                ),
+                //'attached' => array(
+                //    'name' => 'attached',
+                //    'label' => 'Conditions Attached',
+                //    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                //    'options' => '',
+                //    'attrs' => array('class' => array('form-select'))
+                //),
+                
+                'attached' => array(
+                    'name' => 'attached',
+                    'label' => 'Conditions Attached',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('class' => array('form-text'))
-                
                 ),
     );
-    protected $className = 'Location';
+    protected $className = 'Conditions';
     
+    protected $validators = array(
+                                  'attached' => array('NotEmpty'),
+                                  );
     protected static $count = 0;
     protected $objectId;
-    protected $error = array();
+    protected $error = array(); 
     protected $hasError = false;
-    protected $multiple = true;
     
-    
-
     public function __construct()
     {
         parent :: __construct();
         $this->objectId = self::$count;
         self::$count += 1;
         $this->multiple = true;
+        $this->setOptions();
+    }
+    
+    public function setOptions()
+    {
+        $this->options['attached'] = array('No' => '0', 'Yes' => '1');
     }
     
     public function setAttributes ($data) {
-        $this->id = (isset($data['id']))?$data['id']:0; 
-        $this->percentage = (isset($data['@percentage']))?$data['@percentage']:$data['percentage'];
+        $this->id = (key_exists('id', $data))?$data['id']:0;
+        $this->attached = (key_exists('@attached', $data))?$data['@attached']:$data['attached'];
     }
     
     public function getOptions($attr)
@@ -65,8 +76,7 @@ class Iati_WEP_Activity_Elements_Location extends Iati_WEP_Activity_Elements_Ele
     
     public function validate(){
         $data['id'] = $this->id;
-        $data['percentage'] = $this->percentage;
-        //print_r($data['percentage']);exit;
+        $data['attached'] = $this->attached;
         parent :: validate($data);
     }
     
@@ -78,8 +88,7 @@ class Iati_WEP_Activity_Elements_Location extends Iati_WEP_Activity_Elements_Ele
     public function getCleanedData(){
         $data = array();
         $data['id'] = $this->id;
-        $data['@percentage'] = $this->percentage;
-        
+        $data['@attached'] = $this->attached;
         return $data;
     }
 }
