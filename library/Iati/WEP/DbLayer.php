@@ -190,7 +190,6 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		$objectType = $this->getType($className, $parentType);
 		$tableClassMapper = new Iati_WEP_TableClassMapper();
 		$tableName = $tableClassMapper->getTableName($objectType);
-
 		if ($tableName) {
 			$this->_name = $tableName;
 			if (!$fieldName || !$value) {
@@ -201,7 +200,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 			}
 			$result = $this->fetchAll($query);
 			$result = $result->toArray();
-			$arrayResult[$objectType] = $result;
+			$arrayResult[$className] = $result;
 			return $arrayResult;
 		}
 	}
