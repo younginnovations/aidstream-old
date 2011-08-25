@@ -45,9 +45,9 @@ class Iati_WEP_Activity_Elements_ContactInfo extends Iati_WEP_Activity_Elements_
         return $this->className;
     }
     
-    public function getValidator()
+    public function getValidator($attr)
     {
-        return $this->validators;
+        return $this->validators[$attr];
     }
     
     public function validate(){

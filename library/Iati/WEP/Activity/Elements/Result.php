@@ -69,9 +69,9 @@ class Iati_WEP_Activity_Elements_Result extends Iati_WEP_Activity_Elements_Eleme
         return $this->className;
     }
     
-    public function getValidator()
+    public function getValidator($attr)
     {
-        return $this->validators;
+        return $this->validators[$attr];
     }
     
     public function validate(){

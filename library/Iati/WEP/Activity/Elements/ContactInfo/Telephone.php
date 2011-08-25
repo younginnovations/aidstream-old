@@ -2,7 +2,7 @@
 class Iati_WEP_Activity_Elements_ContactInfo_Telephone extends 
                                     Iati_WEP_Activity_Elements_ContactInfo
 {
-    protected $attributes = array('text',);
+    protected $attributes = array('id', 'text',);
     protected $text;
     protected $id = 0;
     protected $options = array();
@@ -32,7 +32,6 @@ class Iati_WEP_Activity_Elements_ContactInfo_Telephone extends
     
     public function __construct()
     {
-//        $this->checkPrivilege();
         $this->objectId = self::$count;
         self::$count += 1;
         $this->setOptions();
@@ -97,16 +96,4 @@ class Iati_WEP_Activity_Elements_ContactInfo_Telephone extends
         return $data;
     }
     
-    public function checkPrivilege()
-    {
-        $userRole = new App_UserRole();
-        $resource = new App_Resource();
-        $resource->ownerUserId = $userRole->userId;
-        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'Telephone')) {
-            $host = $_SERVER['HTTP_HOST'];
-            $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-            $extra = 'user/user/login';
-            header("Location: http://$host$uri/$extra");
-        }
-    }
 }
