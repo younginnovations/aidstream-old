@@ -196,13 +196,13 @@ class Iati_WEP_Activity_Elements_ElementBase
         $rowSet = $model->listAll($this->tableName,'activity_id', $activity_id);
         return $rowSet;
     }
-    
+
     public function checkPrivilege()
     {
             $privilege = $this->getClassName();
             $userRole = new App_UserRole();
             $resource = new App_Resource();
-            $resource->ownerUserId = $userRole->userId;
+            $resource->ownerUserId = $userRole->ownerId;
             if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, $privilege)) {
                     $host  = $_SERVER['HTTP_HOST'];
                     $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
