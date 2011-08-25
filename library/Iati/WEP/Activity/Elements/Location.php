@@ -5,8 +5,8 @@ class Iati_WEP_Activity_Elements_Location extends Iati_WEP_Activity_Elements_Ele
     protected $percentage;
     protected $id = 0;
     protected $options = array();
-    protected $validator = array(
-                                'percentage' => array('Int')
+    protected $validators = array(
+                                'percentage' => array('Int'),
                             );
     protected $attributes_html = array(
                     'id' => array(
@@ -24,9 +24,6 @@ class Iati_WEP_Activity_Elements_Location extends Iati_WEP_Activity_Elements_Ele
     );
     protected $className = 'Location';
     
-    protected $validators = array(
-                                'percentage' => 'Int',
-                            );
     protected static $count = 0;
     protected $objectId;
     protected $error = array();
@@ -69,7 +66,7 @@ class Iati_WEP_Activity_Elements_Location extends Iati_WEP_Activity_Elements_Ele
     public function validate(){
         $data['id'] = $this->id;
         $data['percentage'] = $this->percentage;
-        
+        //print_r($data['percentage']);exit;
         parent :: validate($data);
     }
     
