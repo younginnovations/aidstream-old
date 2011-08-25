@@ -11,8 +11,8 @@ class Iati_WEP_Activity_Elements_Location_Coordinates extends Iati_WEP_Activity_
     
     
     protected $validators = array(
-                                'latitude' => array('NotEmpty'),
-                                'longitude' => array('NotEmpty'),
+                                'latitude' => array('NotEmpty', 'Float'),
+                                'longitude' => array('NotEmpty', 'Float'),
                             );
                             
     protected $attributes_html = array(
@@ -20,24 +20,22 @@ class Iati_WEP_Activity_Elements_Location_Coordinates extends Iati_WEP_Activity_
                     'name' => 'id',
                     'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
                 ),
-                'country' => array(
-                    'name' => 'country',
-                    'label' => 'Country',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
-                    'options' => '',
-                    'attrs' => array('class' => array('form-select'))
+                'latitude' => array(
+                    'name' => 'latitude',
+                    'label' => 'Latitude',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'attrs' => array('class' => array('form-text'))
                 ),
-                'adm1' => array(
-                    'name' => 'adm1',
-                    'label' => 'Admin-1',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
-                    'options' => '',
-                    'attrs' => array('class' => array('form-select'))
+                'longitude' => array(
+                    'name' => 'longitude',
+                    'label' => 'Longitude',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'attrs' => array('class' => array('form-text'))
                 ),
                 
-                'adm2' => array(
-                    'name' => 'adm2',
-                    'label' => 'Admin-2',
+                'percision' => array(
+                    'name' => 'percision',
+                    'label' => 'Percision',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
@@ -63,17 +61,15 @@ class Iati_WEP_Activity_Elements_Location_Coordinates extends Iati_WEP_Activity_
     {
         $model = new Model_Wep();
         
-        $this->options['country'] = $model->getCodeArray('Country', null, '1');
-        $this->options['adm1'] = $model->getCodeArray('AdministrativeAreaCode(First-level)', null, '1');
-        $this->options['adm2'] = $model->getCodeArray('AdministrativeAreaCode(Second-level)', null, '1');
+        $this->options['percision'] = $model->getCodeArray('PercisionCode', null, '1');
         
     }
     
     public function setAttributes ($data) {
         $this->id = (isset($data['id']))?$data['id']:0; 
-        $this->country = (key_exists('@country', $data))?$data['@country']:$data['country'];
-        $this->adm1 = (key_exists('@adm1', $data))?$data['@adm1']:$data['adm1'];
-        $this->adm2 = (key_exists('@adm2', $data))?$data['@adm2']:$data['adm2'];
+        $this->latitude = (key_exists('@latitude', $data))?$data['@latitude']:$data['latitude'];
+        $this->longitude = (key_exists('@longitude', $data))?$data['@longitude']:$data['longitude'];
+        $this->percision = (key_exists('@percision', $data))?$data['@percision']:$data['percision'];
     }
     
     public function getOptions($name = NULL)
@@ -93,9 +89,9 @@ class Iati_WEP_Activity_Elements_Location_Coordinates extends Iati_WEP_Activity_
     public function validate()
     {
         $data['id'] = $this->id;
-        $data['country'] = $this->country;
-        $data['adm1'] = $this->adm1;
-        $data['adm2'] = $this->adm2;
+        $data['latitude'] = $this->latitude;
+        $data['longitude'] = $this->longitude;
+        $data['percision'] = $this->percision;
 //        print_r($data);exit;
         foreach($data as $key => $eachData){
             
@@ -121,10 +117,10 @@ class Iati_WEP_Activity_Elements_Location_Coordinates extends Iati_WEP_Activity_
     
     public function getCleanedData(){
         $data = array();
-        $data ['id'] = $this->id;
-        $data['@country'] = $this->country;
-        $data['@adm1'] = $this->adm1;
-        $data['@adm2'] = $this->adm2;
+        $data['id'] = $this->id;
+        $data['@latitude'] = $this->latitude;
+        $data['@longitude'] = $this->longitude;
+        $data['@percision'] = $this->percision;
         
         return $data;
     }

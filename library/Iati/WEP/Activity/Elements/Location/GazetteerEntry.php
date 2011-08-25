@@ -112,7 +112,6 @@ class Iati_WEP_Activity_Elements_Location_GazetteerEntry extends Iati_WEP_Activi
         $data ['id'] = $this->id;
         $data['@gazetteer_ref'] = $this->gazetteer_ref;
         $data['text'] = $this->text;
-        
         return $data;
     }
     
