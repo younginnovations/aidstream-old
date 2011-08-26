@@ -28,7 +28,7 @@ protected $attributes = array('id', 'text', 'iso_date');
                     'name' => 'iso_date',
                     'label' => 'Date',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('class' => array('form-text'))
+                    'attrs' => array('class' => 'datepicker form-text', 'id' => 'iso_date')
                 )
     );
     

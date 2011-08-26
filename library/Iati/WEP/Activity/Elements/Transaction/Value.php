@@ -34,7 +34,7 @@ class Iati_WEP_Activity_Elements_Transaction_Value extends Iati_WEP_Activity_Ele
                     'name' => 'value_date',
                     'label' => 'Value Date',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('id' => 'date', 'class'=>'datepicker form-text'),
+                    'attrs' =>array('class' => array('form-text', 'datepicker'), 'id' => 'value_date')
                 ),
     );
     

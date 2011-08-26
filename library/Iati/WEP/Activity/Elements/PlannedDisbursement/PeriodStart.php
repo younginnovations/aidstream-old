@@ -29,7 +29,7 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement_PeriodStart
                     'name' => 'iso_date',
                     'label' => 'Date',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('class' => array('form-text'))
+                    'attrs' => array('class' => array('form-text', 'datepicker'), 'id' => 'iso_date')
                 )
     );
     

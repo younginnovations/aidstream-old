@@ -3,8 +3,8 @@ dojo.require('dojo.NodeList-traverse');
 dojo.require('dojo.behavior');
 dojo.require('dijit.Dialog');
 dojo.require('dijit.form.Button');
-//dojo.require('dijit.form.DateTextBox');
-
+dojo.require('dijit.form.DateTextBox');
+//dojo.require("dojo.date.locale");
 
 /* Extending dojo.connect to remove attaching event when null is passed */
 /*
@@ -16,14 +16,16 @@ dojo.connect = function (source, event, object, method, once) {
     }
 }
 */
-/*
-var createDateTextBox = function (id, name) {
+
+var createDateTextBox = function (id, name, value) {
+    
     var dob = new dijit.form.DateTextBox({
         id : id,
-        name : name
+        name : name, 
+	value : new Date (value)
+	
     }, id);
 }
-*/
 
 var messageDialog = function (title, msg) {
     
@@ -223,7 +225,13 @@ function initialize() {
         	}
         
         	
-        }
+        },
+	".datepicker" : {
+		"found" : function (ele) {
+		    
+		    createDateTextBox(ele.id, ele.name, ele.value);
+		}
+	}
     });
     // End of dojo.behavior.add
     dojo.behavior.apply();
