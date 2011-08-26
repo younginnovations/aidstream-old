@@ -96,6 +96,9 @@ protected $attributes_html = array(
             if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)) && 
             (empty($this->required))) {  continue; }
             
+            if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)))
+            {  continue; }
+            
             foreach($this->validators[$key] as $validator){
                 $string = "Zend_Validate_". $validator;
               $validator = new $string();
