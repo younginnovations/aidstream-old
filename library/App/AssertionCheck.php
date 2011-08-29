@@ -14,6 +14,7 @@ class App_AssertionCheck extends Zend_Db_Table_Abstract
             foreach($rows as $row){
             	$unserializedRow = unserialize($row['resource']);
             	$inArray = in_array($resource, $unserializedRow);
+
             	if($inArray)
             	return true;
             }

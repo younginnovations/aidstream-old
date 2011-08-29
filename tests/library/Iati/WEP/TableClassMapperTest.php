@@ -38,5 +38,15 @@ class Iati_WEP_TableClassMapperTest extends PHPUnit_Framework_TestCase
 		$parentName = "Result_Indicator";
 		$tableName = $this->testObj->getTableName($className,$parentName);
 		$this->assertEquals('iati_result/indicator/actual', $tableName);
+
+		$className = 'Transaction';
+		$parentName = "Activity";
+		$tableName = $this->testObj->getTableName($className,$parentName);
+		$this->assertEquals('iati_transaction', $tableName);
+
+		$className = 'ActivityStatus';
+		$parentName = "Activity";
+		$tableName = $this->testObj->getTableName($className,$parentName);
+		$this->assertEquals('iati_activity_status', $tableName);
 	}
 }

@@ -56,13 +56,13 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
 	$conditions->setAttribs(array(
 		    '@attached' => "1",
 		));
-	
+
 	$condition = $conditions->addElement('Conditions_Condition');
 	$condition->setAttribs(array('@type' => '1',
 			     '@xml_lang'=> '133',
 			'text' => 'testText',
 				));
-		
+
 
         //$activity->addElement($conditions);
         $dbLayer = new Iati_WEP_DbLayer();
@@ -231,7 +231,7 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
 
 	public function testFetchRowOwnTreeSet()
 	{
-		$className = 'Transaction';
+		$className = 'Activity';
 		$fieldName = 'id';
 		$value = 2;
 		$tree = true;
@@ -306,6 +306,63 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
         );
         $attrib = $dbLayer->checkIsEmptyAttribs($attribs);
 		$this->assertTrue($attrib);
+
+	}
+
+	public function testactivityTreeMapper()
+	{
+		$activitMapper = new Iati_WEP_ActivityTreeMapper();
+
+		$className = 'Activity';
+		$result = $activitMapper->getActivityTree($className);
+		$expectedResult = array(
+			0 => 'Transaction',
+			1 => 'Conditions',
+			2 => 'DocumentLink',
+			3 => 'Result',
+			4 => 'PlannedDisbursement',
+			5 => 'Identifier',
+			6 => 'ContactInfo',
+			7 => 'ReportingOrg',
+			8 => 'Identifier',
+			9 => 'OtherActivityIdentifier',
+			10 => 'Title',
+			11 => 'Description',
+			12 => 'ActivityStatus',
+			13 => 'ActivityDate',
+			14 => 'ParticipatingOrg',
+			15 => 'RecipientCountry',
+			16 => 'RecipientRegion',
+			17 => 'Location',
+			18 => 'Sector',
+			19 => 'PolicyMarker',
+			20 => 'CollaborationType',
+			21 => 'DefaultFlowType',
+			22 => 'DefaultFinanceType',
+			23 => 'DefaultAidType',
+			24 => 'DefaultTiedStatus',
+			25 => 'Budget',
+			25 => 'ActivityWebsite',
+			26 => 'RelatedActivity',
+			);
+		$this->assertEquals($expectedResult, $result);
+
+		$className = 'Transaction';
+		$result = $activitMapper->getActivityTree($className);
+		$expectedResult = array(
+        	0 => 'Transaction_TransactionDate',
+        	1 => 'Transaction_TransactionType',
+        	2 => 'Transaction_AidType',
+        	3 => 'Transaction_Description',
+        	4 => 'Transaction_FinanceType',
+        	5 => 'Transaction_ProviderOrg',
+        	6 => 'Transaction_ReceiverOrg',
+        	7 => 'Transaction_Value',
+        	8 => 'Transaction_TiedStatus',
+        	9 => 'Transaction_DisbursementChannel',
+        	10 => 'Transaction_FlowType',
+        	);
+		$this->assertEquals($expectedResult, $result);
 
 	}
 

@@ -1,16 +1,19 @@
 <?php
 
+/**
+ * @author rohan
+ *
+ */
+
 class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 
 	protected $_name;
 
 	/**
-	 * Save data for the current object
-	 * Input object is of ElementType
-	 * Id of the object is embedded on function as atrrib
-	 * Data is inserted into database if the Id doesnot exist for object and is updated if the Id exists
+	 * @param array $attribs
+	 * Checks if the attrib contained in the element is empty or not
+	 * @return Boolean
 	 */
-
 	public function checkIsEmptyAttribs($attribs)
 	{
 		$count = 0;
@@ -28,6 +31,14 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 			return true;
 			return $attribResult;
 	}
+
+	/**
+	 * @param object $object ElementObject
+	 * @param int $parentId  DataBase Primary Id of Parent Class
+	 * Id of the object is embedded on function as atrrib
+	 * Data is inserted into database if the Id doesnot exist for object and is updated if the Id exists
+	 * @return unknown_type
+	 */
 	public function save($object, $parentId = null) {
 
 	if ($object) {
@@ -36,6 +47,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 			$parentType = $object->getParentType();
 			$attribs = $object->getAttribs();
 			$attribResult = $this->checkIsEmptyAttribs($attribs);
+			//if there is not attributes in the object but contains childElements then ProcessIt (insert/update)
 			if($attribResult == false && $object->getElements())
 			$attribResult = true;
 			if($attribResult){
@@ -57,6 +69,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 						$this->update($attribs);
 					}
 					foreach ($object->getElements() as $elements) {
+						//recursive function save
 						$this->save($elements, $primaryId);
 					}
 				}
@@ -76,6 +89,10 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		}
 	}
 
+	/**
+	 * @param array $data
+	 * @return Boolean|int
+	 */
 	public function insert($data) {
 		// try to insert data with $tablename
 		try {
@@ -89,20 +106,23 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		}
 	}
 
-	/*
-	 * method: getRowSet - process and retrive database datas
-	 * params: className (string),
-	 * 			fieldName (string),
-	 * 			value (int/string),
-	 * 			tree (boolean)
-	 * returns: Element Object
+	/**
+	 * @param string $className
+	 * @param string $fieldName
+	 * @param string|int $value
+	 * @param boolean $tree
+	 * @return object|boolean elementTree
 	 */
-
 	public function getRowSet($className, $fieldName, $value, $tree = false) {
 		try{
 			$tableClassMapper = new Iati_WEP_TableClassMapper();
 			$activityTreeMapper = new Iati_WEP_ActivityTreeMapper();
-			//activity
+			/*
+			 * Conditions : If tree is true fetch whole of the tree
+			 * 					Conditions : if fieldName is parentId (eg: activity_id)
+			 * 							   : OR fieldName is primaryId (eg : id)
+			 * 			  : If tree is False just fetch a row and return elementObject
+			 */
 			if ($tree) {
 				//check If the field supplied is own Id or parent_id;
 				$conditionalClass = $this->checkConditionField($className,$fieldName);
@@ -144,11 +164,18 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		}
 		catch (Exception $e)
 		{
+			var_dump($e->getMessage());
 			return false;
 		}
 	}
 
 
+	/**
+	 * @param object $parentClass Elment object
+	 * @param string $className
+	 * @param arrya $data
+	 * @return object element object
+	 */
 	public function fetchRowTreeSet($parentClass, $className, $data)
 	{
 		$tableClassMapper = new Iati_WEP_TableClassMapper();
@@ -175,18 +202,29 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		return $parentClass;
 	}
 
+	/**
+	 * @param unknown_type $string
+	 * @return string
+	 */
 	function lcfirst($string) {
 		$string{0} = strtolower($string{0});
 		return $string;
 	}
 
-	/*
-	 * fetch the selected rows with given condition from database
-	 */
 
+
+	/**
+	 * @param string $className
+	 * @param string $fieldName
+	 * @param int|string $value
+	 * @param boolean $tree
+	 * @param object $parentType
+	 * @return array fetched datas
+	 * Actual interaction with Data base is made here and returns datas as an array of className
+	 */
 	public function getRows($className, $fieldName = null, $value = null, $tree = false, $parentType = null)
 	{
-
+		//instead of using classname to fetch the tableName using the type off the class.
 		$objectType = $this->getType($className, $parentType);
 		$tableClassMapper = new Iati_WEP_TableClassMapper();
 		$tableName = $tableClassMapper->getTableName($objectType);
@@ -205,30 +243,38 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		}
 	}
 
-		/*
+
+	/**
+	 * @param string $className
+	 * @param object $parentType
+	 * @return string
+	 *
 		 * Get the type from the Element Class
 		 * If Parent class exists get Parent type from the Element Class
 		 * Process it and use it as Class Name to get tableName
-		 */
+	 */
 	public function getType($className, $parentType)
 	{
 		$class = "Iati_Activity_Element_" .$className;
 		$element = new $class;
 		$type = $element->getType();
 		$parentClass = $element->getParentType();
-		if($parentType)
+		if($parentType != null && $parentClass != 'Activity'){
 		$objectType = $parentClass."_".$type;
-		else
+		}else
 		$objectType = $type;
 
 		return $objectType;
 	}
 
-	/*  params : classname
-	 *  formats the classname to fetch parentId for the childElement
-	 *  replaces the camel casing with _
-	 *  returns : parentid
+
+	/**
+	 * @param string $className
+	 * @return string|string
+	 * formats the classname to fetch parentId for the childElement
+	 * replaces the camel casing with _
 	 */
+
 	public function conditionFormatter($className) {
 
 		if(ucfirst($className) == "Result_Indicator")
@@ -238,8 +284,14 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 	}
 
 
-	//  check for the condition id supplied is ownId or parentId
 
+
+	/**
+	 * @param string $className
+	 * @param string $fieldName
+	 * @return string|string|mixed
+	 *  check for the condition id supplied is ownId or parentId
+	 */
 	public function checkConditionField($className,$fieldName){
 		if($this->conditionFormatter($className) == $fieldName || $fieldName == 'id')
 		return false;
@@ -252,6 +304,12 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		}
 	}
 
+	/**
+	 * @param string $className
+	 * @param string $fieldName
+	 * @param int $id
+	 * @return unknown_type
+	 */
 	public function deleteRows($className, $fieldName, $id)
 	{
 		$parentId = $this->checkConditionField($className, $fieldName);
@@ -262,6 +320,12 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		}
 	}
 
+	/**
+	 * @param string $className
+	 * @param string $fieldName
+	 * @param int $id
+	 * @return unknown_type
+	 */
 	public function deleteOnParentId($className, $fieldName, $id)
 	{
 		$this->delete($className, $fieldName, $id);
@@ -277,6 +341,12 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		}
 	}
 
+	/**
+	 * @param string $className
+	 * @param string $fieldName
+	 * @param int $id
+	 * @return unknown_type
+	 */
 	public function deleteOnOwnId($className, $fieldName, $id)
 	{
 		$this->delete($className, $fieldName, $id);
@@ -288,6 +358,12 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		}
 	}
 
+	/**
+	 * @param string $className
+	 * @param string $fieldName
+	 * @param int $id
+	 * @return unknown_type
+	 */
 	public function deleteChildElements($elementTree, $fieldName, $id)
 	{
 		foreach($elementTree as $elementClassName){
@@ -305,6 +381,12 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		}
 	}
 
+	/**
+	 * @param string $className
+	 * @param string $fieldName
+	 * @param int $id
+	 * @return unknown_type
+	 */
 	public function delete($className, $fieldName, $value)
 	{
 		$tableClassMapper = new Iati_WEP_TableClassMapper();

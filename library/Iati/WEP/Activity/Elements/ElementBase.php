@@ -202,7 +202,7 @@ class Iati_WEP_Activity_Elements_ElementBase
             $privilege = $this->getClassName();
             $userRole = new App_UserRole();
             $resource = new App_Resource();
-            $resource->ownerUserId = $userRole->ownerId;
+            $resource->ownerUserId = $userRole->accountId;
             if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, $privilege)) {
                     $host  = $_SERVER['HTTP_HOST'];
                     $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');

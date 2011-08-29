@@ -69,47 +69,46 @@ class Iati_WEP_ActivityTreeMapper {
         	1 => 'Budget_PeriodStart',
         	2 => 'Budget_Value'
         	),
+      'Activity' =>
+			array(
+			0 => 'Transaction',
+			1 => 'Conditions',
+			2 => 'DocumentLink',
+			3 => 'Result',
+			4 => 'PlannedDisbursement',
+			5 => 'Identifier',
+			6 => 'ContactInfo',
+			7 => 'ReportingOrg',
+			8 => 'Identifier',
+			9 => 'OtherActivityIdentifier',
+			10 => 'Title',
+			11 => 'Description',
+			12 => 'ActivityStatus',
+			13 => 'ActivityDate',
+			14 => 'ParticipatingOrg',
+			15 => 'RecipientCountry',
+			16 => 'RecipientRegion',
+			17 => 'Location',
+			18 => 'Sector',
+			19 => 'PolicyMarker',
+			20 => 'CollaborationType',
+			21 => 'DefaultFlowType',
+			22 => 'DefaultFinanceType',
+			23 => 'DefaultAidType',
+			24 => 'DefaultTiedStatus',
+			25 => 'Budget',
+			25 => 'ActivityWebsite',
+			26 => 'RelatedActivity',
+			),
 	);
-	private $activityTree = array('Activity' =>
-	array(
-	0 => 'Transaction',
-	1 => 'Conditions',
-	2 => 'DocumentLink',
-	3 => 'Result',
-	4 => 'PlannedDisbursement',
-	5 => 'Identifier',
-	6 => 'ContactInfo',
-	7 => 'ReportingOrg',
-	8 => 'Identifier',
-	9 => 'OtherActivityIdentifier',
-	10 => 'Title',
-	11 => 'Description',
-	12 => 'ActivityStatus',
-	13 => 'ActivityDate',
-	14 => 'ParticipatingOrg',
-	15 => 'RecipientCountry',
-	16 => 'RecipientRegion',
-	17 => 'Location',
-	18 => 'Sector',
-	19 => 'PolicyMarker',
-	20 => 'CollaborationType',
-	21 => 'DefaultFlowType',
-	22 => 'DefaultFinanceType',
-	23 => 'DefaultAidType',
-	24 => 'DefaultTiedStatus',
-	25 => 'Budget',
-	25 => 'ActivityWebsite',
-	26 => 'RelatedActivity',
 
 
-	),);
-
-	public function getActivityTree($className, $parent = null) {
-		if ($className == 'Activity') {
-			$result = $this->activityTree['Activity'];
-		} else {
-			$result = $this->elementTree[$className];
-		}
+	/**
+	 * @param string $className
+	 * @return array of childElements
+	 */
+	public function getActivityTree($className) {
+		$result = $this->elementTree[$className];
 		return $result;
 	}
 }
