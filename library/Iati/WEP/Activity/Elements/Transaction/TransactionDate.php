@@ -27,7 +27,7 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionDate extends Iati_WEP_Ac
                     'label' => 'Date',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'options' => '',
-                    'attrs' => array('class' => 'datepicker form-text')
+                    'attrs' => array('class' => array('form-text', 'datepicker'), 'id' => 'iso_date')
                 ),
     );
     
@@ -79,6 +79,9 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionDate extends Iati_WEP_Ac
             
             if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)) && 
             (empty($this->required))) {  continue; }
+            
+            if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)))
+            {  continue; }
             
             foreach($this->validators[$key] as $validator){
                 $string = "Zend_Validate_". $validator;

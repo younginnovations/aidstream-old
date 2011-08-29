@@ -30,7 +30,7 @@ class Iati_WEP_Activity_Elements_ActivityDate extends Iati_WEP_Activity_Elements
                     'name' => 'iso_date',
                     'label' => 'Date',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('class' => 'datepicker form-text')
+                    'attrs' => array('class' => 'datepicker form-text', 'id' => 'iso_date')
                 ),
                 'type' => array(
                     'name' => 'type',
@@ -70,7 +70,6 @@ class Iati_WEP_Activity_Elements_ActivityDate extends Iati_WEP_Activity_Elements
     }
 
     public function setAttributes ($data) {
-
         $this->id = (key_exists('id', $data))?$data['id']:0;
         $this->xml_lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
         $this->type = (key_exists('@type', $data))?$data['@type']:$data['type'];
@@ -101,7 +100,6 @@ class Iati_WEP_Activity_Elements_ActivityDate extends Iati_WEP_Activity_Elements
         $data['type'] = $this->type;
         $data['iso_date'] = $this->iso_date;
         $data['text'] = $this->text;
-
         parent::validate($data);
     }
 

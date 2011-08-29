@@ -38,9 +38,11 @@ class Iati_WEP_FormDecorator {
             
             if ($label && isset($variables['label'])) {
                 $html .= '<label for="'.$id.'">'.$variables['label'];
-                if (in_array('NotEmpty', $this->_object->getValidator($attribute))) {
+if($this->_object->getValidator($attribute)){  
+if (in_array('NotEmpty', $this->_object->getValidator($attribute))) {
                     $html .= '<span class="required">*</span>';
                 }
+}
                 $html .= '</label>';
             
             }
@@ -114,7 +116,14 @@ class Iati_WEP_FormDecorator {
         if (!empty($attrs)) {
             $_attrs = array();
             foreach ($attrs as $key=>$val) {
-                $value = (is_array($val)) ? implode(' ', $val) : $val;
+                
+                if($key == 'id'){
+                    $value = $value . '-' . $this->_object->getClassName() . '-' .
+                                                                implode('', $this->_parents);
+                }
+                else{
+                    $value = (is_array($val)) ? implode(' ', $val) : $val;
+                }
                 array_push($_attrs, $key . '="' . $value . '"');
             }
             //print_r($_attrs);

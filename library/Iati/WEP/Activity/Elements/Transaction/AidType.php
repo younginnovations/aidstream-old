@@ -94,6 +94,9 @@ class Iati_WEP_Activity_Elements_Transaction_AidType extends Iati_WEP_Activity_E
             if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)) && 
             (empty($this->required))) {  continue; }
             
+            if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)))
+            {  continue; }
+            
             foreach($this->validators[$key] as $validator){
                 $string = "Zend_Validate_". $validator;
               $validator = new $string();

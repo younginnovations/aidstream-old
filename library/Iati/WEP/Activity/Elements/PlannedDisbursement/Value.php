@@ -38,7 +38,7 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement_Value
                     'name' => 'value_date',
                     'label' => 'Value Date',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('class' => array('form-text'))
+                    'attrs' => array('class' => array('form-text', 'datepicker'), 'id' => 'iso_date')
                 )
     );
     
@@ -103,6 +103,9 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement_Value
             
             if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)) && 
             (empty($this->required))) {  continue; }
+            
+            if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)))
+            {  continue; }
             
             foreach($this->validators[$key] as $validator){
                 $string = "Zend_Validate_". $validator;

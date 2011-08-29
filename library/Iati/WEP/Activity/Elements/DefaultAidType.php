@@ -98,6 +98,7 @@ protected $attributes = array('id', 'code', 'text', 'xml_lang');
         $data['@code'] = $this->code;
         $data['@xml_lang'] = $this->xml_lang;
         $data['text'] = $this->text;
+        //print_r($data);exit;
         return $data;
     }
     

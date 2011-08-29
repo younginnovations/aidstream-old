@@ -84,7 +84,7 @@ class Form_Wep_Accountregister extends App_Form
         $form['reporting_org_ref'] = new Zend_Form_Element_Text('reporting_org_ref');
         $form['reporting_org_ref']->setLabel('Default Reporting Organisation Identifier')
                                     ->setValue($defaultFields['reporting_org_ref'])
-                                    ->setAttrib('class', 'form-text');
+                                    ->setAttrib('class', 'form-text')->setRequired();
 
         $form['default_hierarchy'] = new Zend_Form_Element_Text('default_hierarchy');
         $form['default_hierarchy']->setLabel('Default Hierarchy')
