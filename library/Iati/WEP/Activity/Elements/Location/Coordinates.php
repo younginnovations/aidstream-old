@@ -134,6 +134,10 @@ class Iati_WEP_Activity_Elements_Location_Coordinates extends Iati_WEP_Activity_
         return $this->hasError;
     }*/
     
+    public function getValidAttribs()
+    {
+        return $this->validAttribs;
+    }
 
     
 }

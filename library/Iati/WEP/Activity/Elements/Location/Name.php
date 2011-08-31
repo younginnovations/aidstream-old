@@ -123,6 +123,10 @@ class Iati_WEP_Activity_Elements_Location_Name extends Iati_WEP_Activity_Element
         return $this->hasError;
     }*/
     
+    public function getValidAttribs()
+    {
+        return $this->validAttribs;
+    }
 
     
 }

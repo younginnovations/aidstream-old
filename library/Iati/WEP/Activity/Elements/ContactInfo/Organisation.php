@@ -99,4 +99,8 @@ class Iati_WEP_Activity_Elements_ContactInfo_Organisation extends Iati_WEP_Activ
         return $data;
     }
     
+    public function getValidAttribs()
+    {
+        return $this->validAttribs;
+    }
 }

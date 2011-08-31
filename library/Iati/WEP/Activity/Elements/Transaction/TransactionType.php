@@ -119,6 +119,10 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionType extends Iati_WEP_Ac
         return $this->hasError;
     }*/
     
+    public function getValidAttribs()
+    {
+        return $this->validAttribs;
+    }
 
     
 }

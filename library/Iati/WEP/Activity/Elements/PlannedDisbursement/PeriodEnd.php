@@ -126,5 +126,9 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement_PeriodEnd extends Iati_WEP_
     }*/
     
 
+    public function getValidAttribs()
+    {
+        return $this->validAttribs;
+    }
     
 }

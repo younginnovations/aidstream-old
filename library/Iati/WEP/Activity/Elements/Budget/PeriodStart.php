@@ -124,6 +124,10 @@ class Iati_WEP_Activity_Elements_Budget_PeriodStart extends Iati_WEP_Activity_El
         return $this->hasError;
     }*/
     
+    public function getValidAttribs()
+    {
+        return $this->validAttribs;
+    }
 
     
 }

@@ -135,4 +135,10 @@ class Iati_WEP_Activity_Elements_Transaction_AidType extends Iati_WEP_Activity_E
             header("Location: http://$host$uri/$extra");
         }
     }
+    
+    
+    public function getValidAttribs()
+    {
+        return $this->validAttribs;
+    }
 }

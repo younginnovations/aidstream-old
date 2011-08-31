@@ -121,6 +121,10 @@ protected $attributes = array('id', 'text', 'iso_date');
         return $this->hasError;
     }*/
     
+    public function getValidAttribs()
+    {
+        return $this->validAttribs;
+    }
 
     
 }

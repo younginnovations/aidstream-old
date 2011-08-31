@@ -126,4 +126,10 @@ public function getCleanedData(){
 //        print_r($data);exit;
         return $data;
     }
+    
+    
+    public function getValidAttribs()
+    {
+        return $this->validAttribs;
+    }
 }

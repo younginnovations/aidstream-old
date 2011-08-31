@@ -135,5 +135,9 @@ class Iati_WEP_Activity_Elements_Location_LocationType extends Iati_WEP_Activity
     }*/
     
 
+    public function getValidAttribs()
+    {
+        return $this->validAttribs;
+    }
     
 }

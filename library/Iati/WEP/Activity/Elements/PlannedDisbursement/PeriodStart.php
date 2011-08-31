@@ -127,5 +127,9 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement_PeriodStart
     }*/
     
 
+    public function getValidAttribs()
+    {
+        return $this->validAttribs;
+    }
     
 }

@@ -121,4 +121,9 @@ class Iati_WEP_Activity_Elements_Transaction_Value extends Iati_WEP_Activity_Ele
         $data['@value_date'] = $this->value_date;
         return $data;
     }
+    
+    public function getValidAttribs()
+    {
+        return $this->validAttribs;
+    }
 }

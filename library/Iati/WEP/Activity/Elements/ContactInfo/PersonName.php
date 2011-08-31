@@ -99,16 +99,8 @@ class Iati_WEP_Activity_Elements_ContactInfo_PersonName extends Iati_WEP_Activit
         
         return $data;
     }
-    public function checkPrivilege()
+    public function getValidAttribs()
     {
-        $userRole = new App_UserRole();
-        $resource = new App_Resource();
-        $resource->ownerUserId = $userRole->userId;
-        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'PersonName')) {
-            $host = $_SERVER['HTTP_HOST'];
-            $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-            $extra = 'user/user/login';
-            header("Location: http://$host$uri/$extra");
-        }
+        return $this->validAttribs;
     }
 }
