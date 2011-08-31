@@ -477,7 +477,7 @@ class WepController extends Zend_Controller_Action
                         $element->setAttribs($data);
                         $factory = new $classname ();
                         $activityTree = $factory->cleanData($activity, $element);
-                        //print_r($activityTree);exit;
+                        print_r($activityTree);exit;
                         $dbLayer = new Iati_WEP_DbLayer();
                         $dbLayer->save($activityTree);
                         
@@ -583,7 +583,7 @@ class WepController extends Zend_Controller_Action
                     $element->setAttribs($data);
                     $factory = new $classname ();
                     $activityTree = $factory->cleanData($activity, $element);
-                    //print_r($activityTree);exit;
+                    print_r($activityTree);exit;
                     $dbLayer = new Iati_WEP_DbLayer();
                     $dbLayer->save($activityTree);
 
@@ -594,6 +594,7 @@ class WepController extends Zend_Controller_Action
             else{
                 $dbLayer = new Iati_WEP_DbLayer();
                 $rowSet = $dbLayer->getRowSet($class, 'activity_id', $activity_id, true);
+                //print_r($rowSet);exit;
                 $elements = $rowSet->getElements();
                 $attributes = $elements[0]->getAttribs();
                 if(empty($attributes)){

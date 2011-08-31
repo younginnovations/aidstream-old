@@ -7,7 +7,10 @@ class Iati_WEP_UserAccountDisplayField
     protected $view_activities = '0';
     protected $add_activity_elements = '0';
     protected $edit_activity_elements = '0';
-    
+    protected $delete_activity_elements = '0';
+    protected $edit_defaults = '0';
+    protected $register_user = '0';
+    //protected     
     
     public function getProperties(){
         return get_object_vars($this);

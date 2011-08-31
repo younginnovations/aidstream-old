@@ -8,6 +8,12 @@
     $link1 = 'wep/edit-defaults';
     
 }?>
+
+<?php if($this->userInfo()->role == 'user'){
+    $link = 'wep/dashboard';
+   // $link1 = 'wep/edit-defaults';
+    
+}?>
 <div class="user-nav-inner"><?php print $this->l('Dashboard', $link, array('attributes'=>array('class'=>'user-dashboard')));?>
 <?php if($link1):?>
 <?php print $this->l('Change Defaults', $link1, array('attributes'=> array('class'=>'user-change-defaults')));?>

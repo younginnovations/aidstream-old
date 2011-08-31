@@ -131,14 +131,8 @@ class AdminController extends Zend_Controller_Action
         $adminId = $identity->user_id;
         $accountId = $identity->account_id;
         $model = new Model_Wep();
-        $admindefaultField = $model->getDefaults('default_field_groups', 'account_id', $identity->account_id);
-        $i = 0;
-        foreach ($admindefaultField->getProperties() as $key => $eachData) {
-            if ($eachData == 1) {
-                $defaultKey[$i] = $key;
-                $i++;
-            }
-        }
+        //$admindefaultField = $model->getDefaults('default_field_groups', 'account_id', $identity->account_id);
+        
         $defaultFieldGroup = new Iati_WEP_UserAccountDisplayField();
         $default['fields'] = $defaultFieldGroup->getProperties();
         $form = new Form_Admin_Accountregister();
@@ -163,7 +157,7 @@ class AdminController extends Zend_Controller_Action
                     $information['last_name'] = $data['last_name'];
                     $information['user_id'] = $user_id;
                     $profile_id = $model->insertRowsToTable('profile', $information);
-
+                    $i = 0;
                     foreach ($data['default_fields'] as $eachField) {
                         $defaultKey[$i] = $eachField;
                         $defaultFieldGroup->setProperties($eachField);
@@ -187,6 +181,11 @@ class AdminController extends Zend_Controller_Action
         }
         $this->view->form = $form;
         $this->view->blockManager()->enable('partial/login.phtml');
+    }
+    
+    public function addRole()
+    {
+        
     }
 
 }

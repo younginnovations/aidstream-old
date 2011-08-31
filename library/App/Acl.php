@@ -66,13 +66,13 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'user:user', 'myaccount');
         $this->allow('user', 'user:user', 'edit');
         $this->allow('user', 'default:wep', 'list-activities');
-        $this->allow('user', 'default:wep', 'view-activities', new App_ActionAssertion('view'));
+        $this->allow('user', 'default:wep', 'view-activities', new App_ActionAssertion('view_activities'));
         $this->allow('user', 'default:wep', 'view-activity');
         $this->allow('user', 'default:wep', 'add-activities');
-        $this->allow('user', 'default:wep', 'add-activity', new App_ActionAssertion('add'));
+        $this->allow('user', 'default:wep', 'add-activity', new App_ActionAssertion('add_activity'));
         $this->allow('user', 'default:wep', 'activitybar');
-        $this->allow('user', 'default:wep', 'add-activity-elements', new App_ActionAssertion('add'));
-        $this->allow('user', 'default:wep', 'edit-activity-elements', new App_ActionAssertion('edit'));
+        $this->allow('user', 'default:wep', 'add-activity-elements', new App_ActionAssertion('add_activity_elements'));
+        $this->allow('user', 'default:wep', 'edit-activity-elements', new App_ActionAssertion('edit_activity_elements'));
         $this->allow('user', 'default:addelement');
         $this->allow('user', 'default:wep', 'delete', new App_ActionAssertion('delete'));
         $this->allow('user', 'default:wep', 'edit-activity');
@@ -80,7 +80,6 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'default:wep', 'edit-defaults');
         $this->allow('user', 'default:wep', 'remove-elements');
         $this->allow('user', 'default:wep', 'clone-node');
-
 
         $this->allow('admin', 'user');
 
