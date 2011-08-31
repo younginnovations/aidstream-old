@@ -3,7 +3,8 @@ class Iati_WEP_Activity_Elements_ContactInfo_MailingAddress extends
                                     Iati_WEP_Activity_Elements_ContactInfo
 {
 
-    protected $attributes = array('text',);
+    protected $attributes = array('id', 'text',);
+    protected $validAttribs = array('text',);
     protected $text;
     protected $id = 0;
     protected $options = array();

@@ -2,6 +2,7 @@
 class Iati_WEP_Activity_Elements_Conditions extends Iati_WEP_Activity_Elements_ElementBase
 {
     protected $attributes = array('id', 'attached');
+    protected $validAttribs = array('@attached');
     protected $id = 0;
     protected $attached;
     protected $options = array();

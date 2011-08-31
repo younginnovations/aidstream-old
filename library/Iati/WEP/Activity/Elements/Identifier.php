@@ -2,6 +2,7 @@
 class Iati_WEP_Activity_Elements_Identifier extends Iati_WEP_Activity_Elements_ElementBase
 {
     protected $attributes = array('id','text',);
+    protected $validAttribs = array('text');
     protected $text = '';
     protected $id = 0;
     protected $options = array();

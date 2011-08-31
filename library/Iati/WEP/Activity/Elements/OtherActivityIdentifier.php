@@ -2,6 +2,7 @@
 class Iati_WEP_Activity_Elements_OtherActivityIdentifier extends Iati_WEP_Activity_Elements_ElementBase
 {
     protected $attributes = array('id', 'text', 'owner_ref', 'owner_name');
+    protected $validAttribs = array('text', '@owner_ref', '@owner_name');
     protected $text;
     protected $owner_ref;
     protected $owner_name;

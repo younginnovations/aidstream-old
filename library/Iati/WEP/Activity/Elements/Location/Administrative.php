@@ -2,6 +2,7 @@
 class Iati_WEP_Activity_Elements_Location_Administrative extends Iati_WEP_Activity_Elements_Location
 {
     protected $attributes = array('id', 'text', 'xml_lang');
+    protected $validAttribs = array('text', '@xml_lang');
     protected $text;
     protected $country;
     protected $adm1;

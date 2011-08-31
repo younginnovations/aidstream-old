@@ -1,7 +1,8 @@
 <?php
 class Iati_WEP_Activity_Elements_ActivityDate extends Iati_WEP_Activity_Elements_ElementBase
 {
-    protected $attributes = array('text', 'type', 'iso_date', 'xml_lang');
+    protected $attributes = array('id', 'text', 'type', 'iso_date', 'xml_lang');
+    protected $validAttribs = array('text', '@type', '@iso_date', '@xml_lang' );
     protected $text = '';
     protected $type = '';
     protected $iso_date = '';
@@ -53,6 +54,7 @@ class Iati_WEP_Activity_Elements_ActivityDate extends Iati_WEP_Activity_Elements
     protected $error = array();
     protected $hasError = false;
     protected $multiple = true;
+    
 
     public function __construct()
     {

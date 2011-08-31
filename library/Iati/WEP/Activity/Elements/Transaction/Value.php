@@ -2,6 +2,7 @@
 class Iati_WEP_Activity_Elements_Transaction_Value extends Iati_WEP_Activity_Elements_Transaction
 {
     protected $attributes = array('text', 'currency', 'value_date');
+    protected $validAttribs = array('text', '@value_date', '@currency');
     protected $text;
     protected $currency;
     protected $value_date;

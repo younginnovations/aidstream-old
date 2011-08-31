@@ -2,6 +2,7 @@
 class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activity_Elements_Transaction
 {
     protected $attributes = array('id','text', 'ref', 'provider_activity_id');
+    protected $validAttribs = array('text', '@ref', '@provider_activity_id');
     protected $text;
     protected $ref;
     protected $provider_activity_id;

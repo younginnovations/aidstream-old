@@ -2,6 +2,7 @@
 class Iati_WEP_Activity_Elements_Transaction_ReceiverOrg extends Iati_WEP_Activity_Elements_Transaction
 {
     protected $attributes = array('text', 'ref', 'receiver_activity_id');
+    protected $validAttribs = array('text', '@ref', '@receiver_activity_id');
     protected $text;
     protected $ref;
     protected $receiver_activity_id;

@@ -2,6 +2,7 @@
 class Iati_WEP_Activity_Elements_Sector extends Iati_WEP_Activity_Elements_ElementBase
 {
     protected $attributes = array('id', 'text', 'vocabulary', 'code', 'percentage', 'xml_lang');
+    protected $validAttribs = array('text', '@xml_lang', '@vocabulary', '@code', '@percentage');
     protected $text;
     protected $code;
     protected $vocabulary;

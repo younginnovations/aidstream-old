@@ -2,6 +2,7 @@
 class Iati_WEP_Activity_Elements_Location_Coordinates extends Iati_WEP_Activity_Elements_Location
 {
     protected $attributes = array('id', 'latitude', 'longitude', 'precision');
+    protected $validAttribs = array('@latitude', '@longitude', '@precision');
     protected $latitude;
     protected $longitude;
     protected $precision;

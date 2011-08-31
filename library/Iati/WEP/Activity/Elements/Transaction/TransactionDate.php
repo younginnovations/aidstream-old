@@ -1,7 +1,8 @@
 <?php 
 class Iati_WEP_Activity_Elements_Transaction_TransactionDate extends Iati_WEP_Activity_Elements_Transaction
 {
-    protected $attributes = array('text', 'iso_date');
+    protected $attributes = array('id', 'text', 'iso_date');
+    protected $validAttribs = array('text', '@iso_date');
     protected $text;
     protected $iso_date;
     protected $id = 0;

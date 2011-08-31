@@ -2,6 +2,7 @@
 class Iati_WEP_Activity_Elements_PlannedDisbursement extends Iati_WEP_Activity_Elements_ElementBase
 {
     protected $attributes = array('id', 'updated');
+    protected $validAttribs = array('@updated');
     protected $updated;
     protected $id = 0;
     protected $options = array();

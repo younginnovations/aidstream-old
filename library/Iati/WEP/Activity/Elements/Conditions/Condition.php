@@ -3,6 +3,7 @@ class Iati_WEP_Activity_Elements_Conditions_Condition extends
                                     Iati_WEP_Activity_Elements_Conditions
 {
     protected $attributes = array('id', 'text', 'type', 'xml_lang');
+    protected $validAttribs = array('text', '@xml_lang', '@type');
     protected $text;
     protected $type;
     protected $xml_lang;

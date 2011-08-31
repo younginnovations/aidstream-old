@@ -2,6 +2,7 @@
 class Iati_WEP_Activity_Elements_ParticipatingOrg extends Iati_WEP_Activity_Elements_ElementBase
 {
     protected $attributes = array('id', 'text', 'role', 'ref', 'type', 'xml_lang');
+    protected $validAttribs = array('text', '@xml_lang', '@xml_lang', '@ref', '@type');
     protected $text;
     protected $ref;
     protected $role;

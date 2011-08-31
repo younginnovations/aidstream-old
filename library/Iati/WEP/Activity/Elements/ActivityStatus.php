@@ -3,6 +3,7 @@ class Iati_WEP_Activity_Elements_ActivityStatus extends Iati_WEP_Activity_Elemen
 {
 
     protected $attributes = array('id','text', 'xml_lang');
+    protected $validAttribs = array('text', '@xml_lang');
     protected $text;
     protected $code;
     protected $xml_lang;

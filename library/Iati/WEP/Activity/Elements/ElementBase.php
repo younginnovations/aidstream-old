@@ -95,6 +95,10 @@ class Iati_WEP_Activity_Elements_ElementBase
         return $string;
     }
 
+    public function getValidAttribs()
+    {
+        return $this->validAttribs;
+    }
     public function hasMultiple()
     {
         return $this->multiple;

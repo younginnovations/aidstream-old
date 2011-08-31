@@ -2,6 +2,7 @@
 class Iati_WEP_Activity_Elements_RelatedActivity extends Iati_WEP_Activity_Elements_ElementBase
 {
     protected $attributes = array('id', 'text', 'code', 'ref', 'xml_lang');
+    protected $validAttribs = array('text', '@xml_lang', '@ref', '@code');
     protected $text;
     protected $code;
     protected $ref;

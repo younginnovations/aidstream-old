@@ -1,7 +1,8 @@
 <?php
 class Iati_WEP_Activity_Elements_DefaultFinanceType extends Iati_WEP_Activity_Elements_ElementBase
 {
-protected $attributes = array('id', 'code', 'text', 'xml_lang');
+    protected $attributes = array('id', 'code', 'text', 'xml_lang');
+    protected $validAttribs = array('@code', 'text', '@xml_lang');
      protected $code;
      protected $text;
      protected $xml_lang;

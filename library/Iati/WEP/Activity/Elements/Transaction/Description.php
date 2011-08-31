@@ -2,6 +2,7 @@
 class Iati_WEP_Activity_Elements_Transaction_Description extends Iati_WEP_Activity_Elements_Transaction
 {
     protected $attributes = array('id', 'text', 'xml_lang');
+    protected $validAttribs = array('text', '@xml_lang');
     protected $text;
     protected $xml_lang;
     protected $id = 0;
