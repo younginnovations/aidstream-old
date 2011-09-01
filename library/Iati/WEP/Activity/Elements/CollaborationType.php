@@ -2,7 +2,6 @@
 class Iati_WEP_Activity_Elements_CollaborationType extends Iati_WEP_Activity_Elements_ElementBase
 {
     protected $attributes = array('id', 'text', 'code', 'xml_lang');
-    protected $validAttribs = array('text', '@code', '@xml_lang');
     protected $text = '';
     protected $code = '';
     protected $xml_lang;

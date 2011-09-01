@@ -2,7 +2,6 @@
 class Iati_WEP_Activity_Elements_Location extends Iati_WEP_Activity_Elements_ElementBase
 {
     protected $attributes = array('id', 'percentage');
-    protected $validAttribs = array('text', '@percentage');
     protected $percentage;
     protected $id = 0;
     protected $options = array();

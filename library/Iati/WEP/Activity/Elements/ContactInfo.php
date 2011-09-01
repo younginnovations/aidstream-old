@@ -2,7 +2,6 @@
 class Iati_WEP_Activity_Elements_ContactInfo extends Iati_WEP_Activity_Elements_ElementBase
 {
     protected $attributes = array('id');
-    protected $validAttribs = array();
     protected $id = 0;
     protected $options = array();
     protected $multiple = true;

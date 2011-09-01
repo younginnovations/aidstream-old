@@ -2,7 +2,6 @@
 class Iati_WEP_Activity_Elements_Result extends Iati_WEP_Activity_Elements_ElementBase
 {
     protected $attributes = array('id', 'type');
-    protected $validAttribs = array( '@type');
     protected $type;
     protected $id = 0;
     protected $options = array();

@@ -2,7 +2,6 @@
 class Iati_WEP_Activity_Elements_Description extends Iati_WEP_Activity_Elements_ElementBase
 {
     protected $attributes = array('id', 'text', 'xml_lang');
-    protected $validAttribs = array('text', '@xml_lang');
     protected $text;
     protected $type;
     protected $xml_lang;

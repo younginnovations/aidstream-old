@@ -2,7 +2,6 @@
 class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_ElementBase
 {
     protected $attributes = array('id', 'ref');
-    protected $validAttribs = array('@ref');
     protected $ref;
     protected $id = 0;
     protected $options = array();
