@@ -2,7 +2,6 @@
 class Iati_WEP_Activity_Elements_Transaction_DisbursementChannel extends Iati_WEP_Activity_Elements_Transaction
 {
     protected $attributes = array('id', 'text', 'code');
-    protected $validAttribs = array('text', '@code');
     protected $text;
     protected $code;
     protected $id = 0;
@@ -113,8 +112,4 @@ public function getCleanedData(){
         return $data;
     }
     
-    public function getValidAttribs()
-    {
-        return $this->validAttribs;
-    }
 }

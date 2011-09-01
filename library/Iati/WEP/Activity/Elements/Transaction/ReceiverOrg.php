@@ -2,7 +2,6 @@
 class Iati_WEP_Activity_Elements_Transaction_ReceiverOrg extends Iati_WEP_Activity_Elements_Transaction
 {
     protected $attributes = array('text', 'ref', 'receiver_activity_id');
-    protected $validAttribs = array('text', '@ref', '@receiver_activity_id');
     protected $text;
     protected $ref;
     protected $receiver_activity_id;
@@ -125,11 +124,6 @@ public function getCleanedData(){
         $data['@receiver_activity_id'] = $this->receiver_activity_id;
         
         return $data;
-    }
-    
-    public function getValidAttribs()
-    {
-        return $this->validAttribs;
     }
     
 }

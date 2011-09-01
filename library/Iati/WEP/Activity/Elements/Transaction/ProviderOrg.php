@@ -2,7 +2,6 @@
 class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activity_Elements_Transaction
 {
     protected $attributes = array('id','text', 'ref', 'provider_activity_id');
-    protected $validAttribs = array('text', '@ref', '@provider_activity_id');
     protected $text;
     protected $ref;
     protected $provider_activity_id;
@@ -120,10 +119,5 @@ public function getCleanedData(){
         $data['text'] = $this->text;
         $data['@provider_activity_id'] = $this->provider_activity_id;
         return $data;
-    }    
-    
-    public function getValidAttribs()
-    {
-        return $this->validAttribs;
     }
 }

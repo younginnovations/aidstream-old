@@ -20,7 +20,7 @@ class Iati_WEP_Activity_Elements_DefaultFinanceType extends Iati_WEP_Activity_El
             'name' => 'text',
             'label' => 'Text',
             'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('class' => array('form-text'))
+                    'attrs' => array('class' => array('form-text')),
         ),
         'code' => array(
             'name' => 'code',

@@ -2,7 +2,6 @@
 class Iati_WEP_Activity_Elements_Transaction_FlowType extends Iati_WEP_Activity_Elements_Transaction
 {
     protected $attributes = array('id','text', 'code', 'xml_lang');
-    protected $validAttribs = array('text', '@xml_lang', '@code');
     protected $text;
     protected $code;
     protected $xml_lang;
@@ -125,11 +124,5 @@ public function getCleanedData(){
         $data['@xml_lang'] = $this->xml_lang;
 //        print_r($data);exit;
         return $data;
-    }
-    
-    
-    public function getValidAttribs()
-    {
-        return $this->validAttribs;
     }
 }

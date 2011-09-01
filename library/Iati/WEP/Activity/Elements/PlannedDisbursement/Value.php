@@ -3,7 +3,6 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement_Value
                                 extends Iati_WEP_Activity_Elements_PlannedDisbursement
 {
     protected $attributes = array('id', 'text', 'value_date', 'currency');
-    protected $validAttribs = array('text', '@value_date', '@currency');
     protected $text;
     protected $currency;
     protected $value_date;
@@ -138,11 +137,6 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement_Value
         return $this->hasError;
     }*/
     
-    
-    public function getValidAttribs()
-    {
-        return $this->validAttribs;
-    }
 
     
 }

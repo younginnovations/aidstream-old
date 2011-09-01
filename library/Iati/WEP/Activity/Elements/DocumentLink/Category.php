@@ -1,16 +1,16 @@
 <?php
-class Iati_WEP_Activity_Elements_Conditions_Condition extends 
-                                    Iati_WEP_Activity_Elements_Conditions
+class Iati_WEP_Activity_Elements_DocumentLink_Category extends 
+                                    Iati_WEP_Activity_Elements_DocumentLink
 {
-    protected $attributes = array('id', 'text', 'type', 'xml_lang');
+    protected $attributes = array('id', 'text', 'code', 'xml_lang');
     protected $text;
-    protected $type;
+    protected $code;
     protected $xml_lang;
     protected $id = 0;
     protected $options = array();
-    protected $className = 'Condition';
+    protected $className = 'Category';
     protected $validators = array(
-                                'text' => array('NotEmpty'),
+                                'code' => array('NotEmpty'),
                             );
     protected $attributes_html = array(
                 'id' => array(
@@ -18,14 +18,15 @@ class Iati_WEP_Activity_Elements_Conditions_Condition extends
                     'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
                 ),
                 'text' => array(
+            
                     'name' => 'text',
-                    'label' => 'Text',
+                    'label' => 'Category',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('class' => array('form-text'))
+                    'attrs' => array('class' => array('form-text')),
                 ),
-                'type' => array(
-                    'name' => 'type',
-                    'label' => 'Organisation Type',
+                'code' => array(
+                    'name' => 'code',
+                    'label' => 'Document Category Code',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
@@ -44,7 +45,7 @@ class Iati_WEP_Activity_Elements_Conditions_Condition extends
     protected $error = array();
     protected $hasError = false;
     protected $multiple = true;
-    protected $required = false;
+    protected $required = true;
     
     public function __construct()
     {
@@ -56,15 +57,16 @@ class Iati_WEP_Activity_Elements_Conditions_Condition extends
     public function setOptions()
     {
         $model = new Model_Wep();
-        $this->options['type'] = $model->getCodeArray('ConditionType', null, '1');
-        $this->options['xml_lang'] = $model->getCodeArray('Language', null, '1');
+        
+        $this->options['text'] = $model->getCodeArray('Language', null, '1');
+        $this->options['code'] = $model->getCodeArray('DocumentCategory', null, '1');
     }
     
     public function setAttributes ($data) {
         $this->id = (key_exists('id', $data))?$data['id']:0;
-        $this->type = (key_exists('@type', $data))?$data['@type']:$data['type'];
-        $this->xml_lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
         $this->text = $data['text'];
+        $this->code = (key_exists('@code', $data))?$data['@code']:$data['code'];
+        $this->xml_lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
     }
     
     public function getOptions($name = NULL)
@@ -85,9 +87,9 @@ class Iati_WEP_Activity_Elements_Conditions_Condition extends
     {
         $data['id'] = $this->id;
         $data['text'] = $this->text;
-        $data['type'] = $this->type;
+        $data['code'] = $this->code;
         $data['xml_lang'] = $this->xml_lang;
-         
+          
         foreach($data as $key => $eachData){
             
             if(empty($this->validators[$key])){ continue; }
@@ -117,7 +119,7 @@ class Iati_WEP_Activity_Elements_Conditions_Condition extends
         $data = array();
         $data ['id'] = $this->id;
         $data['text'] = $this->text;
-        $data['@type'] = $this->type;
+        $data['@code'] = $this->code;
         $data['@xml_lang'] = $this->xml_lang;
         
         return $data;

@@ -3,4 +3,5 @@ class Iati_Activity_Element_Transaction_ReceiverOrg extends Iati_Activity_Elemen
 {
     protected $_type = 'ReceiverOrg';
     protected $_parentType = 'Transaction';
+    protected $_validAttribs = array('text' => '', '@ref' => '', '@receiver_activity_id' => '');
 }

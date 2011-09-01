@@ -2,7 +2,6 @@
 class Iati_WEP_Activity_Elements_Location_GazetteerEntry extends Iati_WEP_Activity_Elements_Location
 {
     protected $attributes = array('id', 'gazetteer_ref', 'text');
-    protected $validAttribs = array('text', '@gazetteer_ref');
     protected $gazetteer_ref;
     protected $text;
     protected $id = 0;
@@ -121,10 +120,6 @@ class Iati_WEP_Activity_Elements_Location_GazetteerEntry extends Iati_WEP_Activi
         return $this->hasError;
     }*/
     
-    public function getValidAttribs()
-    {
-        return $this->validAttribs;
-    }
 
     
 }

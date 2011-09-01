@@ -2,7 +2,6 @@
 class Iati_WEP_Activity_Elements_Transaction_TiedStatus extends Iati_WEP_Activity_Elements_Transaction
 {
     protected $attributes = array('text', 'code', 'xml_lang');
-    protected $validAttribs = array('text', '@xml_lang', '@code');
     protected $text;
     protected $code;
     protected $xml_lang;
@@ -125,9 +124,4 @@ public function getCleanedData(){
         return $data;
     }
     
-    
-    public function getValidAttribs()
-    {
-        return $this->validAttribs;
-    }
 }

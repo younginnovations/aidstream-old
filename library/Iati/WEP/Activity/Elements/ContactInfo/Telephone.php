@@ -3,7 +3,6 @@ class Iati_WEP_Activity_Elements_ContactInfo_Telephone extends
                                     Iati_WEP_Activity_Elements_ContactInfo
 {
     protected $attributes = array('id', 'text',);
-    protected $validAttribs = array('text',);
     protected $text;
     protected $id = 0;
     protected $options = array();
@@ -100,8 +99,4 @@ class Iati_WEP_Activity_Elements_ContactInfo_Telephone extends
         return $data;
     }
     
-    public function getValidAttribs()
-    {
-        return $this->validAttribs;
-    }
 }

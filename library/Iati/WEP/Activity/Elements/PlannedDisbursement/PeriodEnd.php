@@ -2,7 +2,6 @@
 class Iati_WEP_Activity_Elements_PlannedDisbursement_PeriodEnd extends Iati_WEP_Activity_Elements_PlannedDisbursement
 {
     protected $attributes = array('id', 'text', 'iso_date');
-    protected $validAttribs = array('text', '@iso_date');
     protected $text;
     protected $iso_date;
     protected $id = 0;
@@ -124,11 +123,5 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement_PeriodEnd extends Iati_WEP_
     {
         return $this->hasError;
     }*/
-    
-
-    public function getValidAttribs()
-    {
-        return $this->validAttribs;
-    }
     
 }

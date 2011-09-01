@@ -3,4 +3,5 @@ class Iati_Activity_Element_ContactInfo_Organisation extends Iati_Activity_Eleme
 {
     protected $_type = 'Organisation';
     protected $_parentType = 'ContactInfo';
+    protected $_validAttribs = array('text' => '');
 }

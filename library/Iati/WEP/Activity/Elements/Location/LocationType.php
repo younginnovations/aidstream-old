@@ -2,7 +2,6 @@
 class Iati_WEP_Activity_Elements_Location_LocationType extends Iati_WEP_Activity_Elements_Location
 {
     protected $attributes = array('id', 'text', 'code', 'xml_lang');
-    protected $validAttribs = array('text', '@xml_lang', '@code');
     protected $text;
     protected $code;
     protected $xml_lang; 
@@ -133,11 +132,5 @@ class Iati_WEP_Activity_Elements_Location_LocationType extends Iati_WEP_Activity
     {
         return $this->hasError;
     }*/
-    
-
-    public function getValidAttribs()
-    {
-        return $this->validAttribs;
-    }
     
 }

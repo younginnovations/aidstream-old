@@ -2,7 +2,6 @@
 class Iati_WEP_Activity_Elements_Transaction_AidType extends Iati_WEP_Activity_Elements_Transaction
 {
     protected $attributes = array('id', 'text', 'code', 'xml_lang');
-    protected $validAttribs = array('text', '@xml_lang', '@code');
     protected $text;
     protected $code;
     protected $xml_lang;
@@ -136,9 +135,4 @@ class Iati_WEP_Activity_Elements_Transaction_AidType extends Iati_WEP_Activity_E
         }
     }
     
-    
-    public function getValidAttribs()
-    {
-        return $this->validAttribs;
-    }
 }
