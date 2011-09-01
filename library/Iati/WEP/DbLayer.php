@@ -18,18 +18,18 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 	{
 		$count = 0;
 		foreach($attribs as $indiAttrib){
-				if($indiAttrib){
-					return true;
-				}else{
-					$count++;
-				 $attribResult = false;
-				}
+			if($indiAttrib){
+				return true;
+			}else{
+				$count++;
+				$attribResult = false;
 			}
+		}
 
-			//if the only attrib is null and that only attribs key is id then return true
-			if(array_key_exists('id', $attribs) && $count == 1)
-			return true;
-			return $attribResult;
+		//if the only attrib is null and that only attribs key is id then return true
+		if(array_key_exists('id', $attribs) && $count == 1)
+		return true;
+		return $attribResult;
 	}
 
 	/**
@@ -41,7 +41,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 	 */
 	public function save($object, $parentId = null) {
 
-	if ($object) {
+		if ($object) {
 			$defaultParentId = $parentId;
 			$objectType = $object->getType();
 			$parentType = $object->getParentType();
@@ -52,8 +52,8 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 			$attribResult = true;
 			if($attribResult){
 				if($parentId){
-				$parentField = $this->conditionFormatter($parentType);
-				$attribs[$parentField] = $parentId;
+					$parentField = $this->conditionFormatter($parentType);
+					$attribs[$parentField] = $parentId;
 				}
 				$primaryId = $attribs['id'];
 				$tableClassMapper = new Iati_WEP_TableClassMapper();
@@ -126,13 +126,13 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 			if ($tree) {
 				//check If the field supplied is own Id or parent_id;
 				$conditionalClass = $this->checkConditionField($className,$fieldName);
-				if($conditionalClass){					
+				if($conditionalClass){
 					$class = "Iati_Activity_Element_" . $conditionalClass;
 					$activityType  = new $class;
 					$class = "Iati_Activity_Element_" . $className;
 					$activity = new $class;
 					$resultTree = $activityType;
-					$formattedResult = $this->getRows($className, $fieldName, $value, $tree);					
+					$formattedResult = $this->getRows($className, $fieldName, $value, $tree);
 					if(!$formattedResult[$className])
 					$activityType->addElement($className);
 					foreach ($formattedResult[$className] as $result) {
@@ -159,7 +159,13 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 				$formattedResult = $this->getRows($className, $fieldName, $value);
 				//@Todo isValidAttrib part
 				$result = $formattedResult[$className];
-				$activity->setAttribs($result[0]);
+				$validData = $result[0];
+				if($isValidAttrib)
+				{
+					$validAttribs = $activity->getValidAttribs();
+					$validData = array_intersect_key($result[0],$validAttribs);
+				}
+				$activity->setAttribs($validData);
 				return $activity;
 			}
 		}
@@ -186,7 +192,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		{
 			$validAttribs = $parentClass->getValidAttribs();
 			$validData = array_intersect_key($data,$validAttribs);
-		}			
+		}
 		$parentClass->setAttribs($validData);
 		$elementTree = $activityTreeMapper->getActivityTree($className);
 		if(is_array($elementTree)){
@@ -256,9 +262,9 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 	 * @param object $parentType
 	 * @return string
 	 *
-		 * Get the type from the Element Class
-		 * If Parent class exists get Parent type from the Element Class
-		 * Process it and use it as Class Name to get tableName
+	 * Get the type from the Element Class
+	 * If Parent class exists get Parent type from the Element Class
+	 * Process it and use it as Class Name to get tableName
 	 */
 	public function getType($className, $parentType)
 	{
@@ -267,7 +273,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		$type = $element->getType();
 		$parentClass = $element->getParentType();
 		if($parentType != null && $parentClass != 'Activity'){
-		$objectType = $parentClass."_".$type;
+			$objectType = $parentClass."_".$type;
 		}else
 		$objectType = $type;
 
@@ -401,7 +407,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		if ($tableName) {
 			$this->_name = $tableName;
 			$where = $this->getAdapter()->quoteInto($fieldName . "= ?", $value);
-//						var_dump("Deleting From table ".$tableName. " where ".$fieldName." is equal to ".$value);
+			//						var_dump("Deleting From table ".$tableName. " where ".$fieldName." is equal to ".$value);
 			parent::delete($where);
 		}
 	}
