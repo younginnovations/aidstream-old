@@ -231,6 +231,16 @@ function initialize() {
 		    
 		    createDateTextBox(ele.id, ele.name, ele.value);
 		}
+	},
+	"#status" : {
+	    "onchange" : function (evt) {
+		var ids = new Array();
+	    	dojo.query('.activity-list-table  input[type=checkbox]:checked').forEach(function(tag){
+			ids.push(tag.value);
+		    });
+		dojo.query('#ids').attr('value',ids.join(","));
+		dojo.byId('iati_activity_status').submit();
+	    }
 	}
     });
     // End of dojo.behavior.add

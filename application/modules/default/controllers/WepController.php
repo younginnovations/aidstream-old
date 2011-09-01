@@ -699,13 +699,17 @@ class WepController extends Zend_Controller_Action
                 $activity_array[$i]['identifier'] = ($identifier[0]['text'])?$identifier[0]['text']:'No Iati Identifier';
                 $activity_array[$i]['last_updated_datetime'] = $activity['@last_updated_datetime'];
                 $activity_array[$i]['id'] = $activity['id'];
+                $activity_array[$i]['status_id']  = $activity['status_id'];
                 $i++;
             }
         }
 
         $this->view->blockManager()->enable('partial/dashboard.phtml');
         $this->view->activity_array = $activity_array;
-
+        $status_form = new Form_Wep_ActivityStatus();
+        $base_url = Zend_Controller_Front::getBaseUrl();
+        $status_form->setAction($base_url."/wep/update-status");
+        $this->view->status_form = $status_form;
     }
 
 
@@ -1116,6 +1120,18 @@ class WepController extends Zend_Controller_Action
             }
         }
         return $max_depth;
+    }
+    
+    public function updateStatusAction()
+    {
+        $ids = $this->getRequest()->getParam('ids');
+        $status = $this->getRequest()->getParam('status');
+        $activity_ids = explode(',',$ids);
+
+        $db = new Model_ActivityStatus;
+        $db->updateActivityStatus($activity_ids,(int)$status);
+        
+        $this->_redirect('wep/view-activities');
     }
 
 }
