@@ -2,7 +2,6 @@
 class Iati_WEP_Activity_Elements_RecipientRegion extends Iati_WEP_Activity_Elements_ElementBase
 {  
     protected $attributes = array('id','text', 'code', 'percentage',  'xml_lang');
-    protected $validAttribs = array('text', '@xml_lang', '@percentage', '@code', );
     protected $text;
     protected $code;
     protected $percentage;

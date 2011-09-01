@@ -21,8 +21,7 @@ class Iati_WEP_Activity_Elements_Activity extends Iati_WEP_Activity_Elements_Ele
     protected static $count = 0;
     protected $objectId;
     protected $hasError = false;
-    protected $validAttribs = array('@xml_lang', '@default_currency', '@hierarchy', '@last_updated_datetime');
-
+    
     protected $errors = array();
 
     public function __construct()

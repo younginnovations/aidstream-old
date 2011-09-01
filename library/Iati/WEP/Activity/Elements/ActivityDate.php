@@ -2,7 +2,6 @@
 class Iati_WEP_Activity_Elements_ActivityDate extends Iati_WEP_Activity_Elements_ElementBase
 {
     protected $attributes = array('id', 'text', 'type', 'iso_date', 'xml_lang');
-    protected $validAttribs = array('text', '@type', '@iso_date', '@xml_lang' );
     protected $text = '';
     protected $type = '';
     protected $iso_date = '';
