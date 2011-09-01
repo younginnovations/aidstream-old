@@ -113,7 +113,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 	 * @param boolean $tree
 	 * @return object|boolean elementTree
 	 */
-	public function getRowSet($className, $fieldName, $value, $tree = false) {
+	public function getRowSet($className, $fieldName, $value, $tree = false, $validAttribs = false) {
 		try{
 			$tableClassMapper = new Iati_WEP_TableClassMapper();
 			$activityTreeMapper = new Iati_WEP_ActivityTreeMapper();
@@ -138,7 +138,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 					foreach ($formattedResult[$className] as $result) {
 						$activity = new $class;
 						$parentClass = $activity;
-						$resultTree = $this->fetchRowTreeSet($parentClass, $className, $result);
+						$resultTree = $this->fetchRowTreeSet($parentClass, $className, $result, $validAttribs);
 						$activityType->addElement($resultTree);
 					}
 					return $activityType;
@@ -149,7 +149,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 					$resultTree = $activity;
 					$formattedResult = $this->getRows($className, $fieldName, $value, $tree);
 					foreach ($formattedResult[$className] as $result) {
-						$resultTree = $this->fetchRowTreeSet($parentClass, $className, $result);
+						$resultTree = $this->fetchRowTreeSet($parentClass, $className, $result, $validAttribs);
 					}
 					return $resultTree;
 				}
@@ -157,6 +157,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 				$class = "Iati_Activity_Element_" . $className;
 				$activity = new $class;
 				$formattedResult = $this->getRows($className, $fieldName, $value);
+				//@Todo validAttribs part
 				$result = $formattedResult[$className];
 				$activity->setAttribs($result[0]);
 				return $activity;
@@ -164,7 +165,6 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		}
 		catch (Exception $e)
 		{
-			var_dump($e->getMessage());
 			return false;
 		}
 	}
@@ -176,10 +176,17 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 	 * @param arrya $data
 	 * @return object element object
 	 */
-	public function fetchRowTreeSet($parentClass, $className, $data)
+	public function fetchRowTreeSet($parentClass, $className, $data, $validAttribs = false)
 	{
 		$tableClassMapper = new Iati_WEP_TableClassMapper();
 		$activityTreeMapper = new Iati_WEP_ActivityTreeMapper();
+		if($validAttribs)
+		{
+			//@todo
+			$frontEndClassName = $parentClass->getName();
+
+
+		}
 		$parentClass->setAttribs($data);
 		$elementTree = $activityTreeMapper->getActivityTree($className);
 		if(is_array($elementTree)){
