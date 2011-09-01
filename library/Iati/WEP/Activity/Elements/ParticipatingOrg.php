@@ -21,7 +21,7 @@ class Iati_WEP_Activity_Elements_ParticipatingOrg extends Iati_WEP_Activity_Elem
                 ),
                 'text' => array(
                     'name' => 'text',
-                    'label' => 'Text',
+                    'label' => 'Organisation Name',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('class' => array('form-text'))
                 ),
@@ -35,10 +35,9 @@ class Iati_WEP_Activity_Elements_ParticipatingOrg extends Iati_WEP_Activity_Elem
                 ),
                 'ref' => array(
                     'name' => 'ref',
-                    'label' => 'Organisation Identfier',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
-                    'options' => '',
-                    'attrs' => array('class' => array('form-select'))
+                    'label' => 'Organisation Identifier',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'attrs' => array('class' => array('form-text'))
                 ),
                 'type' => array(
                     'name' => 'type',
@@ -74,7 +73,6 @@ class Iati_WEP_Activity_Elements_ParticipatingOrg extends Iati_WEP_Activity_Elem
     public function setOptions()
     {
         $model = new Model_Wep();
-        $this->options['ref'] = $model->getCodeArray('OrganisationIdentifier', null, '1');
         $this->options['role'] = $model->getCodeArray('OrganisationRole', null, '1');
         $this->options['type'] = $model->getCodeArray('OrganisationType', null, '1');
         $this->options['xml_lang'] = $model->getCodeArray('Language', null, '1');

@@ -8,7 +8,7 @@ class Iati_WEP_Activity_Elements_Transaction_DisbursementChannel extends Iati_WE
     protected $options = array();
     protected $className = 'DisbursementChannel';
     protected $validators = array(
-                                'code' => 'NotEmpty',
+                                'code' => array('NotEmpty'),
                             );
     
     protected $attributes_html = array(

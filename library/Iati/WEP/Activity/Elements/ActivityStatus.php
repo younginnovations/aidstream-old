@@ -66,7 +66,7 @@ class Iati_WEP_Activity_Elements_ActivityStatus extends Iati_WEP_Activity_Elemen
 
         $this->id = (key_exists('id', $data))?$data['id']:0;
         $this->xml_lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
-        $this->type = (key_exists('@code', $data))?$data['@code']:$data['code'];
+        $this->code = (key_exists('@code', $data))?$data['@code']:$data['code'];
 
         $this->text = $data['text'];
 

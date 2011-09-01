@@ -5,17 +5,17 @@ class Iati_WEP_ActivityTreeMapper {
 	private $elementTree = array(
 	'Transaction' =>
         	array(
-        	0 => 'Transaction_TransactionDate',
-        	1 => 'Transaction_TransactionType',
-        	2 => 'Transaction_AidType',
-        	3 => 'Transaction_Description',
-        	4 => 'Transaction_FinanceType',
-        	5 => 'Transaction_ProviderOrg',
-        	6 => 'Transaction_ReceiverOrg',
-        	7 => 'Transaction_Value',
-        	8 => 'Transaction_TiedStatus',
+        	0 => 'Transaction_TransactionType',
+        	1 => 'Transaction_ProviderOrg',
+        	2 => 'Transaction_ReceiverOrg',
+        	3 => 'Transaction_Value',
+        	4 => 'Transaction_Description',
+        	5 => 'Transaction_TransactionDate',
+        	6 => 'Transaction_FlowType',
+        	7 => 'Transaction_FinanceType',
+        	8 => 'Transaction_AidType',
         	9 => 'Transaction_DisbursementChannel',
-        	10 => 'Transaction_FlowType',
+        	10 => 'Transaction_TiedStatus',
         	),
     'Conditions' =>
         	array(
