@@ -1,5 +1,5 @@
 <?php
-class Iati_WEP_Activity_TransactionFactory
+class Iati_WEP_Activity_DocumentLinkFactory
 {
     protected $defaultValues = array();
     protected $globalObject;
@@ -18,78 +18,108 @@ class Iati_WEP_Activity_TransactionFactory
     }
 
 
-    public function factory($objectType = 'Transaction', $data = array())
+    public function factory($objectType = 'DocumentLink', $data = array())
     {
+
         $this->globalObject = $this->getRootNode();
 
+        $function = 'create' . $objectType;
         if($data){
             $this->globalObject = $this->getRootNode();
             foreach($data as $key => $values){
                 if(is_array($values)){
-                    $tree = $this->createObjects ($objectType, null, $values);
+                    $tree = $this->$function ($values);
                 }
             }
         }
         else{
-            $tree = $this->createObjects ($objectType);
+            $tree = $this->$function ($data);
         }
-
         return $tree;
     }
 
-    public function createTransaction($flatArray = array())
+    public function createDocumentLink($flatArray = array())
     {
-        $transaction = new Iati_WEP_Activity_Elements_Transaction ();
+        $documentLink = new Iati_WEP_Activity_Elements_DocumentLink ();
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
         if($flatArray){
-            $data = $this->getFields('Transaction', $flatArray);
-            $transaction->setAttributes($data);
+            $data = $this->getFields('DocumentLink', $flatArray);
+            $documentLink->setAttributes($data);
         }
         else{
-            $transaction->setAttributes( $this->getInitialValues() );
+            $documentLink->setAttributes( $this->getInitialValues() );
         }
-        $registryTree->addNode ($transaction, $this->globalObject);
-//        $this->createObjects ( 'TransactionType', $transaction, $flatArray);
-        
-        $this->createObjects ( 'TransactionType', $transaction, $flatArray);
-        $this->createObjects ( 'ProviderOrg', $transaction, $flatArray);
-        $this->createObjects ( 'ReceiverOrg', $transaction, $flatArray);
-        $this->createObjects ('Value',  $transaction, $flatArray);
-        $this->createObjects ('Description', $transaction, $flatArray);
-        $this->createObjects ('TransactionDate', $transaction, $flatArray);
-        $this->createObjects ('FlowType', $transaction, $flatArray);
-        $this->createObjects ('FinanceType', $transaction,  $flatArray);
-        $this->createObjects ('AidType', $transaction, $flatArray);
-        $this->createObjects ('DisbursementChannel', $transaction, $flatArray);
-        $this->createObjects ('TiedStatus', $transaction, $flatArray);
-//print_r($flatArray);exit;
+        $registryTree->addNode ($documentLink, $this->globalObject);
+        $this->createLanguage ( $documentLink, $flatArray);
+        $this->createCategory ( $documentLink, $flatArray);
+        $this->createTitle ($documentLink, $flatArray);
         return $registryTree;
 
     }
 
-    public function createObjects($class, $parent = null, $values = array())
+    public function createLanguage($parent = null, $values = array())
     {
-        if($class == 'Transaction'){
-            return $this->createTransaction($values);
-        }
-
-        $string = 'Iati_WEP_Activity_Elements_Transaction_' . $class;
-        $object = new $string ();
+        $object = new Iati_WEP_Activity_Elements_DocumentLink_Language ();
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
 
         if($values){
-            
-            $data = $this->getFields($class, $values);
-            $object->setAttributes($data);
-            $registryTree->addNode($object, $parent);
+                    $data = $this->getFields('Language', $values, true);
+                    foreach($data as $eachData){
+                    $object = new Iati_WEP_Activity_Elements_DocumentLink_Language();    
+                    $object->setAttributes($eachData);
+                    $registryTree->addNode($object, $parent);
+                    }
+
         }
         else{
             $object->setAttributes( $this->getInitialValues() );
             $registryTree->addNode ($object, $parent);
         }
-
         return $registryTree;
     }
+
+    public function createCategory($parent = null, $values = array())
+    {
+        $object = new Iati_WEP_Activity_Elements_DocumentLink_Category ();
+        $registryTree = Iati_WEP_TreeRegistry::getInstance ();
+
+        if($values){
+                    $data = $this->getFields('Category', $values, true);
+                    foreach($data as $eachData){
+                    $object = new Iati_WEP_Activity_Elements_DocumentLink_Category ();    
+                    $object->setAttributes($eachData);
+                    $registryTree->addNode($object, $parent);
+                    }
+
+        }
+        else{
+            $object->setAttributes( $this->getInitialValues() );
+            $registryTree->addNode ($object, $parent);
+        }
+        return $registryTree;
+    }
+
+    public function createTitle($parent = null, $values = array())
+    {
+        $object = new Iati_WEP_Activity_Elements_DocumentLink_Title ();
+        $registryTree = Iati_WEP_TreeRegistry::getInstance ();
+
+        if($values){
+                    $data = $this->getFields('Title', $values, true);
+                    foreach($data as $eachData){
+                    $object = new Iati_WEP_Activity_Elements_DocumentLink_Title ();    
+                    $object->setAttributes($eachData);
+                    $registryTree->addNode($object, $parent);
+                    }
+
+        }
+        else{
+            $object->setAttributes( $this->getInitialValues() );
+            $registryTree->addNode ($object, $parent);
+        }
+        return $registryTree;
+    }
+    
 
     public function setInitialValues($initial)
     {
@@ -111,24 +141,33 @@ class Iati_WEP_Activity_TransactionFactory
         return $registry->getRootNode();
     }
 
-    public function getFields($class, $data)
+    public function getFields($class, $data, $array = false)
     {
         $newArray = array();
-        foreach($data as $key => $value){
-            if(is_array($value)){
-                foreach($value as $k => $v){
-                $key_array = explode('_', $k);
-                    if($key_array[0] == $class){
-                        array_shift($key_array);
-                        $newArray[implode("_", $key_array)] = $v;
+        $i = 0;
+        if($array){
+            foreach($data as $key => $value){
+                if(is_array($value)){
+                    foreach($value as $k => $v){
+    
+                        $key_array = explode('_', $k);
+                        if($key_array[0] == $class){
+                            array_shift($key_array);
+                            $newArray[$i][implode("_", $key_array)] = $v;
+                           
+                        }
                     }
+                     $i++;
                 }
             }
-            else{
+        }
+        else{
+            foreach($data as $key => $value){
                 $key_array = explode('_', $key);
                 if($key_array[0] == $class){
                     array_shift($key_array);
                     $newArray[implode("_", $key_array)] = $value;
+                   
                 }
             }
         }
@@ -155,7 +194,6 @@ class Iati_WEP_Activity_TransactionFactory
         }
 
     }
-
 
     // recursive function
     public function cleanData($obj, $elementObj = NULL)
@@ -192,9 +230,9 @@ class Iati_WEP_Activity_TransactionFactory
         return $elementObj;
     }
     
-   
     public function extractData($elementTree, $activity_id)
     {
+//        print_r($elementTree);exit;
         $registryTree = Iati_WEP_TreeRegistry::getInstance();
         $activity = new Iati_WEP_Activity_Elements_Activity();
         $activity->setAttributes(array('activity_id', $activity_id));
@@ -230,5 +268,8 @@ class Iati_WEP_Activity_TransactionFactory
                 }
             }
         }
+        
+//        print_r($registryTree->xml());exit;
     }
+    
 }

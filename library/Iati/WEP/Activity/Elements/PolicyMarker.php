@@ -7,7 +7,7 @@ class Iati_WEP_Activity_Elements_PolicyMarker extends Iati_WEP_Activity_Elements
     protected $id = 0;
     protected $options = array();
     protected $validators = array(
-                                'text' => array('NotEmpty',)
+                                
                             );
     protected $className = 'PolicyMarker';
     protected $attributes_html = array(
@@ -45,7 +45,7 @@ class Iati_WEP_Activity_Elements_PolicyMarker extends Iati_WEP_Activity_Elements
                 ),
                 'text' => array(
                     'name' => 'text',
-                    'label' => 'Text',
+                    'label' => 'Description',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('class' => array('form-text'))
                 ),

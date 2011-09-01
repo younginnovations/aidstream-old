@@ -1,13 +1,13 @@
 <?php
 class Iati_WEP_Activity_Elements_ContactInfo_PersonName extends Iati_WEP_Activity_Elements_ContactInfo
 {
-    protected $attributes = array('text',);
+    protected $attributes = array('id', 'text',);
     protected $text;
     protected $id = 0;
     protected $options = array();
     protected $className = 'PersonName';
     protected $validators = array(
-                                'text' => array('NotEmpty'),
+                                
                             );
     protected $attributes_html = array(
                 'id' => array(
@@ -16,7 +16,7 @@ class Iati_WEP_Activity_Elements_ContactInfo_PersonName extends Iati_WEP_Activit
                 ),
                 'text' => array(
                     'name' => 'text',
-                    'label' => 'Text',
+                    'label' => 'Name',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('class' => array('form-text'))
                 ),
@@ -70,7 +70,7 @@ class Iati_WEP_Activity_Elements_ContactInfo_PersonName extends Iati_WEP_Activit
             
             if(empty($this->validators[$key])){ continue; }
             
-            if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)) && 
+            if((in_array('NotEmpty', $this->validators[$key]) == true) && (empty($eachData)) && 
             (empty($this->required))) {  continue; }
             
             if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)))
@@ -97,17 +97,5 @@ class Iati_WEP_Activity_Elements_ContactInfo_PersonName extends Iati_WEP_Activit
         $data['text'] = $this->text;
         
         return $data;
-    }
-    public function checkPrivilege()
-    {
-        $userRole = new App_UserRole();
-        $resource = new App_Resource();
-        $resource->ownerUserId = $userRole->userId;
-        if (!Zend_Registry::get('acl')->isAllowed($userRole, $resource, 'PersonName')) {
-            $host = $_SERVER['HTTP_HOST'];
-            $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-            $extra = 'user/user/login';
-            header("Location: http://$host$uri/$extra");
-        }
     }
 }

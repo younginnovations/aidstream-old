@@ -24,9 +24,8 @@ class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activi
                 'ref' => array(
                     'name' => 'ref',
                     'label' => 'Organisation Identifier Code',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
-                    'options' => '',
-                    'attrs' => array('class' => array('form-select'))
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'attrs' => array('class' => array('form-text'))
                 ),
                 'provider_activity_id' => array(
                     'name' => 'provider_activity_id',
@@ -54,8 +53,8 @@ class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activi
     
     public function setOptions()
     {
-        $model = new Model_Wep();
-        $this->options['ref'] = $model->getCodeArray('OrganisationIdentifier', null, '1');
+        //$model = new Model_Wep();
+        //$this->options['ref'] = $model->getCodeArray('OrganisationIdentifier', null, '1');
     }
     
     public function getOptions($name = NULL)
@@ -92,7 +91,7 @@ class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activi
             
             if(empty($this->validators[$key])){ continue; }
             
-            if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)) && 
+            if((in_array('NotEmpty', $this->validators[$key]) == true) && (empty($eachData)) && 
             (empty($this->required))) {  continue; }
             
             if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)))

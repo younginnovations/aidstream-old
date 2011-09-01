@@ -158,6 +158,7 @@ function initialize() {
                                     }
                                 },
                                 error: function (data) {
+				    console.log(data);
                                     messageDialog("Error", "Something went wrong! Please try again");
                                 }
                             });

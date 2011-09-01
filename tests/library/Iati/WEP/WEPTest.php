@@ -640,4 +640,12 @@ public function testExplode()
     }
 
 
+    public function testArrayIntersect()
+    {
+        $a=array('code'=>'a','xml_lang'=>'b',3=>'c'); 
+        $b=array(2=>'','code'=>'','xml_lang'=>''); 
+        $c=array_intersect_key($a,$b); 
+        print_r($c);
+    }
+
 }   

@@ -1,7 +1,7 @@
 <?php
 class Iati_WEP_Activity_Elements_DefaultAidType extends Iati_WEP_Activity_Elements_ElementBase
 {
-protected $attributes = array('id', 'code', 'text', 'xml_lang');
+    protected $attributes = array('id', 'code', 'text', 'xml_lang');
      protected $code;
      protected $text;
      protected $xml_lang;

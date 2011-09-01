@@ -395,7 +395,7 @@ class WepController extends Zend_Controller_Action
         $defaultFieldValues = $model->getDefaults('default_field_values', 'account_id', $identity->account_id);
         $defaults = $defaultFieldValues->getDefaultFields();
         $initial['@currency'] = $defaults['currency'];
-        $initial['@xml_lang'] = $defaults['language'];
+        //$initial['@xml_lang'] = $defaults['language'];
         $initial['text'] = '';
         if ($class == 'ReportingOrg') {
             $initial['text'] = $defaults['reporting_org'];
@@ -455,7 +455,7 @@ class WepController extends Zend_Controller_Action
                 if($_POST){
                     $flatArray = $this->flatArray($_POST);
 
-                    //                print_r($flatArray);exit;
+                    //print_r($flatArray);exit;
                     $activity = new Iati_WEP_Activity_Elements_Activity();
                     $activity->setAttributes(array('activity_id' => $activity_id));
                     $registryTree = Iati_WEP_TreeRegistry::getInstance();
@@ -513,7 +513,7 @@ class WepController extends Zend_Controller_Action
                 }
             }
             catch (Exception $e){
-                print_r($e->getMessage());exit;
+                //print_r($e->getMessage());exit;
             }
         }
         $this->_helper->layout()->setLayout('layout_wep');
@@ -878,7 +878,11 @@ class WepController extends Zend_Controller_Action
                 if($_GET['classname'])
                 {
                     $class = $_GET['classname'];
+                    if($class == 'OtherActivityIdentifier'){
+                        $class = "OtherIdentifier";
+                    }
                 }
+                
                 if($_GET['id']){
                     $id = $_GET['id'];
                 }
@@ -922,8 +926,6 @@ class WepController extends Zend_Controller_Action
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
         if ($_GET) {
-            print_r($_GET);
-            exit();
             $id = $this->_request->getParam('id');
             $type = $this->_request->getParam('type');
             $model = new Model_Wep();
@@ -941,23 +943,17 @@ class WepController extends Zend_Controller_Action
             $activity_id = (isset($_GET['activity_id']))?$_GET['activity_id']:NULL;
             $className = (isset($_GET['classname']))?$_GET['classname']:NULL;
 
-            $dbLayer = new Iati_WEP_DbLayer();
-            $del = $dbLayer->deleteRows($className, 'id', $activity_id);
-
-            $identity = Zend_Auth::getInstance()->getIdentity();
-            $model = new Model_Wep();
-
-            $activities_id = $model->listAll('iati_activities', 'account_id', $identity->account_id);
-
-            $activities_id = $activities_id[0]['id'];
+            //$dbLayer = new Iati_WEP_DbLayer();
+            //$del = $dbLayer->deleteRows($className, 'id', $activity_id);
 
             $this->_helper->FlashMessenger->addMessage(array('message' => "Activity Deleted."));
-            $this->_redirect('wep/view-activities/?activities_id='.$activities_id);
+            $this->_redirect('wep/view-activities');
         }
         catch(Exception $e){
 
         }
     }
+    
 
     public function formAction()
     {

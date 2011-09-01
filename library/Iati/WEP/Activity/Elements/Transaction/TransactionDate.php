@@ -1,7 +1,7 @@
 <?php 
 class Iati_WEP_Activity_Elements_Transaction_TransactionDate extends Iati_WEP_Activity_Elements_Transaction
 {
-    protected $attributes = array('text', 'iso_date');
+    protected $attributes = array('id', 'text', 'iso_date');
     protected $text;
     protected $iso_date;
     protected $id = 0;
@@ -77,7 +77,7 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionDate extends Iati_WEP_Ac
             
             if(empty($this->validators[$key])){ continue; }
             
-            if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)) && 
+            if((in_array('NotEmpty', $this->validators[$key]) == true) && (empty($eachData)) && 
             (empty($this->required))) {  continue; }
             
             if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)))

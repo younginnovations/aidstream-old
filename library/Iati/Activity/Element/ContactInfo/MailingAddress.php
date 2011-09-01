@@ -3,4 +3,5 @@ class Iati_Activity_Element_ContactInfo_MailingAddress extends Iati_Activity_Ele
 {
     protected $_type = 'MailingAddress';
     protected $_parentType = 'ContactInfo';
+    protected $_validAttribs = array('text' => '',);
 }

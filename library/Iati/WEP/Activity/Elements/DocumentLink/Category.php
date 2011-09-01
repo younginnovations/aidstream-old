@@ -1,5 +1,6 @@
-<?php 
-class Iati_WEP_Activity_Elements_Transaction_FinanceType extends Iati_WEP_Activity_Elements_Transaction
+<?php
+class Iati_WEP_Activity_Elements_DocumentLink_Category extends 
+                                    Iati_WEP_Activity_Elements_DocumentLink
 {
     protected $attributes = array('id', 'text', 'code', 'xml_lang');
     protected $text;
@@ -7,25 +8,25 @@ class Iati_WEP_Activity_Elements_Transaction_FinanceType extends Iati_WEP_Activi
     protected $xml_lang;
     protected $id = 0;
     protected $options = array();
-    protected $className = 'FinanceType';
+    protected $className = 'Category';
     protected $validators = array(
                                 'code' => array('NotEmpty'),
                             );
-    
-protected $attributes_html = array(
+    protected $attributes_html = array(
                 'id' => array(
                     'name' => 'id',
                     'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
                 ),
                 'text' => array(
+            
                     'name' => 'text',
-                    'label' => 'Text',
+                    'label' => 'Category',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('class' => array('form-text'))
+                    'attrs' => array('class' => array('form-text')),
                 ),
                 'code' => array(
                     'name' => 'code',
-                    'label' => 'Flow Type Code',
+                    'label' => 'Document Category Code',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
@@ -43,8 +44,8 @@ protected $attributes_html = array(
     protected $objectId;
     protected $error = array();
     protected $hasError = false;
-    protected $multiple = false;
-    protected $required = false;
+    protected $multiple = true;
+    protected $required = true;
     
     public function __construct()
     {
@@ -52,25 +53,25 @@ protected $attributes_html = array(
         self::$count += 1;
         $this->setOptions();
     }
-
+    
     public function setOptions()
     {
         $model = new Model_Wep();
-        $this->options['code'] = $model->getCodeArray('FinanceType', null, '1');
-        $this->options['xml_lang'] = $model->getCodeArray('Language', null, '1');
         
+        $this->options['text'] = $model->getCodeArray('Language', null, '1');
+        $this->options['code'] = $model->getCodeArray('DocumentCategory', null, '1');
+    }
+    
+    public function setAttributes ($data) {
+        $this->id = (key_exists('id', $data))?$data['id']:0;
+        $this->text = $data['text'];
+        $this->code = (key_exists('@code', $data))?$data['@code']:$data['code'];
+        $this->xml_lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
     }
     
     public function getOptions($name = NULL)
     {
         return $this->options[$name];
-    }
-    
-    public function setAttributes ($data) {
-        $this->id = (isset($data['id']))?$data['id']:0; 
-        $this->code = (key_exists('@code', $data))?$data['@code']:$data['code'];
-        $this->text = $data['text'];
-        $this->xml_lang = key_exists('@xml_lang', $data)?$data['@xml_lang']:$data['xml_lang'];
     }
     
     public function getObjectId()
@@ -85,10 +86,10 @@ protected $attributes_html = array(
     public function validate()
     {
         $data['id'] = $this->id;
-        $data['code'] = $this->code;
         $data['text'] = $this->text;
+        $data['code'] = $this->code;
         $data['xml_lang'] = $this->xml_lang;
-//        print_r($data);exit;
+          
         foreach($data as $key => $eachData){
             
             if(empty($this->validators[$key])){ continue; }
@@ -114,13 +115,15 @@ protected $attributes_html = array(
         }
     }
     
-public function getCleanedData(){
+    public function getCleanedData(){
         $data = array();
         $data ['id'] = $this->id;
+        $data['text'] = $this->text;
         $data['@code'] = $this->code;
         $data['@xml_lang'] = $this->xml_lang;
-        $data['text'] = $this->text;
         
         return $data;
     }
+    
+    
 }

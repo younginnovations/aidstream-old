@@ -38,11 +38,11 @@ class Iati_WEP_FormDecorator {
             
             if ($label && isset($variables['label'])) {
                 $html .= '<label for="'.$id.'">'.$variables['label'];
-if($this->_object->getValidator($attribute)){  
-if (in_array('NotEmpty', $this->_object->getValidator($attribute))) {
-                    $html .= '<span class="required">*</span>';
-                }
-}
+            if($this->_object->getValidator($attribute)){  
+            if (in_array('NotEmpty', $this->_object->getValidator($attribute))) {
+                                $html .= '<span class="required">*</span>';
+                            }
+            }
                 $html .= '</label>';
             
             }
@@ -103,9 +103,9 @@ if (in_array('NotEmpty', $this->_object->getValidator($attribute))) {
         if (empty($options)) {
             return false;
         }
-        $optionHtml = '<option value="" label="Select anyone">Select anyone</option>';
+        $optionHtml = '<option value="Select anyone">Select anyone</option>';
         foreach ($options as $k => $v) {
-            $sel = ($attr == $k) ? 'selected="selected"' : '';
+            $sel = ($attr === (string)$k) ? 'selected="selected"' : '';
             $optionHtml .= sprintf('<option value="%1s" %2s>%3s</option>', $k, $sel, $v);
 //            print $optionHtml;exit;
         }

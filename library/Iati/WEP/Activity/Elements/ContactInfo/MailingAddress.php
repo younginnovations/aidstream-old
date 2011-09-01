@@ -3,13 +3,13 @@ class Iati_WEP_Activity_Elements_ContactInfo_MailingAddress extends
                                     Iati_WEP_Activity_Elements_ContactInfo
 {
 
-    protected $attributes = array('text',);
+    protected $attributes = array('id', 'text',);
     protected $text;
     protected $id = 0;
     protected $options = array();
     protected $className = 'MailingAddress';
     protected $validators = array(
-                                'text' => array('NotEmpty'),
+                               
                             );
     protected $attributes_html = array(
                 'id' => array(
@@ -18,7 +18,7 @@ class Iati_WEP_Activity_Elements_ContactInfo_MailingAddress extends
                 ),
                 'text' => array(
                     'name' => 'text',
-                    'label' => 'Text',
+                    'label' => 'Address',
                     'html' => '<textarea rows="2" cols="20" name="%(name)s %(attrs)s">%(value)s</textarea>',
                     'attrs' => array('class' => array('form-text'))
                 ),
@@ -72,7 +72,7 @@ class Iati_WEP_Activity_Elements_ContactInfo_MailingAddress extends
             
             if(empty($this->validators[$key])){ continue; }
             
-            if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)) && 
+            if((in_array('NotEmpty', $this->validators[$key]) == true) && (empty($eachData)) && 
             (empty($this->required))) {  continue; }
             
             if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)))
@@ -100,5 +100,4 @@ class Iati_WEP_Activity_Elements_ContactInfo_MailingAddress extends
         
         return $data;
     }
-    
 }                                    

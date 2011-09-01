@@ -20,17 +20,17 @@ class Iati_WEP_Activity_ConditionsFactory
 
     public function factory($objectType = 'Conditions', $data = array())
     {
-
+        //print_r($data);exit;
         $this->globalObject = $this->getRootNode();
 
         $function = 'create' . $objectType;
         if($data){
             $this->globalObject = $this->getRootNode();
-            foreach($data as $key => $values){
-                if(is_array($values)){
-                    $tree = $this->$function ($values);
-                }
-            }
+            //print_r($data);exit;
+            //if(is_array($values)){
+            $tree = $this->$function ($data);
+            //}
+            
         }
         else{
             $tree = $this->$function ($data);

@@ -9,7 +9,8 @@ class Iati_WEP_Activity_Elements_RelatedActivity extends Iati_WEP_Activity_Eleme
     protected $id = 0;
     protected $options = array();
     protected $validators = array(
-                                'text' => array('NotEmpty',)
+                              'type' => array('NotEmpty'),
+                              'ref' => array('NotEmpty'),
                             );
     protected $className = 'RelatedActivity';
     protected $attributes_html = array(
@@ -19,20 +20,20 @@ class Iati_WEP_Activity_Elements_RelatedActivity extends Iati_WEP_Activity_Eleme
                 ),
                 'text' => array(
                     'name' => 'text',
-                    'label' => 'Text',
+                    'label' => 'Activity Title',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'type' => array(
                     'name' => 'type',
-                    'label' => 'Flow Type Code',
+                    'label' => 'Type of Relationship',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),
                 'ref' => array(
                     'name' => 'ref',
-                    'label' => 'Identifier',
+                    'label' => 'Activity Identifier',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('class' => array('form-text'))
                 ),

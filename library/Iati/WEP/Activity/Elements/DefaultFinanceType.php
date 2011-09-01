@@ -1,7 +1,7 @@
 <?php
 class Iati_WEP_Activity_Elements_DefaultFinanceType extends Iati_WEP_Activity_Elements_ElementBase
 {
-protected $attributes = array('id', 'code', 'text', 'xml_lang');
+    protected $attributes = array('id', 'code', 'text', 'xml_lang');
      protected $code;
      protected $text;
      protected $xml_lang;
@@ -20,7 +20,7 @@ protected $attributes = array('id', 'code', 'text', 'xml_lang');
             'name' => 'text',
             'label' => 'Text',
             'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('class' => array('form-text'))
+                    'attrs' => array('class' => array('form-text')),
         ),
         'code' => array(
             'name' => 'code',

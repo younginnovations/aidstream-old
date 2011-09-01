@@ -8,7 +8,7 @@ class Iati_WEP_Activity_Elements_Transaction_DisbursementChannel extends Iati_WE
     protected $options = array();
     protected $className = 'DisbursementChannel';
     protected $validators = array(
-                                'code' => 'NotEmpty',
+                                'code' => array('NotEmpty'),
                             );
     
     protected $attributes_html = array(
@@ -81,7 +81,7 @@ class Iati_WEP_Activity_Elements_Transaction_DisbursementChannel extends Iati_WE
             
             if(empty($this->validators[$key])){ continue; }
             
-            if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)) && 
+            if((in_array('NotEmpty', $this->validators[$key]) == true) && (empty($eachData)) && 
             (empty($this->required))) {  continue; }
             
             if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)))
@@ -111,4 +111,5 @@ public function getCleanedData(){
 //        print_r($data);exit;
         return $data;
     }
+    
 }

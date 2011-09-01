@@ -5,7 +5,7 @@ class Iati_WEP_Activity_Elements_Conditions extends Iati_WEP_Activity_Elements_E
     protected $id = 0;
     protected $attached;
     protected $options = array();
-    protected $multiple = true;
+    protected $multiple = false;
     protected $attributes_html = array(
                     'id' => array(
                     'name' => 'id',
@@ -23,8 +23,9 @@ class Iati_WEP_Activity_Elements_Conditions extends Iati_WEP_Activity_Elements_E
                 'attached' => array(
                     'name' => 'attached',
                     'label' => 'Conditions Attached',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
-                    'attrs' => array('class' => array('form-text'))
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'options' => '',
+                    'attrs' => array('class' => array('form-select'))
                 ),
     );
     protected $className = 'Conditions';
@@ -42,18 +43,20 @@ class Iati_WEP_Activity_Elements_Conditions extends Iati_WEP_Activity_Elements_E
         parent :: __construct();
         $this->objectId = self::$count;
         self::$count += 1;
-        $this->multiple = true;
         $this->setOptions();
     }
     
     public function setOptions()
     {
-        $this->options['attached'] = array('No' => '0', 'Yes' => '1');
+        $this->options['attached'] = array('0' => 'No', '1' => 'Yes');
     }
     
     public function setAttributes ($data) {
+        //print_r($data);exit;
         $this->id = (key_exists('id', $data))?$data['id']:0;
         $this->attached = (key_exists('@attached', $data))?$data['@attached']:$data['attached'];
+        //print_r($this->attached);exit;
+        //print_r($data);exit;
     }
     
     public function getOptions($attr)
@@ -77,6 +80,7 @@ class Iati_WEP_Activity_Elements_Conditions extends Iati_WEP_Activity_Elements_E
     public function validate(){
         $data['id'] = $this->id;
         $data['attached'] = $this->attached;
+        //print_r($data);exit;
         parent :: validate($data);
     }
     
@@ -89,6 +93,7 @@ class Iati_WEP_Activity_Elements_Conditions extends Iati_WEP_Activity_Elements_E
         $data = array();
         $data['id'] = $this->id;
         $data['@attached'] = $this->attached;
+        //print_r($data);exit;
         return $data;
     }
 }

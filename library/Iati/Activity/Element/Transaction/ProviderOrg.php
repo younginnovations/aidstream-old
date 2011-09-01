@@ -3,4 +3,5 @@ class Iati_Activity_Element_Transaction_ProviderOrg extends Iati_Activity_Elemen
 {
     protected $_type = 'ProviderOrg';
     protected $_parentType = 'Transaction';
+    protected $_validAttribs = array('text' => '', '@ref' => '', '@provider_activity_id' => '');
 }

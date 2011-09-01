@@ -95,6 +95,10 @@ class Iati_WEP_Activity_Elements_ElementBase
         return $string;
     }
 
+    public function getValidAttribs()
+    {
+        return $this->validAttribs;
+    }
     public function hasMultiple()
     {
         return $this->multiple;
@@ -133,7 +137,7 @@ class Iati_WEP_Activity_Elements_ElementBase
 
             if(empty($this->validators[$key])){ continue; }
 
-            if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)) &&
+            if((in_array('NotEmpty', $this->validators[$key]) == true) && (empty($eachData)) &&
             (empty($this->required))) {  continue; }
             
             if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)))

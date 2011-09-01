@@ -62,6 +62,11 @@ class Iati_Activity_Element
         return $this->_attribs;
     }
     
+    public function getValidAttribs()
+    {
+        return $this->_validAttribs;
+    }
+    
     public function getElementLoader()
     {
         if (!isset($this->_elementLoader)) {
