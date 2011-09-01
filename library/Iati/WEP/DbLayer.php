@@ -113,7 +113,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 	 * @param boolean $tree
 	 * @return object|boolean elementTree
 	 */
-	public function getRowSet($className, $fieldName, $value, $tree = false, $validAttribs = false) {
+	public function getRowSet($className, $fieldName, $value, $tree = false, $isValidAttrib = false) {
 		try{
 			$tableClassMapper = new Iati_WEP_TableClassMapper();
 			$activityTreeMapper = new Iati_WEP_ActivityTreeMapper();
@@ -126,19 +126,19 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 			if ($tree) {
 				//check If the field supplied is own Id or parent_id;
 				$conditionalClass = $this->checkConditionField($className,$fieldName);
-				if($conditionalClass){
+				if($conditionalClass){					
 					$class = "Iati_Activity_Element_" . $conditionalClass;
 					$activityType  = new $class;
 					$class = "Iati_Activity_Element_" . $className;
 					$activity = new $class;
 					$resultTree = $activityType;
-					$formattedResult = $this->getRows($className, $fieldName, $value, $tree);
+					$formattedResult = $this->getRows($className, $fieldName, $value, $tree);					
 					if(!$formattedResult[$className])
 					$activityType->addElement($className);
 					foreach ($formattedResult[$className] as $result) {
 						$activity = new $class;
 						$parentClass = $activity;
-						$resultTree = $this->fetchRowTreeSet($parentClass, $className, $result, $validAttribs);
+						$resultTree = $this->fetchRowTreeSet($parentClass, $className, $result, $isValidAttrib);
 						$activityType->addElement($resultTree);
 					}
 					return $activityType;
@@ -149,7 +149,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 					$resultTree = $activity;
 					$formattedResult = $this->getRows($className, $fieldName, $value, $tree);
 					foreach ($formattedResult[$className] as $result) {
-						$resultTree = $this->fetchRowTreeSet($parentClass, $className, $result, $validAttribs);
+						$resultTree = $this->fetchRowTreeSet($parentClass, $className, $result, $isValidAttrib);
 					}
 					return $resultTree;
 				}
@@ -157,7 +157,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 				$class = "Iati_Activity_Element_" . $className;
 				$activity = new $class;
 				$formattedResult = $this->getRows($className, $fieldName, $value);
-				//@Todo validAttribs part
+				//@Todo isValidAttrib part
 				$result = $formattedResult[$className];
 				$activity->setAttribs($result[0]);
 				return $activity;
@@ -173,21 +173,21 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 	/**
 	 * @param object $parentClass Elment object
 	 * @param string $className
-	 * @param arrya $data
+	 * @param array $data
+	 * @param boolean $isValidAttrib {data being fetched is only valid attribs or db attribs}
 	 * @return object element object
 	 */
-	public function fetchRowTreeSet($parentClass, $className, $data, $validAttribs = false)
+	public function fetchRowTreeSet($parentClass, $className, $data, $isValidAttrib = false)
 	{
 		$tableClassMapper = new Iati_WEP_TableClassMapper();
 		$activityTreeMapper = new Iati_WEP_ActivityTreeMapper();
-		if($validAttribs)
+		$validData = $data;
+		if($isValidAttrib)
 		{
-			//@todo
-			$frontEndClassName = $parentClass->getName();
-
-
-		}
-		$parentClass->setAttribs($data);
+			$validAttribs = $parentClass->getValidAttribs();
+			$validData = array_intersect_key($data,$validAttribs);
+		}			
+		$parentClass->setAttribs($validData);
 		$elementTree = $activityTreeMapper->getActivityTree($className);
 		if(is_array($elementTree)){
 			$primaryId = $data['id'];
