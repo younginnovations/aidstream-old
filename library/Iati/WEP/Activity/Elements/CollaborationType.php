@@ -18,7 +18,7 @@ class Iati_WEP_Activity_Elements_CollaborationType extends Iati_WEP_Activity_Ele
                 ),
                 'code' => array(
                     'name' => 'code',
-                    'label' => 'Policy Marker',
+                    'label' => 'Collaboration Type Code',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))

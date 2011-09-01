@@ -8,7 +8,7 @@ class Iati_WEP_Activity_Elements_ContactInfo_Telephone extends
     protected $options = array();
     protected $className = 'Telephone';
     protected $validators = array(
-                                'text' => array('NotEmpty'),
+                               
                             );
     protected $attributes_html = array(
                 'id' => array(
@@ -17,7 +17,7 @@ class Iati_WEP_Activity_Elements_ContactInfo_Telephone extends
                 ),
                 'text' => array(
                     'name' => 'text',
-                    'label' => 'Text',
+                    'label' => 'Number',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('class' => array('form-text'))
                 ),
@@ -70,7 +70,7 @@ class Iati_WEP_Activity_Elements_ContactInfo_Telephone extends
             
             if(empty($this->validators[$key])){ continue; }
             
-            if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)) && 
+            if((in_array('NotEmpty', $this->validators[$key]) == true) && (empty($eachData)) && 
             (empty($this->required))) {  continue; }
             
             if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)))
