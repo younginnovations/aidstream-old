@@ -6,9 +6,25 @@ class WepController extends Zend_Controller_Action
     //    protected $activity_id = '';
     public function init()
     {
+        $identity  = Zend_Auth::getInstance()->getIdentity();
         $this->_helper->layout()->setLayout('layout_wep');
         $this->view->blockManager()->enable('partial/dashboard.phtml');
         $this->view->blockManager()->enable('partial/primarymenu.phtml');
+        $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
+        if($identity->role == 'user'){
+            $model = new Model_Wep();
+            $userPermission = $model->getUserPermission($identity->user_id);
+            $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::$VIEW_ACTIVITIES);
+            if($permission == '0'){
+                $this->view->blockManager()->disable('partial/primarymenu.phtml');
+            }
+            $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::$ADD_ACTIVITY);
+            if($permission == '0'){
+                $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
+            }
+        }
+        
+        $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
         //        $this->view->blockManager()->enable('partial/dashboard.phtml');
         /* $contextSwitch = $this->_helper->contextSwitch;
         $contextSwitch->addActionContext('', 'json')
@@ -44,7 +60,6 @@ class WepController extends Zend_Controller_Action
 //            print_r($activities_id);exit;
         $this->view->activities_id = $activities_id;
 
-        $this->view->blockManager()->enable('partial/primarymenu.phtml');
     }
 
     public function listActivitiesAction()
@@ -161,7 +176,7 @@ class WepController extends Zend_Controller_Action
                     $fieldString = serialize($defaultFieldsValues);
                     $defaultValues['object'] = $fieldString;
                     $defaultValues['account_id'] = $account_id;
-                    $defaultValuesId = $model->insertRowsToTable('default_field_values', $defaultValues);
+                    $defaultValuesId = $model->insertRowsToTable('user_permission', $defaultValues);
                     $i = 0;
                     foreach ($data['default_fields'] as $eachField) {
                         $defaultKey[$i] = $eachField;
@@ -381,7 +396,6 @@ class WepController extends Zend_Controller_Action
         $this->view->activities_id = $activities_id;
         $this->view->form = $form;
         //        $this->view->form = $form1;
-        $this->view->blockManager()->enable('partial/dashboard.phtml');
     }
 
     public function getInitialValues($activity_id, $class)
@@ -516,17 +530,13 @@ class WepController extends Zend_Controller_Action
                 //print_r($e->getMessage());exit;
             }
         }
-        $this->_helper->layout()->setLayout('layout_wep');
-        $this->view->blockManager()->enable('partial/dashboard.phtml');
-        $this->view->blockManager()->enable('partial/activitymenu.phtml');
          
         $this->view->form = $a;
+        $this->view->blockManager()->enable('partial/activitymenu.phtml');
     }
 
     public function editActivityElementsAction()
     {
-        $this->view->blockManager()->enable('partial/activitymenu.phtml');
-        $this->view->blockManager()->enable('partial/primarymenu.phtml');
         $identity = Zend_Auth::getInstance()->getIdentity();
         $model = new Model_Wep();
         $id = null;
@@ -612,9 +622,7 @@ class WepController extends Zend_Controller_Action
 
             }
         }
-        $this->_helper->layout()->setLayout('layout_wep');
-        //        $this->view->blockManager()->enable('partial/dashboard.phtml');
-
+        $this->view->blockManager()->enable('partial/activitymenu.phtml');
          
         $this->view->form = $a;
     }
@@ -703,7 +711,6 @@ class WepController extends Zend_Controller_Action
             }
         }
 
-        $this->view->blockManager()->enable('partial/dashboard.phtml');
         $this->view->activity_array = $activity_array;
 
     }
@@ -806,7 +813,6 @@ class WepController extends Zend_Controller_Action
 
         }
 
-        $this->view->blockManager()->enable('partial/dashboard.phtml');
     }
     public function overrideActivityAction()
     {
@@ -852,7 +858,6 @@ class WepController extends Zend_Controller_Action
             $this->view->form = $form;
 
         }
-        $this->view->blockManager()->enable('partial/dashboard.phtml');
     }
 
     public function removeElementsAction()

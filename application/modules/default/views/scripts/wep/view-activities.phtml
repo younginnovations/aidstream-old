@@ -1,6 +1,7 @@
 <?php $this->headScript()->appendFile($this->baseUrl() . '/js/common.js', $type = 'text/javascript');
 ?>
 
+
 <?php if($this->activities_info):?>
 <div>
 <table>
@@ -29,6 +30,7 @@
             <tr class="activity-row1">
                 <td class="sn"><?php print $i;?></td>
                 <td class="title"><?php print $eachActivity['title'];?>
+                
                 <div class = "list-action"><?php print $this->l('View', 'wep/edit-activity-elements/?activity_id='.$eachActivity['id'])?>
         <?php //print $this->l('Edit', 'wep/edit-activity/?activity_id='.$eachActivity['id'])?>
                             

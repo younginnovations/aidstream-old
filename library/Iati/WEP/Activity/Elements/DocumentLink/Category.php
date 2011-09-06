@@ -58,7 +58,7 @@ class Iati_WEP_Activity_Elements_DocumentLink_Category extends
     {
         $model = new Model_Wep();
         
-        $this->options['text'] = $model->getCodeArray('Language', null, '1');
+        $this->options['xml_lang'] = $model->getCodeArray('Language', null, '1');
         $this->options['code'] = $model->getCodeArray('DocumentCategory', null, '1');
     }
     

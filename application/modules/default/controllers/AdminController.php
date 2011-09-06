@@ -133,19 +133,32 @@ class AdminController extends Zend_Controller_Action
         $model = new Model_Wep();
         //$admindefaultField = $model->getDefaults('default_field_groups', 'account_id', $identity->account_id);
         
-        $defaultFieldGroup = new Iati_WEP_UserAccountDisplayField();
+        $defaultFieldGroup = new Iati_WEP_UserPermission();
         $default['fields'] = $defaultFieldGroup->getProperties();
         $form = new Form_Admin_Userregister();
         $form->add($default);
         if ($this->getRequest()->isPost()) {
             try {
                 $data = $this->getRequest()->getPost();
-                $model = new Model_Wep();
+                $account_username = $model->getAccountUserName($identity->account_id);
+                $user_name = $account_username . "_" .$data['user_name'];
+                $usernameExists = $model->userExists('user_name', $user_name);
+                $emailExists = $model->userExists('email', $data['email']);
                 if (!$form->isValid($data)) {
                     $form->populate($data);
-                } else {
-                    $account_username = $model->getAccountUserName($identity->account_id);
-                    $user['user_name'] = $account_username . "_" .$data['user_name'];
+                }
+                //@todo check for unique username. fix the bug
+                else if (!empty($usernameExists)) {
+                    $this->_helper->FlashMessenger->addMessage(array('error' => "Username already exists."));
+                    $form->populate($data);
+                }
+                else if (!empty($emailExists)) {
+                    $this->_helper->FlashMessenger->addMessage(array('error' => "User already exists."));
+                    $form->populate($data);
+                }else {
+                    $model = new Model_Wep();
+                    
+                    $user['user_name'] = $user_name;
                     $user['password'] = md5($data['password']);
                     $user['role_id'] = 2; //id resembels user as role
                     $user['email'] = $data['email'];
@@ -167,7 +180,7 @@ class AdminController extends Zend_Controller_Action
                     $fieldString = serialize($defaultFieldGroup);
                     $defaultFields['object'] = $fieldString;
                     $defaultFields['user_id'] = $user_id;
-                    $defaultFieldId = $model->insertRowsToTable('default_user_field', $defaultFields);
+                    $defaultFieldId = $model->insertRowsToTable('user_permission', $defaultFields);
 
                     $privilegeFields['resource'] = serialize($defaultKey);
                     $privilegeFields['owner_id'] = $user_id;
@@ -177,11 +190,15 @@ class AdminController extends Zend_Controller_Action
                     $this->_redirect('user/user/login');
                 }
             } catch (Exception $e) {
-
+print_r($e);exit;
             }
         }
         $this->view->form = $form;
-        $this->view->blockManager()->enable('partial/login.phtml');
+        $this->_helper->layout()->setLayout('layout_wep');
+        $this->view->blockManager()->enable('partial/dashboard.phtml');
+        $this->view->blockManager()->enable('partial/primarymenu.phtml');
+        $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
+        $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
     }
     
     public function listUsersAction()
@@ -195,6 +212,8 @@ class AdminController extends Zend_Controller_Action
         //$this->_helper->layout()->setLayout('layout_wep');
         $this->view->blockManager()->enable('partial/dashboard.phtml');
         $this->view->blockManager()->enable('partial/primarymenu.phtml');
+        $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
+        $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
     }
     
     public function deleteUserAction(){
@@ -204,14 +223,17 @@ class AdminController extends Zend_Controller_Action
                 try{
                     $user_id = $_GET['user_id'];
                     $userModel = new User_Model_DbTable_User();
-                    $$userModel->deleteUser($user_id);
+                    $userModel->deleteUser($user_id);
                     $profileModel = new User_Model_DbTable_Profile();
                     $profileModel->deleteProfile($user_id);
+                    $wepModel = new Model_Wep();
+                    $wepModel->deleteRow('user_permission', 'user_id', $user_id);
+                    $wepModel->deleteRow('Privilege', 'owner_id', $user_id);
                     $this->_helper->FlashMessenger->addMessage(array('message' => 'User Deleted.'));
                     $this->_redirect('admin/list-users');
                 }
                 catch(Exception $e){
-                    
+                 print $e->getMessage();exit;  
                 }
             }
         }
@@ -252,7 +274,8 @@ class AdminController extends Zend_Controller_Action
         $this->_helper->layout()->setLayout('layout_wep');
         $this->view->blockManager()->enable('partial/dashboard.phtml');
         $this->view->blockManager()->enable('partial/primarymenu.phtml');
-        
+        $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
+        $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
     }
     
     public function editUserPermissionAction()
@@ -261,7 +284,8 @@ class AdminController extends Zend_Controller_Action
                 $user_id = $_GET['user_id'];
         }
         $model = new Model_Wep();
-        $permissionSerialized = $model->getRowById('default_user_field', 'user_id', $user_id);
+        $permissionSerialized = $model->getRowById('user_permission', 'user_id', $user_id);
+        //print_r($permissionSerialized['object']);exit;
         $permissionObj = unserialize($permissionSerialized['object']);
         $default['fields'] = $permissionObj->getProperties();
         
@@ -270,10 +294,10 @@ class AdminController extends Zend_Controller_Action
         
         if($_POST){
             try{
-                //print_r($_POST);exit;
                 
                 $data = $_POST;
                 $i = 0;
+                $permissionObj = new Iati_WEP_UserPermission();
                 foreach ($data['default_fields'] as $eachField) {
                     $defaultKey[$i] = $eachField;
                     $permissionObj->setProperties($eachField);
@@ -282,14 +306,14 @@ class AdminController extends Zend_Controller_Action
                 $fieldString = serialize($permissionObj);
                 $defaultFields['object'] = $fieldString;
                 $defaultFields['user_id'] = $user_id;
-                $defaultFieldId = $model->updateRow('default_user_field', $defaultFields, 'user_id', $user_id);
+                $defaultFieldId = $model->updateRow('user_permission', $defaultFields, 'user_id', $user_id);
                 //print_r($defaultFieldId);exit;
                 $privilegeFields['resource'] = serialize($defaultKey);
                 $privilegeFields['owner_id'] = $user_id;
                 $privilegeFieldId = $model->updateRow('Privilege', $privilegeFields, 'owner_id', $user_id);
                 
                 $this->_helper->FlashMessenger->addMessage(array('message' => 'User permission updated.'));
-                $this->_redirect('user/user/login'); 
+                $this->_redirect('admin/list-users'); 
             } 
             catch(Exception $e){
              print $e;   
@@ -299,13 +323,46 @@ class AdminController extends Zend_Controller_Action
         $this->_helper->layout()->setLayout('layout_wep');
         $this->view->blockManager()->enable('partial/dashboard.phtml');
         $this->view->blockManager()->enable('partial/primarymenu.phtml');
-                
+        $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
+        $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');        
         
     }
     
     public function resetUserPasswordAction()
     {
-        
+        if($_GET['user_id']){
+            $user_id = $this->getRequest()->getParam('user_id');
+             $form = new Form_Admin_ResetUserPassword();
+            $this->view->form = $form;$this->view->form = $form;
+            if($this->getRequest()->isPost()){
+                $formdata = $this->getRequest()->getPost();
+
+                if (!$form->isValid($formdata)) {
+                    $form->populate($formdata);
+                } else {
+                    try {
+                        $model = new User_Model_DbTable_User();
+                        $data['password'] = $this->getRequest()->getParam('password');
+                        $model->changePassword($data, $user_id);
+                        $this->_helper->FlashMessenger->addMessage(array('message' => 'Changed password successfully.'));
+
+                        $this->_redirect('admin/list-users');
+                       
+                    } catch (Exception $e) {
+                        print 'Error Occured';
+                        print $e->getMessage();
+                    }//end of try catch
+                }
+            }
+           
+            $this->_helper->layout()->setLayout('layout_wep');
+            $this->view->blockManager()->enable('partial/dashboard.phtml');
+            $this->view->blockManager()->enable('partial/primarymenu.phtml');
+            $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
+            $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
+        }else{
+            print "no"; exit;
+        }
     }
     
     public function listAllUsersAction()

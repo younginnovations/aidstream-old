@@ -150,7 +150,10 @@ class User_UserController extends Zend_Controller_Action
                         $this->_redirect('admin/dashboard');
                     } elseif ($identity->role == 'admin') {
                         $this->_redirect('wep/dashboard');
+                    }elseif ($identity->role == 'user'){
+                        $this->_redirect('wep/dashboard');
                     }
+                
                 }
                 else
 //                print "dd";exit;

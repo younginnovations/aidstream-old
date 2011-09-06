@@ -1,0 +1,11 @@
+<?php if($this->userInfo()->role == 'admin' || $this->userInfo()->role == 'superadmin'): ?>
+<div id="block-list-menu" class="block clearfix">
+    <div class="block-inner">
+	<div class="content">
+	    <div class="action-icon"><?php print $this->l('List Users', 'admin/list-users');?></div>
+	    <?php print $this->l('List Users', 'admin/list-users');?>
+	</div>
+    </div>
+</div>
+<?php endif;?>
+

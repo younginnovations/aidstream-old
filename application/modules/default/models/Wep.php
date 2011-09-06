@@ -163,6 +163,13 @@ class Model_Wep extends Zend_Db_Table_Abstract
         $where = $this->getAdapter()->quoteInto('id = ?', $id);
         $this->delete($where);
     }
+    
+    public function deleteRow($tblName, $fieldName, $value)
+    {
+        $this->_name = $tblName;
+        $where = $this->getAdapter()->quoteInto("$fieldName = ?", $value);
+        $this->delete($where);
+    }
 
     public function getDefaults($tableName, $fieldName, $data)
     {
@@ -243,13 +250,33 @@ class Model_Wep extends Zend_Db_Table_Abstract
  
     public function getAccountUserName($account_id)
     {
-        $this->name = 'account';
+        $this->_name = 'account';
         $rowSet = $this->select()->setIntegrityCheck(false)
-                ->where("account_id = ?", $account_id);
+                ->where("id = ?", $account_id);
         $result = $this->fetchRow ($rowSet);
         if($result){
             
             $result = $result->username;
+        }
+        return $result;
+    }
+    
+    public function userExists($fieldName, $email){
+        $this->_name = 'user';
+        $rowSet = $this->select()->setIntegrityCheck(false)
+                        ->where("$fieldName = ?", $email);
+        $result = $this->fetchRow ($rowSet);
+        return $result;
+    }
+    
+    public function getUserPermission($user_id){
+        $this->_name = 'user_permission';
+        $rowSet = $this->select()->setIntegrityCheck(false)
+                                ->where('user_id = ?', $user_id);
+        $result = $this->fetchRow($rowSet);
+
+        if($result){
+            $result = unserialize($result->object);
         }
         return $result;
     }
