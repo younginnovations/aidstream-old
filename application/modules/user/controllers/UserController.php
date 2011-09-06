@@ -198,7 +198,6 @@ class User_UserController extends Zend_Controller_Action
                 $data = array();
                 $data['user_name'] = $username;
                 $data['email'] = $email;
-                $data['mobile'] = $mobile;
                 $user_id = $model->editUser($data, $row->user_id);
 
                 $useId['user_id'] = $user_id;
@@ -365,7 +364,9 @@ class User_UserController extends Zend_Controller_Action
 
         return $uniqueId;
     }
-
+    
+    
+    
     public function preDispatch()
     {
         $this->_helper->layout()->setLayout('login_page');

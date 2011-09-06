@@ -1,5 +1,5 @@
 <?php
-class Form_Admin_Accountregister extends App_Form
+class Form_Admin_Userregister extends App_Form
 {
     public function add($defaultFields = '', $state = 'add')
     {

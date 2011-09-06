@@ -135,7 +135,7 @@ class AdminController extends Zend_Controller_Action
         
         $defaultFieldGroup = new Iati_WEP_UserAccountDisplayField();
         $default['fields'] = $defaultFieldGroup->getProperties();
-        $form = new Form_Admin_Accountregister();
+        $form = new Form_Admin_Userregister();
         $form->add($default);
         if ($this->getRequest()->isPost()) {
             try {
@@ -144,7 +144,8 @@ class AdminController extends Zend_Controller_Action
                 if (!$form->isValid($data)) {
                     $form->populate($data);
                 } else {
-                    $user['user_name'] = $data['user_name'];
+                    $account_username = $model->getAccountUserName($identity->account_id);
+                    $user['user_name'] = $account_username . "_" .$data['user_name'];
                     $user['password'] = md5($data['password']);
                     $user['role_id'] = 2; //id resembels user as role
                     $user['email'] = $data['email'];
@@ -181,6 +182,135 @@ class AdminController extends Zend_Controller_Action
         }
         $this->view->form = $form;
         $this->view->blockManager()->enable('partial/login.phtml');
+    }
+    
+    public function listUsersAction()
+    {
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $model = new Model_Wep();
+        //print_r($identity->account_id);exit;
+        $usersList = $model->getUsersByAccountId('user', $identity->account_id, array('role_id' => '2'));
+        //print_r($usersList);exit;
+        $this->view->users = $usersList;
+        //$this->_helper->layout()->setLayout('layout_wep');
+        $this->view->blockManager()->enable('partial/dashboard.phtml');
+        $this->view->blockManager()->enable('partial/primarymenu.phtml');
+    }
+    
+    public function deleteUserAction(){
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        if($identity->role == 'admin' || $identity->role = 'superadmin'){
+            if(isset($_GET['user_id'])){
+                try{
+                    $user_id = $_GET['user_id'];
+                    $userModel = new User_Model_DbTable_User();
+                    $$userModel->deleteUser($user_id);
+                    $profileModel = new User_Model_DbTable_Profile();
+                    $profileModel->deleteProfile($user_id);
+                    $this->_helper->FlashMessenger->addMessage(array('message' => 'User Deleted.'));
+                    $this->_redirect('admin/list-users');
+                }
+                catch(Exception $e){
+                    
+                }
+            }
+        }
+        else{
+            $this->_helper->FlashMessenger->addMessage(array('error' => 'Access Denied.'));
+            $this->_redirect('user/user/login');        
+        
+        }
+    }
+    
+    public function viewProfileAction()
+    {
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        if($identity->role == 'admin' || $identity->role = 'superadmin'){
+            
+            if(isset($_GET['user_id'])){
+                try{
+                    $user_id = $_GET['user_id'];
+                    $userModel = new User_Model_DbTable_User();
+                    $row = $userModel->getUserById($user_id);
+                    $profileModel = new User_Model_DbTable_Profile();
+                    $row1 = $profileModel->getProfileByUserId($user_id);
+                    $this->view->profile = (!empty($row1))?$row1->toArray():null;
+                    $this->view->user = (!empty($row))?$row->toArray():null;
+                }
+                catch(Exception $e){
+                    
+                }
+                
+                
+            }
+        }
+        else{
+            $this->_helper->FlashMessenger->addMessage(array('error' => 'Access Denied.'));
+            $this->_redirect('user/user/login');        
+        
+        }
+        $this->_helper->layout()->setLayout('layout_wep');
+        $this->view->blockManager()->enable('partial/dashboard.phtml');
+        $this->view->blockManager()->enable('partial/primarymenu.phtml');
+        
+    }
+    
+    public function editUserPermissionAction()
+    {
+        if(isset($_GET['user_id'])){
+                $user_id = $_GET['user_id'];
+        }
+        $model = new Model_Wep();
+        $permissionSerialized = $model->getRowById('default_user_field', 'user_id', $user_id);
+        $permissionObj = unserialize($permissionSerialized['object']);
+        $default['fields'] = $permissionObj->getProperties();
+        
+        $form = new Form_Admin_Editpermission();
+        $form->edit($default);
+        
+        if($_POST){
+            try{
+                //print_r($_POST);exit;
+                
+                $data = $_POST;
+                $i = 0;
+                foreach ($data['default_fields'] as $eachField) {
+                    $defaultKey[$i] = $eachField;
+                    $permissionObj->setProperties($eachField);
+                    $i++;
+                }                    
+                $fieldString = serialize($permissionObj);
+                $defaultFields['object'] = $fieldString;
+                $defaultFields['user_id'] = $user_id;
+                $defaultFieldId = $model->updateRow('default_user_field', $defaultFields, 'user_id', $user_id);
+                //print_r($defaultFieldId);exit;
+                $privilegeFields['resource'] = serialize($defaultKey);
+                $privilegeFields['owner_id'] = $user_id;
+                $privilegeFieldId = $model->updateRow('Privilege', $privilegeFields, 'owner_id', $user_id);
+                
+                $this->_helper->FlashMessenger->addMessage(array('message' => 'User permission updated.'));
+                $this->_redirect('user/user/login'); 
+            } 
+            catch(Exception $e){
+             print $e;   
+            }
+        }
+        $this->view->form = $form;
+        $this->_helper->layout()->setLayout('layout_wep');
+        $this->view->blockManager()->enable('partial/dashboard.phtml');
+        $this->view->blockManager()->enable('partial/primarymenu.phtml');
+                
+        
+    }
+    
+    public function resetUserPasswordAction()
+    {
+        
+    }
+    
+    public function listAllUsersAction()
+    {
+        
     }
     
     public function addRole()

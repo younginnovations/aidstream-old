@@ -226,12 +226,13 @@ class Iati_WEP_DbLayerTest extends PHPUnit_Framework_TestCase
 
 	public function testFetchRowTreeSetValidAttribs()
 	{
-		$className = 'Budget';
+		$className = 'Transaction';
 		$fieldName = 'activity_id';
-		$value = 1;
+		$value = 2;
 		$tree = true;
 		$dbLayer = new Iati_WEP_DbLayer();
 		$row = $dbLayer->getRowSet($className,$fieldName,$value,$tree,true);
+		print_r($row);exit;
 		Zend_Debug::dump($row);
 	}
 

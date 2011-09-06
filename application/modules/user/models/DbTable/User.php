@@ -51,6 +51,12 @@ class User_Model_DbTable_User extends Zend_Db_Table_Abstract {
 
         return parent::update($data,array('user_id = ?'=>$id));
     }
+    
+    public function deleteUser($user_id)
+    {
+        $where = $this->getAdapter()->quoteInto('user_id = ?', $user_id);
+        $this->delete($where);
+    }
 
 }
 
