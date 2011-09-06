@@ -684,13 +684,15 @@ code
 }
 
 dt{
-	float: left;
-    clear:both;
-    
+	clear:both;
+    color: #747474;
+    font-weight: bold;
+    float: left;
+    margin-right: 10px;
 }
 
 dd{
-	margin-bottom: 15px;
+	margin-bottom: 1px;
 }
 
 fieldset{
@@ -739,13 +741,52 @@ legend {
 
 /* Activity Info */
 
+.sub_element {
+	border-bottom: 1px dotted #c9c9c9;
+	margin-bottom: 10px;
+}
+
 #contain table.activity-info-table {
-	border: 0;
+	border: 1px solid #e7e6fb;
 	background: #F6F6F6;
+	margin-bottom: 20px;
 }
 #contain table.activity-info-table th {
 	padding-right: 15px;
 }
+
+#contain table.activity-info-table tr {
+	
+}
+
+#contain table.activity-info-table td {
+	padding: 5px 18px;
+	width: 135px;
+}
+
+#contain table.activity-info-table td.label {
+	color: #747474;
+}
+
+#contain .activity-detail-table {
+	background: none;
+	border: none;
+}
+
+#contain .activity-detail-table td {
+	padding: 0;
+}
+
+#contain .activity-detail-table fieldset {
+	background: #F1F1F1;
+	border: 1px solid #ebebeb;
+}
+
+#contain .activity-detail-table fieldset fieldset {
+	background: #f7f7f7;
+	border: 1px solid #d2d1d1;
+}
+
 .activity-info-wrapper {
 	position: relative;
 	margin-bottom: 20px;

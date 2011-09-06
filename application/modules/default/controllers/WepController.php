@@ -9,6 +9,7 @@ class WepController extends Zend_Controller_Action
         $this->_helper->layout()->setLayout('layout_wep');
         $this->view->blockManager()->enable('partial/dashboard.phtml');
         $this->view->blockManager()->enable('partial/primarymenu.phtml');
+        $this->view->blockManager()->enable('partial/activity_detail.phtml');
         //        $this->view->blockManager()->enable('partial/dashboard.phtml');
         /* $contextSwitch = $this->_helper->contextSwitch;
         $contextSwitch->addActionContext('', 'json')
@@ -609,13 +610,59 @@ class WepController extends Zend_Controller_Action
 
                 $formHelper = new Iati_WEP_FormHelper();
                 $a = $formHelper->getForm();
-
             }
+        } else {
+            if($activity_id){
+                        $dbLayer = new Iati_WEP_DbLayer();
+                        $activitys = $dbLayer->getRowSet('Activity', 'id', $activity_id, true, true);
+                        $output = '';
+                        /*
+                        //Script for creating the view of the activities elements
+                        
+                        foreach( $activitys->getElements() as $activity)
+                        {
+                            $type = $activity->getType();
+                            $output .= "<!-- ".$type." Starts -->\n";
+                            $output .= "<?php\n$".strtolower($type)."s=$"."oContactinfo->getElementsByType('$type');\n";
+                            $output .= "$"."value = "."$".strtolower($type)."s[0]->getAttribs();\n";
+                            $output .= "if(!empty($"."value)): ?>\n";
+                            $output .= "<fieldset class='element-item'><legend class='element-title'>".$type."</legend>\n";
+                            $output .= "<dl class='element-values'>\n";
+                            $output .= "<?php foreach($".strtolower($type)."s as $".strtolower($type)."):?>\n";
+                            $attribs = array_keys($activity->getValidAttribs());
+                            $count = 1;
+                            foreach($attribs as $attrib)
+                            {
+                                if($attrib == '@xml_lang')
+                                {
+                                    $output .= "<dt class='element-value element-value-".$count."'>".ucfirst(preg_replace('/^@/','',$attrib))."</dt><dd> <?php print ($"."model_wep->fetchValueById('Language',$".strtolower($type)."->getAttrib('".$attrib."'),null));?></dd>\n";
+                                } else {
+                                    $output .= "<dt class='element-value element-value-".$count."'>".ucfirst(preg_replace('/^@/','',$attrib))."</dt><dd> <?php print ($".strtolower($type)."->getAttrib('".$attrib."'));?></dd>\n";
+                                }
+                                $count++;
+                            }
+                            $output .= "<?php endforeach;?>\n";
+                            $output .= "</dl>\n</fieldset>\n<?php endif;?>\n";
+                            $output .= "<!-- ".$type." Ends -->\n\n\n";
+                        }
+                        $fp = fopen("/var/www/iati-wep/contactInfo.php","w");
+                        fwrite($fp,$output);
+                        exit;
+                                    /*
+                        $title = $activity->getElementsByType(Iati_Activity_Element::TYPE_TITLE);
+                        $title_value = $title[0]->getAttribs();
+                        if(!empty($title_value))
+                        {
+                            var_dump('nOT empty');
+                        }
+                        */
+                        $this->view->activity = $activitys;
+                    }
         }
+        
         $this->_helper->layout()->setLayout('layout_wep');
         //        $this->view->blockManager()->enable('partial/dashboard.phtml');
-
-         
+        
         $this->view->form = $a;
     }
 
@@ -1129,5 +1176,4 @@ class WepController extends Zend_Controller_Action
         
         $this->_redirect('wep/view-activities');
     }
-
 }
