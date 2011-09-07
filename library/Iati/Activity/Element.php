@@ -2,6 +2,37 @@
 
 class Iati_Activity_Element
 {
+    const TYPE_ACTIVITY = 'Activity';
+    const TYPE_ACTIVITY_BUDGETS = 'ActivityBudgets';
+    const TYPE_ACTIVITY_DATE = 'ActivityDate';
+    const TYPE_ACTIVITY_STATUS = 'ActivityStatus';
+    const TYPE_ACTIVITY_WEBSITE = 'ActivityWebsite';
+    const TYPE_BUDGET = 'Budget';
+    const TYPE_COLLABORATION_TYPE = 'CollaborationType';
+    const TYPE_CONDITIONS = 'Conditions';
+    const TYPE_CONTACT_INFO = 'ContactInfo';
+    const TYPE_DEFAULT_AID_TYPE = 'DefaultAidType';
+    const TYPE_DEFAULT_FINANCE_TYPE = 'DefaultFinanceType';
+    const TYPE_DEFAULT_FLOW_TYPE = 'DefaultFlowType';
+    const TYPE_DEFAULT_TIED_STATUS = 'DefaultTiedStatus';
+    const TYPE_DESCRIPTION = 'Description';
+    const TYPE_DOCUMENT_LINK = 'DocumentLink';
+    const TYPE_IATI_ACTIVITY = 'IatiActivity';
+    const TYPE_IDENTIFIER = 'Identifier';
+    const TYPE_LOCATION = 'Location';
+    const TYPE_OTHER_ACTIVITY_IDENTIFIER = 'OtherIdentifier';
+    const TYPE_PARTICIPATING_ORG = 'ParticipatingOrg';
+    const TYPE_PLANNED_DISBURSEMENT = 'PlannedDisbursement';
+    const TYPE_POLICY_MARKER = 'PolicyMarker';
+    const TYPE_RECIPIENT_COUNTRY = 'RecipientCountry';
+    const TYPE_RECIPIENT_REGION = 'RecipientRegion';
+    const TYPE_RELATED_ACTIVITY = 'RelatedActivity';
+    const TYPE_REPORTING_ORG = 'ReportingOrg';
+    const TYPE_RESULT = 'Result';
+    const TYPE_SECTOR = 'Sector';
+    const TYPE_TITLE = 'Title';
+    const TYPE_TRANSACTION ='Transaction';
+    
     protected $_name;
     
     protected $_attribs = array();
@@ -167,7 +198,15 @@ class Iati_Activity_Element
     
     public function getElementsByType($type)
     {
-    
+
+        $output = array();
+        foreach($this->_elements as $element)
+        {
+            if($element->getType() == $type){
+                $output[] = $element;
+            }
+        }
+        return $output;
     }
     
     /**
@@ -181,7 +220,7 @@ class Iati_Activity_Element
      */
     public function getElementByType($type)
     {
-    
+        
     }
     
     protected $_value;

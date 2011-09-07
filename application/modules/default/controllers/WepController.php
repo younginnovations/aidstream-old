@@ -619,8 +619,54 @@ class WepController extends Zend_Controller_Action
 
                 $formHelper = new Iati_WEP_FormHelper();
                 $a = $formHelper->getForm();
-
             }
+        } else {
+            if($activity_id){
+                        $dbLayer = new Iati_WEP_DbLayer();
+                        $activitys = $dbLayer->getRowSet('Activity', 'id', $activity_id, true, true);
+                        $output = '';
+                        /*
+                        //Script for creating the view of the activities elements
+                        
+                        foreach( $activitys->getElements() as $activity)
+                        {
+                            $type = $activity->getType();
+                            $output .= "<!-- ".$type." Starts -->\n";
+                            $output .= "<?php\n$".strtolower($type)."s=$"."oContactinfo->getElementsByType('$type');\n";
+                            $output .= "$"."value = "."$".strtolower($type)."s[0]->getAttribs();\n";
+                            $output .= "if(!empty($"."value)): ?>\n";
+                            $output .= "<fieldset class='element-item'><legend class='element-title'>".$type."</legend>\n";
+                            $output .= "<dl class='element-values'>\n";
+                            $output .= "<?php foreach($".strtolower($type)."s as $".strtolower($type)."):?>\n";
+                            $attribs = array_keys($activity->getValidAttribs());
+                            $count = 1;
+                            foreach($attribs as $attrib)
+                            {
+                                if($attrib == '@xml_lang')
+                                {
+                                    $output .= "<dt class='element-value element-value-".$count."'>".ucfirst(preg_replace('/^@/','',$attrib))."</dt><dd> <?php print ($"."model_wep->fetchValueById('Language',$".strtolower($type)."->getAttrib('".$attrib."'),null));?></dd>\n";
+                                } else {
+                                    $output .= "<dt class='element-value element-value-".$count."'>".ucfirst(preg_replace('/^@/','',$attrib))."</dt><dd> <?php print ($".strtolower($type)."->getAttrib('".$attrib."'));?></dd>\n";
+                                }
+                                $count++;
+                            }
+                            $output .= "<?php endforeach;?>\n";
+                            $output .= "</dl>\n</fieldset>\n<?php endif;?>\n";
+                            $output .= "<!-- ".$type." Ends -->\n\n\n";
+                        }
+                        $fp = fopen("/var/www/iati-wep/contactInfo.php","w");
+                        fwrite($fp,$output);
+                        exit;
+                                    /*
+                        $title = $activity->getElementsByType(Iati_Activity_Element::TYPE_TITLE);
+                        $title_value = $title[0]->getAttribs();
+                        if(!empty($title_value))
+                        {
+                            var_dump('nOT empty');
+                        }
+                        */
+                        $this->view->activity = $activitys;
+                    }
         }
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
          
@@ -707,12 +753,16 @@ class WepController extends Zend_Controller_Action
                 $activity_array[$i]['identifier'] = ($identifier[0]['text'])?$identifier[0]['text']:'No Iati Identifier';
                 $activity_array[$i]['last_updated_datetime'] = $activity['@last_updated_datetime'];
                 $activity_array[$i]['id'] = $activity['id'];
+                $activity_array[$i]['status_id']  = $activity['status_id'];
                 $i++;
             }
         }
 
         $this->view->activity_array = $activity_array;
-
+        $status_form = new Form_Wep_ActivityStatus();
+        $base_url = Zend_Controller_Front::getBaseUrl();
+        $status_form->setAction($base_url."/wep/update-status");
+        $this->view->status_form = $status_form;
     }
 
 
@@ -1118,5 +1168,16 @@ class WepController extends Zend_Controller_Action
         }
         return $max_depth;
     }
+    
+    public function updateStatusAction()
+    {
+        $ids = $this->getRequest()->getParam('ids');
+        $status = $this->getRequest()->getParam('status');
+        $activity_ids = explode(',',$ids);
 
+        $db = new Model_ActivityStatus;
+        $db->updateActivityStatus($activity_ids,(int)$status);
+        
+        $this->_redirect('wep/view-activities');
+    }
 }

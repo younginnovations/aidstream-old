@@ -30,12 +30,13 @@
     <table class ="activity-list-table">
         <thead>
             <tr>
-                <th>S.N.</th><th>Title</th><th>Iati Identifier</th><th>Last Updated</th>
+                <th></th><th>S.N.</th><th>Title</th><th>Iati Identifier</th><th>Last Updated</th><th>Status</th>
             </tr>
         </thead>
         <tbody>
         <?php foreach($this->activity_array as $eachActivity):?>
             <tr class="activity-row1">
+                <td><input type="checkbox" name="activity_<?php echo $eachActivity['id']?>" value="<?php echo $eachActivity['id']?>"/></td>
                 <td class="sn"><?php print $i;?></td>
                 <td class="title"><?php print $eachActivity['title'];?>
                 <?php if($userPermission):?>
@@ -64,6 +65,7 @@
                 </td>
                 <td class="iati-identifier"><?php print $eachActivity['identifier'];?></td>
                 <td class="last-updated"><?php print $eachActivity['last_updated_datetime'];?></td>
+                <td class="Status"><?php echo Iati_Activity_Status::getStatus($eachActivity['status_id']);?></td>
             </tr>
             
          <?php $i++;?>
@@ -72,6 +74,6 @@
     </table>
 </div>
 <?php endif;?>
-
+<?php print $this->status_form->render();?>
 <?php print $this->l('Add new', 'wep/add-activity?activities_id='.$this->activities_id,
                                              array('attributes' => array('class' => 'button')));?>
