@@ -41,11 +41,11 @@
                 <td class="title"><?php print $eachActivity['title'];?>
                 <?php if($userPermission):?>
                     <div class = "list-action">
-                        <?php $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::$EDIT_ACTIVITY_ELEMENTS);
+                        <?php $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::EDIT_ACTIVITY_ELEMENTS);
                         if($permission == '1'){
                             print $this->l('View', 'wep/edit-activity-elements/?activity_id='.$eachActivity['id']);
                         }
-                        $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::$DELETE_ACTIVITY);
+                        $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::DELETE_ACTIVITY);
                         if($permission == '1'){
                             print $this->l('Delete', 'wep/delete-activity/?classname=Activity&activity_id='.$eachActivity['id']);
                         }

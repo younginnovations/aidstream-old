@@ -14,11 +14,11 @@ class WepController extends Zend_Controller_Action
         if($identity->role == 'user'){
             $model = new Model_Wep();
             $userPermission = $model->getUserPermission($identity->user_id);
-            $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::$VIEW_ACTIVITIES);
+            $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::VIEW_ACTIVITIES);
             if($permission == '0'){
                 $this->view->blockManager()->disable('partial/primarymenu.phtml');
             }
-            $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::$ADD_ACTIVITY);
+            $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::ADD_ACTIVITY);
             if($permission == '0'){
                 $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
             }

@@ -4,7 +4,7 @@
     if($identity->role == 'user'){
         $model = new Model_Wep();
         $userPermission = $model->getUserPermission($identity->user_id);
-        $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::$EDIT_ACTIVITY);
+        $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::EDIT_ACTIVITY);
     }
     
 ?>
