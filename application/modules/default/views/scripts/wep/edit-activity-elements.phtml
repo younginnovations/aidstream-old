@@ -168,7 +168,7 @@ if(!empty($value)): ?>
         <?php foreach($flowtypes as $flowtype):?>
         <dt class='element-value element-value-1'>Text</dt><dd> <?php print ($flowtype->getAttrib('text'));?></dd><div class="clear"></div>
         <dt class='element-value element-value-2'>Xml_lang</dt><dd> <?php print ($model_wep->fetchValueById('Language',$flowtype->getAttrib('@xml_lang'),null));?></dd><div class="clear"></div>
-        <dt class='element-value element-value-3'>Code</dt><dd> <?php print ($flowtype->getAttrib('@code'));?></dd><div class="clear"></div>
+        <dt class='element-value element-value-3'>Code</dt><dd> <?php if($flowtype->getAttrib('@code')){print ($model_wep->fetchValueById('FlowType',$flowtype->getAttrib('@code'),null));}?></dd><div class="clear"></div>
         <?php endforeach;?>
         </dl>
         </fieldset>
@@ -186,7 +186,7 @@ if(!empty($value)): ?>
         <?php foreach($financetypes as $financetype):?>
         <dt class='element-value element-value-1'>Text</dt><dd> <?php print ($financetype->getAttrib('text'));?></dd><div class="clear"></div>
         <dt class='element-value element-value-2'>Xml_lang</dt><dd> <?php print ($model_wep->fetchValueById('Language',$financetype->getAttrib('@xml_lang'),null));?></dd><div class="clear"></div>
-        <dt class='element-value element-value-3'>Code</dt><dd> <?php print ($financetype->getAttrib('@code'));?></dd><div class="clear"></div>
+        <dt class='element-value element-value-3'>Code</dt><dd> <?php if($financetype->getAttrib('@code')){print ($model_wep->fetchValueById('FinanceType',$financetype->getAttrib('@code'),null));} ?></dd><div class="clear"></div>
         <?php endforeach;?>
         </dl>
         </fieldset>
@@ -204,7 +204,7 @@ if(!empty($value)): ?>
         <?php foreach($aidtypes as $aidtype):?>
         <dt class='element-value element-value-1'>Text</dt><dd> <?php print ($aidtype->getAttrib('text'));?></dd><div class="clear"></div>
         <dt class='element-value element-value-2'>Xml_lang</dt><dd> <?php print ($model_wep->fetchValueById('Language',$aidtype->getAttrib('@xml_lang'),null));?></dd><div class="clear"></div>
-        <dt class='element-value element-value-3'>Code</dt><dd> <?php print ($model_wep->fetchValueById('AidType',$aidtype->getAttrib('@code'),null));?></dd><div class="clear"></div>
+        <dt class='element-value element-value-3'>Code</dt><dd> <?php if($aidtype->getAttrib('@code')){print ($model_wep->fetchValueById('AidType',$aidtype->getAttrib('@code'),null));}?></dd><div class="clear"></div>
         <?php endforeach;?>
         </dl>
         </fieldset>
@@ -221,7 +221,7 @@ if(!empty($value)): ?>
         <dl class='element-values'>
         <?php foreach($disbursementchannels as $disbursementchannel):?>
         <dt class='element-value element-value-1'>Text</dt><dd> <?php print ($disbursementchannel->getAttrib('text'));?></dd><div class="clear"></div>
-        <dt class='element-value element-value-2'>Code</dt><dd> <?php print ($disbursementchannel->getAttrib('@code'));?></dd><div class="clear"></div>
+        <dt class='element-value element-value-2'>Code</dt><dd> <?php if($disbursementchannel->getAttrib('@code')){print ($model_wep->fetchValueById('DisbursementChannel',$disbursementchannel->getAttrib('@code'),null));}?></dd><div class="clear"></div>
         <?php endforeach;?>
         </dl>
         </fieldset>
@@ -239,7 +239,7 @@ if(!empty($value)): ?>
         <?php foreach($tiedstatuss as $tiedstatus):?>
         <dt class='element-value element-value-1'>Text</dt><dd> <?php print ($tiedstatus->getAttrib('text'));?></dd><div class="clear"></div>
         <dt class='element-value element-value-2'>Xml_lang</dt><dd> <?php print ($model_wep->fetchValueById('Language',$tiedstatus->getAttrib('@xml_lang'),null));?></dd><div class="clear"></div>
-        <dt class='element-value element-value-3'>Code</dt><dd> <?php print ($tiedstatus->getAttrib('@code'));?></dd><div class="clear"></div>
+        <dt class='element-value element-value-3'>Code</dt><dd> <?php if($tiedstatus->getAttrib('@code')){ print( $model_wep->fetchValueById('TiedStatus',$tiedstatus->getAttrib('@code'),null));}?></dd><div class="clear"></div>
         <?php endforeach;?>
         </dl>
         </fieldset>
