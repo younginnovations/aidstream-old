@@ -9,7 +9,7 @@ class Iati_WEP_Activity_Elements_ReportingOrg extends Iati_WEP_Activity_Elements
     protected $id = 0;
     protected $options = array();
     protected $validators = array(
-                                'ref' => 'NotEmpty',
+                                'ref' => array('NotEmpty'),
                             );
     protected $className = 'ReportingOrg';
     protected $attributes_html = array(

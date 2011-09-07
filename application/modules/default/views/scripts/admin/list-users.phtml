@@ -1,0 +1,31 @@
+<?php if(empty($this->users)):?>
+    Users unavailable.
+<?php endif;?>
+<?php if($this->users): ?>
+<table class="user-list">
+    <thead> <tr><th>S.N.</th><th>Name</th><th>User Name</th></tr></thead>
+    <tbody>
+        <?php $i = 1;?>
+        <?php foreach($this->users as $user):?>
+            <tr>
+                <td><?php print $i; ?></td>
+                <td><?php print $user['first_name'] . " " . $user['middle_name'] . " " . $user['last_name'];?>
+                </td>
+                
+                <td><?php print $user['user_name']; ?>
+                <div ><?php print $this->l('View', 'admin/view-profile?user_id='.$user['user_id'])?>
+        <?php //print $this->l('Edit', 'admin/edit-profile?user_id='.$user['user_id'])?>
+        <?php //print $this->l('Change Password', 'user/user/changepassword?user_id='.$user['user_id'])?>                    
+        <?php print $this->l('Delete', 'admin/delete-user?user_id='.$user['user_id'])?>
+                </div></td>        
+                
+            </tr>
+        <?php print $i++;?>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+<?php endif;?>
+
+
+<?php print $this->l('Add New User', 'admin/register-user');
+

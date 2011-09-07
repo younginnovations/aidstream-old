@@ -1,5 +1,5 @@
 <?php
-class Form_Admin_Accountregister extends App_Form
+class Form_Admin_Userregister extends App_Form
 {
     public function add($defaultFields = '', $state = 'add')
     {
@@ -32,14 +32,23 @@ class Form_Admin_Accountregister extends App_Form
         ->addFilter('stringTrim')
         ->setRequired();
                                         
-        $form['default_fields'] = new Zend_Form_Element_MultiCheckbox('default_fields');
         foreach($defaultFields['fields'] as $key=>$eachDefault){
-            $form['default_fields']->addMultiOption($key, ucwords(str_replace("_", " ", $key)));
+            $default_fields[$key] =  ucwords(str_replace("_", " ", $key));
             if($eachDefault == '1'){
                 $checked[] = $key;
             }
         }
-        $form['default_fields']->setValue($checked);
+        $this->addElement('multiCheckbox', 'default_fields', array(
+                        'disableLoadDefaultDecorators' => true,
+                        'separator'    => '&nbsp;',
+                        'multiOptions' => $default_fields,
+                        'value' => $checked,
+                        'decorators'   => array(
+                                    'ViewHelper',
+                                    'Errors',
+                                array('HtmlTag', array('tag' => 'p'))          
+                        )
+        ));
         
         //@todo reCaptcha
 

@@ -1,0 +1,18 @@
+<?php ?>
+<table>
+    <tr>
+        <th> Name</th><td> <?php echo $this->profile['first_name'] ." " . $this->profile['middle_name']
+                                        . " " .$this->profile['last_name']?></td>
+    </tr>
+    <tr>
+        <th>User Name</th><td> <?php echo $this->user['user_name']?></td>
+    </tr>
+    <tr>
+        <th>Email</th><td> <?php echo $this->user['email']?></td>
+    </tr>
+    
+</table>
+
+<?php //print $this->l('Edit Profile', 'admin/edit-profile?user_id='.$this->user['user_id'])?>
+<?php print $this->l('Reset Password', 'admin/reset-user-password?user_id='. $this->user['user_id'])?>
+<?php print $this->l('Edit User Permission', 'admin/edit-user-permission?user_id='. $this->user['user_id']) ?>

@@ -1,5 +1,5 @@
 <?php
-class Iati_WEP_UserAccountDisplayField
+class Iati_WEP_UserPermission
 {
     protected $add_activity = '0';
     protected $edit_activity = '0';
@@ -8,12 +8,17 @@ class Iati_WEP_UserAccountDisplayField
     protected $add_activity_elements = '0';
     protected $edit_activity_elements = '0';
     protected $delete_activity_elements = '0';
-    protected $edit_defaults = '0';
-    protected $register_user = '0';
+    //protected $edit_defaults = '0';
+    protected $publish = '0';
     //protected     
     
     public function getProperties(){
         return get_object_vars($this);
+    }
+    
+    public function hasPermission($permission)
+    {
+        return $this->$permission;
     }
     
     public function setProperties($property){

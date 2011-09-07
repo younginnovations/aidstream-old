@@ -149,13 +149,25 @@ class Model_Wep extends Zend_Db_Table_Abstract
     public function updateRowsToTable($tblName, $data){
         $this->_name = $tblName;
         
-
         return parent::update($data,array('id= ?' => $data['id']));
+    }
+    
+    public function updateRow($tblName, $data, $fieldName,  $id){
+        $this->_name = $tblName;
+        //print $tblName; print $fieldName; print_r($data);exit;
+        return parent::update($data, array("$fieldName = ?" => $id));
     }
     
     public function deleteRowById($id,$tblName) {
         $this->_name = $tblName;
         $where = $this->getAdapter()->quoteInto('id = ?', $id);
+        $this->delete($where);
+    }
+    
+    public function deleteRow($tblName, $fieldName, $value)
+    {
+        $this->_name = $tblName;
+        $where = $this->getAdapter()->quoteInto("$fieldName = ?", $value);
         $this->delete($where);
     }
 
@@ -207,6 +219,66 @@ class Model_Wep extends Zend_Db_Table_Abstract
         return $result;
         
     }
-   
+    
+    /**
+     *retrieves all the rows of users by account id
+     *$tableName is the table name to be queried on
+     *$data is the condtional value, in this case account id
+     *$additional is  an array for addtional query,
+     *eg $additional = array('fieldName' => 'value')
+     *or  $additional = array('user_id' => '2')
+     *
+     */
+    public function getUsersByAccountId($tableName, $data, $additional = array()){
+        $this->_name = 'user';
+        $rowSet = $this->select()->setIntegrityCheck(false)
+            ->from('user')
+            ->join(array('p'=> 'profile'),'user.user_id = p.user_id')
+            ->where ("account_id = ?", $data);
+        if($additional){
+            foreach($additional as $key => $value){
+                $rowSet->where("$key = ?", $value);
+            }
+        }
+        
+        $result = $this->fetchAll ($rowSet);
+        if($result){
+            $result = $result->toArray();
+        }
+        return $result;
+    }
+ 
+    public function getAccountUserName($account_id)
+    {
+        $this->_name = 'account';
+        $rowSet = $this->select()->setIntegrityCheck(false)
+                ->where("id = ?", $account_id);
+        $result = $this->fetchRow ($rowSet);
+        if($result){
+            
+            $result = $result->username;
+        }
+        return $result;
+    }
+    
+    public function userExists($fieldName, $email){
+        $this->_name = 'user';
+        $rowSet = $this->select()->setIntegrityCheck(false)
+                        ->where("$fieldName = ?", $email);
+        $result = $this->fetchRow ($rowSet);
+        return $result;
+    }
+    
+    public function getUserPermission($user_id){
+        $this->_name = 'user_permission';
+        $rowSet = $this->select()->setIntegrityCheck(false)
+                                ->where('user_id = ?', $user_id);
+        $result = $this->fetchRow($rowSet);
+
+        if($result){
+            $result = unserialize($result->object);
+        }
+        return $result;
+    }
 
 }

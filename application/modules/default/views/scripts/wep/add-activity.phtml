@@ -1,7 +1,24 @@
 <div class = "activity-info-wrapper">
+<?php
+    $identity = $this->userInfo();
+    if($identity->role == 'user'){
+        $model = new Model_Wep();
+        $userPermission = $model->getUserPermission($identity->user_id);
+        $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::$EDIT_ACTIVITY);
+    }
+    
+?>
+<?php if($userPermission && $permission == '1'):?>
+    <span class = "override-link"><?php echo $this->l('Override Activity Default', 'wep/edit-activity/?activities_id='
+                                                            . $this->activities_id)?></span>
+  
+<?php endif; ?>
+<?php if(!$userPermission): ?>
 <span class = "override-link"><?php echo $this->l('Override Activity Default', 'wep/edit-activity/?activities_id='
                                                             . $this->activities_id)?></span>
-    <div class="title">Activity Default</div>
+  
+<?php endif; ?>
+  <div class="title">Activity Default</div>
     <div class = "activity-info">
         <table class ="activity-info-table">
             <tr>

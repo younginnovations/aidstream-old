@@ -87,7 +87,6 @@ class Iati_WEP_Activity_Elements_Conditions_Condition extends
         $data['text'] = $this->text;
         $data['type'] = $this->type;
         $data['xml_lang'] = $this->xml_lang;
-         
         foreach($data as $key => $eachData){
             
             if(empty($this->validators[$key])){ continue; }
