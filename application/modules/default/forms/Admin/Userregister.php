@@ -61,7 +61,7 @@ class Form_Admin_Userregister extends App_Form
         $this->addDisplayGroup(array('first_name', 'middle_name', 'last_name', 'user_name', 'password', 'confirmpassword', 'email'),
                                         'field1',array('legend'=>'User Information'));
        
-        $this->addDisplayGroup(array('default_fields',), 'field3',array('legend'=>'Default Field Groups'));
+        $this->addDisplayGroup(array('default_fields',), 'field3',array('legend'=>'User Permission'));
        
         $this->addElement($signup);
         $this->setMethod('post');
