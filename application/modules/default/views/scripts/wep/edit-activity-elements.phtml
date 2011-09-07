@@ -440,22 +440,6 @@ if(!empty($value)): ?>
 <!-- PlannedDisbursement Ends -->
 
 
-<!-- Identifier Starts -->
-<?php
-$identifiers=$activity->getElementsByType(Iati_Activity_Element::TYPE_IDENTIFIER);
-$value = $identifiers[0]->getAttribs();
-if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>Identifier</legend>
-<dl class='element-values'>
-<?php foreach($identifiers as $identifier):?>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php print ($identifier->getAttrib('text'));?></dd><div class="clear"></div>
-<?php endforeach;?>
-</dl>
-</fieldset>
-<?php endif;?>
-<!-- Identifier Ends -->
-
-
 <!-- ContactInfo Starts -->
 <?php
 $contactinfos=$activity->getElementsByType(Iati_Activity_Element::TYPE_CONTACT_INFO);
