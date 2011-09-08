@@ -402,8 +402,10 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 	 */
 	public function delete($className, $fieldName, $value)
 	{
+		//instead of using classname to fetch the tableName using the type off the class.
+		$objectType = $this->getType($className, $parentType);
 		$tableClassMapper = new Iati_WEP_TableClassMapper();
-		$tableName = $tableClassMapper->getTableName($className);
+		$tableName = $tableClassMapper->getTableName($objectType);
 		if ($tableName) {
 			$this->_name = $tableName;
 			$where = $this->getAdapter()->quoteInto($fieldName . "= ?", $value);
