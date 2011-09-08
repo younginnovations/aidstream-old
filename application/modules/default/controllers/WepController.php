@@ -387,7 +387,7 @@ class WepController extends Zend_Controller_Action
 
                     $this->_helper->FlashMessenger->addMessage(array('message' => "Activity inserted."));
 
-                    $this->_redirect('wep/edit-activity-elements?activity_id=' . $activity_id);
+                    $this->_redirect('wep/view-activity/' . $activity_id);
                 }
             } catch (Exception $e) {
                 print $e;
@@ -502,7 +502,7 @@ class WepController extends Zend_Controller_Action
                         ->addMessage(array(
                                                     'message' => "$title successfully inserted."
                         ));
-                        $this->_redirect("/wep/edit-activity-elements/?activity_id=".$activity_id);
+                        $this->_redirect("/wep/view-activity/".$activity_id);
 
                     }
                     /*
@@ -558,39 +558,11 @@ class WepController extends Zend_Controller_Action
                 //@todo
             }
             $activity = $activity_info[0];
-            $state = $activity['status_id'];
             $activity['@xml_lang'] = $model->fetchValueById('Language', $activity_info[0]['@xml_lang'], 'Code');
 
             $activity['@default_currency'] = $model->fetchValueById('Currency', $activity_info[0]['@default_currency'], 'Code');
 
         }
-        
-        $this->view->state = $state;
-        $status_form = new Form_Wep_ActivityChangeState();
-        $status_form->setAction($base_url."/wep/update-status");
-        $status_form->ids->setValue($activity_id);
-        
-        if($state == Iati_WEP_ActivityState::STATUS_EDITING) {
-            $next_state = Iati_WEP_ActivityState::STATUS_TO_BE_CHECKED;
-            
-        } else if($state == Iati_WEP_ActivityState::STATUS_TO_BE_CHECKED) {
-            
-            $next_state = Iati_WEP_ActivityState::STATUS_CHECKED;
-            
-        } else if($state == Iati_WEP_ActivityState::STATUS_CHECKED) {
- 
-            $next_state = Iati_WEP_ActivityState::STATUS_PUBLISHED;
-        } else {
-            $next_state = null;
-        }
-        if($next_state && Iati_WEP_ActivityState::hasPermissionForState($next_state)){
-            $status_form->status->setValue($next_state);
-            $status_form->change_state->setLabel(Iati_WEP_ActivityState::getStatus($next_state));
-        } else {
-            $status_form = null;
-        }
-        
-        $this->view->status_form = $status_form;
         
         $this->view->activityInfo = $activity;
         $initial = $this->getInitialValues($activity_id, $class);
@@ -626,7 +598,7 @@ class WepController extends Zend_Controller_Action
                     $dbLayer->save($activityTree);
 
                     $this->_helper->FlashMessenger->addMessage(array('message' => "$title updated successfully."));
-                    $this->_redirect("wep/edit-activity-elements/?activity_id=".$activity_id);
+                    $this->_redirect("wep/view-activity/".$activity_id);
                 }
             }
             else{
@@ -649,14 +621,7 @@ class WepController extends Zend_Controller_Action
                 $formHelper = new Iati_WEP_FormHelper();
                 $a = $formHelper->getForm();
             }
-        } else {
-            if($activity_id){
-                        $dbLayer = new Iati_WEP_DbLayer();
-                        $activitys = $dbLayer->getRowSet('Activity', 'id', $activity_id, true, true);
-                        $output = '';
-                        $this->view->activity = $activitys;
-                    }
-        }
+        } 
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
          
         $this->view->form = $a;
@@ -753,7 +718,59 @@ class WepController extends Zend_Controller_Action
         $status_form->setAction($base_url."/wep/update-status");
         $this->view->status_form = $status_form;
     }
-
+    
+    public function viewActivityAction()
+    {
+        if(!$activity_id = $this->getRequest()->getParam('activity_id'))
+        {
+            $this->_helper->FlashMessenger->addMessage(array('message' => "Activity not found."));
+            $this->_redirect('/wep/view-activities');
+        }
+        
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $model = new Model_Wep();
+        $activity_info = $model->listAll('iati_activity', 'id', $activity_id);
+        $activity = $activity_info[0];
+        $state = $activity['status_id'];
+        
+        $activity['@xml_lang'] = $model->fetchValueById('Language', $activity_info[0]['@xml_lang'], 'Code');
+        $activity['@default_currency'] = $model->fetchValueById('Currency', $activity_info[0]['@default_currency'], 'Code');
+        
+        $status_form = new Form_Wep_ActivityChangeState();
+        $status_form->setAction($base_url."/wep/update-status");
+        $status_form->ids->setValue($activity_id);
+        
+        if($state == Iati_WEP_ActivityState::STATUS_EDITING) {
+            $next_state = Iati_WEP_ActivityState::STATUS_TO_BE_CHECKED;
+            
+        } else if($state == Iati_WEP_ActivityState::STATUS_TO_BE_CHECKED) {
+            
+            $next_state = Iati_WEP_ActivityState::STATUS_CHECKED;
+            
+        } else if($state == Iati_WEP_ActivityState::STATUS_CHECKED) {
+ 
+            $next_state = Iati_WEP_ActivityState::STATUS_PUBLISHED;
+        } else {
+            $next_state = null;
+        }
+        if($next_state && Iati_WEP_ActivityState::hasPermissionForState($next_state)){
+            $status_form->status->setValue($next_state);
+            $status_form->change_state->setLabel(Iati_WEP_ActivityState::getStatus($next_state));
+        } else {
+            $status_form = null;
+        }
+        
+        $dbLayer = new Iati_WEP_DbLayer();
+        $activitys = $dbLayer->getRowSet('Activity', 'id', $activity_id, true, true);
+        $output = '';
+        $this->view->activity = $activitys;
+        
+        $this->view->status_form = $status_form;
+        $this->view->state = $state;
+        $this->view->activityInfo = $activity;
+        $this->view->activity_id = $activity_id;
+        $this->view->blockManager()->enable('partial/activitymenu.phtml');
+    }
 
     public function editActivityAction()
     {
