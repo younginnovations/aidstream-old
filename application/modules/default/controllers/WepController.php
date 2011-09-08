@@ -558,11 +558,40 @@ class WepController extends Zend_Controller_Action
                 //@todo
             }
             $activity = $activity_info[0];
+            $state = $activity['status_id'];
             $activity['@xml_lang'] = $model->fetchValueById('Language', $activity_info[0]['@xml_lang'], 'Code');
 
             $activity['@default_currency'] = $model->fetchValueById('Currency', $activity_info[0]['@default_currency'], 'Code');
 
         }
+        
+        $this->view->state = $state;
+        $status_form = new Form_Wep_ActivityChangeState();
+        $status_form->setAction($base_url."/wep/update-status");
+        $status_form->ids->setValue($activity_id);
+        
+        if($state == Iati_WEP_ActivityState::STATUS_EDITING) {
+            $next_state = Iati_WEP_ActivityState::STATUS_TO_BE_CHECKED;
+            
+        } else if($state == Iati_WEP_ActivityState::STATUS_TO_BE_CHECKED) {
+            
+            $next_state = Iati_WEP_ActivityState::STATUS_CHECKED;
+            
+        } else if($state == Iati_WEP_ActivityState::STATUS_CHECKED) {
+ 
+            $next_state = Iati_WEP_ActivityState::STATUS_PUBLISHED;
+        } else {
+            $next_state = null;
+        }
+        if($next_state && Iati_WEP_ActivityState::hasPermissionForState($next_state)){
+            $status_form->status->setValue($next_state);
+            $status_form->change_state->setLabel(Iati_WEP_ActivityState::getStatus($next_state));
+        } else {
+            $status_form = null;
+        }
+        
+        $this->view->status_form = $status_form;
+        
         $this->view->activityInfo = $activity;
         $initial = $this->getInitialValues($activity_id, $class);
         $classname = 'Iati_WEP_Activity_'. $class . 'Factory';
@@ -625,46 +654,6 @@ class WepController extends Zend_Controller_Action
                         $dbLayer = new Iati_WEP_DbLayer();
                         $activitys = $dbLayer->getRowSet('Activity', 'id', $activity_id, true, true);
                         $output = '';
-                        /*
-                        //Script for creating the view of the activities elements
-                        
-                        foreach( $activitys->getElements() as $activity)
-                        {
-                            $type = $activity->getType();
-                            $output .= "<!-- ".$type." Starts -->\n";
-                            $output .= "<?php\n$".strtolower($type)."s=$"."oContactinfo->getElementsByType('$type');\n";
-                            $output .= "$"."value = "."$".strtolower($type)."s[0]->getAttribs();\n";
-                            $output .= "if(!empty($"."value)): ?>\n";
-                            $output .= "<fieldset class='element-item'><legend class='element-title'>".$type."</legend>\n";
-                            $output .= "<dl class='element-values'>\n";
-                            $output .= "<?php foreach($".strtolower($type)."s as $".strtolower($type)."):?>\n";
-                            $attribs = array_keys($activity->getValidAttribs());
-                            $count = 1;
-                            foreach($attribs as $attrib)
-                            {
-                                if($attrib == '@xml_lang')
-                                {
-                                    $output .= "<dt class='element-value element-value-".$count."'>".ucfirst(preg_replace('/^@/','',$attrib))."</dt><dd> <?php print ($"."model_wep->fetchValueById('Language',$".strtolower($type)."->getAttrib('".$attrib."'),null));?></dd>\n";
-                                } else {
-                                    $output .= "<dt class='element-value element-value-".$count."'>".ucfirst(preg_replace('/^@/','',$attrib))."</dt><dd> <?php print ($".strtolower($type)."->getAttrib('".$attrib."'));?></dd>\n";
-                                }
-                                $count++;
-                            }
-                            $output .= "<?php endforeach;?>\n";
-                            $output .= "</dl>\n</fieldset>\n<?php endif;?>\n";
-                            $output .= "<!-- ".$type." Ends -->\n\n\n";
-                        }
-                        $fp = fopen("/var/www/iati-wep/contactInfo.php","w");
-                        fwrite($fp,$output);
-                        exit;
-                                    /*
-                        $title = $activity->getElementsByType(Iati_Activity_Element::TYPE_TITLE);
-                        $title_value = $title[0]->getAttribs();
-                        if(!empty($title_value))
-                        {
-                            var_dump('nOT empty');
-                        }
-                        */
                         $this->view->activity = $activitys;
                     }
         }
@@ -1172,12 +1161,24 @@ class WepController extends Zend_Controller_Action
     public function updateStatusAction()
     {
         $ids = $this->getRequest()->getParam('ids');
-        $status = $this->getRequest()->getParam('status');
+        $state = $this->getRequest()->getParam('status');
         $activity_ids = explode(',',$ids);
-
-        $db = new Model_ActivityStatus;
-        $db->updateActivityStatus($activity_ids,(int)$status);
         
+        $db = new Model_ActivityStatus;
+        $not_valid = false;
+        
+        foreach($activity_ids as $activity_id)
+        {
+            $activity_state = $db->getActivityStatus($activity_id);
+            if(!Iati_WEP_ActivityState::isValidTransition($activity_state,$state)){
+                $not_valid = true;
+            }
+        }
+        if($not_valid){
+            $this->_helper->FlashMessenger->addMessage(array('message' => "The activities cannot be changed to the state. Please check that a state to be changed is valid for all selected activities"));
+        } else {
+            $db->updateActivityStatus($activity_ids,(int)$state);
+        }        
         $this->_redirect('wep/view-activities');
     }
 }

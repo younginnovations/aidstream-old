@@ -30,7 +30,7 @@
     <table class ="activity-list-table">
         <thead>
             <tr>
-                <th></th><th>S.N.</th><th>Title</th><th>Iati Identifier</th><th>Last Updated</th><th>Status</th>
+                <th></th><th>S.N.</th><th>Title</th><th>Iati Identifier</th><th>Last Updated</th><th>State</th>
             </tr>
         </thead>
         <tbody>
@@ -65,7 +65,7 @@
                 </td>
                 <td class="iati-identifier"><?php print $eachActivity['identifier'];?></td>
                 <td class="last-updated"><?php print $eachActivity['last_updated_datetime'];?></td>
-                <td class="Status"><?php echo Iati_Activity_Status::getStatus($eachActivity['status_id']);?></td>
+                <td class="Status"><?php echo Iati_WEP_ActivityState::getStatus($eachActivity['status_id']);?></td>
             </tr>
             
          <?php $i++;?>

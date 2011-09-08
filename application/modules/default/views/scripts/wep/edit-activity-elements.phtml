@@ -1,6 +1,7 @@
 <?php
     $this->headScript()->appendFile($this->baseUrl() . '/js/common.js', $type = 'text/javascript');
     $activity = $this->activity;
+    $change_status_form = $this->status_form;
     $model_wep = new Model_Wep();
 ?>
 
@@ -17,6 +18,18 @@
     }
     
 ?>
+<?if($activity):?>
+<div class= "activity-state">
+    <div class="state-display">
+        <div class='label'>State: <?php print(Iati_WEP_ActivityState::getStatus($this->state));?></div>
+    </div>
+    <div class='change-state'>
+        <?php print($change_status_form)?>
+    </div>
+</div>
+<div class="clear"></div>
+<?php endif;?>
+
 <?php if($userPermission && $permission == '1'):?>
     <span class = "override-link"><?php echo $this->l('Override Activity Default', 'wep/edit-activity/?activities_id='
                                                             . $this->activities_id)?></span>
