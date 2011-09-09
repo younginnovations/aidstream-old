@@ -12,6 +12,7 @@ class Form_Wep_ActivityChangeState extends App_Form
         $form['ids'] = new Zend_Form_Element_Hidden('ids');
         
         $form['change_state'] = new Zend_Form_Element_Submit('change_state');
+        $form['change_state']->class = 'form-submit';
         
         $this->addElements($form);
     }

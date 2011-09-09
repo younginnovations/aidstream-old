@@ -830,3 +830,36 @@ table.activity-list-table tr {
 table.activity-list-table tr:hover {
 	background: #fefae9;
 }
+/* View Activity */
+
+.activity-state {
+	position: relative;
+}
+.activity-state .override-link {
+	background: url("../images/left-arrow.png") no-repeat scroll left center transparent;
+	font-weight: bold;
+	padding-left: 12px;
+	display: block;
+	position: absolute;
+	right: 0;
+	top: 3px;
+}
+.activity-state dt {
+	margin: 10px 0 0 0;
+}
+.activity-state #change_state-element {
+	margin-top: 10px;
+}
+.activity-state .state-display {
+	font-size: 14px;
+}
+.activity-state .state-display label {
+	margin-right: 20px;
+}
+.activity-detail-table .title {
+    color: #000000;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    padding-left: 5px;
+}

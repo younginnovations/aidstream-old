@@ -13,13 +13,7 @@
     <div class='change-state'>
         <?php print($change_status_form)?>
     </div>
-</div>
-<div class="clear"></div>
-<table class="activity-detail-table">
-<tr>
-    <td>
-        
-<?php if($userPermission && $permission == '1'):?>
+    <?php if($userPermission && $permission == '1'):?>
     <span class = "override-link"><?php echo $this->l('Override Activity Default', 'wep/edit-activity/?activity_id='
                                                             . $this->activityInfo['id'])?></span>
   
@@ -29,6 +23,14 @@
                                                             . $this->activityInfo['id'])?></span>
   
 <?php endif; ?>
+</div>
+
+
+<table class="activity-detail-table">
+<tr>
+    <td>
+        
+
 <div class="title">Activity Default</div>
 <div class = "activity-info">
 <table class ="activity-info-table">
@@ -650,6 +652,10 @@ if(!empty($value)): ?>
 <fieldset class='element-item'><legend class='element-title'>ActivityStatus</legend>
 <dl class='element-values'>
 <?php foreach($activitystatuss as $activitystatus):?>
+<dt class='element-value element-value-1'>Code</dt><dd> <?php print ($activitystatus->getAttrib('@code'));?></dd><div class="clear"></div>
+<dt class='element-value element-value-2'>Xml_lang</dt><dd> <?php print ($model_wep->fetchValueById('Language' , $activitystatus->getAttrib('@xml_lang'),null));?></dd><div class="clear"></div>
+<dt class='element-value element-value-3'>Text</dt><dd> <?php print ($activitystatus->getAttrib('text'));?></dd><div class="clear"></div>
+
 <?php endforeach;?>
 </dl>
 </fieldset>
