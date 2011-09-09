@@ -79,7 +79,7 @@ class Iati_WEP_ActivityTreeMapper {
 			5 => 'Identifier',
 			6 => 'ContactInfo',
 			7 => 'ReportingOrg',
-			8 => 'Identifier',
+			//8 => 'Identifier',
 			9 => 'OtherActivityIdentifier',
 			10 => 'Title',
 			11 => 'Description',
