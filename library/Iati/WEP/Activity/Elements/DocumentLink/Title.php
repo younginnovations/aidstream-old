@@ -38,6 +38,7 @@ class Iati_WEP_Activity_Elements_DocumentLink_Title extends
     protected $hasError = false;
     protected $multiple = true;
     protected $required = true;
+    protected $isAttributeSet = false;
     
     public function __construct()
     {
@@ -57,6 +58,17 @@ class Iati_WEP_Activity_Elements_DocumentLink_Title extends
         $this->id = (key_exists('id', $data))?$data['id']:0;
         $this->text = $data['text'];
         $this->xml_lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
+        $this->attributeState();
+    }
+    
+    public function attributeState()
+    {
+        foreach($this->attributes as $attribute){
+            if($this->$attribute){
+                $this->isAttributeSet = true;
+                break;
+            }
+        }
     }
     
     public function getOptions($name = NULL)
@@ -83,11 +95,20 @@ class Iati_WEP_Activity_Elements_DocumentLink_Title extends
             
             if(empty($this->validators[$key])){ continue; }
             
-            if((in_array('NotEmpty', $this->validators[$key]) == true) && (empty($eachData)) && 
-            (empty($this->required))) {  continue; }
-            
-            if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)))
-            {  continue; }
+            if($this->required){
+                if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData))){
+                    continue;
+                }
+                
+            }else{
+                if(!$this->isAttributeSet){
+                    continue;
+                }else{
+                    if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData))){
+                        continue;
+                    }
+                }
+            }
             
             foreach($this->validators[$key] as $validator){
                 $string = "Zend_Validate_". $validator;

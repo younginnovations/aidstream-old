@@ -499,9 +499,7 @@ class WepController extends Zend_Controller_Action
                         $title = $camelCaseToSeperator->filter($class);
                         
                         $this->_helper->FlashMessenger
-                        ->addMessage(array(
-                                                    'message' => "$title successfully inserted."
-                        ));
+                        ->addMessage(array('message' => "$title successfully inserted."));
                         $this->_redirect("/wep/view-activity/".$activity_id);
 
                     }

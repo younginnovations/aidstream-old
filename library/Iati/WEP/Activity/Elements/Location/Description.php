@@ -41,6 +41,7 @@ class Iati_WEP_Activity_Elements_Location_Description extends Iati_WEP_Activity_
     protected $hasError = false;
     protected $multiple = true;
     protected $required = false;
+    protected $isAttributeSet = false;
 
     public function __construct()
     {
@@ -62,6 +63,17 @@ class Iati_WEP_Activity_Elements_Location_Description extends Iati_WEP_Activity_
         $this->id = (isset($data['id']))?$data['id']:0; 
         $this->xml_lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
         $this->text = $data['text'];
+        $this->attributeState();
+    }
+    
+    public function attributeState()
+    {
+        foreach($this->attributes as $attribute){
+            if($this->$attribute){
+                $this->isAttributeSet = true;
+                break;
+            }
+        }
     }
     
     public function getOptions($name = NULL)
@@ -88,11 +100,20 @@ class Iati_WEP_Activity_Elements_Location_Description extends Iati_WEP_Activity_
             
             if(empty($this->validators[$key])){ continue; }
             
-            if((in_array('NotEmpty', $this->validators[$key]) == true) && (empty($eachData)) && 
-            (empty($this->required))) {  continue; }
-            
-            if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)))
-            {  continue; }
+            if($this->required){
+                if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData))){
+                    continue;
+                }
+                
+            }else{
+                if(!$this->isAttributeSet){
+                    continue;
+                }else{
+                    if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData))){
+                        continue;
+                    }
+                }
+            }
             
             foreach($this->validators[$key] as $validator){
                 $string = "Zend_Validate_". $validator;

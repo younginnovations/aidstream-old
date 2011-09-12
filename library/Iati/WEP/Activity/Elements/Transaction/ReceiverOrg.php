@@ -44,6 +44,7 @@ class Iati_WEP_Activity_Elements_Transaction_ReceiverOrg extends Iati_WEP_Activi
     protected $hasError = false;
     protected $multiple = false;
     protected $required = false;
+    protected $isAttributeSet = false;
 
     public function __construct()
     {
@@ -75,6 +76,18 @@ class Iati_WEP_Activity_Elements_Transaction_ReceiverOrg extends Iati_WEP_Activi
         $this->ref = (key_exists('@ref', $data))?$data['@ref']:$data['ref'];
         $this->text = $data['text'];
         $this->receiver_activity_id = (key_exists('@receiver_activity_id', $data))?$data['@receiver_activity_id']:$data['receiver_activity_id'];
+    
+        $this->attributeState();
+    }
+    
+    public function attributeState()
+    {
+        foreach($this->attributes as $attribute){
+            if($this->$attribute){
+                $this->isAttributeSet = true;
+                break;
+            }
+        }
     }
     
     public function getValidator($attr)
@@ -93,11 +106,20 @@ class Iati_WEP_Activity_Elements_Transaction_ReceiverOrg extends Iati_WEP_Activi
             
             if(empty($this->validators[$key])){ continue; }
             
-            if((in_array('NotEmpty', $this->validators[$key]) == true) && (empty($eachData)) && 
-            (empty($this->required))) {  continue; }
-            
-            if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)))
-            {  continue; }
+            if($this->required){
+                if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData))){
+                    continue;
+                }
+                
+            }else{
+                if(!$this->isAttributeSet){
+                    continue;
+                }else{
+                    if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData))){
+                        continue;
+                    }
+                }
+            }
             
             foreach($this->validators[$key] as $validator){
                 $string = "Zend_Validate_". $validator;

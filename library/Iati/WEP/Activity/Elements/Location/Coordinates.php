@@ -48,6 +48,7 @@ class Iati_WEP_Activity_Elements_Location_Coordinates extends Iati_WEP_Activity_
     protected $hasError = false;
     protected $multiple = false;
     protected $required = false;
+    protected $isAttributeSet = false;
 
     public function __construct()
     {
@@ -70,6 +71,17 @@ class Iati_WEP_Activity_Elements_Location_Coordinates extends Iati_WEP_Activity_
         $this->latitude = (key_exists('@latitude', $data))?$data['@latitude']:$data['latitude'];
         $this->longitude = (key_exists('@longitude', $data))?$data['@longitude']:$data['longitude'];
         $this->percision = (key_exists('@percision', $data))?$data['@percision']:$data['percision'];
+        $this->attributeState();
+    }
+    
+    public function attributeState()
+    {
+        foreach($this->attributes as $attribute){
+            if($this->$attribute){
+                $this->isAttributeSet = true;
+                break;
+            }
+        }
     }
     
     public function getOptions($name = NULL)
@@ -97,11 +109,20 @@ class Iati_WEP_Activity_Elements_Location_Coordinates extends Iati_WEP_Activity_
             
             if(empty($this->validators[$key])){ continue; }
             
-            if((in_array('NotEmpty', $this->validators[$key]) == true) && (empty($eachData)) && 
-            (empty($this->required))) {  continue; }
-            
-            if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)))
-            {  continue; }
+            if($this->required){
+                if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData))){
+                    continue;
+                }
+                
+            }else{
+                if(!$this->isAttributeSet){
+                    continue;
+                }else{
+                    if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData))){
+                        continue;
+                    }
+                }
+            }
             
             foreach($this->validators[$key] as $validator){
                 $string = "Zend_Validate_". $validator;

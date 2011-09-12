@@ -38,6 +38,7 @@ protected $attributes = array('id', 'text', 'iso_date');
     protected $hasError = false;
     protected $multiple = false;
     protected $required = true;
+    protected $isAttributeSet = false;
 
     public function __construct()
     {
@@ -55,6 +56,17 @@ protected $attributes = array('id', 'text', 'iso_date');
         $this->id = (isset($data['id']))?$data['id']:0; 
         $this->iso_date = (key_exists('@iso_date', $data))?$data['@iso_date']:$data['iso_date'];
         $this->text = $data['text'];
+        $this->attributeState();
+    }
+    
+    public function attributeState()
+    {
+        foreach($this->attributes as $attribute){
+            if($this->$attribute){
+                $this->isAttributeSet = true;
+                break;
+            }
+        }
     }
     
     public function getOptions($name = NULL)
@@ -86,11 +98,20 @@ protected $attributes = array('id', 'text', 'iso_date');
             
             if(empty($this->validators[$key])){ continue; }
             
-            if((in_array('NotEmpty', $this->validators[$key]) == true) && (empty($eachData)) && 
-            (empty($this->required))) {  continue; }
-            
-            if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)))
-            {  continue; }
+            if($this->required){
+                if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData))){
+                    continue;
+                }
+                
+            }else{
+                if(!$this->isAttributeSet){
+                    continue;
+                }else{
+                    if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData))){
+                        continue;
+                    }
+                }
+            }
             
             foreach($this->validators[$key] as $validator){
                 $string = "Zend_Validate_". $validator;
