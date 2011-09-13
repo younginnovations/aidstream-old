@@ -527,7 +527,6 @@ class WepController extends Zend_Controller_Action
                 //print_r($e->getMessage());exit;
             }
         }
-         
         $this->view->form = $a;
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
     }
@@ -605,7 +604,7 @@ class WepController extends Zend_Controller_Action
                 $elements = $rowSet->getElements();
                 $attributes = $elements[0]->getAttribs();
                 if(empty($attributes)){
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "$title not found for this activity. Please add $title."));
+                    //$this->_helper->FlashMessenger->addMessage(array('message' => "$title not found for this activity. Please add $title."));
                     $this->_redirect("wep/add-activity-elements/?activity_id=".$activity_id."&class=".$class);
                 }
 

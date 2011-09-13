@@ -179,7 +179,25 @@ class User_UserController extends Zend_Controller_Action
 //        print_r($row1->first_name);exit;
         $this->view->profile = $row1;
         $this->view->row = $row;
-//        $this->_helper->layout()->setLayout('layout');
+        $identity  = Zend_Auth::getInstance()->getIdentity();
+        $this->_helper->layout()->setLayout('layout_wep');
+        $this->view->blockManager()->enable('partial/dashboard.phtml');
+        $this->view->blockManager()->enable('partial/primarymenu.phtml');
+        $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
+        if($identity->role == 'user'){
+            $model = new Model_Wep();
+            $userPermission = $model->getUserPermission($identity->user_id);
+            $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::VIEW_ACTIVITIES);
+            if($permission == '0'){
+                $this->view->blockManager()->disable('partial/primarymenu.phtml');
+            }
+            $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::ADD_ACTIVITY);
+            if($permission == '0'){
+                $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
+            }
+        }
+        
+        $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
     }
 
     public function editAction()
@@ -306,7 +324,8 @@ class User_UserController extends Zend_Controller_Action
             }
         }
         $this->view->user = $user;
-//        $this->_helper->layout()->setLayout('layout');
+        $this->_helper->layout()->setLayout('layout_wep');
+        $this->view->blockManager()->enable('partial/dashboard.phtml');
     }
 
     public function logoutAction()

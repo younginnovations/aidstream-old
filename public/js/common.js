@@ -228,10 +228,10 @@ function initialize() {
         	
         },
 	".datepicker" : {
-		"found" : function (ele) {
-		    
-		    createDateTextBox(ele.id, ele.name, ele.value);
-		}
+	    "found" : function (ele) {
+		
+		createDateTextBox(ele.id, ele.name, ele.value);
+	    }
 	},
 	"#status" : {
 	    "onchange" : function (evt) {

@@ -21,7 +21,7 @@ class Iati_WEP_Activity_OtherActivityIdentifierFactory extends Iati_WEP_Activity
             }
         }
         else{
-            $tree = $this->createObjects ($objectType);
+            $tree = $this->createObjects ($objectType, $this->globalObject);
         }
         return $tree;
     }

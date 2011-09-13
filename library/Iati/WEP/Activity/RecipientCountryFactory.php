@@ -21,7 +21,7 @@ class Iati_WEP_Activity_RecipientCountryFactory extends Iati_WEP_Activity_BaseFa
             }
         }
         else{
-            $tree = $this->createObjects ($objectType);
+            $tree = $this->createObjects ($objectType,$this->globalObject);
         }
 
         return $tree;

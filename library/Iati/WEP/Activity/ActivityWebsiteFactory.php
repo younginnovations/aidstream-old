@@ -20,7 +20,7 @@ class Iati_WEP_Activity_ActivityWebsiteFactory extends Iati_WEP_Activity_BaseFac
             }
         }
         else{
-            $tree = $this->createObjects ($objectType);
+            $tree = $this->createObjects ($objectType, $this->globalObject);
         }
 
         return $tree;
