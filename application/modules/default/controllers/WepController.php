@@ -714,8 +714,7 @@ class WepController extends Zend_Controller_Action
 
         $this->view->activity_array = $activity_array;
         $status_form = new Form_Wep_ActivityStatus();
-        $base_url = Zend_Controller_Front::getBaseUrl();
-        $status_form->setAction($base_url."/wep/update-status");
+        $status_form->setAction($this->view->baseUrl()."/wep/update-status");
         $this->view->status_form = $status_form;
     }
     
@@ -737,7 +736,7 @@ class WepController extends Zend_Controller_Action
         $activity['@default_currency'] = $model->fetchValueById('Currency', $activity_info[0]['@default_currency'], 'Code');
         
         $status_form = new Form_Wep_ActivityChangeState();
-        $status_form->setAction($base_url."/wep/update-status");
+        $status_form->setAction($this->view->baseUrl()."/wep/update-status");
         $status_form->ids->setValue($activity_id);
         
         if($state == Iati_WEP_ActivityState::STATUS_EDITING) {
