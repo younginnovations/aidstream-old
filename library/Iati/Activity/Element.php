@@ -403,6 +403,23 @@ class Iati_Activity_Element
                 
                 case DocumentLink_format :
                     $return = 'FileFormat';
+                    break;
+                    
+                case LocationType_code:
+                    $return = 'LocationType';
+                    break;
+                    
+                case Administrative_country:
+                    $return = 'Country';
+                    break;
+                    
+                case Coordinates_precision :
+                    $return = 'PercisionCode';
+                    break;
+                
+                case GazetteerEntry_gazetteer_ref:
+                    $return = 'GazetteerAgency';
+                    break;
                 
                 default:
                     $return = false;
