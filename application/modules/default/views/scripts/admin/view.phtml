@@ -34,5 +34,6 @@
 
 <div>
 <span><?php print $this->l('Approve', 'admin/approve/id/'. $this->user_info['user_id']);?></span>
-<span><?php print $this->l('Reject', 'admin/reject/id/' .$this->user_info['user_id']);?></span>
+<span><?php print $this->l('Reject', 'admin/reject/id/' .$this->user_info['user_id'],
+                           array('attributes' => array('onclick' => "javascript: return confirm('Do you really want to delete?')")));?></span>
 </div>

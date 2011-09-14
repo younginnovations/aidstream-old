@@ -13,7 +13,7 @@ class Iati_WEP_Activity_DefaultFlowTypeFactory extends Iati_WEP_Activity_BaseFac
             $tree = $this->createObjects ($objectType, $this->globalObject, $data);
         }
         else{
-            $tree = $this->createObjects ($objectType);
+            $tree = $this->createObjects ($objectType, $this->globalObject);
         }
 
         return $tree;

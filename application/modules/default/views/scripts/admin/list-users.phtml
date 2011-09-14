@@ -1,22 +1,26 @@
+<?php $this->headScript()->appendFile($this->baseUrl() . '/js/common.js', $type = 'text/javascript');
+?>
 <?php if(empty($this->users)):?>
     Users unavailable.
 <?php endif;?>
 <?php if($this->users): ?>
-<table class="user-list">
+<div class= 'user-list' >
+<table class="user-list-table">
     <thead> <tr><th>S.N.</th><th>Name</th><th>User Name</th></tr></thead>
     <tbody>
         <?php $i = 1;?>
         <?php foreach($this->users as $user):?>
-            <tr>
-                <td><?php print $i; ?></td>
-                <td><?php print $user['first_name'] . " " . $user['middle_name'] . " " . $user['last_name'];?>
+            <tr class="user-row1">
+                <td class="sn"><?php print $i; ?></td>
+                <td class="title"><?php print $user['first_name'] . " " . $user['middle_name'] . " " . $user['last_name'];?>
                 </td>
                 
                 <td><?php print $user['user_name']; ?>
-                <div ><?php print $this->l('View', 'admin/view-profile?user_id='.$user['user_id'])?>
+                <div class = "list-action"><?php print $this->l('View', 'admin/view-profile?user_id='.$user['user_id'])?>
         <?php //print $this->l('Edit', 'admin/edit-profile?user_id='.$user['user_id'])?>
         <?php //print $this->l('Change Password', 'user/user/changepassword?user_id='.$user['user_id'])?>                    
-        <?php print $this->l('Delete', 'admin/delete-user?user_id='.$user['user_id'])?>
+        <?php print $this->l('Delete', 'admin/delete-user?user_id='.$user['user_id'],
+                           array('attributes' => array('onclick' => "javascript: return confirm('Do you really want to delete?')")))?>
                 </div></td>        
                 
             </tr>
@@ -24,8 +28,10 @@
     <?php endforeach; ?>
     </tbody>
 </table>
+</div>
 <?php endif;?>
 
 
-<?php print $this->l('Add New User', 'admin/register-user');
+<?php print $this->l('Add User', 'admin/register-user',
+                                             array('attributes' => array('class' => 'button')));
 

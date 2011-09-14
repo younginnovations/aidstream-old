@@ -707,10 +707,10 @@ legend {
 }
 
 /* Activity page fieldset */
-.activity-list {
+.activity-list, .user-list {
 	margin-bottom: 20px;
 }
-.activity-list fieldset {
+.activity-list fieldset, .user-list fieldset {
 	background: none;
 	padding: 0;
 	margin: 0;
@@ -816,14 +816,14 @@ table.activity-list-table .title a {
 	font-weight: bold;
 	padding-right: 5px;
 }
-#contain table.activity-list-table {
+#contain table.activity-list-table,  .user-list{
 	margin-bottom: 20px;
 	border: 1px solid #dcdcdc;
 }
 table.activity-list-table .title .list-action {
 	float: right;
 }
-table.activity-list-table tr {
+table.activity-list-table tr,  .user-list tr{
 	background: #f2f2f2;
 	border-bottom: 1px solid #dcdcdc;
 }

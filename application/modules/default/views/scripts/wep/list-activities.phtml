@@ -22,7 +22,8 @@ There are no iati activities.
 </td>
 <td>
     <?php print $this->l('View', 'wep/view-activities/?activities_id='.$eachRow['id'])?>
-    <?php print $this->l('Delete', 'wep/delete/?id='.$eachRow['id'] . "&type=iati_activities");?>
+    <?php print $this->l('Delete', 'wep/delete/?id='.$eachRow['id'] . "&type=iati_activities",
+                           array('attributes' => array('onclick' => "javascript: return confirm('Do you really want to delete?')")));?>
     
 </td>
 </tr>

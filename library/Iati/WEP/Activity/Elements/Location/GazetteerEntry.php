@@ -41,6 +41,7 @@ class Iati_WEP_Activity_Elements_Location_GazetteerEntry extends Iati_WEP_Activi
     protected $hasError = false;
     protected $multiple = true;
     protected $required = false;
+    protected $isAttributeSet = false;
 
     public function __construct()
     {
@@ -63,6 +64,17 @@ class Iati_WEP_Activity_Elements_Location_GazetteerEntry extends Iati_WEP_Activi
         $this->gazetteer_ref = (key_exists('@gazetteer_ref', $data))?$data['@gazetteer_ref']:$data['gazetteer_ref'];
 
         $this->text = $data['text'];
+        $this->attributeState();
+    }
+    
+    public function attributeState()
+    {
+        foreach($this->attributes as $attribute){
+            if($this->$attribute){
+                $this->isAttributeSet = true;
+                break;
+            }
+        }
     }
     
     public function getOptions($name = NULL)
@@ -89,8 +101,20 @@ class Iati_WEP_Activity_Elements_Location_GazetteerEntry extends Iati_WEP_Activi
             
             if(empty($this->validators[$key])){ continue; }
             
-            if((in_array('NotEmpty', $this->validators[$key]) == true) && (empty($eachData)) && 
-            (empty($this->required))) {  continue; }
+            if($this->required){
+                if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData))){
+                    continue;
+                }
+                
+            }else{
+                if(!$this->isAttributeSet){
+                    continue;
+                }else{
+                    if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData))){
+                        continue;
+                    }
+                }
+            }
             
             foreach($this->validators[$key] as $validator){
                 $string = "Zend_Validate_". $validator;

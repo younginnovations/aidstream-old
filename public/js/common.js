@@ -3,6 +3,7 @@ dojo.require('dojo.NodeList-traverse');
 dojo.require('dojo.behavior');
 dojo.require('dijit.Dialog');
 dojo.require('dijit.form.Button');
+//dojo.require('dijit.form.CheckBox');
 dojo.require('dijit.form.DateTextBox');
 //dojo.require("dojo.date.locale");
 
@@ -212,15 +213,14 @@ function initialize() {
 //        		console.log(evt);
         		var node = dojo.NodeList(evt.target.parentNode);
 //        		console.log(node);
-        		node.query('.list-action').style('display', 'block');;
-        
+        		node.query('.list-action').style('display', 'block');
         		evt.stopPropagation();
         	},
         	"onmouseleave" : function (evt) {
 //        		console.log(evt);
         		var node = dojo.NodeList(evt.target.parentNode);
 //        		console.log(node);
-        		node.query('.list-action').style('display', 'none');;
+        		node.query('.list-action').style('display', 'none');
         
         		evt.stopPropagation();
         	}
@@ -228,10 +228,10 @@ function initialize() {
         	
         },
 	".datepicker" : {
-		"found" : function (ele) {
-		    
-		    createDateTextBox(ele.id, ele.name, ele.value);
-		}
+	    "found" : function (ele) {
+		
+		createDateTextBox(ele.id, ele.name, ele.value);
+	    }
 	},
 	"#status" : {
 	    "onchange" : function (evt) {
@@ -242,6 +242,28 @@ function initialize() {
 		dojo.query('#ids').attr('value',ids.join(","));
 		dojo.byId('iati_activity_status').submit();
 	    }
+	},
+	".hide-div" : {
+	    "found" : function (ele) {
+		var b = ele.parentNode;
+		dojo.query(b).style('display', 'none');
+	    }
+	},
+	".vocabulary_value" : {
+	    "onchange" : function (evt) {
+		var selected= evt.target;
+		if(selected.value == '' || selected.value == 4){
+		    dojo.query('.non_dac_code').attr('value', '');
+		    dojo.query('.non_dac_code').parent().style('display', 'none');
+		    dojo.query('.sector_value').parent().style('display', 'block');
+		}
+		else{
+		    dojo.query('.sector_value').attr('value', '');
+		    dojo.query('.sector_value').parent().style('display', 'none');
+		    dojo.query('.non_dac_code').parent().style('display', 'block');
+		}
+	    }
+	    
 	}
     });
     // End of dojo.behavior.add

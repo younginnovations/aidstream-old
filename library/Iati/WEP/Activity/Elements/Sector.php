@@ -4,13 +4,14 @@ class Iati_WEP_Activity_Elements_Sector extends Iati_WEP_Activity_Elements_Eleme
     protected $attributes = array('id', 'text', 'vocabulary', 'code', 'percentage', 'xml_lang');
     protected $text;
     protected $code;
+    protected $non_dac_code;
     protected $vocabulary;
     protected $percentage;
     protected $xml_lang;
     protected $id = 0;
     protected $options = array();
     protected $validators = array(
-                                'code' => array('NotEmpty'),
+                                //'vocabulary' => array('NotEmpty'),
                                 'percentage' => array('Int')
                             );
     protected $className = 'Sector';
@@ -30,14 +31,21 @@ class Iati_WEP_Activity_Elements_Sector extends Iati_WEP_Activity_Elements_Eleme
                     'label' => 'Sector',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
-                    'attrs' => array('class' => array('form-select'))
+                    'attrs' => array('class' => array('form-select', 'sector_value'))
+                ),
+                'non_dac_code' => array(
+                    'name' => 'non_dac_code',
+                    'label' => 'Sector',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s"/>',
+                    'options' => '',
+                    'attrs' => array('class' => array('form-text', 'non_dac_code'))
                 ),
                 'vocabulary' => array(
                     'name' => 'vocabulary',
                     'label' => 'Vocabulary',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
                     'options' => '',
-                    'attrs' => array('class' => array('form-select'))
+                    'attrs' => array('class' => array('form-select', 'vocabulary_value'))
                 ),
                 'percentage' => array(
                     'name' => 'percentage',
@@ -78,12 +86,20 @@ class Iati_WEP_Activity_Elements_Sector extends Iati_WEP_Activity_Elements_Eleme
     
     public function setAttributes ($data) {
         $this->id = (isset($data['id']))?$data['id']:0;
-        
         $this->vocabulary = (key_exists('@vocabulary', $data))?$data['@vocabulary']:$data['vocabulary'];
         $this->code = (key_exists('@code', $data))?$data['@code']:$data['code'];
+        $this->non_dac_code = (key_exists('@code', $data))?$data['@code']:$data['non_dac_code'];
         $this->percentage = (key_exists('@percentage', $data))?$data['@percentage']:$data['percentage'];
         $this->xml_lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
         $this->text = $data['text'];
+        
+        //special logic only for sector
+        if($this->vocabulary == '' || $this->vocabulary == '4'){
+            $this->attributes_html['non_dac_code']['attrs']['class'][] = 'hide-div';
+        }
+        else{
+            $this->attributes_html['code']['attrs']['class'][] = 'hide-div';
+        }
         
     }
     
@@ -106,19 +122,23 @@ class Iati_WEP_Activity_Elements_Sector extends Iati_WEP_Activity_Elements_Eleme
     {
         $data['id'] = $this->id;
         $data['xml_lang'] = $this->xml_lang;
-        $data['code'] = $this->code;
+        $data['code'] = ($this->code)?$this->code:$this->non_dac_code;
         $data['vocabulary'] = $this->vocabulary;
         $data['percentage'] = $this->percentage;
         $data['text'] = $this->text;
-        
         parent :: validate($data);
+        if($data['code'] == ''){
+            $this->error['code'] = array('isEmpty' => "Value is required and can't be empty");
+            $this->error['non_dac_code'] = array('isEmpty' => "Value is required and can't be empty");
+            $this->hasError = true;
+        }
     }
     
     public function getCleanedData(){
         $data = array();
         $data ['id'] = $this->id;
         $data['@xml_lang'] = $this->xml_lang;
-        $data['@code'] = $this->code;
+        $data['@code'] = ($this->code)?$this->code:$this->non_dac_code;
         $data['@vocabulary'] = $this->vocabulary;
         $data['@percentage'] = $this->percentage;
         $data['text'] = $this->text;

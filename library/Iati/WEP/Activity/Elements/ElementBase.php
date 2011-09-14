@@ -152,7 +152,6 @@ class Iati_WEP_Activity_Elements_ElementBase
                                 :$validator->getMessages();
                   $this->error[$key] = $error;
                   $this->hasError = true;
-
               }
             }
         }
@@ -173,8 +172,6 @@ class Iati_WEP_Activity_Elements_ElementBase
     {
         return $this->hasError;
     }
-
-
 
     public function insert($data)
     {

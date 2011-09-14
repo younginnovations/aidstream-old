@@ -45,6 +45,7 @@ class Iati_WEP_Activity_Elements_Conditions_Condition extends
     protected $hasError = false;
     protected $multiple = true;
     protected $required = false;
+    protected $isAttributeSet = false;
     
     public function __construct()
     {
@@ -61,10 +62,23 @@ class Iati_WEP_Activity_Elements_Conditions_Condition extends
     }
     
     public function setAttributes ($data) {
+        //print_r($data);exit;
         $this->id = (key_exists('id', $data))?$data['id']:0;
         $this->type = (key_exists('@type', $data))?$data['@type']:$data['type'];
         $this->xml_lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
         $this->text = $data['text'];
+        //print_r($this->xml_lang);exit;
+        $this->attributeState();
+    }
+    
+    public function attributeState()
+    {
+        foreach($this->attributes as $attribute){
+            if($this->$attribute){
+                $this->isAttributeSet = true;
+                break;
+            }
+        }
     }
     
     public function getOptions($name = NULL)
@@ -91,11 +105,21 @@ class Iati_WEP_Activity_Elements_Conditions_Condition extends
             
             if(empty($this->validators[$key])){ continue; }
             
-            if((in_array('NotEmpty', $this->validators[$key]) == true) && (empty($eachData)) && 
-            (empty($this->required))) {  continue; }
-            
-            if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)))
-            {  continue; }
+            if($this->required){
+                if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData))){
+                    continue;
+                }
+                
+            }else{
+                if(!$this->isAttributeSet){
+                    continue;
+                }else{
+                    if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData))){
+                        continue;
+                    }
+                }
+            }
+
             
             foreach($this->validators[$key] as $validator){
                 $string = "Zend_Validate_". $validator;
@@ -118,7 +142,6 @@ class Iati_WEP_Activity_Elements_Conditions_Condition extends
         $data['text'] = $this->text;
         $data['@type'] = $this->type;
         $data['@xml_lang'] = $this->xml_lang;
-        
         return $data;
     }
     

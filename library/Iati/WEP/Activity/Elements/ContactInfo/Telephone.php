@@ -8,7 +8,6 @@ class Iati_WEP_Activity_Elements_ContactInfo_Telephone extends
     protected $options = array();
     protected $className = 'Telephone';
     protected $validators = array(
-                               
                             );
     protected $attributes_html = array(
                 'id' => array(
@@ -16,7 +15,7 @@ class Iati_WEP_Activity_Elements_ContactInfo_Telephone extends
                     'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
                 ),
                 'text' => array(
-                    'name' => 'text',
+                    'name' => 'Telephone',
                     'label' => 'Number',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('class' => array('form-text'))
@@ -29,6 +28,7 @@ class Iati_WEP_Activity_Elements_ContactInfo_Telephone extends
     protected $hasError = false;
     protected $multiple = true;
     protected $required = false;
+    protected $isAttributeSet = false;
     
     public function __construct()
     {
@@ -45,6 +45,17 @@ class Iati_WEP_Activity_Elements_ContactInfo_Telephone extends
     public function setAttributes ($data) {
         $this->id = (key_exists('id', $data))?$data['id']:0;
         $this->text = $data['text'];
+        $this->attributeState();
+    }
+    
+    public function attributeState()
+    {
+        foreach($this->attributes as $attribute){
+            if($this->$attribute){
+                $this->isAttributeSet = true;
+                break;
+            }
+        }
     }
     
     public function getOptions($name = NULL)
@@ -70,14 +81,29 @@ class Iati_WEP_Activity_Elements_ContactInfo_Telephone extends
             
             if(empty($this->validators[$key])){ continue; }
             
-            if((in_array('NotEmpty', $this->validators[$key]) == true) && (empty($eachData)) && 
-            (empty($this->required))) {  continue; }
+            if($this->required){
+                if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData))){
+                    continue;
+                }
+                
+            }else{
+                if(!$this->isAttributeSet){
+                    continue;
+                }else{
+                    if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData))){
+                        continue;
+                    }
+                }
+            }
             
-            if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)))
-            {  continue; }
+            //if((in_array('NotEmpty', $this->validators[$key]) == true) && (empty($eachData)) && 
+            //(empty($this->required))) {  continue; }
+            //
+            //if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData)))
+            //{  continue; }
             
             foreach($this->validators[$key] as $validator){
-                $string = "Zend_Validate_". $validator;
+              $string = "Zend_Validate_". $validator;
               $validator = new $string();
               $error = '';
               if(!$validator->isValid($eachData)){

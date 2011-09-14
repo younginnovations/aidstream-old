@@ -128,8 +128,6 @@ class WepController extends Zend_Controller_Action
                 $data = $this->getRequest()->getPost();
                 $model = new Model_Wep();
                 $result = $model->getRowsByFields('account', 'username', $data['organisation_username']);
-                //                print_r($a);exit()
-                //                $result = $tbl->checkUnique($email);
                 if (!$form->isValid($data)) {
                     $form->populate($data);
                 }
@@ -140,7 +138,6 @@ class WepController extends Zend_Controller_Action
                 } else {
 
                     //@todo send email notification to super admin
-//print_r($data);exit;
 
                     $account['name'] = $data['organisation_name'];
 
@@ -176,7 +173,7 @@ class WepController extends Zend_Controller_Action
                     $fieldString = serialize($defaultFieldsValues);
                     $defaultValues['object'] = $fieldString;
                     $defaultValues['account_id'] = $account_id;
-                    $defaultValuesId = $model->insertRowsToTable('user_permission', $defaultValues);
+                    $defaultValuesId = $model->insertRowsToTable('default_field_values', $defaultValues);
                     $i = 0;
                     foreach ($data['default_fields'] as $eachField) {
                         $defaultKey[$i] = $eachField;
@@ -190,7 +187,7 @@ class WepController extends Zend_Controller_Action
                     $defaultFieldId = $model->insertRowsToTable('default_field_groups', $defaultFields);
 
                     $privilegeFields['resource'] = serialize($defaultKey);
-                    $privilegeFields['owner_id'] = $user_id;
+                    $privilegeFields['owner_id'] = $account_id;
                     $privilegeFieldId = $model->insertRowsToTable('Privilege', $privilegeFields);
 
 
@@ -217,6 +214,7 @@ class WepController extends Zend_Controller_Action
                     $this->_redirect('user/user/login');
                 }
             } catch (Exception $e) {
+                print $e->getMessage();
             }
         }
         $this->view->form = $form;
@@ -333,6 +331,7 @@ class WepController extends Zend_Controller_Action
             $wepModel = new Model_Wep();
             $activities = $wepModel->listAll('iati_activities', 'account_id', $identity->account_id);
             $activities_id = $activities[0]['id'];
+            //print_r($activities_id);exit;
         }
         $model = new Model_Viewcode();
 
@@ -499,9 +498,7 @@ class WepController extends Zend_Controller_Action
                         $title = $camelCaseToSeperator->filter($class);
                         
                         $this->_helper->FlashMessenger
-                        ->addMessage(array(
-                                                    'message' => "$title successfully inserted."
-                        ));
+                        ->addMessage(array('message' => "$title successfully inserted."));
                         $this->_redirect("/wep/view-activity/".$activity_id);
 
                     }
@@ -530,8 +527,8 @@ class WepController extends Zend_Controller_Action
                 //print_r($e->getMessage());exit;
             }
         }
-         
         $this->view->form = $a;
+        $this->view->blockManager()->enable('partial/override-activity.phtml');
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
     }
 
@@ -608,7 +605,7 @@ class WepController extends Zend_Controller_Action
                 $elements = $rowSet->getElements();
                 $attributes = $elements[0]->getAttribs();
                 if(empty($attributes)){
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "$title not found for this activity. Please add $title."));
+                    //$this->_helper->FlashMessenger->addMessage(array('message' => "$title not found for this activity. Please add $title."));
                     $this->_redirect("wep/add-activity-elements/?activity_id=".$activity_id."&class=".$class);
                 }
 
@@ -621,7 +618,8 @@ class WepController extends Zend_Controller_Action
                 $formHelper = new Iati_WEP_FormHelper();
                 $a = $formHelper->getForm();
             }
-        } 
+        }
+        $this->view->blockManager()->enable('partial/override-activity.phtml');
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
          
         $this->view->form = $a;

@@ -91,7 +91,7 @@ class Iati_WEP_FormHelper {
                 $_title = sprintf('<legend class="form-title">%s</legend>', $title);
 
             }
-
+//print_r($_title);
 
             if (!$this->ajaxCall && $ele[0] == $this->registryTree->getRootNode()) {
                 $_title = '';

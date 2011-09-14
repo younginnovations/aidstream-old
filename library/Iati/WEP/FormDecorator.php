@@ -105,7 +105,7 @@ class Iati_WEP_FormDecorator {
         }
         $optionHtml = '<option value="">Select anyone</option>';
         foreach ($options as $k => $v) {
-            $sel = ($attr === (string)$k) ? 'selected="selected"' : '';
+            $sel = ((string)$attr === (string)$k) ? 'selected="selected"' : '';
             $optionHtml .= sprintf('<option value="%1s" %2s>%3s</option>', $k, $sel, $v);
 //            print $optionHtml;exit;
         }

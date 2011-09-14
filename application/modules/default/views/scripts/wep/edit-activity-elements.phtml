@@ -3,55 +3,6 @@
     $model_wep = new Model_Wep();
 ?>
 
-
-<?php if($this->activityInfo):?>
-<div class = "activity-info-wrapper">
-
-<?php
-    $identity = $this->userInfo();
-    if($identity->role == 'user'){
-        $model = new Model_Wep();
-        $userPermission = $model->getUserPermission($identity->user_id);
-        $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::EDIT_ACTIVITY);
-    }
-    
-?>
-
-<?php if($userPermission && $permission == '1'):?>
-    <span class = "override-link"><?php echo $this->l('Override Activity Default', 'wep/edit-activity/?activity_id='
-                                                            . $this->activityInfo['id'])?></span>
-  
-<?php endif; ?>
-<?php if(!$userPermission): ?>
-<span class = "override-link"><?php echo $this->l('Override Activity Default', 'wep/edit-activity/?activity_id='
-                                                            . $this->activityInfo['id'])?></span>
-  
-<?php endif; ?>
-<div class="title">Activity Default</div>
-<div class = "activity-info">
-<table class ="activity-info-table">
-<tr>
-    <td class="label">Language: </td><td><?php print $this->activityInfo['@xml_lang'];?></td>
-</tr>
-<tr>
-    <td class="label">Default Currency: </td><td><?php print $this->activityInfo['@default_currency'];?></td>
-</tr>
-<tr>
-    <td class="label">Hierarchy: </td><td><?php print $this->activityInfo['@hierarchy'];?></td>
-</tr>
-<tr>
-    <td class="label">Last Updated Date Time: </td><td><?php print $this->activityInfo['@last_updated_datetime'];?></td>
-</tr>
-
-<tr>
-    <td>
-<?php endif;?>
-
 <?php print $this->form;?>
 
-    </td>
-</tr>
-</table>
 
-</div>
-</div>

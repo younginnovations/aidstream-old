@@ -21,7 +21,7 @@ class Iati_WEP_Activity_ActivityDateFactory extends Iati_WEP_Activity_BaseFactor
             }
         }
         else{
-            $tree = $this->createObjects ($objectType);
+            $tree = $this->createObjects ($objectType,$this->globalObject);
         }
 
         return $tree;

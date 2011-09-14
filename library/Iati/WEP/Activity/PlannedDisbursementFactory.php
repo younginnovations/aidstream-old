@@ -31,7 +31,7 @@ class Iati_WEP_Activity_PlannedDisbursementFactory
             }
         }
         else{
-            $tree = $this->createObjects ($objectType);
+            $tree = $this->createObjects ($objectType, $this->globalObject);
         }
 
         return $tree;
