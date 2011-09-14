@@ -528,6 +528,7 @@ class WepController extends Zend_Controller_Action
             }
         }
         $this->view->form = $a;
+        $this->view->blockManager()->enable('partial/override-activity.phtml');
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
     }
 
@@ -617,7 +618,8 @@ class WepController extends Zend_Controller_Action
                 $formHelper = new Iati_WEP_FormHelper();
                 $a = $formHelper->getForm();
             }
-        } 
+        }
+        $this->view->blockManager()->enable('partial/override-activity.phtml');
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
          
         $this->view->form = $a;

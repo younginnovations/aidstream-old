@@ -3,37 +3,6 @@
     $model_wep = new Model_Wep();
 ?>
 
-
-<?php if($this->activityInfo):?>
-<div class = "activity-info-wrapper">
-
-<?php
-    $identity = $this->userInfo();
-    if($identity->role == 'user'){
-        $model = new Model_Wep();
-        $userPermission = $model->getUserPermission($identity->user_id);
-        $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::EDIT_ACTIVITY);
-    }
-    
-?>
-
-<?php if($userPermission && $permission == '1'):?>
-    <span class = "override-link"><?php echo $this->l('Override Activity Default', 'wep/edit-activity/?activity_id='
-                                                            . $this->activityInfo['id'])?></span>
-  
-<?php endif; ?>
-<?php if(!$userPermission): ?>
-<span class = "override-link"><?php echo $this->l('Override Activity Default', 'wep/edit-activity/?activity_id='
-                                                            . $this->activityInfo['id'])?></span>
-  
-<?php endif; ?>
-<?php endif;?>
-
 <?php print $this->form;?>
 
-    </td>
-</tr>
-</table>
 
-</div>
-</div>
