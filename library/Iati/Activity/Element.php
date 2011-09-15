@@ -243,4 +243,189 @@ class Iati_Activity_Element
     {
         return $this->_parentType;
     }
+    
+    public function getAttribValue($attrib)
+    {
+        $tablename = $this->getTableForCodeAttrib($attrib);
+        $val = $this->getAttrib($attrib);
+        if($tablename){
+            $model_wep = new Model_Wep();
+            $value = $model_wep->fetchValueById($tablename,$val,null);
+        } else {
+            $value = $val;
+        }
+        return $value;
+    }
+    
+    public function getTableForCodeAttrib($code)
+    {
+        if($code == '@xml_lang'){
+            return 'Language';
+        } else {
+            $switch = $this->_type."_".preg_replace('/@/','',$code);
+            switch($switch)
+            { 
+                case TransactionType_code:
+                    $return = 'TransactionType';
+                    break;
+                
+                case ProviderOrg_ref:
+                    $return = 'OrganisationIdentifier';
+                    break;
+                
+                case ReceiverOrg_ref:
+                    $return = 'OrganisationIdentifier';
+                    break;
+                    
+                case Value_currency:
+                    $return = 'Currency';
+                    break;
+                
+                case FlowType_code:
+                    $return = 'FlowType';
+                    break;
+                
+                case FinanceType_code:
+                    $return = 'FinanceType';
+                    break;
+                
+                case AidType_code:
+                    $return = 'AidType';
+                    break;
+                
+                case DisbursementChannel_code:
+                    $return = 'DisbursementChannel';
+                    break;
+                
+                case TiedStatus_code:
+                    $return = 'TiedStatus';
+                    break;
+                
+                case Condition_type:
+                    $retufn = 'ConditionType';
+                    break;
+                
+                case Category_code:
+                    $return = 'DocumentCategory';
+                    break;
+                
+                case Result_type :
+                    $return = 'ResultType';
+                    break;
+                
+                case ReportingOrg_ref :
+                    $return = 'OrganisationIdentifier';
+                    break;
+                
+                case ReportingOrg_type :
+                    $return = 'OrganisationType';
+                    break;
+                
+                case OtherIdentifier_owner_ref :
+                    $return = 'OrganisationIdentifier';
+                    break;
+                
+                case ActivityStatus_code :
+                    $return = 'ActivityStatus';
+                    break;
+                
+                case ActivityDate_type :
+                    $return = 'ActivityDateType';
+                    break;
+                
+                case ParticipatingOrg_ref :
+                    $return = 'OrganisationIdentifier';
+                    break;
+                
+                case ParticipatingOrg_type :
+                    $return = 'OrganisationType';
+                    break;
+                
+                case ParticipatingOrg_role :
+                    $return = 'OrganisationRole';
+                    break;
+                
+                case RecipientCountry_code :
+                    $return = 'Country';
+                    break;
+                
+                case RecipientRegion_code :
+                    $return = 'Region';
+                    break;
+                
+                case Sector_vocabulary :
+                    $return = 'Vocabulary';
+                    break;
+                
+                case Sector_code :
+                    $return = 'Sector';
+                    break;
+                
+                case PolicyMarker_significance :
+                    $return = 'PolicySignificance';
+                    break;
+                
+                case PolicyMarker_code :
+                    $return = 'PolicyMarker';
+                    break;
+                
+                case PolicyMarker_vocabulary :
+                    $return = 'Vocabulary';
+                    break;
+                
+                case DefaultFlowType_code :
+                    $return = 'FlowType';
+                    break;
+                
+                case DefaultFinanceType_code :
+                    $return = 'FinanceType';
+                    break;
+                
+                case DefaultAidType_code :
+                    $return = 'AidType';
+                    break;
+                
+                case DefaultTiedStatus_code :
+                    $return = 'TiedStatus';
+                    break;
+                
+                case RelatedActivity_type :
+                    $return = 'RelatedActivityType';
+                    break;
+            
+                case ColloborationType_code :
+                    $return = 'ColloborationType';
+                    break;
+                    
+                case Description_type :
+                    $return = 'DescriptionType';
+                    break;
+                
+                case DocumentLink_format :
+                    $return = 'FileFormat';
+                    break;
+                    
+                case LocationType_code:
+                    $return = 'LocationType';
+                    break;
+                    
+                case Administrative_country:
+                    $return = 'Country';
+                    break;
+                    
+                case Coordinates_precision :
+                    $return = 'PercisionCode';
+                    break;
+                
+                case GazetteerEntry_gazetteer_ref:
+                    $return = 'GazetteerAgency';
+                    break;
+                
+                default:
+                    $return = false;
+                    break;    
+            }
+        }
+        return $return;
+    }
 }
