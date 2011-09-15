@@ -568,6 +568,7 @@ class WepController extends Zend_Controller_Action
             
             if($_POST){
                 $flatArray = $this->flatArray($_POST);
+                //print_r($flatArray);exit;
                 $activity = new Iati_WEP_Activity_Elements_Activity();
                 $activity->setAttributes(array('activity_id' => $activity_id));
                 $registryTree = Iati_WEP_TreeRegistry::getInstance();
@@ -591,6 +592,7 @@ class WepController extends Zend_Controller_Action
                     $element->setAttribs($data);
                     $factory = new $classname ();
                     $activityTree = $factory->cleanData($activity, $element);
+                    //print_r($activityTree);exit;
                     $dbLayer = new Iati_WEP_DbLayer();
                     $dbLayer->save($activityTree);
 
@@ -637,6 +639,7 @@ class WepController extends Zend_Controller_Action
         $items = array();
         $parentExp = "/^parent/";
         $itemExp = "/^item/";
+        //print_r($_GET);exit;
         foreach($_GET as $key => $eachValue){
             if(preg_match($parentExp, $key)){
                 $a = explode('parent', $key);
@@ -647,11 +650,10 @@ class WepController extends Zend_Controller_Action
                 $items[$a[1]] = $eachValue;
             }
         }
-         
         //       print_r($_GET);exit;
          
         $class1 = (isset($parents[0]))?$parents[0]:$class;
-         
+        //print_r($class1);exit;
         $classname = 'Iati_WEP_Activity_' . $class1 . 'Factory';
         $factory = new $classname;
         $factory->setInitialValues($initial);
@@ -673,7 +675,7 @@ class WepController extends Zend_Controller_Action
             $wepModel = new Model_Wep();
             $exists = $wepModel->getRowById('iati_activities', 'id', $_GET['activities_id']);
             if(!$exists){
-                $this->_helper->FlashMessenger->addMessage(array('message' => "Invalid Id."));
+                $this->_helper->FlashMessenger->addMessage(array('error' => "Invalid Id."));
 
                 $this->_redirect('/user/user/login');
             }
@@ -960,11 +962,11 @@ class WepController extends Zend_Controller_Action
                 print 'success';
                 exit();
                  
-            } catch (Exception $e) {
+            } /*catch (Exception $e) {
 
                 print 'Error occured while deleting.';
                 exit();
-            }
+            }*/
             catch(Exception $e){
                 print $e; exit();
             }

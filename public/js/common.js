@@ -18,6 +18,15 @@ dojo.connect = function (source, event, object, method, once) {
 }
 */
 
+var checkUncheck = function (evt, checklist, checkstate) {
+    dojo.forEach(checklist,
+        function(el, idx, ary) {
+            el.checked = checkstate;
+        }
+    );
+    evt.preventDefault();
+}
+
 var createDateTextBox = function (id, name, value) {
     
     var dob = new dijit.form.DateTextBox({
@@ -58,7 +67,6 @@ function initialize() {
                 var sp = node.query('input').attr('name')[0];
                 
                 sp = sp.split(/\[(\d+)\]/);
-                
                 var values = new Array();
     
                 for (var i = 1; i < sp.length; i++) {
@@ -73,8 +81,6 @@ function initialize() {
                 for (var i = 0; i < values.length; i++) {
                     ajx['item' + i] = values[i];
                 }
-                
-                
                 dojo.xhrGet({
                     url : dojo.attr(evt.target, 'href'),
                     handleAs : 'text',
@@ -151,6 +157,7 @@ function initialize() {
                                     "id": removeId
                                 },
                                 load: function (data) {
+				    //console.log(data);
                                     if(data == 'success'){
                                         dojo.destroy(parentNode[0]);
                                     }
@@ -264,6 +271,22 @@ function initialize() {
 		}
 	    }
 	    
+	},
+	".check-uncheck" : {
+	    "onclick" : function (evt) {
+		var value = dojo.query(".check-uncheck").html();
+		var checklist = dojo.query('input[type=checkbox]');
+		//console.log(checklist);
+		if(value === "Check All"){
+		    var a = dojo.query(".check-uncheck").html('Uncheck All');
+		    checkUncheck(evt, checklist, true);
+		    
+		}
+		if(value === "Uncheck All"){
+		    var a = dojo.query(".check-uncheck").html('Check All');
+		    checkUncheck(evt, checklist, false)
+		}
+	    }
 	}
     });
     // End of dojo.behavior.add

@@ -21,13 +21,30 @@ class Iati_WEP_FormHelper {
         $this->ajaxCall = true;
         $this->parentNames = $parents;
 
-        //print_r($items);
-
         $items = $this->incrementIndex($items);
 
-        foreach($this->parentNames as $key => $val) {
-            $this->indexValues[$this->parentNames[$key]] = $items[$key];
-        }
+        //if(count($parents) != count($items)){
+        //    $count = count($parents) - 1;
+        //    $reversed = array_reverse($parents);
+        //    $newArray = array();
+        //    foreach($reversed as $key => $val){
+        //        $newArray[$val] = $items[$key];
+        //    }
+        //    $this->indexValues = array_reverse($newArray);
+        //}
+        //else{
+            foreach($this->parentNames as $key => $val) {
+                
+                $this->indexValues[$this->parentNames[$key]] = $items[$key];
+            }
+        //}
+        //
+        //foreach($this->indexValues as $key => $val){
+        //    if($val == ''){
+        //        unset($this->indexValues[$key]);
+        //    }
+        //}
+        
         //$this->indexValues = $items;
         //print_r($this->parentNames);
         //print_r($this->indexValues);
@@ -37,7 +54,6 @@ class Iati_WEP_FormHelper {
         $finalHtml = $this->genHtml(array($root));
 
         $this->generateForm($root, $finalHtml);
-
         return $finalHtml;
     }
 
@@ -218,7 +234,6 @@ class Iati_WEP_FormHelper {
 
     public function getIndexValues ($obj) {
         $index = array();
-        //print_r($parents);
         if ($this->ajaxCall) {
             $index = $this->indexValues;
         }
@@ -241,7 +256,7 @@ class Iati_WEP_FormHelper {
         if ($obj->hasMultiple() && !array_key_exists($obj->getClassName(), $index)) {
             $index[$obj->getClassName()] = $obj->getObjectId();
         }
-
+        
         return $index;
         /*
          if ($this->ajaxCall) {
