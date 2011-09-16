@@ -893,7 +893,7 @@ legend {
 	padding-left: 5px;
 }
 table.activity-list-table .title{
-	width: 350px;
+	width: 335px;
 }
 table.activity-list-table .title a {
 	font-weight: bold;
@@ -1034,7 +1034,6 @@ table.activity-list-table tr:hover {
 }
 
 #contain .title {
-	font-size: 14px;
-	font-weight: bold;
+	font-size: 12px;
 	padding: 5px 0 10px;
 }
