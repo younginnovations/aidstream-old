@@ -8,7 +8,7 @@
 
 <div class= "activity-state">
     <div class="state-display">
-        <div class='label'>State: <span class="<?php print strtolower(str_replace(" ", "_", Iati_WEP_ActivityState::getStatus($this->state)))?>> "><?php print(Iati_WEP_ActivityState::getStatus($this->state));?></div>
+        <div class='label'>State: <span class="<?php print strtolower(str_replace(" ", "_", Iati_WEP_ActivityState::getStatus($this->state)))?>"><?php print(Iati_WEP_ActivityState::getStatus($this->state));?></div>
     </div>
     <div class='change-state'>
         <?php print($change_status_form)?>
