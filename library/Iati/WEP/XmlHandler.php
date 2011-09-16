@@ -82,13 +82,10 @@ class Iati_WEP_XmlHandler
         {
             $element_data = $this->getElementsData($element);
             $element_node = $this->_generateXml($element_data,$parent);
-        
-            if($element->getAttrib('id')){
-
+            
+            if($element->getElements()){
                 //Get xml for element's sub elements
-                $dbLayer = new Iati_WEP_DbLayer();
-                $activity_element = $dbLayer->getRowSet($element->getType(), 'id',$element->getAttrib('id') , true, true);
-                foreach($activity_element->getElements() as $sub_element)
+                foreach($element->getElements() as $sub_element)
                 {
                     $sub_element_data = $this->getElementsData($sub_element,$element->getType());
                     $sub_element_node = $this->_generateXml($sub_element_data,$element_node);
