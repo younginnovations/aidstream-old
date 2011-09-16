@@ -920,7 +920,12 @@ table.activity-list-table tr:hover {
 }
 
 .state-display .label {
+	color: #6f6f6f;
 	font-size: 12px;
+}
+
+.state-display .label span {
+	font-weight: normal;
 }
 
 #contain table.activity-list-table .editing,
@@ -934,7 +939,7 @@ table.activity-list-table tr:hover {
 }
 
 #contain table.activity-list-table .to-be-checked,
-.state-display .to-be-checked{
+.state-display .to_be_checked{
 	color: #8b0408;
 }
 
