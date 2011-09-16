@@ -39,44 +39,46 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 	 * Data is inserted into database if the Id doesnot exist for object and is updated if the Id exists
 	 * @return unknown_type
 	 */
-	public function save($object, $parentId = null) {
-
-		if ($object) {
-			$defaultParentId = $parentId;
-			$objectType = $object->getType();
-			$parentType = $object->getParentType();
-			$attribs = $object->getAttribs();
-			$attribResult = $this->checkIsEmptyAttribs($attribs);
-			//if there is not attributes in the object but contains childElements then ProcessIt (insert/update)
-			if($attribResult == false && $object->getElements())
-			$attribResult = true;
-			if($attribResult){
-				if($parentId){
-					$parentField = $this->conditionFormatter($parentType);
-					$attribs[$parentField] = $parentId;
-				}
-				$primaryId = $attribs['id'];
-				$tableClassMapper = new Iati_WEP_TableClassMapper();
-				$tableName = $tableClassMapper->getTableName($objectType, $parentType);
-				if ($tableName){
-					$this->_name = $tableName;
-					if ($primaryId == NULL || $primaryId == 0) {
-						$attribs['id'] = NULL;
-						if($defaultParentId != null)
-						$primaryId = $this->insert($attribs);
-					} else {
-						if($defaultParentId != null)
-						$this->update($attribs);
+	public function save($object, $parentId= null) {
+		try {
+			if ($object) {
+				$defaultParentId = $parentId;
+				$objectType = $object->getType ();
+				$parentType = $object->getParentType ();
+				$attribs = $object->getAttribs ();
+				$attribResult = $this->checkIsEmptyAttribs ( $attribs );
+				//if there is not attributes in the object but contains childElements then ProcessIt (insert/update)
+				if ($attribResult == false && $object->getElements ())
+					$attribResult = true;
+				if ($attribResult) {
+					if ($parentId) {
+						$parentField = $this->conditionFormatter ( $parentType );
+						$attribs [$parentField] = $parentId;
 					}
-					foreach ($object->getElements() as $elements) {
-						//recursive function save
-						$this->save($elements, $primaryId);
+					$primaryId = $attribs ['id'];
+					$tableClassMapper = new Iati_WEP_TableClassMapper ();
+					$tableName = $tableClassMapper->getTableName ( $objectType, $parentType );
+					if ($tableName) {
+						$this->_name = $tableName;
+						if ($primaryId == NULL || $primaryId == 0) {
+							$attribs ['id'] = NULL;
+							if ($defaultParentId != null)
+								$primaryId = $this->insert ( $attribs );
+						} else {
+							if ($defaultParentId != null)
+								$this->update ( $attribs );
+						}
+						foreach ( $object->getElements () as $elements ) {
+							//recursive function save
+							$this->save ( $elements, $primaryId );
+						}
 					}
 				}
 			}
-		}
+		} catch ( Exception $e){
+		return false;
 	}
-
+	}
 
 	public function update($data) {
 		// try to update data with $tablename and id
@@ -125,14 +127,14 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 			 */
 			if ($tree) {
 				//check If the field supplied is own Id or parent_id;
-				$conditionalClass = $this->checkConditionField($className,$fieldName);
+				$conditionalClass = $this->checkConditionField($className,$fieldName);				
 				if($conditionalClass){
 					$class = "Iati_Activity_Element_" . $conditionalClass;
-					$activityType  = new $class;
+					$activityType  = new $class;					
 					$class = "Iati_Activity_Element_" . $className;
-					$activity = new $class;
+					$activity = new $class;					
 					$resultTree = $activityType;
-					$formattedResult = $this->getRows($className, $fieldName, $value, $tree);
+					$formattedResult = $this->getRows($className, $fieldName, $value, $tree);									
 					if(!$formattedResult[$className])
 					$activityType->addElement($className);
 					foreach ($formattedResult[$className] as $result) {
@@ -142,11 +144,11 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 						$activityType->addElement($resultTree);
 					}
 					return $activityType;
-				}else{
+				}else{					
 					$class = "Iati_Activity_Element_" . $className;
 					$activity = new $class;
 					$parentClass = $activity;
-					$resultTree = $activity;
+					$resultTree = $activity;					
 					$formattedResult = $this->getRows($className, $fieldName, $value, $tree);
 					foreach ($formattedResult[$className] as $result) {
 						$resultTree = $this->fetchRowTreeSet($parentClass, $className, $result, $isValidAttrib);
@@ -171,6 +173,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		}
 		catch (Exception $e)
 		{
+			var_dump($e->getMessage());exit;
 			return false;
 		}
 	}
@@ -184,20 +187,20 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 	 * @return object element object
 	 */
 	public function fetchRowTreeSet($parentClass, $className, $data, $isValidAttrib = false)
-	{
+	{		
 		$tableClassMapper = new Iati_WEP_TableClassMapper();
 		$activityTreeMapper = new Iati_WEP_ActivityTreeMapper();
-		$validData = $data;
+		$validData = $data;		
 		if($isValidAttrib)
 		{
 			$validAttribs = $parentClass->getValidAttribs();
 			$validData = array_intersect_key($data,$validAttribs);
 		}
-		$parentClass->setAttribs($validData);
-		$elementTree = $activityTreeMapper->getActivityTree($className);
+		$parentClass->setAttribs($validData);		
+		$elementTree = $activityTreeMapper->getActivityTree($className);		
 		if(is_array($elementTree)){
-			$primaryId = $data['id'];
-			$conditionField = $this->conditionFormatter($className);
+			$primaryId = $data['id'];			
+			$conditionField = $this->conditionFormatter($className);			
 			foreach ($elementTree as $classElement) {
 				$element = $parentClass->addElement($classElement);
 				$flag = false;
@@ -211,7 +214,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 					}
 				}
 			}
-		}
+		}		
 		return $parentClass;
 	}
 
@@ -237,10 +240,10 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 	 */
 	public function getRows($className, $fieldName = null, $value = null, $tree = false, $parentType = null)
 	{
-		//instead of using classname to fetch the tableName using the type off the class.
-		$objectType = $this->getType($className, $parentType);
+		//instead of using classname to fetch the tableName using the type off the class.		
+		$objectType = $this->getType($className, $parentType);		
 		$tableClassMapper = new Iati_WEP_TableClassMapper();
-		$tableName = $tableClassMapper->getTableName($objectType);
+		$tableName = $tableClassMapper->getTableName($objectType);		
 		if ($tableName) {
 			$this->_name = $tableName;
 			if (!$fieldName || !$value) {
@@ -267,16 +270,21 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 	 * Process it and use it as Class Name to get tableName
 	 */
 	public function getType($className, $parentType)
-	{
-		$class = "Iati_Activity_Element_" .$className;
+	{			
+		$class = "Iati_Activity_Element_" .$className;		
 		$element = new $class;
 		$type = $element->getType();
 		$parentClass = $element->getParentType();
-		if($parentType != null && $parentClass != 'Activity'){
+		if($className == 'Activity' || $className == 'Activities'){			
+			$objectType = $type;	
+		}elseif($parentType != null && $parentClass != 'Activity'){			
+			$objectType = $parentClass."_".$type;			
+		}elseif($parentType == null && $parentClass != 'Activity')
+		{		
 			$objectType = $parentClass."_".$type;
-		}else
-		$objectType = $type;
-
+		}else{			
+			$objectType = $type;	
+		}				
 		return $objectType;
 	}
 
