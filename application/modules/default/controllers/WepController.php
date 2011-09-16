@@ -55,7 +55,18 @@ class WepController extends Zend_Controller_Action
         } else {
             $activities_id = $activities_id[0]['id'];
         }
-
+        
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $account_id = $identity->account_id;
+        
+        $db = new Model_Registry();
+        $published_data = $db->getPublishedInfo($account_id);
+        $bootstrap = $this->getInvokeArg('bootstrap');
+        $config = $bootstrap->getOptions();
+        $file_path = $config['registry_xmlfile_path'];
+        
+        $this->view->published_data = $published_data;
+        $this->view->file_path = $file_path;
 //            print_r($activities_id);exit;
         $this->view->activities_id = $activities_id;
 
