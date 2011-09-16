@@ -1177,7 +1177,6 @@ class WepController extends Zend_Controller_Action
         $ids = $this->getRequest()->getParam('ids');
         $state = $this->getRequest()->getParam('status');
         $activity_ids = explode(',',$ids);
-        
         $db = new Model_ActivityStatus;
         $not_valid = false;
         
@@ -1192,6 +1191,16 @@ class WepController extends Zend_Controller_Action
             $this->_helper->FlashMessenger->addMessage(array('message' => "The activities cannot be changed to the state. Please check that a state to be changed is valid for all selected activities"));
         } else {
             $db->updateActivityStatus($activity_ids,(int)$state);
+            if($state == Iati_WEP_ActivityState::STATUS_PUBLISHED)
+            {
+                $identity = Zend_Auth::getInstance()->getIdentity();
+                $account_id = $identity->account_id;
+                $user_db = new Model_Wep();
+                $user = $user_db->getRowById('account','id',$account_id);
+                
+                $reg = new Iati_Registry($account_id,$user['name']);
+                $reg->publish();
+            }
         }        
         $this->_redirect('wep/view-activities');
     }
