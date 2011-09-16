@@ -43,7 +43,6 @@ class WepController extends Zend_Controller_Action
         $model = new Model_Wep();
 
         $activities_id = $model->listAll('iati_activities', 'account_id', $identity->account_id);
-//        print_r($activities_id);exit;
         if (empty($activities_id)) {
 //            print "ddd";exit;
             $data['@version'] = '01';
@@ -459,6 +458,10 @@ class WepController extends Zend_Controller_Action
             $activity_info[0]['@xml_lang'], 'Code');
             $activity['@default_currency'] = $model->fetchValueById('Currency',
             $activity_info[0]['@default_currency'], 'Code');
+            $iati_identifier_row = $model->getRowById('iati_identifier', 'activity_id', $activity_id);
+            $activity['iati_identifier'] = $iati_identifier_row['text'];
+            $title_row = $model->getRowById('iati_title', 'activity_id', $activity_id);
+            $activity['iati_title'] = $title_row['text'];
         }
         $this->view->activityInfo = $activity;
         $initial = $this->getInitialValues($activity_id, $class);
@@ -552,13 +555,17 @@ class WepController extends Zend_Controller_Action
             $activity_id = $this->_request->getParam('activity_id');
             $activity_info = $model->listAll('iati_activity', 'id', $activity_id);
             if (empty($activity_info)) {
-                //@todo
+                //@todo 
             }
             $activity = $activity_info[0];
             $activity['@xml_lang'] = $model->fetchValueById('Language', $activity_info[0]['@xml_lang'], 'Code');
 
             $activity['@default_currency'] = $model->fetchValueById('Currency', $activity_info[0]['@default_currency'], 'Code');
-
+            
+            $iati_identifier_row = $model->getRowById('iati_identifier', 'activity_id', $activity_id);
+            $activity['iati_identifier'] = $iati_identifier_row['text'];
+            $title_row = $model->getRowById('iati_title', 'activity_id', $activity_id);
+            $activity['iati_title'] = $title_row['text'];
         }
         
         $this->view->activityInfo = $activity;
