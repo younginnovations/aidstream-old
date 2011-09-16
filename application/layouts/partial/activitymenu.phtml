@@ -6,6 +6,10 @@
             
             <?php
             $identity = $this->userInfo();
+            $params = explode("&", parse_url($_SERVER['REQUEST_URI'],PHP_URL_QUERY));
+            unset($params[0]);
+            $classParam = explode("=", $params[1]);
+            $paramValue = $classParam[1];
             
             $url = Zend_Controller_Front::getInstance()->getRequest()->getParams();
             $model = new Model_Wep();
@@ -20,7 +24,6 @@
             $attributes = (getRowSet('ReportingOrg', $url['activity_id']))?'class = "active"':'';
             
             print "<li><a $attributes href=$href2>Reporting Organisation</a></li>";
-            
             foreach($defaultField->getProperties() as $key => $eachData){
                 if($eachData == 1){
                    $attributes = '';
@@ -30,7 +33,11 @@
                     
                     $key = ucwords(str_replace("_"," ",$key));
                     $href = $this->baseUrl()."/wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=".str_replace(" ", "", $key);
-                    print "<li><a $attributes href='". $href ."'>" .$key ."</a></li>";
+                    $class = '';
+                    if(str_replace(" ", "", $key) == $paramValue){
+                        $class = "class = highlight";
+                    }
+                    print "<li $class><a $attributes href='". $href ."'>" .$key ."</a></li>";
                     
                 }
             }//add-activity-elements?activity_id='.$activity_id .'&class='.$class
