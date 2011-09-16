@@ -3,6 +3,7 @@
 class Iati_WEP_ActivityTreeMapper {
 
 	private $elementTree = array(
+	'Activities' => array( 0 => 'Activity' ),
 	'Transaction' =>
         	array(
         	0 => 'Transaction_TransactionType',
@@ -97,8 +98,8 @@ class Iati_WEP_ActivityTreeMapper {
 			23 => 'DefaultAidType',
 			24 => 'DefaultTiedStatus',
 			25 => 'Budget',
-			25 => 'ActivityWebsite',
-			26 => 'RelatedActivity',
+			26 => 'ActivityWebsite',
+			27 => 'RelatedActivity',
 			),
 	);
 

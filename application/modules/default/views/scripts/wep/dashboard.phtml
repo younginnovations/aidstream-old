@@ -1,6 +1,18 @@
 <?php $identity = $this->userInfo();
-//var_dump($this->activities_id);exit;
+    $published_data = $this->published_data;
+    $file_path = $this->file_path;
 ?>
 <div class="dashboard-content">
 This page contains all the statistical information of the activity.
+
+<?php foreach($published_data as $data):?>
+<div class='publish-item'>
+    <div class="publis-item-title">Published Files</div>
+    <dl>
+    <dd>
+        <a href ="<?php echo $this->baseUrl().$file_path.$data['filename'] ?>" target = "_blank"> <?php echo $data['filename'] ?></a>
+    </dd>
+    <dd><?php echo $data['published_date'] ?></dd>
+</div>
+<?php endforeach;?>
 </div>

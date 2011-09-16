@@ -18,6 +18,13 @@ class Model_Registry extends Zend_Db_Table_Abstract
         $this->_insertRegistryInfo($data);
     }
     
+    public function getPublishedInfo($account_id)
+    {
+        $rowSet = $this->select()->where("publishing_org_id = ?",$account_id);
+        $result = $this->fetchAll($rowSet)->toArray();
+        return $result;
+    }
+    
     public function getInfo()
     {
         
