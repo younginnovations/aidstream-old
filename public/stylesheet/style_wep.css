@@ -902,9 +902,15 @@ table.activity-list-table .title a {
 	margin-bottom: 20px;
 	border: 1px solid #dcdcdc;
 }
-table.activity-list-table .title .list-action {
+table.activity-list-table .title .list-action,
+table.user-list-table .title .list-action{
 	float: right;
 }
+
+table.user-list-table .title .list-action a {
+	font-weight: bold;
+}
+
 table.activity-list-table tr,  .user-list tr{
 	background: #f2f2f2;
 	border-bottom: 1px solid #dcdcdc;
@@ -913,13 +919,31 @@ table.activity-list-table tr:hover {
 	background: #fefae9;
 }
 
-#contain table.activity-list-table .Editing {
+.state-display .label {
+	font-size: 12px;
+}
+
+#contain table.activity-list-table .editing,
+.state-display .editing{
 	color: #446030;
 }
 
-#contain table.activity-list-table .Checked {
-	color: #dcdcdc;
+#contain table.activity-list-table .checked,
+.state-display .checked{
+	color: #009ADA;
 }
+
+#contain table.activity-list-table .to-be-checked,
+.state-display .to-be-checked{
+	color: #8b0408;
+}
+
+#contain table.activity-list-table .published,
+.state-display .published{
+	color: #6d6d6d;
+}
+
+
 
 /* View Activity */
 
@@ -980,6 +1004,11 @@ table.activity-list-table tr:hover {
     font-weight: bold;
     padding: 10px 0;
     text-decoration: none;
+}
+
+.addmore .button span,
+.remove .button span{
+	font-size: 16px;
 }
 
 #element-form #Submit {
