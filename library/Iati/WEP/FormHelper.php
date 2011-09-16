@@ -90,7 +90,7 @@ class Iati_WEP_FormHelper {
                     $title = $camelCaseToSeperator->filter($ele[0]->getClassName());
 
                     if ($ele[0]->isRequired()) {
-                        $title .= '<span class="required">**</span>';
+                        $title .= '<span class="required">*</span>';
                     }
                     $_title = sprintf('<legend class="form-title">%s</legend>', $title);
 
@@ -102,7 +102,7 @@ class Iati_WEP_FormHelper {
 
 
                 if ($ele[0]->isRequired()) {
-                    $title .= '<span class="required">**</span>';
+                    $title .= '<span class="required">*</span>';
                 }
                 $_title = sprintf('<legend class="form-title">%s</legend>', $title);
 
