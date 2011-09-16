@@ -6,11 +6,8 @@
             
             <?php
             $identity = $this->userInfo();
-            $params = explode("&", parse_url($_SERVER['REQUEST_URI'],PHP_URL_QUERY));
-            unset($params[0]);
-            $classParam = explode("=", $params[1]);
-            $paramValue = $classParam[1];
             $url = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+            $paramValue = $url['class'];
             $model = new Model_Wep();
             
             $defaultField = $model->getDefaults('default_field_groups', 'account_id', $identity->account_id);
