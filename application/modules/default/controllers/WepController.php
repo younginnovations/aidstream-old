@@ -559,7 +559,7 @@ class WepController extends Zend_Controller_Action
         if ($_GET['activity_id']) {
             $exists = $model->getRowById('iati_activity', 'id', $_GET['activity_id']);
             if(!$exists){
-                $this->_helper->FlashMessenger->addMessage(array('message' => "Activity does not exist."));
+                $this->_helper->FlashMessenger->addMessage(array('warning' => "Activity does not exist."));
 
                 $this->_redirect('/user/user/login');
             }
@@ -740,7 +740,7 @@ class WepController extends Zend_Controller_Action
     {
         if(!$activity_id = $this->getRequest()->getParam('activity_id'))
         {
-            $this->_helper->FlashMessenger->addMessage(array('message' => "Activity not found."));
+            $this->_helper->FlashMessenger->addMessage(array('warning' => "Activity not found."));
             $this->_redirect('/wep/view-activities');
         }
         
@@ -822,7 +822,7 @@ class WepController extends Zend_Controller_Action
             if(isset($_GET['activity_id'])){
                 $exists = $wepModel->getRowById('iati_activity', 'id', $_GET['activity_id']);
                 if(!$exists){
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "Activity does not exist."));
+                    $this->_helper->FlashMessenger->addMessage(array('warning' => "Activity does not exist."));
 
                     $this->_redirect('/user/user/login');
                 }
@@ -1213,7 +1213,7 @@ class WepController extends Zend_Controller_Action
             }
         }
         if($not_valid){
-            $this->_helper->FlashMessenger->addMessage(array('message' => "The activities cannot be changed to the state. Please check that a state to be changed is valid for all selected activities"));
+            $this->_helper->FlashMessenger->addMessage(array('warning' => "The activities cannot be changed to the state. Please check that a state to be changed is valid for all selected activities"));
         } else {
             $db->updateActivityStatus($activity_ids,(int)$state);
             if($state == Iati_WEP_ActivityState::STATUS_PUBLISHED)

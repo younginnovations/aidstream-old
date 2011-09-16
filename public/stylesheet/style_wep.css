@@ -444,11 +444,33 @@ h2.form-title {
 	border-radius: 4px 4px 4px 4px;
 	font-style: italic;
 }
-.message li, .info li
+.message li
+{
+	padding: 9px;
+}
+.warning li, .info li
 {
 	margin: 0;
 	padding: 9px;
 }
+
+.warning, .info
+{
+	font-size:12px;
+	font-weight:normal;
+	font-family:Verdana, Geneva, sans-serif;
+	background:url(../images/warning.png) no-repeat 10px center #f3f3f3;
+	color:#000;
+	padding-left:40px;
+	border-radius: 4px 4px 4px 4px;
+	font-style: italic;
+}
+.warning li, .info li
+{
+	margin: 0;
+	padding: 9px;
+}
+
 ul.error
 {
 	font-size:12px;

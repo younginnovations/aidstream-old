@@ -130,7 +130,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             $email->setFrom($config['fromAddress'])->addTo($config['errLogging']);
 
             $writer_email = new Zend_Log_Writer_Mail($email);
-            $writer_email->setSubjectPrependText('Urgent: SpeedRFP Server Error!');
+            $writer_email->setSubjectPrependText('Urgent: IATI Server Error!');
 
             // only email warning level "errors" or higher
             $writer_email->addFilter(Zend_Log::WARN);
