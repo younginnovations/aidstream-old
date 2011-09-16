@@ -863,7 +863,7 @@ class WepController extends Zend_Controller_Action
 
                     $this->_helper->FlashMessenger->addMessage(array('message' => "Activity overrided."));
 
-                    $this->_redirect('wep/edit-activity-elements?activity_id=' . $activity_id);
+                    $this->_redirect('wep/view-activity/' . $activity_id);
                 }//end of inner if
             } else {
 
