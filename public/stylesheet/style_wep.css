@@ -324,12 +324,13 @@ h2.form-title {
 	background: url(../images/tick.png) no-repeat 5px top;
 }
 
-#sidebar-right #block-activity-menu a:hover {
+#sidebar-right #block-activity-menu a:hover,
+#block-activity-menu .content li.highlight a{
 	background-color: #fdf6e6;
 	text-decoration: none;
 }
 
-#block-activity-menu .content li a.active {
+#block-activity-menu .content li a.active{
 	background-position: 5px -31px;
 }
 #nav-list ul li
