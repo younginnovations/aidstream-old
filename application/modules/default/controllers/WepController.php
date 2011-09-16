@@ -63,7 +63,7 @@ class WepController extends Zend_Controller_Action
         $published_data = $db->getPublishedInfo($account_id);
         $bootstrap = $this->getInvokeArg('bootstrap');
         $config = $bootstrap->getOptions();
-        $file_path = $config['registry_xmlfile_path'];
+        $file_path = $config['xml_folder'];
         
         $this->view->published_data = $published_data;
         $this->view->file_path = $file_path;

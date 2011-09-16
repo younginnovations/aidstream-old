@@ -4,6 +4,7 @@ class Iati_Registry
 {
     protected $org_id;
     protected $publisher_name;
+    protected $file_path;
     
     public function __construct($publisher_org_id,$publisher_org_name)
     {
@@ -11,7 +12,7 @@ class Iati_Registry
         $this->publisher_org_name = $publisher_org_name;
         
         $config = new Zend_Config_Ini(APPLICATION_PATH.'/configs/application.ini', APPLICATION_ENV);
-        $this->file_path = $config->registry_xmlfile_path;
+        $this->file_path = $config->public_folder.$config->xml_folder;
         
     }
     public function publish()
@@ -26,7 +27,6 @@ class Iati_Registry
     public function saveActivityXml($activities)
     {
         $oXmlHandler = new Iati_WEP_XmlHandler($activities);
-        
         $filename = strtolower($this->publisher_org_name).".xml";
         $fp = fopen($this->file_path.$filename,'w');
         fwrite($fp,$oXmlHandler->getXmlOutput());
