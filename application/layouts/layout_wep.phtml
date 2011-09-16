@@ -40,8 +40,8 @@
                         <?$auth = Zend_Auth::getInstance();
                              if ($auth->hasIdentity()):?>
                              <?php $identity = $auth->getIdentity();?>
-                            You are logged in as  <?php echo $this->l($identity->user_name, 'user/user/myaccount');?>
-                            <?php print "(". $this->l('Logout', 'user/user/logout') . ")";?>
+                            You are logged in as  <?php echo $this->l($identity->user_name, 'user/user/myaccount',array('attributes' => array('class' => 'user-name')));?>
+                            <?php print " , (". $this->l('Logout', 'user/user/logout') . ")";?>
                                 
                         <?endif;?>                                                                
                         <? //if (!$auth->hasIdentity()):?>
