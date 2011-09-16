@@ -742,6 +742,11 @@ class WepController extends Zend_Controller_Action
         $activity['@xml_lang'] = $model->fetchValueById('Language', $activity_info[0]['@xml_lang'], 'Code');
         $activity['@default_currency'] = $model->fetchValueById('Currency', $activity_info[0]['@default_currency'], 'Code');
         
+        $iati_identifier_row = $model->getRowById('iati_identifier', 'activity_id', $activity_id);
+        $activity['iati_identifier'] = $iati_identifier_row['text'];
+        $title_row = $model->getRowById('iati_title', 'activity_id', $activity_id);
+        $activity['iati_title'] = $title_row['text'];
+        
         $status_form = new Form_Wep_ActivityChangeState();
         $status_form->setAction($this->view->baseUrl()."/wep/update-status");
         $status_form->ids->setValue($activity_id);
