@@ -24,15 +24,18 @@ p
 }
 body
 {
-	background:url(../images/wapper-bg.png) repeat-x center top #e5e5e5 !important;
+	background:url(../images/iati-wep/wep-bg.jpg) repeat-x center top #f3f3f3 !important;
 	margin:0px;
-	padding:0px;
+	padding:0 0 25px 0;
 }
 #wapper
 {
 	margin:0px;
 	padding:0px;
+	overflow: hidden;
 }
+
+
 table {
 	border-collapse: collapse;
 }
@@ -66,10 +69,20 @@ table {
 	margin-top:35px;
 	float:left;
 }*/
+
+.container-wrapper {
+	height: 85px;
+}
+
+#navigation-wrapper {
+	border: none;
+}
+
 #login-nav
 {
+	color: #979797;
 	float:right;
-	margin-top:15px;
+	margin-top:5px;
 }
 #login-nav .user-login
 {
@@ -149,7 +162,7 @@ h2.form-title {
 {
 	float:right;
 	clear:both;
-	margin-top:40px;
+	margin-top:20px;
 }
 .user-nav a {
 	background: #009ada;
@@ -167,14 +180,35 @@ h2.form-title {
 }
 
 
+#main-content-top {
+	background: url(../images/iati-wep/content-top.jpg) no-repeat;
+	margin-top:15px;
+	height: 4px;
+}
+
+#main-content-bottom {
+	background: url(../images/iati-wep/content-bottom.jpg) no-repeat;
+	height: 4px;
+}
 #contain-body
 {
-	margin-top:15px;
+	background-color: #fff;
+	overflow: hidden;
+	padding: 8px 0;
 }
 #contain-left
 {
 	float:left;
+	width: 600px;
+	margin-left: 20px;
 }
+
+#sidebar-right {
+	float: left;
+	width: 279px;
+	margin-left: 20px;
+}
+
 #contain-top
 {
 	background:url(../images/contain-left-top-bg.png) no-repeat;
@@ -190,13 +224,9 @@ h2.form-title {
 	width:700px;
 }
 #contain-area
-{
-	width:698px;
-	border-left:1px solid #b4aaaa;
-	border-right:1px solid #b4aaaa;
-	background:#FFF;
-	padding-top: 10px;
+
 }
+
 #contain
 {
 	margin:0 20px;
@@ -268,14 +298,33 @@ h2.form-title {
 	font-weight: bold;
 	font-size: 14px;
 }
+
+#sidebar-right #block-activity-menu {
+    background: none;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 10px;
+    padding: 5px 40px 5px 5px;
+}
+
+#sidebar-right #block-activity-menu h2 {
+	font-weight: bold;
+}
+
 #block-activity-menu .content li a {
 	display: block;
 	border-bottom: 1px solid #dbd9d9;
 	padding: 6px 0 7px 25px;
-	background: url(../images/tick.png) no-repeat left top;
+	background: url(../images/tick.png) no-repeat 5px top;
 }
+
+#sidebar-right #block-activity-menu a:hover {
+	background-color: #fdf6e6;
+	text-decoration: none;
+}
+
 #block-activity-menu .content li a.active {
-	background-position: 0 -31px;
+	background-position: 5px -31px;
 }
 #nav-list ul li
 {
@@ -371,15 +420,21 @@ h2.form-title {
 {
 	color:#F00;
 }
+
+#flash-messages ul {
+	margin-bottom: 10px;
+}
+
 .message, .info
 {
 	font-size:12px;
-	font-weight:bold;
+	font-weight:normal;
 	font-family:Verdana, Geneva, sans-serif;
-	background:url(../images/bubble-speech.png) no-repeat center left #fbedbd;
-	color:#624c02;
+	background:url(../images/notification.jpg) no-repeat 10px center #f3f3f3;
+	color:#000;
 	padding-left:40px;
-	border:1px solid #f9d044;
+	border-radius: 4px 4px 4px 4px;
+	font-style: italic;
 }
 .message li, .info li
 {
@@ -389,12 +444,12 @@ h2.form-title {
 ul.error
 {
 	font-size:12px;
-	font-weight:bold;
+	font-weight:normal;
+	font-style: italic;
 	font-family:Verdana, Geneva, sans-serif;
-	background:url(../images/bubble-speech-error.png) no-repeat center left #ffeeee;
-	color:#990000;
+	background:url(../images/iati-wep/error.jpg) no-repeat 10px center #f3f3f3;
+	color:#000;
 	padding-left:40px;
-	border:1px solid #cc0000;
 }
 .error
 {
@@ -406,6 +461,11 @@ ul.error
 .error li
 {
 	margin:9px 0;
+	padding: 9px;
+}
+
+fieldset ul.errors {
+	margin-left: 170px;
 }
 /*Login pages*/
 
@@ -415,7 +475,7 @@ label
 	width:160px;
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:12px;
-	color:#887272;
+	color:#525252;
 	display: block;
 	font-weight: bold;
 }
@@ -444,7 +504,7 @@ select.form-select {
 }
 input.form-submit, a.button {
 
-    background: url("images/buttons.png") repeat-x scroll 0 0 transparent;
+    /*background: url("images/buttons.png") repeat-x scroll 0 0 transparent;
     border-color: #E4E4E4 #D2D2D2 #B4B4B4;
     border-radius: 20px 20px 20px 20px;
     border-style: solid;
@@ -457,7 +517,16 @@ input.form-submit, a.button {
     margin-bottom: 1em;
     margin-right: 1em;
     padding: 4px 17px;
-    text-align: center;
+    text-align: center;*/
+    background-color: #009ADA;
+    border: none;
+    border-radius: 4px 4px 4px 4px;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    padding: 10px 20px;
+    text-decoration: none;
 }
 
 #login-element #login, #create_new_account, #email_new_password
@@ -671,6 +740,8 @@ code
     margin-left: 385px;	
     cursor: pointer;
     color: #009ADA;
+    display: block;
+    text-align: right;
 }
 
 #add-more{
@@ -708,19 +779,23 @@ legend {
 
 /* Activity page fieldset */
 .activity-list, .user-list {
-	margin-bottom: 20px;
+	/*margin-bottom: 20px;*/
 }
 .activity-list fieldset, .user-list fieldset {
 	background: none;
 	padding: 0;
 	margin: 0;
 }
+
+.activity-list fieldset .inner {
+	border-bottom: 1px solid #f2f2f2;
+}
+
 .activity-list legend {
 	color: #000;
 	font-size: 14px;
 }
 .activity-list fieldset.innermost-wrapper{
-    margin-bottom: 20px;
     padding: 20px 10px;
     background: #f6f6f6;
 }
@@ -862,4 +937,35 @@ table.activity-list-table tr:hover {
     font-weight: bold;
     margin-bottom: 20px;
     padding-left: 5px;
+}
+
+#iati_activity_status {
+	overflow: hidden;
+}
+
+#iati_activity_status label {
+	line-height: 22px;
+	width: auto;
+}
+
+.addmore {
+	display: block;
+	text-align: right;
+}
+
+.addmore .button,
+.remove .button{
+	background: none;
+    border: none;
+    border-radius: 0;
+    color: #009ADA;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 0;
+    text-decoration: none;
+}
+
+#element-form #Submit {
+	margin-top: 10px;
 }
