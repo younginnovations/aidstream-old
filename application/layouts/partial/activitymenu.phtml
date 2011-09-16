@@ -10,20 +10,25 @@
             unset($params[0]);
             $classParam = explode("=", $params[1]);
             $paramValue = $classParam[1];
-            
             $url = Zend_Controller_Front::getInstance()->getRequest()->getParams();
             $model = new Model_Wep();
             
             $defaultField = $model->getDefaults('default_field_groups', 'account_id', $identity->account_id);
+            
             $attributes = (getRowSet('Identifier', $url['activity_id']))?'class = "active"':'';
             $href1 = $this->baseUrl() . "/wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=Identifier";
-            
-            print "<li><a $attributes href=$href1>Iati Identifier</a></li>";
-            
+            $class = '';
+            if($paramValue == 'Identifier'){
+                $class = "class = highlight";
+            }
+            print "<li $class ><a $attributes href=$href1>Iati Identifier</a></li>";
+            $class = '';
             $href2 = $this->baseUrl(). "/wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=ReportingOrg";
             $attributes = (getRowSet('ReportingOrg', $url['activity_id']))?'class = "active"':'';
-            
-            print "<li><a $attributes href=$href2>Reporting Organisation</a></li>";
+            if($paramValue == 'ReportingOrg'){
+                $class = "class = highlight";
+            }
+            print "<li $class><a $attributes href=$href2>Reporting Organisation</a></li>";
             foreach($defaultField->getProperties() as $key => $eachData){
                 if($eachData == 1){
                    $attributes = '';
