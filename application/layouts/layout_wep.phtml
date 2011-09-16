@@ -40,8 +40,8 @@
                         <?$auth = Zend_Auth::getInstance();
                              if ($auth->hasIdentity()):?>
                              <?php $identity = $auth->getIdentity();?>
-                            You are logged in as  <?php echo $this->l($identity->user_name, 'user/user/myaccount');?>
-                            <?php print "(". $this->l('Logout', 'user/user/logout') . ")";?>
+                            You are logged in as  <?php echo $this->l($identity->user_name, 'user/user/myaccount',array('attributes' => array('class' => 'user-name')));?>
+                            <?php print " , (". $this->l('Logout', 'user/user/logout') . ")";?>
                                 
                         <?endif;?>                                                                
                         <? //if (!$auth->hasIdentity()):?>
@@ -85,11 +85,11 @@
             
 <div id="wapper">
     <div class="container_12">
+        <div class="grid_12">
             <!--contain div start-->
+            <div id="main-content-top"></div>
             <div id="contain-body">
-                <div class="grid_9">
                     <div id="contain-left">
-                        <div id="contain-top"></div>
                         <div id="contain-area">
                             <div id="contain">
                                 <div id="flash-messages"><?php $flashMessenger = $this->flashMessages();
@@ -105,10 +105,8 @@
                                 <?php print $this->layout()->content;?>
                             </div>
                         </div>
-                        <div id="contain-bottom"></div>
                     </div>
-                </div> 
-                <div class="grid_3">
+
                     <div id="sidebar-right">
                         <div id="sidebar-right-inner">
                     <?php //var_dump($auth->hasIdentity());?>
@@ -118,30 +116,31 @@
                         ?>
                         </div>
                     </div>
-                    </div> 
-                </div>                                  
+                                <div class="clear"></div>
+                               
             </div>
-            <div class="clear"></div>
+            <div id="main-content-bottom"></div>
+        <div>
     </div>
 </div>
          <!--contain div closed-->
         <!--footer div start-->
-<div id="footer-wapper">
+<!--<div id="footer-wapper">
     <div class="container_12">
             <div id="footer">
                 <div class="grid_12">
                     <div id="footer-area">                      
                         <div id="footer-inner">
                             <h2>IATI-AIMS</h2>
-                            <p class="copy-right">&copy; 2004-2011 IATI-Aims. All Right Reserved</p>
+                            <p class="copy-right">&copy; 2004-2011 IATI-Aims. All Right Reserved</p>-->
                             <!--<p class="power-by">Power by: <a href="http://yipl.com.np">YIPL</a></p>-->
-                        </div>                    
+                       <!-- </div>                    
                     </div>
                 </div>
             </div>
             <div class="clear"></div>
     </div>           
-</div>
+</div>-->
 
 <div id="backtotop"><a href="#top"></a></div>
 <div id = 'contact'></div>
