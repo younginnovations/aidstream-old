@@ -90,7 +90,7 @@ class Iati_WEP_FormHelper {
                     $title = $camelCaseToSeperator->filter($ele[0]->getClassName());
 
                     if ($ele[0]->isRequired()) {
-                        $title .= '<span class="required">**</span>';
+                        $title .= '<span class="required">*</span>';
                     }
                     $_title = sprintf('<legend class="form-title">%s</legend>', $title);
 
@@ -102,7 +102,7 @@ class Iati_WEP_FormHelper {
 
 
                 if ($ele[0]->isRequired()) {
-                    $title .= '<span class="required">**</span>';
+                    $title .= '<span class="required">*</span>';
                 }
                 $_title = sprintf('<legend class="form-title">%s</legend>', $title);
 
@@ -209,7 +209,7 @@ class Iati_WEP_FormHelper {
 
         if ($obj->hasMultiple()) {
             $url = $this->getUrl($obj, '/wep/remove-elements');
-            $form .= sprintf('<span class="remove button"><a  class="button" href="%s">Remove</a></span>',
+            $form .= sprintf('<span class="remove button"><a  class="button" href="%s"> <span>x </span>Remove this</a></span>',
             $url);
         }
 
@@ -336,7 +336,7 @@ class Iati_WEP_FormHelper {
         $this->_attr($attribs), $formElement, $tag);
     }
 
-    protected function _addMore($attribs=null, $tag='div', $text='Add More') {
+    protected function _addMore($attribs=null, $tag='div', $text='<span>+</span> Add more') {
         $text = '<' . $tag . ' ' . $this->_attr($attribs) . '>' . $text . '</' . $tag . '>';
         return sprintf('<span class="addmore button">%s</span>', $text);
     }

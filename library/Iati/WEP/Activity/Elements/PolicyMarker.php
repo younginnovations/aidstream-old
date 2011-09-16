@@ -3,6 +3,9 @@ class Iati_WEP_Activity_Elements_PolicyMarker extends Iati_WEP_Activity_Elements
 {
     protected $attributes = array('id', 'text', 'significance', 'vocabulary', 'code', 'xml_lang');
     protected $text;
+    protected $vocabulary;
+    protected $significance;
+    protected $code;
     protected $xml_lang;
     protected $id = 0;
     protected $options = array();
@@ -76,6 +79,9 @@ class Iati_WEP_Activity_Elements_PolicyMarker extends Iati_WEP_Activity_Elements
     
     public function setAttributes ($data) {
         $this->id = (isset($data['id']))?$data['id']:0;
+        $this->vocabulary = (key_exists('@vocabulary', $data))?$data['@vocabulary']:$data['vocabulary'];
+        $this->significance = (key_exists('@significance', $data))?$data['@significance']:$data['significance'];
+        $this->code = (key_exists('@code', $data))?$data['@code']:$data['code'];
         $this->xml_lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
         $this->text = $data['text'];
         
@@ -99,6 +105,9 @@ class Iati_WEP_Activity_Elements_PolicyMarker extends Iati_WEP_Activity_Elements
     public function validate()
     {
         $data['id'] = $this->id;
+        $data['vocabulary'] = $this->vocabulary;
+        $data['significance'] = $this->significance;
+        $data['code'] = $this->code;
         $data['xml_lang'] = $this->xml_lang;
         $data['text'] = $this->text;
         
@@ -108,6 +117,9 @@ class Iati_WEP_Activity_Elements_PolicyMarker extends Iati_WEP_Activity_Elements
     public function getCleanedData(){
         $data = array();
         $data ['id'] = $this->id;
+        $data['@vocabulary'] = $this->vocabulary;
+        $data['@significance'] = $this->significance;
+        $data['@code'] = $this->code;
         $data['@xml_lang'] = $this->xml_lang;
         $data['text'] = $this->text;
         
