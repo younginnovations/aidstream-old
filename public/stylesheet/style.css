@@ -40,8 +40,30 @@ a:hover {
 }
 
 .activity-title {
+	color: #336564;
+	font-size: 16px;
+	padding: 10px 0 10px 5px;
+}
+
+.second-title {
+	color: #000;
+	font-size: 14px;
+	font-weight: bold;
 	border-bottom: 1px solid #ccc;
 	padding: 10px 0 10px 5px;
+}
+
+.second-title span {
+	font-weight: normal;
+	font-style: italic;
+}
+
+.activity-title .activity_identifier {
+	font-weight: bold;
+}
+
+.activity-title .activity_title {
+	font-style: italic;
 }
 
 .activity-title .activity {
@@ -310,7 +332,7 @@ table.table-header td {
 
 #header .logo a {
 	display: block;
-	height: 116px;
+	height: 85px;
 }
 
 #header .logo a img {

@@ -43,7 +43,6 @@ class WepController extends Zend_Controller_Action
         $model = new Model_Wep();
 
         $activities_id = $model->listAll('iati_activities', 'account_id', $identity->account_id);
-//        print_r($activities_id);exit;
         if (empty($activities_id)) {
 //            print "ddd";exit;
             $data['@version'] = '01';
@@ -459,6 +458,10 @@ class WepController extends Zend_Controller_Action
             $activity_info[0]['@xml_lang'], 'Code');
             $activity['@default_currency'] = $model->fetchValueById('Currency',
             $activity_info[0]['@default_currency'], 'Code');
+            $iati_identifier_row = $model->getRowById('iati_identifier', 'activity_id', $activity_id);
+            $activity['iati_identifier'] = $iati_identifier_row['text'];
+            $title_row = $model->getRowById('iati_title', 'activity_id', $activity_id);
+            $activity['iati_title'] = $title_row['text'];
         }
         $this->view->activityInfo = $activity;
         $initial = $this->getInitialValues($activity_id, $class);
@@ -552,13 +555,17 @@ class WepController extends Zend_Controller_Action
             $activity_id = $this->_request->getParam('activity_id');
             $activity_info = $model->listAll('iati_activity', 'id', $activity_id);
             if (empty($activity_info)) {
-                //@todo
+                //@todo 
             }
             $activity = $activity_info[0];
             $activity['@xml_lang'] = $model->fetchValueById('Language', $activity_info[0]['@xml_lang'], 'Code');
 
             $activity['@default_currency'] = $model->fetchValueById('Currency', $activity_info[0]['@default_currency'], 'Code');
-
+            
+            $iati_identifier_row = $model->getRowById('iati_identifier', 'activity_id', $activity_id);
+            $activity['iati_identifier'] = $iati_identifier_row['text'];
+            $title_row = $model->getRowById('iati_title', 'activity_id', $activity_id);
+            $activity['iati_title'] = $title_row['text'];
         }
         
         $this->view->activityInfo = $activity;
@@ -568,6 +575,7 @@ class WepController extends Zend_Controller_Action
             
             if($_POST){
                 $flatArray = $this->flatArray($_POST);
+                //print_r($flatArray);exit;
                 $activity = new Iati_WEP_Activity_Elements_Activity();
                 $activity->setAttributes(array('activity_id' => $activity_id));
                 $registryTree = Iati_WEP_TreeRegistry::getInstance();
@@ -591,6 +599,7 @@ class WepController extends Zend_Controller_Action
                     $element->setAttribs($data);
                     $factory = new $classname ();
                     $activityTree = $factory->cleanData($activity, $element);
+                    //print_r($activityTree);exit;
                     $dbLayer = new Iati_WEP_DbLayer();
                     $dbLayer->save($activityTree);
 
@@ -637,6 +646,7 @@ class WepController extends Zend_Controller_Action
         $items = array();
         $parentExp = "/^parent/";
         $itemExp = "/^item/";
+        //print_r($_GET);exit;
         foreach($_GET as $key => $eachValue){
             if(preg_match($parentExp, $key)){
                 $a = explode('parent', $key);
@@ -647,11 +657,10 @@ class WepController extends Zend_Controller_Action
                 $items[$a[1]] = $eachValue;
             }
         }
-         
         //       print_r($_GET);exit;
          
         $class1 = (isset($parents[0]))?$parents[0]:$class;
-         
+        //print_r($class1);exit;
         $classname = 'Iati_WEP_Activity_' . $class1 . 'Factory';
         $factory = new $classname;
         $factory->setInitialValues($initial);
@@ -673,7 +682,7 @@ class WepController extends Zend_Controller_Action
             $wepModel = new Model_Wep();
             $exists = $wepModel->getRowById('iati_activities', 'id', $_GET['activities_id']);
             if(!$exists){
-                $this->_helper->FlashMessenger->addMessage(array('message' => "Invalid Id."));
+                $this->_helper->FlashMessenger->addMessage(array('error' => "Invalid Id."));
 
                 $this->_redirect('/user/user/login');
             }
@@ -732,6 +741,11 @@ class WepController extends Zend_Controller_Action
         
         $activity['@xml_lang'] = $model->fetchValueById('Language', $activity_info[0]['@xml_lang'], 'Code');
         $activity['@default_currency'] = $model->fetchValueById('Currency', $activity_info[0]['@default_currency'], 'Code');
+        
+        $iati_identifier_row = $model->getRowById('iati_identifier', 'activity_id', $activity_id);
+        $activity['iati_identifier'] = $iati_identifier_row['text'];
+        $title_row = $model->getRowById('iati_title', 'activity_id', $activity_id);
+        $activity['iati_title'] = $title_row['text'];
         
         $status_form = new Form_Wep_ActivityChangeState();
         $status_form->setAction($this->view->baseUrl()."/wep/update-status");
@@ -854,7 +868,7 @@ class WepController extends Zend_Controller_Action
 
                     $this->_helper->FlashMessenger->addMessage(array('message' => "Activity overrided."));
 
-                    $this->_redirect('wep/edit-activity-elements?activity_id=' . $activity_id);
+                    $this->_redirect('wep/view-activity/' . $activity_id);
                 }//end of inner if
             } else {
 
@@ -959,11 +973,11 @@ class WepController extends Zend_Controller_Action
                 print 'success';
                 exit();
                  
-            } catch (Exception $e) {
+            } /*catch (Exception $e) {
 
                 print 'Error occured while deleting.';
                 exit();
-            }
+            }*/
             catch(Exception $e){
                 print $e; exit();
             }

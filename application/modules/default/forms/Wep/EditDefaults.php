@@ -48,7 +48,14 @@ class Form_Wep_EditDefaults extends App_Form
                                 
         $signup = new Zend_Form_Element_Submit('Save');
                                          $signup->setValue('save')->setAttrib('class', 'form-submit');
-                                         
+                 
+        
+        $button = new Zend_Form_Element_Button('button');
+        $button->setLabel('Check All');
+        $button->setAttrib('class', 'check-uncheck');
+        
+        $this->addElement($button);
+                                
         $this->addElements($form);
         
         foreach($defaults['fields'] as $key=>$eachDefault){
@@ -57,6 +64,8 @@ class Form_Wep_EditDefaults extends App_Form
                 $checked[] = $key;
             }
         }
+        
+        
         $this->addElement('multiCheckbox', 'default_fields', array(
                         'disableLoadDefaultDecorators' => true,
                         'separator'    => '&nbsp;',
@@ -70,8 +79,8 @@ class Form_Wep_EditDefaults extends App_Form
         ));
         $this->addDisplayGroup(array('default_currency', 'default_language', 'default_reporting_org', 'reporting_org_ref', 'hierarchy'), 'field2',array('legend'=>'Default Field Values'));
        
-        $this->addDisplayGroup(array('default_fields',), 'field3',array('legend'=>'Default Field Groups'));
-       
+        $df = $this->addDisplayGroup(array('button', 'default_fields',), 'field3',array('legend'=>'Default Field Groups'));
+        $df->setDescription('<a href="#">aaa</a>');
         $this->addElement($signup);
         $this->setMethod('post');
     }

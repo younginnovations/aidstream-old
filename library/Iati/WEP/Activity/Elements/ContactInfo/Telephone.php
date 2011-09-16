@@ -15,8 +15,8 @@ class Iati_WEP_Activity_Elements_ContactInfo_Telephone extends
                     'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
                 ),
                 'text' => array(
-                    'name' => 'Telephone',
-                    'label' => 'Number',
+                    'name' => 'text',
+                    'label' => 'Telephone',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
                     'attrs' => array('class' => array('form-text'))
                 ),
@@ -121,7 +121,6 @@ class Iati_WEP_Activity_Elements_ContactInfo_Telephone extends
         $data = array();
         $data ['id'] = $this->id;
         $data['text'] = $this->text;
-        
         return $data;
     }
     

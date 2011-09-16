@@ -13,15 +13,16 @@
             <tr class="user-row1">
                 <td class="sn"><?php print $i; ?></td>
                 <td class="title"><?php print $user['first_name'] . " " . $user['middle_name'] . " " . $user['last_name'];?>
-                </td>
                 
-                <td><?php print $user['user_name']; ?>
                 <div class = "list-action"><?php print $this->l('View', 'admin/view-profile?user_id='.$user['user_id'])?>
         <?php //print $this->l('Edit', 'admin/edit-profile?user_id='.$user['user_id'])?>
         <?php //print $this->l('Change Password', 'user/user/changepassword?user_id='.$user['user_id'])?>                    
         <?php print $this->l('Delete', 'admin/delete-user?user_id='.$user['user_id'],
                            array('attributes' => array('onclick' => "javascript: return confirm('Do you really want to delete?')")))?>
-                </div></td>        
+                </div>
+                </td>
+                
+                <td><?php print $user['user_name']; ?></td>        
                 
             </tr>
         <?php $i++;?>

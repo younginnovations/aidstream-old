@@ -1,0 +1,168 @@
+<?php $identity = Zend_Auth::getInstance()->getIdentity();
+
+?>
+
+<?php  
+$container = new Zend_Navigation();
+$this->navigation($container);
+
+switch($identity->role){
+    case 'admin':
+        $container->addPage(
+            array(
+                'label' => 'Dashboard',
+                'module'     => 'default',
+                'controller' => 'wep',
+                'action'     => 'dashboard',
+                'pages'      => array(
+                    array(
+                        'label' => 'Change Defaults',
+                        'module'     => 'default',
+                        'controller' => 'wep',
+                        'action'     => 'edit-defaults',
+                    ),
+                    array(
+                        'label' => 'Add Activity',
+                        'module'     => 'default',
+                        'controller' => 'wep',
+                        'action'     => 'add-activity',
+                    ),
+                    array(
+                        'label' => 'Edit Activity',
+                        'module'     => 'default',
+                        'controller' => 'wep',
+                        'action'     => 'edit-activity',
+                    ),
+                    array(
+                        'label' => 'List',
+                        'module'     => 'default',
+                        'controller' => 'wep',
+                        'action'     => 'view-activities',
+                        'pages' => array(
+                            array(
+                                'label' => 'Activity',
+                                'module'     => 'default',
+                                'controller' => 'wep',
+                                'action'     => 'add-activity-elements',
+                            ),
+                            array(
+                                'label' => 'Activity',
+                                'module'     => 'default',
+                                'controller' => 'wep',
+                                'action'     => 'edit-activity-elements',
+                            ),
+                            array(
+                                'label' => 'Activity',
+                                'module'     => 'default',
+                                'controller' => 'wep',
+                                'action'     => 'view-activity',
+                            ),
+                        ),
+                    ),
+                    array(
+                        'label' => 'List User',
+                        'module'     => 'default',
+                        'controller' => 'admin',
+                        'action'     => 'list-users',
+                        'pages' => array(
+                            array(
+                                'label' => 'User Profile',
+                                'module' => 'default',
+                                'controller' => 'admin',
+                                'action' => 'view-profile',
+                            ),
+                            array(
+                                'label' => 'Edit User Permission',
+                                'module' => 'default',
+                                'controller' => 'admin',
+                                'action' => 'edit-user-permission',
+                            ),
+                            array(
+                                'label' => 'Reset User Password',
+                                'module' => 'default',
+                                'controller' => 'admin',
+                                'action' => 'reset-user-password',
+                            ),
+                        ),
+                    ),
+                    
+                ),
+            )
+        );
+        break;
+    case 'user':
+        $container->addPage(
+            array(
+                'label' => 'Dashboard',
+                'module'     => 'default',
+                'controller' => 'wep',
+                'action'     => 'dashboard',
+                'pages'      => array(
+                    array(
+                        'label' => 'Add Activity',
+                        'module'     => 'default',
+                        'controller' => 'wep',
+                        'action'     => 'add-activity',
+                    ),
+                    array(
+                        'label' => 'Edit Activity',
+                        'module'     => 'default',
+                        'controller' => 'wep',
+                        'action'     => 'edit-activity',
+                    ),
+                    array(
+                        'label' => 'List',
+                        'module'     => 'default',
+                        'controller' => 'wep',
+                        'action'     => 'view-activities',
+                        'pages' => array(
+                            array(
+                                'label' => 'Activity',
+                                'module'     => 'default',
+                                'controller' => 'wep',
+                                'action'     => 'add-activity-elements',
+                            ),
+                            array(
+                                'label' => 'Activity',
+                                'module'     => 'default',
+                                'controller' => 'wep',
+                                'action'     => 'edit-activity-elements',
+                            ),
+                            array(
+                                'label' => 'Activity',
+                                'module'     => 'default',
+                                'controller' => 'wep',
+                                'action'     => 'view-activity',
+                            ),
+                        ),
+                    ),
+                    array(
+                        'label' => 'My Profile',
+                        'module'     => 'user',
+                        'controller' => 'user',
+                        'action'     => 'myaccount',
+                    ),
+                    array(
+                        'label' => 'Change Password',
+                        'module' => 'user',
+                        'controller' => 'user',
+                        'action' => 'changepassword',
+                        'param' => array(
+                            'user_id' => $identity->user_id,
+                        )
+                    ),
+                    
+                ),
+            )
+        );
+        break;
+
+}
+echo '<div class="breadcrumbs">';
+echo $this->navigation()->breadcrumbs()->setLinkLast(false)->setMinDepth(0)->render();
+echo '</div>';
+
+
+
+    
+    
