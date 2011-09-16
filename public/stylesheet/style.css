@@ -42,8 +42,20 @@ a:hover {
 .activity-title {
 	color: #336564;
 	font-size: 16px;
+	padding: 10px 0 10px 5px;
+}
+
+.second-title {
+	color: #000;
+	font-size: 14px;
+	font-weight: bold;
 	border-bottom: 1px solid #ccc;
 	padding: 10px 0 10px 5px;
+}
+
+.second-title span {
+	font-weight: normal;
+	font-style: italic;
 }
 
 .activity-title .activity_identifier {

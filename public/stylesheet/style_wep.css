@@ -1032,3 +1032,9 @@ table.activity-list-table tr:hover {
 #breadcrumb a {
 	font-weight: bold;
 }
+
+#contain .title {
+	font-size: 14px;
+	font-weight: bold;
+	padding: 5px 0 10px;
+}
