@@ -98,8 +98,8 @@ class Iati_WEP_ActivityTreeMapper {
 			23 => 'DefaultAidType',
 			24 => 'DefaultTiedStatus',
 			25 => 'Budget',
-			25 => 'ActivityWebsite',
-			26 => 'RelatedActivity',
+			26 => 'ActivityWebsite',
+			27 => 'RelatedActivity',
 			),
 	);
 
