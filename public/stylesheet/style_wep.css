@@ -1137,7 +1137,15 @@ table#list-org {
 	background-color: none !important;
 	color: #747474 !important;
 	padding: 5px 18px !important;
-	width: 30%;
+}
+
+.activity-detail-table table tr td.attrib-label {
+	width: 30% !important;
+	font-weight: bold;
+}
+
+.activity-detail-table table tr td.attrib-value {
+	width: 70% !important;
 }
 
 .activity-detail-table .element-title,
