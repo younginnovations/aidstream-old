@@ -14,5 +14,5 @@
 </table>
 
 <?php //print $this->l('Edit Profile', 'admin/edit-profile?user_id='.$this->user['user_id'])?>
-<?php print $this->l('Reset Password', 'admin/reset-user-password?user_id='. $this->user['user_id'])?>
-<?php print $this->l('Edit User Permission', 'admin/edit-user-permission?user_id='. $this->user['user_id']) ?>
+<?php print $this->l('Reset Password', 'admin/reset-user-password?user_id='. $this->user['user_id'], array('attributes' => array('class' => 'profile-links')))?>
+<?php print $this->l('Edit User Permission', 'admin/edit-user-permission?user_id='. $this->user['user_id'],  array('attributes' => array('class' => 'profile-links'))) ?>

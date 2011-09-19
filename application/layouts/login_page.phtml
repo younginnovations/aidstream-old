@@ -5,91 +5,41 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<?php 
 	
-	$this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/960.css');
-	$this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/reset.css');
-	$this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style1.css');
-	$this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style.css');
-
-	print $this->headLink();
+	/*		$this->headLink()->appendStylesheet($this->baseUrl() . '/css/text.css');
+			$this->headLink()->appendStylesheet($this->baseUrl() . '/css/jquery-ui-1.7.2.custom.css');
+            $this->headLink()->appendStylesheet($this->baseUrl() . '/css/ui.core.css');
+            $this->headLink()->appendStylesheet($this->baseUrl() . '/css/ui.datepicker.css');*/
+			//$this->headLink()->appendStylesheet($this->baseUrl() . '/contactable/contactable.css');
+           	//$this->headLink()->appendStylesheet($this->baseUrl() . '/css/jquery-ui-1.7.2.custom.css');
+			//echo $this->headLink();
+			$this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/960.css');
+			$this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/reset.css');
+			$this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style1.css');
+			$this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style.css');
+	
+			 print $this->headLink();
 	
 	?>
 	
 	<?php 
-	$this->headScript()->prependFile($this->baseUrl() . '/js/jquery-1.3.2.min.js', $type = 'text/javascript');
-	$this->headScript()->appendFile($this->baseUrl() . '/js/ui.datepicker.js', $type = 'text/javascript');
-	$this->headScript()->appendFile($this->baseUrl() . '/js/backtotop.js', $type = 'text/javascript');
-	print $this->headScript();
+	   $this->headScript()->prependFile($this->baseUrl() . '/js/jquery-1.3.2.min.js', $type = 'text/javascript');
+        $this->headScript()->appendFile($this->baseUrl() . '/js/ui.datepicker.js', $type = 'text/javascript');
+		$this->headScript()->appendFile($this->baseUrl() . '/js/backtotop.js', $type = 'text/javascript');
+       	// $this->headScript()->appendFile($this->baseUrl() . '/contactable/jquery.contactable.js', $type = 'text/javascript');
+     	//$this->headScript()->appendFile($this->baseUrl() . '/contactable/jquery.contactable.min.js', $type = 'text/javascript');
+       	//$this->headScript()->appendFile($this->baseUrl() . '/contactable/jquery.validate.pack.js', $type = 'text/javascript');
+       	//$this->headScript()->appendFile($this->baseUrl() . '/contactable/contact.js', $type = 'text/javascript');
+        
+        print $this->headScript();
 	?>
 </head>
 
-<body>
-		
-		<div class="container-wrapper">
-				<div id="wrapper">
-					<!--<div class="grid_3" id="login-nav">                                                                                                    	
-					</div>
-					-->
-					<div id="header">
-						<a name="top"></a>
-						<div class="logo"> <a href="<?php print($this->baseUrl().'/user/user/login');?>/"><img alt="logo" src="<?php print($this->baseUrl());?>/stylesheet/images/logo.jpg"></a>
-					  </div> <!-- losog -->
-						
-						<div class="site-name"><?php print $this->placeholder('title')?></div>
-					<!--<h1 class="title">IATI Webservices</h1>-->
-
-					</div><!-- header -->					
-				</div>	
-		</div>
-		
-            <!--header closed-->
-            
-<div id="wapper">
-	<div class="container_12">
-        	<!--contain div start-->
-        	<div id="contain-body">
-            	<div class="grid_9">
-                	<div id="contain-left">
-                        <div id="contain-top"></div>
-                        <div id="contain-area">
-                            <div id="contain">
-                            	<div id="flash-messages"><?php $flashMessenger = $this->flashMessages();
-										print $flashMessenger->getMessages();?></div>
-<!--                                <h1>IATI Code Lists</h1>-->
-                                <?php if ($this->placeholder('title') != ""):?>
-                                <h1><?php print $this->placeholder('title')?></h1>
-                                <? endif;?>
-                                <?php print $this->layout()->content;?>
-                            </div>
-                        </div>
-                        <div id="contain-bottom"></div>
-                    </div>
-            	</div> 
-                        	          		    	
-        	</div>
-            <div class="clear"></div>
+<body class="login">
+	<div id="login-wrapper">
+	<!--<div class="logo"> <a href="<?php //print($this->baseUrl());?>/"><img alt="logo" src="<?php print($this->baseUrl());?>/stylesheet/images/logo.jpg"></a>
+					  </div>--> <!-- losog -->
+	<?php print $this->layout()->content;?>
 	</div>
-</div>
-       	 <!--contain div closed-->
-        <!--footer div start-->
-<div id="footer-wapper">
-	<div class="container_12">
-        	<div id="footer">
-            	<div class="grid_12">
-                	<div id="footer-area">                   	
-                        <div id="footer-inner">
-                        	<h2>IATI-AIMS</h2>
-                        	<p class="copy-right">&copy; 2004-2011 IATI-Aims. All Right Reserved</p>
-                            <!--<p class="power-by">Power by: <a href="http://yipl.com.np">YIPL</a></p>-->
-                        </div>                    
-                    </div>
-                </div>
-            </div>
-			<div class="clear"></div>
-    </div>           
-</div>
-
-<div id="backtotop"><a href="#top"></a></div>
-<div id = 'contact'></div>
 
 </body>
 </html>

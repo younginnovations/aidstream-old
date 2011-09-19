@@ -470,7 +470,7 @@ code {
 
 .table-codelist {
     border-top: 1px solid #CCC;
-    border-left: 1px solid #CCC;	
+    border-left: 1px solid #CCC;
 }
 
 .table-codelist th, .table-codelist td{
@@ -480,7 +480,80 @@ code {
     border-right: 1px solid #CCC;
 }
 
-#activity_id-label, #activity_id-element, #table-label, #table-element, #field-label,
-#field3-label, #field3-label {
+#activity_id-label, #activity_id-element, #table-label, #table-element, #field-label, #field1-label,
+#field2-label, #field3-label {
     display: none;
+}
+
+/** Style for login forms **/
+body.login {
+	background: #FFF;
+}
+
+body.login h1 {
+	display: none;
+}
+
+#login-wrapper {
+    margin: 7em auto 0;
+    width: 315px;
+}
+
+#login-wrapper .logo {
+    margin-bottom: 10px;
+}
+
+#login-wrapper form {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #E5E5E5;
+    border-radius: 11px 11px 11px 11px;
+    box-shadow: 0 4px 18px #C8C8C8;
+    font-weight: normal;
+    margin-left: 8px;
+    padding: 16px 16px 20px;
+}
+
+#login-nav {
+	float: right;
+	margin-top: 10px;
+}
+
+#login-nav a {
+    font-size: 12px;
+    text-decoration: none;
+}
+
+#login-wrapper #login-element input {
+    background-color: #009ADA;
+    border: medium none;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 11px;
+    height: auto;
+    padding: 5px 8px;
+    width: auto;
+}
+
+#login-wrapper #username-element input, #login-wrapper #password-element input{
+    background: none repeat scroll 0 0 #FBFBFB;
+    border: 1px solid #E5E5E5;
+    font-size: 16px;
+    margin-bottom: 10px;
+    margin-right: 6px;
+    margin-top: 2px;
+    padding: 3px;
+    width: 97%;
+}
+
+#login-wrapper label {
+    color: #887272;
+    float: none;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    margin-top: 10px;
+    width: auto;
+}
+
+#login-wrapper #login-label {
+	display: none;
 }

@@ -353,9 +353,14 @@ h2.form-title {
 }
 #contain table
 {
-	border:1px solid #b4aaaa;
+	border:1px solid #F6F6F6;
 	width:100%;
 }
+
+#contain table.user-list-table {
+	border
+}
+
 #contain tr, #contain td, #contain th
 {
 	background-color: #f2f2f2;
@@ -532,7 +537,12 @@ input.form-text, select.form-select, textarea
 select.form-select {
     background: #FFF url(images/select_arrow.gif) no-repeat right center;
 }
-input.form-submit, a.button {
+
+.claro .change-password {
+	margin-top: 10px;
+}
+
+input.form-submit, a.button, .change-password a, .profile-links, .dashboard-summary a{
 
     /*background: url("images/buttons.png") repeat-x scroll 0 0 transparent;
     border-color: #E4E4E4 #D2D2D2 #B4B4B4;
@@ -557,6 +567,23 @@ input.form-submit, a.button {
     font-size: 14px;
     padding: 10px 20px;
     text-decoration: none;
+}
+
+.profile-links {
+	margin: 10px 15px 0 0;
+}
+
+#contain .dashboard-summary {
+	padding: 0;
+}
+
+.dashboard-summary a {
+	margin-right: 15px;
+}
+
+.profile-links:hover {
+	color: #fff;
+	text-decoration: none;
 }
 
 #login-element #login, #create_new_account, #email_new_password
@@ -793,7 +820,7 @@ dt{
 }
 
 dd{
-	margin-bottom: 1px;
+	margin-bottom: 8px;
 }
 
 fieldset{
@@ -914,7 +941,8 @@ legend {
 	margin-bottom: 20px;
 	padding-left: 5px;
 }
-table.activity-list-table .title{
+table.activity-list-table .title,
+table.user-list-table .title{
 	width: 335px;
 }
 table.activity-list-table .title a {
@@ -934,7 +962,7 @@ table.user-list-table .title .list-action a {
 	font-weight: bold;
 }
 
-table.activity-list-table tr,  .user-list tr{
+table.activity-list-table tr,  .user-list thead tr{
 	background: #f2f2f2;
 	border-bottom: 1px solid #dcdcdc;
 }
@@ -963,7 +991,7 @@ table.activity-list-table tr:hover {
 
 #contain table.activity-list-table .to-be-checked,
 .state-display .to_be_checked{
-	color: #8b0408;
+	color: #0b8053;
 }
 
 #contain table.activity-list-table .published,
@@ -1058,4 +1086,29 @@ table.activity-list-table tr:hover {
 #contain .title {
 	font-size: 12px;
 	padding: 5px 0 10px;
+}
+
+/** Dashboard page **/
+.dashboard-content .publish-item {
+    background-color: #F2F2F2;
+    border-radius: 4px 4px 4px 4px;
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    margin-top: 10px;
+}
+
+.dashboard-content .publish-item .publis-item-title {
+	font-weight:bold;
+}
+
+
+/** admin list org page **/
+table#list-org {
+	border: 1px solid #DCDCDC;
+    width: 100%;
+}
+
+#list-org tr {
+	background: none repeat scroll 0 0 #F2F2F2;
+    border-bottom: 1px solid #DCDCDC;
 }
