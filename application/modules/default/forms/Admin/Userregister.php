@@ -54,14 +54,20 @@ class Form_Admin_Userregister extends App_Form
 
         $signup = new Zend_Form_Element_Submit('Signup');
         $signup->setValue('signup')->setAttrib('id', 'Submit');
+                                    
                                          
+        $button = new Zend_Form_Element_Button('button');
+        $button->setLabel('Check All');
+        $button->setAttrib('class', 'check-uncheck');
+        
+        $this->addElement($button);
         $this->addElements($form);
         
         
         $this->addDisplayGroup(array('first_name', 'middle_name', 'last_name', 'user_name', 'password', 'confirmpassword', 'email'),
                                         'field1',array('legend'=>'User Information'));
        
-        $this->addDisplayGroup(array('default_fields',), 'field3',array('legend'=>'User Permission'));
+        $this->addDisplayGroup(array('button', 'default_fields',), 'field3',array('legend'=>'User Permission'));
        
         $this->addElement($signup);
         $this->setMethod('post');

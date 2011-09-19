@@ -95,6 +95,12 @@ class Form_Wep_Accountregister extends App_Form
                                 
         $signup = new Zend_Form_Element_Submit('Signup');
         $signup->setValue('signup')->setAttrib('class', 'form-submit');
+        
+        $button = new Zend_Form_Element_Button('button');
+        $button->setLabel('Check All');
+        $button->setAttrib('class', 'check-uncheck');
+        
+        $this->addElement($button);
                                          
         $this->addElements($form);
         
@@ -119,7 +125,7 @@ class Form_Wep_Accountregister extends App_Form
 //        $this->addDisplayGroup()
         $this->addDisplayGroup(array('default_currency', 'default_language', 'default_reporting_org', 'reporting_org_ref', 'default_hierarchy'), 'field2',array('legend'=>'Default Field Values'));
        
-        $this->addDisplayGroup(array('default_fields',), 'field3',array('legend'=>'Default Field Groups'));
+        $this->addDisplayGroup(array('button','default_fields',), 'field3',array('legend'=>'Default Field Groups'));
        
         $this->addElement($signup);
         $this->setMethod('post');
