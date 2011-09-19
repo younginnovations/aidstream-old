@@ -27,6 +27,11 @@ var checkUncheck = function (evt, checklist, checkstate) {
     evt.preventDefault();
 }
 
+var getTarget = function (event) {
+    // w3 || IE
+    return event.target || event.srcElement;
+}
+
 var createDateTextBox = function (id, name, value) {
     
     var dob = new dijit.form.DateTextBox({
@@ -59,8 +64,7 @@ function initialize() {
     dojo.behavior.add({
         '.addmore' : {
             'onclick' : function (evt) {
-                
-                var node = new dojo.NodeList(evt.target.parentNode.parentNode);
+                var node = new dojo.NodeList(getTarget(evt).parentNode.parentNode);
                 node = node.children('fieldset:last-of-type');
                 //console.log(node);
                 
@@ -82,11 +86,11 @@ function initialize() {
                     ajx['item' + i] = values[i];
                 }
                 dojo.xhrGet({
-                    url : dojo.attr(evt.target, 'href'),
+                    url : dojo.attr(getTarget(evt), 'href'),
                     handleAs : 'text',
                     content : ajx,
                     load : function (data) {
-                        dojo.place(data, evt.target.parentNode, "before");
+                        dojo.place(data, getTarget(evt).parentNode, "before");
                         dojo.behavior.apply();
                     },
                     error : function (err) {
@@ -116,10 +120,10 @@ function initialize() {
         ".remove" : {
             "onclick" : function (evt) {
                 
-                var removeNode = evt.target.parentNode;
-                var removeUrl = dojo.attr(evt.target, 'href');
-                //var grandParent = new dojo.NodeList(evt.target.parentNode.parentNode);
-                //var parentNode = new dojo.NodeList(evt.target.parentNode);
+                var removeNode = getTarget(evt).parentNode;
+                var removeUrl = dojo.attr(getTarget(evt), 'href');
+                //var grandParent = new dojo.NodeList(getTarget(evt).parentNode.parentNode);
+                //var parentNode = new dojo.NodeList(getTarget(evt).parentNode);
                 
                 var msg = '<div><p>Are you sure you want to delete this item?</p>';
                 msg += '<p>This will remove all the subitems(if any) as well.</p>';
@@ -182,7 +186,7 @@ function initialize() {
                 evt.preventDefault();
                 /*
                 confirm('Are you sure you want to delete?');
-                var form_id = dojo.attr(evt.target.parentNode, 'id');
+                var form_id = dojo.attr(getTarget(evt).parentNode, 'id');
                 current_url =  location.href;
                 var class_param = current_url.split('&');
                 var param_array = class_param[1].split('=');
@@ -190,7 +194,7 @@ function initialize() {
                 var title_node = dojo.query('#'+ form_id + ' .title_id')[0];
                 
                 if(title_node.getAttribute('value') == '0'){
-                    dojo.destroy(evt.target.parentNode);
+                    dojo.destroy(getTarget(evt).parentNode);
                 }
                 else{
                     dojo.xhrGet({
@@ -202,7 +206,7 @@ function initialize() {
                         },
                         load: function (data) {
                             if(data == 'success'){
-                                dojo.destroy(evt.target.parentNode);
+                                dojo.destroy(getTarget(evt).parentNode);
                             }
                             else{
                                 // do something here
@@ -215,21 +219,22 @@ function initialize() {
                 */
             }
         },
-        "tr": {
+        "td.title": {
             "onmouseenter" : function (evt) {
 //        		console.log(evt);
-        		var node = dojo.NodeList(evt.target.parentNode);
+		    var node = dojo.NodeList(getTarget(evt).parentNode);
 //        		console.log(node);
-        		node.query('.list-action').style('display', 'block');
-        		evt.stopPropagation();
+		    dojo.query(this).children('.list-action').style('display', 'block');
+		    evt.stopPropagation();
         	},
         	"onmouseleave" : function (evt) {
 //        		console.log(evt);
-        		var node = dojo.NodeList(evt.target.parentNode);
+		    var node = dojo.NodeList(getTarget(evt).parentNode);
 //        		console.log(node);
-        		node.query('.list-action').style('display', 'none');
-        
-        		evt.stopPropagation();
+		    dojo.query(this).children('.list-action').style('display', 'none');
+		    //node.query('.list-action').style('display', 'none');
+    
+		    evt.stopPropagation();
         	}
         
         	
@@ -258,7 +263,7 @@ function initialize() {
 	},
 	".vocabulary_value" : {
 	    "onchange" : function (evt) {
-		var selected= evt.target;
+		var selected= getTarget(evt);
 		if(selected.value == '' || selected.value == 4){
 		    dojo.query('.non_dac_code').attr('value', '');
 		    dojo.query('.non_dac_code').parent().style('display', 'none');
