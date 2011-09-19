@@ -5,6 +5,12 @@ class Form_Admin_Editpermission extends App_Form
     public function edit($defaultFields = '')
     {
         //print_r($defaultFields);exit;
+        $button = new Zend_Form_Element_Button('button');
+        $button->setLabel('Check All');
+        $button->setAttrib('class', 'check-uncheck');
+        
+        $this->addElement($button);
+        
         foreach($defaultFields['fields'] as $key=>$eachDefault){
             $default_fields[$key] =  ucwords(str_replace("_", " ", $key));
             if($eachDefault == '1'){
@@ -26,7 +32,7 @@ class Form_Admin_Editpermission extends App_Form
         $signup = new Zend_Form_Element_Submit('submit');
         $signup->setValue('Submit')->setAttrib('id', 'Submit');
         //$this->addElement('default_fields');
-        $this->addDisplayGroup(array('default_fields',), 'field3',array('legend'=>'User Permissions'));
+        $this->addDisplayGroup(array('button', 'default_fields',), 'field3',array('legend'=>'User Permissions'));
        
         $this->addElement($signup);
         $this->setMethod('post');

@@ -7,6 +7,55 @@ $container = new Zend_Navigation();
 $this->navigation($container);
 
 switch($identity->role){
+    case 'superadmin' :
+        $container->addPage(
+            array(
+                'label' => 'Dashboard',
+                'module' => 'default',
+                'controller' => 'admin',
+                'action' => 'dashboard',
+                'pages' => array(
+                    array(
+                        'label' => 'Register Organisation',
+                        'module' => 'default',
+                        'controller' => 'wep',
+                        'action' => 'register',
+                    ),
+                    array(
+                        'label' => 'List Organisation',
+                        'module' => 'default',
+                        'controller' => 'admin',
+                        'action' => 'list-organisation',
+                    ),
+                    array(
+                        'label' => 'Awaiting Request',
+                        'module' => 'default',
+                        'controller' => 'admin',
+                        'action' => 'awaiting',
+                    ),
+                    
+                    array(
+                        'label' => 'View',
+                        'module' => 'default',
+                        'controller' => 'admin',
+                        'action' => 'view',
+                    ),
+                    array(
+                        'label' => 'My Profile',
+                        'module' => 'user',
+                        'controller' => 'user',
+                        'action' => 'myaccount',
+                    ),
+                    array(
+                        'label' => 'Change Password',
+                        'module' => 'user',
+                        'controller' => 'user',
+                        'action' => 'changepassword',
+                    ),
+                ),
+            )
+        );
+        break;
     case 'admin':
         $container->addPage(
             array(
@@ -40,22 +89,22 @@ switch($identity->role){
                         'action'     => 'view-activities',
                         'pages' => array(
                             array(
-                                'label' => 'Activity',
+                                'label' => 'View Activity',
+                                'module'     => 'default',
+                                'controller' => 'wep',
+                                'action'     => 'view-activity',
+                            ),
+                            array(
+                                'label' => 'Add Activity',
                                 'module'     => 'default',
                                 'controller' => 'wep',
                                 'action'     => 'add-activity-elements',
                             ),
                             array(
-                                'label' => 'Activity',
+                                'label' => 'Edit Activity',
                                 'module'     => 'default',
                                 'controller' => 'wep',
                                 'action'     => 'edit-activity-elements',
-                            ),
-                            array(
-                                'label' => 'Activity',
-                                'module'     => 'default',
-                                'controller' => 'wep',
-                                'action'     => 'view-activity',
                             ),
                         ),
                     ),

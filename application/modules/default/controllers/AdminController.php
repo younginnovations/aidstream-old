@@ -174,6 +174,7 @@ class AdminController extends Zend_Controller_Action
                     $i = 0;
                     foreach ($data['default_fields'] as $eachField) {
                         $defaultKey[$i] = $eachField;
+                        //if($each)
                         $defaultFieldGroup->setProperties($eachField);
                         $i++;
                     }                    

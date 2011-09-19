@@ -80,7 +80,7 @@ class Form_Wep_EditDefaults extends App_Form
         $this->addDisplayGroup(array('default_currency', 'default_language', 'default_reporting_org', 'reporting_org_ref', 'hierarchy'), 'field2',array('legend'=>'Default Field Values'));
        
         $df = $this->addDisplayGroup(array('button', 'default_fields',), 'field3',array('legend'=>'Default Field Groups'));
-        $df->setDescription('<a href="#">aaa</a>');
+
         $this->addElement($signup);
         $this->setMethod('post');
     }
