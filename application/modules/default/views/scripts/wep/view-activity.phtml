@@ -1048,7 +1048,70 @@ if(!empty($value)): ?>
 <?php foreach($budgets as $budget):?>
 <table class='element-values-items'>
 <tr class='element-value element-value-even'><td class='attrib-label'>Type</td><td class='attrib-value'> <?php if($budget->getAttrib('@type')) print ($budget->getAttribValue('@type'));?></td></tr>
-</table><?php endforeach;?>
+<tr>
+<td colspan=2>
+
+<div class='sub_element'><!-- Sub element Starts -->
+
+<!-- PeriodEnd Starts -->
+<?php
+$periodends=$budget->getElementsByType('PeriodEnd');
+$value = $periodends[0]->getAttribs();
+if(!empty($value)): ?>
+<div class='element-item'><div class='element-title'>PeriodEnd</div>
+<div class='element-values'>
+<?php foreach($periodends as $periodend):?>
+<table class='element-values-items'>
+</table>
+<?php endforeach;?>
+</div>
+</div>
+<?php endif;?>
+<!-- PeriodEnd Ends -->
+
+
+<!-- PeriodStart Starts -->
+<?php
+$periodstarts=$budget->getElementsByType('PeriodStart');
+$value = $periodstarts[0]->getAttribs();
+if(!empty($value)): ?>
+<div class='element-item'><div class='element-title'>PeriodStart</div>
+<div class='element-values'>
+<?php foreach($periodstarts as $periodstart):?>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($periodstart->getAttrib('text')) print ($periodstart->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Iso_date</td><td class='attrib-value'> <?php if($periodstart->getAttrib('@iso_date')) print ($periodstart->getAttribValue('@iso_date'));?></td></tr>
+</table>
+<?php endforeach;?>
+</div>
+</div>
+<?php endif;?>
+<!-- PeriodStart Ends -->
+
+
+<!-- Value Starts -->
+<?php
+$values=$budget->getElementsByType('Value');
+$value = $values[0]->getAttribs();
+if(!empty($value)): ?>
+<div class='element-item'><div class='element-title'>Value</div>
+<div class='element-values'>
+<?php foreach($values as $value):?>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($value->getAttrib('text')) print ($value->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Value_date</td><td class='attrib-value'> <?php if($value->getAttrib('@value_date')) print ($value->getAttribValue('@value_date'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Currency</td><td class='attrib-value'> <?php if($value->getAttrib('@currency')) print ($value->getAttribValue('@currency'));?></td></tr>
+</table>
+<?php endforeach;?>
+</div>
+</div>
+<?php endif;?>
+<!-- Value Ends -->
+
+
+</div><!-- Sub element Ends -->
+
+</td></tr></table><?php endforeach;?>
 </div>
 </div>
 <?php endif;?>
