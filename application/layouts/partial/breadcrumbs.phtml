@@ -40,7 +40,18 @@ switch($identity->role){
                         'controller' => 'admin',
                         'action' => 'view',
                     ),
-               
+                    array(
+                        'label' => 'My Profile',
+                        'module' => 'user',
+                        'controller' => 'user',
+                        'action' => 'myaccount',
+                    ),
+                    array(
+                        'label' => 'Change Password',
+                        'module' => 'user',
+                        'controller' => 'user',
+                        'action' => 'changepassword',
+                    ),
                 ),
             )
         );
