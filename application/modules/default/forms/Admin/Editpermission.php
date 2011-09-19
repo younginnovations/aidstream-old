@@ -10,9 +10,26 @@ class Form_Admin_Editpermission extends App_Form
         $button->setAttrib('class', 'check-uncheck');
         
         $this->addElement($button);
-        
+        //print_r($defaultFields);exit;
         foreach($defaultFields['fields'] as $key=>$eachDefault){
-            $default_fields[$key] =  ucwords(str_replace("_", " ", $key));
+            if($key == 'add_activity' || $key == 'add_activity_elements'){
+                $key = 'add';
+                $default_fields['add'] = 'Add';
+            }
+            elseif($key == 'edit_activity' || $key == 'edit_activity_elements'){
+                $key = 'edit';
+                $default_fields['edit'] = 'Edit';
+            }
+            else if($key == 'delete_activity' || $key == 'delete_activity_elements'){
+                $key = 'delete';
+                $default_fields['delete'] = 'Delete';
+            }
+            else if($key == 'view_activities'){
+                continue;
+            }
+            else{
+                $default_fields[$key] =  ucwords(str_replace("_", " ", $key));
+            }
             if($eachDefault == '1'){
                 $checked[] = $key;
             }

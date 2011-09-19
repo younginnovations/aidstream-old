@@ -4,13 +4,11 @@ class Iati_WEP_UserPermission
     protected $add_activity = '0';
     protected $edit_activity = '0';
     protected $delete_activity = '0';
-    protected $view_activities = '0';
+    protected $view_activities = '1';
     protected $add_activity_elements = '0';
     protected $edit_activity_elements = '0';
-    protected $delete_activity_elements = '0';
     //protected $edit_defaults = '0';
     protected $publish = '0';
-    //protected     
     
     public function getProperties(){
         return get_object_vars($this);
