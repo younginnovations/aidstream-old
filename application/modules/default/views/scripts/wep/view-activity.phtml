@@ -67,7 +67,7 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($transactions as $transaction):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Ref</td><td> <?php if($transaction->getAttrib('@ref')) print ($transaction->getAttribValue('@ref'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Ref</td><td class='attrib-value'> <?php if($transaction->getAttrib('@ref')) print ($transaction->getAttribValue('@ref'));?></td></tr>
 <tr>
 <td colspan=2>
 
@@ -82,8 +82,8 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($transactiontypes as $transactiontype):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($transactiontype->getAttrib('text')) print ($transactiontype->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Code</td><td> <?php if($transactiontype->getAttrib('@code')) print ($transactiontype->getAttribValue('@code'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($transactiontype->getAttrib('text')) print ($transactiontype->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($transactiontype->getAttrib('@code')) print ($transactiontype->getAttribValue('@code'));?></td></tr>
 </table>
 <?php endforeach;?>
 </div>
@@ -101,9 +101,9 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($providerorgs as $providerorg):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($providerorg->getAttrib('text')) print ($providerorg->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Ref</td><td> <?php if($providerorg->getAttrib('@ref')) print ($providerorg->getAttribValue('@ref'));?></td></tr>
-<tr class='element-value element-value-even'><td>Provider_activity_id</td><td> <?php if($providerorg->getAttrib('@provider_activity_id')) print ($providerorg->getAttribValue('@provider_activity_id'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($providerorg->getAttrib('text')) print ($providerorg->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Ref</td><td class='attrib-value'> <?php if($providerorg->getAttrib('@ref')) print ($providerorg->getAttribValue('@ref'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Provider_activity_id</td><td class='attrib-value'> <?php if($providerorg->getAttrib('@provider_activity_id')) print ($providerorg->getAttribValue('@provider_activity_id'));?></td></tr>
 </table>
 <?php endforeach;?>
 </div>
@@ -121,9 +121,9 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($receiverorgs as $receiverorg):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($receiverorg->getAttrib('text')) print ($receiverorg->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Ref</td><td> <?php if($receiverorg->getAttrib('@ref')) print ($receiverorg->getAttribValue('@ref'));?></td></tr>
-<tr class='element-value element-value-even'><td>Receiver_activity_id</td><td> <?php if($receiverorg->getAttrib('@receiver_activity_id')) print ($receiverorg->getAttribValue('@receiver_activity_id'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($receiverorg->getAttrib('text')) print ($receiverorg->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Ref</td><td class='attrib-value'> <?php if($receiverorg->getAttrib('@ref')) print ($receiverorg->getAttribValue('@ref'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Receiver_activity_id</td><td class='attrib-value'> <?php if($receiverorg->getAttrib('@receiver_activity_id')) print ($receiverorg->getAttribValue('@receiver_activity_id'));?></td></tr>
 </table>
 <?php endforeach;?>
 </div>
@@ -141,9 +141,9 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($values as $value):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($value->getAttrib('text')) print ($value->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Value_date</td><td> <?php if($value->getAttrib('@value_date')) print ($value->getAttribValue('@value_date'));?></td></tr>
-<tr class='element-value element-value-even'><td>Currency</td><td> <?php if($value->getAttrib('@currency')) print ($value->getAttribValue('@currency'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($value->getAttrib('text')) print ($value->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Value_date</td><td class='attrib-value'> <?php if($value->getAttrib('@value_date')) print ($value->getAttribValue('@value_date'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Currency</td><td class='attrib-value'> <?php if($value->getAttrib('@currency')) print ($value->getAttribValue('@currency'));?></td></tr>
 </table>
 <?php endforeach;?>
 </div>
@@ -161,8 +161,8 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($descriptions as $description):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($description->getAttrib('text')) print ($description->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($description->getAttrib('@xml_lang')) print ($description->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($description->getAttrib('text')) print ($description->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($description->getAttrib('@xml_lang')) print ($description->getAttribValue('@xml_lang'));?></td></tr>
 </table>
 <?php endforeach;?>
 </div>
@@ -180,8 +180,8 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($transactiondates as $transactiondate):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($transactiondate->getAttrib('text')) print ($transactiondate->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Iso_date</td><td> <?php if($transactiondate->getAttrib('@iso_date')) print ($transactiondate->getAttribValue('@iso_date'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($transactiondate->getAttrib('text')) print ($transactiondate->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Iso_date</td><td class='attrib-value'> <?php if($transactiondate->getAttrib('@iso_date')) print ($transactiondate->getAttribValue('@iso_date'));?></td></tr>
 </table>
 <?php endforeach;?>
 </div>
@@ -199,9 +199,9 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($flowtypes as $flowtype):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($flowtype->getAttrib('text')) print ($flowtype->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($flowtype->getAttrib('@xml_lang')) print ($flowtype->getAttribValue('@xml_lang'));?></td></tr>
-<tr class='element-value element-value-even'><td>Code</td><td> <?php if($flowtype->getAttrib('@code')) print ($flowtype->getAttribValue('@code'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($flowtype->getAttrib('text')) print ($flowtype->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($flowtype->getAttrib('@xml_lang')) print ($flowtype->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($flowtype->getAttrib('@code')) print ($flowtype->getAttribValue('@code'));?></td></tr>
 </table>
 <?php endforeach;?>
 </div>
@@ -219,9 +219,9 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($financetypes as $financetype):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($financetype->getAttrib('text')) print ($financetype->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($financetype->getAttrib('@xml_lang')) print ($financetype->getAttribValue('@xml_lang'));?></td></tr>
-<tr class='element-value element-value-even'><td>Code</td><td> <?php if($financetype->getAttrib('@code')) print ($financetype->getAttribValue('@code'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($financetype->getAttrib('text')) print ($financetype->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($financetype->getAttrib('@xml_lang')) print ($financetype->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($financetype->getAttrib('@code')) print ($financetype->getAttribValue('@code'));?></td></tr>
 </table>
 <?php endforeach;?>
 </div>
@@ -239,9 +239,9 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($aidtypes as $aidtype):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($aidtype->getAttrib('text')) print ($aidtype->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($aidtype->getAttrib('@xml_lang')) print ($aidtype->getAttribValue('@xml_lang'));?></td></tr>
-<tr class='element-value element-value-even'><td>Code</td><td> <?php if($aidtype->getAttrib('@code')) print ($aidtype->getAttribValue('@code'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($aidtype->getAttrib('text')) print ($aidtype->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($aidtype->getAttrib('@xml_lang')) print ($aidtype->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($aidtype->getAttrib('@code')) print ($aidtype->getAttribValue('@code'));?></td></tr>
 </table>
 <?php endforeach;?>
 </div>
@@ -259,8 +259,8 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($disbursementchannels as $disbursementchannel):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($disbursementchannel->getAttrib('text')) print ($disbursementchannel->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Code</td><td> <?php if($disbursementchannel->getAttrib('@code')) print ($disbursementchannel->getAttribValue('@code'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($disbursementchannel->getAttrib('text')) print ($disbursementchannel->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($disbursementchannel->getAttrib('@code')) print ($disbursementchannel->getAttribValue('@code'));?></td></tr>
 </table>
 <?php endforeach;?>
 </div>
@@ -278,9 +278,9 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($tiedstatuss as $tiedstatus):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($tiedstatus->getAttrib('text')) print ($tiedstatus->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($tiedstatus->getAttrib('@xml_lang')) print ($tiedstatus->getAttribValue('@xml_lang'));?></td></tr>
-<tr class='element-value element-value-even'><td>Code</td><td> <?php if($tiedstatus->getAttrib('@code')) print ($tiedstatus->getAttribValue('@code'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($tiedstatus->getAttrib('text')) print ($tiedstatus->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($tiedstatus->getAttrib('@xml_lang')) print ($tiedstatus->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($tiedstatus->getAttrib('@code')) print ($tiedstatus->getAttribValue('@code'));?></td></tr>
 </table>
 <?php endforeach;?>
 </div>
@@ -307,7 +307,7 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($conditionss as $conditions):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Attached</td><td> <?php if($conditions->getAttrib('@attached')) print ($conditions->getAttribValue('@attached'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Attached</td><td class='attrib-value'> <?php if($conditions->getAttrib('@attached')) print ($conditions->getAttribValue('@attached'));?></td></tr>
 <tr>
 <td colspan=2>
 
@@ -322,9 +322,9 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($conditions as $condition):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($condition->getAttrib('text')) print ($condition->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($condition->getAttrib('@xml_lang')) print ($condition->getAttribValue('@xml_lang'));?></td></tr>
-<tr class='element-value element-value-even'><td>Type</td><td> <?php if($condition->getAttrib('@type')) print ($condition->getAttribValue('@type'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($condition->getAttrib('text')) print ($condition->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($condition->getAttrib('@xml_lang')) print ($condition->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Type</td><td class='attrib-value'> <?php if($condition->getAttrib('@type')) print ($condition->getAttribValue('@type'));?></td></tr>
 </table>
 <?php endforeach;?>
 </div>
@@ -351,7 +351,7 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($documentlinks as $documentlink):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Url</td><td> <?php if($documentlink->getAttrib('@url')) print ($documentlink->getAttribValue('@url'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Url</td><td class='attrib-value'> <?php if($documentlink->getAttrib('@url')) print ($documentlink->getAttribValue('@url'));?></td></tr>
 <tr>
 <td colspan=2>
 
@@ -366,9 +366,9 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($categorys as $category):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($category->getAttrib('text')) print ($category->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Code</td><td> <?php if($category->getAttrib('@code')) print ($category->getAttribValue('@code'));?></td></tr>
-<tr class='element-value element-value-even'><td>Xml_lang</td><td> <?php if($category->getAttrib('@xml_lang')) print ($category->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($category->getAttrib('text')) print ($category->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($category->getAttrib('@code')) print ($category->getAttribValue('@code'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($category->getAttrib('@xml_lang')) print ($category->getAttribValue('@xml_lang'));?></td></tr>
 </table>
 <?php endforeach;?>
 </div>
@@ -386,8 +386,8 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($titles as $title):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($title->getAttrib('text')) print ($title->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($title->getAttrib('@xml_lang')) print ($title->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($title->getAttrib('text')) print ($title->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($title->getAttrib('@xml_lang')) print ($title->getAttribValue('@xml_lang'));?></td></tr>
 </table>
 <?php endforeach;?>
 </div>
@@ -414,7 +414,7 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($results as $result):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Type</td><td> <?php if($result->getAttrib('@type')) print ($result->getAttribValue('@type'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Type</td><td class='attrib-value'> <?php if($result->getAttrib('@type')) print ($result->getAttribValue('@type'));?></td></tr>
 </table><?php endforeach;?>
 </div>
 </div>
@@ -431,7 +431,7 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($planneddisbursements as $planneddisbursement):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Updated</td><td> <?php if($planneddisbursement->getAttrib('@updated')) print ($planneddisbursement->getAttribValue('@updated'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Updated</td><td class='attrib-value'> <?php if($planneddisbursement->getAttrib('@updated')) print ($planneddisbursement->getAttribValue('@updated'));?></td></tr>
 </table><?php endforeach;?>
 </div>
 </div>
@@ -448,7 +448,7 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($identifiers as $identifier):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($identifier->getAttrib('text')) print ($identifier->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($identifier->getAttrib('text')) print ($identifier->getAttribValue('text'));?></td></tr>
 </table><?php endforeach;?>
 </div>
 </div>
@@ -479,7 +479,7 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($organisations as $organisation):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($organisation->getAttrib('text')) print ($organisation->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($organisation->getAttrib('text')) print ($organisation->getAttribValue('text'));?></td></tr>
 </table>
 <?php endforeach;?>
 </div>
@@ -497,7 +497,7 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($personnames as $personname):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($personname->getAttrib('text')) print ($personname->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($personname->getAttrib('text')) print ($personname->getAttribValue('text'));?></td></tr>
 </table>
 <?php endforeach;?>
 </div>
@@ -515,7 +515,7 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($telephones as $telephone):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($telephone->getAttrib('text')) print ($telephone->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($telephone->getAttrib('text')) print ($telephone->getAttribValue('text'));?></td></tr>
 </table>
 <?php endforeach;?>
 </div>
@@ -533,7 +533,7 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($emails as $email):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($email->getAttrib('text')) print ($email->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($email->getAttrib('text')) print ($email->getAttribValue('text'));?></td></tr>
 </table>
 <?php endforeach;?>
 </div>
@@ -551,7 +551,7 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($mailingaddresss as $mailingaddress):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($mailingaddress->getAttrib('text')) print ($mailingaddress->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($mailingaddress->getAttrib('text')) print ($mailingaddress->getAttribValue('text'));?></td></tr>
 </table>
 <?php endforeach;?>
 </div>
@@ -578,10 +578,10 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($reportingorgs as $reportingorg):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($reportingorg->getAttrib('text')) print ($reportingorg->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($reportingorg->getAttrib('@xml_lang')) print ($reportingorg->getAttribValue('@xml_lang'));?></td></tr>
-<tr class='element-value element-value-even'><td>Ref</td><td> <?php if($reportingorg->getAttrib('@ref')) print ($reportingorg->getAttribValue('@ref'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Type</td><td> <?php if($reportingorg->getAttrib('@type')) print ($reportingorg->getAttribValue('@type'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($reportingorg->getAttrib('text')) print ($reportingorg->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($reportingorg->getAttrib('@xml_lang')) print ($reportingorg->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Ref</td><td class='attrib-value'> <?php if($reportingorg->getAttrib('@ref')) print ($reportingorg->getAttribValue('@ref'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Type</td><td class='attrib-value'> <?php if($reportingorg->getAttrib('@type')) print ($reportingorg->getAttribValue('@type'));?></td></tr>
 </table><?php endforeach;?>
 </div>
 </div>
@@ -598,9 +598,9 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($otheridentifiers as $otheridentifier):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($otheridentifier->getAttrib('text')) print ($otheridentifier->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Owner_ref</td><td> <?php if($otheridentifier->getAttrib('@owner_ref')) print ($otheridentifier->getAttribValue('@owner_ref'));?></td></tr>
-<tr class='element-value element-value-even'><td>Owner_name</td><td> <?php if($otheridentifier->getAttrib('@owner_name')) print ($otheridentifier->getAttribValue('@owner_name'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($otheridentifier->getAttrib('text')) print ($otheridentifier->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Owner_ref</td><td class='attrib-value'> <?php if($otheridentifier->getAttrib('@owner_ref')) print ($otheridentifier->getAttribValue('@owner_ref'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Owner_name</td><td class='attrib-value'> <?php if($otheridentifier->getAttrib('@owner_name')) print ($otheridentifier->getAttribValue('@owner_name'));?></td></tr>
 </table><?php endforeach;?>
 </div>
 </div>
@@ -617,8 +617,8 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($titles as $title):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($title->getAttrib('text')) print ($title->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($title->getAttrib('@xml_lang')) print ($title->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($title->getAttrib('text')) print ($title->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($title->getAttrib('@xml_lang')) print ($title->getAttribValue('@xml_lang'));?></td></tr>
 </table><?php endforeach;?>
 </div>
 </div>
@@ -635,8 +635,8 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($titles as $title):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($title->getAttrib('text')) print ($title->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($title->getAttrib('@xml_lang')) print ($title->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($title->getAttrib('text')) print ($title->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($title->getAttrib('@xml_lang')) print ($title->getAttribValue('@xml_lang'));?></td></tr>
 </table><?php endforeach;?>
 </div>
 </div>
@@ -653,8 +653,8 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($descriptions as $description):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($description->getAttrib('text')) print ($description->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($description->getAttrib('@xml_lang')) print ($description->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($description->getAttrib('text')) print ($description->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($description->getAttrib('@xml_lang')) print ($description->getAttribValue('@xml_lang'));?></td></tr>
 </table><?php endforeach;?>
 </div>
 </div>
@@ -671,9 +671,9 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($activitystatuss as $activitystatus):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($activitystatus->getAttrib('text')) print ($activitystatus->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($activitystatus->getAttrib('@xml_lang')) print ($activitystatus->getAttribValue('@xml_lang'));?></td></tr>
-<tr class='element-value element-value-even'><td>Code</td><td> <?php if($activitystatus->getAttrib('@code')) print ($activitystatus->getAttribValue('@code'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($activitystatus->getAttrib('text')) print ($activitystatus->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($activitystatus->getAttrib('@xml_lang')) print ($activitystatus->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($activitystatus->getAttrib('@code')) print ($activitystatus->getAttribValue('@code'));?></td></tr>
 </table><?php endforeach;?>
 </div>
 </div>
@@ -690,10 +690,10 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($activitydates as $activitydate):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($activitydate->getAttrib('text')) print ($activitydate->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Type</td><td> <?php if($activitydate->getAttrib('@type')) print ($activitydate->getAttribValue('@type'));?></td></tr>
-<tr class='element-value element-value-even'><td>Iso_date</td><td> <?php if($activitydate->getAttrib('@iso_date')) print ($activitydate->getAttribValue('@iso_date'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($activitydate->getAttrib('@xml_lang')) print ($activitydate->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($activitydate->getAttrib('text')) print ($activitydate->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Type</td><td class='attrib-value'> <?php if($activitydate->getAttrib('@type')) print ($activitydate->getAttribValue('@type'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Iso_date</td><td class='attrib-value'> <?php if($activitydate->getAttrib('@iso_date')) print ($activitydate->getAttribValue('@iso_date'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($activitydate->getAttrib('@xml_lang')) print ($activitydate->getAttribValue('@xml_lang'));?></td></tr>
 </table><?php endforeach;?>
 </div>
 </div>
@@ -710,10 +710,10 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($participatingorgs as $participatingorg):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($participatingorg->getAttrib('text')) print ($participatingorg->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($participatingorg->getAttrib('@xml_lang')) print ($participatingorg->getAttribValue('@xml_lang'));?></td></tr>
-<tr class='element-value element-value-even'><td>Ref</td><td> <?php if($participatingorg->getAttrib('@ref')) print ($participatingorg->getAttribValue('@ref'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Type</td><td> <?php if($participatingorg->getAttrib('@type')) print ($participatingorg->getAttribValue('@type'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($participatingorg->getAttrib('text')) print ($participatingorg->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($participatingorg->getAttrib('@xml_lang')) print ($participatingorg->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Ref</td><td class='attrib-value'> <?php if($participatingorg->getAttrib('@ref')) print ($participatingorg->getAttribValue('@ref'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Type</td><td class='attrib-value'> <?php if($participatingorg->getAttrib('@type')) print ($participatingorg->getAttribValue('@type'));?></td></tr>
 </table><?php endforeach;?>
 </div>
 </div>
@@ -730,10 +730,10 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($recipientcountrys as $recipientcountry):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($recipientcountry->getAttrib('text')) print ($recipientcountry->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($recipientcountry->getAttrib('@xml_lang')) print ($recipientcountry->getAttribValue('@xml_lang'));?></td></tr>
-<tr class='element-value element-value-even'><td>Percentage</td><td> <?php if($recipientcountry->getAttrib('@percentage')) print ($recipientcountry->getAttribValue('@percentage'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Code</td><td> <?php if($recipientcountry->getAttrib('@code')) print ($recipientcountry->getAttribValue('@code'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($recipientcountry->getAttrib('text')) print ($recipientcountry->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($recipientcountry->getAttrib('@xml_lang')) print ($recipientcountry->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Percentage</td><td class='attrib-value'> <?php if($recipientcountry->getAttrib('@percentage')) print ($recipientcountry->getAttribValue('@percentage'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($recipientcountry->getAttrib('@code')) print ($recipientcountry->getAttribValue('@code'));?></td></tr>
 </table><?php endforeach;?>
 </div>
 </div>
@@ -750,10 +750,10 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($recipientregions as $recipientregion):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($recipientregion->getAttrib('text')) print ($recipientregion->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($recipientregion->getAttrib('@xml_lang')) print ($recipientregion->getAttribValue('@xml_lang'));?></td></tr>
-<tr class='element-value element-value-even'><td>Percentage</td><td> <?php if($recipientregion->getAttrib('@percentage')) print ($recipientregion->getAttribValue('@percentage'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Code</td><td> <?php if($recipientregion->getAttrib('@code')) print ($recipientregion->getAttribValue('@code'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($recipientregion->getAttrib('text')) print ($recipientregion->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($recipientregion->getAttrib('@xml_lang')) print ($recipientregion->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Percentage</td><td class='attrib-value'> <?php if($recipientregion->getAttrib('@percentage')) print ($recipientregion->getAttribValue('@percentage'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($recipientregion->getAttrib('@code')) print ($recipientregion->getAttribValue('@code'));?></td></tr>
 </table><?php endforeach;?>
 </div>
 </div>
@@ -770,7 +770,7 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($locations as $location):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Percentage</td><td> <?php if($location->getAttrib('@percentage')) print ($location->getAttribValue('@percentage'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Percentage</td><td class='attrib-value'> <?php if($location->getAttrib('@percentage')) print ($location->getAttribValue('@percentage'));?></td></tr>
 <tr>
 <td colspan=2>
 
@@ -785,9 +785,9 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($locationtypes as $locationtype):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($locationtype->getAttrib('text')) print ($locationtype->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($locationtype->getAttrib('@xml_lang')) print ($locationtype->getAttribValue('@xml_lang'));?></td></tr>
-<tr class='element-value element-value-even'><td>Code</td><td> <?php if($locationtype->getAttrib('@code')) print ($locationtype->getAttribValue('@code'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($locationtype->getAttrib('text')) print ($locationtype->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($locationtype->getAttrib('@xml_lang')) print ($locationtype->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($locationtype->getAttrib('@code')) print ($locationtype->getAttribValue('@code'));?></td></tr>
 </table>
 <?php endforeach;?>
 </div>
@@ -805,8 +805,8 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($names as $name):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($name->getAttrib('text')) print ($name->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($name->getAttrib('@xml_lang')) print ($name->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($name->getAttrib('text')) print ($name->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($name->getAttrib('@xml_lang')) print ($name->getAttribValue('@xml_lang'));?></td></tr>
 </table>
 <?php endforeach;?>
 </div>
@@ -824,8 +824,8 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($descriptions as $description):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($description->getAttrib('text')) print ($description->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($description->getAttrib('@xml_lang')) print ($description->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($description->getAttrib('text')) print ($description->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($description->getAttrib('@xml_lang')) print ($description->getAttribValue('@xml_lang'));?></td></tr>
 </table>
 <?php endforeach;?>
 </div>
@@ -843,8 +843,8 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($administratives as $administrative):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($administrative->getAttrib('text')) print ($administrative->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($administrative->getAttrib('@xml_lang')) print ($administrative->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($administrative->getAttrib('text')) print ($administrative->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($administrative->getAttrib('@xml_lang')) print ($administrative->getAttribValue('@xml_lang'));?></td></tr>
 </table>
 <?php endforeach;?>
 </div>
@@ -862,9 +862,9 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($coordinatess as $coordinates):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Latitude</td><td> <?php if($coordinates->getAttrib('@latitude')) print ($coordinates->getAttribValue('@latitude'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Longitude</td><td> <?php if($coordinates->getAttrib('@longitude')) print ($coordinates->getAttribValue('@longitude'));?></td></tr>
-<tr class='element-value element-value-even'><td>Precision</td><td> <?php if($coordinates->getAttrib('@precision')) print ($coordinates->getAttribValue('@precision'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Latitude</td><td class='attrib-value'> <?php if($coordinates->getAttrib('@latitude')) print ($coordinates->getAttribValue('@latitude'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Longitude</td><td class='attrib-value'> <?php if($coordinates->getAttrib('@longitude')) print ($coordinates->getAttribValue('@longitude'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Precision</td><td class='attrib-value'> <?php if($coordinates->getAttrib('@precision')) print ($coordinates->getAttribValue('@precision'));?></td></tr>
 </table>
 <?php endforeach;?>
 </div>
@@ -882,8 +882,8 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($gazetteerentrys as $gazetteerentry):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($gazetteerentry->getAttrib('text')) print ($gazetteerentry->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Gazetteer_ref</td><td> <?php if($gazetteerentry->getAttrib('@gazetteer_ref')) print ($gazetteerentry->getAttribValue('@gazetteer_ref'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($gazetteerentry->getAttrib('text')) print ($gazetteerentry->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Gazetteer_ref</td><td class='attrib-value'> <?php if($gazetteerentry->getAttrib('@gazetteer_ref')) print ($gazetteerentry->getAttribValue('@gazetteer_ref'));?></td></tr>
 </table>
 <?php endforeach;?>
 </div>
@@ -910,11 +910,11 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($sectors as $sector):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($sector->getAttrib('text')) print ($sector->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($sector->getAttrib('@xml_lang')) print ($sector->getAttribValue('@xml_lang'));?></td></tr>
-<tr class='element-value element-value-even'><td>Vocabulary</td><td> <?php if($sector->getAttrib('@vocabulary')) print ($sector->getAttribValue('@vocabulary'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Code</td><td> <?php if($sector->getAttrib('@code')) print ($sector->getAttribValue('@code'));?></td></tr>
-<tr class='element-value element-value-even'><td>Percentage</td><td> <?php if($sector->getAttrib('@percentage')) print ($sector->getAttribValue('@percentage'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($sector->getAttrib('text')) print ($sector->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($sector->getAttrib('@xml_lang')) print ($sector->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Vocabulary</td><td class='attrib-value'> <?php if($sector->getAttrib('@vocabulary')) print ($sector->getAttribValue('@vocabulary'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($sector->getAttrib('@code')) print ($sector->getAttribValue('@code'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Percentage</td><td class='attrib-value'> <?php if($sector->getAttrib('@percentage')) print ($sector->getAttribValue('@percentage'));?></td></tr>
 </table><?php endforeach;?>
 </div>
 </div>
@@ -931,11 +931,11 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($policymarkers as $policymarker):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($policymarker->getAttrib('text')) print ($policymarker->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($policymarker->getAttrib('@xml_lang')) print ($policymarker->getAttribValue('@xml_lang'));?></td></tr>
-<tr class='element-value element-value-even'><td>Significance</td><td> <?php if($policymarker->getAttrib('@significance')) print ($policymarker->getAttribValue('@significance'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Code</td><td> <?php if($policymarker->getAttrib('@code')) print ($policymarker->getAttribValue('@code'));?></td></tr>
-<tr class='element-value element-value-even'><td>Vocabulary</td><td> <?php if($policymarker->getAttrib('@vocabulary')) print ($policymarker->getAttribValue('@vocabulary'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($policymarker->getAttrib('text')) print ($policymarker->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($policymarker->getAttrib('@xml_lang')) print ($policymarker->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Significance</td><td class='attrib-value'> <?php if($policymarker->getAttrib('@significance')) print ($policymarker->getAttribValue('@significance'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($policymarker->getAttrib('@code')) print ($policymarker->getAttribValue('@code'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Vocabulary</td><td class='attrib-value'> <?php if($policymarker->getAttrib('@vocabulary')) print ($policymarker->getAttribValue('@vocabulary'));?></td></tr>
 </table><?php endforeach;?>
 </div>
 </div>
@@ -952,9 +952,9 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($collaborationtypes as $collaborationtype):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($collaborationtype->getAttrib('text')) print ($collaborationtype->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Code</td><td> <?php if($collaborationtype->getAttrib('@code')) print ($collaborationtype->getAttribValue('@code'));?></td></tr>
-<tr class='element-value element-value-even'><td>Xml_lang</td><td> <?php if($collaborationtype->getAttrib('@xml_lang')) print ($collaborationtype->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($collaborationtype->getAttrib('text')) print ($collaborationtype->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($collaborationtype->getAttrib('@code')) print ($collaborationtype->getAttribValue('@code'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($collaborationtype->getAttrib('@xml_lang')) print ($collaborationtype->getAttribValue('@xml_lang'));?></td></tr>
 </table><?php endforeach;?>
 </div>
 </div>
@@ -971,9 +971,9 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($defaultflowtypes as $defaultflowtype):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Code</td><td> <?php if($defaultflowtype->getAttrib('@code')) print ($defaultflowtype->getAttribValue('@code'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Text</td><td> <?php if($defaultflowtype->getAttrib('text')) print ($defaultflowtype->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-even'><td>Xml_lang</td><td> <?php if($defaultflowtype->getAttrib('@xml_lang')) print ($defaultflowtype->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($defaultflowtype->getAttrib('@code')) print ($defaultflowtype->getAttribValue('@code'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($defaultflowtype->getAttrib('text')) print ($defaultflowtype->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($defaultflowtype->getAttrib('@xml_lang')) print ($defaultflowtype->getAttribValue('@xml_lang'));?></td></tr>
 </table><?php endforeach;?>
 </div>
 </div>
@@ -990,9 +990,9 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($defaultfinancetypes as $defaultfinancetype):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Code</td><td> <?php if($defaultfinancetype->getAttrib('@code')) print ($defaultfinancetype->getAttribValue('@code'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Text</td><td> <?php if($defaultfinancetype->getAttrib('text')) print ($defaultfinancetype->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-even'><td>Xml_lang</td><td> <?php if($defaultfinancetype->getAttrib('@xml_lang')) print ($defaultfinancetype->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($defaultfinancetype->getAttrib('@code')) print ($defaultfinancetype->getAttribValue('@code'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($defaultfinancetype->getAttrib('text')) print ($defaultfinancetype->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($defaultfinancetype->getAttrib('@xml_lang')) print ($defaultfinancetype->getAttribValue('@xml_lang'));?></td></tr>
 </table><?php endforeach;?>
 </div>
 </div>
@@ -1009,9 +1009,9 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($defaultaidtypes as $defaultaidtype):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Code</td><td> <?php if($defaultaidtype->getAttrib('@code')) print ($defaultaidtype->getAttribValue('@code'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Text</td><td> <?php if($defaultaidtype->getAttrib('text')) print ($defaultaidtype->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-even'><td>Xml_lang</td><td> <?php if($defaultaidtype->getAttrib('@xml_lang')) print ($defaultaidtype->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($defaultaidtype->getAttrib('@code')) print ($defaultaidtype->getAttribValue('@code'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($defaultaidtype->getAttrib('text')) print ($defaultaidtype->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($defaultaidtype->getAttrib('@xml_lang')) print ($defaultaidtype->getAttribValue('@xml_lang'));?></td></tr>
 </table><?php endforeach;?>
 </div>
 </div>
@@ -1028,9 +1028,9 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($defaulttiedstatuss as $defaulttiedstatus):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Code</td><td> <?php if($defaulttiedstatus->getAttrib('@code')) print ($defaulttiedstatus->getAttribValue('@code'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Text</td><td> <?php if($defaulttiedstatus->getAttrib('text')) print ($defaulttiedstatus->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-even'><td>Xml_lang</td><td> <?php if($defaulttiedstatus->getAttrib('@xml_lang')) print ($defaulttiedstatus->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($defaulttiedstatus->getAttrib('@code')) print ($defaulttiedstatus->getAttribValue('@code'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($defaulttiedstatus->getAttrib('text')) print ($defaulttiedstatus->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($defaulttiedstatus->getAttrib('@xml_lang')) print ($defaulttiedstatus->getAttribValue('@xml_lang'));?></td></tr>
 </table><?php endforeach;?>
 </div>
 </div>
@@ -1047,7 +1047,7 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($budgets as $budget):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Type</td><td> <?php if($budget->getAttrib('@type')) print ($budget->getAttribValue('@type'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Type</td><td class='attrib-value'> <?php if($budget->getAttrib('@type')) print ($budget->getAttribValue('@type'));?></td></tr>
 </table><?php endforeach;?>
 </div>
 </div>
@@ -1064,7 +1064,7 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($activitywebsites as $activitywebsite):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($activitywebsite->getAttrib('text')) print ($activitywebsite->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($activitywebsite->getAttrib('text')) print ($activitywebsite->getAttribValue('text'));?></td></tr>
 </table><?php endforeach;?>
 </div>
 </div>
@@ -1081,17 +1081,15 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($relatedactivitys as $relatedactivity):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td>Text</td><td> <?php if($relatedactivity->getAttrib('text')) print ($relatedactivity->getAttribValue('text'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($relatedactivity->getAttrib('@xml_lang')) print ($relatedactivity->getAttribValue('@xml_lang'));?></td></tr>
-<tr class='element-value element-value-even'><td>Ref</td><td> <?php if($relatedactivity->getAttrib('@ref')) print ($relatedactivity->getAttribValue('@ref'));?></td></tr>
-<tr class='element-value element-value-odd'><td>Code</td><td> <?php if($relatedactivity->getAttrib('@code')) print ($relatedactivity->getAttribValue('@code'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($relatedactivity->getAttrib('text')) print ($relatedactivity->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Xml_lang</td><td class='attrib-value'> <?php if($relatedactivity->getAttrib('@xml_lang')) print ($relatedactivity->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Ref</td><td class='attrib-value'> <?php if($relatedactivity->getAttrib('@ref')) print ($relatedactivity->getAttribValue('@ref'));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($relatedactivity->getAttrib('@code')) print ($relatedactivity->getAttribValue('@code'));?></td></tr>
 </table><?php endforeach;?>
 </div>
 </div>
 <?php endif;?>
 <!-- RelatedActivity Ends -->
-
-
 
     </td>
 </tr>

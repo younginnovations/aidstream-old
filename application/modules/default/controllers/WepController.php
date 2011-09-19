@@ -14,10 +14,11 @@ class WepController extends Zend_Controller_Action
         if($identity->role == 'user'){
             $model = new Model_Wep();
             $userPermission = $model->getUserPermission($identity->user_id);
-            $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::VIEW_ACTIVITIES);
-            if($permission == '0'){
-                $this->view->blockManager()->disable('partial/primarymenu.phtml');
-            }
+            //print_r($userPermission);exit;
+            //$permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::VIEW_ACTIVITIES);
+            //if($permission == '0'){
+            //    $this->view->blockManager()->disable('partial/primarymenu.phtml');
+            //}
             $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::ADD_ACTIVITY);
             if($permission == '0'){
                 $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
@@ -1022,8 +1023,8 @@ class WepController extends Zend_Controller_Action
             $activity_id = (isset($_GET['activity_id']))?$_GET['activity_id']:NULL;
             $className = (isset($_GET['classname']))?$_GET['classname']:NULL;
 
-            //$dbLayer = new Iati_WEP_DbLayer();
-            //$del = $dbLayer->deleteRows($className, 'id', $activity_id);
+            $dbLayer = new Iati_WEP_DbLayer();
+            $del = $dbLayer->deleteRows($className, 'id', $activity_id);
 
             $this->_helper->FlashMessenger->addMessage(array('message' => "Activity Deleted."));
             $this->_redirect('wep/view-activities');
