@@ -173,16 +173,35 @@ class AdminController extends Zend_Controller_Action
                     $profile_id = $model->insertRowsToTable('profile', $information);
                     $i = 0;
                     foreach ($data['default_fields'] as $eachField) {
-                        $defaultKey[$i] = $eachField;
+                        //$defaultKey[$i] = $eachField;
                         //if($each)
+                        //$defaultFieldGroup->setProperties($eachField);
+                        //$i++;
+                        if($eachField == 'add'){
+                        $defaultFieldGroup->setProperties('add_activity_elements');
+                        $defaultFieldGroup->setProperties('add_activity');
+                        $defaultKey[$i++] = 'add_activity_elements';
+                        $defaultKey[$i++] = 'add_activity';
+                    }
+                    elseif($eachField == 'edit'){
+                        $defaultFieldGroup->setProperties('edit_activity_elements');
+                        $defaultFieldGroup->setProperties('edit_activity');
+                        $defaultKey[$i++] = 'edit_activity_elements';
+                        $defaultKey[$i++] = 'edit_activity';
+                    }
+                    else if($eachField == 'delete'){
+                        $defaultFieldGroup->setProperties('delete_activity');
+                        $defaultKey[$i++] = 'delete_activity';
+                    }
+                    else{
                         $defaultFieldGroup->setProperties($eachField);
-                        $i++;
+                        $defaultKey[$i++] = $eachField;
+                    }
                     }                    
                     $fieldString = serialize($defaultFieldGroup);
                     $defaultFields['object'] = $fieldString;
                     $defaultFields['user_id'] = $user_id;
                     $defaultFieldId = $model->insertRowsToTable('user_permission', $defaultFields);
-
                     $privilegeFields['resource'] = serialize($defaultKey);
                     $privilegeFields['owner_id'] = $user_id;
                     $privilegeFieldId = $model->insertRowsToTable('Privilege', $privilegeFields);
@@ -191,7 +210,7 @@ class AdminController extends Zend_Controller_Action
                     $this->_redirect('user/user/login');
                 }
             } catch (Exception $e) {
-print_r($e);exit;
+                print_r($e);exit;
             }
         }
         $this->view->form = $form;
@@ -288,6 +307,7 @@ print_r($e);exit;
         $permissionSerialized = $model->getRowById('user_permission', 'user_id', $user_id);
         //print_r($permissionSerialized['object']);exit;
         $permissionObj = unserialize($permissionSerialized['object']);
+        //print_r($permissionObj);exit;
         $default['fields'] = $permissionObj->getProperties();
         
         $form = new Form_Admin_Editpermission();
@@ -298,23 +318,46 @@ print_r($e);exit;
                 
                 $data = $_POST;
                 $i = 0;
+                //print_r($data);exit;
                 $permissionObj = new Iati_WEP_UserPermission();
                 foreach ($data['default_fields'] as $eachField) {
-                    $defaultKey[$i] = $eachField;
-                    $permissionObj->setProperties($eachField);
-                    $i++;
-                }                    
+                    if($eachField == 'add'){
+                        $permissionObj->setProperties('add_activity_elements');
+                        $permissionObj->setProperties('add_activity');
+                        $defaultKey[$i++] = 'add_activity_elements';
+                        $defaultKey[$i++] = 'add_activity';
+                    }
+                    elseif($eachField == 'edit'){
+                        $permissionObj->setProperties('edit_activity_elements');
+                        $permissionObj->setProperties('edit_activity');
+                        $defaultKey[$i++] = 'edit_activity_elements';
+                        $defaultKey[$i++] = 'edit_activity';
+                    }
+                    else if($eachField == 'delete'){
+                        $permissionObj->setProperties('delete_activity');
+                        $defaultKey[$i++] = 'delete_activity';
+                    }
+                    else{
+                        $permissionObj->setProperties($eachField);
+                        $defaultKey[$i++] = $eachField;
+                    }
+                    
+                    //$defaultKey[$i] = $eachField;
+                    
+                    //$i++;
+                }
+                $permissionObj->setProperties('view_activities');
                 $fieldString = serialize($permissionObj);
                 $defaultFields['object'] = $fieldString;
                 $defaultFields['user_id'] = $user_id;
                 $defaultFieldId = $model->updateRow('user_permission', $defaultFields, 'user_id', $user_id);
-                //print_r($defaultFieldId);exit;
+                //print_r($defaultKey);exit;
                 $privilegeFields['resource'] = serialize($defaultKey);
                 $privilegeFields['owner_id'] = $user_id;
                 $privilegeFieldId = $model->updateRow('Privilege', $privilegeFields, 'owner_id', $user_id);
                 
                 $this->_helper->FlashMessenger->addMessage(array('message' => 'User permission updated.'));
-                $this->_redirect('admin/list-users'); 
+                $this->_redirect('admin/view-profile?user_id='.$user_id); 
             } 
             catch(Exception $e){
              print $e;   
