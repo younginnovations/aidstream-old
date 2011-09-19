@@ -35,30 +35,24 @@
     <span class="activity_title"> <?php print $title;?> </span>
 </div>
 
-<div class="title">Activity Default</div>
+<div class="element-title">Activity Default</div>
 <table class="activity-detail-table">
 <tr>
     <td>
 
 <div class = "activity-info">
 <table class ="activity-info-table">
-<tr>
+<tr class="element-value-even">
     <td class="label">Language: </td><td><?php print $this->activityInfo['@xml_lang'];?></td>
 </tr>
-<tr>
+<tr class="element-value-odd">
     <td class="label">Default Currency: </td><td><?php print $this->activityInfo['@default_currency'];?></td>
 </tr>
-<tr>
+<tr class="element-value-even">
     <td class="label">Hierarchy: </td><td><?php print $this->activityInfo['@hierarchy'];?></td>
 </tr>
-<tr>
+<tr class="element-value-odd">
     <td class="label">Last Updated Date Time: </td><td><?php print $this->activityInfo['@last_updated_datetime'];?></td>
-</tr>
-
-<tr>
-    <td>
-
-    </td>
 </tr>
 </table>
 

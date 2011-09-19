@@ -172,6 +172,7 @@ h2.form-title {
 }
 .user-nav a {
 	background: #009ada;
+	display: inline-block;
 	padding: 10px 20px;
 	color: #FFF;
 	font-size: 14px;
@@ -794,7 +795,8 @@ code
 }
 
 .remove{
-    margin-left: 385px;	
+		border-bottom: 1px solid #DFDFDF;
+    display: block;
     cursor: pointer;
     color: #009ADA;
     display: block;
@@ -845,7 +847,7 @@ legend {
 }
 
 .activity-list fieldset .inner {
-	border-bottom: 1px solid #f2f2f2;
+	
 }
 
 .activity-list legend {
@@ -853,7 +855,7 @@ legend {
 	font-size: 14px;
 }
 .activity-list fieldset.innermost-wrapper{
-    padding: 20px 10px;
+    padding: 10px;
     background: #f6f6f6;
 }
 .activity-list .innermost-wrapper legend {
@@ -1056,9 +1058,8 @@ table.activity-list-table tr:hover {
     border-radius: 0;
     color: #009ADA;
     display: inline-block;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 10px 0;
+    font-size: 11px;
+    padding: 5px 0;
     text-decoration: none;
 }
 
@@ -1083,10 +1084,11 @@ table.activity-list-table tr:hover {
 	font-weight: bold;
 }
 
-#contain .title {
-	font-size: 12px;
+/*#contain .title {
+	font-size: 16px;
+	font-weight: bold;
 	padding: 5px 0 10px;
-}
+}*/
 
 /** Dashboard page **/
 .dashboard-content .publish-item {
@@ -1111,4 +1113,42 @@ table#list-org {
 #list-org tr {
 	background: none repeat scroll 0 0 #F2F2F2;
     border-bottom: 1px solid #DCDCDC;
+}
+
+.activity-detail-table table {
+	border: none !important;
+	border-top: 5px solid #feefd8 !important;
+	margin-bottom: 18px;
+}
+
+.activity-detail-table tr td{
+	background-color: #fff !important;
+}
+
+.activity-detail-table tr.element-value-even td{
+	background-color: #eaeaea !important;
+}
+
+.activity-detail-table tr.element-value-odd td{
+	background-color: #f7f7f7 !important;
+}
+
+.activity-detail-table table tr td {
+	background-color: none !important;
+	color: #747474 !important;
+	padding: 5px 18px !important;
+	width: 30%;
+}
+
+.activity-detail-table .element-title,
+#contain .element-title{
+	font-size: 16px;
+    font-weight: bold;
+    padding: 5px 0 10px;
+}
+
+#iati_activity_change_status #status-label,
+#iati_activity_change_status #ids-label,
+#iati_activity_change_status #change_state-label {
+	display: none;
 }
