@@ -64,18 +64,18 @@
 
 </div>
 </div>
-
 <!-- Transaction Starts -->
 <?php
 $transactions=$activity->getElementsByType(Iati_Activity_Element::TYPE_TRANSACTION);
 $value = $transactions[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>Transaction</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>Transaction</div>
+<div class='element-values'>
 <?php foreach($transactions as $transaction):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Ref</dt><dd> <?php if($transaction->getAttrib('@ref')) print ($transaction->getAttribValue('@ref'));?></dd><div class='clear'></div>
-
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Ref</td><td> <?php if($transaction->getAttrib('@ref')) print ($transaction->getAttribValue('@ref'));?></td></tr>
+<tr>
+<td colspan=2>
 
 <div class='sub_element'><!-- Sub element Starts -->
 
@@ -84,16 +84,16 @@ if(!empty($value)): ?>
 $transactiontypes=$transaction->getElementsByType('TransactionType');
 $value = $transactiontypes[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>TransactionType</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>TransactionType</div>
+<div class='element-values'>
 <?php foreach($transactiontypes as $transactiontype):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($transactiontype->getAttrib('text')) print ($transactiontype->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Code</dt><dd> <?php if($transactiontype->getAttrib('@code')) print ($transactiontype->getAttribValue('@code'));?></dd><div class='clear'></div>
-</div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($transactiontype->getAttrib('text')) print ($transactiontype->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Code</td><td> <?php if($transactiontype->getAttrib('@code')) print ($transactiontype->getAttribValue('@code'));?></td></tr>
+</table>
 <?php endforeach;?>
-</dl>
-</fieldset>
+</div>
+</div>
 <?php endif;?>
 <!-- TransactionType Ends -->
 
@@ -103,17 +103,17 @@ if(!empty($value)): ?>
 $providerorgs=$transaction->getElementsByType('ProviderOrg');
 $value = $providerorgs[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>ProviderOrg</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>ProviderOrg</div>
+<div class='element-values'>
 <?php foreach($providerorgs as $providerorg):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($providerorg->getAttrib('text')) print ($providerorg->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Ref</dt><dd> <?php if($providerorg->getAttrib('@ref')) print ($providerorg->getAttribValue('@ref'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-3'>Provider_activity_id</dt><dd> <?php if($providerorg->getAttrib('@provider_activity_id')) print ($providerorg->getAttribValue('@provider_activity_id'));?></dd><div class='clear'></div>
-</div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($providerorg->getAttrib('text')) print ($providerorg->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Ref</td><td> <?php if($providerorg->getAttrib('@ref')) print ($providerorg->getAttribValue('@ref'));?></td></tr>
+<tr class='element-value element-value-even'><td>Provider_activity_id</td><td> <?php if($providerorg->getAttrib('@provider_activity_id')) print ($providerorg->getAttribValue('@provider_activity_id'));?></td></tr>
+</table>
 <?php endforeach;?>
-</dl>
-</fieldset>
+</div>
+</div>
 <?php endif;?>
 <!-- ProviderOrg Ends -->
 
@@ -123,17 +123,17 @@ if(!empty($value)): ?>
 $receiverorgs=$transaction->getElementsByType('ReceiverOrg');
 $value = $receiverorgs[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>ReceiverOrg</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>ReceiverOrg</div>
+<div class='element-values'>
 <?php foreach($receiverorgs as $receiverorg):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($receiverorg->getAttrib('text')) print ($receiverorg->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Ref</dt><dd> <?php if($receiverorg->getAttrib('@ref')) print ($receiverorg->getAttribValue('@ref'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-3'>Receiver_activity_id</dt><dd> <?php if($receiverorg->getAttrib('@receiver_activity_id')) print ($receiverorg->getAttribValue('@receiver_activity_id'));?></dd><div class='clear'></div>
-</div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($receiverorg->getAttrib('text')) print ($receiverorg->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Ref</td><td> <?php if($receiverorg->getAttrib('@ref')) print ($receiverorg->getAttribValue('@ref'));?></td></tr>
+<tr class='element-value element-value-even'><td>Receiver_activity_id</td><td> <?php if($receiverorg->getAttrib('@receiver_activity_id')) print ($receiverorg->getAttribValue('@receiver_activity_id'));?></td></tr>
+</table>
 <?php endforeach;?>
-</dl>
-</fieldset>
+</div>
+</div>
 <?php endif;?>
 <!-- ReceiverOrg Ends -->
 
@@ -143,17 +143,17 @@ if(!empty($value)): ?>
 $values=$transaction->getElementsByType('Value');
 $value = $values[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>Value</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>Value</div>
+<div class='element-values'>
 <?php foreach($values as $value):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($value->getAttrib('text')) print ($value->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Value_date</dt><dd> <?php if($value->getAttrib('@value_date')) print ($value->getAttribValue('@value_date'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-3'>Currency</dt><dd> <?php if($value->getAttrib('@currency')) print ($value->getAttribValue('@currency'));?></dd><div class='clear'></div>
-</div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($value->getAttrib('text')) print ($value->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Value_date</td><td> <?php if($value->getAttrib('@value_date')) print ($value->getAttribValue('@value_date'));?></td></tr>
+<tr class='element-value element-value-even'><td>Currency</td><td> <?php if($value->getAttrib('@currency')) print ($value->getAttribValue('@currency'));?></td></tr>
+</table>
 <?php endforeach;?>
-</dl>
-</fieldset>
+</div>
+</div>
 <?php endif;?>
 <!-- Value Ends -->
 
@@ -163,16 +163,16 @@ if(!empty($value)): ?>
 $descriptions=$transaction->getElementsByType('Description');
 $value = $descriptions[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>Description</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>Description</div>
+<div class='element-values'>
 <?php foreach($descriptions as $description):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($description->getAttrib('text')) print ($description->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Xml_lang</dt><dd> <?php if($description->getAttrib('@xml_lang')) print ($description->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
-</div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($description->getAttrib('text')) print ($description->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($description->getAttrib('@xml_lang')) print ($description->getAttribValue('@xml_lang'));?></td></tr>
+</table>
 <?php endforeach;?>
-</dl>
-</fieldset>
+</div>
+</div>
 <?php endif;?>
 <!-- Description Ends -->
 
@@ -182,16 +182,16 @@ if(!empty($value)): ?>
 $transactiondates=$transaction->getElementsByType('TransactionDate');
 $value = $transactiondates[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>TransactionDate</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>TransactionDate</div>
+<div class='element-values'>
 <?php foreach($transactiondates as $transactiondate):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($transactiondate->getAttrib('text')) print ($transactiondate->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Iso_date</dt><dd> <?php if($transactiondate->getAttrib('@iso_date')) print ($transactiondate->getAttribValue('@iso_date'));?></dd><div class='clear'></div>
-</div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($transactiondate->getAttrib('text')) print ($transactiondate->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Iso_date</td><td> <?php if($transactiondate->getAttrib('@iso_date')) print ($transactiondate->getAttribValue('@iso_date'));?></td></tr>
+</table>
 <?php endforeach;?>
-</dl>
-</fieldset>
+</div>
+</div>
 <?php endif;?>
 <!-- TransactionDate Ends -->
 
@@ -201,17 +201,17 @@ if(!empty($value)): ?>
 $flowtypes=$transaction->getElementsByType('FlowType');
 $value = $flowtypes[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>FlowType</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>FlowType</div>
+<div class='element-values'>
 <?php foreach($flowtypes as $flowtype):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($flowtype->getAttrib('text')) print ($flowtype->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Xml_lang</dt><dd> <?php if($flowtype->getAttrib('@xml_lang')) print ($flowtype->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-3'>Code</dt><dd> <?php if($flowtype->getAttrib('@code')) print ($flowtype->getAttribValue('@code'));?></dd><div class='clear'></div>
-</div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($flowtype->getAttrib('text')) print ($flowtype->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($flowtype->getAttrib('@xml_lang')) print ($flowtype->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td>Code</td><td> <?php if($flowtype->getAttrib('@code')) print ($flowtype->getAttribValue('@code'));?></td></tr>
+</table>
 <?php endforeach;?>
-</dl>
-</fieldset>
+</div>
+</div>
 <?php endif;?>
 <!-- FlowType Ends -->
 
@@ -221,17 +221,17 @@ if(!empty($value)): ?>
 $financetypes=$transaction->getElementsByType('FinanceType');
 $value = $financetypes[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>FinanceType</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>FinanceType</div>
+<div class='element-values'>
 <?php foreach($financetypes as $financetype):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($financetype->getAttrib('text')) print ($financetype->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Xml_lang</dt><dd> <?php if($financetype->getAttrib('@xml_lang')) print ($financetype->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-3'>Code</dt><dd> <?php if($financetype->getAttrib('@code')) print ($financetype->getAttribValue('@code'));?></dd><div class='clear'></div>
-</div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($financetype->getAttrib('text')) print ($financetype->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($financetype->getAttrib('@xml_lang')) print ($financetype->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td>Code</td><td> <?php if($financetype->getAttrib('@code')) print ($financetype->getAttribValue('@code'));?></td></tr>
+</table>
 <?php endforeach;?>
-</dl>
-</fieldset>
+</div>
+</div>
 <?php endif;?>
 <!-- FinanceType Ends -->
 
@@ -241,17 +241,17 @@ if(!empty($value)): ?>
 $aidtypes=$transaction->getElementsByType('AidType');
 $value = $aidtypes[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>AidType</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>AidType</div>
+<div class='element-values'>
 <?php foreach($aidtypes as $aidtype):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($aidtype->getAttrib('text')) print ($aidtype->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Xml_lang</dt><dd> <?php if($aidtype->getAttrib('@xml_lang')) print ($aidtype->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-3'>Code</dt><dd> <?php if($aidtype->getAttrib('@code')) print ($aidtype->getAttribValue('@code'));?></dd><div class='clear'></div>
-</div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($aidtype->getAttrib('text')) print ($aidtype->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($aidtype->getAttrib('@xml_lang')) print ($aidtype->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td>Code</td><td> <?php if($aidtype->getAttrib('@code')) print ($aidtype->getAttribValue('@code'));?></td></tr>
+</table>
 <?php endforeach;?>
-</dl>
-</fieldset>
+</div>
+</div>
 <?php endif;?>
 <!-- AidType Ends -->
 
@@ -261,16 +261,16 @@ if(!empty($value)): ?>
 $disbursementchannels=$transaction->getElementsByType('DisbursementChannel');
 $value = $disbursementchannels[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>DisbursementChannel</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>DisbursementChannel</div>
+<div class='element-values'>
 <?php foreach($disbursementchannels as $disbursementchannel):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($disbursementchannel->getAttrib('text')) print ($disbursementchannel->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Code</dt><dd> <?php if($disbursementchannel->getAttrib('@code')) print ($disbursementchannel->getAttribValue('@code'));?></dd><div class='clear'></div>
-</div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($disbursementchannel->getAttrib('text')) print ($disbursementchannel->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Code</td><td> <?php if($disbursementchannel->getAttrib('@code')) print ($disbursementchannel->getAttribValue('@code'));?></td></tr>
+</table>
 <?php endforeach;?>
-</dl>
-</fieldset>
+</div>
+</div>
 <?php endif;?>
 <!-- DisbursementChannel Ends -->
 
@@ -280,27 +280,26 @@ if(!empty($value)): ?>
 $tiedstatuss=$transaction->getElementsByType('TiedStatus');
 $value = $tiedstatuss[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>TiedStatus</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>TiedStatus</div>
+<div class='element-values'>
 <?php foreach($tiedstatuss as $tiedstatus):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($tiedstatus->getAttrib('text')) print ($tiedstatus->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Xml_lang</dt><dd> <?php if($tiedstatus->getAttrib('@xml_lang')) print ($tiedstatus->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-3'>Code</dt><dd> <?php if($tiedstatus->getAttrib('@code')) print ($tiedstatus->getAttribValue('@code'));?></dd><div class='clear'></div>
-</div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($tiedstatus->getAttrib('text')) print ($tiedstatus->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($tiedstatus->getAttrib('@xml_lang')) print ($tiedstatus->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td>Code</td><td> <?php if($tiedstatus->getAttrib('@code')) print ($tiedstatus->getAttribValue('@code'));?></td></tr>
+</table>
 <?php endforeach;?>
-</dl>
-</fieldset>
+</div>
+</div>
 <?php endif;?>
 <!-- TiedStatus Ends -->
 
 
 </div><!-- Sub element Ends -->
 
+</td></tr></table><?php endforeach;?>
 </div>
-<?php endforeach;?>
-</dl>
-</fieldset>
+</div>
 <?php endif;?>
 <!-- Transaction Ends -->
 
@@ -310,12 +309,13 @@ if(!empty($value)): ?>
 $conditionss=$activity->getElementsByType(Iati_Activity_Element::TYPE_CONDITIONS);
 $value = $conditionss[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>Conditions</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>Conditions</div>
+<div class='element-values'>
 <?php foreach($conditionss as $conditions):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Attached</dt><dd> <?php if($conditions->getAttrib('@attached')) print ($conditions->getAttribValue('@attached'));?></dd><div class='clear'></div>
-
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Attached</td><td> <?php if($conditions->getAttrib('@attached')) print ($conditions->getAttribValue('@attached'));?></td></tr>
+<tr>
+<td colspan=2>
 
 <div class='sub_element'><!-- Sub element Starts -->
 
@@ -324,27 +324,26 @@ if(!empty($value)): ?>
 $conditions=$conditions->getElementsByType('Condition');
 $value = $conditions[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>Condition</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>Condition</div>
+<div class='element-values'>
 <?php foreach($conditions as $condition):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($condition->getAttrib('text')) print ($condition->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Xml_lang</dt><dd> <?php if($condition->getAttrib('@xml_lang')) print ($condition->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-3'>Type</dt><dd> <?php if($condition->getAttrib('@type')) print ($condition->getAttribValue('@type'));?></dd><div class='clear'></div>
-</div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($condition->getAttrib('text')) print ($condition->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($condition->getAttrib('@xml_lang')) print ($condition->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td>Type</td><td> <?php if($condition->getAttrib('@type')) print ($condition->getAttribValue('@type'));?></td></tr>
+</table>
 <?php endforeach;?>
-</dl>
-</fieldset>
+</div>
+</div>
 <?php endif;?>
 <!-- Condition Ends -->
 
 
 </div><!-- Sub element Ends -->
 
+</td></tr></table><?php endforeach;?>
 </div>
-<?php endforeach;?>
-</dl>
-</fieldset>
+</div>
 <?php endif;?>
 <!-- Conditions Ends -->
 
@@ -354,12 +353,13 @@ if(!empty($value)): ?>
 $documentlinks=$activity->getElementsByType(Iati_Activity_Element::TYPE_DOCUMENT_LINK);
 $value = $documentlinks[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>DocumentLink</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>DocumentLink</div>
+<div class='element-values'>
 <?php foreach($documentlinks as $documentlink):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Url</dt><dd> <?php if($documentlink->getAttrib('@url')) print ($documentlink->getAttribValue('@url'));?></dd><div class='clear'></div>
-
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Url</td><td> <?php if($documentlink->getAttrib('@url')) print ($documentlink->getAttribValue('@url'));?></td></tr>
+<tr>
+<td colspan=2>
 
 <div class='sub_element'><!-- Sub element Starts -->
 
@@ -368,17 +368,17 @@ if(!empty($value)): ?>
 $categorys=$documentlink->getElementsByType('Category');
 $value = $categorys[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>Category</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>Category</div>
+<div class='element-values'>
 <?php foreach($categorys as $category):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($category->getAttrib('text')) print ($category->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Code</dt><dd> <?php if($category->getAttrib('@code')) print ($category->getAttribValue('@code'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-3'>Xml_lang</dt><dd> <?php if($category->getAttrib('@xml_lang')) print ($category->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
-</div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($category->getAttrib('text')) print ($category->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Code</td><td> <?php if($category->getAttrib('@code')) print ($category->getAttribValue('@code'));?></td></tr>
+<tr class='element-value element-value-even'><td>Xml_lang</td><td> <?php if($category->getAttrib('@xml_lang')) print ($category->getAttribValue('@xml_lang'));?></td></tr>
+</table>
 <?php endforeach;?>
-</dl>
-</fieldset>
+</div>
+</div>
 <?php endif;?>
 <!-- Category Ends -->
 
@@ -388,26 +388,25 @@ if(!empty($value)): ?>
 $titles=$documentlink->getElementsByType('Title');
 $value = $titles[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>Title</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>Title</div>
+<div class='element-values'>
 <?php foreach($titles as $title):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($title->getAttrib('text')) print ($title->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Xml_lang</dt><dd> <?php if($title->getAttrib('@xml_lang')) print ($title->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
-</div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($title->getAttrib('text')) print ($title->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($title->getAttrib('@xml_lang')) print ($title->getAttribValue('@xml_lang'));?></td></tr>
+</table>
 <?php endforeach;?>
-</dl>
-</fieldset>
+</div>
+</div>
 <?php endif;?>
 <!-- Title Ends -->
 
 
 </div><!-- Sub element Ends -->
 
+</td></tr></table><?php endforeach;?>
 </div>
-<?php endforeach;?>
-</dl>
-</fieldset>
+</div>
 <?php endif;?>
 <!-- DocumentLink Ends -->
 
@@ -417,15 +416,14 @@ if(!empty($value)): ?>
 $results=$activity->getElementsByType(Iati_Activity_Element::TYPE_RESULT);
 $value = $results[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>Result</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>Result</div>
+<div class='element-values'>
 <?php foreach($results as $result):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Type</dt><dd> <?php if($result->getAttrib('@type')) print ($result->getAttribValue('@type'));?></dd><div class='clear'></div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Type</td><td> <?php if($result->getAttrib('@type')) print ($result->getAttribValue('@type'));?></td></tr>
+</table><?php endforeach;?>
 </div>
-<?php endforeach;?>
-</dl>
-</fieldset>
+</div>
 <?php endif;?>
 <!-- Result Ends -->
 
@@ -435,15 +433,14 @@ if(!empty($value)): ?>
 $planneddisbursements=$activity->getElementsByType(Iati_Activity_Element::TYPE_PLANNED_DISBURSEMENT);
 $value = $planneddisbursements[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>PlannedDisbursement</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>PlannedDisbursement</div>
+<div class='element-values'>
 <?php foreach($planneddisbursements as $planneddisbursement):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Updated</dt><dd> <?php if($planneddisbursement->getAttrib('@updated')) print ($planneddisbursement->getAttribValue('@updated'));?></dd><div class='clear'></div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Updated</td><td> <?php if($planneddisbursement->getAttrib('@updated')) print ($planneddisbursement->getAttribValue('@updated'));?></td></tr>
+</table><?php endforeach;?>
 </div>
-<?php endforeach;?>
-</dl>
-</fieldset>
+</div>
 <?php endif;?>
 <!-- PlannedDisbursement Ends -->
 
@@ -453,15 +450,14 @@ if(!empty($value)): ?>
 $identifiers=$activity->getElementsByType(Iati_Activity_Element::TYPE_IDENTIFIER);
 $value = $identifiers[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>Identifier</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>Identifier</div>
+<div class='element-values'>
 <?php foreach($identifiers as $identifier):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($identifier->getAttrib('text')) print ($identifier->getAttribValue('text'));?></dd><div class='clear'></div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($identifier->getAttrib('text')) print ($identifier->getAttribValue('text'));?></td></tr>
+</table><?php endforeach;?>
 </div>
-<?php endforeach;?>
-</dl>
-</fieldset>
+</div>
 <?php endif;?>
 <!-- Identifier Ends -->
 
@@ -471,11 +467,12 @@ if(!empty($value)): ?>
 $contactinfos=$activity->getElementsByType(Iati_Activity_Element::TYPE_CONTACT_INFO);
 $value = $contactinfos[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>ContactInfo</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>ContactInfo</div>
+<div class='element-values'>
 <?php foreach($contactinfos as $contactinfo):?>
-<div class='element-values-items'>
-
+<table class='element-values-items'>
+<tr>
+<td colspan=2>
 
 <div class='sub_element'><!-- Sub element Starts -->
 
@@ -484,15 +481,15 @@ if(!empty($value)): ?>
 $organisations=$contactinfo->getElementsByType('Organisation');
 $value = $organisations[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>Organisation</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>Organisation</div>
+<div class='element-values'>
 <?php foreach($organisations as $organisation):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($organisation->getAttrib('text')) print ($organisation->getAttribValue('text'));?></dd><div class='clear'></div>
-</div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($organisation->getAttrib('text')) print ($organisation->getAttribValue('text'));?></td></tr>
+</table>
 <?php endforeach;?>
-</dl>
-</fieldset>
+</div>
+</div>
 <?php endif;?>
 <!-- Organisation Ends -->
 
@@ -502,15 +499,15 @@ if(!empty($value)): ?>
 $personnames=$contactinfo->getElementsByType('PersonName');
 $value = $personnames[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>PersonName</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>PersonName</div>
+<div class='element-values'>
 <?php foreach($personnames as $personname):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($personname->getAttrib('text')) print ($personname->getAttribValue('text'));?></dd><div class='clear'></div>
-</div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($personname->getAttrib('text')) print ($personname->getAttribValue('text'));?></td></tr>
+</table>
 <?php endforeach;?>
-</dl>
-</fieldset>
+</div>
+</div>
 <?php endif;?>
 <!-- PersonName Ends -->
 
@@ -520,15 +517,15 @@ if(!empty($value)): ?>
 $telephones=$contactinfo->getElementsByType('Telephone');
 $value = $telephones[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>Telephone</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>Telephone</div>
+<div class='element-values'>
 <?php foreach($telephones as $telephone):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($telephone->getAttrib('text')) print ($telephone->getAttribValue('text'));?></dd><div class='clear'></div>
-</div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($telephone->getAttrib('text')) print ($telephone->getAttribValue('text'));?></td></tr>
+</table>
 <?php endforeach;?>
-</dl>
-</fieldset>
+</div>
+</div>
 <?php endif;?>
 <!-- Telephone Ends -->
 
@@ -538,15 +535,15 @@ if(!empty($value)): ?>
 $emails=$contactinfo->getElementsByType('Email');
 $value = $emails[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>Email</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>Email</div>
+<div class='element-values'>
 <?php foreach($emails as $email):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($email->getAttrib('text')) print ($email->getAttribValue('text'));?></dd><div class='clear'></div>
-</div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($email->getAttrib('text')) print ($email->getAttribValue('text'));?></td></tr>
+</table>
 <?php endforeach;?>
-</dl>
-</fieldset>
+</div>
+</div>
 <?php endif;?>
 <!-- Email Ends -->
 
@@ -556,25 +553,24 @@ if(!empty($value)): ?>
 $mailingaddresss=$contactinfo->getElementsByType('MailingAddress');
 $value = $mailingaddresss[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>MailingAddress</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>MailingAddress</div>
+<div class='element-values'>
 <?php foreach($mailingaddresss as $mailingaddress):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($mailingaddress->getAttrib('text')) print ($mailingaddress->getAttribValue('text'));?></dd><div class='clear'></div>
-</div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($mailingaddress->getAttrib('text')) print ($mailingaddress->getAttribValue('text'));?></td></tr>
+</table>
 <?php endforeach;?>
-</dl>
-</fieldset>
+</div>
+</div>
 <?php endif;?>
 <!-- MailingAddress Ends -->
 
 
 </div><!-- Sub element Ends -->
 
+</td></tr></table><?php endforeach;?>
 </div>
-<?php endforeach;?>
-</dl>
-</fieldset>
+</div>
 <?php endif;?>
 <!-- ContactInfo Ends -->
 
@@ -584,18 +580,17 @@ if(!empty($value)): ?>
 $reportingorgs=$activity->getElementsByType(Iati_Activity_Element::TYPE_REPORTING_ORG);
 $value = $reportingorgs[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>ReportingOrg</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>ReportingOrg</div>
+<div class='element-values'>
 <?php foreach($reportingorgs as $reportingorg):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($reportingorg->getAttrib('text')) print ($reportingorg->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Xml_lang</dt><dd> <?php if($reportingorg->getAttrib('@xml_lang')) print ($reportingorg->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-3'>Ref</dt><dd> <?php if($reportingorg->getAttrib('@ref')) print ($reportingorg->getAttribValue('@ref'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-4'>Type</dt><dd> <?php if($reportingorg->getAttrib('@type')) print ($reportingorg->getAttribValue('@type'));?></dd><div class='clear'></div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($reportingorg->getAttrib('text')) print ($reportingorg->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($reportingorg->getAttrib('@xml_lang')) print ($reportingorg->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td>Ref</td><td> <?php if($reportingorg->getAttrib('@ref')) print ($reportingorg->getAttribValue('@ref'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Type</td><td> <?php if($reportingorg->getAttrib('@type')) print ($reportingorg->getAttribValue('@type'));?></td></tr>
+</table><?php endforeach;?>
 </div>
-<?php endforeach;?>
-</dl>
-</fieldset>
+</div>
 <?php endif;?>
 <!-- ReportingOrg Ends -->
 
@@ -605,17 +600,16 @@ if(!empty($value)): ?>
 $otheridentifiers=$activity->getElementsByType(Iati_Activity_Element::TYPE_OTHER_ACTIVITY_IDENTIFIER);
 $value = $otheridentifiers[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>OtherIdentifier</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>OtherIdentifier</div>
+<div class='element-values'>
 <?php foreach($otheridentifiers as $otheridentifier):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($otheridentifier->getAttrib('text')) print ($otheridentifier->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Owner_ref</dt><dd> <?php if($otheridentifier->getAttrib('@owner_ref')) print ($otheridentifier->getAttribValue('@owner_ref'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-3'>Owner_name</dt><dd> <?php if($otheridentifier->getAttrib('@owner_name')) print ($otheridentifier->getAttribValue('@owner_name'));?></dd><div class='clear'></div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($otheridentifier->getAttrib('text')) print ($otheridentifier->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Owner_ref</td><td> <?php if($otheridentifier->getAttrib('@owner_ref')) print ($otheridentifier->getAttribValue('@owner_ref'));?></td></tr>
+<tr class='element-value element-value-even'><td>Owner_name</td><td> <?php if($otheridentifier->getAttrib('@owner_name')) print ($otheridentifier->getAttribValue('@owner_name'));?></td></tr>
+</table><?php endforeach;?>
 </div>
-<?php endforeach;?>
-</dl>
-</fieldset>
+</div>
 <?php endif;?>
 <!-- OtherIdentifier Ends -->
 
@@ -625,16 +619,33 @@ if(!empty($value)): ?>
 $titles=$activity->getElementsByType(Iati_Activity_Element::TYPE_TITLE);
 $value = $titles[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>Title</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>Title</div>
+<div class='element-values'>
 <?php foreach($titles as $title):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($title->getAttrib('text')) print ($title->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Xml_lang</dt><dd> <?php if($title->getAttrib('@xml_lang')) print ($title->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($title->getAttrib('text')) print ($title->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($title->getAttrib('@xml_lang')) print ($title->getAttribValue('@xml_lang'));?></td></tr>
+</table><?php endforeach;?>
 </div>
-<?php endforeach;?>
-</dl>
-</fieldset>
+</div>
+<?php endif;?>
+<!-- Title Ends -->
+
+
+<!-- Title Starts -->
+<?php
+$titles=$activity->getElementsByType(Iati_Activity_Element::TYPE_TITLE);
+$value = $titles[0]->getAttribs();
+if(!empty($value)): ?>
+<div class='element-item'><div class='element-title'>Title</div>
+<div class='element-values'>
+<?php foreach($titles as $title):?>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($title->getAttrib('text')) print ($title->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($title->getAttrib('@xml_lang')) print ($title->getAttribValue('@xml_lang'));?></td></tr>
+</table><?php endforeach;?>
+</div>
+</div>
 <?php endif;?>
 <!-- Title Ends -->
 
@@ -644,16 +655,15 @@ if(!empty($value)): ?>
 $descriptions=$activity->getElementsByType(Iati_Activity_Element::TYPE_DESCRIPTION);
 $value = $descriptions[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>Description</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>Description</div>
+<div class='element-values'>
 <?php foreach($descriptions as $description):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($description->getAttrib('text')) print ($description->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Xml_lang</dt><dd> <?php if($description->getAttrib('@xml_lang')) print ($description->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($description->getAttrib('text')) print ($description->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($description->getAttrib('@xml_lang')) print ($description->getAttribValue('@xml_lang'));?></td></tr>
+</table><?php endforeach;?>
 </div>
-<?php endforeach;?>
-</dl>
-</fieldset>
+</div>
 <?php endif;?>
 <!-- Description Ends -->
 
@@ -663,17 +673,16 @@ if(!empty($value)): ?>
 $activitystatuss=$activity->getElementsByType(Iati_Activity_Element::TYPE_ACTIVITY_STATUS);
 $value = $activitystatuss[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>ActivityStatus</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>ActivityStatus</div>
+<div class='element-values'>
 <?php foreach($activitystatuss as $activitystatus):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($activitystatus->getAttrib('text')) print ($activitystatus->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Xml_lang</dt><dd> <?php if($activitystatus->getAttrib('@xml_lang')) print ($activitystatus->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-3'>Code</dt><dd> <?php if($activitystatus->getAttrib('@code')) print ($activitystatus->getAttribValue('@code'));?></dd><div class='clear'></div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($activitystatus->getAttrib('text')) print ($activitystatus->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($activitystatus->getAttrib('@xml_lang')) print ($activitystatus->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td>Code</td><td> <?php if($activitystatus->getAttrib('@code')) print ($activitystatus->getAttribValue('@code'));?></td></tr>
+</table><?php endforeach;?>
 </div>
-<?php endforeach;?>
-</dl>
-</fieldset>
+</div>
 <?php endif;?>
 <!-- ActivityStatus Ends -->
 
@@ -683,18 +692,17 @@ if(!empty($value)): ?>
 $activitydates=$activity->getElementsByType(Iati_Activity_Element::TYPE_ACTIVITY_DATE);
 $value = $activitydates[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>ActivityDate</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>ActivityDate</div>
+<div class='element-values'>
 <?php foreach($activitydates as $activitydate):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($activitydate->getAttrib('text')) print ($activitydate->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Type</dt><dd> <?php if($activitydate->getAttrib('@type')) print ($activitydate->getAttribValue('@type'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-3'>Iso_date</dt><dd> <?php if($activitydate->getAttrib('@iso_date')) print ($activitydate->getAttribValue('@iso_date'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-4'>Xml_lang</dt><dd> <?php if($activitydate->getAttrib('@xml_lang')) print ($activitydate->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($activitydate->getAttrib('text')) print ($activitydate->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Type</td><td> <?php if($activitydate->getAttrib('@type')) print ($activitydate->getAttribValue('@type'));?></td></tr>
+<tr class='element-value element-value-even'><td>Iso_date</td><td> <?php if($activitydate->getAttrib('@iso_date')) print ($activitydate->getAttribValue('@iso_date'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($activitydate->getAttrib('@xml_lang')) print ($activitydate->getAttribValue('@xml_lang'));?></td></tr>
+</table><?php endforeach;?>
 </div>
-<?php endforeach;?>
-</dl>
-</fieldset>
+</div>
 <?php endif;?>
 <!-- ActivityDate Ends -->
 
@@ -704,18 +712,17 @@ if(!empty($value)): ?>
 $participatingorgs=$activity->getElementsByType(Iati_Activity_Element::TYPE_PARTICIPATING_ORG);
 $value = $participatingorgs[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>ParticipatingOrg</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>ParticipatingOrg</div>
+<div class='element-values'>
 <?php foreach($participatingorgs as $participatingorg):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($participatingorg->getAttrib('text')) print ($participatingorg->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Xml_lang</dt><dd> <?php if($participatingorg->getAttrib('@xml_lang')) print ($participatingorg->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-3'>Ref</dt><dd> <?php if($participatingorg->getAttrib('@ref')) print ($participatingorg->getAttribValue('@ref'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-4'>Type</dt><dd> <?php if($participatingorg->getAttrib('@type')) print ($participatingorg->getAttribValue('@type'));?></dd><div class='clear'></div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($participatingorg->getAttrib('text')) print ($participatingorg->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($participatingorg->getAttrib('@xml_lang')) print ($participatingorg->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td>Ref</td><td> <?php if($participatingorg->getAttrib('@ref')) print ($participatingorg->getAttribValue('@ref'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Type</td><td> <?php if($participatingorg->getAttrib('@type')) print ($participatingorg->getAttribValue('@type'));?></td></tr>
+</table><?php endforeach;?>
 </div>
-<?php endforeach;?>
-</dl>
-</fieldset>
+</div>
 <?php endif;?>
 <!-- ParticipatingOrg Ends -->
 
@@ -725,18 +732,17 @@ if(!empty($value)): ?>
 $recipientcountrys=$activity->getElementsByType(Iati_Activity_Element::TYPE_RECIPIENT_COUNTRY);
 $value = $recipientcountrys[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>RecipientCountry</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>RecipientCountry</div>
+<div class='element-values'>
 <?php foreach($recipientcountrys as $recipientcountry):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($recipientcountry->getAttrib('text')) print ($recipientcountry->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Xml_lang</dt><dd> <?php if($recipientcountry->getAttrib('@xml_lang')) print ($recipientcountry->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-3'>Percentage</dt><dd> <?php if($recipientcountry->getAttrib('@percentage')) print ($recipientcountry->getAttribValue('@percentage'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-4'>Code</dt><dd> <?php if($recipientcountry->getAttrib('@code')) print ($recipientcountry->getAttribValue('@code'));?></dd><div class='clear'></div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($recipientcountry->getAttrib('text')) print ($recipientcountry->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($recipientcountry->getAttrib('@xml_lang')) print ($recipientcountry->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td>Percentage</td><td> <?php if($recipientcountry->getAttrib('@percentage')) print ($recipientcountry->getAttribValue('@percentage'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Code</td><td> <?php if($recipientcountry->getAttrib('@code')) print ($recipientcountry->getAttribValue('@code'));?></td></tr>
+</table><?php endforeach;?>
 </div>
-<?php endforeach;?>
-</dl>
-</fieldset>
+</div>
 <?php endif;?>
 <!-- RecipientCountry Ends -->
 
@@ -746,18 +752,17 @@ if(!empty($value)): ?>
 $recipientregions=$activity->getElementsByType(Iati_Activity_Element::TYPE_RECIPIENT_REGION);
 $value = $recipientregions[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>RecipientRegion</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>RecipientRegion</div>
+<div class='element-values'>
 <?php foreach($recipientregions as $recipientregion):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($recipientregion->getAttrib('text')) print ($recipientregion->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Xml_lang</dt><dd> <?php if($recipientregion->getAttrib('@xml_lang')) print ($recipientregion->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-3'>Percentage</dt><dd> <?php if($recipientregion->getAttrib('@percentage')) print ($recipientregion->getAttribValue('@percentage'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-4'>Code</dt><dd> <?php if($recipientregion->getAttrib('@code')) print ($recipientregion->getAttribValue('@code'));?></dd><div class='clear'></div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($recipientregion->getAttrib('text')) print ($recipientregion->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($recipientregion->getAttrib('@xml_lang')) print ($recipientregion->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td>Percentage</td><td> <?php if($recipientregion->getAttrib('@percentage')) print ($recipientregion->getAttribValue('@percentage'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Code</td><td> <?php if($recipientregion->getAttrib('@code')) print ($recipientregion->getAttribValue('@code'));?></td></tr>
+</table><?php endforeach;?>
 </div>
-<?php endforeach;?>
-</dl>
-</fieldset>
+</div>
 <?php endif;?>
 <!-- RecipientRegion Ends -->
 
@@ -767,13 +772,13 @@ if(!empty($value)): ?>
 $locations=$activity->getElementsByType(Iati_Activity_Element::TYPE_LOCATION);
 $value = $locations[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>Location</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>Location</div>
+<div class='element-values'>
 <?php foreach($locations as $location):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($location->getAttrib('text')) print ($location->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Percentage</dt><dd> <?php if($location->getAttrib('@percentage')) print ($location->getAttribValue('@percentage'));?></dd><div class='clear'></div>
-
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Percentage</td><td> <?php if($location->getAttrib('@percentage')) print ($location->getAttribValue('@percentage'));?></td></tr>
+<tr>
+<td colspan=2>
 
 <div class='sub_element'><!-- Sub element Starts -->
 
@@ -782,17 +787,17 @@ if(!empty($value)): ?>
 $locationtypes=$location->getElementsByType('LocationType');
 $value = $locationtypes[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>LocationType</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>LocationType</div>
+<div class='element-values'>
 <?php foreach($locationtypes as $locationtype):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($locationtype->getAttrib('text')) print ($locationtype->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Xml_lang</dt><dd> <?php if($locationtype->getAttrib('@xml_lang')) print ($locationtype->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-3'>Code</dt><dd> <?php if($locationtype->getAttrib('@code')) print ($locationtype->getAttribValue('@code'));?></dd><div class='clear'></div>
-</div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($locationtype->getAttrib('text')) print ($locationtype->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($locationtype->getAttrib('@xml_lang')) print ($locationtype->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td>Code</td><td> <?php if($locationtype->getAttrib('@code')) print ($locationtype->getAttribValue('@code'));?></td></tr>
+</table>
 <?php endforeach;?>
-</dl>
-</fieldset>
+</div>
+</div>
 <?php endif;?>
 <!-- LocationType Ends -->
 
@@ -802,16 +807,16 @@ if(!empty($value)): ?>
 $names=$location->getElementsByType('Name');
 $value = $names[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>Name</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>Name</div>
+<div class='element-values'>
 <?php foreach($names as $name):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($name->getAttrib('text')) print ($name->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Xml_lang</dt><dd> <?php if($name->getAttrib('@xml_lang')) print ($name->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
-</div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($name->getAttrib('text')) print ($name->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($name->getAttrib('@xml_lang')) print ($name->getAttribValue('@xml_lang'));?></td></tr>
+</table>
 <?php endforeach;?>
-</dl>
-</fieldset>
+</div>
+</div>
 <?php endif;?>
 <!-- Name Ends -->
 
@@ -821,16 +826,16 @@ if(!empty($value)): ?>
 $descriptions=$location->getElementsByType('Description');
 $value = $descriptions[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>Description</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>Description</div>
+<div class='element-values'>
 <?php foreach($descriptions as $description):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($description->getAttrib('text')) print ($description->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Xml_lang</dt><dd> <?php if($description->getAttrib('@xml_lang')) print ($description->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
-</div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($description->getAttrib('text')) print ($description->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($description->getAttrib('@xml_lang')) print ($description->getAttribValue('@xml_lang'));?></td></tr>
+</table>
 <?php endforeach;?>
-</dl>
-</fieldset>
+</div>
+</div>
 <?php endif;?>
 <!-- Description Ends -->
 
@@ -840,16 +845,16 @@ if(!empty($value)): ?>
 $administratives=$location->getElementsByType('Administrative');
 $value = $administratives[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>Administrative</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>Administrative</div>
+<div class='element-values'>
 <?php foreach($administratives as $administrative):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($administrative->getAttrib('text')) print ($administrative->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Xml_lang</dt><dd> <?php if($administrative->getAttrib('@xml_lang')) print ($administrative->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
-</div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($administrative->getAttrib('text')) print ($administrative->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($administrative->getAttrib('@xml_lang')) print ($administrative->getAttribValue('@xml_lang'));?></td></tr>
+</table>
 <?php endforeach;?>
-</dl>
-</fieldset>
+</div>
+</div>
 <?php endif;?>
 <!-- Administrative Ends -->
 
@@ -859,17 +864,17 @@ if(!empty($value)): ?>
 $coordinatess=$location->getElementsByType('Coordinates');
 $value = $coordinatess[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>Coordinates</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>Coordinates</div>
+<div class='element-values'>
 <?php foreach($coordinatess as $coordinates):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Latitude</dt><dd> <?php if($coordinates->getAttrib('@latitude')) print ($coordinates->getAttribValue('@latitude'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Longitude</dt><dd> <?php if($coordinates->getAttrib('@longitude')) print ($coordinates->getAttribValue('@longitude'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-3'>Precision</dt><dd> <?php if($coordinates->getAttrib('@precision')) print ($coordinates->getAttribValue('@precision'));?></dd><div class='clear'></div>
-</div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Latitude</td><td> <?php if($coordinates->getAttrib('@latitude')) print ($coordinates->getAttribValue('@latitude'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Longitude</td><td> <?php if($coordinates->getAttrib('@longitude')) print ($coordinates->getAttribValue('@longitude'));?></td></tr>
+<tr class='element-value element-value-even'><td>Precision</td><td> <?php if($coordinates->getAttrib('@precision')) print ($coordinates->getAttribValue('@precision'));?></td></tr>
+</table>
 <?php endforeach;?>
-</dl>
-</fieldset>
+</div>
+</div>
 <?php endif;?>
 <!-- Coordinates Ends -->
 
@@ -879,26 +884,25 @@ if(!empty($value)): ?>
 $gazetteerentrys=$location->getElementsByType('GazetteerEntry');
 $value = $gazetteerentrys[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>GazetteerEntry</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>GazetteerEntry</div>
+<div class='element-values'>
 <?php foreach($gazetteerentrys as $gazetteerentry):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($gazetteerentry->getAttrib('text')) print ($gazetteerentry->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Gazetteer_ref</dt><dd> <?php if($gazetteerentry->getAttrib('@gazetteer_ref')) print ($gazetteerentry->getAttribValue('@gazetteer_ref'));?></dd><div class='clear'></div>
-</div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($gazetteerentry->getAttrib('text')) print ($gazetteerentry->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Gazetteer_ref</td><td> <?php if($gazetteerentry->getAttrib('@gazetteer_ref')) print ($gazetteerentry->getAttribValue('@gazetteer_ref'));?></td></tr>
+</table>
 <?php endforeach;?>
-</dl>
-</fieldset>
+</div>
+</div>
 <?php endif;?>
 <!-- GazetteerEntry Ends -->
 
 
 </div><!-- Sub element Ends -->
 
+</td></tr></table><?php endforeach;?>
 </div>
-<?php endforeach;?>
-</dl>
-</fieldset>
+</div>
 <?php endif;?>
 <!-- Location Ends -->
 
@@ -908,19 +912,18 @@ if(!empty($value)): ?>
 $sectors=$activity->getElementsByType(Iati_Activity_Element::TYPE_SECTOR);
 $value = $sectors[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>Sector</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>Sector</div>
+<div class='element-values'>
 <?php foreach($sectors as $sector):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($sector->getAttrib('text')) print ($sector->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Xml_lang</dt><dd> <?php if($sector->getAttrib('@xml_lang')) print ($sector->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-3'>Vocabulary</dt><dd> <?php if($sector->getAttrib('@vocabulary')) print ($sector->getAttribValue('@vocabulary'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-4'>Code</dt><dd> <?php if($sector->getAttrib('@code')) print ($sector->getAttribValue('@code'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-5'>Percentage</dt><dd> <?php if($sector->getAttrib('@percentage')) print ($sector->getAttribValue('@percentage'));?></dd><div class='clear'></div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($sector->getAttrib('text')) print ($sector->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($sector->getAttrib('@xml_lang')) print ($sector->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td>Vocabulary</td><td> <?php if($sector->getAttrib('@vocabulary')) print ($sector->getAttribValue('@vocabulary'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Code</td><td> <?php if($sector->getAttrib('@code')) print ($sector->getAttribValue('@code'));?></td></tr>
+<tr class='element-value element-value-even'><td>Percentage</td><td> <?php if($sector->getAttrib('@percentage')) print ($sector->getAttribValue('@percentage'));?></td></tr>
+</table><?php endforeach;?>
 </div>
-<?php endforeach;?>
-</dl>
-</fieldset>
+</div>
 <?php endif;?>
 <!-- Sector Ends -->
 
@@ -930,19 +933,18 @@ if(!empty($value)): ?>
 $policymarkers=$activity->getElementsByType(Iati_Activity_Element::TYPE_POLICY_MARKER);
 $value = $policymarkers[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>PolicyMarker</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>PolicyMarker</div>
+<div class='element-values'>
 <?php foreach($policymarkers as $policymarker):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($policymarker->getAttrib('text')) print ($policymarker->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Xml_lang</dt><dd> <?php if($policymarker->getAttrib('@xml_lang')) print ($policymarker->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-3'>Significance</dt><dd> <?php if($policymarker->getAttrib('@significance')) print ($policymarker->getAttribValue('@significance'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-4'>Code</dt><dd> <?php if($policymarker->getAttrib('@code')) print ($policymarker->getAttribValue('@code'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-5'>Vocabulary</dt><dd> <?php if($policymarker->getAttrib('@vocabulary')) print ($policymarker->getAttribValue('@vocabulary'));?></dd><div class='clear'></div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($policymarker->getAttrib('text')) print ($policymarker->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($policymarker->getAttrib('@xml_lang')) print ($policymarker->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td>Significance</td><td> <?php if($policymarker->getAttrib('@significance')) print ($policymarker->getAttribValue('@significance'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Code</td><td> <?php if($policymarker->getAttrib('@code')) print ($policymarker->getAttribValue('@code'));?></td></tr>
+<tr class='element-value element-value-even'><td>Vocabulary</td><td> <?php if($policymarker->getAttrib('@vocabulary')) print ($policymarker->getAttribValue('@vocabulary'));?></td></tr>
+</table><?php endforeach;?>
 </div>
-<?php endforeach;?>
-</dl>
-</fieldset>
+</div>
 <?php endif;?>
 <!-- PolicyMarker Ends -->
 
@@ -952,17 +954,16 @@ if(!empty($value)): ?>
 $collaborationtypes=$activity->getElementsByType(Iati_Activity_Element::TYPE_COLLABORATION_TYPE);
 $value = $collaborationtypes[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>CollaborationType</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>CollaborationType</div>
+<div class='element-values'>
 <?php foreach($collaborationtypes as $collaborationtype):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($collaborationtype->getAttrib('text')) print ($collaborationtype->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Code</dt><dd> <?php if($collaborationtype->getAttrib('@code')) print ($collaborationtype->getAttribValue('@code'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-3'>Xml_lang</dt><dd> <?php if($collaborationtype->getAttrib('@xml_lang')) print ($collaborationtype->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($collaborationtype->getAttrib('text')) print ($collaborationtype->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Code</td><td> <?php if($collaborationtype->getAttrib('@code')) print ($collaborationtype->getAttribValue('@code'));?></td></tr>
+<tr class='element-value element-value-even'><td>Xml_lang</td><td> <?php if($collaborationtype->getAttrib('@xml_lang')) print ($collaborationtype->getAttribValue('@xml_lang'));?></td></tr>
+</table><?php endforeach;?>
 </div>
-<?php endforeach;?>
-</dl>
-</fieldset>
+</div>
 <?php endif;?>
 <!-- CollaborationType Ends -->
 
@@ -972,17 +973,16 @@ if(!empty($value)): ?>
 $defaultflowtypes=$activity->getElementsByType(Iati_Activity_Element::TYPE_DEFAULT_FLOW_TYPE);
 $value = $defaultflowtypes[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>DefaultFlowType</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>DefaultFlowType</div>
+<div class='element-values'>
 <?php foreach($defaultflowtypes as $defaultflowtype):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Code</dt><dd> <?php if($defaultflowtype->getAttrib('@code')) print ($defaultflowtype->getAttribValue('@code'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Text</dt><dd> <?php if($defaultflowtype->getAttrib('text')) print ($defaultflowtype->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-3'>Xml_lang</dt><dd> <?php if($defaultflowtype->getAttrib('@xml_lang')) print ($defaultflowtype->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Code</td><td> <?php if($defaultflowtype->getAttrib('@code')) print ($defaultflowtype->getAttribValue('@code'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Text</td><td> <?php if($defaultflowtype->getAttrib('text')) print ($defaultflowtype->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-even'><td>Xml_lang</td><td> <?php if($defaultflowtype->getAttrib('@xml_lang')) print ($defaultflowtype->getAttribValue('@xml_lang'));?></td></tr>
+</table><?php endforeach;?>
 </div>
-<?php endforeach;?>
-</dl>
-</fieldset>
+</div>
 <?php endif;?>
 <!-- DefaultFlowType Ends -->
 
@@ -992,17 +992,16 @@ if(!empty($value)): ?>
 $defaultfinancetypes=$activity->getElementsByType(Iati_Activity_Element::TYPE_DEFAULT_FINANCE_TYPE);
 $value = $defaultfinancetypes[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>DefaultFinanceType</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>DefaultFinanceType</div>
+<div class='element-values'>
 <?php foreach($defaultfinancetypes as $defaultfinancetype):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Code</dt><dd> <?php if($defaultfinancetype->getAttrib('@code')) print ($defaultfinancetype->getAttribValue('@code'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Text</dt><dd> <?php if($defaultfinancetype->getAttrib('text')) print ($defaultfinancetype->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-3'>Xml_lang</dt><dd> <?php if($defaultfinancetype->getAttrib('@xml_lang')) print ($defaultfinancetype->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Code</td><td> <?php if($defaultfinancetype->getAttrib('@code')) print ($defaultfinancetype->getAttribValue('@code'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Text</td><td> <?php if($defaultfinancetype->getAttrib('text')) print ($defaultfinancetype->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-even'><td>Xml_lang</td><td> <?php if($defaultfinancetype->getAttrib('@xml_lang')) print ($defaultfinancetype->getAttribValue('@xml_lang'));?></td></tr>
+</table><?php endforeach;?>
 </div>
-<?php endforeach;?>
-</dl>
-</fieldset>
+</div>
 <?php endif;?>
 <!-- DefaultFinanceType Ends -->
 
@@ -1012,17 +1011,16 @@ if(!empty($value)): ?>
 $defaultaidtypes=$activity->getElementsByType(Iati_Activity_Element::TYPE_DEFAULT_AID_TYPE);
 $value = $defaultaidtypes[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>DefaultAidType</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>DefaultAidType</div>
+<div class='element-values'>
 <?php foreach($defaultaidtypes as $defaultaidtype):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Code</dt><dd> <?php if($defaultaidtype->getAttrib('@code')) print ($defaultaidtype->getAttribValue('@code'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Text</dt><dd> <?php if($defaultaidtype->getAttrib('text')) print ($defaultaidtype->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-3'>Xml_lang</dt><dd> <?php if($defaultaidtype->getAttrib('@xml_lang')) print ($defaultaidtype->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Code</td><td> <?php if($defaultaidtype->getAttrib('@code')) print ($defaultaidtype->getAttribValue('@code'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Text</td><td> <?php if($defaultaidtype->getAttrib('text')) print ($defaultaidtype->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-even'><td>Xml_lang</td><td> <?php if($defaultaidtype->getAttrib('@xml_lang')) print ($defaultaidtype->getAttribValue('@xml_lang'));?></td></tr>
+</table><?php endforeach;?>
 </div>
-<?php endforeach;?>
-</dl>
-</fieldset>
+</div>
 <?php endif;?>
 <!-- DefaultAidType Ends -->
 
@@ -1032,19 +1030,35 @@ if(!empty($value)): ?>
 $defaulttiedstatuss=$activity->getElementsByType(Iati_Activity_Element::TYPE_DEFAULT_TIED_STATUS);
 $value = $defaulttiedstatuss[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>DefaultTiedStatus</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>DefaultTiedStatus</div>
+<div class='element-values'>
 <?php foreach($defaulttiedstatuss as $defaulttiedstatus):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Code</dt><dd> <?php if($defaulttiedstatus->getAttrib('@code')) print ($defaulttiedstatus->getAttribValue('@code'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Text</dt><dd> <?php if($defaulttiedstatus->getAttrib('text')) print ($defaulttiedstatus->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-3'>Xml_lang</dt><dd> <?php if($defaulttiedstatus->getAttrib('@xml_lang')) print ($defaulttiedstatus->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Code</td><td> <?php if($defaulttiedstatus->getAttrib('@code')) print ($defaulttiedstatus->getAttribValue('@code'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Text</td><td> <?php if($defaulttiedstatus->getAttrib('text')) print ($defaulttiedstatus->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-even'><td>Xml_lang</td><td> <?php if($defaulttiedstatus->getAttrib('@xml_lang')) print ($defaulttiedstatus->getAttribValue('@xml_lang'));?></td></tr>
+</table><?php endforeach;?>
 </div>
-<?php endforeach;?>
-</dl>
-</fieldset>
+</div>
 <?php endif;?>
 <!-- DefaultTiedStatus Ends -->
+
+
+<!-- Budget Starts -->
+<?php
+$budgets=$activity->getElementsByType(Iati_Activity_Element::TYPE_BUDGET);
+$value = $budgets[0]->getAttribs();
+if(!empty($value)): ?>
+<div class='element-item'><div class='element-title'>Budget</div>
+<div class='element-values'>
+<?php foreach($budgets as $budget):?>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Type</td><td> <?php if($budget->getAttrib('@type')) print ($budget->getAttribValue('@type'));?></td></tr>
+</table><?php endforeach;?>
+</div>
+</div>
+<?php endif;?>
+<!-- Budget Ends -->
 
 
 <!-- ActivityWebsite Starts -->
@@ -1052,15 +1066,14 @@ if(!empty($value)): ?>
 $activitywebsites=$activity->getElementsByType(Iati_Activity_Element::TYPE_ACTIVITY_WEBSITE);
 $value = $activitywebsites[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>ActivityWebsite</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>ActivityWebsite</div>
+<div class='element-values'>
 <?php foreach($activitywebsites as $activitywebsite):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($activitywebsite->getAttrib('text')) print ($activitywebsite->getAttribValue('text'));?></dd><div class='clear'></div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($activitywebsite->getAttrib('text')) print ($activitywebsite->getAttribValue('text'));?></td></tr>
+</table><?php endforeach;?>
 </div>
-<?php endforeach;?>
-</dl>
-</fieldset>
+</div>
 <?php endif;?>
 <!-- ActivityWebsite Ends -->
 
@@ -1070,20 +1083,20 @@ if(!empty($value)): ?>
 $relatedactivitys=$activity->getElementsByType(Iati_Activity_Element::TYPE_RELATED_ACTIVITY);
 $value = $relatedactivitys[0]->getAttribs();
 if(!empty($value)): ?>
-<fieldset class='element-item'><legend class='element-title'>RelatedActivity</legend>
-<dl class='element-values'>
+<div class='element-item'><div class='element-title'>RelatedActivity</div>
+<div class='element-values'>
 <?php foreach($relatedactivitys as $relatedactivity):?>
-<div class='element-values-items'>
-<dt class='element-value element-value-1'>Text</dt><dd> <?php if($relatedactivity->getAttrib('text')) print ($relatedactivity->getAttribValue('text'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-2'>Xml_lang</dt><dd> <?php if($relatedactivity->getAttrib('@xml_lang')) print ($relatedactivity->getAttribValue('@xml_lang'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-3'>Ref</dt><dd> <?php if($relatedactivity->getAttrib('@ref')) print ($relatedactivity->getAttribValue('@ref'));?></dd><div class='clear'></div>
-<dt class='element-value element-value-4'>Code</dt><dd> <?php if($relatedactivity->getAttrib('@code')) print ($relatedactivity->getAttribValue('@code'));?></dd><div class='clear'></div>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td>Text</td><td> <?php if($relatedactivity->getAttrib('text')) print ($relatedactivity->getAttribValue('text'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Xml_lang</td><td> <?php if($relatedactivity->getAttrib('@xml_lang')) print ($relatedactivity->getAttribValue('@xml_lang'));?></td></tr>
+<tr class='element-value element-value-even'><td>Ref</td><td> <?php if($relatedactivity->getAttrib('@ref')) print ($relatedactivity->getAttribValue('@ref'));?></td></tr>
+<tr class='element-value element-value-odd'><td>Code</td><td> <?php if($relatedactivity->getAttrib('@code')) print ($relatedactivity->getAttribValue('@code'));?></td></tr>
+</table><?php endforeach;?>
 </div>
-<?php endforeach;?>
-</dl>
-</fieldset>
+</div>
 <?php endif;?>
 <!-- RelatedActivity Ends -->
+
 
 
     </td>
