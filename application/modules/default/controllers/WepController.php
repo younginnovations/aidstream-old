@@ -747,7 +747,7 @@ class WepController extends Zend_Controller_Action
     {
         if(!$activity_id = $this->getRequest()->getParam('activity_id'))
         {
-            $this->_helper->FlashMessenger->addMessage(array('warning' => "Activity not found."));
+            //$this->_helper->FlashMessenger->addMessage(array('warning' => "Activity not found."));
             $this->_redirect('/wep/view-activities');
         }
         
