@@ -219,19 +219,19 @@ function initialize() {
                 */
             }
         },
-        "td.title": {
+        "tr": {
             "onmouseenter" : function (evt) {
 //        		console.log(evt);
 		    var node = dojo.NodeList(getTarget(evt).parentNode);
 //        		console.log(node);
-		    dojo.query(this).children('.list-action').style('display', 'block');
+		    dojo.query(this).children(".title").children('.list-action').style('display', 'block');
 		    evt.stopPropagation();
         	},
         	"onmouseleave" : function (evt) {
 //        		console.log(evt);
 		    var node = dojo.NodeList(getTarget(evt).parentNode);
 //        		console.log(node);
-		    dojo.query(this).children('.list-action').style('display', 'none');
+		    dojo.query(this).children(".title").children('.list-action').style('display', 'none');
 		    //node.query('.list-action').style('display', 'none');
     
 		    evt.stopPropagation();
