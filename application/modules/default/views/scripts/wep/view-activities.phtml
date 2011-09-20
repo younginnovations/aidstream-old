@@ -38,7 +38,7 @@
             <tr class="activity-row1">
                 <td><input type="checkbox" name="activity_<?php echo $eachActivity['id']?>" value="<?php echo $eachActivity['id']?>"/></td>
                 <td class="sn"><?php print $i;?></td>
-                <td class="title"><?php print $eachActivity['title'];?>
+                <td class="title"><div class='title-activity'><?php print $eachActivity['title'];?></div>
                 <?php if($userPermission):?>
                     <div class = "list-action">
                         <?php $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::EDIT_ACTIVITY_ELEMENTS);
@@ -63,7 +63,7 @@
                                      array('attributes' => array('onclick' => "javascript: return confirm('Do you really want to delete?')")))?>
                 </div>
                 <?php endif; ?>
-                
+                <div class='clearfix'></div>
                 </td>
                 <td class="iati-identifier"><?php print $eachActivity['identifier'];?></td>
                 <td class="last-updated"><?php print $eachActivity['last_updated_datetime'];?></td>

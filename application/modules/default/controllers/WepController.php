@@ -124,6 +124,11 @@ class WepController extends Zend_Controller_Action
             $is_admin = false;
             $identity = $auth->getIdentity();
             if($identity->role == "superadmin"){
+                $this->view->blockManager()->disable('partial/primarymenu.phtml');
+                $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
+                $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
+                $this->view->blockManager()->enable('partial/superadmin-menu.phtml');
+                $this->view->blockManager()->enable('partial/dashboard.phtml');
                 $is_admin = true;
             }
         }
@@ -227,6 +232,7 @@ class WepController extends Zend_Controller_Action
             } catch (Exception $e) {
                 print $e->getMessage();
             }
+            
         }
         $this->view->form = $form;
 //        $this->view->blockManager()->enable('partial/login.phtml');

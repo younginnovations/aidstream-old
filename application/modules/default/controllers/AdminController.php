@@ -5,7 +5,12 @@ class AdminController extends Zend_Controller_Action
 
     public function init()
     {
+        $identity = Zend_Auth::getInstance()->getIdentity();
         $this->_helper->layout()->setLayout('layout_wep');
+        $this->view->blockManager()->enable('partial/dashboard.phtml');
+        if($identity->role === 'superadmin'){
+            $this->view->blockManager()->enable('partial/superadmin-menu.phtml');
+        }
         /* $contextSwitch = $this->_helper->contextSwitch;
           $contextSwitch->addActionContext('', 'json')
           ->initContext('json'); */
@@ -13,19 +18,15 @@ class AdminController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        /* $identity = Zend_Auth::getInstance()->getIdentity();
-          if($identity){
-          } */
-        $this->_redirect('admin/dashboard');
+        //$this->_redirect('admin/dashboard');
     }
 
     public function dashboardAction()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
         $this->view->user = $identity;
-        $this->view->placeholder('title')->set("Admin Dashboard");
+        //$this->view->placeholder('title')->set("Admin Dashboard");
         //$this->_helper->layout()->setLayout('layout_wep');
-        $this->view->blockManager()->enable('partial/dashboard.phtml');
     }
 
     public function awaitingAction()
@@ -34,9 +35,8 @@ class AdminController extends Zend_Controller_Action
         $data = $userModel->getAwaitingUser();
         $this->view->data = $data->toArray();
         $this->view->placeholder('title')->set("Awaiting Approval");
+        
         //$this->view->blockManager()->enable('partial/blocks/adminmenu.phtml');
-        $this->_helper->layout()->setLayout('layout_wep');
-        $this->view->blockManager()->enable('partial/dashboard.phtml');
     }
 
     public function approveAction()
@@ -57,7 +57,6 @@ class AdminController extends Zend_Controller_Action
               $Wep->sendemail($mailerParams,$toEmail,$template); */
             $this->_helper->FlashMessenger->addMessage(array('message' => "Your Changes have been saved."));
             $this->_redirect('admin/awaiting');
-            $this->view->blockManager()->enable('partial/dashboard.phtml');
         }
     }
 
@@ -81,7 +80,6 @@ class AdminController extends Zend_Controller_Action
         $model = new Model_Wep();
         $this->view->rowSet = $model->listOrganisation('account');
         $this->view->placeholder('title')->set("Organisation List");
-        $this->view->blockManager()->enable('partial/dashboard.phtml');
     }
 
     public function viewAction()
@@ -105,7 +103,6 @@ class AdminController extends Zend_Controller_Action
                 $this->view->message = "The user does not exist.";
             }
         }
-        $this->view->blockManager()->enable('partial/dashboard.phtml');
     }
 
     public function editOrganisationAction()
@@ -122,7 +119,6 @@ class AdminController extends Zend_Controller_Action
           $rowSet = $model->getRowById('user', 'account_id')
 
           } */
-        $this->view->blockManager()->enable('partial/dashboard.phtml');
     }
 
     public function registerUserAction()
@@ -215,10 +211,11 @@ class AdminController extends Zend_Controller_Action
         }
         $this->view->form = $form;
         $this->_helper->layout()->setLayout('layout_wep');
-        $this->view->blockManager()->enable('partial/dashboard.phtml');
-        $this->view->blockManager()->enable('partial/primarymenu.phtml');
-        $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
-        $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
+        if($identity->role != 'superadmin'){
+            $this->view->blockManager()->enable('partial/primarymenu.phtml');
+            $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
+            $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
+        }
     }
     
     public function listUsersAction()
@@ -230,10 +227,11 @@ class AdminController extends Zend_Controller_Action
         //print_r($usersList);exit;
         $this->view->users = $usersList;
         //$this->_helper->layout()->setLayout('layout_wep');
-        $this->view->blockManager()->enable('partial/dashboard.phtml');
-        $this->view->blockManager()->enable('partial/primarymenu.phtml');
-        $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
-        $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
+        if($identity->role != 'superadmin'){
+            $this->view->blockManager()->enable('partial/primarymenu.phtml');
+            $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
+            $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
+        }
     }
     
     public function deleteUserAction(){
@@ -291,11 +289,11 @@ class AdminController extends Zend_Controller_Action
             $this->_redirect('user/user/login');        
         
         }
-        $this->_helper->layout()->setLayout('layout_wep');
-        $this->view->blockManager()->enable('partial/dashboard.phtml');
-        $this->view->blockManager()->enable('partial/primarymenu.phtml');
-        $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
-        $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
+        if($identity->role != 'superadmin'){
+            $this->view->blockManager()->enable('partial/primarymenu.phtml');
+            $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
+            $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
+        }
     }
     
     public function editUserPermissionAction()
@@ -364,11 +362,11 @@ class AdminController extends Zend_Controller_Action
             }
         }
         $this->view->form = $form;
-        $this->_helper->layout()->setLayout('layout_wep');
-        $this->view->blockManager()->enable('partial/dashboard.phtml');
-        $this->view->blockManager()->enable('partial/primarymenu.phtml');
-        $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
-        $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');        
+        if($identity->role != 'superadmin'){
+            $this->view->blockManager()->enable('partial/primarymenu.phtml');
+            $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
+            $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
+        }     
         
     }
     
@@ -398,12 +396,11 @@ class AdminController extends Zend_Controller_Action
                     }//end of try catch
                 }
             }
-           
-            $this->_helper->layout()->setLayout('layout_wep');
-            $this->view->blockManager()->enable('partial/dashboard.phtml');
+           if($identity->role != 'superadmin'){
             $this->view->blockManager()->enable('partial/primarymenu.phtml');
             $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
             $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
+        }
         }else{
             print "no"; exit;
         }
