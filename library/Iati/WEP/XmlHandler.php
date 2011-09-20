@@ -98,6 +98,7 @@ class Iati_WEP_XmlHandler
      */
     protected function _getXmlNode($element,$parent = null)
     {
+        var_dump($element->getName());
         $element_data = $this->getElementsData($element);
         $element_node = $this->_generateXml($element_data,$parent);
         
@@ -121,8 +122,7 @@ class Iati_WEP_XmlHandler
                     $attributes[$attrib] = $element->getAttribValue($attrib);
                 }
         }
-        
-        $elements['type'] = $this->_getName($type);
+        $elements['type'] = $element->getXmlElementTag();
         $elements['attributes'] = $attributes;
         
         return $elements;
@@ -157,12 +157,5 @@ class Iati_WEP_XmlHandler
             }
         }
         return $element_xml;
-    }
-    
-    protected function _getName($type)
-    {
-        $temp = preg_split('/(?<=\\w)(?=[A-Z])/', $type);
-        $name = strtolower(implode('-',$temp));
-        return $name;
     }
 }
