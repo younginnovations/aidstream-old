@@ -1140,7 +1140,7 @@ table#list-org {
 .activity-detail-table table {
 	border: none !important;
 	border-top: 5px solid #feefd8 !important;
-	margin-bottom: 18px;
+	margin-bottom: 12px;
 }
 
 .activity-detail-table tr td{
@@ -1172,9 +1172,9 @@ table#list-org {
 
 .activity-detail-table .element-title,
 #contain .element-title{
-	font-size: 16px;
+	font-size: 13px;
     font-weight: bold;
-    padding: 5px 0 10px;
+    padding: 0 0 5px;
 }
 
 #iati_activity_change_status #status-label,
