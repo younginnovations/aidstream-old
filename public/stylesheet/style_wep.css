@@ -829,6 +829,10 @@ dd{
 	margin-bottom: 8px;
 }
 
+dd#button-element {
+	margin-bottom: 0;
+}
+
 fieldset{
     margin-bottom: 20px;
     padding: 20px 10px;
