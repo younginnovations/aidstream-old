@@ -7,5 +7,6 @@ class Iati_Activity_Element_Activity extends Iati_Activity_Element
                                      '@default_currency' => '',
                                      '@hierarchy' => '',
                                      '@last_updated_datetime' => '');
+    protected $_xmlElementTag = 'iati-activity';
 
 }

@@ -49,6 +49,8 @@ class Iati_Activity_Element
     protected $_type;
     protected $_parentType;
     
+    protected $_xmlElementTag;
+    
     public function __construct($name = null, $options = array())
     {
         $this->setName($name);
@@ -427,5 +429,16 @@ class Iati_Activity_Element
             }
         }
         return $return;
+    }
+    
+    public function getXmlElementTag()
+    {
+        if($this->_xmlElementTag){
+            return $this->_xmlElementTag;
+        } else {
+            $temp = preg_split('/(?<=\\w)(?=[A-Z])/', $this->getType());
+            $name = strtolower(implode('-',$temp));
+            return $name;
+        }
     }
 }

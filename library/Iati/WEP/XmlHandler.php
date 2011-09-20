@@ -22,8 +22,8 @@ class Iati_WEP_XmlHandler
      */
     public function prepareXmlWrapper()
     {
-        $this->xml = new SimpleXMLElement('<Activities></Activities>');
-        $this->xml->addAttribute('published_datetime',date('Y-m-d h:m:s'));
+        $this->xml = new SimpleXMLElement('<iati-activities></iati-activities>');
+        $this->xml->addAttribute('generated-datetime',date('Y-m-d h:m:s'));
     }
     
      /**
@@ -40,7 +40,8 @@ class Iati_WEP_XmlHandler
      */
     public function generateActivityXml($activity)
     {
-        $activity_node = $this->xml->addChild($activity->getType());
+        $activity_node = $this->_getXmlNode($activity,$this->xml);
+        
         $this->getElementXml( $activity->getElementsByType(Iati_Activity_Element::TYPE_REPORTING_ORG) , $activity_node);
         $this->getElementXml( $activity->getElementsByType(Iati_Activity_Element::TYPE_IDENTIFIER) , $activity_node);
         $this->getElementXml( $activity->getElementsByType(Iati_Activity_Element::TYPE_OTHER_ACTIVITY_IDENTIFIER) , $activity_node);
@@ -60,7 +61,7 @@ class Iati_WEP_XmlHandler
         $this->getElementXml( $activity->getElementsByType(Iati_Activity_Element::TYPE_DEFAULT_FINANCE_TYPE) , $activity_node);
         $this->getElementXml( $activity->getElementsByType(Iati_Activity_Element::TYPE_DEFAULT_AID_TYPE) , $activity_node);
         $this->getElementXml( $activity->getElementsByType(Iati_Activity_Element::TYPE_DEFAULT_TIED_STATUS) , $activity_node);
-        $this->getElementXml( $activity->getElementsByType(Iati_Activity_Element::TYPE_ACTIVITY_BUDGETS) , $activity_node);
+        $this->getElementXml( $activity->getElementsByType(Iati_Activity_Element::TYPE_BUDGET) , $activity_node);
         $this->getElementXml( $activity->getElementsByType(Iati_Activity_Element::TYPE_PLANNED_DISBURSEMENT) , $activity_node);
         $this->getElementXml( $activity->getElementsByType(Iati_Activity_Element::TYPE_TRANSACTION) , $activity_node);
         $this->getElementXml( $activity->getElementsByType(Iati_Activity_Element::TYPE_DOCUMENT_LINK) , $activity_node);
@@ -74,32 +75,41 @@ class Iati_WEP_XmlHandler
     /**
      *@param array $element array elements whose xml is to be generated
      *@param Object $parent Simplexmlobject of the parent element 
-     *@return xml of the given element
      */
     public function getElementXml($elements,$parent = null)
     {
         foreach($elements as $element)
         {
-            $element_data = $this->getElementsData($element);
-            $element_node = $this->_generateXml($element_data,$parent);
-            
+            $element_node = $this->_getXmlNode($element,$parent);
             if($element->getElements()){
                 //Get xml for element's sub elements
                 foreach($element->getElements() as $sub_element)
                 {
-                    $sub_element_data = $this->getElementsData($sub_element,$element->getType());
-                    $sub_element_node = $this->_generateXml($sub_element_data,$element_node);
+                    $sub_element_node = $this->_getXmlNode($sub_element,$element_node);
                 }
             }
         }
     }
     
+     /**
+     *@param array $element elements whose xml is to be generated
+     *@param Object $parent Simplexmlobject of the parent element
+     *@return Object $element_node SimpleXmlObject of the node of the element
+     */
+    protected function _getXmlNode($element,$parent = null)
+    {
+        var_dump($element->getName());
+        $element_data = $this->getElementsData($element);
+        $element_node = $this->_generateXml($element_data,$parent);
+        
+        return $element_node;
+    }
+    
     /**
      *Gets values for all the attributes of the element
      *@param Object $element object of the element whose xml is being prepared
-     *@param Object $parentType The simplexml object of the parent of the element if it is a child.
      */
-    private function getElementsData($element,$parentType = null)
+    protected function getElementsData($element)
     {
         $type = $element->getType();
         
@@ -112,8 +122,7 @@ class Iati_WEP_XmlHandler
                     $attributes[$attrib] = $element->getAttribValue($attrib);
                 }
         }
-        
-        $elements['type'] = $type;
+        $elements['type'] = $element->getXmlElementTag();
         $elements['attributes'] = $attributes;
         
         return $elements;
@@ -125,7 +134,8 @@ class Iati_WEP_XmlHandler
      */
     protected function _generateXml($element,$parent = null)
     {
-        $type = $element['type'];
+        $type= $element['type'];
+        
         
         if(!is_object($parent)){
             $element_xml = new SimpleXMLElement("<$type>".$element['attributes']['text']."</$type>");
@@ -140,7 +150,10 @@ class Iati_WEP_XmlHandler
                 if($attrib == "@xml_lang"){
                     $attrib = preg_replace('/_/',':',$attrib);
                 }
-                $element_xml->addAttribute(preg_replace('/@/','',$attrib),$value);
+                $name = preg_replace('/@/','',$attrib);
+                $name = preg_replace('/_/','-',$name);
+                $element_xml->addAttribute($name,$value);
+                
             }
         }
         return $element_xml;
