@@ -570,7 +570,7 @@ input.form-submit, a.button, .change-password a, .profile-links, .dashboard-summ
     text-decoration: none;
 }
 
-#Signup-label, #button-label, #save-label, #submit-label, #Submit-label{
+#Signup-label, #button-label, #save-label, #submit-label, #Submit-label, #Save-label{
 	display: none;
 }
 
