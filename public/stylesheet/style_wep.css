@@ -945,7 +945,7 @@ legend {
 }
 table.activity-list-table .title,
 table.user-list-table .title{
-	width: 335px;
+	/*width: 335px;*/
 }
 table.activity-list-table .title a {
 	font-weight: bold;
@@ -955,9 +955,17 @@ table.activity-list-table .title a {
 	margin-bottom: 20px;
 	border: 1px solid #dcdcdc;
 }
+
+table.activity-list-table .title .title-activity,
+table.user-list-table .title .title-activity{
+	/*float: left;
+	width: 200px;*/
+}
+
 table.activity-list-table .title .list-action,
 table.user-list-table .title .list-action{
-	float: right;
+	/*float: right;
+	width: 80px;*/
 }
 
 table.user-list-table .title .list-action a {
@@ -1159,4 +1167,8 @@ table#list-org {
 #iati_activity_change_status #ids-label,
 #iati_activity_change_status #change_state-label {
 	display: none;
+}
+
+.clearfix {
+	clear: both;
 }

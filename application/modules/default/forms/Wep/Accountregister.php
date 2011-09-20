@@ -59,7 +59,7 @@ class Form_Wep_Accountregister extends App_Form
         $selectedCurrency = $model->findIdByFieldData('Currency', $defaultFields['field_values']['currency'], '1');
 //        print_r($selectedCurrency[0]);exit();
         $form['default_currency'] = new Zend_Form_Element_Select('default_currency');
-        $form['default_currency']->setRequired()->setLabel('Default Currency')->addMultiOption('', 'Select anyone');
+        $form['default_currency']->setRequired()->setLabel('Currency')->addMultiOption('', 'Select anyone');
         $form['default_currency']->setValue($selectedCurrency[0]['id'])
         ->setAttrib('class', 'form-select');
         foreach($currency as $key => $eachCurrency){
@@ -70,24 +70,24 @@ class Form_Wep_Accountregister extends App_Form
         $selectedLanguage = $model->findIdByFieldData('Language', $defaultFields['field_values']['language'], '1');
 //        print_r($selectedLanguage);exit;
         $form['default_language'] = new Zend_Form_Element_Select('default_language');
-        $form['default_language']->setRequired()->setLabel('Default Language')->addMultiOption('', 'Select anyone');
+        $form['default_language']->setRequired()->setLabel('Language')->addMultiOption('', 'Select anyone');
         $form['default_language']->setValue($selectedLanguage[0]['id'])->setAttrib('class', 'form-select');
         foreach($language as $key => $eachLanguage){
             $form['default_language']->addMultiOption($key, $eachLanguage);
         }
         
         $form['default_reporting_org'] = new Zend_Form_Element_Text('default_reporting_org');
-        $form['default_reporting_org']->setLabel('Default Reporting Organisation Name')
+        $form['default_reporting_org']->setLabel('Reporting Org Name')
                                         ->setValue($defaultFields['reporting_org'])
                                         ->setRequired()->setAttrib('class', 'form-text');
         
         $form['reporting_org_ref'] = new Zend_Form_Element_Text('reporting_org_ref');
-        $form['reporting_org_ref']->setLabel('Default Reporting Organisation Identifier')
+        $form['reporting_org_ref']->setLabel('Reporting Org Identifier')
                                     ->setValue($defaultFields['reporting_org_ref'])
                                     ->setAttrib('class', 'form-text')->setRequired();
 
         $form['default_hierarchy'] = new Zend_Form_Element_Text('default_hierarchy');
-        $form['default_hierarchy']->setLabel('Default Hierarchy')
+        $form['default_hierarchy']->setLabel('Hierarchy')
                                 ->setValue($defaultFields['hierarchy'])->setAttrib('class', 'form-text');
         
         //@todo reCaptcha
