@@ -745,23 +745,9 @@ class WepController extends Zend_Controller_Action
     
     public function viewActivityAction()
     {
-        /*
-        $dbLayer = new Iati_WEP_DbLayer();
-        $activitys = $dbLayer->getRowSet('Activity', 'id', 25, true, true);
-        $transactions=$activitys->getElementsByType(Iati_Activity_Element::TYPE_DOCUMENT_LINK);
-        var_dump($transactions[0]->getAttribs());
-        foreach($transactions[0]->getElements() as $elements)
-        {
-            var_dump($elements->getType());
-            var_dump($elements->getAttribs());
-        }
-        exit;
-        /* called */
-        
-
         if(!$activity_id = $this->getRequest()->getParam('activity_id'))
         {
-            $this->_helper->FlashMessenger->addMessage(array('warning' => "Activity not found."));
+            //$this->_helper->FlashMessenger->addMessage(array('warning' => "Activity not found."));
             $this->_redirect('/wep/view-activities');
         }
         
