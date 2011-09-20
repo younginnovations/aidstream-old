@@ -415,7 +415,7 @@ class Iati_Activity_Element
                     $return = 'Country';
                     break;
                     
-                case Coordinates_precision :
+                case Coordinates_percision :
                     $return = 'PercisionCode';
                     break;
                 
