@@ -29,7 +29,7 @@ class Iati_WEP_Activity_Elements_ContactInfo_Email extends
     protected $objectId;
     protected $error = array();
     protected $hasError = false;
-    protected $multiple = false;
+    protected $multiple = true;
     protected $required = false;
     protected $isAttributeSet = false;
     
