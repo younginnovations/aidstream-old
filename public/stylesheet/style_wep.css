@@ -543,7 +543,7 @@ select.form-select {
 	margin-top: 10px;
 }
 
-input.form-submit, a.button, .change-password a, .profile-links, .dashboard-summary a{
+input.form-submit, a.button, .change-password a, .profile-links, .dashboard-summary a, #Submit{
 
     /*background: url("images/buttons.png") repeat-x scroll 0 0 transparent;
     border-color: #E4E4E4 #D2D2D2 #B4B4B4;
@@ -568,6 +568,10 @@ input.form-submit, a.button, .change-password a, .profile-links, .dashboard-summ
     font-size: 14px;
     padding: 10px 20px;
     text-decoration: none;
+}
+
+#Signup-label, #button-label, #save-label, #submit-label, #Submit-label{
+	display: none;
 }
 
 .profile-links {
@@ -958,6 +962,10 @@ table.activity-list-table .title a {
 	border: 1px solid #dcdcdc;
 }
 
+.user-list {
+	border-bottom: none;
+}
+
 table.activity-list-table .title .title-activity,
 table.user-list-table .title .title-activity{
 	/*float: left;
@@ -974,7 +982,11 @@ table.user-list-table .title .list-action a {
 	font-weight: bold;
 }
 
-table.activity-list-table tr,  .user-list thead tr{
+#contain table.user-list-table {
+	border-bottom: none !important;
+}
+
+table.activity-list-table tr,  .user-list tr{
 	background: #f2f2f2;
 	border-bottom: 1px solid #dcdcdc;
 }
