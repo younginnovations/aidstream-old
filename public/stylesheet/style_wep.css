@@ -945,7 +945,9 @@ legend {
 }
 table.activity-list-table .title,
 table.user-list-table .title{
-	/*width: 335px;*/
+	width: 210px;
+	width: auto !important;
+	min-width: 210px;
 }
 table.activity-list-table .title a {
 	font-weight: bold;
