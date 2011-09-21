@@ -308,7 +308,7 @@ class Iati_Activity_Element
                     break;
                 
                 case Category_code:
-                    $return = 'DocumentCategory';
+                    $return = 'DocumentCategoryLevel';
                     break;
                 
                 case Result_type :
