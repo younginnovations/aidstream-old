@@ -12,13 +12,6 @@
             
             $defaultField = $model->getDefaults('default_field_groups', 'account_id', $identity->account_id);
             
-            $attributes = (getRowSet('Identifier', $url['activity_id']))?'class = "active"':'';
-            $href1 = $this->baseUrl() . "/wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=Identifier";
-            $class = '';
-            if($paramValue == 'Identifier'){
-                $class = "class = highlight";
-            }
-            print "<li $class ><a $attributes href=$href1>Iati Identifier</a></li>";
             $class = '';
             $href2 = $this->baseUrl(). "/wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=ReportingOrg";
             $attributes = (getRowSet('ReportingOrg', $url['activity_id']))?'class = "active"':'';
@@ -26,23 +19,36 @@
                 $class = "class = highlight";
             }
             print "<li $class><a $attributes href=$href2>Reporting Organisation</a></li>";
-            foreach($defaultField->getProperties() as $key => $eachData){
-                if($eachData == 1){
-                   $attributes = '';
-                    if(getRowSet($key, $url['activity_id'])){
+            
+            $attributes = (getRowSet('Identifier', $url['activity_id']))?'class = "active"':'';
+            $href1 = $this->baseUrl() . "/wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=Identifier";
+            $class = '';
+            if($paramValue == 'Identifier'){
+                $class = "class = highlight";
+            }
+            print "<li $class ><a $attributes href=$href1>Iati Identifier</a></li>";
+            
+            $allowed_elements = $defaultField->getProperties();
+            $elements = array('other_activity_identifier','title','description','activity_status','activity_date','contact_info','participating_org','recipient_country','recipient_region','location','sector','policy_marker','collaboration_type','default_flow_type','default_finance_type','default_aid_type','default_tied_status','budget','planned_disbursement','transaction','document_link','activity_website','related_activity','conditions','result');
+            foreach($elements as $element)
+            {
+                if($allowed_elements[$element])
+                {
+                    $attributes = '';
+                    if(getRowSet($element, $url['activity_id'])){
                         $attributes = 'class = "active"';
                     }
                     
-                    $key = ucwords(str_replace("_"," ",$key));
+                    $key = ucwords(str_replace("_"," ",$element));
                     $href = $this->baseUrl()."/wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=".str_replace(" ", "", $key);
                     $class = '';
                     if(str_replace(" ", "", $key) == $paramValue){
                         $class = "class = highlight";
                     }
                     print "<li $class><a $attributes href='". $href ."'>" .$key ."</a></li>";
-                    
                 }
-            }//add-activity-elements?activity_id='.$activity_id .'&class='.$class
+            }
+            exit;
             ?>
             
             </ul>
