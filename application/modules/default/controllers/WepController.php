@@ -739,6 +739,9 @@ class WepController extends Zend_Controller_Action
 
         $this->view->activity_array = $activity_array;
         $status_form = new Form_Wep_ActivityStatus();
+        $status_form->change->setLabel('Publish');
+        $status_form->change->setAttrib('id','publish');
+        $status_form->status->setValue(Iati_WEP_ActivityState::STATUS_PUBLISHED);
         $status_form->setAction($this->view->baseUrl()."/wep/update-status");
         $this->view->status_form = $status_form;
     }

@@ -245,8 +245,8 @@ function initialize() {
 		createDateTextBox(ele.id, ele.name, ele.value);
 	    }
 	},
-	"#status" : {
-	    "onchange" : function (evt) {
+	"#publish" : {
+	    "onclick" : function (evt) {
 		var ids = new Array();
 	    	dojo.query('.activity-list-table  input[type=checkbox]:checked').forEach(function(tag){
 			ids.push(tag.value);
