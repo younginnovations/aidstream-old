@@ -543,7 +543,7 @@ select.form-select {
 	margin-top: 10px;
 }
 
-input.form-submit, a.button, .change-password a, .profile-links, .dashboard-summary a, #Submit{
+button.form-submit, input.form-submit, a.button, .change-password a, .profile-links, .dashboard-summary a, #Submit{
 
     /*background: url("images/buttons.png") repeat-x scroll 0 0 transparent;
     border-color: #E4E4E4 #D2D2D2 #B4B4B4;
@@ -1183,7 +1183,10 @@ table#list-org {
 
 #iati_activity_change_status #status-label,
 #iati_activity_change_status #ids-label,
-#iati_activity_change_status #change_state-label {
+#iati_activity_change_status #change_state-label,
+#iati_activity_status #status-label,
+#iati_activity_status #ids-label,
+#iati_activity_status #change-label{
 	display: none;
 }
 
