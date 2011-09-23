@@ -83,6 +83,21 @@ switch($identity->role){
                         'action'     => 'edit-activity',
                     ),
                     array(
+                        'label' => 'My Profile',
+                        'module' => 'user',
+                        'controller' => 'user',
+                        'action' => 'myaccount',
+                    ),
+                    array(
+                        'label' => 'Change Password',
+                        'module' => 'user',
+                        'controller' => 'user',
+                        'action' => 'changepassword',
+                        'param' => array(
+                            'user_id' => $identity->user_id,
+                        )
+                    ),
+                    array(
                         'label' => 'List',
                         'module'     => 'default',
                         'controller' => 'wep',
