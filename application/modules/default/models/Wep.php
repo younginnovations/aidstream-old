@@ -86,7 +86,7 @@ class Model_Wep extends Zend_Db_Table_Abstract
         return $result;
     }
     
-    public function fetchValueById($tblName, $id, $getField){
+    public function fetchValueById($tblName, $id, $getField = null){
         $this->_name = $tblName;
         $rowSet = $this->select()->where("id =?", $id);
         
@@ -94,7 +94,11 @@ class Model_Wep extends Zend_Db_Table_Abstract
         if($result){
             $result = $result->toArray();
         }
-        return $result['Code'];
+        if($getField){
+            return ($result[$getField])?$result[$getField]:$result['Code'];
+        } else {
+            return $result['Code'];
+        }
     }
 
     public function getCode($tblName, $codeid,$lang)

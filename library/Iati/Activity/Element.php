@@ -246,13 +246,13 @@ class Iati_Activity_Element
         return $this->_parentType;
     }
     
-    public function getAttribValue($attrib)
+    public function getAttribValue($attrib,$colname = null)
     {
         $tablename = $this->getTableForCodeAttrib($attrib);
         $val = $this->getAttrib($attrib);
         if($tablename){
             $model_wep = new Model_Wep();
-            $value = $model_wep->fetchValueById($tablename,$val,null);
+            $value = $model_wep->fetchValueById($tablename,$val,$colname);
         } else {
             $value = $val;
         }
