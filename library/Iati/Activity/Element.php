@@ -395,8 +395,8 @@ class Iati_Activity_Element
                     $return = 'RelatedActivityType';
                     break;
             
-                case ColloborationType_code :
-                    $return = 'ColloborationType';
+                case CollaborationType_code :
+                    $return = 'CollaborationType';
                     break;
                     
                 case Description_type :
@@ -422,7 +422,9 @@ class Iati_Activity_Element
                 case GazetteerEntry_gazetteer_ref:
                     $return = 'GazetteerAgency';
                     break;
-                
+                case Budget_type :
+                    $return = 'BudgetType';
+                    break;
                 default:
                     $return = false;
                     break;    
