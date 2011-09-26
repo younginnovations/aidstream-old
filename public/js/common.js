@@ -252,7 +252,11 @@ function initialize() {
 			ids.push(tag.value);
 		    });
 		dojo.query('#ids').attr('value',ids.join(","));
-		dojo.byId('iati_activity_status').submit();
+		
+		if(confirm("Are you sure you want to publish the activities"))
+		{
+		    dojo.byId('iati_activity_status').submit();
+		}
 	    }
 	},
 	".hide-div" : {

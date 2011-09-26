@@ -1214,14 +1214,17 @@ class WepController extends Zend_Controller_Action
         $activity_ids = explode(',',$ids);
         $db = new Model_ActivityStatus;
         $not_valid = false;
-        
-        foreach($activity_ids as $activity_id)
+        if($ids)
         {
-            $activity_state = $db->getActivityStatus($activity_id);
-            if(!Iati_WEP_ActivityState::isValidTransition($activity_state,$state)){
-                $not_valid = true;
+            foreach($activity_ids as $activity_id)
+            {
+                $activity_state = $db->getActivityStatus($activity_id);
+                if(!Iati_WEP_ActivityState::isValidTransition($activity_state,$state)){
+                    $not_valid = true;
+                }
             }
-        }
+        } 
+       
         if($not_valid){
             $this->_helper->FlashMessenger->addMessage(array('warning' => "The activities cannot be changed to the state. Please check that a state to be changed is valid for all selected activities"));
         } else {
@@ -1235,8 +1238,9 @@ class WepController extends Zend_Controller_Action
                 
                 $reg = new Iati_Registry($account_id,$user['name']);
                 $reg->publish();
+                $this->_helper->FlashMessenger->addMessage(array('message' => "Activities Published."));
             }
-        }        
+        }
         $this->_redirect('wep/view-activities');
     }
 }
