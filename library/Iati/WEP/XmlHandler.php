@@ -69,7 +69,6 @@ class Iati_WEP_XmlHandler
         $this->getElementXml( $activity->getElementsByType(Iati_Activity_Element::TYPE_RELATED_ACTIVITY) , $activity_node);
         $this->getElementXml( $activity->getElementsByType(Iati_Activity_Element::TYPE_CONDITIONS) , $activity_node);
         $this->getElementXml( $activity->getElementsByType(Iati_Activity_Element::TYPE_RESULT) , $activity_node);
-
     }
     
     /**
@@ -98,8 +97,11 @@ class Iati_WEP_XmlHandler
      */
     protected function _getXmlNode($element,$parent = null)
     {
-        var_dump($element->getName());
         $element_data = $this->getElementsData($element);
+        if(empty($element_data['attributes']))
+        {
+            return null;
+        }
         $element_node = $this->_generateXml($element_data,$parent);
         
         return $element_node;
@@ -119,8 +121,8 @@ class Iati_WEP_XmlHandler
         foreach(array_keys($attribs) as $attrib)
         {
             if($element->getAttrib($attrib)){
-                    $attributes[$attrib] = $element->getAttribValue($attrib);
-                }
+                $attributes[$attrib] = $element->getAttribValue($attrib);
+            }
         }
         $elements['type'] = $element->getXmlElementTag();
         $elements['attributes'] = $attributes;
