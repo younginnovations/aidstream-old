@@ -515,6 +515,9 @@ class WepController extends Zend_Controller_Action
                         $dbLayer = new Iati_WEP_DbLayer();
                         $dbLayer->save($activityTree);
                         
+                        //update the activity so that the last updated time is updated
+                        $this->updateActivityUpdatedDatetime($activity_id);
+                        
                         $camelCaseToSeperator = new Zend_Filter_Word_CamelCaseToSeparator(" ");
                         $title = $camelCaseToSeperator->filter($class);
                         
@@ -620,6 +623,9 @@ class WepController extends Zend_Controller_Action
                     //print_r($activityTree);exit;
                     $dbLayer = new Iati_WEP_DbLayer();
                     $dbLayer->save($activityTree);
+                    
+                    //update the activity so that the last updated time is updated
+                    $this->updateActivityUpdatedDatetime($activity_id);
 
                     $this->_helper->FlashMessenger->addMessage(array('message' => "$title updated successfully."));
                     $this->_redirect("wep/view-activity/".$activity_id);
@@ -1242,5 +1248,14 @@ class WepController extends Zend_Controller_Action
             }
         }
         $this->_redirect('wep/view-activities');
+    }
+    
+    public function updateActivityUpdatedDatetime($activity_id)
+    {
+        $model = new Model_Wep();
+        $rowSet = $model->getRowsByFields('iati_activity', 'id', $activity_id);
+        $data['id'] = $activity_id;
+        $data['@last_updated_datetime'] = date('Y-m-d H:i:s');
+        $result = $model->updateRowsToTable('iati_activity', $data);
     }
 }
