@@ -1242,7 +1242,7 @@ class WepController extends Zend_Controller_Action
                 $user_db = new Model_Wep();
                 $user = $user_db->getRowById('account','id',$account_id);
                 
-                $reg = new Iati_Registry($account_id,$user['name']);
+                $reg = new Iati_Registry($account_id,$user['name'],true);
                 $reg->publish();
                 $this->_helper->FlashMessenger->addMessage(array('message' => "Activities Published."));
             }

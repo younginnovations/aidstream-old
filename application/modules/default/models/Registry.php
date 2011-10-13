@@ -12,7 +12,11 @@ class Model_Registry extends Zend_Db_Table_Abstract
     public function saveRegistryInfo($data)
     {
         //delete the existing publish info
-        $where = $this->getAdapter()->quoteInto('publishing_org_id = ?', $data['publishing_org_id']);
+        //$where = $this->getAdapter()->quoteInto('publishing_org_id = ?', $data['publishing_org_id']);
+        $where = array(
+            'publishing_org_id = ?'=>$data['publishing_org_id'],
+            'filename = ?'=>$data['filename'] ,
+        );
         $this->delete($where);
         //create new info
         $this->_insertRegistryInfo($data);
