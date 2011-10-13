@@ -36,6 +36,8 @@
 
 <body class="login">
 	<div id="login-wrapper">
+		 <div id="flash-messages"><?php $flashMessenger = $this->flashMessages();
+print $flashMessenger->getMessages();?></div>
 	<!--<div class="logo"> <a href="<?php //print($this->baseUrl());?>/"><img alt="logo" src="<?php print($this->baseUrl());?>/stylesheet/images/logo.jpg"></a>
 					  </div>--> <!-- losog -->
 	<?php print $this->layout()->content;?>
