@@ -436,6 +436,12 @@ class WepController extends Zend_Controller_Action
         if ($class == 'OtherActivityIdentifier') {
             $initial['@owner_ref'] = $defaults['reporting_org_ref'];
         }
+        if ($class == 'ReportingOrg') {
+            $initial['@ref'] = $defaults['reporting_org_ref'];
+        }
+        if ($class == 'Transaction') {
+            $initial['@ref'] = $defaults['reporting_org_ref'];
+        }
         return $initial;
     }
 
@@ -655,11 +661,12 @@ class WepController extends Zend_Controller_Action
     public function cloneNodeAction()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
-        $initial = $this->getInitialValues($activity_id, $class);
+        
         if($_GET['classname'])
         {
             $class = $_GET['classname'];
         }
+        $initial = $this->getInitialValues($activity_id, $class);
         $parents = array();
         $items = array();
         $parentExp = "/^parent/";
