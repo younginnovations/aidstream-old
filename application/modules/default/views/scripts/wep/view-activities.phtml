@@ -36,7 +36,7 @@
         <tbody>
         <?php foreach($this->activity_array as $eachActivity):?>
             <tr class="activity-row1">
-                <td><input type="checkbox" name="activity_<?php echo $eachActivity['id']?>" value="<?php echo $eachActivity['id']?>"/></td>
+                <td><input type="checkbox" name="activity_<?php echo $eachActivity['id']?>" value="<?php echo $eachActivity['id']?>"<?php ($eachActivity['status_id'] == Iati_WEP_ActivityState::STATUS_CHECKED)? print("checked='checked'"): print("disabled='disabled'");?>" /></td>
                 <td class="sn"><?php print $i;?></td>
                 <td class="title"><div class='title-activity'><?php print $eachActivity['title'];?></div>
                 <?php if($userPermission):?>
@@ -78,5 +78,4 @@
 </div>
 <?php print $this->status_form->render();?>
 <?php endif;?>
-<?php print $this->l('Add new', 'wep/add-activity?activities_id='.$this->activities_id,
-                                             array('attributes' => array('class' => 'button')));?>
+

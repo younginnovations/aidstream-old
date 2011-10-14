@@ -11,3 +11,4 @@ nbproject/
 .settings/
 data/log/zf.iati.log
 public/files/
+application/configs/application.ini

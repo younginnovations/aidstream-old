@@ -245,14 +245,18 @@ function initialize() {
 		createDateTextBox(ele.id, ele.name, ele.value);
 	    }
 	},
-	"#status" : {
-	    "onchange" : function (evt) {
+	"#publish" : {
+	    "onclick" : function (evt) {
 		var ids = new Array();
 	    	dojo.query('.activity-list-table  input[type=checkbox]:checked').forEach(function(tag){
 			ids.push(tag.value);
 		    });
 		dojo.query('#ids').attr('value',ids.join(","));
-		dojo.byId('iati_activity_status').submit();
+		
+		if(confirm("Are you sure you want to publish the activities"))
+		{
+		    dojo.byId('iati_activity_status').submit();
+		}
 	    }
 	},
 	".hide-div" : {

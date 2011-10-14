@@ -521,6 +521,9 @@ class WepController extends Zend_Controller_Action
                         $dbLayer = new Iati_WEP_DbLayer();
                         $dbLayer->save($activityTree);
                         
+                        //update the activity so that the last updated time is updated
+                        $this->updateActivityUpdatedDatetime($activity_id);
+                        
                         $camelCaseToSeperator = new Zend_Filter_Word_CamelCaseToSeparator(" ");
                         $title = $camelCaseToSeperator->filter($class);
                         
@@ -626,6 +629,9 @@ class WepController extends Zend_Controller_Action
                     //print_r($activityTree);exit;
                     $dbLayer = new Iati_WEP_DbLayer();
                     $dbLayer->save($activityTree);
+                    
+                    //update the activity so that the last updated time is updated
+                    $this->updateActivityUpdatedDatetime($activity_id);
 
                     $this->_helper->FlashMessenger->addMessage(array('message' => "$title updated successfully."));
                     $this->_redirect("wep/view-activity/".$activity_id);
@@ -746,6 +752,9 @@ class WepController extends Zend_Controller_Action
 
         $this->view->activity_array = $activity_array;
         $status_form = new Form_Wep_ActivityStatus();
+        $status_form->change->setLabel('Publish');
+        $status_form->change->setAttrib('id','publish');
+        $status_form->status->setValue(Iati_WEP_ActivityState::STATUS_PUBLISHED);
         $status_form->setAction($this->view->baseUrl()."/wep/update-status");
         $this->view->status_form = $status_form;
     }
@@ -1218,14 +1227,17 @@ class WepController extends Zend_Controller_Action
         $activity_ids = explode(',',$ids);
         $db = new Model_ActivityStatus;
         $not_valid = false;
-        
-        foreach($activity_ids as $activity_id)
+        if($ids)
         {
-            $activity_state = $db->getActivityStatus($activity_id);
-            if(!Iati_WEP_ActivityState::isValidTransition($activity_state,$state)){
-                $not_valid = true;
+            foreach($activity_ids as $activity_id)
+            {
+                $activity_state = $db->getActivityStatus($activity_id);
+                if(!Iati_WEP_ActivityState::isValidTransition($activity_state,$state)){
+                    $not_valid = true;
+                }
             }
-        }
+        } 
+       
         if($not_valid){
             $this->_helper->FlashMessenger->addMessage(array('warning' => "The activities cannot be changed to the state. Please check that a state to be changed is valid for all selected activities"));
         } else {
@@ -1237,10 +1249,20 @@ class WepController extends Zend_Controller_Action
                 $user_db = new Model_Wep();
                 $user = $user_db->getRowById('account','id',$account_id);
                 
-                $reg = new Iati_Registry($account_id,$user['name']);
+                $reg = new Iati_Registry($account_id,$user['name'],true);
                 $reg->publish();
+                $this->_helper->FlashMessenger->addMessage(array('message' => "Activities Published."));
             }
-        }        
+        }
         $this->_redirect('wep/view-activities');
+    }
+    
+    public function updateActivityUpdatedDatetime($activity_id)
+    {
+        $model = new Model_Wep();
+        $rowSet = $model->getRowsByFields('iati_activity', 'id', $activity_id);
+        $data['id'] = $activity_id;
+        $data['@last_updated_datetime'] = date('Y-m-d H:i:s');
+        $result = $model->updateRowsToTable('iati_activity', $data);
     }
 }
