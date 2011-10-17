@@ -318,11 +318,31 @@ h2.form-title {
 	font-weight: bold;
 }
 
-#block-activity-menu .content li a {
-	display: block;
+#sidebar-right #block-activity-menu .content li {
 	border-bottom: 1px solid #dbd9d9;
+	display: block;
+}
+
+
+#block-activity-menu .content li a {
+	display: inline-block;
 	padding: 6px 0 7px 25px;
 	background: url(../images/tick.png) no-repeat 5px top;
+	width: 191px;
+}
+
+
+.help {
+	overflow: hidden;
+	height: 30px;
+}
+
+.form-item .help {
+	margin-left: 8px;
+}
+
+.help img{
+	vertical-align: text-bottom;
 }
 
 #sidebar-right #block-activity-menu a:hover,
@@ -984,6 +1004,7 @@ table.user-list-table .title .list-action{
 
 table.user-list-table .title .list-action a {
 	font-weight: bold;
+
 }
 
 #contain table.user-list-table {

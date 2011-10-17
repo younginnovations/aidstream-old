@@ -19,20 +19,20 @@ class Iati_WEP_Activity_Elements_OtherActivityIdentifier extends Iati_WEP_Activi
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Activity Identifier',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><span class="help other-activitiy-identifier-text"><img src="/images/help.jpg" /></span>',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><span class="help other-activitiy-identifier-text"><img src="/images/help-text.png" /></span>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 
                 'owner_name' => array(
                     'name' => 'owner_name',
                     'label' => 'Owner Name',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><span class="help other-activitiy-identifier-owner-name"><img src="/images/help.jpg" /></span>',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><span class="help other-activitiy-identifier-owner-name"><img src="/images/help-text.png" /></span>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'owner_ref' => array(
                     'name' => 'owner_ref',
                     'label' => 'Organisation Identfier',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><span class="help other-activitiy-identifier-owner-ref"><img src="/images/help.jpg" /></span>',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><span class="help other-activitiy-identifier-owner-ref"><img src="/images/help-text.png" /></span>',
                     'attrs' => array('class' => array('form-text'))
                 ),
     );
