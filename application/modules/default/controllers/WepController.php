@@ -1265,4 +1265,16 @@ class WepController extends Zend_Controller_Action
         $data['@last_updated_datetime'] = date('Y-m-d H:i:s');
         $result = $model->updateRowsToTable('iati_activity', $data);
     }
+    
+    public function getHelpMessageAction()
+    {
+        $element_name = $this->getRequest()->getParam('element');
+        $model = new Model_Help();
+        $message = $model->getHelpMessage($element_name);
+        if(!$message['message'])
+        {
+            $message['message'] = 'No help is provided for this item';
+        }
+        $this->_helper->json($message['message']);        
+    }
 }

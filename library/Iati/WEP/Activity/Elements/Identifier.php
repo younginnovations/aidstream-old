@@ -17,7 +17,7 @@ class Iati_WEP_Activity_Elements_Identifier extends Iati_WEP_Activity_Elements_E
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Text',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><span class="help identifier-text"><img src="/images/help.jpg" /></span>',
                     'attrs' => array('class' => array('form-text'))
                 ),
     );
