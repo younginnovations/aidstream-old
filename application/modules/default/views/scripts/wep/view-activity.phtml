@@ -1133,7 +1133,7 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($conditionss as $conditions):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td class='attrib-label'>Attached</td><td class='attrib-value'> <?php if($conditions->getAttrib('@attached')) ($conditions->getAttribValue('@attached','Name')!=$conditions->getAttribValue('@attached')) ?( printf("%s [%s]",$conditions->getAttribValue('@attached','Name'),$conditions->getAttribValue('@attached'))):(print($conditions->getAttribValue('@attached')));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Attached</td><td class='attrib-value'> <?php ($conditions->getAttrib('@attached'))?print('Yes'):print('No');?></td></tr>
 <tr>
 <td colspan=2>
 
@@ -1141,12 +1141,12 @@ if(!empty($value)): ?>
 
 <!-- Condition Starts -->
 <?php
-$conditions=$conditions->getElementsByType('Condition');
-$value = $conditions[0]->getAttribs();
+$sub_conditions=$conditions->getElementsByType('Condition');
+$value = $sub_conditions[0]->getAttribs();
 if(!empty($value)): ?>
 <div class='element-item'><div class='element-title'>Condition</div>
 <div class='element-values'>
-<?php foreach($conditions as $condition):?>
+<?php foreach($sub_conditions as $condition):?>
 <table class='element-values-items'>
 <tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($condition->getAttrib('text')) print ($condition->getAttribValue('text'));?> <?php if($condition->getAttrib('@xml_lang')) printf (" [%s]",($condition->getAttribValue('@xml_lang')));?></td></tr>
 <tr class='element-value element-value-odd'><td class='attrib-label'>Type</td><td class='attrib-value'> <?php if($condition->getAttrib('@type')) ($condition->getAttribValue('@type','Name')!=$condition->getAttribValue('@type')) ?( printf("%s [%s]",$condition->getAttribValue('@type','Name'),$condition->getAttribValue('@type'))):(print($condition->getAttribValue('@type')));?></td></tr>
