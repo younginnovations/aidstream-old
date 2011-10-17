@@ -1214,3 +1214,8 @@ table#list-org {
 .clearfix {
 	clear: both;
 }
+
+.edit-element {
+	padding-left: 8px;
+	vertical-align: middle;
+}
