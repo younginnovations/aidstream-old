@@ -314,6 +314,7 @@ function initialize() {
                     load : function (data) {
                         helpdialog = new dijit.TooltipDialog({
 			    content: data,
+			    style: "width: 320px",
 			    closable: true
 			});
 			dijit.popup.open({
@@ -330,7 +331,10 @@ function initialize() {
 	"body" : {
 	    "onclick" : function (evt) {
 		if(!dojo.hasClass(evt.target, "dijitTooltipDialogPopup"))
-		dijit.popup.close(helpdialog);
+		{
+		    dijit.popup.close(helpdialog);
+		    dojo.query('.dijitPopup').forEach(dojo.destroy);
+		}
 	    }
 	}
     });
