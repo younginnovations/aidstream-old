@@ -632,6 +632,10 @@ class WepController extends Zend_Controller_Action
                     
                     //update the activity so that the last updated time is updated
                     $this->updateActivityUpdatedDatetime($activity_id);
+                    
+                    //change state to editing
+                    $db = new Model_ActivityStatus;
+                    $db->updateActivityStatus($activity_id,Iati_WEP_ActivityState::STATUS_EDITING);
 
                     $this->_helper->FlashMessenger->addMessage(array('message' => "$title updated successfully."));
                     $this->_redirect("wep/view-activity/".$activity_id);
@@ -896,7 +900,9 @@ class WepController extends Zend_Controller_Action
                         $wepModel = new Model_Wep();
                         $result = $wepModel->updateRowsToTable('iati_activity', $data);
                         if($result){
-
+                             //change state to editing
+                            $db = new Model_ActivityStatus;
+                            $db->updateActivityStatus($activity_id,Iati_WEP_ActivityState::STATUS_EDITING);
                         }
                     }
 
