@@ -18,7 +18,7 @@
             if($paramValue == 'ReportingOrg'){
                 $class = "class = highlight";
             }
-            print "<li $class><a $attributes href=$href2>Reporting Organisation</a><span class='help reporting-org'><img src='/images/help-text.png' /></span></li>";
+            print "<li $class><div class='help reporting-org'></div><a $attributes href=$href2>Reporting Organisation</a></li>";
             
             $attributes = (getRowSet('Identifier', $url['activity_id']))?'class = "active"':'';
             $href1 = $this->baseUrl() . "/wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=Identifier";
@@ -26,7 +26,7 @@
             if($paramValue == 'Identifier'){
                 $class = "class = highlight";
             }
-            print "<li $class ><a $attributes href=$href1>Iati Identifier</a><span class='help iati-identifier'><img src='/images/help-text.png' /></span></li>";
+            print "<li $class ><div class='help iati-identifier'></div><a $attributes href=$href1>Iati Identifier</a></li>";
             
             $allowed_elements = $defaultField->getProperties();
             $elements = array('other_activity_identifier','title','description','activity_status','activity_date','contact_info','participating_org','recipient_country','recipient_region','location','sector','policy_marker','collaboration_type','default_flow_type','default_finance_type','default_aid_type','default_tied_status','budget','planned_disbursement','transaction','document_link','activity_website','related_activity','conditions','result');
@@ -45,7 +45,7 @@
                     if(str_replace(" ", "", $key) == $paramValue){
                         $class = "class = highlight";
                     }
-                    print "<li $class><a $attributes href='". $href ."'>" .$key ."</a><span class='help ".str_replace('_','-',$element)."'><img src='/images/help-text.png' /></span></li>";
+                    print "<li $class><div class='help ".str_replace('_','-',$element)."'></div><a $attributes href='". $href ."'>" .$key ."</a></li>";
                 }
             }
             exit;

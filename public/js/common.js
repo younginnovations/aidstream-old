@@ -300,7 +300,8 @@ function initialize() {
 	},
 	".help" : {
 	    "onclick" : function (evt) {
-		var node = getTarget(evt).parentNode;
+		var node = getTarget(evt);
+		console.log(node);
 		var classname = dojo.attr(node,'class');
 		var classes = classname.split(' ');
 		var elementname = classes[1];
