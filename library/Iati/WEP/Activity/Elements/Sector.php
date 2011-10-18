@@ -23,40 +23,40 @@ class Iati_WEP_Activity_Elements_Sector extends Iati_WEP_Activity_Elements_Eleme
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Text',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help sector-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'code' => array(
                     'name' => 'code',
                     'label' => 'Sector',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help sector-code"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select', 'sector_value'))
                 ),
                 'non_dac_code' => array(
                     'name' => 'non_dac_code',
                     'label' => 'Sector',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s"/>',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s"/><div class="help sector-non_dac_code"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-text', 'non_dac_code'))
                 ),
                 'vocabulary' => array(
                     'name' => 'vocabulary',
                     'label' => 'Vocabulary',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help sector-vocabulary"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select', 'vocabulary_value'))
                 ),
                 'percentage' => array(
                     'name' => 'percentage',
                     'label' => 'Percentage',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help sector-percentage"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'xml_lang' => array(
                     'name' => 'xml_lang',
                     'label' => 'Language',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help sector-xml_lang"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),

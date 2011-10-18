@@ -18,7 +18,7 @@ class Iati_WEP_Activity_Elements_Result extends Iati_WEP_Activity_Elements_Eleme
                     'type' => array(
                     'name' => 'type',
                     'label' => 'Result Type',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help result-type"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                     ),

@@ -18,13 +18,13 @@ class Iati_WEP_Activity_Elements_Title extends Iati_WEP_Activity_Elements_Elemen
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Title',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help title-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'xml_lang' => array(
                     'name' => 'xml_lang',
                     'label' => 'Language',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help title-xml_lang"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),

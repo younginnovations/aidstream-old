@@ -17,13 +17,13 @@ class Iati_WEP_Activity_Elements_Transaction_Description extends Iati_WEP_Activi
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Text',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help transaction-description-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'xml_lang' => array(
                     'name' => 'xml_lang',
                     'label' => 'Language',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help transaction-description-xml_lang"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),

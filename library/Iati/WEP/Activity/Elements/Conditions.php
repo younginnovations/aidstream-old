@@ -23,7 +23,7 @@ class Iati_WEP_Activity_Elements_Conditions extends Iati_WEP_Activity_Elements_E
                 'attached' => array(
                     'name' => 'attached',
                     'label' => 'Conditions Attached',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help conditions_attached"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),

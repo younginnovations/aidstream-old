@@ -19,20 +19,20 @@ class Iati_WEP_Activity_Elements_DefaultTiedStatus extends Iati_WEP_Activity_Ele
             
             'name' => 'text',
             'label' => 'Text',
-            'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+            'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help default_tied_status-text"></div>',
             'attrs' => array('class' => array('form-text'))
         ),
         'code' => array(
             'name' => 'code',
             'label' => 'Tied Status Code',
-            'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+            'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help default_tied_status-code"></div>',
             'options' => '',
             'attrs' => array('class' => array('form-select'))
         ),
         'xml_lang' => array(
             'name' => 'xml_lang',
             'label' => 'Language',
-            'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+            'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help default_tied_status-xml_lang"></div>',
             'options' => '',
             'attrs' => array('class' => array('form-select'))
         )                   

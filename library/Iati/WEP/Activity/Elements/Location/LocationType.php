@@ -22,20 +22,20 @@ class Iati_WEP_Activity_Elements_Location_LocationType extends Iati_WEP_Activity
                     
                     'name' => 'text',
                     'label' => 'Text',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help location-location_type-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'code' => array(
                     'name' => 'code',
                     'label' => 'Location Type Code',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help location-location_type-code"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),
                 'xml_lang' => array(
                     'name' => 'xml_lang',
                     'label' => 'Language Code',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help location-location_type-xml_lang"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 )

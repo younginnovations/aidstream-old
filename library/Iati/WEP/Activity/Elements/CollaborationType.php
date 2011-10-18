@@ -19,21 +19,21 @@ class Iati_WEP_Activity_Elements_CollaborationType extends Iati_WEP_Activity_Ele
                 'code' => array(
                     'name' => 'code',
                     'label' => 'Collaboration Type Code',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help collaboration_type-code"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),
                 'xml_lang' => array(
                     'name' => 'xml_lang',
                     'label' => 'Language',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help collaboration_type-xml_lang"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Text',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help collaboration_type-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
     );

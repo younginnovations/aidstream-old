@@ -22,27 +22,27 @@ class Iati_WEP_Activity_Elements_RecipientRegion extends Iati_WEP_Activity_Eleme
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Name',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help recipient_region-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 
                 'code' => array(
                     'name' => 'code',
                     'label' => 'Region Code',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help recipient_region-code"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),
                 'percentage' => array(
                     'name' => 'percentage',
                     'label' => 'Percentage',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help recipient_region-percentage"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'xml_lang' => array(
                     'name' => 'xml_lang',
                     'label' => 'Language',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help recipient_region-xml_lang"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),
