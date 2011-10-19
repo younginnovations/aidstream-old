@@ -315,7 +315,7 @@ function initialize() {
                         helpdialog = new dijit.TooltipDialog({
 			    content: data,
 			    style: "width: 320px",
-			    closable: true
+			    autofocus: false
 			});
 			dijit.popup.open({
 					 popup : helpdialog,
