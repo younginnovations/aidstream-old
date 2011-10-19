@@ -20,7 +20,7 @@ class Iati_WEP_Activity_Elements_Result_Indicator extends Iati_WEP_Activity_Elem
                     
                     'name' => 'measure',
                     'label' => 'Measure',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help result-indicator-measure"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
     );

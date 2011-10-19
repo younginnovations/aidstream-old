@@ -18,19 +18,19 @@ class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activi
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Text',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help transaction-provider_org-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'ref' => array(
                     'name' => 'ref',
                     'label' => 'Organisation Identifier Code',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help transaction-provider_org-ref"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'provider_activity_id' => array(
                     'name' => 'provider_activity_id',
                     'label' => 'Provider Activity Id',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help transaction-provider_org-provider_activity_id"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
     );

@@ -21,35 +21,35 @@ class Iati_WEP_Activity_Elements_PolicyMarker extends Iati_WEP_Activity_Elements
                 'significance' => array(
                     'name' => 'significance',
                     'label' => 'Significance',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help policy_marker-significance"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),
                 'vocabulary' => array(
                     'name' => 'vocabulary',
                     'label' => 'Vocabulary',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help policy_marker-vocabulary"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),
                 'code' => array(
                     'name' => 'code',
-                    'label' => 'Collaboration Type Code',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'label' => 'Policy Marker',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help policy_marker-code"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),
                 'xml_lang' => array(
                     'name' => 'xml_lang',
                     'label' => 'Language',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help policy_marker-xml_lang"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Description',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help policy_marker-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
     );

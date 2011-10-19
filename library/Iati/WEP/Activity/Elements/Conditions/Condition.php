@@ -20,7 +20,7 @@ class Iati_WEP_Activity_Elements_Conditions_Condition extends
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Description',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help conditions-condition-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'type' => array(
@@ -33,7 +33,7 @@ class Iati_WEP_Activity_Elements_Conditions_Condition extends
                 'xml_lang' => array(
                     'name' => 'xml_lang',
                     'label' => 'Language',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help conditions-condition-xml_lang"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),

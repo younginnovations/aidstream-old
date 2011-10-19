@@ -16,7 +16,7 @@ class Iati_WEP_ActivityState
                             );
     protected $TRANSITIONS = array(
                             self::STATUS_EDITING           => array(self::STATUS_TO_BE_CHECKED),
-                            self::STATUS_TO_BE_CHECKED     => array(self::STATUS_CHECKED),
+                            self::STATUS_TO_BE_CHECKED     => array(self::STATUS_EDITING, self::STATUS_CHECKED),
                             self::STATUS_CHECKED           => array(self::STATUS_EDITING, self::STATUS_PUBLISHED),
                             self::STATUS_PUBLISHED         => array(self::STATUS_EDITING)
                             );

@@ -17,7 +17,7 @@ class Iati_WEP_Activity_Elements_ContactInfo_Organisation extends Iati_WEP_Activ
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Name',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help contact_info-organisation-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
     );

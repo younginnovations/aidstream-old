@@ -23,20 +23,20 @@ class Iati_WEP_Activity_Elements_Budget_Value extends Iati_WEP_Activity_Elements
                     
                     'name' => 'text',
                     'label' => 'Text',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help budget-value-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'currency' => array(
                     'name' => 'currency',
                     'label' => 'Currency',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help budget-value-currency"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                     ),
                 'value_date' => array(
                     'name' => 'value_date',
                     'label' => 'Value Date',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help budget-value-value_date"></div>',
                     'attrs' => array('class' => 'datepicker form-text', 'id' => 'value_date')
                 )
     );

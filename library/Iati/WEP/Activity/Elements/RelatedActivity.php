@@ -21,26 +21,26 @@ class Iati_WEP_Activity_Elements_RelatedActivity extends Iati_WEP_Activity_Eleme
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Activity Title',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help related_activity-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'type' => array(
                     'name' => 'type',
                     'label' => 'Type of Relationship',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help related_activity-type"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),
                 'ref' => array(
                     'name' => 'ref',
                     'label' => 'Activity Identifier',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help related_activity-ref"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'xml_lang' => array(
                     'name' => 'xml_lang',
                     'label' => 'Language',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help related_activity-xml_lang"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),

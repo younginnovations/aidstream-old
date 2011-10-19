@@ -634,6 +634,10 @@ class WepController extends Zend_Controller_Action
                     
                     //update the activity so that the last updated time is updated
                     $this->updateActivityUpdatedDatetime($activity_id);
+                    
+                    //change state to editing
+                    $db = new Model_ActivityStatus;
+                    $db->updateActivityStatus($activity_id,Iati_WEP_ActivityState::STATUS_EDITING);
 
                     $this->_helper->FlashMessenger->addMessage(array('message' => "$title updated successfully."));
                     $this->_redirect("wep/view-activity/".$activity_id);
@@ -899,7 +903,9 @@ class WepController extends Zend_Controller_Action
                         $wepModel = new Model_Wep();
                         $result = $wepModel->updateRowsToTable('iati_activity', $data);
                         if($result){
-
+                             //change state to editing
+                            $db = new Model_ActivityStatus;
+                            $db->updateActivityStatus($activity_id,Iati_WEP_ActivityState::STATUS_EDITING);
                         }
                     }
 
@@ -1267,5 +1273,17 @@ class WepController extends Zend_Controller_Action
         $data['id'] = $activity_id;
         $data['@last_updated_datetime'] = date('Y-m-d H:i:s');
         $result = $model->updateRowsToTable('iati_activity', $data);
+    }
+    
+    public function getHelpMessageAction()
+    {
+        $element_name = $this->getRequest()->getParam('element');
+        $model = new Model_Help();
+        $message = $model->getHelpMessage($element_name);
+        if(!$message['message'])
+        {
+            $message['message'] = 'No help is provided for this item';
+        }
+        $this->_helper->json($message['message']);        
     }
 }

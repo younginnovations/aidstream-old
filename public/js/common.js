@@ -6,6 +6,7 @@ dojo.require('dijit.form.Button');
 //dojo.require('dijit.form.CheckBox');
 dojo.require('dijit.form.DateTextBox');
 //dojo.require("dojo.date.locale");
+dojo.require('dijit.TooltipDialog');
 
 /* Extending dojo.connect to remove attaching event when null is passed */
 /*
@@ -294,6 +295,44 @@ function initialize() {
 		if(value === "Uncheck All"){
 		    var a = dojo.query(".check-uncheck").html('Check All');
 		    checkUncheck(evt, checklist, false)
+		}
+	    }
+	},
+	".help" : {
+	    "onclick" : function (evt) {
+		var node = getTarget(evt);
+		var classname = dojo.attr(node,'class');
+		var classes = classname.split(' ');
+		var elementname = classes[1];
+
+		//get message for the element
+		dojo.xhrPost({
+                    url : APP_BASEPATH + "/wep/get-help-message",
+                    handleAs : "json",
+		    timeout : 10000,
+                    content : {"element":elementname},
+                    load : function (data) {
+                        helpdialog = new dijit.TooltipDialog({
+			    content: data,
+			    style: "width: 320px",
+			    autofocus: false
+			});
+			dijit.popup.open({
+					 popup : helpdialog,
+					 around : node
+			});
+                    },
+                    error : function (err) {
+                        console.log(err);
+                    }
+                });		
+	    }
+	},
+	"body" : {
+	    "onclick" : function (evt) {
+		if(!dojo.hasClass(evt.target, "dijitTooltipDialogPopup"))
+		{
+		    dojo.query('.dijitPopup').forEach(dojo.destroy);
 		}
 	    }
 	}
