@@ -19,7 +19,21 @@ class Iati_WEP_FormHelper {
 
     public function getFormWithAjax ($parents, $items) {
         $this->ajaxCall = true;
+        
+        // this code needs to be refactored as it is modified only for "Conditions" element
+        // this is done because the case of conditions is unique, and is not handled right now
+        // the parent element i.e. Conditions occures only once (multiple = false) whereas, 
+        // the child element Condition occures multiple times 
+        // so when the "add more" is done, the parent is also found and extra "[]" is added
+        // so remove this problem the parent portion is removed from the array $parents which is $parent[0]
+        if($parents[0] == 'Conditions'){ 
+            $parents = array(); $parents[0] = 'Condition'; 
+        }
+        
+        //======================================================================================
+        
         $this->parentNames = $parents;
+//        print_r($parents);exit;
 
         $items = $this->incrementIndex($items);
 
