@@ -209,7 +209,7 @@ class Iati_WEP_FormHelper {
 
         if ($obj->hasMultiple()) {
             $url = $this->getUrl($obj, '/wep/remove-elements');
-            $form .= sprintf('<span class="remove button"><a  class="button" href="%s"> <span>x </span>Remove this</a></span>',
+            $form .= sprintf('<span class="remove button"><a  class="button remove-this" href="%s"> <span>x </span>Remove this</a></span>',
             $url);
         }
 
@@ -326,7 +326,7 @@ class Iati_WEP_FormHelper {
          $_form .= $this->_addMore(array('id'=>'add-more'));
          }*/
 
-        $_form .= '<input type="submit" id="Submit" value="Save" class="form-submit"/>';
+        $_form .= '<input type="submit" id="Submit" value="Save and View" class="form-submit"/>';
         $_form .= '</form>';
         return $_form;
     }

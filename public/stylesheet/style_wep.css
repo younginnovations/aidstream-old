@@ -801,10 +801,13 @@ code
 .remove{
 		border-bottom: 1px solid #DFDFDF;
     display: block;
-    cursor: pointer;
     color: #009ADA;
     display: block;
     text-align: right;
+}
+
+.remove-this {
+    cursor: pointer;
 }
 
 #add-more{

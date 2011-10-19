@@ -377,6 +377,7 @@ class WepController extends Zend_Controller_Action
                 if (!$form->isValid($data)) {
                     $form->populate($data);
                 } else {
+//                    print_r($data);exit;
                     /*
                      $data1['@xml_lang'] = $this->_request->getParam('xml_lang');
                      $data1['@default_currency'] = $this->_request->getParam('default_currency');
@@ -393,6 +394,7 @@ class WepController extends Zend_Controller_Action
                     $reporting_org['@xml_lang'] = $this->getRequest()->getParam('reporting_org_xmllang');
                     $reporting_org['@ref'] = $this->getRequest()->getParam('reporting_org_ref');
                     $reporting_org['text'] = $this->getRequest()->getParam('reporting_org_text');
+                    $reporting_org['@type'] = $this->getRequest()->getParam('reporting_org_type');
                     $reporting_org['activity_id'] = $activity_id;
                     $reporting_org_id = $wepModel->insertRowsToTable('iati_reporting_org', $reporting_org);
 
@@ -881,6 +883,7 @@ class WepController extends Zend_Controller_Action
                         $reporting_org['@xml_lang'] = $this->getRequest()->getParam('reporting_org_xmllang');
                         $reporting_org['@ref'] = $this->getRequest()->getParam('reporting_org_ref');
                         $reporting_org['text'] = $this->getRequest()->getParam('reporting_org_text');
+                        $reporting_org['@type'] = $this->getRequest()->getParam('reporting_org_text');
                         $reporting_org['activity_id'] = $activity_id;
                         $reproting_org_id = $wepModel->insertRowsToTable('iati_reporting_org', $reporting_org);
 

@@ -117,7 +117,7 @@ function initialize() {
                 dojo.query('.popup').style('display', 'none');
             }
         },
-        ".remove" : {
+        ".remove-this" : {
             "onclick" : function (evt) {
                 
                 var removeNode = getTarget(evt).parentNode;
