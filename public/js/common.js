@@ -301,11 +301,10 @@ function initialize() {
 	".help" : {
 	    "onclick" : function (evt) {
 		var node = getTarget(evt);
-		console.log(node);
 		var classname = dojo.attr(node,'class');
 		var classes = classname.split(' ');
 		var elementname = classes[1];
-		console.log(classname);
+
 		//get message for the element
 		dojo.xhrPost({
                     url : APP_BASEPATH + "/wep/get-help-message",
@@ -333,7 +332,6 @@ function initialize() {
 	    "onclick" : function (evt) {
 		if(!dojo.hasClass(evt.target, "dijitTooltipDialogPopup"))
 		{
-		    dijit.popup.close(helpdialog);
 		    dojo.query('.dijitPopup').forEach(dojo.destroy);
 		}
 	    }
