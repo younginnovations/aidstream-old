@@ -26,7 +26,7 @@ class Iati_WEP_Activity_Elements_Conditions_Condition extends
                 'type' => array(
                     'name' => 'type',
                     'label' => 'Condition Type',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help conditions-condition-type"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),
