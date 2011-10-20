@@ -21,7 +21,7 @@ class Iati_WEP_Activity_Elements_RelatedActivity extends Iati_WEP_Activity_Eleme
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Activity Title',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help related_activity-text"></div>',
+                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help related_activity-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'type' => array(

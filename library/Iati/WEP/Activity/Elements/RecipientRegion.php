@@ -22,7 +22,7 @@ class Iati_WEP_Activity_Elements_RecipientRegion extends Iati_WEP_Activity_Eleme
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Name',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help recipient_region-text"></div>',
+                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help recipient_region-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 

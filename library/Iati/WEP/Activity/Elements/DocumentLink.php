@@ -16,7 +16,7 @@ class Iati_WEP_Activity_Elements_DocumentLink extends Iati_WEP_Activity_Elements
                     'url' => array(
                         'name' => 'url',
                         'label' => 'Document Url',
-                        'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help document_link-url"></div>',
+                        'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help document_link-url"></div>',
                         'attrs' => array('class' => array('form-text'))
                     ),
                     'format' => array(

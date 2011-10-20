@@ -20,7 +20,7 @@ class Iati_WEP_Activity_Elements_Transaction_Value extends Iati_WEP_Activity_Ele
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Amount',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help transaction-value-text"></div>',
+                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help transaction-value-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'currency' => array(

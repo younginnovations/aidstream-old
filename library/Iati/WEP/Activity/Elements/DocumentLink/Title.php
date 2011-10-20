@@ -20,7 +20,7 @@ class Iati_WEP_Activity_Elements_DocumentLink_Title extends
             
                     'name' => 'text',
                     'label' => 'Title',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help document_link-title-text"></div>',
+                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help document_link-title-text"></div>',
                     'attrs' => array('class' => array('form-text')),
                 ),
                 'xml_lang' => array(

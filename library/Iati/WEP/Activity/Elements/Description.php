@@ -20,7 +20,7 @@ class Iati_WEP_Activity_Elements_Description extends Iati_WEP_Activity_Elements_
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Text',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help description-text"></div>',
+                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help description-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'type' => array(

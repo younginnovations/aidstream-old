@@ -24,7 +24,7 @@ class Iati_WEP_Activity_Elements_Location_Administrative extends Iati_WEP_Activi
                     
                     'name' => 'text',
                     'label' => 'Text',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help location-administrative-text"></div>',
+                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help location-administrative-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'country' => array(

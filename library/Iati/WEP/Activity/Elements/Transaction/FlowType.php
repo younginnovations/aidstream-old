@@ -20,7 +20,7 @@ protected $attributes_html = array(
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Text',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help transaction-flow_type-text"></div>',
+                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help transaction-flow_type-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'code' => array(

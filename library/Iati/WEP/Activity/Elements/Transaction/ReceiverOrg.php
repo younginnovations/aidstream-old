@@ -21,7 +21,7 @@ class Iati_WEP_Activity_Elements_Transaction_ReceiverOrg extends Iati_WEP_Activi
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Text',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help transaction-receiver_org-text"></div>',
+                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help transaction-receiver_org-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'ref' => array(

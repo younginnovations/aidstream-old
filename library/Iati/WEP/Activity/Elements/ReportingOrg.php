@@ -33,7 +33,7 @@ class Iati_WEP_Activity_Elements_ReportingOrg extends Iati_WEP_Activity_Elements
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Text',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help reporting_org-text"></div>',
+                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help reporting_org-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'xml_lang' => array(
