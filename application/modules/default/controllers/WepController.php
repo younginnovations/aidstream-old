@@ -377,7 +377,6 @@ class WepController extends Zend_Controller_Action
                 if (!$form->isValid($data)) {
                     $form->populate($data);
                 } else {
-//                    print_r($data);exit;
                     /*
                      $data1['@xml_lang'] = $this->_request->getParam('xml_lang');
                      $data1['@default_currency'] = $this->_request->getParam('default_currency');
@@ -388,6 +387,8 @@ class WepController extends Zend_Controller_Action
                      */
 
                     $wepModel = new Model_Wep();
+                    $activity_info['@xml_lang'] = $default['language'];
+                    $activity_info['@default_currency'] = $default['currency'];
                     $activity_id = $wepModel->insertRowsToTable('iati_activity', $activity_info);
 
                     $reporting_org = array();
@@ -495,6 +496,7 @@ class WepController extends Zend_Controller_Action
         if(isset($class)){
             try{
                 if($_POST){
+                    //print_r($_POST);exit;
                     $flatArray = $this->flatArray($_POST);
 
                     //print_r($flatArray);exit;
@@ -778,7 +780,6 @@ class WepController extends Zend_Controller_Action
         $activity_info = $model->listAll('iati_activity', 'id', $activity_id);
         $activity = $activity_info[0];
         $state = $activity['status_id'];
-        
         $activity['@xml_lang'] = $model->fetchValueById('Language', $activity_info[0]['@xml_lang'], 'Code');
         $activity['@default_currency'] = $model->fetchValueById('Currency', $activity_info[0]['@default_currency'], 'Code');
         
@@ -909,7 +910,7 @@ class WepController extends Zend_Controller_Action
                         }
                     }
 
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "Activity overrided."));
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "Activity overridden."));
 
                     $this->_redirect('wep/view-activity/' . $activity_id);
                 }//end of inner if
