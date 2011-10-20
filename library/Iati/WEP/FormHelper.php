@@ -339,8 +339,8 @@ class Iati_WEP_FormHelper {
         /*if ($this->registryTree->getRootNode()->hasMultiple()) {
          $_form .= $this->_addMore(array('id'=>'add-more'));
          }*/
-
-        $_form .= '<input type="submit" id="Submit" value="Save and View" class="form-submit"/>';
+        $_form .= '<input type="submit" id="Submit" name="save" value="Save and View" class="form-submit"/>';
+        $_form .= '<input type="submit" id="Submit" name="save" value="Save" class="form-submit"/>';
         $_form .= '</form>';
         return $_form;
     }

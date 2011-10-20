@@ -496,7 +496,6 @@ class WepController extends Zend_Controller_Action
         if(isset($class)){
             try{
                 if($_POST){
-                    //print_r($_POST);exit;
                     $flatArray = $this->flatArray($_POST);
 
                     //print_r($flatArray);exit;
@@ -531,9 +530,16 @@ class WepController extends Zend_Controller_Action
                         $camelCaseToSeperator = new Zend_Filter_Word_CamelCaseToSeparator(" ");
                         $title = $camelCaseToSeperator->filter($class);
                         
-                        $this->_helper->FlashMessenger
-                        ->addMessage(array('message' => "$title successfully inserted."));
-                        $this->_redirect("/wep/view-activity/".$activity_id);
+                        if($_POST['save'] == 'Save and View'){
+                            $this->_helper->FlashMessenger
+                            ->addMessage(array('message' => "$title successfully inserted."));
+                            $this->_redirect("/wep/view-activity/".$activity_id);
+                        }else{
+                            $this->_helper->FlashMessenger
+                            ->addMessage(array('message' => "$title successfully inserted."));
+                            $this->_redirect("/wep/edit-activity-elements?activity_id=".
+                                             $activity_id . "&class=" . $class);
+                        }
 
                     }
                     /*
@@ -641,8 +647,16 @@ class WepController extends Zend_Controller_Action
                     $db = new Model_ActivityStatus;
                     $db->updateActivityStatus($activity_id,Iati_WEP_ActivityState::STATUS_EDITING);
 
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "$title updated successfully."));
-                    $this->_redirect("wep/view-activity/".$activity_id);
+                    if($_POST['save'] == 'Save and View'){
+                            $this->_helper->FlashMessenger
+                            ->addMessage(array('message' => "$title successfully updated."));
+                            $this->_redirect("/wep/view-activity/".$activity_id);
+                        }else{
+                            $this->_helper->FlashMessenger
+                            ->addMessage(array('message' => "$title successfully updated."));
+                            $this->_redirect("/wep/edit-activity-elements?activity_id=".
+                                             $activity_id . "&class=" . $class);
+                    }
                 }
             }
             else{
