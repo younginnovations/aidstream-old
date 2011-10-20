@@ -141,6 +141,7 @@ if(!empty($value)): ?>
 <?php foreach($descriptions as $description):?>
 <table class='element-values-items'>
 <tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($description->getAttrib('text')) print ($description->getAttribValue('text'));?><?php if($description->getAttrib('@xml_lang')) printf (" [%s]",($description->getAttribValue('@xml_lang')));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Type</td><td class='attrib-value'> <?php if($description->getAttrib('@type')) ($description->getAttribValue('@type','Name')!=$description->getAttribValue('@type')) ?( printf("%s [%s]",$description->getAttribValue('@type','Name'),$description->getAttribValue('@type'))):(print($description->getAttribValue('@type')));?></td></tr>
 </table><?php endforeach;?>
 </div>
 </div>
@@ -438,6 +439,8 @@ if(!empty($value)): ?>
 <table class='element-values-items'>
 <tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($administrative->getAttrib('text')) print ($administrative->getAttribValue('text'));?> <?php if($administrative->getAttrib('@xml_lang')) printf (" [%s]",($administrative->getAttribValue('@xml_lang')));?></td></tr>
 <tr class='element-value element-value-odd'><td class='attrib-label'>Country</td><td class='attrib-value'> <?php if($administrative->getAttrib('@country')) ($administrative->getAttribValue('@country','Name')!=$administrative->getAttribValue('@country')) ?( printf("%s [%s]",$administrative->getAttribValue('@country','Name'),$administrative->getAttribValue('@country'))):(print($administrative->getAttribValue('@country')));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Adm-1</td><td class='attrib-value'> <?php if($administrative->getAttrib('@adm1')) ($administrative->getAttribValue('@adm1','Name')!=$administrative->getAttribValue('@adm1')) ?( printf("%s [%s]",$administrative->getAttribValue('@adm1','Name'),$administrative->getAttribValue('@adm1'))):(print($administrative->getAttribValue('@adm1')));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Adm-2</td><td class='attrib-value'> <?php if($administrative->getAttrib('@adm2')) ($administrative->getAttribValue('@adm2','Name')!=$administrative->getAttribValue('@adm2')) ?( printf("%s [%s]",$administrative->getAttribValue('@adm2','Name'),$administrative->getAttribValue('@adm2'))):(print($administrative->getAttribValue('@adm2')));?></td></tr>
 
 </table>
 <?php endforeach;?>

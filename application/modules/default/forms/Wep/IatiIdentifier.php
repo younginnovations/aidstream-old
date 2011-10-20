@@ -10,7 +10,23 @@ class Form_Wep_IatiIdentifier extends App_Form
         $form1->add('add', $account_id);
         
         $form['iati_identifier_text'] = new Zend_Form_Element_Text('iati_identifier_text');
-        $form['iati_identifier_text']->setLabel('Iati Identifier')->setRequired()->setAttrib('class', 'form-text');
+        $form['iati_identifier_text']->setLabel('Iati Identifier')
+                                    ->setRequired()
+                                    ->setAttrib('class', 'form-text')
+                                    ->setDecorators( array(
+                                                            'ViewHelper',
+                                                            'Errors',
+                                                            'Label',
+                                                            array('HtmlTag', array(
+                                                                                   'tag'        =>'<div>',
+                                                                                   'placement'  =>'APPEND',
+                                                                                   'class'      =>'help identifier-text'
+                                                                                   )
+                                                                ),
+                                                            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-element'))
+                                                        )
+                                                );
+
         
         $this->addSubForm($form1, 'Reporting Organisation');
         

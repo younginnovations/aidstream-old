@@ -39,8 +39,25 @@ class Form_Wep_EditDefaults extends App_Form
         $form['reporting_org_ref'] = new Zend_Form_Element_Text('reporting_org_ref');
         $form['reporting_org_ref']->setLabel('Default Reporting Organisation Identifier')
                                     ->setValue($defaults['field_values']['reporting_org_ref'])
+                                    ->setAttrib('width','20px')
                                     ->setAttrib('class', 'form-text');
-        
+                                    
+        foreach($form as $item_name=>$element)
+        {
+            $form[$item_name]->setDecorators( array(
+                        'ViewHelper',
+                        'Errors',
+                        'Label',
+                        array('HtmlTag', array(
+                                               'tag'        =>'<div>',
+                                               'placement'  =>'APPEND',
+                                               'class'      =>'help activity_defaults-'.$item_name
+                                               )
+                            ),
+                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-element'))
+                    )
+            );
+        }
         
         
         //@todo reCaptcha

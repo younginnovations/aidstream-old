@@ -332,7 +332,7 @@ function initialize() {
 	    "onclick" : function (evt) {
 		if(!dojo.hasClass(evt.target, "dijitTooltipDialogPopup"))
 		{
-		    dojo.query('.dijitPopup').forEach(dojo.destroy);
+		    dojo.query('.dijitTooltipDialogPopup').forEach(dojo.destroy);
 		}
 	    }
 	}
