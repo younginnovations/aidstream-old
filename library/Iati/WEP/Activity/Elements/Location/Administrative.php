@@ -24,20 +24,20 @@ class Iati_WEP_Activity_Elements_Location_Administrative extends Iati_WEP_Activi
                     
                     'name' => 'text',
                     'label' => 'Text',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help location-administrative-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'country' => array(
                     'name' => 'country',
                     'label' => 'Country',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help location-administrative-country"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),
                 'adm1' => array(
                     'name' => 'adm1',
                     'label' => 'Admin-1',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help location-administrative-adm1"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),
@@ -45,7 +45,7 @@ class Iati_WEP_Activity_Elements_Location_Administrative extends Iati_WEP_Activi
                 'adm2' => array(
                     'name' => 'adm2',
                     'label' => 'Admin-2',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help location-administrative-adm2"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),

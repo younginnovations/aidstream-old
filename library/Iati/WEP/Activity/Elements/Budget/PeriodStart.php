@@ -21,13 +21,13 @@ class Iati_WEP_Activity_Elements_Budget_PeriodStart extends Iati_WEP_Activity_El
                     
                     'name' => 'text',
                     'label' => 'Text',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help budget-period_start-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'iso_date' => array(
                     'name' => 'iso_date',
                     'label' => 'Date',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help budget-period_start-iso_date"></div>',
                     'attrs' => array('class' => 'datepicker form-text', 'id' => 'iso_date')
                 )
     );

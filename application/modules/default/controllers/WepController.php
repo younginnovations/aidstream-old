@@ -387,12 +387,15 @@ class WepController extends Zend_Controller_Action
                      */
 
                     $wepModel = new Model_Wep();
+                    $activity_info['@xml_lang'] = $default['language'];
+                    $activity_info['@default_currency'] = $default['currency'];
                     $activity_id = $wepModel->insertRowsToTable('iati_activity', $activity_info);
 
                     $reporting_org = array();
                     $reporting_org['@xml_lang'] = $this->getRequest()->getParam('reporting_org_xmllang');
                     $reporting_org['@ref'] = $this->getRequest()->getParam('reporting_org_ref');
                     $reporting_org['text'] = $this->getRequest()->getParam('reporting_org_text');
+                    $reporting_org['@type'] = $this->getRequest()->getParam('reporting_org_type');
                     $reporting_org['activity_id'] = $activity_id;
                     $reporting_org_id = $wepModel->insertRowsToTable('iati_reporting_org', $reporting_org);
 
@@ -435,6 +438,12 @@ class WepController extends Zend_Controller_Action
         }
         if ($class == 'OtherActivityIdentifier') {
             $initial['@owner_ref'] = $defaults['reporting_org_ref'];
+        }
+        if ($class == 'ReportingOrg') {
+            $initial['@ref'] = $defaults['reporting_org_ref'];
+        }
+        if ($class == 'Transaction') {
+            $initial['@ref'] = $defaults['reporting_org_ref'];
         }
         return $initial;
     }
@@ -521,9 +530,16 @@ class WepController extends Zend_Controller_Action
                         $camelCaseToSeperator = new Zend_Filter_Word_CamelCaseToSeparator(" ");
                         $title = $camelCaseToSeperator->filter($class);
                         
-                        $this->_helper->FlashMessenger
-                        ->addMessage(array('message' => "$title successfully inserted."));
-                        $this->_redirect("/wep/view-activity/".$activity_id);
+                        if($_POST['save'] == 'Save and View'){
+                            $this->_helper->FlashMessenger
+                            ->addMessage(array('message' => "$title successfully inserted."));
+                            $this->_redirect("/wep/view-activity/".$activity_id);
+                        }else{
+                            $this->_helper->FlashMessenger
+                            ->addMessage(array('message' => "$title successfully inserted."));
+                            $this->_redirect("/wep/edit-activity-elements?activity_id=".
+                                             $activity_id . "&class=" . $class);
+                        }
 
                     }
                     /*
@@ -626,9 +642,21 @@ class WepController extends Zend_Controller_Action
                     
                     //update the activity so that the last updated time is updated
                     $this->updateActivityUpdatedDatetime($activity_id);
+                    
+                    //change state to editing
+                    $db = new Model_ActivityStatus;
+                    $db->updateActivityStatus($activity_id,Iati_WEP_ActivityState::STATUS_EDITING);
 
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "$title updated successfully."));
-                    $this->_redirect("wep/view-activity/".$activity_id);
+                    if($_POST['save'] == 'Save and View'){
+                            $this->_helper->FlashMessenger
+                            ->addMessage(array('message' => "$title successfully updated."));
+                            $this->_redirect("/wep/view-activity/".$activity_id);
+                        }else{
+                            $this->_helper->FlashMessenger
+                            ->addMessage(array('message' => "$title successfully updated."));
+                            $this->_redirect("/wep/edit-activity-elements?activity_id=".
+                                             $activity_id . "&class=" . $class);
+                    }
                 }
             }
             else{
@@ -661,11 +689,12 @@ class WepController extends Zend_Controller_Action
     public function cloneNodeAction()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
-        $initial = $this->getInitialValues($activity_id, $class);
+        
         if($_GET['classname'])
         {
             $class = $_GET['classname'];
         }
+        $initial = $this->getInitialValues($activity_id, $class);
         $parents = array();
         $items = array();
         $parentExp = "/^parent/";
@@ -765,7 +794,6 @@ class WepController extends Zend_Controller_Action
         $activity_info = $model->listAll('iati_activity', 'id', $activity_id);
         $activity = $activity_info[0];
         $state = $activity['status_id'];
-        
         $activity['@xml_lang'] = $model->fetchValueById('Language', $activity_info[0]['@xml_lang'], 'Code');
         $activity['@default_currency'] = $model->fetchValueById('Currency', $activity_info[0]['@default_currency'], 'Code');
         
@@ -874,6 +902,7 @@ class WepController extends Zend_Controller_Action
                         $reporting_org['@xml_lang'] = $this->getRequest()->getParam('reporting_org_xmllang');
                         $reporting_org['@ref'] = $this->getRequest()->getParam('reporting_org_ref');
                         $reporting_org['text'] = $this->getRequest()->getParam('reporting_org_text');
+                        $reporting_org['@type'] = $this->getRequest()->getParam('reporting_org_text');
                         $reporting_org['activity_id'] = $activity_id;
                         $reproting_org_id = $wepModel->insertRowsToTable('iati_reporting_org', $reporting_org);
 
@@ -889,11 +918,13 @@ class WepController extends Zend_Controller_Action
                         $wepModel = new Model_Wep();
                         $result = $wepModel->updateRowsToTable('iati_activity', $data);
                         if($result){
-
+                             //change state to editing
+                            $db = new Model_ActivityStatus;
+                            $db->updateActivityStatus($activity_id,Iati_WEP_ActivityState::STATUS_EDITING);
                         }
                     }
 
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "Activity overrided."));
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "Activity overridden."));
 
                     $this->_redirect('wep/view-activity/' . $activity_id);
                 }//end of inner if
@@ -1242,7 +1273,7 @@ class WepController extends Zend_Controller_Action
                 $user_db = new Model_Wep();
                 $user = $user_db->getRowById('account','id',$account_id);
                 
-                $reg = new Iati_Registry($account_id,$user['name']);
+                $reg = new Iati_Registry($account_id,$user['name'],true);
                 $reg->publish();
                 $this->_helper->FlashMessenger->addMessage(array('message' => "Activities Published."));
             }
@@ -1257,5 +1288,17 @@ class WepController extends Zend_Controller_Action
         $data['id'] = $activity_id;
         $data['@last_updated_datetime'] = date('Y-m-d H:i:s');
         $result = $model->updateRowsToTable('iati_activity', $data);
+    }
+    
+    public function getHelpMessageAction()
+    {
+        $element_name = $this->getRequest()->getParam('element');
+        $model = new Model_Help();
+        $message = $model->getHelpMessage($element_name);
+        if(!$message['message'])
+        {
+            $message['message'] = 'No help is provided for this item';
+        }
+        $this->_helper->json($message['message']);        
     }
 }

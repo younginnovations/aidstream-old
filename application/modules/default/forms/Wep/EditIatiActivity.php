@@ -32,7 +32,25 @@ class Form_Wep_EditIatiActivity extends App_Form
 
         $form['hierarchy'] = new Zend_Form_Element_Text('hierarchy');
         $form['hierarchy']->setAttrib('class', 'form-text')->setLabel('Hierarchy');
-
+        
+        //This code is used to append a <div> with help class for all form elements, used for displaying help
+        foreach($form as $item_name=>$element)
+        {
+            $form[$item_name]->setDecorators( array(
+                        'ViewHelper',
+                        'Errors',
+                        'Label',
+                        array('HtmlTag', array(
+                                               'tag'        =>'<div>',
+                                               'placement'  =>'APPEND',
+                                               'class'      =>'help activity-'.$item_name
+                                               )
+                            ),
+                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-element'))
+                    )
+            );
+        }
+        
         $this->addElements($form);
         $this->addDisplayGroup(array('xml_lang', 'default_currency', 'hierarchy'), 
                                     'field1',array('legend'=>'Activity'));

@@ -21,19 +21,19 @@ class Iati_WEP_Activity_Elements_Transaction_ReceiverOrg extends Iati_WEP_Activi
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Text',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help transaction-receiver_org-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'ref' => array(
                     'name' => 'ref',
                     'label' => 'Organisation Identifier Code',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help transaction-receiver_org-ref"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'receiver_activity_id' => array(
                     'name' => 'receiver_activity_id',
                     'label' => 'Receiver Activity Id',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help transaction-receiver_org-receiver_activity_id"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
     );

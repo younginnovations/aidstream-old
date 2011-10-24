@@ -23,20 +23,20 @@ class Iati_WEP_Activity_Elements_Location_Coordinates extends Iati_WEP_Activity_
                 'latitude' => array(
                     'name' => 'latitude',
                     'label' => 'Latitude',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help location-coordinates-latitude"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'longitude' => array(
                     'name' => 'longitude',
                     'label' => 'Longitude',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help location-coordinates-longitude"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 
                 'percision' => array(
                     'name' => 'percision',
                     'label' => 'Percision',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help location-coordinates-percision"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),

@@ -23,13 +23,13 @@ class Iati_WEP_Activity_Elements_Location_GazetteerEntry extends Iati_WEP_Activi
                     
                     'name' => 'text',
                     'label' => 'Text',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help location-gazetteer_entry-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'gazetteer_ref' => array(
                     'name' => 'gazetteer_ref',
                     'label' => 'Gazetteer Agency',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help location-gazetteer_entry-gazetteer_ref"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),

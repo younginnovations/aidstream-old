@@ -22,34 +22,34 @@ class Iati_WEP_Activity_Elements_ParticipatingOrg extends Iati_WEP_Activity_Elem
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Organisation Name',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help participating_org-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
 
                 'role' => array(
                     'name' => 'role',
                     'label' => 'Organisation Role',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help participating_org-role"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),
                 'ref' => array(
                     'name' => 'ref',
                     'label' => 'Organisation Identifier',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help participating_org-ref"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'type' => array(
                     'name' => 'type',
                     'label' => 'Organisation Type',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help participating_org-type"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),
                 'xml_lang' => array(
                     'name' => 'xml_lang',
                     'label' => 'Language',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help participating_org-xml-lang"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),

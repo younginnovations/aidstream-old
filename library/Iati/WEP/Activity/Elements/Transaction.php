@@ -17,7 +17,7 @@ class Iati_WEP_Activity_Elements_Transaction extends Iati_WEP_Activity_Elements_
                     'ref' => array(
                     'name' => 'ref',
                     'label' => 'Reference',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help transaction-ref"></div>',
                     'attrs' => array('class' => array('form-text'))
                 
                 ),

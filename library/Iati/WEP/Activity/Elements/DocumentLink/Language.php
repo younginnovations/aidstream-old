@@ -18,7 +18,7 @@ class Iati_WEP_Activity_Elements_DocumentLink_Language extends
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Text',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help document_link-language-text"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),

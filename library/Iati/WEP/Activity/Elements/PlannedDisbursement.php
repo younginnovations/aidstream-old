@@ -17,7 +17,7 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement extends Iati_WEP_Activity_E
                     'updated' => array(
                     'name' => 'updated',
                     'label' => 'Updated Date',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help planned_disbursement-updated"></div>',
                     'attrs' => array('class' => 'datepicker form-text', 'id' => 'updated')
                 
                 ),

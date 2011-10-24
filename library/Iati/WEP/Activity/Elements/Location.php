@@ -17,7 +17,7 @@ class Iati_WEP_Activity_Elements_Location extends Iati_WEP_Activity_Elements_Ele
                     'percentage' => array(
                     'name' => 'percentage',
                     'label' => 'Percentage',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help location-percentage"></div>',
                     'attrs' => array('class' => array('form-text'))
                 
                 ),

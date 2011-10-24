@@ -19,7 +19,21 @@ class Iati_WEP_FormHelper {
 
     public function getFormWithAjax ($parents, $items) {
         $this->ajaxCall = true;
+        
+        // this code needs to be refactored as it is modified only for "Conditions" element
+        // this is done because the case of conditions is unique, and is not handled right now
+        // the parent element i.e. Conditions occures only once (multiple = false) whereas, 
+        // the child element Condition occures multiple times 
+        // so when the "add more" is done, the parent is also found and extra "[]" is added
+        // so remove this problem the parent portion is removed from the array $parents which is $parent[0]
+        if($parents[0] == 'Conditions'){ 
+            $parents = array(); $parents[0] = 'Condition'; 
+        }
+        
+        //======================================================================================
+        
         $this->parentNames = $parents;
+//        print_r($parents);exit;
 
         $items = $this->incrementIndex($items);
 
@@ -209,7 +223,7 @@ class Iati_WEP_FormHelper {
 
         if ($obj->hasMultiple()) {
             $url = $this->getUrl($obj, '/wep/remove-elements');
-            $form .= sprintf('<span class="remove button"><a  class="button" href="%s"> <span>x </span>Remove this</a></span>',
+            $form .= sprintf('<span class="remove button"><a  class="button remove-this" href="%s"> <span>x </span>Remove this</a></span>',
             $url);
         }
 
@@ -325,8 +339,8 @@ class Iati_WEP_FormHelper {
         /*if ($this->registryTree->getRootNode()->hasMultiple()) {
          $_form .= $this->_addMore(array('id'=>'add-more'));
          }*/
-
-        $_form .= '<input type="submit" id="Submit" value="Save" class="form-submit"/>';
+        $_form .= '<input type="submit" id="Submit" name="save" value="Save and View" class="form-submit"/>';
+        $_form .= '<input type="submit" id="Submit" name="save" value="Save" class="form-submit"/>';
         $_form .= '</form>';
         return $_form;
     }

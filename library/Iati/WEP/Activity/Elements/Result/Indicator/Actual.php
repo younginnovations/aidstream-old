@@ -23,21 +23,21 @@ class Iati_WEP_Activity_Elements_Result_Indicator_Actual extends Iati_WEP_Activi
                     
                     'name' => 'value',
                     'label' => 'Value',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help result-indicator-actual-value"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'year' => array(
                     
                     'name' => 'year',
                     'label' => 'year',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help result-indicator-actual-year"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'text' => array(
                     
                     'name' => 'text',
                     'label' => 'Text',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" />',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help result-indicator-actual-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
     );

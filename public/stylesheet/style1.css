@@ -563,3 +563,18 @@ code
 {
 	color:#999999;
 }
+
+/**Login message **/
+#login-wrapper #flash-messages {
+	margin-bottom: 10px;
+}
+
+#login-wrapper #flash-messages  ul {
+	margin-left: 8px;
+	width: 264px;
+}
+
+form#Login ul{
+	margin-left: 0;
+}
+
