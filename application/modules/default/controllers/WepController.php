@@ -404,6 +404,10 @@ class WepController extends Zend_Controller_Action
                     $iati_identifier['activity_id'] = $activity_id;
                     $iati_identifier_id = $wepModel->insertRowsToTable('iati_identifier', $iati_identifier);
 
+                    //Create Activity Hash
+                    $activityHashModel = new Model_ActivityHash();
+                    $updated = $activityHashModel->updateHash($activity_id);
+                        
                     $this->_helper->FlashMessenger->addMessage(array('message' => "Activity inserted."));
 
                     $this->_redirect('wep/view-activity/' . $activity_id);
@@ -530,6 +534,13 @@ class WepController extends Zend_Controller_Action
                         $camelCaseToSeperator = new Zend_Filter_Word_CamelCaseToSeparator(" ");
                         $title = $camelCaseToSeperator->filter($class);
                         
+                        $activityHashModel = new Model_ActivityHash();
+                        $updated = $activityHashModel->updateHash($activity_id);
+                        
+                        //change state to editing
+                        $db = new Model_ActivityStatus;
+                        $db->updateActivityStatus($activity_id,Iati_WEP_ActivityState::STATUS_EDITING);
+                        
                         if($_POST['save'] == 'Save and View'){
                             $this->_helper->FlashMessenger
                             ->addMessage(array('message' => "$title successfully inserted."));
@@ -640,20 +651,28 @@ class WepController extends Zend_Controller_Action
                     $dbLayer = new Iati_WEP_DbLayer();
                     $dbLayer->save($activityTree);
                     
-                    //update the activity so that the last updated time is updated
-                    $this->updateActivityUpdatedDatetime($activity_id);
-                    
-                    //change state to editing
-                    $db = new Model_ActivityStatus;
-                    $db->updateActivityStatus($activity_id,Iati_WEP_ActivityState::STATUS_EDITING);
+                    //Update Activity Hash
+                    $activityHashModel = new Model_ActivityHash();
+                    $updated = $activityHashModel->updateHash($activity_id);
+                    if(!$updated){
+                        $type = 'info';
+                        $message = 'No Changes Made';
+                    } else {
+                        //update the activity so that the last updated time is updated
+                        $this->updateActivityUpdatedDatetime($activity_id);
+                        
+                        //change state to editing
+                        $db = new Model_ActivityStatus;
+                        $db->updateActivityStatus($activity_id,Iati_WEP_ActivityState::STATUS_EDITING);
+                        $type = 'message';
+                        $message = "$title successfully updated.";
+                    }
+                    $this->_helper->FlashMessenger
+                            ->addMessage(array($type => $message));
 
                     if($_POST['save'] == 'Save and View'){
-                            $this->_helper->FlashMessenger
-                            ->addMessage(array('message' => "$title successfully updated."));
                             $this->_redirect("/wep/view-activity/".$activity_id);
                         }else{
-                            $this->_helper->FlashMessenger
-                            ->addMessage(array('message' => "$title successfully updated."));
                             $this->_redirect("/wep/edit-activity-elements?activity_id=".
                                              $activity_id . "&class=" . $class);
                     }
@@ -918,14 +937,24 @@ class WepController extends Zend_Controller_Action
                         $wepModel = new Model_Wep();
                         $result = $wepModel->updateRowsToTable('iati_activity', $data);
                         if($result){
-                             //change state to editing
-                            $db = new Model_ActivityStatus;
-                            $db->updateActivityStatus($activity_id,Iati_WEP_ActivityState::STATUS_EDITING);
+                            
+                            $activityHashModel = new Model_ActivityHash();
+                            $updated = $activityHashModel->updateHash($activity_id);
+                            if(!$updated){
+                                $type = 'info';
+                                $message = 'No Changes Made';
+                            } else {
+                                
+                                //change state to editing
+                                $db = new Model_ActivityStatus;
+                                $db->updateActivityStatus($activity_id,Iati_WEP_ActivityState::STATUS_EDITING);
+                                $type = 'message';
+                                $message = "Activity overridden";
+                            }
+                            $this->_helper->FlashMessenger
+                                    ->addMessage(array($type => $message));
                         }
                     }
-
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "Activity overridden."));
-
                     $this->_redirect('wep/view-activity/' . $activity_id);
                 }//end of inner if
             } else {
