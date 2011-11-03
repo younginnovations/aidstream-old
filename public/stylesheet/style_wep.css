@@ -584,6 +584,8 @@ button.form-submit, input.form-submit, a.button, .change-password a, .profile-li
     text-align: center;*/
     background-color: #009ADA;
     border: none;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
     border-radius: 4px 4px 4px 4px;
     color: #FFFFFF;
     cursor: pointer;
@@ -1123,6 +1125,7 @@ table.activity-list-table tr:hover {
 
 #element-form #Submit {
 	margin-top: 10px;
+	margin-right: 8px;
 }
 
 /** Breadcrumb **/
