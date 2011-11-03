@@ -49,7 +49,7 @@ class Iati_WEP_Activity_Elements_ParticipatingOrg extends Iati_WEP_Activity_Elem
                 'xml_lang' => array(
                     'name' => 'xml_lang',
                     'label' => 'Language',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help participating_org-xml-lang"></div>',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help participating_org-xml_lang"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),
