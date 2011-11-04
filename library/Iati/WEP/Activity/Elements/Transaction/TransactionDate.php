@@ -25,7 +25,7 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionDate extends Iati_WEP_Ac
                 'iso_date' => array(
                     'name' => 'iso_date',
                     'label' => 'Date',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help transaction-transaction_date-is_date"></div>',
+                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help transaction-transaction_date-iso_date"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-text', 'datepicker'), 'id' => 'iso_date')
                 ),
