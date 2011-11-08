@@ -59,6 +59,7 @@ class Form_Wep_EditIatiActivity extends App_Form
         $save->setValue('Save')->setAttrib('class','form-submit');
         $this->addElement($save);
         $this->setMethod('post');
+        $this->setAttrib('id','activity-edit-form');
         
     }
 }

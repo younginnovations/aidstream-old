@@ -1228,3 +1228,14 @@ table#list-org {
 	padding-left: 8px;
 	vertical-align: middle;
 }
+
+/** view activity link **/
+.viewer-link{
+	float:right;
+	font-size:12px;
+	padding-right:5px;
+}
+
+#activity-edit-form {
+	clear: both;
+}

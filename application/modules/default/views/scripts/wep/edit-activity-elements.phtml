@@ -9,6 +9,7 @@
 <div class="activity-title">
     <span class="activity_identifier"> <?php print $this->activityInfo['iati_identifier']; ?> </span>
     <span class="activity_title"> <?php print $title;?> </span>
+    <span class="viewer-link"><?php echo $this->l('View Activity', 'wep/view-activity/'. $this->activityInfo['id'])?></span>
 </div>
 <?php
     $url = Zend_Controller_Front::getInstance()->getRequest()->getParams();

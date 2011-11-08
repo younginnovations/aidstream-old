@@ -964,7 +964,7 @@ class WepController extends Zend_Controller_Action
             }
 
             $this->view->form = $form;
-
+            $this->view->activity_id = $activity_id;
         }
 
     }
