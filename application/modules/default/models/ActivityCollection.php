@@ -20,4 +20,13 @@ class Model_ActivityCollection extends Zend_Db_Table_Abstract
         return $activities;
     }
     
+    public function getActivitiesCountByAccount($account_id)
+    {
+        $rowSet = $this->select()->setIntegrityCheck(false)
+            ->from(array('iact'=>'iati_activity'),'COUNT(iact.id) AS activity_count')
+            ->join(array('iacts'=>'iati_activities'),'iact.activities_id = iacts.id','')
+            ->where('iacts.account_id=?',$account_id);
+        return $activities = $this->fetchAll($rowSet)->toArray();
+    }
+    
 }

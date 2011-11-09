@@ -26,6 +26,14 @@ switch($identity->role){
                         'module' => 'default',
                         'controller' => 'admin',
                         'action' => 'list-organisation',
+                        'pages' => array(
+                            array(
+                                'label' => 'Edit Organisation',
+                                'module' => 'default',
+                                'controller' => 'admin',
+                                'action' => 'edit-organisation',
+                            ),
+                            ),
                     ),
                     array(
                         'label' => 'Awaiting Request',

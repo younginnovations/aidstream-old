@@ -78,7 +78,21 @@ class AdminController extends Zend_Controller_Action
     public function listOrganisationAction()
     {
         $model = new Model_Wep();
-        $this->view->rowSet = $model->listOrganisation('account');
+        $user_model = new Model_User();
+        $activity_model = new Model_ActivityCollection();
+        $orgs = $model->listOrganisation('account');
+        $org_data = array();
+        foreach($orgs as $organisation)
+        {
+            $users = $user_model->getUserCountByAccountId($organisation['id']);
+            $organisation['users_count'] = $users[0]['users_count'];
+            $activities = $activity_model->getActivitiesCountByAccount($organisation['id']);
+            $organisation['activity_count'] = $activities[0]['activity_count'];
+            $org_data[] = $organisation;
+        }
+        
+        $this->view->rowSet = $org_data;
+        
         $this->view->placeholder('title')->set("Organisation List");
     }
 
@@ -107,18 +121,139 @@ class AdminController extends Zend_Controller_Action
 
     public function editOrganisationAction()
     {
-        /* if($this->getRequest()->isGet()){
-          $newArray = array();
-          $id = $this->_request->getParam('id');
-          $model = new Model_Wep();
-          $rowSet = $model->getRowById('account', 'id', $id);
-          $newArray['organisation_name'] = $rowSet['name'];
-          $newArray['organisation_address'] = $rowSet['address'];
-          $newArray['organisation_username'] = $rowSet['username'];
+            if($this->getRequest()->isGet()){
+            $org_info = array();
+            $id = $this->_request->getParam('id');
+            $model = new Model_Wep();
+            $userModel = new Model_User();
+            $rowSet = $model->getRowById('account', 'id', $id);
+            $org_info['organisation_name'] = $rowSet['name'];
+            $org_info['organisation_address'] = $rowSet['address'];
+            $org_info['organisation_username'] = $rowSet['username'];
 
-          $rowSet = $model->getRowById('user', 'account_id')
+            $user_info = $userModel->getUserByAccountId($rowSet['id'],array('role_id'=>1));
+            $user_profile = $model->getRowById('profile','user_id',$user_info['user_id']);
+            
+            //Create edit form
+            $defaultFieldsValues = new Iati_WEP_AccountDefaultFieldValues();
+            $default['field_values'] = $defaultFieldsValues->getDefaultFields();
+            $defaultFieldGroup = new Iati_WEP_AccountDisplayFieldGroup();
+            $default['fields'] = $defaultFieldGroup->getProperties();
+            
+            $form = new Form_Wep_Accountregister();
+            $form->add($default);
+            $form->addElement('hidden','org_id',array('value'=>$rowSet['id']));
+            $form->addElement('hidden','user_id',array('value'=>$user_info['user_id']));
+            $form->addElement('hidden','profile_id',array('value'=>$user_profile['id']));
 
-          } */
+            $defaultFieldsValues = $model->getDefaults('default_field_values', 'account_id', $rowSet['id']);
+            $default['field_values'] = $defaultFieldsValues->getDefaultFields();
+
+            foreach ($default['field_values'] as $name => $value)
+            {
+                if($name != 'reporting_org_ref'){
+                    $input['default_'.$name] = $value;
+                } else {
+                    $input[$name] = $value;
+                }
+            }
+            
+            $defaultFieldGroup = $model->getDefaults('default_field_groups', 'account_id',$rowSet['id']);
+            $fields = $defaultFieldGroup->getProperties();
+            foreach($fields as $key=>$eachDefault){
+                if($eachDefault == '1'){
+                    $checked[] = $key;
+                }
+            }
+            $input_fields['default_fields'] = $checked;
+            $form->populate($org_info);
+            $form->populate($user_info);
+            $form->populate($user_profile);
+            $form->populate($input);
+            $form->populate($input_fields);
+            //Disable name and username as they should not be edited
+            $form->organisation_name->setAttrib('readonly','true');
+            $form->organisation_username->setAttrib('readonly','true');
+            $form->Signup->setLabel('Save');
+            $form->setAction($this->view->baseUrl().'/admin/update-organisation');
+        
+            $this->view->form     = $form;
+          }
+          
+    }
+    
+    public function updateOrganisationAction()
+    {
+        if(!empty($_POST)){
+            $defaultFieldsValues = new Iati_WEP_AccountDefaultFieldValues();
+            $default['field_values'] = $defaultFieldsValues->getDefaultFields();
+            $defaultFieldGroup = new Iati_WEP_AccountDisplayFieldGroup();
+            $default['fields'] = $defaultFieldGroup->getProperties();
+            $form = new Form_Wep_Accountregister();
+            $form->add($default);
+            
+            $data = $this->getRequest()->getPost();
+            
+            $account_id = $org_id = $data['org_id'];
+            $user_id = $data['user_id'];
+            $profile_id = $data['profile_id'];
+            if(!$data['password']){
+                unset($data['password']);
+                unset($data['confirmpassword']);
+            }
+            if($form->isValidPartial($data)){
+                $model = new Model_Wep();
+                $account['address'] = $data['organisation_address'];
+                $model->updateRow('account', $account,'id',$org_id);
+
+                if($data['password']){
+                    $user['password'] = md5($data['password']);
+                }
+                $user['email'] = $data['email'];
+                $user_id = $model->updateRow('user', $user,'user_id',$user_id);
+
+                $admin['first_name'] = $data['first_name'];
+                $admin['middle_name'] = $data['middle_name'];
+                $admin['last_name'] = $data['last_name'];
+                $admin_id = $model->updateRow('profile', $admin,'id',$profile_id);
+                
+                $defaultFieldsValues->setLanguage($data['default_language']);
+                $defaultFieldsValues->setCurrency($data['default_currency']);
+                $defaultFieldsValues->setReporting_org($data['default_reporting_org']);
+                $defaultFieldsValues->setReporting_org_ref($data['reporting_org_ref']);
+                $defaultFieldsValues->setHierarchy($data['default_hierarchy']);
+                $fieldString = serialize($defaultFieldsValues);
+                $defaultValues['object'] = $fieldString;
+                $defaultValues['account_id'] = $account_id;
+                $defaultValuesId = $model->updateRow('default_field_values', $defaultValues,'account_id',$account_id);
+                $i = 0;
+                foreach ($data['default_fields'] as $eachField) {
+                    $defaultKey[$i] = $eachField;
+                    $defaultFieldGroup->setProperties($eachField);
+                    $i++;
+                }
+
+                $fieldString = serialize($defaultFieldGroup);
+                $defaultFields['object'] = $fieldString;
+                $defaultFieldId = $model->updateRow('default_field_groups', $defaultFields,'account_id',$account_id);
+                
+                $privilegeFields['resource'] = serialize($defaultKey);
+                $privilegeFieldId = $model->updateRow('Privilege', $privilegeFields,'owner_id',$account_id);
+                
+                $this->_helper->FlashMessenger->addMessage(array('message' => "Organisation Information Sucessfully Updated."));
+                $this->_redirect('/admin/edit-organisation/?id='.$org_id);
+
+            } else {
+                $form->populate($data);
+                $form->addElement('hidden','org_id',array('value'=>$org_id));
+                $form->addElement('hidden','user_id',array('value'=>$user_id));
+                $form->addElement('hidden','profile_id',array('value'=>$profile_id));
+                $form->organisation_name->setAttrib('readonly','true');
+                $form->organisation_username->setAttrib('readonly','true');
+                $form->Signup->setLabel('Save');
+            }
+            $this->view->form = $form;
+        }
     }
 
     public function registerUserAction()
@@ -178,21 +313,21 @@ class AdminController extends Zend_Controller_Action
                         $defaultFieldGroup->setProperties('add_activity');
                         $defaultKey[$i++] = 'add_activity_elements';
                         $defaultKey[$i++] = 'add_activity';
-                    }
-                    elseif($eachField == 'edit'){
-                        $defaultFieldGroup->setProperties('edit_activity_elements');
-                        $defaultFieldGroup->setProperties('edit_activity');
-                        $defaultKey[$i++] = 'edit_activity_elements';
-                        $defaultKey[$i++] = 'edit_activity';
-                    }
-                    else if($eachField == 'delete'){
-                        $defaultFieldGroup->setProperties('delete_activity');
-                        $defaultKey[$i++] = 'delete_activity';
-                    }
-                    else{
-                        $defaultFieldGroup->setProperties($eachField);
-                        $defaultKey[$i++] = $eachField;
-                    }
+                        }
+                        elseif($eachField == 'edit'){
+                            $defaultFieldGroup->setProperties('edit_activity_elements');
+                            $defaultFieldGroup->setProperties('edit_activity');
+                            $defaultKey[$i++] = 'edit_activity_elements';
+                            $defaultKey[$i++] = 'edit_activity';
+                        }
+                        else if($eachField == 'delete'){
+                            $defaultFieldGroup->setProperties('delete_activity');
+                            $defaultKey[$i++] = 'delete_activity';
+                        }
+                        else{
+                            $defaultFieldGroup->setProperties($eachField);
+                            $defaultKey[$i++] = $eachField;
+                        }
                     }                    
                     $fieldString = serialize($defaultFieldGroup);
                     $defaultFields['object'] = $fieldString;

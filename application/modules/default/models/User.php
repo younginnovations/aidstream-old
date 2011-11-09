@@ -20,4 +20,25 @@ class Model_User extends Zend_Db_Table_Abstract
         }
         return parent::update($data,array('user_id = ?' => $id));
     }
+    public function getUserByAccountId($account_id,$filter = null)
+    {
+        $select = $this->select()
+            ->where ('status = 1')
+            ->where('account_id = ?',$account_id);
+        if($filter){
+            foreach($filter as $key=>$value){
+                $select->where("$key = $value");
+            }
+        }
+        return $this->fetchRow($select)->toArray();
+        
+    }
+    public function getUserCountByAccountId($account_id)
+    {
+        $select = $this->select()
+            ->from($this->_name,array('COUNT(user_id) as users_count'))
+            ->where ('status = 1')
+            ->where('account_id = ?',$account_id);
+        return $this->fetchAll($select)->toArray();
+    }
 }

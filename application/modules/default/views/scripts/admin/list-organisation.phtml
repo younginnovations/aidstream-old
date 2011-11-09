@@ -1,7 +1,7 @@
 <table id="list-org">
 <thead>
 <tr>
-    <th>S.N.</th><th>Organisation Name</th>
+    <th>S.N.</th><th>Organisation Name</th><th>Users</th><th>Activities</th><th>Action</th>
 <!--    <th>Action</th>-->
 </tr>
 </thead>
@@ -13,7 +13,9 @@
     <tr>
     <td><?php print $i;?></td>
     <td><?php print $row['name']?></td>
-<!--    <td><?php //print $this->l('Edit', 'admin/edit-organisation/?id='.$row['id']);?></td>-->
+    <td><?php print $row['users_count']?></td>
+    <td><?php print $row['activity_count']?></td>
+    <td><?php print $this->l('Edit', 'admin/edit-organisation/?id='.$row['id']);?></td>
     </tr>
     <?php $i++;?>
     <?php endforeach;?>
