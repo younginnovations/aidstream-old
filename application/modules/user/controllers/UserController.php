@@ -331,8 +331,10 @@ class User_UserController extends Zend_Controller_Action
 
     public function logoutAction()
     {
+        Zend_Session:: namespaceUnset('superadmin');
         $auth = Zend_Auth::getInstance()->getIdentity();
         Zend_Auth::getInstance()->clearIdentity();
+        
         $this->_helper->FlashMessenger->addMessage(array('message' => 'Successfully logged out.'));
 
         $this->_redirect('user/user/login');
@@ -400,6 +402,63 @@ class User_UserController extends Zend_Controller_Action
         $test = new Model_Test();
         $role = $test->required();
         $this->view->userRole = $role;
+    }
+    
+    public function masqueradeAction()
+    {
+        $accountAuth = Zend_Auth::getInstance();
+        if($accountAuth->hasIdentity()){
+            $identity = $accountAuth->getIdentity();
+            if($identity->role == 'superadmin') {
+                
+                $account_id = $this->_getParam('org_id');
+                $user_id = $this->_getParam('user_id');
+                if(!$account_id || !$user_id){
+                    $this->_helper->FlashMessenger->addMessage(array('error' => 'Could not masquerade. User information missing'));
+                    $this->_redirect('/wep/dashboard');
+                }
+                $superAdminIdentity = $identity;
+                $authAdapter = new Zend_Auth_Adapter_DbTable(Zend_Db_Table::getDefaultAdapter());
+                $authAdapter->setTableName('user')
+                    ->setIdentityColumn('user_id')
+                    ->setCredentialColumn('account_id');
+                    
+                $authAdapter->setIdentity($user_id)
+                    ->setCredential($account_id);
+                $accountAuth->authenticate($authAdapter);
+                $identity = $authAdapter->getResultRowObject();
+    
+                $rolevalue = new User_Model_DbTable_Role;
+                $role = $rolevalue->getRoleById($identity->role_id);
+                $std = new stdClass;
+                $std->role = $role['role'];
+    
+                $identity = (object) array_merge((array) $identity, (array) $std);
+                $accountAuth->getStorage()->write($identity);
+                $session = new Zend_Session_Namespace('superadmin');
+                $session->identity = serialize($superAdminIdentity);
+                $this->_redirect('/wep/dashboard');
+                
+            } else {
+                $this->_helper->FlashMessenger->addMessage(array('error' => 'You are not authorised to masquerade.'));
+                $this->_redirect('/wep/dashboard');
+            }
+        } 
+    }
+    
+    public function switchBackAction()
+    {
+        $auth = Zend_Auth::getInstance();
+        if($auth->hasIdentity()){
+            $session = new Zend_Session_Namespace('superadmin');
+            if(isset($session->identity)){
+                $auth->getStorage()->write(unserialize($session->identity));
+                Zend_Session::namespaceUnset('superadmin');
+                $this->_redirect('/wep/dashborad');
+            } else {
+                $this->_redirect('/wep/dashboard');
+            }
+        }
     }
 
 }

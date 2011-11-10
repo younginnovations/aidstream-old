@@ -15,7 +15,7 @@
     <td><?php print $row['name']?></td>
     <td><?php print $row['users_count']?></td>
     <td><?php print $row['activity_count']?></td>
-    <td><?php print $this->l('Edit', 'admin/edit-organisation/?id='.$row['id']);?></td>
+    <td><?php print $this->l('Edit', 'admin/edit-organisation/?id='.$row['id']);?> | <?php print $this->l('Masquerade', "user/user/masquerade?org_id=".$row['id']."&user_id=".$row['user_id']);?></td>
     </tr>
     <?php $i++;?>
     <?php endforeach;?>

@@ -78,16 +78,18 @@ class AdminController extends Zend_Controller_Action
     public function listOrganisationAction()
     {
         $model = new Model_Wep();
-        $user_model = new Model_User();
+        $userModel = new Model_User();
         $activity_model = new Model_ActivityCollection();
         $orgs = $model->listOrganisation('account');
         $org_data = array();
         foreach($orgs as $organisation)
         {
-            $users = $user_model->getUserCountByAccountId($organisation['id']);
+            $users = $userModel->getUserCountByAccountId($organisation['id']);
             $organisation['users_count'] = $users[0]['users_count'];
             $activities = $activity_model->getActivitiesCountByAccount($organisation['id']);
             $organisation['activity_count'] = $activities[0]['activity_count'];
+            $user = $userModel->getUserByAccountId($organisation['id'],array('role_id'=>1));
+            $organisation['user_id'] = $user['user_id'];
             $org_data[] = $organisation;
         }
         
