@@ -23,7 +23,6 @@ class Model_User extends Zend_Db_Table_Abstract
     public function getUserByAccountId($account_id,$filter = null)
     {
         $select = $this->select()
-            ->where ('status = 1')
             ->where('account_id = ?',$account_id);
         if($filter){
             foreach($filter as $key=>$value){
@@ -37,7 +36,6 @@ class Model_User extends Zend_Db_Table_Abstract
     {
         $select = $this->select()
             ->from($this->_name,array('COUNT(user_id) as users_count'))
-            ->where ('status = 1')
             ->where('account_id = ?',$account_id);
         return $this->fetchAll($select)->toArray();
     }
