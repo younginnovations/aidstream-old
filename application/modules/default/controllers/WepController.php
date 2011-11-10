@@ -934,26 +934,22 @@ class WepController extends Zend_Controller_Action
                     if(isset($_GET['activity_id'])){
                         $data['activities_id'] = $rowSet[0]['activities_id'];
                         $data['id'] = $activity_id;
-                        $wepModel = new Model_Wep();
-                        $result = $wepModel->updateRowsToTable('iati_activity', $data);
-                        if($result){
-                            
-                            $activityHashModel = new Model_ActivityHash();
-                            $updated = $activityHashModel->updateHash($activity_id);
-                            if(!$updated){
-                                $type = 'info';
-                                $message = 'No Changes Made';
-                            } else {
-                                
-                                //change state to editing
-                                $db = new Model_ActivityStatus;
-                                $db->updateActivityStatus($activity_id,Iati_WEP_ActivityState::STATUS_EDITING);
-                                $type = 'message';
-                                $message = "Activity overridden";
-                            }
-                            $this->_helper->FlashMessenger
-                                    ->addMessage(array($type => $message));
+                        $wepModel = new Model_Wep();                            
+                        $activityHashModel = new Model_ActivityHash();
+                        $updated = $activityHashModel->updateHash($activity_id);
+                        if(!$updated){
+                            $type = 'info';
+                            $message = 'No Changes Made';
+                        } else {
+                            $result = $wepModel->updateRowsToTable('iati_activity', $data);
+                            //change state to editing
+                            $db = new Model_ActivityStatus;
+                            $db->updateActivityStatus($activity_id,Iati_WEP_ActivityState::STATUS_EDITING);
+                            $type = 'message';
+                            $message = "Activity overridden";
                         }
+                        $this->_helper->FlashMessenger
+                                ->addMessage(array($type => $message));
                     }
                     $this->_redirect('wep/view-activity/' . $activity_id);
                 }//end of inner if
