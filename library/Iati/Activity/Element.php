@@ -270,14 +270,6 @@ class Iati_Activity_Element
                 case TransactionType_code:
                     $return = 'TransactionType';
                     break;
-                
-                case ProviderOrg_ref:
-                    $return = 'OrganisationIdentifier';
-                    break;
-                
-                case ReceiverOrg_ref:
-                    $return = 'OrganisationIdentifier';
-                    break;
                     
                 case Value_currency:
                     $return = 'Currency';
@@ -315,16 +307,8 @@ class Iati_Activity_Element
                     $return = 'ResultType';
                     break;
                 
-                case ReportingOrg_ref :
-                    $return = 'OrganisationIdentifier';
-                    break;
-                
                 case ReportingOrg_type :
                     $return = 'OrganisationType';
-                    break;
-                
-                case OtherIdentifier_owner_ref :
-                    $return = 'OrganisationIdentifier';
                     break;
                 
                 case ActivityStatus_code :
@@ -333,10 +317,6 @@ class Iati_Activity_Element
                 
                 case ActivityDate_type :
                     $return = 'ActivityDateType';
-                    break;
-                
-                case ParticipatingOrg_ref :
-                    $return = 'OrganisationIdentifier';
                     break;
                 
                 case ParticipatingOrg_type :
