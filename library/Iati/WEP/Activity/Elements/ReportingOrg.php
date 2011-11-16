@@ -49,6 +49,7 @@ class Iati_WEP_Activity_Elements_ReportingOrg extends Iati_WEP_Activity_Elements
     protected $error = array();
     protected $hasError = false;
     protected $multiple = false;
+    protected $required = true;
 
     public function __construct($id = 0)
     {

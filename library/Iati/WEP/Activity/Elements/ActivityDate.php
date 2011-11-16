@@ -53,6 +53,7 @@ class Iati_WEP_Activity_Elements_ActivityDate extends Iati_WEP_Activity_Elements
     protected $hasError = false;
     protected $multiple = true;
     
+    
 
     public function __construct()
     {

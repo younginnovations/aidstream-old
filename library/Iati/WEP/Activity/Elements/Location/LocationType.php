@@ -46,7 +46,7 @@ class Iati_WEP_Activity_Elements_Location_LocationType extends Iati_WEP_Activity
     protected $error = array();
     protected $hasError = false;
     protected $multiple = false;
-    protected $required = true;
+    protected $required = false;
     protected $isAttributeSet = false;
 
     public function __construct()

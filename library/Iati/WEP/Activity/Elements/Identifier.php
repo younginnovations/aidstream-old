@@ -26,6 +26,7 @@ class Iati_WEP_Activity_Elements_Identifier extends Iati_WEP_Activity_Elements_E
     protected $error = array();
     protected $hasError = false;
     protected $multiple = false;
+    protected $required = true;
     
     
     public function __construct($id = 0)

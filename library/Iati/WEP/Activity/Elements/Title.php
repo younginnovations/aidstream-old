@@ -36,6 +36,7 @@ class Iati_WEP_Activity_Elements_Title extends Iati_WEP_Activity_Elements_Elemen
     protected $error = array();
     protected $hasError = false;
     protected $multiple = true;
+    protected $required = true;
 
     public function __construct()
     {
