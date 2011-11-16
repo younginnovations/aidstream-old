@@ -20,11 +20,12 @@ class Iati_WEP_Activity_Elements_Sector extends Iati_WEP_Activity_Elements_Eleme
                     'name' => 'id',
                     'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
                 ),
-                'text' => array(
-                    'name' => 'text',
-                    'label' => 'Text',
-                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help sector-text"></div>',
-                    'attrs' => array('class' => array('form-text'))
+                'vocabulary' => array(
+                    'name' => 'vocabulary',
+                    'label' => 'Vocabulary',
+                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help sector-vocabulary"></div>',
+                    'options' => '',
+                    'attrs' => array('class' => array('form-select', 'vocabulary_value'))
                 ),
                 'code' => array(
                     'name' => 'code',
@@ -40,12 +41,11 @@ class Iati_WEP_Activity_Elements_Sector extends Iati_WEP_Activity_Elements_Eleme
                     'options' => '',
                     'attrs' => array('class' => array('form-text', 'non_dac_code'))
                 ),
-                'vocabulary' => array(
-                    'name' => 'vocabulary',
-                    'label' => 'Vocabulary',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help sector-vocabulary"></div>',
-                    'options' => '',
-                    'attrs' => array('class' => array('form-select', 'vocabulary_value'))
+                'text' => array(
+                    'name' => 'text',
+                    'label' => 'Text',
+                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help sector-text"></div>',
+                    'attrs' => array('class' => array('form-text'))
                 ),
                 'percentage' => array(
                     'name' => 'percentage',

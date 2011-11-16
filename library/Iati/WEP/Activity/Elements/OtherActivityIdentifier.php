@@ -21,8 +21,7 @@ class Iati_WEP_Activity_Elements_OtherActivityIdentifier extends Iati_WEP_Activi
                     'label' => 'Activity Identifier',
                     'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help other_activity_identifier-text"></div>',
                     'attrs' => array('class' => array('form-text'))
-                ),
-                
+                ),                
                 'owner_name' => array(
                     'name' => 'owner_name',
                     'label' => 'Owner Name',

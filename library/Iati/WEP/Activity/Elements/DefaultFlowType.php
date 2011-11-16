@@ -15,19 +15,19 @@ class Iati_WEP_Activity_Elements_DefaultFlowType extends Iati_WEP_Activity_Eleme
                     'name' => 'id',
                     'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
         ),
-        'text' => array(
-            
-            'name' => 'text',
-            'label' => 'Text',
-            'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help default_flow_type-text"></div>',
-            'attrs' => array('class' => array('form-text'))
-        ),
         'code' => array(
             'name' => 'code',
             'label' => 'Flow Type Code',
             'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help default_flow_type-code"></div>',
             'options' => '',
             'attrs' => array('class' => array('form-select'))
+        ),
+        'text' => array(
+            
+            'name' => 'text',
+            'label' => 'Text',
+            'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help default_flow_type-text"></div>',
+            'attrs' => array('class' => array('form-text'))
         ),
         'xml_lang' => array(
             'name' => 'xml_lang',

@@ -25,7 +25,6 @@ class Iati_WEP_Activity_Elements_ParticipatingOrg extends Iati_WEP_Activity_Elem
                     'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help participating_org-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
-
                 'role' => array(
                     'name' => 'role',
                     'label' => 'Organisation Role',

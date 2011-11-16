@@ -37,7 +37,7 @@ class Iati_WEP_Activity_Elements_Location_Administrative extends Iati_WEP_Activi
                 'adm1' => array(
                     'name' => 'adm1',
                     'label' => 'Admin-1',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help location-administrative-adm1"></div>',
+                    'html' => '<textarea name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help location-administrative-adm1"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),
@@ -45,7 +45,7 @@ class Iati_WEP_Activity_Elements_Location_Administrative extends Iati_WEP_Activi
                 'adm2' => array(
                     'name' => 'adm2',
                     'label' => 'Admin-2',
-                    'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help location-administrative-adm2"></div>',
+                    'html' => '<textarea name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help location-administrative-adm2"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
                 ),

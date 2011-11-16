@@ -363,7 +363,7 @@ if(!empty($value)): ?>
 $locations=$activity->getElementsByType(Iati_Activity_Element::TYPE_LOCATION);
 $value = $locations[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Location<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=RecipientRegion"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Location<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=Location"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($locations as $location):?>
 <table class='element-values-items'>
@@ -461,7 +461,7 @@ if(!empty($value)): ?>
 <table class='element-values-items'>
 <tr class='element-value element-value-even'><td class='attrib-label'>Latitude</td><td class='attrib-value'> <?php if($coordinates->getAttrib('@latitude')) ($coordinates->getAttribValue('@latitude','Name')!=$coordinates->getAttribValue('@latitude')) ?( printf("%s [%s]",$coordinates->getAttribValue('@latitude','Name'),$coordinates->getAttribValue('@latitude'))):(print($coordinates->getAttribValue('@latitude')));?></td></tr>
 <tr class='element-value element-value-odd'><td class='attrib-label'>Longitude</td><td class='attrib-value'> <?php if($coordinates->getAttrib('@longitude')) ($coordinates->getAttribValue('@longitude','Name')!=$coordinates->getAttribValue('@longitude')) ?( printf("%s [%s]",$coordinates->getAttribValue('@longitude','Name'),$coordinates->getAttribValue('@longitude'))):(print($coordinates->getAttribValue('@longitude')));?></td></tr>
-<tr class='element-value element-value-even'><td class='attrib-label'>Percision</td><td class='attrib-value'> <?php if($coordinates->getAttrib('@percision')) ($coordinates->getAttribValue('@percision','Name')!=$coordinates->getAttribValue('@percision')) ?( printf("%s [%s]",$coordinates->getAttribValue('@percision','Name'),$coordinates->getAttribValue('@percision'))):(print($coordinates->getAttribValue('@percision')));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Precision</td><td class='attrib-value'> <?php if($coordinates->getAttrib('@percision')) ($coordinates->getAttribValue('@percision','Name')!=$coordinates->getAttribValue('@percision')) ?( printf("%s [%s]",$coordinates->getAttribValue('@percision','Name'),$coordinates->getAttribValue('@percision'))):(print($coordinates->getAttribValue('@percision')));?></td></tr>
 </table>
 <?php endforeach;?>
 </div>
@@ -1043,6 +1043,23 @@ if(!empty($value)): ?>
 <td colspan=2>
 
 <div class='sub_element'><!-- Sub element Starts -->
+
+<!-- Language Starts -->
+<?php
+$languages=$documentlink->getElementsByType('Language');
+$value = $languages[0]->getAttribs();
+if(!empty($value)): ?>
+<div class='element-item'><div class='element-title'>Language</div>
+<div class='element-values'>
+<?php foreach($languages as $language):?>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($language->getAttrib('text')) print ($language->getAttribValue('text'));?></td></tr>
+</table>
+<?php endforeach;?>
+</div>
+</div>
+<?php endif;?>
+<!-- Language Ends -->
 
 <!-- Category Starts -->
 <?php

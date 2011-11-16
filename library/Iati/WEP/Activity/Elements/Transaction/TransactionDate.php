@@ -16,18 +16,18 @@ class Iati_WEP_Activity_Elements_Transaction_TransactionDate extends Iati_WEP_Ac
                     'name' => 'id',
                     'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
                 ),
-                'text' => array(
-                    'name' => 'text',
-                    'label' => 'Text',
-                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help transaction-transaction_date-text"></div>',
-                    'attrs' => array('class' => array('form-text'))
-                ),
                 'iso_date' => array(
                     'name' => 'iso_date',
                     'label' => 'Date',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help transaction-transaction_date-iso_date"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-text', 'datepicker'), 'id' => 'iso_date')
+                ),
+                'text' => array(
+                    'name' => 'text',
+                    'label' => 'Text',
+                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help transaction-transaction_date-text"></div>',
+                    'attrs' => array('class' => array('form-text'))
                 ),
     );
     

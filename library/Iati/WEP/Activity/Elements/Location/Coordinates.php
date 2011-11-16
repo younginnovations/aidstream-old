@@ -35,7 +35,7 @@ class Iati_WEP_Activity_Elements_Location_Coordinates extends Iati_WEP_Activity_
                 
                 'percision' => array(
                     'name' => 'percision',
-                    'label' => 'Percision',
+                    'label' => 'Precision',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help location-coordinates-percision"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))

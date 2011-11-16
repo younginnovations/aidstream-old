@@ -18,20 +18,19 @@ class Iati_WEP_Activity_Elements_RecipientCountry extends Iati_WEP_Activity_Elem
                 'id' => array(
                     'name' => 'id',
                     'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
-                ),
-                'text' => array(
-                    'name' => 'text',
-                    'label' => 'Text',
-                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help recipient_country-text"></div>',
-                    'attrs' => array('class' => array('form-text'))
-                ),
-                
+                ),                
                 'code' => array(
                     'name' => 'code',
                     'label' => 'Country Code',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help recipient_country-code"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
+                ),
+                'text' => array(
+                    'name' => 'text',
+                    'label' => 'Text',
+                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help recipient_country-text"></div>',
+                    'attrs' => array('class' => array('form-text'))
                 ),
                 'percentage' => array(
                     'name' => 'percentage',

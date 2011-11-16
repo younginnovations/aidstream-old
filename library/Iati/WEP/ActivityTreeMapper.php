@@ -24,8 +24,9 @@ class Iati_WEP_ActivityTreeMapper {
         	),
     'DocumentLink' =>
         	array(
-        	0 => 'DocumentLink_Category',
-        	1 => 'DocumentLink_Title',
+		0 => 'DocumentLink_Language',
+        	1 => 'DocumentLink_Category',
+        	2 => 'DocumentLink_Title',
         	),
     'Result' =>
         	array(

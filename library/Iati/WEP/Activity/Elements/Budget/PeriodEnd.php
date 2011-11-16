@@ -17,19 +17,18 @@ protected $attributes = array('id', 'text', 'iso_date');
                     'name' => 'id',
                     'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
                 ),
-                'text' => array(
-                    
-                    'name' => 'text',
-                    'label' => 'Text',
-                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help budget-period_end-text"></div>',
-                    'attrs' => array('class' => array('form-text'))
-                ),
                 'iso_date' => array(
                     'name' => 'iso_date',
                     'label' => 'Date',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help budget-period_end-iso_date"></div>',
                     'attrs' => array('class' => 'datepicker form-text', 'id' => 'iso_date')
-                )
+                ),
+                'text' => array(  
+                    'name' => 'text',
+                    'label' => 'Text',
+                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help budget-period_end-text"></div>',
+                    'attrs' => array('class' => array('form-text'))
+                ),
     );
     
     protected static $count = 0;

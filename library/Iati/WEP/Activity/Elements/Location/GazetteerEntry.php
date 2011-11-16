@@ -19,8 +19,7 @@ class Iati_WEP_Activity_Elements_Location_GazetteerEntry extends Iati_WEP_Activi
                     'name' => 'id',
                     'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
                 ),
-                'text' => array(
-                    
+                'text' => array( 
                     'name' => 'text',
                     'label' => 'Text',
                     'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help location-gazetteer_entry-text"></div>',

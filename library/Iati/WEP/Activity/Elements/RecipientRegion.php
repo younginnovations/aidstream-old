@@ -18,20 +18,19 @@ class Iati_WEP_Activity_Elements_RecipientRegion extends Iati_WEP_Activity_Eleme
                 'id' => array(
                     'name' => 'id',
                     'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
-                ),
-                'text' => array(
-                    'name' => 'text',
-                    'label' => 'Name',
-                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help recipient_region-text"></div>',
-                    'attrs' => array('class' => array('form-text'))
-                ),
-                
+                ),                
                 'code' => array(
                     'name' => 'code',
                     'label' => 'Region Code',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help recipient_region-code"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
+                ),
+                'text' => array(
+                    'name' => 'text',
+                    'label' => 'Name',
+                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help recipient_region-text"></div>',
+                    'attrs' => array('class' => array('form-text'))
                 ),
                 'percentage' => array(
                     'name' => 'percentage',

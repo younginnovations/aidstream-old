@@ -266,7 +266,11 @@ class Iati_Activity_Element
         } else {
             $switch = $this->_type."_".preg_replace('/@/','',$code);
             switch($switch)
-            { 
+            {
+                case Language_text:
+                    $return = 'Language';
+                    break;
+                    
                 case TransactionType_code:
                     $return = 'TransactionType';
                     break;
