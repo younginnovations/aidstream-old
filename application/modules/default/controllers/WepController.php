@@ -138,7 +138,7 @@ class WepController extends Zend_Controller_Action
         $default['fields'] = $defaultFieldGroup->getProperties();
         $form = new Form_Wep_Accountregister();
         $form->add($default);
-        /**/;
+        
         if ($this->getRequest()->isPost()) {
             try {
                 $data = $this->getRequest()->getPost();
@@ -154,14 +154,24 @@ class WepController extends Zend_Controller_Action
                 } else {
 
                     //@todo send email notification to super admin
-
+                    
+                    //Save Account Info
                     $account['name'] = $data['organisation_name'];
-
                     $account['address'] = $data['organisation_address'];
                     $account['username'] = $data['organisation_username'];
                     $account['uniqid'] = md5(date('Y-m-d H:i:s'));
                     $account_id = $model->insertRowsToTable('account', $account);
-
+                    
+                    //Save Publishing Info
+                    $registryInfo = array();
+                    $registryInfo['publisher_id'] = $data['publisher_id'];
+                    $registryInfo['api_key'] = $data['api_key'];
+                    $registryInfo['publishing_type'] = $data['publishing_type'][0];
+                    $registryInfo['org_id'] = $account_id;
+                    $modelRegistryInfo = new Model_RegistryInfo();
+                    $modelRegistryInfo->saveRegistryInfo($registryInfo);
+                    
+                    //Save User Info
                     $user['user_name'] = trim($data['organisation_username']) . "_admin";
                     $user['password'] = md5($data['password']);
                     $user['role_id'] = 1;
@@ -171,21 +181,26 @@ class WepController extends Zend_Controller_Action
                     if($is_admin){
                         $user['status'] = 1;
                     }
-                    //@todo make the status of the user "0"
                     $user_id = $model->insertRowsToTable('user', $user);
-//print_r($)
-//                   print_r($data);exit;
+                    
+                    //Save User Profile
                     $admin['first_name'] = $data['first_name'];
                     $admin['middle_name'] = $data['middle_name'];
                     $admin['last_name'] = $data['last_name'];
                     $admin['user_id'] = $user_id;
                     $admin_id = $model->insertRowsToTable('profile', $admin);
-
+                    
+                    //Save Default Fields
                     $defaultFieldsValues->setLanguage($data['default_language']);
                     $defaultFieldsValues->setCurrency($data['default_currency']);
-                    $defaultFieldsValues->setReporting_org($data['default_reporting_org']);
-                    $defaultFieldsValues->setReporting_org_ref($data['reporting_org_ref']);
+                    $defaultFieldsValues->setReportingOrg($data['default_reporting_org']);
+                    $defaultFieldsValues->setReportingOrgRef($data['reporting_org_ref']);
                     $defaultFieldsValues->setHierarchy($data['default_hierarchy']);
+                    $defaultFieldsValues->setCollaborationType($data['default_collaboration_type']);
+                    $defaultFieldsValues->setFlowType($data['default_flow_type']);
+                    $defaultFieldsValues->setFinanceType($data['default_finance_type']);
+                    $defaultFieldsValues->setAidType($data['default_aid_type']);
+                    $defaultFieldsValues->setTiedStatus($data['default_tied_status']);
                     $fieldString = serialize($defaultFieldsValues);
                     $defaultValues['object'] = $fieldString;
                     $defaultValues['account_id'] = $account_id;
@@ -206,7 +221,6 @@ class WepController extends Zend_Controller_Action
                     $privilegeFields['owner_id'] = $account_id;
                     $privilegeFieldId = $model->insertRowsToTable('Privilege', $privilegeFields);
 
-
                     $identity = Zend_Auth::getInstance();
                     if($identity->hasIdentity()){
                         $identity = $identity->getIdentity();
@@ -216,9 +230,7 @@ class WepController extends Zend_Controller_Action
                         $bootstrap = $this->getInvokeArg('bootstrap');
                         $config = $bootstrap->getOptions();
                         $from['email'] = $config['email']['fromAddress'];
-                        //                        $form['name'] = $config['email']['fromName'];
                     }
-
 
                     $toEmail['email'] = $data['email'];
                     $mailerParams = $toEmail;
@@ -235,7 +247,6 @@ class WepController extends Zend_Controller_Action
             
         }
         $this->view->form = $form;
-//        $this->view->blockManager()->enable('partial/login.phtml');
         $this->view->blockManager()->disable('partial/primarymenu.phtml');
     }
 
@@ -243,35 +254,56 @@ class WepController extends Zend_Controller_Action
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
         $model = new Model_Wep();
+        $modelRegistryInfo = new Model_RegistryInfo();
+        
         $defaultFieldsValues = $model->getDefaults('default_field_values', 'account_id', $identity->account_id);
         $default['field_values'] = $defaultFieldsValues->getDefaultFields();
         $defaultFieldGroup = $model->getDefaults('default_field_groups', 'account_id', $identity->account_id);
         $default['fields'] = $defaultFieldGroup->getProperties();
         $form = new Form_Wep_EditDefaults();
         $form->edit($default);
+        
+        $registryInfoData = $modelRegistryInfo->getOrgRegistryInfo($identity->account_id);
+        if($registryInfoData){
+            $form->populate($registryInfoData->toArray());
+        }
         if ($_POST) {
             try {
                 $data = $this->getRequest()->getPost();
                 if (!$form->isValid($data)) {
                     $form->populate($data);
                 } else {
+                    
+                    //Update Publishing Info
+                    $registryInfo = array();
+                    $registryInfo['publisher_id'] = $data['publisher_id'];
+                    $registryInfo['api_key'] = $data['api_key'];
+                    $registryInfo['publishing_type'] = $data['publishing_type'][0];
+                    $registryInfo['org_id'] = $identity->account_id;
+                    $modelRegistryInfo->updateRegistryInfo($registryInfo);
+                    
+                    //Update Default Values
                     $defaultFieldsValuesObj = new Iati_WEP_AccountDefaultFieldValues();
                     $defaultFieldGroupObj = new Iati_WEP_AccountDisplayFieldGroup();
-                    
+
                     $defaultFieldsValuesObj->setLanguage($data['default_language']);
                     $defaultFieldsValuesObj->setCurrency($data['default_currency']);
-                    $defaultFieldsValuesObj->setReporting_org($data['default_reporting_org']);
+                    $defaultFieldsValuesObj->setReportingOrg($data['default_reporting_org']);
                     $defaultFieldsValuesObj->setHierarchy($data['hierarchy']);
-                    $defaultFieldsValuesObj->setReporting_org_ref($data['reporting_org_ref']);
+                    $defaultFieldsValuesObj->setReportingOrgRef($data['reporting_org_ref']);
+                    $defaultFieldsValuesObj->setCollaborationType($data['default_collaboration_type']);
+                    $defaultFieldsValuesObj->setFlowType($data['default_flow_type']);
+                    $defaultFieldsValuesObj->setFinanceType($data['default_finance_type']);
+                    $defaultFieldsValuesObj->setAidType($data['default_aid_type']);
+                    $defaultFieldsValuesObj->setTiedStatus($data['default_tied_status']);
+                    
                     $fieldString = serialize($defaultFieldsValuesObj);
                     
-                   
                     $defaultValues['id'] = $model->getIdByField('default_field_values', 'account_id', $identity->account_id);
                     $defaultValues['object'] = $fieldString;
-                    //                    print_r($defaultValues);exit;
-                    //                    $defaultValues['account_id'] = $identity->account_id;
                     $defaultValuesId = $model->updateRowsToTable('default_field_values', $defaultValues);
-
+                    
+                    //Update Default Fields
                     foreach ($data['default_fields'] as $eachField) {
                         $defaultFieldGroupObj->setProperties($eachField);
                     }
@@ -279,7 +311,6 @@ class WepController extends Zend_Controller_Action
                     $fieldString = serialize($defaultFieldGroupObj);
                     $defaultFields['id'] = $model->getIdByField('default_field_groups', 'account_id', $identity->account_id);
                     $defaultFields['object'] = $fieldString;
-                    //                    $defaultFields['account_id'] = $identity->account_id;
                     $defaultFieldId = $model->updateRowsToTable('default_field_groups', $defaultFields);
 
                     $this->_helper->FlashMessenger->addMessage(array('message' => "Defaults successfully updated."));
@@ -289,7 +320,6 @@ class WepController extends Zend_Controller_Action
                         $this->_redirect('wep/dashboard');
                     }
                 }
-                //            print_r($_POST);exit();
             } catch (Exception $e) {
                 print $e;
             }

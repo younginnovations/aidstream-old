@@ -128,6 +128,8 @@ class AdminController extends Zend_Controller_Action
             $id = $this->_request->getParam('id');
             $model = new Model_Wep();
             $userModel = new Model_User();
+            $modelRegistryInfo = new Model_RegistryInfo();
+            
             $rowSet = $model->getRowById('account', 'id', $id);
             $org_info['organisation_name'] = $rowSet['name'];
             $org_info['organisation_address'] = $rowSet['address'];
@@ -173,6 +175,10 @@ class AdminController extends Zend_Controller_Action
             $form->populate($user_profile);
             $form->populate($input);
             $form->populate($input_fields);
+            $registryInfoData = $modelRegistryInfo->getOrgRegistryInfo($id);
+            if($registryInfoData){
+                $form->populate($registryInfoData->toArray());
+            }
             //Disable name and username as they should not be edited
             $form->organisation_name->setAttrib('readonly','true');
             $form->organisation_username->setAttrib('readonly','true');
@@ -208,6 +214,16 @@ class AdminController extends Zend_Controller_Action
                 $account['address'] = $data['organisation_address'];
                 $model->updateRow('account', $account,'id',$org_id);
 
+                //Update Publishing Info
+                $registryInfo = array();
+                $registryInfo['publisher_id'] = $data['publisher_id'];
+                $registryInfo['api_key'] = $data['api_key'];
+                $registryInfo['publishing_type'] = $data['publishing_type'][0];
+                $registryInfo['org_id'] = $org_id;
+                $modelRegistryInfo = new Model_RegistryInfo();
+                $modelRegistryInfo->updateRegistryInfo($registryInfo);
+                
+                //Update User Info
                 if($data['password']){
                     $user['password'] = md5($data['password']);
                 }
@@ -219,11 +235,18 @@ class AdminController extends Zend_Controller_Action
                 $admin['last_name'] = $data['last_name'];
                 $admin_id = $model->updateRow('profile', $admin,'id',$profile_id);
                 
+                //Update Default Values
                 $defaultFieldsValues->setLanguage($data['default_language']);
                 $defaultFieldsValues->setCurrency($data['default_currency']);
-                $defaultFieldsValues->setReporting_org($data['default_reporting_org']);
-                $defaultFieldsValues->setReporting_org_ref($data['reporting_org_ref']);
+                $defaultFieldsValues->setReportingOrg($data['default_reporting_org']);
+                $defaultFieldsValues->setReportingOrgRef($data['reporting_org_ref']);
                 $defaultFieldsValues->setHierarchy($data['default_hierarchy']);
+                $defaultFieldsValues->setCollaborationType($data['default_collaboration_type']);
+                $defaultFieldsValues->setFlowType($data['default_flow_type']);
+                $defaultFieldsValues->setFinanceType($data['default_finance_type']);
+                $defaultFieldsValues->setAidType($data['default_aid_type']);
+                $defaultFieldsValues->setTiedStatus($data['default_tied_status']);
+                
                 $fieldString = serialize($defaultFieldsValues);
                 $defaultValues['object'] = $fieldString;
                 $defaultValues['account_id'] = $account_id;
