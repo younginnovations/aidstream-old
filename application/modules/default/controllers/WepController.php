@@ -60,7 +60,7 @@ class WepController extends Zend_Controller_Action
         $identity = Zend_Auth::getInstance()->getIdentity();
         $account_id = $identity->account_id;
         
-        $db = new Model_Registry();
+        $db = new Model_Published();
         $published_data = $db->getPublishedInfo($account_id);
         $bootstrap = $this->getInvokeArg('bootstrap');
         $config = $bootstrap->getOptions();
@@ -1316,21 +1316,31 @@ class WepController extends Zend_Controller_Action
                 }
             }
         } 
-       
+
         if($not_valid){
             $this->_helper->FlashMessenger->addMessage(array('warning' => "The activities cannot be changed to the state. Please check that a state to be changed is valid for all selected activities"));
         } else {
             $db->updateActivityStatus($activity_ids,(int)$state);
+            
             if($state == Iati_WEP_ActivityState::STATUS_PUBLISHED)
             {
                 $identity = Zend_Auth::getInstance()->getIdentity();
                 $account_id = $identity->account_id;
-                $user_db = new Model_Wep();
-                $user = $user_db->getRowById('account','id',$account_id);
                 
-                $reg = new Iati_Registry($account_id,$user['name'],true);
-                $reg->publish();
-                $this->_helper->FlashMessenger->addMessage(array('message' => "Activities Published."));
+                $modelRegistryInfo = new Model_RegistryInfo();
+                $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($account_id);
+                if(!$registryInfo){
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "Publishing Information Not Found. Activities cannot be published."));
+                } else if(!$registryInfo->publisher_id){
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "Publisher Id Not Found. Activities cannot be published."));
+                } else {
+                    $publisher_id = $registryInfo->publisher_id;
+                    $publish_type = $registryInfo->publishing_type;
+                    
+                    $reg = new Iati_Registry($account_id,$publisher_id,$publish_type);
+                    $reg->publish();
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "Activities Published."));
+                }
             }
         }
         $this->_redirect('wep/view-activities');
