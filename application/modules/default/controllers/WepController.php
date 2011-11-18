@@ -1350,11 +1350,8 @@ class WepController extends Zend_Controller_Action
 
         if($not_valid){
             $this->_helper->FlashMessenger->addMessage(array('warning' => "The activities cannot be changed to the state. Please check that a state to be changed is valid for all selected activities"));
-        } else {
-            $db->updateActivityStatus($activity_ids,(int)$state);
-            
-            if($state == Iati_WEP_ActivityState::STATUS_PUBLISHED)
-            {
+        } else {            
+            if($state == Iati_WEP_ActivityState::STATUS_PUBLISHED){
                 $identity = Zend_Auth::getInstance()->getIdentity();
                 $account_id = $identity->account_id;
                 
@@ -1365,6 +1362,7 @@ class WepController extends Zend_Controller_Action
                 } else if(!$registryInfo->publisher_id){
                     $this->_helper->FlashMessenger->addMessage(array('message' => "Publisher Id Not Found. Activities cannot be published."));
                 } else {
+                    $db->updateActivityStatus($activity_ids,(int)$state);
                     $publisher_id = $registryInfo->publisher_id;
                     $publish_type = $registryInfo->publishing_type;
                     
@@ -1372,6 +1370,8 @@ class WepController extends Zend_Controller_Action
                     $reg->publish();
                     $this->_helper->FlashMessenger->addMessage(array('message' => "Activities Published."));
                 }
+            } else {
+                $db->updateActivityStatus($activity_ids,(int)$state);
             }
         }
         $this->_redirect('wep/view-activities');
