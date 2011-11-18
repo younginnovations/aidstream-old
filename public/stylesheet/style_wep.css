@@ -1239,3 +1239,7 @@ table#list-org {
 #activity-edit-form {
 	clear: both;
 }
+
+#publishing_info-label, #registry_info-label, #publishing_type-element br {
+	display: none;
+}

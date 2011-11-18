@@ -36,7 +36,8 @@ class Form_Wep_EditDefaults extends App_Form
         $form['default_reporting_org'] = new Zend_Form_Element_Text('default_reporting_org');
         $form['default_reporting_org']->setLabel('Default Reporting Organisation Name')
             ->setValue($defaults['field_values']['reporting_org'])
-            ->setRequired()->setAttrib('class', 'form-text');
+            ->setRequired()
+            ->setAttrib('class', 'form-text');
 
         $form['reporting_org_ref'] = new Zend_Form_Element_Text('reporting_org_ref');
         $form['reporting_org_ref']->setLabel('Default Reporting Organisation Identifier')
