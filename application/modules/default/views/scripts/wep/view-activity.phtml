@@ -547,8 +547,8 @@ if(!empty($value)): ?>
 <div class='element-values'>
 <?php foreach($collaborationtypes as $collaborationtype):?>
 <table class='element-values-items'>
-<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($collaborationtype->getAttrib('text')) print ($collaborationtype->getAttribValue('text'));?><?php if($collaborationtype->getAttrib('@xml_lang')) printf (" [%s]",($collaborationtype->getAttribValue('@xml_lang')));?></td></tr>
-<tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($collaborationtype->getAttrib('@code')) ($collaborationtype->getAttribValue('@code','Name')!=$collaborationtype->getAttribValue('@code')) ?( printf("%s [%s]",$collaborationtype->getAttribValue('@code','Name'),$collaborationtype->getAttribValue('@code'))):(print($collaborationtype->getAttribValue('@code')));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($collaborationtype->getAttrib('@code')) ($collaborationtype->getAttribValue('@code','Name')!=$collaborationtype->getAttribValue('@code')) ?( printf("%s [%s]",$collaborationtype->getAttribValue('@code','Name'),$collaborationtype->getAttribValue('@code'))):(print($collaborationtype->getAttribValue('@code')));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($collaborationtype->getAttrib('text')) print ($collaborationtype->getAttribValue('text'));?><?php if($collaborationtype->getAttrib('@xml_lang')) printf (" [%s]",($collaborationtype->getAttribValue('@xml_lang')));?></td></tr>
 </table><?php endforeach;?>
 </div>
 </div>

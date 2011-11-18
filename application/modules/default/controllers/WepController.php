@@ -370,7 +370,6 @@ class WepController extends Zend_Controller_Action
             $exists = $wepModel->getRowById('iati_activities', 'id', $_GET['activities_id']);
             if(!$exists){
                 $this->_helper->FlashMessenger->addMessage(array('message' => "Invalid Id."));
-
                 $this->_redirect('/user/user/login');
             }
         }
@@ -378,49 +377,44 @@ class WepController extends Zend_Controller_Action
             $wepModel = new Model_Wep();
             $activities = $wepModel->listAll('iati_activities', 'account_id', $identity->account_id);
             $activities_id = $activities[0]['id'];
-            //print_r($activities_id);exit;
         }
         $model = new Model_Viewcode();
 
-        $rowSet = $model->getRowsByFields('default_field_values',
-                                            'account_id', $identity->account_id);
+        $rowSet = $model->getRowsByFields('default_field_values' , 'account_id' , $identity->account_id);
         
         $defaultValues = unserialize($rowSet[0]['object']);
         $default = $defaultValues->getDefaultFields();
         $wepModel = new Model_Wep();
 
-        $activity_info['@xml_lang'] = $wepModel->fetchValueById('Language',
-                                                                $default['language'], 'Code');
-        $activity_info['@default_currency'] = $wepModel->fetchValueById('Currency',
-                                                                $default['currency'], 'Code');
+        $activity_info['@xml_lang'] = $wepModel->fetchValueById('Language' , $default['language'] , 'Code');
+        $activity_info['@default_currency'] = $wepModel->fetchValueById('Currency' , $default['currency'] , 'Code');
         $activity_info['@hierarchy'] = $default['hierarchy'];
         $activity_info['@last_updated_datetime'] = date('Y-m-d H:i:s');
         $activity_info['activities_id'] = $activities_id;
-        $this->view->activity_info = $activity_info;
+        
+        $activityDefaults['@collaboration_type'] = $wepModel->fetchValueById('CollaborationType' , $default['collaboration_type'] , 'Code');
+        $activityDefaults['@flow_type'] = $wepModel->fetchValueById('FlowType' , $default['flow_type'] , 'Code');
+        $activityDefaults['@finance_type'] = $wepModel->fetchValueById('FinanceType' , $default['finance_type'] , 'Code');
+        $activityDefaults['@aid_type'] = $wepModel->fetchValueById('AidType' , $default['aid_type'] , 'Code');
+        $activityDefaults['@tied_status'] = $wepModel->fetchValueById('TiedStatus' , $default['tied_status'] , 'Code');
 
         $form = new Form_Wep_IatiIdentifier('add', $identity->account_id);
         $form->add('add', $identity->account_id);
-
+        
         if ($_POST) {
             try {
                 $data = $this->getRequest()->getPost();
                 if (!$form->isValid($data)) {
                     $form->populate($data);
                 } else {
-                    /*
-                     $data1['@xml_lang'] = $this->_request->getParam('xml_lang');
-                     $data1['@default_currency'] = $this->_request->getParam('default_currency');
-                     $data1['@last_updated_datetime'] = date('Y-m-d H:i:s');
-                     $data1['activities_id'] = $this->_request->getParam('activities_id');
-                     $wepModel = new Model_Wep();
-                     $activity_id = $wepModel->insertRowsToTable('iati_activity', $data1);
-                     */
-
+                    
+                    //Save activity info
                     $wepModel = new Model_Wep();
                     $activity_info['@xml_lang'] = $default['language'];
                     $activity_info['@default_currency'] = $default['currency'];
                     $activity_id = $wepModel->insertRowsToTable('iati_activity', $activity_info);
-
+                    
+                    //Save reporting org
                     $reporting_org = array();
                     $reporting_org['@xml_lang'] = $this->getRequest()->getParam('reporting_org_xmllang');
                     $reporting_org['@ref'] = $this->getRequest()->getParam('reporting_org_ref');
@@ -428,27 +422,64 @@ class WepController extends Zend_Controller_Action
                     $reporting_org['@type'] = $this->getRequest()->getParam('reporting_org_type');
                     $reporting_org['activity_id'] = $activity_id;
                     $reporting_org_id = $wepModel->insertRowsToTable('iati_reporting_org', $reporting_org);
-
+                    
+                    //Save Iati Identifier
                     $iati_identifier = array();
                     $iati_identifier['text'] = $this->getRequest()->getParam('iati_identifier_text');
                     $iati_identifier['activity_id'] = $activity_id;
                     $iati_identifier_id = $wepModel->insertRowsToTable('iati_identifier', $iati_identifier);
+                    
+                    //Save Iati Collaboration Type
+                    if($default['collaboration_type']){
+                        $collaborationType['@code'] = $default['collaboration_type'];
+                        $collaborationType['activity_id'] = $activity_id;
+                        $wepModel->insertRowsToTable('iati_collaboration_type', $collaborationType);  
+                    }
+                    
+                    //Save Iati Default Flow Type Type
+                    if($default['flow_type']){
+                        $flowType['@code'] = $default['flow_type'];
+                        $flowType['activity_id'] = $activity_id;
+                        $wepModel->insertRowsToTable('iati_default_flow_type', $flowType);
+                    }
+                    
+                    //Save Iati Default Finance Type Type
+                    if($default['finance_type']){
+                        $financeType['@code'] = $default['finance_type'];
+                        $financeType['activity_id'] = $activity_id;
+                        $wepModel->insertRowsToTable('iati_default_finance_type', $financeType);
+                    }
+                    
+                    //Save Iati Default Aid Type Type
+                    if($default['aid_type']){
+                        $aidType['@code'] = $default['aid_type'];
+                        $aidType['activity_id'] = $activity_id;
+                        $wepModel->insertRowsToTable('iati_default_aid_type', $aidType);   
+                    }
+                    
+                    //Save Iati Default Tied Status
+                    if($default['tied_status']){
+                        $tiedStatus['@code'] = $default['tied_status'];
+                        $tiedStatus['activity_id'] = $activity_id;
+                        $wepModel->insertRowsToTable('iati_default_tied_status', $tiedStatus);
+                    }
 
                     //Create Activity Hash
                     $activityHashModel = new Model_ActivityHash();
                     $updated = $activityHashModel->updateHash($activity_id);
                         
                     $this->_helper->FlashMessenger->addMessage(array('message' => "Activity inserted."));
-
                     $this->_redirect('wep/view-activity/' . $activity_id);
                 }
             } catch (Exception $e) {
                 print $e;
             }
         }
+        
         $this->view->activities_id = $activities_id;
+        $this->view->activity_info = $activity_info;
+        $this->view->activityDefaults = $activityDefaults;
         $this->view->form = $form;
-        //        $this->view->form = $form1;
     }
 
     public function getInitialValues($activity_id, $class)
