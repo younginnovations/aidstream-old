@@ -6,13 +6,13 @@ class Model_ActivityHash extends Zend_Db_Table_Abstract
     
     public function updateHashByActivityId($data)
     {
-        $this->update($data,array('activity_id'=>$data['activity_id']));
+        $this->update($data,array('activity_id = ?'=>$data['activity_id']));
     }
     
     public function getByActivityId($activity_id)
     {
         $rowSet = $this->select()
-                ->where('activity_id=?',$activity_id);
+                ->where('activity_id = ?',$activity_id);
         $activity = $this->fetchRow($rowSet);
         return $activity;
     }
@@ -39,5 +39,10 @@ class Model_ActivityHash extends Zend_Db_Table_Abstract
             $this->insert($data);
             return true;
         }
+    }
+    
+    public function deleteActivityHash($activity_id)
+    {
+        $this->delete(array('activity_id = ?'=>$activity_id));
     }
 }

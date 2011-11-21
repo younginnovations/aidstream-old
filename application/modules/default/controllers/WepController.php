@@ -433,6 +433,8 @@ class WepController extends Zend_Controller_Action
                     if($default['collaboration_type']){
                         $collaborationType['@code'] = $default['collaboration_type'];
                         $collaborationType['activity_id'] = $activity_id;
+                        $collaborationType['@xml_lang'] = '';
+                        $collaborationType['text'] = '';
                         $wepModel->insertRowsToTable('iati_collaboration_type', $collaborationType);  
                     }
                     
@@ -440,6 +442,8 @@ class WepController extends Zend_Controller_Action
                     if($default['flow_type']){
                         $flowType['@code'] = $default['flow_type'];
                         $flowType['activity_id'] = $activity_id;
+                        $flowType['@xml_lang'] = '';
+                        $flowType['text'] = '';
                         $wepModel->insertRowsToTable('iati_default_flow_type', $flowType);
                     }
                     
@@ -447,6 +451,8 @@ class WepController extends Zend_Controller_Action
                     if($default['finance_type']){
                         $financeType['@code'] = $default['finance_type'];
                         $financeType['activity_id'] = $activity_id;
+                        $financeType['@xml_lang'] = '';
+                        $financeType['text'] = '';
                         $wepModel->insertRowsToTable('iati_default_finance_type', $financeType);
                     }
                     
@@ -454,6 +460,8 @@ class WepController extends Zend_Controller_Action
                     if($default['aid_type']){
                         $aidType['@code'] = $default['aid_type'];
                         $aidType['activity_id'] = $activity_id;
+                        $aidType['@xml_lang'] = '';
+                        $aidType['text'] = '';
                         $wepModel->insertRowsToTable('iati_default_aid_type', $aidType);   
                     }
                     
@@ -461,6 +469,8 @@ class WepController extends Zend_Controller_Action
                     if($default['tied_status']){
                         $tiedStatus['@code'] = $default['tied_status'];
                         $tiedStatus['activity_id'] = $activity_id;
+                        $tiedStatus['@xml_lang'] = '';
+                        $tiedStatus['text'] = '';
                         $wepModel->insertRowsToTable('iati_default_tied_status', $tiedStatus);
                     }
 
@@ -546,8 +556,7 @@ class WepController extends Zend_Controller_Action
                 //@todo
             }
             $activity = $activity_info[0];
-            $activity['@xml_lang'] = $model->fetchValueById('Language',
-            $activity_info[0]['@xml_lang'], 'Code');
+            $activity['@xml_lang'] = $model->fetchValueById('Language',$activity_info[0]['@xml_lang'], 'Code');
             $activity['@default_currency'] = $model->fetchValueById('Currency',
             $activity_info[0]['@default_currency'], 'Code');
             $iati_identifier_row = $model->getRowById('iati_identifier', 'activity_id', $activity_id);
@@ -1157,7 +1166,10 @@ class WepController extends Zend_Controller_Action
 
             $dbLayer = new Iati_WEP_DbLayer();
             $del = $dbLayer->deleteRows($className, 'id', $activity_id);
-
+            
+            $modelActivityHash = new Model_ActivityHash();
+            $modelActivityHash->deleteActivityHash($activity_id);
+            
             $this->_helper->FlashMessenger->addMessage(array('message' => "Activity Deleted."));
             $this->_redirect('wep/view-activities');
         }
