@@ -18,6 +18,6 @@ class User_Form_User_Login extends App_Form
 
         $this->addElements(array($username,$password,$login));
         $this->setMethod('post');
-        //$this->setAction(Zend_Controller_Front::getInstance()->getBaseUrl().'/user/login');
+        $this->setAction(Zend_Controller_Front::getInstance()->getBaseUrl().'/user/user/login');
     }
 }//end of class

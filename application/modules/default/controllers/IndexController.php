@@ -5,27 +5,26 @@ class IndexController extends Zend_Controller_Action
 
     public function init()
     {
-        /* Initialize action controller here */
+        $this->_helper->layout()->setLayout('layout_wep');
     }
 
     public function indexAction()
     {
-        $this->_redirect('user/user/logout');
-        
-       /* $xml = simplexml_load_file('/home/bibek/src/htdocs/yipl/webservice-iatixml/tests/xml/iati-activities-sample-bad.xml');
-        $domDocument = dom_import_simplexml($xml)->ownerDocument;
-        
-        $domElement = new DOMDocument();
-        $domElement->load('/home/bibek/src/htdocs/yipl/webservice-iatixml/tests/xml/iati-activities-sample.xml');
-        
-        $iatiValidator = new Iati_Iatischema_Validator();
-        $result = $iatiValidator->validate($domDocument);
+        $auth = Zend_Auth::getInstance();
+        if ($auth->hasIdentity()) {
+            $identity = Zend_Auth::getInstance()->getIdentity();
+            if ($identity->role == 'superadmin') {
+                $this->_redirect('admin/dashboard');
+            } elseif ($identity->role == 'admin') {
+                $this->_redirect('wep/dashboard');
+            }
+            elseif ($identity->role == "user") {
+                $this->_redirect('wep/dashboard');
+            }
+        }
 
-        print_r($result);*/
-        
-        
-//        $this->_redirect('code-list/code-list-index/langid/1');
-        
+        $form = new User_Form_User_Login();
+        $this->view->form = $form;  
     }
 }
 

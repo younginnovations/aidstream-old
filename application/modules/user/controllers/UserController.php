@@ -337,7 +337,7 @@ class User_UserController extends Zend_Controller_Action
         
         $this->_helper->FlashMessenger->addMessage(array('message' => 'Successfully logged out.'));
 
-        $this->_redirect('user/user/login');
+        $this->_redirect('');
     }
 
     private function getAuthAdapter()
