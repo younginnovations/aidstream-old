@@ -4,20 +4,24 @@ class Iati_WEP_Publish
 {
     protected $publisher_org_id;
     protected $publisher_id;
-    protected $publisher_region;
+    protected $api_key;
+    protected $recipient;
     protected $file_path;
     protected $segmented;
+    protected $country;
     
-    public function __construct($publisher_org_id,$publisher_id,$segmented = false)
+    public function __construct($publisher_org_id,$publisher_id,$api_key,$segmented = false)
     {
         $this->publisher_org_id = $publisher_org_id;
         $this->publisher_id = $publisher_id;
+        $this->api_key = $api_key;
         $this->segmented = $segmented;
         
         $config = new Zend_Config_Ini(APPLICATION_PATH.'/configs/application.ini', APPLICATION_ENV);
         $this->file_path = $config->public_folder.$config->xml_folder;
-        
     }
+    
+    
     public function publish()
     {
         $activitiesCollection = $this->getDataToPublish();
@@ -28,9 +32,11 @@ class Iati_WEP_Publish
             //print each segments activities xml and save published info
             foreach ($activitiesCollection as $org=>$activities)
             {
-                $this->publisher_region = $org;
+                $this->recipient = $org;
                 $filename = $this->saveActivityXml($activities);
-                $this->savePublishedInfo($filename);                
+                $this->savePublishedInfo($filename);
+                
+                $this->publishToRegistry($activities,$filename);
             }
             
         } else {
@@ -39,7 +45,20 @@ class Iati_WEP_Publish
             
             $filename = $this->saveActivityXml($activitiesCollection);
             $this->savePublishedInfo($filename);
+            
+            $this->publishToRegistry($activitiesCollection,$filename);
         }
+    }
+    
+    
+    public function publishToRegistry($activitiesCollection,$filename)
+    {
+        $registry = new Iati_Registry($activitiesCollection , $this->publisher_id , $this->api_key , $this->filepath.$filename);
+        if($this->country){
+            $registry->setCountryName($this->country);
+        }
+        $registry->prepareRegistryData();
+        $registry->publishToRegistry();
     }
     
     public function getDataToPublish()
@@ -79,6 +98,7 @@ class Iati_WEP_Publish
                         $segmented_activities[998][] = $activity;
                     } else {
                         $segmented_activities[$country[0]->getAttribValue('@code')][] = $activity;
+                        $this->country = $country[0]->getAttribValue('@code');
                     }
                     
                 }
@@ -90,12 +110,13 @@ class Iati_WEP_Publish
         }
     }
     
+    
     public function saveActivityXml($activities)
     {
         $oXmlHandler = new Iati_WEP_XmlHandler($activities);
         $file = strtolower($this->publisher_id);
         if($this->segmented){
-            $file .= "-".strtolower($this->publisher_region);
+            $file .= "-".strtolower($this->recipient);
         } else {
             $file .= "-activities";
         }
@@ -108,6 +129,8 @@ class Iati_WEP_Publish
         
         return $filename;
     }
+    
+    
     public function savePublishedInfo($filename)
     {
         $db = new Model_Published();
@@ -119,20 +142,10 @@ class Iati_WEP_Publish
         $db->savePublishedInfo($data);
     }
     
+    
     public function resetPublishedInfo()
     {
         $modelPublished = new Model_Published();
         $modelPublished->resetPublishedInfo($this->publisher_org_id);
-    }
-    
-    public function getPublishedList()
-    {
-        
-    }
-    
-    public function updateRegistry()
-    {
-        
-    }
-    
+    }    
 }

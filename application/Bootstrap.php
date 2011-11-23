@@ -44,6 +44,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $autoloader = Zend_Loader_Autoloader::getInstance();
         $autoloader->registerNamespace('Iati_');
         $autoloader->registerNamespace('App_');
+        $autoloader->registerNamespace('Ckan_');
     }
 
     /* public function _initRouter()

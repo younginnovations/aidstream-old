@@ -1374,14 +1374,12 @@ class WepController extends Zend_Controller_Action
                 } else if(!$registryInfo->publisher_id){
                     $this->_helper->FlashMessenger->addMessage(array('message' => "Publisher Id Not Found. Activities cannot be published."));
                 } else {
-                    $publisher_id = $registryInfo->publisher_id;
-                    $publish_type = $registryInfo->publishing_type;
+                    $db->updateActivityStatus($activity_ids,(int)$state);
                     
-                    $reg = new Iati_WEP_Publish($account_id,$publisher_id,$publish_type);
+                    $reg = new Iati_WEP_Publish($account_id,$registryInfo->publisher_id,$registryInfo->api_key,$registryInfo->publishing_type);
                     $reg->publish();
                     $this->_helper->FlashMessenger->addMessage(array('message' => "Activities Published."));
                     
-                    $db->updateActivityStatus($activity_ids,(int)$state);
                 }
             } else {
                 $db->updateActivityStatus($activity_ids,(int)$state);

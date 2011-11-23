@@ -2,126 +2,131 @@
 
 class Iati_Registry
 {
-    protected $publisher_org_id;
+    protected $activities;
     protected $publisher_id;
-    protected $publisher_region;
-    protected $file_path;
-    protected $segmented;
+    protected $api_key;
+    protected $file;
+    protected $file_url;
+    protected $json_data;
+    protected $activity_updated_datetime;
+    protected $activity_period_from;
+    protected $activity_period_to;
+    protected $activity_count;
+    protected $country;
     
-    public function __construct($publisher_org_id,$publisher_id,$segmented = false)
+    
+    public function __construct($activities , $publisherId , $apiKey, $file)
     {
-        $this->publisher_org_id = $publisher_org_id;
-        $this->publisher_id = $publisher_id;
-        $this->segmented = $segmented;
-        
-        $config = new Zend_Config_Ini(APPLICATION_PATH.'/configs/application.ini', APPLICATION_ENV);
-        $this->file_path = $config->public_folder.$config->xml_folder;
-        
+        $this->activities = $activities;
+        $this->publisher_id = $publisherId;
+        $this->api_key = $apiKey;
+        $this->file = $file;
+        $this->recipient = $recipient;
     }
-    public function publish()
+    
+    
+    public function prepareRegistryData()
+    {        
+        //prepare file's url
+        $config = new Zend_Config_Ini(APPLICATION_PATH.'/configs/application.ini', APPLICATION_ENV);
+        $fc = Zend_Controller_Front::getInstance();
+	$baseUrl =  $fc->getBaseUrl();
+        $this->file_url = "http://".$_SERVER['SERVER_NAME']. $baseUrl . $config->xml_folder . $this->file;
+        
+        $this->activity_count = sizeof($this->activities);
+        
+        foreach ($this->activities as $activity){
+            $this->activity_updated_datetime = (strtotime($activity->getAttrib('@last_updated_datetime')) > strtotime($this->activity_updated_datetime))?$activity->getAttrib('@last_updated_datetime'):$this->activity_updated_datetime;
+            $attribs = $activity->getAttribs();
+        }
+        
+        $this->_prepareRegistryInputJson();
+    }
+    
+    
+    protected function _prepareRegistryInputJson()
     {
-        $oActivitycollection = new Iati_ActivityCollection();
-        $activities = $oActivitycollection->getPublishedActivityCollection($this->publisher_org_id);
-        if($this->segmented) {
-            /**
-             *Seperate activities by country or region
-             *
-             *foreach activity
-             *if count of countries of an activity greater than 1: filename should use 
-             *if count of countries 1 for no country or only one country
-             *  if size of attrib of country 0 i.e no country, check simillarly for region
-             *  else filename should use country name
-            **/
-            foreach($activities as $activity)
-            {
-                $country = $activity->getElementsByType(Iati_Activity_Element::TYPE_RECIPIENT_COUNTRY);
-                if(sizeof($country) > 1){
-                    $segmented_activities[998][] = $activity;
-                } else {
-                    $countryAttribs = $country[0]->getAttribs();
-                    if(0 == sizeof($countryAttribs)){
-                        $region = $activity->getElementsByType(Iati_Activity_Element::TYPE_RECIPIENT_REGION);
-                        if(1 > sizeof($region)){
-                            $segmented_activities[998][] = $activity;
-                        } else {
-                            $regionAttribs = $region[0]->getAttribs();
-                            if(0 == sizeof($regionAttribs)){
-                                $segmented_activities[998][] = $activity;
-                            } else {
-                                $segmented_activities[$region[0]->getAttribValue('@code')][] = $activity;
-                            }
-                        }
-                        $segmented_activities[998][] = $activity;
-                    } else {
-                        $segmented_activities[$country[0]->getAttribValue('@code')][] = $activity;
-                    }
-                    
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $filename =explode('.',$this->file);
+        
+        
+        $data = array(
+            "name"=>$filename[0],
+            "title"=>'Activity File '.$filename[0],
+            "author_email"=>$identity->email,
+            "resources" => array(
+                                array(
+                                    "url"=>$this->file_url,
+                                    "format"=>"IATI-XML"
+                                    )
+                                ),
+            "extras"=>array(
+                    "filetype" => "activity",
+                    "country" => $this->country,
+                    "activity_period-from" => '',
+                    "activity_period-to" => '',
+                    "data_updated"=> date('Y-m-d',strtotime($this->activity_updated_datetime)),
+                    "record_updated" => date('Y-m-d'),
+                    "activity_count" => $this->activity_count,
+                    "verified" => "no",
+                    "language" => "en",
+                    ),
+            "groups" => array($this->publisher_id)
+        );
+        $jsonData =  json_encode($data);
+        $this->json_data = $jsonData;
+    }
+    
+    
+    public function publishToRegistry()
+    {
+        $filename =explode('.',$this->file);
+        $tmpfile = $filename[0];
+        $isPublished = $this->isFilePublished($tmpfile);
+        
+        $ckan = new Ckan_Client($this->api_key);
+        try{
+            if($isPublished){
+                $response = $ckan->put_package_entity($tmpfile,$this->json_data);
+                if($response){
+                    $this->saveRegistryPublishInfo($response,true);
+                }
+            } else{
+                $response = $ckan->post_package_register($this->json_data);
+                if($response){
+                    $this->saveRegistryPublishInfo($response);
                 }
             }
-            
-            // reset existing published info
-            $this->resetPublishedInfo();
-            
-            //print each segments activities xml and save published info
-            foreach ($segmented_activities as $org=>$activities)
-            {
-                $this->publisher_region = $org;
-                $filename = $this->saveActivityXml($activities);
-                $this->savePublishedInfo($filename);                
-            }
-            
+           
+        } catch (Exception $e) {
+                print '<p><strong>Caught exception on Publishing to Registry: ' . $e->getMessage() . '</strong></p>';
+                exit;
+        }
+        unset($ckan);
+    }
+    
+    
+    public function saveRegistryPublishInfo($response,$update = false)
+    {
+        $model = new Model_RegistryPublishedData();
+        if($update){
+            $model->updateRegistryPublishInfo($response);
         } else {
-            // remove existing published info
-            $this->resetPublishedInfo();
-            
-            $filename = $this->saveActivityXml($activities);
-            $this->savePublishedInfo($filename);
+            $model->saveRegistryPublishInfo($response);
         }
     }
     
-    public function saveActivityXml($activities)
+    
+    public function isFilePublished($filename)
     {
-        $oXmlHandler = new Iati_WEP_XmlHandler($activities);
-        $file = strtolower($this->publisher_id);
-        if($this->segmented){
-            $file .= "-".strtolower($this->publisher_region);
-        } else {
-            $file .= "-activities";
-        }
-        $file = preg_replace('/ /','_',$file);
-        $file = preg_replace('/,/','',$file);
-        $filename = $file.".xml";
-        
-        $fp = fopen($this->file_path.$filename,'w');
-        fwrite($fp,$oXmlHandler->getXmlOutput());
-        
-        return $filename;
-    }
-    public function savePublishedInfo($filename)
-    {
-        $db = new Model_Published();
-        $data = array(
-                    'publishing_org_id' => $this->publisher_org_id,
-                    'filename' => $filename,
-                    'published_date' => date('Y-m-d h:m:s')
-                    );
-        $db->savePublishedInfo($data);
+        $model = new Model_RegistryPublishedData();
+        $isPublished = $model->isFilePublished($filename);
+        return $isPublished;
     }
     
-    public function resetPublishedInfo()
+    public function setCountryName($country)
     {
-        $modelPublished = new Model_Published();
-        $modelPublished->resetPublishedInfo($this->publisher_org_id);
-    }
-    
-    public function getPublishedList()
-    {
-        
-    }
-    
-    public function updateRegistry()
-    {
-        
+        $this->country = $country;
     }
     
 }
