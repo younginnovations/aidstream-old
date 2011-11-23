@@ -171,7 +171,7 @@ function initialize() {
                                     }
                                 },
                                 error: function (data) {
-				    console.log(data);
+				    //console.log(data);
                                     messageDialog("Error", "Something went wrong! Please try again");
                                 }
                             });
@@ -279,6 +279,20 @@ function initialize() {
 		    dojo.query('.sector_value').parent().style('display', 'none');
 		    dojo.query('.non_dac_code').parent().style('display', 'block');
 		}
+	    }
+	    
+	},
+	"#organisation_username" : {
+	    "onchange" : function (evt) {
+			var selected= getTarget(evt);
+			if(selected.value == ''){
+			    dojo.query('#admin_username').attr('value', '');
+			    dojo.query('#admin_username').removeAttr('disabled');
+			}
+			else{
+			    dojo.query('#admin_username').attr('value', selected.value+'_admin');
+			    dojo.query('#admin_username').attr('disabled', 'disabled');
+			}
 	    }
 	    
 	},

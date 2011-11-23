@@ -137,6 +137,8 @@ class AdminController extends Zend_Controller_Action
 
             $user_info = $userModel->getUserByAccountId($rowSet['id'],array('role_id'=>1));
             $user_profile = $model->getRowById('profile','user_id',$user_info['user_id']);
+            $user = $model->getRowById('user', 'user_id', $user_info['user_id']);
+            $user_info['admin_username'] = $user['user_name'];
             
             //Create edit form
             $defaultFieldsValues = new Iati_WEP_AccountDefaultFieldValues();
@@ -182,10 +184,11 @@ class AdminController extends Zend_Controller_Action
             //Disable name and username as they should not be edited
             $form->organisation_name->setAttrib('readonly','true');
             $form->organisation_username->setAttrib('readonly','true');
+            $form->admin_username->setAttrib('readonly','true');
             $form->Signup->setLabel('Save');
             $form->setAction($this->view->baseUrl().'/admin/update-organisation');
         
-            $this->view->form     = $form;
+            $this->view->form = $form;
           }
           
     }
@@ -228,6 +231,7 @@ class AdminController extends Zend_Controller_Action
                     $user['password'] = md5($data['password']);
                 }
                 $user['email'] = $data['email'];
+                $user['user_name'] = $data['admin_username'];
                 $user_id = $model->updateRow('user', $user,'user_id',$user_id);
 
                 $admin['first_name'] = $data['first_name'];
@@ -275,6 +279,7 @@ class AdminController extends Zend_Controller_Action
                 $form->addElement('hidden','profile_id',array('value'=>$profile_id));
                 $form->organisation_name->setAttrib('readonly','true');
                 $form->organisation_username->setAttrib('readonly','true');
+                $form->admin_username->setAttrib('readonly','true');
                 $form->Signup->setLabel('Save');
             }
             $this->view->form = $form;
