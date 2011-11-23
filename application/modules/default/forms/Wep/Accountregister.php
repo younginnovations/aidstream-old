@@ -17,9 +17,9 @@ class Form_Wep_Accountregister extends App_Form
             ->setAttrib('class', 'form-textarea');
 
         $form['organisation_username'] = new Zend_Form_Element_Text('organisation_username');
-        $form['organisation_username']->setLabel("Suffix <a href='#' id='suffix'>?</a>")
+        $form['organisation_username']->setLabel("Organisation Id <a href='#' id='suffix'>?</a>")
             ->setRequired()
-            ->setDescription('<div class="popup">Suffix is a unique text and it will be prepended to your user account. For example: If you type IATI in Suffix, your username will be IATI_admin.</div>')
+            ->setDescription('<div class="popup">This name will be suffixed to all the users for the organisation</div>')
             ->setAttrib('class', 'form-text')
             ->setDecorators(array(
                     'ViewHelper',
@@ -43,11 +43,10 @@ class Form_Wep_Accountregister extends App_Form
             ->setRequired()
             ->setAttrib('class', 'form-text');
 
-        /*
+
         $form['admin_username'] = new Zend_Form_Element_Text('admin_username');
         $form['admin_username']->setLabel('Username')
-            ->setRequired();
-        */
+            ->setAttrib('class','form-text');
 
         $passwordConfirmation = new App_PasswordConfirmation();
         $form['password'] = new Zend_Form_Element_Password('password');
@@ -193,7 +192,7 @@ class Form_Wep_Accountregister extends App_Form
                                 array('legend'=>'Organisation Information')
                             );
         
-        $this->addDisplayGroup( array('first_name', 'middle_name', 'last_name', 'password', 'confirmpassword', 'email'), 
+        $this->addDisplayGroup( array('first_name', 'middle_name', 'last_name', 'admin_username', 'password', 'confirmpassword', 'email'), 
                                 'field1',
                                 array('legend'=>'Admin Information')
                             );
