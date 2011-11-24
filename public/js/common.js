@@ -7,7 +7,13 @@ dojo.require('dijit.form.Button');
 dojo.require('dijit.form.DateTextBox');
 //dojo.require("dojo.date.locale");
 dojo.require('dijit.TooltipDialog');
-
+/**
+ * @todo some comments on what is required for what
+ * @param evt
+ * @param checklist
+ * @param checkstate
+ * @returns
+ */
 /* Extending dojo.connect to remove attaching event when null is passed */
 /*
 dojo._extconnect = dojo.connect;

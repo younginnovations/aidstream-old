@@ -10,8 +10,6 @@ class Iati_Iatischema_ValidatorTest extends PHPUnit_Framework_TestCase
 		$result = $xmlValidator->validate($xmlDOMDocument);
 		var_dump($result);
 		
-		
-		
 		/*libxml_use_internal_errors(true);
 		  foreach(libxml_get_errors() as $error) {
 			//print br();
