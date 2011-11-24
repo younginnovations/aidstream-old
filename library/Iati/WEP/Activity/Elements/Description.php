@@ -91,7 +91,6 @@ class Iati_WEP_Activity_Elements_Description extends Iati_WEP_Activity_Elements_
         $data['xml_lang'] = $this->xml_lang;
         $data['type'] = $this->type;
         $data['text'] = $this->text;
-        
         parent::validate($data);
     }
 

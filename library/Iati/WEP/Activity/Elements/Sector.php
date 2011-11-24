@@ -34,13 +34,6 @@ class Iati_WEP_Activity_Elements_Sector extends Iati_WEP_Activity_Elements_Eleme
                     'options' => '',
                     'attrs' => array('class' => array('form-select', 'sector_value'))
                 ),
-                'non_dac_code' => array(
-                    'name' => 'non_dac_code',
-                    'label' => 'Sector',
-                    'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s"/><div class="help sector-non_dac_code"></div>',
-                    'options' => '',
-                    'attrs' => array('class' => array('form-text', 'non_dac_code'))
-                ),
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Text',
@@ -127,11 +120,7 @@ class Iati_WEP_Activity_Elements_Sector extends Iati_WEP_Activity_Elements_Eleme
         $data['percentage'] = $this->percentage;
         $data['text'] = $this->text;
         parent :: validate($data);
-        if($data['code'] == ''){
-            $this->error['code'] = array('isEmpty' => "Value is required and can't be empty");
-            $this->error['non_dac_code'] = array('isEmpty' => "Value is required and can't be empty");
-            $this->hasError = true;
-        }
+        
     }
     
     public function getCleanedData(){
