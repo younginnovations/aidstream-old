@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * @todo some class description required
+ * Enter description here ...
+ * @author YIPL Dev team
+ *
+ */
 class WepController extends Zend_Controller_Action
 {
 
@@ -116,6 +121,11 @@ class WepController extends Zend_Controller_Action
      $this->view->form = $form;
 
      } */
+    /**
+     * @todo clean up comments and extra function
+     * @todo give comments to function where necassary
+     * Enter description here ...
+     */
 
     public function registerAction()
     {

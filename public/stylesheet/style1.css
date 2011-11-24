@@ -1,7 +1,10 @@
 @charset "utf-8";
 /* CSS Document */
-h1
-{
+/**
+* @todo may be this file is not required??
+* changed h1 for standard coding practise - consult Prashant
+*/
+h1 {
 	font-family:Arial, Helvetica, sans-serif;
 	color:#887272;
 	padding:5px 0;
