@@ -56,23 +56,28 @@
             <div class="login-section">
 		<div class="container_12">
 			<div id="login" class="grid_7">
-				<form>
+                            <? $auth = Zend_Auth::getInstance();?>
+                            <? if (!$auth->hasIdentity()):?>
+                            <? $form = new User_Form_User_Login(); ?>
+				<form method="<? echo $form->getMethod() ?>" action="<? echo $form->getAction()?>" >
 				<table>                   	
 				    <tr>
-					<td><label>Username</label></td>
-					<td><label>Password</label></td>
+					<td><label><? echo $form->username->renderLabel();?></label></td>
+					<td><label><? echo $form->password->renderLabel();?></label></td>
 				    </tr>
 				    <tr>
-					<td><input name="username" type="text" value="" /></td>
-					<td><input name="password" type="password" value="" /></td>
-					<td><input id="login-bottom" name="login" type="button" value="Login" /></td>
+					<td><? echo $form->username->renderViewHelper();?></td>
+					<td><? echo $form->password->renderViewHelper();?></td>
+					<td><? echo $this->formSubmit('login','Login'); ?></td>
 				    </tr>
 				</table>			
-				</form>                  
+				</form>
+                                 <div class="container_12 grid_12">
+                                        <div class="login-parent"><a href="#">Login</a></div>
+                                </div>
+                                <? endif;?>
 			</div><!-----Close login---->
-                    <div class="container_12 grid_12">
-                    	<div class="login-parent"><a href="#">Login</a></div>
-                    </div>
+                   
 		</div>
 		<div class="clear"></div>
 		</div><!---Close login-section--->
