@@ -293,9 +293,12 @@ function initialize() {
 			    dojo.query('#admin_username').attr('value', selected.value+'_admin');
 			    dojo.query('#admin_username').attr('disabled', 'disabled');
 			}
+	    },
+	    "onkeyup" : function (evt) {
+	    	dojo.query('#organisation_username').attr('value', getTarget(evt).value.replace(" ",""));
 	    }
-	    
 	},
+	
 	".check-uncheck" : {
 	    "onclick" : function (evt) {
 		var value = dojo.query(".check-uncheck").html();
