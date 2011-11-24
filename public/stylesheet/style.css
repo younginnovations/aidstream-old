@@ -118,8 +118,8 @@ a:hover {
 }
 
 #wrapper {
-    width: 940px;
-    margin: 0 auto;
+    /*width: 940px;
+    margin: 0 auto;*/
 }
 
 /** XML Tabs **/
@@ -332,7 +332,7 @@ table.table-header td {
 
 #header .logo a {
 	display: block;
-	height: 85px;
+	/*height: 85px;*/
 }
 
 #header .logo a img {
