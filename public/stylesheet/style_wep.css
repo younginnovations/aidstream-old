@@ -14,7 +14,7 @@ h3{
 a
 {
 	color:#009ada;
-	font-family:Arial, Helvetica, sans-serif;
+	/*font-family:Arial, Helvetica, sans-serif;*/
 }
 p
 {
@@ -34,8 +34,10 @@ body
 	padding:0px;
 	overflow: hidden;
 }
-
-
+.container-wrapper
+{
+	/*height: 85px;*/
+}
 table {
 	border-collapse: collapse;
 }
@@ -70,9 +72,117 @@ table {
 	float:left;
 }*/
 
-.container-wrapper {
-	height: 85px;
+#header
+{
+	background:#FFFFFF;
+	font-family: 'Amaranth', sans-serif;
+	/*position:fixed;
+	margin:0;
+	padding:0;
+	width:100%;*/
 }
+.logo
+{
+	float:left;
+	padding:22px 0;
+	width:300px;
+}
+.nav
+{
+	float:right;
+	width:600px;
+}
+.nav ul li
+{
+	font-family: 'Amaranth', sans-serif;
+	float:right;
+	margin-left:10px;
+}
+.nav ul li a
+{	
+	display:block;
+	padding:27px 13px;
+	outline:none;
+}
+.nav ul li a:hover
+{
+	background:#d5e0e4;
+}
+.nav ul li a span.title
+{
+	font-size:24px;
+	color:#000;
+}
+.nav ul li a
+{
+	text-decoration:none;
+}
+.nav ul li a span
+{
+	font-size:12px;
+	color:#747474;
+}
+.nav ul li.support
+{
+	background:url(../stylesheet/images/support-bg.png) no-repeat right top;
+	color:#e8f8d7;
+	font-size:14px;
+	padding:10px 25px 31px 25px;
+}
+.login-section
+{
+	background:#d5e0e4;
+}
+#login
+{
+	float:right;
+	padding:20px 0;
+	position:relative;
+}
+#login input
+{
+	border:1px solid #a5b1b6;
+	font-size:12px;
+	margin: 5px 15px 0 0;
+	padding:5px 4px;
+	width:195px;
+}
+#login label
+{
+	font-size:12px;
+	font-family: 'Amaranth', sans-serif;
+	font-weight:bold;
+	color:#575a5b;
+	padding-bottom:5px;
+}
+#login #login-bottom
+{
+	background:url(../images/login-bottom.png) no-repeat;
+	border:none;
+	cursor:pointer;
+	text-indent:-9999px;
+	width:95px;
+}
+.login-parent
+{
+	position:absolute;
+	top:180px;
+	left:1018px;
+
+}
+.login-parent a
+{
+	background: url(../images/login-parent-icon.png) no-repeat center left #d5e0e4;
+	border-radius: 0px 0px 4px 4px;
+	color:#575a5b;
+	font-size:14px;
+	font-weight:bold;
+	padding:4px 10px 6px 35px;
+	text-decoration:none;
+}
+
+/***Close header section***/
+
 
 #navigation-wrapper {
 	border: none;

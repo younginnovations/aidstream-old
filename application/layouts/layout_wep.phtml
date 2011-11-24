@@ -8,6 +8,7 @@
 </script>
     <script src="<?php echo $this->baseUrl()?>/js/dojo-1.5.0/dojo/dojo.js" djConfig="parseOnLoad: true">
 </script>
+<link href='http://fonts.googleapis.com/css?family=Amaranth' rel='stylesheet' type='text/css'>
     <?php 
     
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/960.css');
@@ -32,9 +33,51 @@
 </head>
 
 <body class="claro">
-        <div class="container-wrapper">
-                <div id="wrapper">
-                    <div class="grid_3" id="login-nav">
+    <div id="wrapper">
+        <div id="header">
+            <a name="top"></a>
+            <div id="nav-logo-section">
+                <div class="container_12">
+                    <div id="logo-nav" class="grid_12">
+                        <div class="logo"> <a href="<?php print($this->baseUrl(). "/user/user/login");?>/"><img alt="logo" src="<?php print($this->baseUrl());?>/stylesheet/images/aid-stream-logo.png"></a>
+                        </div><!----close logo----->
+                        <div class="nav">
+                            <ul class="menu">
+                                <li class="support">Support</li>
+                                <li><a href="#section3"><span class="title">Contact</span><br /><span>Comments,Suggestions</span></a></li>
+                                <li><a href="#section2"><span class="title">How</span><br /><span>How to use AidStream?</span></a></li>
+                                <li><a href="#section1"><span class="title">What</span><br /><span>What is AidStream?</span></a></li>
+                            </ul>
+                        </div><!-----Close nav------->                                 
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="login-section">
+		<div class="container_12">
+			<div id="login" class="grid_7">
+				<form>
+				<table>                   	
+				    <tr>
+					<td><label>Username</label></td>
+					<td><label>Password</label></td>
+				    </tr>
+				    <tr>
+					<td><input name="username" type="text" value="" /></td>
+					<td><input name="password" type="password" value="" /></td>
+					<td><input id="login-bottom" name="login" type="button" value="Login" /></td>
+				    </tr>
+				</table>			
+				</form>                  
+			</div><!-----Close login---->
+                    <div class="container_12 grid_12">
+                    	<div class="login-parent"><a href="#">Login</a></div>
+                    </div>
+		</div>
+		<div class="clear"></div>
+		</div><!---Close login-section--->
+
+            <div class="grid_3" id="login-nav">
                         <!--<a id="signup" href="#">Signup</a>-->
                     <!--login tab-->    
                         <!--<img alt="logo" src="<?php //print $this->baseUrl()?>/images/logo.png">-->
@@ -56,43 +99,34 @@
                         <? //if (!$auth->hasIdentity()):?>
 <!--                        <a class="user-login" href="<?php //print $this->baseUrl() ?>/user/user/login">Login</a>                                  -->
                         <?//endif;?>                                                                                                                  
-                    </div>
-                    <!--search div start-->
-                    <div class = "user-nav">
+            </div>
+            <!--search div start-->
+            <div class = "user-nav">
                         
                    <?php if ($auth->hasIdentity())
                          print $this->partial('partial/section/top-bar.phtml');
                     ?>
-                    </div>
-                    
-                    <div id="header">
-                        <a name="top"></a>
-                        <div class="logo"> <a href="<?php print($this->baseUrl(). "/user/user/login");?>/"><img alt="logo" src="<?php print($this->baseUrl());?>/stylesheet/images/logo.jpg"></a>
-                      </div> <!-- losog -->
-                        
-<!--                        <div class="site-name"><?php //print $this->placeholder('title')?></div>-->
-
-                    </div>
-                    <!-- header -->                 
-                </div>  
-        </div>
-        <div id="navigation-wrapper">   
-                <!--<div id="wrapper">
-                    <div id="navigation" class="menu">
-                        <ul class="menu-list">
-                            <li class="menu-item"><a class="active" href="#">Home</a></li>
-                            <li class="menu-item"><a href="#">The IATI Standard</a></li>
-                            <li class="menu-item"><a href="#">Guidance Material</a></li>
-                            <li class="menu-item"><a href="#">Downloads</a></li>
-                            <li class="menu-item" id="nav-border"><a href="#">Knowledge Base</a></li>
-                            </ul>
-                    </div>
             </div>
-        -->
-        </div>
-        <!--header closed-->
-            
-<div id="wapper">
+
+            <!--<div class="logo"> <a href="<?php print($this->baseUrl(). "/user/user/login");?>/"><img alt="logo" src="<?php print($this->baseUrl());?>/stylesheet/images/aid-stream-logo.png"></a>
+            </div> <!-- losog -->
+            <!--<div class="site-name"><?php //print $this->placeholder('title')?></div>-->
+            <div id="navigation-wrapper">
+                    <!--<div id="wrapper">
+                        <div id="navigation" class="menu">
+                            <ul class="menu-list">
+                                <li class="menu-item"><a class="active" href="#">Home</a></li>
+                                <li class="menu-item"><a href="#">The IATI Standard</a></li>
+                                <li class="menu-item"><a href="#">Guidance Material</a></li>
+                                <li class="menu-item"><a href="#">Downloads</a></li>
+                                <li class="menu-item" id="nav-border"><a href="#">Knowledge Base</a></li>
+                                </ul>
+                        </div>
+                </div>-->
+            </div>
+        </div><!--header closed-->
+
+<div id="content-section"><!--Start content-section--->
     <div class="container_12">
         <div class="grid_12">
             <!--contain div start-->
@@ -131,28 +165,28 @@
             <div id="main-content-bottom"></div>
         <div>
     </div>
-</div>
+</div><!---Close content-section-->
          <!--contain div closed-->
         <!--footer div start-->
-<!--<div id="footer-wapper">
-    <div class="container_12">
-            <div id="footer">
-                <div class="grid_12">
-                    <div id="footer-area">                      
-                        <div id="footer-inner">
-                            <h2>IATI-AIMS</h2>
-                            <p class="copy-right">&copy; 2004-2011 IATI-Aims. All Right Reserved</p>-->
-                            <!--<p class="power-by">Power by: <a href="http://yipl.com.np">YIPL</a></p>-->
-                       <!-- </div>                    
+    <!--<div id="footer-wapper">
+        <div class="container_12">
+                <div id="footer">
+                    <div class="grid_12">
+                        <div id="footer-area">                      
+                            <div id="footer-inner">
+                                <h2>IATI-AIMS</h2>
+                                <p class="copy-right">&copy; 2004-2011 IATI-Aims. All Right Reserved</p>-->
+                                <!--<p class="power-by">Power by: <a href="http://yipl.com.np">YIPL</a></p>-->
+                           <!-- </div>                    
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="clear"></div>
-    </div>           
-</div>-->
+                <div class="clear"></div>
+        </div>           
+    </div>-->
 
-<div id="backtotop"><a href="#top"></a></div>
-<div id = 'contact'></div>
-
+        <div id="backtotop"><a href="#top"></a></div>
+        <div id = 'contact'></div>
+    </div><!---wrapper-->
 </body>
 </html>
