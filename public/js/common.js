@@ -358,6 +358,16 @@ function initialize() {
 		    dojo.query('.dijitTooltipDialogPopup').forEach(dojo.destroy);
 		}
 	    }
+	},
+	
+	".login-parent" : {
+	    "onclick" : function (evt) {
+		if(   dojo.style(dojo.byId('login-form-container'), "display") == "block"){
+		    dojo.style(dojo.byId('login-form-container'), "display", "none");
+		} else {
+		    dojo.style(dojo.byId('login-form-container'), "display", "block");
+		}
+	    }
 	}
     });
     // End of dojo.behavior.add
