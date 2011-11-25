@@ -90,7 +90,13 @@ table {
 .nav
 {
 	float:right;
-	width:600px;
+	width:450px;
+}
+.user-info
+{
+	float:right;
+	margin:0 15px 15px 0;
+	width:450px;
 }
 .nav ul li
 {
@@ -122,24 +128,33 @@ table {
 	font-size:12px;
 	color:#747474;
 }
-.nav ul li.support
+#logo-nav .support
 {
 	background:url(../stylesheet/images/support-bg.png) no-repeat right top;
 	color:#e8f8d7;
 	font-size:14px;
+	float:right;
 	padding:10px 25px 31px 25px;
 }
 .login-section
 {
 	background:#d5e0e4;
 }
-#login
+#login-form-section
 {
 	float:right;
-	padding:20px 0;
+	padding:5px 0;
 	position:relative;
 }
-#login input
+#login-form-section table
+{
+	margin:10px 0;
+}
+#login-form-section tr, #login-form-section tr td
+{
+	vertical-align:top;
+}
+#login-form-section input
 {
 	border:1px solid #a5b1b6;
 	font-size:12px;
@@ -147,43 +162,189 @@ table {
 	padding:5px 4px;
 	width:195px;
 }
-#login label
+#login-form-section label
 {
 	font-size:12px;
 	font-family: 'Amaranth', sans-serif;
 	font-weight:bold;
 	color:#575a5b;
-	padding-bottom:5px;
 }
-#login #login-bottom
+#login-form-section #login
 {
-	background:url(../images/login-bottom.png) no-repeat;
+	background:url(../stylesheet/images/login-bottom.png) no-repeat;
 	border:none;
 	cursor:pointer;
 	text-indent:-9999px;
 	width:95px;
 }
-.login-parent
-{
-	position:absolute;
-	top:180px;
-	left:1018px;
-
-}
-.login-parent a
+a.login-parent
 {
 	background: url(../stylesheet/images/login-parent-icon.png) no-repeat center left #d5e0e4;
 	border-radius: 0px 0px 4px 4px;
 	color:#575a5b;
 	font-size:14px;
 	font-weight:bold;
+	margin-top:5px;
 	padding:4px 10px 6px 35px;
+	position:absolute;
+	left:457px;
 	text-decoration:none;
+	z-index:10;
+	
 }
 
 /***Close header section***/
 
+/***********Start index page style************/
+#content
+{
+	background: #ededed;
+}
+.page-title
+{
+	color:#202020;
+	font-size:38px;
+	font-weight:normal;
+	/*margin:145px 0 35px 0;*/
+	margin:72px 0 35px 0;
+}
+.page-title .aid
+{
+	color:#5b5b5b;
+}
+.page-title .stream
+{
+	color:#008cff;
+}
+/**********start what is aidstream?************/
+#what-as
+{
+	background: url(../stylesheet/images/what-as-bg.gif) no-repeat center top #ededed;
+	min-height:509px;
+	width:100%;
+}
+p.pragraph-first
+{
+	font-size:18px;
+	font-family:Amaranth,aril,verdana, Geneva, sans-serif;
+	color:#202020;
+	margin-bottom:40px;
+	line-height:30px;
+}
+p.paragraph-second
+{
+	font-size:12px;
+	line-height:30px;
+	font-family:Arial, Helvetica, sans-serif;
+}
+/**********close what is aidstream?************/
 
+/**********start how to use aidstream?************/
+#how-as
+{
+	background:url(../stylesheet/images/how-as-bg.gif) no-repeat center top #ededed;
+	min-height:616px;
+	width:100%;
+}
+.registration
+{
+	background:url(../stylesheet/images/bottom-1.png) no-repeat top left;
+	font-size:12px;
+	font-family:Arial, Helvetica, sans-serif;
+	padding:0 15px 0 80px;
+	line-height:30px;
+	margin-bottom:20px;
+	width:400px;
+}
+.registration span
+{
+	font-family:Amaranth,aril,verdana, Geneva, sans-serif;
+	font-size:18px;
+}
+.data-entry
+{
+	background:url(../stylesheet/images/bottom-2.png) no-repeat top left;
+	font-size:12px;
+	font-family:Arial, Helvetica, sans-serif;
+	padding:0 15px 0 80px;
+	line-height:30px;
+	margin-bottom:20px;
+	width:400px;
+}
+.data-entry span
+{
+	font-family:Amaranth,aril,verdana, Geneva, sans-serif;
+	font-size:18px;
+}
+.publish
+{
+	background:url(../stylesheet/images/bottom-3.png) no-repeat top left;
+	font-size:12px;
+	font-family:Arial, Helvetica, sans-serif;
+	padding:0 15px 0 80px;
+	line-height:30px;
+	margin-bottom:20px;
+	width:400px;
+}
+.publish span
+{
+	font-family:Amaranth,aril,verdana, Geneva, sans-serif;
+	font-size:18px;
+}
+/**********close how to use aidstream?************/
+
+/**********start Contact us************/
+#contact-us
+{
+	background:url(../stylesheet/images/contact-bg.gif) no-repeat center top #ededed;
+	min-height:747px;
+	width:100%
+}
+#contact-us input
+{
+	background:#cddadc;
+	border:none;
+	border-radius:4px 4px 4px 4px;
+	padding:10px 5px;
+	width:380px;
+}
+#contact-us textarea
+{
+	background:#cddadc;
+	border:none;
+	border-radius:4px 4px 4px 4px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	padding:10px 5px;
+	width:380px;
+}
+#contact-us label
+{
+	font-family:Amaranth, Arial, Helvetica, sans-serif;
+	font-size:16px;
+	padding-right:15px;
+}
+#contact-us td
+{
+	font-size:12px;
+	font-family:Arial, Helvetica, sans-serif;
+	margin-bottom:10px;
+}
+#contact-us .note td
+{
+	padding-bottom:20px;
+}
+#contact-us input#send-bottom
+{
+	background:url(../stylesheet/images/send-bottom.png) no-repeat;
+	padding-bottom:24px;
+	text-indent:-9999px;
+	cursor:pointer;
+	outline:none;
+	width:160px;
+}
+/**********close Contact us************/
+/************Close index page style**************/
 #navigation-wrapper {
 	border: none;
 }

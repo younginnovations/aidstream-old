@@ -314,7 +314,7 @@ table.table-header td {
 
 /** Header Content **/
 #header {
-	overflow: hidden;
+	/*overflow: hidden;*/
 	width:auto;
 }
 #login-nav .user-logout

@@ -22,6 +22,7 @@ class IndexController extends Zend_Controller_Action
                 $this->_redirect('wep/dashboard');
             }
         }
+        $this->_helper->layout->setLayout('layout_wep_index');
     }
 }
 
