@@ -90,19 +90,21 @@
                             <? $auth = Zend_Auth::getInstance();?>
                             <? if (!$auth->hasIdentity()):?>
                             <? $form = new User_Form_User_Login(); ?>
-                        <form method="<? echo $form->getMethod() ?>" action="<? echo $form->getAction()?>" >
-                            <table>
-                                <tr>
-                                    <td><label><? echo $form->username->renderLabel();?></label></td>
-                                    <td><label><? echo $form->password->renderLabel();?></label></td>
-                                </tr>
-                                <tr>
-                                    <td><? echo $form->username->renderViewHelper();?></td>
-                                    <td><? echo $form->password->renderViewHelper();?></td>
-                                    <td><? echo $this->formSubmit('login','Login'); ?></td>
-                                </tr>
-                            </table>
-                        </form>
+                        <div id="login-form-container">
+			    <form method="<? echo $form->getMethod() ?>" action="<? echo $form->getAction()?>" >
+				<table>
+				    <tr>
+					<td><label><? echo $form->username->renderLabel();?></label></td>
+					<td><label><? echo $form->password->renderLabel();?></label></td>
+				    </tr>
+				    <tr>
+					<td><? echo $form->username->renderViewHelper();?></td>
+					<td><? echo $form->password->renderViewHelper();?></td>
+					<td><? echo $this->formSubmit('login','Login'); ?></td>
+				    </tr>
+				</table>
+			    </form>
+			</div>
                         <a class="login-parent" href="#">Login</a>
                         <? endif;?>
                     </div><!-----Close login-form-section---->

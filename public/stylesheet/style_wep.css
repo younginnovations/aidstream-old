@@ -177,6 +177,10 @@ table {
 	text-indent:-9999px;
 	width:95px;
 }
+#login-form-container
+{
+	display:none;
+}
 a.login-parent
 {
 	background: url(../stylesheet/images/login-parent-icon.png) no-repeat center left #d5e0e4;
