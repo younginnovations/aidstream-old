@@ -1115,6 +1115,7 @@ code
     color: #009ADA;
     display: inline-block;
     font-size: 12px;
+	font-family:Arial, Helvetica, sans-serif;
     font-weight:bold;
     padding: 5px 0 5px 22px;
     text-decoration: none;
@@ -1165,6 +1166,7 @@ legend {
 	/*margin-bottom: 20px;*/
 	border:1px solid #e0dddd;
 	overflow:hidden;
+	padding:0 10px;
 }
 .inner-wrapper
 {
@@ -1185,7 +1187,7 @@ legend {
 	color:#4f4f4f;
 	font-size:16px;
 	font-weight:bold;
-	margin-bottom:10px;
+	margin-bottom:15px;
 	padding:5px 0 5px 10px;
 	width:588px;
 }
@@ -1207,7 +1209,7 @@ legend {
 }
 
 .activity-list fieldset .inner {
-	padding:0 10px;
+	/*padding:0 10px;*/
 }
 
 .activity-list legend {
@@ -1217,8 +1219,8 @@ legend {
 .activity-list fieldset.innermost-wrapper{
     /*padding: 10px;*/
     background: #ebebeb;
-    padding:22px 0px 10px 0px;
-    margin-bottom:10px;
+    padding:10px 0px;
+    margin:10px 0;
 }
 .activity-list .innermost-wrapper legend {
 	font-size: 14px;
@@ -1434,6 +1436,7 @@ table.activity-list-table tr:hover {
 	display: block;
 	margin-bottom:10px;
 	padding-left:10px;
+	width:568px;
 }
 
 .addmore .button
@@ -1444,6 +1447,7 @@ table.activity-list-table tr:hover {
     color: #009ADA;
     display: inline-block;
     font-size: 12px;
+	font-family:Arial, Helvetica, sans-serif;
     font-weight:bold;
     padding: 5px 0 5px 22px;
     text-decoration: none;
@@ -1466,9 +1470,15 @@ table.activity-list-table tr:hover {
 	padding: 5px 10px;
 	margin-bottom: 10px;
 }
-
+#breadcrumb
+{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;	
+}
 #breadcrumb a {
 	font-weight: bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;
 }
 
 /*#contain .title {
