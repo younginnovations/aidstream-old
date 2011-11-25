@@ -17,9 +17,9 @@ class Form_Wep_Accountregister extends App_Form
             ->setAttrib('class', 'form-textarea');
 
         $form['organisation_username'] = new Zend_Form_Element_Text('organisation_username');
-        $form['organisation_username']->setLabel("Organisation Id <a href='#' id='suffix'>?</a>")
+        $form['organisation_username']->setLabel("Username Prefix <a href='#' id='suffix'>?</a>")
             ->setRequired()
-            ->setDescription('<div class="popup">This name will be suffixed to all the users for the organisation</div>')
+            ->setDescription('<div class="popup">This name will be prefixed to all the usernames created for the organisation (eg if the prefix is ABC then the username will be ABC_admin for admin user.)</div>')
             ->setAttrib('class', 'form-text')
             ->setDecorators(array(
                     'ViewHelper',
