@@ -1166,7 +1166,7 @@ legend {
 	/*margin-bottom: 20px;*/
 	border:1px solid #e0dddd;
 	overflow:hidden;
-	padding:0 10px;
+	padding:0;
 }
 .inner-wrapper
 {
@@ -1175,11 +1175,33 @@ legend {
 }
 .nested-items
 {
-	/*padding:0 10px;*/
+	padding:0 10px;
 	width:568px;
 
 }
-.inner-wrapper>.form-title
+.activity-list fieldset.innermost-wrapper{
+    /*padding: 10px;*/
+    background: #ebebeb;
+    padding:10px 0;
+    margin:10px 0;
+}
+.activity-list fieldset.innermost-wrapper.top-element
+{
+	background:#ffffff;
+	margin:0;
+}
+.innermost-wrapper .form-title{
+	display:block;
+	background:#ebebeb;
+	font-family:Arial, Helvetica, sans-serif;
+	color:#336666;
+	font-size:14px;
+	font-weight:bold;
+	/*margin-bottom:10px;*/
+	padding:5px 0 5px 10px;
+	width:568px;
+}
+.top-element>.form-title
 {
 	display:block;
 	background:#e0dddd;
@@ -1191,17 +1213,7 @@ legend {
 	padding:5px 0 5px 10px;
 	width:588px;
 }
-.innermost-wrapper>.form-title{
-	display:block;
-	background:#ebebeb;
-	font-family:Arial, Helvetica, sans-serif;
-	color:#4f4f4f;
-	font-size:16px;
-	font-weight:bold;
-	margin-bottom:10px;
-	padding:5px 0 5px 10px;
-	width:568px;
-}
+
 .activity-list fieldset, .user-list fieldset {
 	background: none;
 	padding:0;
@@ -1216,18 +1228,12 @@ legend {
 	color: #000;
 	font-size: 14px;
 }
-.activity-list fieldset.innermost-wrapper{
-    /*padding: 10px;*/
-    background: #ebebeb;
-    padding:10px 0px;
-    margin:10px 0;
-}
 .activity-list .innermost-wrapper legend {
-	font-size: 14px;
+	/*font-size: 14px;
 	font-weight: bold;
 	color: #336666;
 	margin-top:-15px;
-	padding-left:10px;
+	padding-left:10px;*/
 }
 
 .activity-div{
@@ -1430,13 +1436,20 @@ table.activity-list-table tr:hover {
 	line-height: 22px;
 	width: auto;
 }
-
-.addmore {
+.innermost-wrapper.top-element .addmore
+{
+	width:588px;
+}
+.innermost-wrapper .addmore
+{
+		width:568px;
+}
+.addmore{
 	background:#eeeeee;
 	display: block;
 	margin-bottom:10px;
 	padding-left:10px;
-	width:568px;
+	width:588px;
 }
 
 .addmore .button
