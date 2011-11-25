@@ -10,7 +10,9 @@
 </script>
 <!--<link href='http://fonts.googleapis.com/css?family=Amaranth' rel='stylesheet' type='text/css'>-->
     <?php 
-    
+    		/**
+    		 * @todo if dojo and jquery is being used in the same page use jquery.noconflict
+    		 */
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/960.css');
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/reset.css');
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style.css');
@@ -55,22 +57,35 @@
             </div>
             
             <div class="login-section">
-                <div class="container_12">
-                    <div id="login" class="grid_7">
-                        <!--<form>
-                            <table>                   	
-                                <tr>
-                                    <td><label>Username</label></td>
-                                    <td><label>Password</label></td>
-                                </tr>
-                                <tr>
-                                    <td><input name="username" type="text" value="" /></td>
-                                    <td><input name="password" type="password" value="" /></td>
-                                    <td><input id="login-bottom" name="login" type="button" value="Login" /></td>
-                                </tr>
-                            </table>
-                        </form>-->
-                        <div id="login-nav">
+		<div class="container_12">
+			<div id="login" class="grid_7">
+                            <? $auth = Zend_Auth::getInstance();?>
+                            <? if (!$auth->hasIdentity()):?>
+                            <? $form = new User_Form_User_Login(); ?>
+				<form method="<? echo $form->getMethod() ?>" action="<? echo $form->getAction()?>" >
+				<table>                   	
+				    <tr>
+					<td><label><? echo $form->username->renderLabel();?></label></td>
+					<td><label><? echo $form->password->renderLabel();?></label></td>
+				    </tr>
+				    <tr>
+					<td><? echo $form->username->renderViewHelper();?></td>
+					<td><? echo $form->password->renderViewHelper();?></td>
+					<td><? echo $this->formSubmit('login','Login'); ?></td>
+				    </tr>
+				</table>			
+				</form>
+                                 <div class="container_12 grid_12">
+                                        <div class="login-parent"><a href="#">Login</a></div>
+                                </div>
+                                <? endif;?>
+			</div><!-----Close login---->
+                   
+		</div>
+		<div class="clear"></div>
+		</div><!---Close login-section--->
+
+            <div class="grid_3" id="login-nav">
                         <!--<a id="signup" href="#">Signup</a>-->
                         <!--login tab-->    
                         <!--<img alt="logo" src="<?php //print $this->baseUrl()?>/images/logo.png">-->

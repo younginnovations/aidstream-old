@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * @todo some class description required
+ * Enter description here ...
+ * @author YIPL Dev team
+ *
+ */
 class WepController extends Zend_Controller_Action
 {
 
@@ -116,6 +121,11 @@ class WepController extends Zend_Controller_Action
      $this->view->form = $form;
 
      } */
+    /**
+     * @todo clean up comments and extra function
+     * @todo give comments to function where necassary
+     * Enter description here ...
+     */
 
     public function registerAction()
     {
@@ -571,7 +581,6 @@ class WepController extends Zend_Controller_Action
             try{
                 if($_POST){
                     $flatArray = $this->flatArray($_POST);
-
                     //print_r($flatArray);exit;
                     $activity = new Iati_WEP_Activity_Elements_Activity();
                     $activity->setAttributes(array('activity_id' => $activity_id));
@@ -584,9 +593,11 @@ class WepController extends Zend_Controller_Action
                     if($factory->hasError()){
                         $formHelper = new Iati_WEP_FormHelper();
                         $a = $formHelper->getForm();
-                    }
-                    else{
-
+                    } else {
+                        if(!$this->hasData($flatArray)){
+                             $this->_helper->FlashMessenger->addMessage(array('info' => "You have not entered any data."));
+                            $this->_redirect('wep/add-activity-elements/?activity_id='.$activity_id.'&class='.$class);
+                        }
                         $elementClassName = 'Iati_Activity_Element_Activity';
                         $element = new $elementClassName ();
                         $data = $activity->getCleanedData();
@@ -693,7 +704,7 @@ class WepController extends Zend_Controller_Action
             
             if($_POST){
                 $flatArray = $this->flatArray($_POST);
-                //print_r($flatArray);exit;
+
                 $activity = new Iati_WEP_Activity_Elements_Activity();
                 $activity->setAttributes(array('activity_id' => $activity_id));
                 $registryTree = Iati_WEP_TreeRegistry::getInstance();
@@ -710,6 +721,10 @@ class WepController extends Zend_Controller_Action
                     $a = $formHelper->getForm();
                 }
                 else{
+                    if(!$this->hasData($flatArray)){
+                        $this->_helper->FlashMessenger->addMessage(array('info' => "You have not entered any data."));
+                        $this->_redirect('wep/add-activity-elements/?activity_id='.$activity_id.'&class='.$class);
+                    }
                     $elementClassName = 'Iati_Activity_Element_Activity';
                     $element = new $elementClassName ();
                     $data = $activity->getCleanedData();
@@ -1407,5 +1422,22 @@ class WepController extends Zend_Controller_Action
             $message['message'] = 'No help is provided for this item';
         }
         $this->_helper->json($message['message']);        
+    }
+    
+    public function hasData($data)
+    {
+        if(isset($data['Activity_activity_id']))unset($data['Activity_activity_id']);
+        if(isset($data['save']))unset($data['save']);
+        
+        foreach($data as $elements){
+            if(!is_array($elements)){
+                if($elements){
+                    return true;
+                }
+            } else {
+                return $this->hasData($elements);
+            }
+        }
+        return false;
     }
 }

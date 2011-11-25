@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * User Controller to render pages for user module
+ * Enter description here ...
+ * @author geshan
+ *
+ */
 class User_UserController extends Zend_Controller_Action
 {
 

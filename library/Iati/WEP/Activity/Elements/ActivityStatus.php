@@ -9,7 +9,6 @@ class Iati_WEP_Activity_Elements_ActivityStatus extends Iati_WEP_Activity_Elemen
     protected $id = 0;
     protected $options = array();
     protected $validators = array(
-                                'code' => array('NotEmpty',)
                             );
     protected $className = 'ActivityStatus';
 

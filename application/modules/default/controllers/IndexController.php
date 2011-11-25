@@ -22,9 +22,6 @@ class IndexController extends Zend_Controller_Action
                 $this->_redirect('wep/dashboard');
             }
         }
-
-        $form = new User_Form_User_Login();
-        $this->view->form = $form;  
     }
 }
 
