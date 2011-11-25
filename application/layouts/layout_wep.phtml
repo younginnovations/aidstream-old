@@ -8,7 +8,7 @@
 </script>
     <script src="<?php echo $this->baseUrl()?>/js/dojo-1.5.0/dojo/dojo.js" djConfig="parseOnLoad: true">
 </script>
-<link href='http://fonts.googleapis.com/css?family=Amaranth' rel='stylesheet' type='text/css'>
+<!--<link href='http://fonts.googleapis.com/css?family=Amaranth' rel='stylesheet' type='text/css'>-->
     <?php 
     
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/960.css');
@@ -53,33 +53,26 @@
                 </div>
                 <div class="clear"></div>
             </div>
+            
             <div class="login-section">
-		<div class="container_12">
-			<div id="login" class="grid_7">
-				<form>
-				<table>                   	
-				    <tr>
-					<td><label>Username</label></td>
-					<td><label>Password</label></td>
-				    </tr>
-				    <tr>
-					<td><input name="username" type="text" value="" /></td>
-					<td><input name="password" type="password" value="" /></td>
-					<td><input id="login-bottom" name="login" type="button" value="Login" /></td>
-				    </tr>
-				</table>			
-				</form>                  
-			</div><!-----Close login---->
-                    <div class="container_12 grid_12">
-                    	<div class="login-parent"><a href="#">Login</a></div>
-                    </div>
-		</div>
-		<div class="clear"></div>
-		</div><!---Close login-section--->
-
-            <div class="grid_3" id="login-nav">
+                <div class="container_12">
+                    <div id="login" class="grid_7">
+                        <!--<form>
+                            <table>                   	
+                                <tr>
+                                    <td><label>Username</label></td>
+                                    <td><label>Password</label></td>
+                                </tr>
+                                <tr>
+                                    <td><input name="username" type="text" value="" /></td>
+                                    <td><input name="password" type="password" value="" /></td>
+                                    <td><input id="login-bottom" name="login" type="button" value="Login" /></td>
+                                </tr>
+                            </table>
+                        </form>-->
+                        <div id="login-nav">
                         <!--<a id="signup" href="#">Signup</a>-->
-                    <!--login tab-->    
+                        <!--login tab-->    
                         <!--<img alt="logo" src="<?php //print $this->baseUrl()?>/images/logo.png">-->
                         <!--<h1></h1>-->
                         <?$auth = Zend_Auth::getInstance();
@@ -99,14 +92,22 @@
                         <? //if (!$auth->hasIdentity()):?>
 <!--                        <a class="user-login" href="<?php //print $this->baseUrl() ?>/user/user/login">Login</a>                                  -->
                         <?//endif;?>                                                                                                                  
-            </div>
-            <!--search div start-->
-            <div class = "user-nav">
-                        
-                   <?php if ($auth->hasIdentity())
+                    </div>
+                    <div class = "user-nav">
+                    <?php if ($auth->hasIdentity())
                          print $this->partial('partial/section/top-bar.phtml');
                     ?>
-            </div>
+                    </div>
+                    </div><!-----Close login---->
+                </div>
+                <div class="clear"></div>
+            </div><!---Close login-section--->
+            <!--<div class="container_12 grid_12">
+                <div class="login-parent"><a href="#">Login</a></div>
+            </div>-->
+            <div class="clear"></div>
+            <!--search div start-->
+
 
             <!--<div class="logo"> <a href="<?php print($this->baseUrl(). "/user/user/login");?>/"><img alt="logo" src="<?php print($this->baseUrl());?>/stylesheet/images/aid-stream-logo.png"></a>
             </div> <!-- losog -->
@@ -126,67 +127,61 @@
             </div>
         </div><!--header closed-->
 
-<div id="content-section"><!--Start content-section--->
-    <div class="container_12">
-        <div class="grid_12">
-            <!--contain div start-->
-            <div id="main-content-top"></div>
-            <div id="contain-body">
-                    <div id="contain-left">
-                        <div id="contain-area">
-                            <div id="contain">
-                                <div id="flash-messages"><?php $flashMessenger = $this->flashMessages();
+        <div class="clear"></div>
+
+        <div id="content-section"><!--Start content-section--->
+            <div class="container_12">
+                <div class="grid_12">
+                    <!--contain div start-->
+                    <div id="main-content-top"></div>
+                    <div id="contain-body">
+                        <div id="contain-left">
+                            <div id="contain-area">
+                                <div id="contain">
+                                    <div id="flash-messages"><?php $flashMessenger = $this->flashMessages();
                                         print $flashMessenger->getMessages();?>
+                                    </div>
+                                    <!--<h1>IATI Code Lists</h1>-->
+                                    <div id="breadcrumb">
+                                        <?php print $this->partial('partial/breadcrumbs.phtml', $this->getVars())?>
+                                    </div><!-- end of the breadcrumb -->
+                                    <?php if ($this->placeholder('title') != ""):?>
+                                    <h1><?php print $this->placeholder('title')?></h1>
+                                    <? endif;?>
+                                    <?php print $this->layout()->content;?>
                                 </div>
-<!--                                <h1>IATI Code Lists</h1>-->
-                                <div id="breadcrumb">
-                                    <?php print $this->partial('partial/breadcrumbs.phtml', $this->getVars())?>
-				</div><!-- end of the breadcrumb -->
-                                <?php if ($this->placeholder('title') != ""):?>
-                                <h1><?php print $this->placeholder('title')?></h1>
-                                <? endif;?>
-                                <?php print $this->layout()->content;?>
                             </div>
-                        </div>
-                    </div>
+                        </div><!---Close Content left-->
 
-                    <div id="sidebar-right">
-                        <div id="sidebar-right-inner">
-                    <?php //var_dump($auth->hasIdentity());?>
-                        <?php if ($auth->hasIdentity())
-//                        print "df";exit;
-                            print $this->partial('partial/section/left-bar.phtml');
-                        ?>
-                        </div>
-                    </div>
-                                <div class="clear"></div>
-                               
+                        <div id="sidebar-right">
+                            <div id="sidebar-right-inner">
+                            <?php //var_dump($auth->hasIdentity());?>
+                                <?php if ($auth->hasIdentity())
+                                //print "df";exit;
+                                    print $this->partial('partial/section/left-bar.phtml');
+                                ?>
+                            </div>
+                        </div><!--Close sidebar-right-->
+                        <div class="clear"></div>
+                        <div id="main-content-bottom"></div>
+                    </div><!---Close contain-body--->
+                </div><!--close grid 12--->
             </div>
-            <div id="main-content-bottom"></div>
-        <div>
-    </div>
-</div><!---Close content-section-->
-         <!--contain div closed-->
-        <!--footer div start-->
-    <!--<div id="footer-wapper">
-        <div class="container_12">
-                <div id="footer">
-                    <div class="grid_12">
-                        <div id="footer-area">                      
-                            <div id="footer-inner">
-                                <h2>IATI-AIMS</h2>
-                                <p class="copy-right">&copy; 2004-2011 IATI-Aims. All Right Reserved</p>-->
-                                <!--<p class="power-by">Power by: <a href="http://yipl.com.np">YIPL</a></p>-->
-                           <!-- </div>                    
-                        </div>
-                    </div>
-                </div>
-                <div class="clear"></div>
-        </div>           
-    </div>-->
+            <div class="clear"></div>
+        </div><!---Close content-section-->
 
-        <div id="backtotop"><a href="#top"></a></div>
-        <div id = 'contact'></div>
-    </div><!---wrapper-->
+        <div class="clear"></div>
+
+        <div id="footer"><!--Start footer-->
+            <div class="container_12">
+            	<div class="grid_12">
+        	    <h2 class="footer-title">Who's using it?</h1>
+                    <img src="stylesheet/images/unicef-logo.png" alt="unicef" title="" />
+            	</div>
+            </div>
+            <div class="clearfix"></div>
+        </div><!---Close footer--->
+
+    </div><!--Close Wrapper-->
 </body>
 </html>

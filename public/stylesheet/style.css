@@ -40,20 +40,22 @@ a:hover {
 }
 
 .activity-title {
-	color: #336564;
-	font-size: 16px;
+	color: #336666;
+	font-size: 21px;
 	padding: 10px 0 10px 5px;
 }
 
 .second-title {
+	background:url(../stylesheet/images/second-title-parent.png) no-repeat left bottom #d5e0e4;
 	color: #000;
-	font-size: 14px;
+	font-size: 16px;
 	font-weight: bold;
-	border-bottom: 1px solid #ccc;
-	padding: 10px 0 10px 5px;
+	margin-bottom:10px;
+	padding: 7px 0 20px 5px;
 }
 
 .second-title span {
+	color:#595959;
 	font-weight: normal;
 	font-style: italic;
 }
