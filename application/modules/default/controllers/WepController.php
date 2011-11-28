@@ -786,6 +786,9 @@ class WepController extends Zend_Controller_Action
         }
         $this->view->blockManager()->enable('partial/override-activity.phtml');
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
+        $this->view->blockManager()->disable('partial/primarymenu.phtml');
+        $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
+        $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
          
         $this->view->form = $a;
     }
@@ -939,7 +942,11 @@ class WepController extends Zend_Controller_Action
         $this->view->state = $state;
         $this->view->activityInfo = $activity;
         $this->view->activity_id = $activity_id;
+        
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
+        $this->view->blockManager()->disable('partial/primarymenu.phtml');
+        $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
+        $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
     }
 
     public function editActivityAction()

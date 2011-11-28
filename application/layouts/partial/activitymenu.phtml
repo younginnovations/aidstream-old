@@ -48,7 +48,6 @@
                     print "<li $class><div class='help ".$element."'></div><a $attributes href='". $href ."'>" .$key ."</a></li>";
                 }
             }
-            exit;
             ?>
             
             </ul>
@@ -68,7 +67,6 @@ function getRowSet($name, $id)
     $tableName = $tableMapper->getTableName($name);
     $wepModel = new Model_Wep();
     $rowSet = $wepModel->getRowsByFields($tableName, 'activity_id', $id);
-//    print_r($rowSet);exit;
     if($rowSet)
         $rowSet = true;
     return $rowSet;
