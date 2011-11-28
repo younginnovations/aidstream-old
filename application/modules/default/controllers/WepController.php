@@ -990,6 +990,16 @@ class WepController extends Zend_Controller_Action
                 $activity['activities_id'] = $rowSet[0]['activities_id'];
                 $form = new Form_Wep_EditIatiActivity();
                 $form->edit($identity->account_id);
+                
+                
+                $aActivityInfo = $wepModel->listAll('iati_activity', 'id', $activity_id);
+                $activityInfo = $aActivityInfo[0];
+                $iati_identifier_row = $wepModel->getRowById('iati_identifier', 'activity_id', $activity_id);
+                $activityInfo['iati_identifier'] = $iati_identifier_row['text'];
+                $title_row = $wepModel->getRowById('iati_title', 'activity_id', $activity_id);
+                $activityInfo['iati_title'] = $title_row['text'];
+                
+                $this->view->activityInfo = $activityInfo;
             }
 
             if ($this->getRequest()->isPost()) {
