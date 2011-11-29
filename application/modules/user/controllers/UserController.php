@@ -131,9 +131,7 @@ class User_UserController extends Zend_Controller_Action
                 if ($result->isvalid()) {
 
                     $status = $model->getUserByUsername($username);
-                    //print_r($status);exit();
                     if ($status['status'] != 1) {
-//                        print "dddsf";exit;
                         $this->_helper->FlashMessenger->addMessage(array('error' => 'Your registration has not been confirmed.'));
                         $this->_redirect('user/user/logout');
                     }
@@ -161,8 +159,11 @@ class User_UserController extends Zend_Controller_Action
                 
                 }
                 else
-//                print "dd";exit;
                     $this->_helper->FlashMessenger->addMessage(array('error' => 'Invalid username or password.'));
+                    $this->_redirect('/');
+            } else {
+                $this->_helper->FlashMessenger->addMessage(array('error' => 'Invalid data provided'));
+                $this->_redirect('/');
             }
         }
         $this->view->form = $form;

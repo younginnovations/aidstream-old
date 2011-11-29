@@ -4,7 +4,12 @@ class User_Form_User_Login extends App_Form
     public function init($option = NULL)
     {
        // parent::_contruct($option);
-        $this->setName('Login');
+       
+        $this->setName('Login')
+	    ->setAttrib('id' , "user-login")
+	    ->setMethod('post')
+	    ->setAction(Zend_Controller_Front::getInstance()->getBaseUrl().'/user/user/login');
+	    
         $username = new Zend_Form_Element_Text('username');
         $username->setLabel('Username')->setRequired()
         	->setAttrib('class','input_box username');
@@ -15,9 +20,7 @@ class User_Form_User_Login extends App_Form
 
         $login = new Zend_Form_Element_Submit('login');
         $login->setLabel('Login');
-
+	
         $this->addElements(array($username,$password,$login));
-        $this->setMethod('post');
-        $this->setAction(Zend_Controller_Front::getInstance()->getBaseUrl().'/user/user/login');
     }
 }//end of class
