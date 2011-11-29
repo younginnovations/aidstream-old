@@ -1210,6 +1210,14 @@ fieldset dl
 	overflow:hidden;
 	padding:0;
 }
+
+.default-activity-list {
+	margin-bottom: 20px;
+	border:1px solid #e0dddd;
+	overflow:hidden;
+	padding:0;
+}
+
 .inner-wrapper
 {
 	

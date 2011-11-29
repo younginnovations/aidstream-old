@@ -4,7 +4,8 @@ class Form_General_Support extends App_Form
 {
     public function init()
     {
-        $this->setAttrib('id', 'support-form');
+        $this->setAttrib('id', 'support-form')
+            ->setAction(Zend_Controller_Front::getInstance()->getBaseUrl().'/user/user/support');
         
         $form['support_name'] = new Zend_Form_Element_Text('support_name');
         $form['support_name']->setLabel('Name')

@@ -163,7 +163,13 @@ class Form_Wep_EditDefaults extends App_Form
                                     'field3',
                                     array('legend'=>'Default Field Groups')
                                 );
-
+        
+        $groups = $this->getDisplayGroups();
+        foreach($groups as $group){
+            $group->addDecorators(array(
+                array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'default-activity-list'))
+            ));
+        }
         $this->addElement($signup);
         $this->setMethod('post');
     }

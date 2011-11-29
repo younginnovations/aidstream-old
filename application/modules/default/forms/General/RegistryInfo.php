@@ -26,7 +26,8 @@ class Form_General_RegistryInfo extends App_Form
         
         $this->addDisplayGroup( array('publishing_type'),
                                 'publishing_info',
-                                array('legend' => 'Publishing type')
+                                array('legend' => 'Publishing type',            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'activity-list'))
+)
                             );
         
         $this->addDisplayGroup(
@@ -35,5 +36,14 @@ class Form_General_RegistryInfo extends App_Form
                                 array('legend' => 'Registry Info')
                             );
         
+        $registry_info = $this->getDisplayGroup('registry_info');
+        $registry_info->addDecorators(array(
+            array(array( 'wrapperAll' => 'HtmlTag'), array( 'tag' => 'div','class'=>'default-activity-list'))
+        ));
+        
+        $publishing_info = $this->getDisplayGroup('publishing_info');
+        $publishing_info->addDecorators(array(
+            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'default-activity-list'))
+        ));
     }
 }
