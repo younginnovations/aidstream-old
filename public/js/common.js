@@ -406,7 +406,7 @@ function initialize() {
 				  properties: {
 				      top: {
 						start: "0",
-						end: "-324"
+						end: "-379"
 					}
 				  }
 				}).play();
@@ -420,7 +420,7 @@ function initialize() {
 				  duration: 500,
 				  properties: {
 				      top: {
-						start: "-324",
+						start: "-379",
 						end: "0"
 					}
 				  }
