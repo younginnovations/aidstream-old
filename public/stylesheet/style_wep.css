@@ -7,6 +7,11 @@ h1
 	padding:5px 0;
 }
 
+h2{
+	font-family: 'Amaranth',sans-serif;
+	font-size: 25px;
+}
+
 h3{
     margin-top: 0px;	
 }
@@ -1677,6 +1682,9 @@ table#list-org {
    	 width: 72px;
 	height: 55px;
 	padding-left: 25px;
+	position: absolute;
+	right: 0;
+	z-index: 100;
 }
 
 #support-container .support-form
@@ -1755,4 +1763,29 @@ table#list-org {
 #what-as .about-content p.pragraph-first
 {
 	padding-right: 480px;
+}
+
+/** Account page **/
+.profile-info table
+{
+	border: none !important;
+}
+
+.profile-info tr
+{
+	background: none !important;
+}
+
+.profile-info td
+{
+	background: none !important;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.change-password a
+{
+	background-color: #f1f1f1;
+	color: #009ada;
+	font-size: 12px;
 }
