@@ -15,6 +15,7 @@ a
 {
 	color:#009ada;
 	/*font-family:Arial, Helvetica, sans-serif;*/
+	outline: none;
 }
 p
 {
@@ -1651,7 +1652,7 @@ table#list-org {
 #support-wrapper
 {
 	position: absolute;
-	top: -128px;
+	top: -324px;
 	right: 0;
 }
 
@@ -1683,7 +1684,6 @@ table#list-org {
 #support-container form dt
 {
 	clear: left;
-	color: #fff;
 	float: left;
 	line-height: 39px;
 	margin: 0;
@@ -1692,7 +1692,8 @@ table#list-org {
 
 #support-container form dt label
 {
-
+	color: #fff;
+	width: 103px;
 }
 
 #support-container form dd
@@ -1714,6 +1715,6 @@ table#list-org {
 	border: none;
 	width: 217px;
 	padding: 0px 5px;
-	height: 39px;
+	height: 100px;
 	
 }

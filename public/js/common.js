@@ -402,11 +402,11 @@ function initialize() {
 				dojo.behavior.apply();
 				dojo.animateProperty({
 				  node: dojo.byId("support-wrapper"),
-				  duration: 300,
+				  duration: 500,
 				  properties: {
 				      top: {
 						start: "0",
-						end: "-128"
+						end: "-324"
 					}
 				  }
 				}).play();
@@ -417,10 +417,10 @@ function initialize() {
 				dojo.behavior.apply();
 				dojo.animateProperty({
 				  node: dojo.byId("support-wrapper"),
-				  duration: 300,
+				  duration: 500,
 				  properties: {
 				      top: {
-						start: "-128",
+						start: "-324",
 						end: "0"
 					}
 				  }
