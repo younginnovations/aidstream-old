@@ -7,6 +7,11 @@ h1
 	padding:5px 0;
 }
 
+h2{
+	font-family: 'Amaranth',sans-serif;
+	font-size: 25px;
+}
+
 h3{
     margin-top: 0px;	
 }
@@ -15,6 +20,7 @@ a
 {
 	color:#009ada;
 	/*font-family:Arial, Helvetica, sans-serif;*/
+	outline: none;
 }
 p
 {
@@ -179,8 +185,15 @@ table {
 }
 #login-form-container
 {
-	display:none;
+	/*display:none;*/
 }
+
+#login-form-container #user-login
+{
+	height: 0px;
+	overflow: hidden;
+}
+
 a.login-parent
 {
 	background: url(../stylesheet/images/login-parent-icon.png) no-repeat center left #d5e0e4;
@@ -289,6 +302,9 @@ p.paragraph-second
 	line-height:30px;
 	margin-bottom:20px;
 	width:400px;
+	min-height: 70px;
+	height: auto;
+	height: 70px;
 }
 .publish span
 {
@@ -1659,7 +1675,7 @@ table#list-org {
 #support-wrapper
 {
 	position: absolute;
-	top: -128px;
+	top: -379px;
 	right: 0;
 }
 
@@ -1674,6 +1690,9 @@ table#list-org {
    	 width: 72px;
 	height: 55px;
 	padding-left: 25px;
+	position: absolute;
+	right: 0;
+	z-index: 100;
 }
 
 #support-container .support-form
@@ -1691,7 +1710,6 @@ table#list-org {
 #support-container form dt
 {
 	clear: left;
-	color: #fff;
 	float: left;
 	line-height: 39px;
 	margin: 0;
@@ -1700,7 +1718,8 @@ table#list-org {
 
 #support-container form dt label
 {
-
+	color: #fff;
+	width: 103px;
 }
 
 #support-container form dd
@@ -1722,6 +1741,59 @@ table#list-org {
 	border: none;
 	width: 217px;
 	padding: 0px 5px;
+	height: 100px;
+}
+
+#support-container form #support_submit
+{
+	background-color: #caf39f;
+	border: 3px solid #587737;
+	border-radius: 50px;
+	-moz-border-radius: 50px;
+ 	-webkit-border-radius: 50px;
+	color: #49533f;
+	width: 142px;
+	font-size: 17px;
+}
+
+#support-container form #support_type
+{
+	background-color: #c8e7a7;
+	border: none;
+	color: #758465;
+	font-size: 15px;
+	width: 217px;
 	height: 39px;
-	
+	padding: 10px 5px 0;
+}
+
+/** Home page content **/
+#what-as .about-content p.pragraph-first
+{
+	padding-right: 480px;
+}
+
+/** Account page **/
+.profile-info table
+{
+	border: none !important;
+}
+
+.profile-info tr
+{
+	background: none !important;
+}
+
+.profile-info td
+{
+	background: none !important;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.change-password a
+{
+	background-color: #f1f1f1;
+	color: #009ada;
+	font-size: 12px;
 }

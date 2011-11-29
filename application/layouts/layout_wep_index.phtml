@@ -100,8 +100,11 @@
                 <?php if ($this->placeholder('title') != ""):?>
                 <h1><?php print $this->placeholder('title')?></h1>
                 <? endif;?>
-                <div id="flash-messages"><?php $flashMessenger = $this->flashMessages();
+                <div id="index-flash-messages">
+			<div class="message-wrapper container_12">
+			<?php $flashMessenger = $this->flashMessages();
                           print $flashMessenger->getMessages();?>
+			</div>
                 </div>
                 <?php print $this->layout()->content;?>
             <div class="clear"></div>
@@ -112,7 +115,7 @@
         <div id="footer"><!--Start footer-->
             <div class="container_12">
             	<div class="grid_12">
-        	    <h2 class="footer-title">Who's using it?</h1>
+        	    <h2 class="footer-title">Who's using it?</h2>
                     <img src="stylesheet/images/unicef-logo.png" alt="unicef" title="" />
             	</div>
             </div>
