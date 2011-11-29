@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <div class="clear"></div>
-            </div><!---Close nav-logo-section--->
+            </div>
             
             <div class="login-section"><!---Start login-section--->
                 <div class="container_12">
@@ -62,16 +62,16 @@
                             <? if (!$auth->hasIdentity()):?>
                             <? $form = new User_Form_User_Login(); ?>
                         <div id="login-form-container">
-			    <form method="<? echo $form->getMethod() ?>" action="<? echo $form->getAction()?>" >
+			    <form method="<? echo $form->getMethod() ?>" action="<? echo $form->getAction()?>" id="<? echo $form->getId() ?>" >
 				<table>
 				    <tr>
 					<td><label><? echo $form->username->renderLabel();?></label></td>
 					<td><label><? echo $form->password->renderLabel();?></label></td>
 				    </tr>
 				    <tr>
-					<td><? echo $form->username->renderViewHelper();?></td>
-					<td><? echo $form->password->renderViewHelper();?></td>
-					<td><? echo $this->formSubmit('login','Login'); ?></td>
+					<td><? echo $form->username->renderViewHelper();?><span id='username-error' class="error" ></span></td>
+					<td><? echo $form->password->renderViewHelper();?><span id='password-error' class="error" ></span></td>
+					<td><? echo $this->formSubmit('login','Login'); ?> </td>
 				    </tr>
 				</table>
 			    </form>

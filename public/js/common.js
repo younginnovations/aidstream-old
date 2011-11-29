@@ -368,6 +368,29 @@ function initialize() {
 		    dojo.style(dojo.byId('login-form-container'), "display", "block");
 		}
 	    }
+	},
+	
+	"#user-login" : {
+	    "onsubmit" : function (evt) {
+		//unset error messages
+		dojo.byId('username-error').innerHTML = "";
+		dojo.byId('password-error').innerHTML = "";
+		
+		user = dojo.attr('username','value');
+		password = dojo.attr('password','value');
+		if(user && password) {
+		    return;
+		}
+		
+		evt.preventDefault();
+		if(!user) {
+		    dojo.byId('username-error').innerHTML = "Username cannot be empty";
+		}
+		if(!password) {
+		    dojo.byId('password-error').innerHTML = "Password cannot be empty";
+		}
+		return;
+	    }
 	}
     });
     // End of dojo.behavior.add
