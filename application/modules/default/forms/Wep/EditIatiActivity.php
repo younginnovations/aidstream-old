@@ -55,6 +55,10 @@ class Form_Wep_EditIatiActivity extends App_Form
         $this->addDisplayGroup(array('xml_lang', 'default_currency', 'hierarchy'), 
                                     'field1',array('legend'=>'Activity'));
         
+        $group = $this->getDisplayGroup('field1');
+        $group->addDecorators(array(
+            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'default-activity-list'))
+        ));
         $save = new Zend_Form_Element_Submit('save');
         $save->setValue('Save')->setAttrib('class','form-submit');
         $this->addElement($save);

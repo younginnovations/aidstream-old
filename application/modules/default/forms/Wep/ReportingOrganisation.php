@@ -94,7 +94,11 @@ class Form_Wep_ReportingOrganisation extends App_Form
         $this->addDisplayGroup(array('reporting_org_xmllang', 'reporting_org_ref', 
                                     'reporting_org_type', 'reporting_org_text'),
                                      'field',array('legend'=>'Reporting Organisaton'));
-       
+        
+        $group = $this->getDisplayGroup('field');
+        $group->addDecorators(array(
+            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'default-activity-list'))
+        ));
 
 //        $this->setMethod('post');
         

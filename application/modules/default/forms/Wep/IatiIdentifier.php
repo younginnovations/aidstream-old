@@ -32,7 +32,11 @@ class Form_Wep_IatiIdentifier extends App_Form
         
         $this->addElements($form);
         $this->addDisplayGroup(array('iati_identifier_text'), 'field',array('legend'=>'Iati Identifier'));
-       
+        
+        $group = $this->getDisplayGroup('field');
+        $group->addDecorators(array(
+            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'default-activity-list'))
+        ));
         
         $save = new Zend_Form_Element_Submit('save');
         $save->setValue('Save')->setAttrib('class','form-submit');
