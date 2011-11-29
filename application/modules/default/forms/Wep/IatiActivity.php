@@ -60,6 +60,11 @@ class Form_Wep_IatiActivity extends App_Form
 
         $this->addDisplayGroup(array('xml_lang', 'default_currency', 'hierarchy'), 
                                     'field1',array('legend'=>'Activity'));
+        $activity = $this->getDisplayGroup('field1');
+        $activity->addDecorators( array(
+                array(array('wrapperAll' => 'HtmlTag'), array('tag' => 'div', 'class' => 'default-activity-list'))
+            )
+        );
         
         $form1 = new Form_Wep_ReportingOrganisation();
         $form1->add('add', $account_id);
@@ -86,6 +91,11 @@ class Form_Wep_IatiActivity extends App_Form
         
         
         $this->addDisplayGroup(array('iati_identifier_text'), 'field',array('legend'=>'Iati Identifier'));
+        $identifier = $this->getDisplayGroup('field');
+        $identifier->addDecorators( array(
+                array(array('wrapperAll' => 'HtmlTag'), array('tag' => 'div', 'class' => 'default-activity-list'))
+            )
+        );
         $save = new Zend_Form_Element_Submit('save');
         $save->setValue('Save')->setAttrib('class','form-submit');
         $this->addElement($save);
