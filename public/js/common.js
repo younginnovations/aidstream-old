@@ -395,28 +395,37 @@ function initialize() {
 
 	"#support-container .support" : {
 		"onclick" : function (evt) {
-			console.log(dojo.query(this).attr('class'));
+			console.log(dojo.byId("support-wrapper"));
 			if(dojo.query(this).attr('class') == "support active")
 			{
 				dojo.query(this).removeClass('active');
+				dojo.behavior.apply();
 				dojo.animateProperty({
-				  node:dojo.query(this).parent('.support-wrapper'),
+				  node: dojo.byId("support-wrapper"),
+				  duration: 300,
 				  properties: {
-				      top: -=128
+				      top: {
+						start: "0",
+						end: "-128"
+					}
 				  }
 				}).play();
 			}
 			else
 			{
 				dojo.query(this).addClass('active');
+				dojo.behavior.apply();
 				dojo.animateProperty({
-				  node:dojo.query(this).parent('.support-wrapper'),
+				  node: dojo.byId("support-wrapper"),
+				  duration: 300,
 				  properties: {
-				      top: +=128
+				      top: {
+						start: "-128",
+						end: "0"
+					}
 				  }
 				}).play();
 			}
-			dojo.behavior.apply();
 		}
 	}
     });

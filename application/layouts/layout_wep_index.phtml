@@ -36,14 +36,10 @@
 <body class="claro">
     <div id="wrapper">
 			<div id="support-container" class="container_12">
-				<div class="support-wrapper grid_5 push_7">
+				<div id="support-wrapper" class="grid_5 push_7">
 					<div class="support-form">
-						<form>
-						<dl>
-							<dt>Name</dt>
-							<dd><input type=text value=""/></dd>
-						</dl>
-						</form>
+						<?php $supportForm = new Form_General_Support()?>
+						<?php echo $supportForm;?>
 					</div>
 					<div class="support">Support</div>
 				</div>

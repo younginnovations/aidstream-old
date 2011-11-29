@@ -1648,7 +1648,7 @@ table#list-org {
 	z-index: 100;
 }
 
-.support-wrapper
+#support-wrapper
 {
 	position: absolute;
 	top: -128px;
@@ -1678,7 +1678,6 @@ table#list-org {
 #support-container form dl
 {
 	overflow: hidden;
-	margin-bottom: 6px;
 }
 
 #support-container form dt
@@ -1689,6 +1688,11 @@ table#list-org {
 	line-height: 39px;
 	margin: 0;
 	width: 103px;
+}
+
+#support-container form dt label
+{
+
 }
 
 #support-container form dd
