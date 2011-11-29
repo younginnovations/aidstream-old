@@ -180,8 +180,15 @@ table {
 }
 #login-form-container
 {
-	display:none;
+	/*display:none;*/
 }
+
+#login-form-container #user-login
+{
+	height: 0px;
+	overflow: hidden;
+}
+
 a.login-parent
 {
 	background: url(../stylesheet/images/login-parent-icon.png) no-repeat center left #d5e0e4;
@@ -290,6 +297,9 @@ p.paragraph-second
 	line-height:30px;
 	margin-bottom:20px;
 	width:400px;
+	min-height: 70px;
+	height: auto;
+	height: 70px;
 }
 .publish span
 {
@@ -1741,8 +1751,8 @@ table#list-org {
 	padding: 10px 5px 0;
 }
 
-/** Flash messages **/
-#index-flash-messages .message-wrapper
+/** Home page content **/
+#what-as .about-content p.pragraph-first
 {
-	
+	padding-right: 480px;
 }

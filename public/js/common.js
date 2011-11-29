@@ -362,10 +362,30 @@ function initialize() {
 	
 	".login-parent" : {
 	    "onclick" : function (evt) {
-		if(   dojo.style(dojo.byId('login-form-container'), "display") == "block"){
-		    dojo.style(dojo.byId('login-form-container'), "display", "none");
+		if(dojo.query(this).attr('class') == "login-parent active"){
+				dojo.query(this).removeClass('active');
+				  dojo.animateProperty({
+				  node: dojo.byId('user-login'),
+				  duration: 300,
+				  properties: {
+				      height: {
+						start: "98",
+						end: "0"
+					}
+				  }
+				}).play();
 		} else {
-		    dojo.style(dojo.byId('login-form-container'), "display", "block");
+			dojo.query(this).addClass('active');
+		    	dojo.animateProperty({
+				  node: dojo.byId('user-login'),
+				  duration: 500,
+				  properties: {
+				      height: {
+						start: "0",
+						end: "98"
+					}
+				  }
+				}).play();
 		}
 	    }
 	},
@@ -395,7 +415,6 @@ function initialize() {
 
 	"#support-container .support" : {
 		"onclick" : function (evt) {
-			console.log(dojo.byId("support-wrapper"));
 			if(dojo.query(this).attr('class') == "support active")
 			{
 				dojo.query(this).removeClass('active');
@@ -426,6 +445,12 @@ function initialize() {
 				  }
 				}).play();
 			}
+		}
+	},
+
+	"#index-flash-messages ul.error" : {
+		"found" : function(evt){
+			dojo.query('#login-form-container #user-login').attr('height','96px');
 		}
 	}
     });
