@@ -27,7 +27,8 @@ class Form_General_Support extends App_Form
         $form['support_type']->setLabel('Related To')
             ->setMultioptions($related);
         
-
+        $form['support_submit'] = new Zend_Form_Element_Submit('support_submit');
+        $form['support_submit']->setLabel('Send now!');
         $this->addElements($form);
     }
 }
