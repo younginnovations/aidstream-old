@@ -4,8 +4,8 @@
             	<div class="container_12">
                 	<div class="grid_12">          	
                         <h1 class="page-title">What is <span class="aid">Aid</span><span class="stream">Stream</span>?</h1>
-                        <p class="pragraph-first">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br /> Aenean pulvinar mauris quis neque rhoncus accumsan.</p>
-                        <p class="paragraph-second">Praesent leo ipsum, blandit nec venenatis nec, aliquam vel tortor. Cras ut tellus ac elit<br /> sagittis pellentesque vel non sapien. Nam rutrum sodales erat, molestie facilisis felis<br /> ultrices id. Aenean faucibus dictum commodo. Suspendisse sollicitudin ipsum nec<br /> ante rutrum nec sagittis sem aliquam.</p>
+                        <p class="pragraph-first">The issue of foreign aid transparency and aid effectiveness has been a topic of debate and discussion at an international level since quite some time. Making aid data openly available in uniform standard format both from donors and recipients is a vital step in making foreign  aid more transparent. This open availability of aid data enables individuals and organizations to access aid data , analyze them and ask questions regarding proper implementation of aid driven activities which and hence enhances aid effectiveness and accountability. </p>
+                        <p class="paragraph-second">International Aid Transparency Initiative (IATI) is one such format endorsed by many countries, governments and donor agencies. This comprehensive format of publishing aid data is envisioned to be used by both donor agencies and reporting organizations. However, there seems to be an acute need of a platform to expedite the process of entering and publishing the aid data.<br><br>AidStream stands as one such platform, that presents complexity of the <a href="http://iatistandard.org">IATI</a> in understandable and consumable way. User friendly interfaces within the platform enhances effortless entry, update and publish of the aid data in the IATI format for organizations that want to publish IATI data. The system hides all the complexities and technicalities of xml. With AidStream, the necessity to understand the details of the IATI standard becomes lesser. All that needs to be done is to register into the system, enter the data and publish it. The data will be easily published to the <a href="http://iatiregistry.org">IATI registry </a>. In addition, AidStream guarantees high security, proper maintenance and easy accessability of the aid data.</p>
                  	</div>
                 </div> 
                 <div class="clear"></div>               
@@ -19,18 +19,15 @@
             	<div class="container_12">
                 	<div class="grid_12">
                     	<h1 class="page-title">How to use <span class="aid">Aid</span><span class="stream">Stream</span>?</h1>
-                        <p class="pragraph-first">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br /> Aenean pulvinar mauris quis neque rhoncus accumsan.</p>	
+                        <p class="pragraph-first">AidStream is very easy to use.<br /> Please follow the steps mentioned below:</p>	
                         <div class="registration">
-                        	<span>Registration</span><br />Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                             Aenean pulvinar mauris quis neque rhoncus accumsan.
+                        	<span>Registration</span><br />Register in AidStream with required information, our team will then contact you in 24 hours and provide the necessary credentials.
                         </div>
                         <div class="data-entry">
-                            <span>Data Entry</span><br />Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                             Aenean pulvinar mauris quis neque rhoncus accumsan.
+                            <span>Data Entry</span><br />After you receive your credentials, you can login and enter the data in an easy manner.
                         </div>
                         <div class="publish">
-                            <span>Publish</span><br />Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                             Aenean pulvinar mauris quis neque rhoncus accumsan.
+                            <span>Publish</span><br />Finally you can publish your activities to IATI-Registry.
                         </div>                      
                     </div>
                 </div>
@@ -45,39 +42,39 @@
             	<div class="container_12">
                 	<div class="grid_12">
                     	<h1 class="page-title">Contact Us</h1>
-                        <p class="pragraph-first">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br /> Aenean pulvinar mauris quis neque rhoncus accumsan.</p>
-                        <form>
+                        <p class="pragraph-first">If you have any comments/suggestions, please send them to us.</p>
+                        <form method = "<?php echo $this->form->getMethod();?>" action = "<?php echo $this->form->getAction()?>">
                         	<table>
                             	<tr>
-                                	<td><label>Name</label></td>
-                                    <td><input name="name" type="text" /></td>
-                                </tr>
-                                <tr class="note">
-                                	<td></td>
-                                    <td>So that we know who to rely.</td>
-                                </tr>
-                                <tr>
-                                	<td><label>Email</label></td>
-                                    <td><input name="email" type="text" /></td>
+                                	<td><label><?php echo $this->form->name->renderLabel();?></label></td>
+                                    <td><?php echo $this->form->name->renderViewHelper();?></td>
                                 </tr>
                                 <tr class="note">
                                 	<td></td>
                                     <td>So that we know who to reply.</td>
                                 </tr>
                                 <tr>
-                                	<td style="vertical-align:top"><label>Massage</label></td>
-                                    <td><textarea name="massage" cols="20" rows="8"></textarea></td>
+                                	<td><label><?php echo $this->form->email->renderLabel();?></label></td>
+                                    <td><?php echo $this->form->email->renderViewHelper();?></td>
                                 </tr>
                                 <tr class="note">
                                 	<td></td>
-                                	<td>So that we know who to reply.</td>
+                                    <td>So that we know where to reply.</td>
+                                </tr>
+                                <tr>
+                                	<td style="vertical-align:top"><label><?php echo $this->form->message->renderLabel();?></label></td>
+                                    <td><?php echo $this->form->message->renderViewHelper();?></td>
+                                </tr>
+                                <tr class="note">
+                                	<td></td>
+                                	<td>So that we know what to reply.</td>
                                 </tr>
                                 <tr>
                                 	<td></td>
-                                	<td><input id="send-bottom" type="button" name="send" value="Send" /></td>
+                                	<td><? echo $this->formSubmit('send','Send'); ?></td>
                                 </tr>
                             </table>
-                        </form>   
+                        </form>
                     </div>
                 </div>
             </div><!---Close contact--->

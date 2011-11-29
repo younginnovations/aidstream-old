@@ -100,6 +100,9 @@
                 <?php if ($this->placeholder('title') != ""):?>
                 <h1><?php print $this->placeholder('title')?></h1>
                 <? endif;?>
+                <div id="flash-messages"><?php $flashMessenger = $this->flashMessages();
+                          print $flashMessenger->getMessages();?>
+                </div>
                 <?php print $this->layout()->content;?>
             <div class="clear"></div>
         </div><!---Close content-section-->
