@@ -947,6 +947,7 @@ button.form-submit, input.form-submit, a.button, .change-password a, .profile-li
 {
 	background:#d7e1c5;
 	font-size:10px;
+
 	font-family:Verdana, Geneva, sans-serif;
 	text-align:center;
 	line-height:12px;
@@ -1151,7 +1152,7 @@ dd#button-element {
 	margin-bottom: 0;
 }
 
-fieldset{
+/**fieldset{
     margin-bottom: 20px;
     padding: 20px 10px;
     background: #f6f6f6;
@@ -1160,6 +1161,30 @@ legend {
 	font-size: 13px;
 	font-weight: bold;
 	color: #336666;
+}**/
+
+/** new default fieldset css **/
+fieldset{
+    margin-bottom: 20px;
+    padding: 0 0 20px;
+    background: none;
+}
+legend {
+   background: none repeat scroll 0 0 #E0DDDD;
+    color: #4F4F4F;
+    display: block;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding: 5px 0 5px 10px;
+    width: 588px;
+}
+
+fieldset dl
+{
+	overflow: hidden;
+	margin: 0 10px;
 }
 
 /* Activity page fieldset */
@@ -1259,6 +1284,7 @@ legend {
 }
 #contain table.activity-info-table th {
 	padding-right: 15px;
+	width: 35%;
 }
 
 #contain table.activity-info-table tr {
@@ -1611,3 +1637,67 @@ table#list-org {
 	margin:40px 0 15px;
 }
 /**************Close Footer section****************/
+
+/** css for support form **/
+#support-container
+{
+	font-family: 'Amaranth',sans-serif;
+}
+
+#support-container .support
+{
+	background: url("../stylesheet/images/support-bg.png") no-repeat scroll right top transparent;
+   	color: #E8F8D7;
+	float: right;
+	font-size: 14px;
+	line-height: 39px;
+   	 width: 72px;
+	height: 55px;
+	padding-left: 25px;
+}
+
+#support-container .support-form
+{
+	background-color: #6e9743;
+	border-top: 17px solid #5a7240;
+	padding: 29px 25px;
+}
+
+#support-container form dl
+{
+	overflow: hidden;
+	margin-bottom: 6px;
+}
+
+#support-container form dt
+{
+	clear: left;
+	color: #fff;
+	float: left;
+	line-height: 39px;
+	margin: 0;
+	width: 103px;
+}
+
+#support-container form dd
+{
+	float: left;
+}
+
+#support-container form dd input
+{
+	border: none;
+	width: 217px;
+	padding: 0px 5px;
+	height: 39px;
+	
+}
+
+#support-container form dd textarea
+{
+	border: none;
+	width: 217px;
+	padding: 0px 5px;
+	height: 39px;
+	
+}
