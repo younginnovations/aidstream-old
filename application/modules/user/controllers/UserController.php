@@ -466,6 +466,39 @@ class User_UserController extends Zend_Controller_Action
             }
         }
     }
+    
+    public function supportAction()
+    {
+        if(isset($_POST)){
+            $data = $this->getRequest()->getPost();
+            $form = new Form_General_Support();
+            if($form->isValid($data)){
+                $modelSupport = new Model_Support();
+                $modelSupport->saveSupportRequest($data);
+                
+                /*
+                $mail = new Zend_Mail();
+                $mail->setBodyText($data['support_query'])
+                    ->setFrom($data['support_mail'])
+                    ->setSubject('Support needed');
+                    
+                if($data['support_type'] == 'iati'){
+                    $to = 'anjesh@yipl.com.np';
+                } else if($data['support_type'] == 'system'){
+                    $to = 'anjesh@yipl.com.np';
+                }
+                //$mail->addTo($to);
+
+                $result = $mail->send();
+                */
+                $this->_helper->FlashMessenger->addMessage(array('message' =>'Your query has been sent'));
+                $this->_redirect('/');
+            } else {
+                $this->_helper->FlashMessenger->addMessage(array('error' => 'Invalid data provided'));
+                $this->_redirect('/');
+            }
+        }
+    }
 
 }
 
