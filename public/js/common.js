@@ -391,6 +391,33 @@ function initialize() {
 		}
 		return;
 	    }
+	},
+
+	"#support-container .support" : {
+		"onclick" : function (evt) {
+			console.log(dojo.query(this).attr('class'));
+			if(dojo.query(this).attr('class') == "support active")
+			{
+				dojo.query(this).removeClass('active');
+				dojo.animateProperty({
+				  node:dojo.query(this).parent('.support-wrapper'),
+				  properties: {
+				      top: -=128
+				  }
+				}).play();
+			}
+			else
+			{
+				dojo.query(this).addClass('active');
+				dojo.animateProperty({
+				  node:dojo.query(this).parent('.support-wrapper'),
+				  properties: {
+				      top: +=128
+				  }
+				}).play();
+			}
+			dojo.behavior.apply();
+		}
 	}
     });
     // End of dojo.behavior.add

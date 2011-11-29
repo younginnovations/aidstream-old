@@ -1642,12 +1642,24 @@ table#list-org {
 #support-container
 {
 	font-family: 'Amaranth',sans-serif;
+	position: relative;
+	top: 0;
+	left: 0;
+	z-index: 100;
+}
+
+.support-wrapper
+{
+	position: absolute;
+	top: -128px;
+	right: 0;
 }
 
 #support-container .support
 {
 	background: url("../stylesheet/images/support-bg.png") no-repeat scroll right top transparent;
    	color: #E8F8D7;
+	cursor: pointer;
 	float: right;
 	font-size: 14px;
 	line-height: 39px;
