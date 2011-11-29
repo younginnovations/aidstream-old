@@ -368,6 +368,65 @@ function initialize() {
 		    dojo.style(dojo.byId('login-form-container'), "display", "block");
 		}
 	    }
+	},
+	
+	"#user-login" : {
+	    "onsubmit" : function (evt) {
+		//unset error messages
+		dojo.byId('username-error').innerHTML = "";
+		dojo.byId('password-error').innerHTML = "";
+		
+		user = dojo.attr('username','value');
+		password = dojo.attr('password','value');
+		if(user && password) {
+		    return;
+		}
+		
+		evt.preventDefault();
+		if(!user) {
+		    dojo.byId('username-error').innerHTML = "Username cannot be empty";
+		}
+		if(!password) {
+		    dojo.byId('password-error').innerHTML = "Password cannot be empty";
+		}
+		return;
+	    }
+	},
+
+	"#support-container .support" : {
+		"onclick" : function (evt) {
+			console.log(dojo.byId("support-wrapper"));
+			if(dojo.query(this).attr('class') == "support active")
+			{
+				dojo.query(this).removeClass('active');
+				dojo.behavior.apply();
+				dojo.animateProperty({
+				  node: dojo.byId("support-wrapper"),
+				  duration: 300,
+				  properties: {
+				      top: {
+						start: "0",
+						end: "-128"
+					}
+				  }
+				}).play();
+			}
+			else
+			{
+				dojo.query(this).addClass('active');
+				dojo.behavior.apply();
+				dojo.animateProperty({
+				  node: dojo.byId("support-wrapper"),
+				  duration: 300,
+				  properties: {
+				      top: {
+						start: "-128",
+						end: "0"
+					}
+				  }
+				}).play();
+			}
+		}
 	}
     });
     // End of dojo.behavior.add
