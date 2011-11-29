@@ -3,22 +3,14 @@
 <table class = "profile-table">
 
     <tr>
-        <td>Name: </td>
         <td><?php 
         print $this->profile->first_name . 
                             (($this->profile->middle_name)? " ".$this->profile->middle_name ." " : " ") .
                              $this->profile->last_name;?></td>
     </tr>
     <tr>
-        <td>Email:</td>
         <td><?php print $this->row->email?></td>
-    </tr>
-    
-    <tr>
-        <td>Username:</td>
-        <td><?php print $this->row->user_name?>
-    </tr>
-    
+    </tr> 
 </table>
 </div>
 <!--<div class = "edit-button"><?php print $this->l('Edit','user/user/edit/user_id/'.$this->row->user_id)?></div>-->
