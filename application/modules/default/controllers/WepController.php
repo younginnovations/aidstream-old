@@ -662,6 +662,9 @@ class WepController extends Zend_Controller_Action
         $this->view->form = $a;
         $this->view->blockManager()->enable('partial/override-activity.phtml');
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
+        $this->view->blockManager()->disable('partial/primarymenu.phtml');
+        $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
+        $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
     }
 
     public function editActivityElementsAction()
