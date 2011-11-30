@@ -76,7 +76,7 @@ class User_UserController extends Zend_Controller_Action
                         $reset = new User_Model_DbTable_Reset();
                         $reset->insert(array('email' => $email, 'value' => $resetValue, 'reset_flag' => '0'));
                         $this->_helper->FlashMessenger->addMessage(array('message' => 'Further instructions have been sent to your e-mail address.'));
-                        $this->_redirect('code-list/code-list-index/langid/1');
+                        $this->_redirect('/');
                     } catch (Exception $e) {
                         $this->_helper->FlashMessenger->addMessage(array('error' => 'Error in sending mail.'));
                     }//end of try catch
@@ -275,7 +275,6 @@ class User_UserController extends Zend_Controller_Action
             }
         }//end of outer if
         $this->view->placeholder('title')->set('Reset Password');
-//        $this->_helper->layout()->setLayout('layout');
     }
 
     //end of else
@@ -356,16 +355,12 @@ class User_UserController extends Zend_Controller_Action
 
     private function sendemail($toEmail)
     {
-        $emailSetting = new App_Email();
-        $setting = $emailSetting->setting();
-
-        $fromEmail = "support@iatistandard.org";
-        $replace = "Thank you for registering at !site_name!
-                    You may also log in by clicking on this link or copying and pasting it in your browser:
-                    !view_url!
-                    ------
-                    !site_name!";
-        $siteName = "IATI Standard";
+        $mail['from'] = "support@iatistandard.org";
+        $replace = "Thank you for registering at !site_name! \nYou may also log in by clicking on this link or copying and pasting it in your browser:!view_url!
+        
+        ------
+        !site_name!";
+        $siteName = "AidType";
 
         $url = "http://" . $_SERVER['HTTP_HOST'] . $this->view->baseUrl() . '/user/user/resetpassword';
 
@@ -377,19 +372,13 @@ class User_UserController extends Zend_Controller_Action
 
         $bodyTemp = str_replace('!view_url!', $url, $bodyTemp1);
 
-        $body = str_replace('!site_name!', $siteName, $bodyTemp);
-
-        $subject = 'Replacement login information for ' . $toEmail;
-
-        $mail = new Zend_Mail();
-
-        $mail->setBodyText($body)
-                ->setFrom($fromEmail)
-                ->addTo($toEmail)
-                ->setSubject($subject);
-
-        $result = $mail->send();
-
+        $mail['message'] = str_replace('!site_name!', $siteName, $bodyTemp);
+        $mail['subject'] = 'Replacement login information for ' . $toEmail;
+        $mail['to'] = $toEmail;
+        
+        $modelMail = new Model_Mail();
+        $send = $modelMail->sendMail($mail);
+        
         return $uniqueId;
     }
     
@@ -471,43 +460,27 @@ class User_UserController extends Zend_Controller_Action
             $form = new Form_General_Support();
             if($form->isValid($data)){
                 $modelSupport = new Model_Support();
-                $modelSupport->saveSupportRequest($data);
+                //$modelSupport->saveSupportRequest($data);
                 
-                $mailConfig = array(
-                       'ssl' => 'ssl',
-                       'port' => 465,
-                       'auth' => 'login',
-                       'username' => 'bhabishyat@gmail.com',
-                       'password' => ''
-                 );
-
-                $transport = new Zend_Mail_Transport_Smtp('smtp.gmail.com',$mailConfig);
-                Zend_Mail::setDefaultTransport($transport);
-
-                $mail = new Zend_Mail();
-                $mail->setBodyText($data['support_query'])
-                    ->setFrom($data['support_mail'],$data['support_name'])
-                    ->setSubject('Support needed');
-                    
+                $mail['subject'] = 'Aidtype support requested';
                 if($data['support_type'] == 'iati'){
-                    $to = 'bhabishyat.kc@yipl.com.np';
+                    $mail['to'] = 'bhabishyat.kc@yipl.com.np';
                 } else if($data['support_type'] == 'system'){
-                    $to = 'bhabishyat.kc@yipl.com.np';
-                }
-                $mail->addTo($to);
-
-                try {
-                    $mail->send();
-                } catch (Exception $e) {
-                    print "Mail could not be sent. The following error occured.<br>";
-                    print ($e);
-                    exit;
+                    $mail['to'] = 'bhabishyat.kc@yipl.com.np';
                 }
                 
-                $this->_helper->FlashMessenger->addMessage(array('message' =>'Your query has been sent'));
+                $mail['message'] = 'Support was requested by the following user:';
+                $mail['message'] .=  "\nName: ".$data['support_name'];
+                $mail['message'] .=  "\nEmail: ".$data['support_email'];
+                $mail['message'] .= "\n\nQuery:\n".$data['support_query'];
+                
+                $modelMail = new Model_Mail();
+                $send = $modelMail->sendMail($mail);
+                
+                $this->_helper->FlashMessenger->addMessage(array('message' =>'Thank you. Your query has been received.'));
                 $this->_redirect('/');
             } else {
-                $this->_helper->FlashMessenger->addMessage(array('error' => 'Invalid data provided'));
+                $this->_helper->FlashMessenger->addMessage(array('error' => 'Please provide valid data'));
                 $this->_redirect('/');
             }
         }

@@ -26,6 +26,17 @@ class IndexController extends Zend_Controller_Action
                 $contact = new Model_Contact;
               	$contact->insert($data);
               	
+                $mail['subject'] = 'Feedback for Aidtype received';
+                $mail['to'] = 'bhabishyat.kc@yipl.com.np';
+                
+
+                $mail['message'] = 'The following user provided feedback:';
+                $mail['message'] .=  "\nName: ".$data['name'];
+                $mail['message'] .=  "\nEmail: ".$data['email'];
+                $mail['message'] .= "\n\nMessage:\n".$data['message'];
+                
+                $modelMail = new Model_Mail();
+                $modelMail->sendMail($mail);
                	$this->_helper->FlashMessenger->addMessage(array('message' => 'Thank you for the message.'));
   				$this->_redirect('#contacts');
   				            	
