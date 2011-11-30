@@ -38,8 +38,8 @@ class User_UserController extends Zend_Controller_Action
                     $data = array();
                     $data['user_name'] = $form->getValue('username');
                     $data['email'] = $form->getValue('email');
-                    //                    $data['mobile'] = $form->getValue('mobile');
                     $data['password'] = md5($password);
+                    
                     // role id has been set to 2 so that it could take user as role from table role this needs to be changed as needed
                     $data['role_id'] = 2;
                     $user = new User_Model_DbTable_User();
@@ -140,7 +140,6 @@ class User_UserController extends Zend_Controller_Action
                     $obj2 = new stdClass;
                     $obj2->role = $role['role'];
 
-                    //@todo check the role an redirect to the proper dashboard
                     $identity = (object) array_merge((array) $identity, (array) $obj2);
                     $authStorage = $auth->getStorage();
                     $authStorage->write($identity);
@@ -179,7 +178,6 @@ class User_UserController extends Zend_Controller_Action
         $row = $userModel->getUserById($user_id);
         $profileModel = new User_Model_DbTable_Profile();
         $row1 = $profileModel->getProfileByUserId($user_id);
-//        print_r($row1->first_name);exit;
         $this->view->profile = $row1;
         $this->view->row = $row;
         $identity  = Zend_Auth::getInstance()->getIdentity();
@@ -251,9 +249,8 @@ class User_UserController extends Zend_Controller_Action
         $resetId = $reset->getResetId($resetEmail, $resetValue);
         if ($resetResult == FALSE) {
             $this->_helper->FlashMessenger->addMessage(array('error' => 'You have already used this one-time login link.'));
-            $this->_redirect('user/user/login');
+            $this->_redirect('/');
         } else {
-
             $form = new User_Form_User_Resetpassword();
             $this->view->form = $form;
             if ($this->getRequest()->isPost()) {
@@ -268,7 +265,7 @@ class User_UserController extends Zend_Controller_Action
                     //update the reset value in reset table
                     $resetData['reset_flag'] = 1;
                     $reset->update($resetData, array('reset_id' => $resetId));
-                    $this->_redirect('user/user/login');
+                    $this->_redirect('/');
                 }
             } else {
                 $form->populate(array('email' => $resetEmail));
@@ -356,11 +353,14 @@ class User_UserController extends Zend_Controller_Action
     private function sendemail($toEmail)
     {
         $mail['from'] = "support@iatistandard.org";
-        $replace = "Thank you for registering at !site_name! \nYou may also log in by clicking on this link or copying and pasting it in your browser:!view_url!
-        
-        ------
-        !site_name!";
-        $siteName = "AidType";
+        $replace = "
+You have requested to reset you account.
+You may reset your password by clicking on this link or copying and pasting it in your browser:!reset_site!
+
+Thank you.
+------
+!site_name!";
+        $siteName = "AidStream";
 
         $url = "http://" . $_SERVER['HTTP_HOST'] . $this->view->baseUrl() . '/user/user/resetpassword';
 
@@ -368,11 +368,13 @@ class User_UserController extends Zend_Controller_Action
 
         $resetSite = "http://" . $_SERVER['HTTP_HOST'] . $this->view->baseUrl() . '/user/user/resetpassword/email/' . $toEmail . '/value/' . $uniqueId;
 
-        $bodyTemp1 = str_replace('!reset_site', $resetSite, $replace);
+        $bodyTemp1 = str_replace('!reset_site!', $resetSite, $replace);
 
         $bodyTemp = str_replace('!view_url!', $url, $bodyTemp1);
+        
+        $message = str_replace('!site_name!', $siteName, $bodyTemp);
 
-        $mail['message'] = str_replace('!site_name!', $siteName, $bodyTemp);
+        $mail['message'] = $message;
         $mail['subject'] = 'Replacement login information for ' . $toEmail;
         $mail['to'] = $toEmail;
         
