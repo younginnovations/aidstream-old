@@ -78,11 +78,9 @@ class User_UserController extends Zend_Controller_Action
                         $this->_helper->FlashMessenger->addMessage(array('message' => 'Further instructions have been sent to your e-mail address.'));
                         $this->_redirect('code-list/code-list-index/langid/1');
                     } catch (Exception $e) {
-
                         $this->_helper->FlashMessenger->addMessage(array('error' => 'Error in sending mail.'));
                     }//end of try catch
                 } else {
-
                     $this->_helper->FlashMessenger->addMessage(array('error' => 'Sorry, ' . $email . ' is not recognized as a valid e-mail address.'));
                 }//end of if
             } else {
@@ -97,7 +95,6 @@ class User_UserController extends Zend_Controller_Action
         $auth = Zend_Auth::getInstance();
         if ($auth->hasIdentity()) {
             $identity = Zend_Auth::getInstance()->getIdentity();
-//            print_r($identity->roles);exit;
             if ($identity->role == 'superadmin') {
                 $this->_redirect('admin/dashboard');
             } elseif ($identity->role == 'admin') {
@@ -460,7 +457,7 @@ class User_UserController extends Zend_Controller_Action
             if(isset($session->identity)){
                 $auth->getStorage()->write(unserialize($session->identity));
                 Zend_Session::namespaceUnset('superadmin');
-                $this->_redirect('/wep/dashborad');
+                $this->_redirect('/');
             } else {
                 $this->_redirect('/wep/dashboard');
             }
@@ -476,21 +473,37 @@ class User_UserController extends Zend_Controller_Action
                 $modelSupport = new Model_Support();
                 $modelSupport->saveSupportRequest($data);
                 
-                /*
+                $mailConfig = array(
+                       'ssl' => 'ssl',
+                       'port' => 465,
+                       'auth' => 'login',
+                       'username' => 'bhabishyat@gmail.com',
+                       'password' => ''
+                 );
+
+                $transport = new Zend_Mail_Transport_Smtp('smtp.gmail.com',$mailConfig);
+                Zend_Mail::setDefaultTransport($transport);
+
                 $mail = new Zend_Mail();
                 $mail->setBodyText($data['support_query'])
-                    ->setFrom($data['support_mail'])
+                    ->setFrom($data['support_mail'],$data['support_name'])
                     ->setSubject('Support needed');
                     
                 if($data['support_type'] == 'iati'){
-                    $to = 'anjesh@yipl.com.np';
+                    $to = 'bhabishyat.kc@yipl.com.np';
                 } else if($data['support_type'] == 'system'){
-                    $to = 'anjesh@yipl.com.np';
+                    $to = 'bhabishyat.kc@yipl.com.np';
                 }
-                //$mail->addTo($to);
+                $mail->addTo($to);
 
-                $result = $mail->send();
-                */
+                try {
+                    $mail->send();
+                } catch (Exception $e) {
+                    print "Mail could not be sent. The following error occured.<br>";
+                    print ($e);
+                    exit;
+                }
+                
                 $this->_helper->FlashMessenger->addMessage(array('message' =>'Your query has been sent'));
                 $this->_redirect('/');
             } else {
