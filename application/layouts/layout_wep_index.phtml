@@ -94,7 +94,7 @@
 				<table>
 				    <tr>
 					<td><label><? echo $form->username->renderLabel();?></label></td>
-					<td><label><? echo $form->password->renderLabel();?></label></td>
+					<td><label><? echo $form->password->renderLabel();?></label><div class='forgot-password'>(<?php echo $this->l('Forgot Password?', 'user/user/forgotpassword');?>)</div></td>
 				    </tr>
 				    <tr>
 					<td><? echo $form->username->renderViewHelper();?><span id='username-error' class="error" ></span></td>

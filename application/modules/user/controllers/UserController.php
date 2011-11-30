@@ -78,11 +78,9 @@ class User_UserController extends Zend_Controller_Action
                         $this->_helper->FlashMessenger->addMessage(array('message' => 'Further instructions have been sent to your e-mail address.'));
                         $this->_redirect('code-list/code-list-index/langid/1');
                     } catch (Exception $e) {
-
                         $this->_helper->FlashMessenger->addMessage(array('error' => 'Error in sending mail.'));
                     }//end of try catch
                 } else {
-
                     $this->_helper->FlashMessenger->addMessage(array('error' => 'Sorry, ' . $email . ' is not recognized as a valid e-mail address.'));
                 }//end of if
             } else {
