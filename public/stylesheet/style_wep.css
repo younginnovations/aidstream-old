@@ -1797,3 +1797,70 @@ table#list-org {
 	color: #009ada;
 	font-size: 12px;
 }
+
+/** popup theming **/
+.popup-wrapper
+{
+	display: none;
+}
+
+.popup-wrapper .fade
+{
+	background: url(images/popup-bg.png) left top;
+	opacity: 0.9;
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: block;
+	height: 100%;
+	width: 100%;
+	z-index: 9999;
+}
+
+.popup-wrapper .popup-content
+{
+	background-color: #fff;
+	position: fixed;
+	margin-left: -200px;
+	margin-top: -100px;
+	top: 30%;
+	left: 40%;
+	display: block;
+	width: 820px;
+	z-index: 99999;
+}
+
+.popup-wrapper .inner-content
+{
+	background: url(images/popup-content-bg.jpg) no-repeat 410px 38px;
+	padding: 38px;
+	position: relative;
+}
+
+.popup-wrapper .inner-content h1.page-title
+{
+	font-family: 'Amaranth',sans-serif;
+	margin: 0 0 20px;
+	padding-right: 300px;
+}
+
+.popup-wrapper .inner-content p
+{
+	margin: 10px 0 !important;
+}
+
+.popup-wrapper .inner-content p.gap
+{
+	padding-right: 300px;
+}
+
+.popup-wrapper .close-link
+{
+	background: url(images/close-button.png) no-repeat left top;
+	cursor: pointer;
+	height: 62px;
+	position: absolute;
+	top: -24px;
+	right: -30px;
+	width: 66px;
+}

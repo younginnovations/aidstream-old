@@ -414,6 +414,7 @@ function initialize() {
 	    }
 	},
 
+	//function to animate the support form
 	"#support-container .support" : {
 		"onclick" : function (evt) {
 			if(dojo.query(this).attr('class') == "support active")
@@ -449,9 +450,37 @@ function initialize() {
 		}
 	},
 
+	//function to animate the login form incase of error
 	"#index-flash-messages ul.error" : {
 		"found" : function(evt){
-			dojo.query('#login-form-container #user-login').attr('height','96px');
+			dojo.query('.login-parent').addClass('active');
+			dojo.query('#user-login #username').val('');
+			dojo.query('#user-login #password').val('');
+		    	dojo.animateProperty({
+				  node: dojo.byId('user-login'),
+				  duration: 500,
+				  properties: {
+				      height: {
+						start: "0",
+						end: "98"
+					}
+				  }
+				}).play();
+		}
+	},
+
+	//function to show popup in index page
+	"#about-morelink" : {
+		"onclick" : function(evt){
+			 dojo.query(".popup-wrapper").style('display' , 'block');
+			evt.preventDefault();
+		}
+	},
+
+	//function to close popup
+	".close-link" : {
+		"onclick" : function(evt){
+			dojo.query(".popup-wrapper").style('display' , 'none');
 		}
 	}
     });
