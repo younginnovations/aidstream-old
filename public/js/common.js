@@ -482,6 +482,22 @@ function initialize() {
 		"onclick" : function(evt){
 			dojo.query(".popup-wrapper").style('display' , 'none');
 		}
+	},
+
+	//Slide function when top links are clicked
+	".nav a" : {
+		"onclick" : function(evt){
+			var id = dojo.attr(this,'href');
+		    	/*dojo.animateProperty({
+				  node: dojo.byId('user-login'),
+				  duration: 500,
+				  properties: {
+				      scroll: id
+					}
+				  }
+				}).play();*/
+			//evt.preventDefault();
+		}
 	}
     });
     // End of dojo.behavior.add

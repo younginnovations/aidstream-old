@@ -35,6 +35,7 @@
 
 <body class="">
     <div id="wrapper">
+		<div id="support-holder">
 			<div id="support-container" class="container_12">
 				<div id="support-wrapper" class="grid_5 push_7">
 					<div class="support-form">
@@ -44,11 +45,13 @@
 					<div class="support">Support</div>
 				</div>
 			</div>
+		</div>
+			<div id="static-header">
 			    <div id="home-user-nav">
 				<div class="container_12">
-					<div class="nav_container">
 					<?$auth = Zend_Auth::getInstance();
 					    if ($auth->hasIdentity()):?>
+					<div class="nav_container">
 					    <?php $identity = $auth->getIdentity();?>
 					    <?php $session = new Zend_Session_Namespace('superadmin')?>
 					    <?php if($session->identity): ?>
@@ -62,8 +65,8 @@
 						<?php echo $this->l(' Dashborad', 'wep/dashborad');?>
 						<?php print " , (". $this->l('Logout', 'user/user/logout') . ")";?>
 					    <?php endif;?>
-					<?endif;?>
 					</div>
+					<?endif;?>
 				</div>
 			    </div>
         <div id="header">
@@ -76,9 +79,9 @@
                         <!--<div class="support">Support</div>-->
                         <div class="nav">
                             <ul class="menu">
-                                <li><a href="#Contacts"><span class="title">Contact</span><br /><span>Comments,Suggestions</span></a></li>
-                                <li><a href="#How-to-use-AidStream"><span class="title">How</span><br /><span>How to use AidStream?</span></a></li>
-                                <li><a href="#What-is-AidStream"><span class="title">What</span><br /><span>What is AidStream?</span></a></li>
+                                <li><a href="#contact-us"><span class="title">Contact</span><br /><span>Comments,Suggestions</span></a></li>
+                                <li><a href="#how-as"><span class="title">How</span><br /><span>How to use AidStream?</span></a></li>
+                                <li><a href="#what-as"><span class="title">What</span><br /><span>What is AidStream?</span></a></li>
                             </ul>
                         </div><!-----Close nav------->
                     </div>
@@ -117,7 +120,7 @@
         </div><!--header closed-->
 
         <div class="clear"></div>
-
+	</div>
         <div id="content-section"><!--Start content-section--->
                 <?php if ($this->placeholder('title') != ""):?>
                 <h1><?php print $this->placeholder('title')?></h1>

@@ -239,8 +239,11 @@ a.login-parent
 /**********start what is aidstream?************/
 #what-as
 {
-	background: url(../stylesheet/images/what-as-bg.gif) no-repeat center top #ededed;
-	min-height:509px;
+	background: url(../stylesheet/images/what-as-bg.gif) no-repeat center 65px #ededed;
+	/*min-height:509px;
+	height: auto;
+	height: 509px;*/
+	padding-bottom: 65px;
 	width:100%;
 }
 p.pragraph-first
@@ -262,8 +265,11 @@ p.paragraph-second
 /**********start how to use aidstream?************/
 #how-as
 {
-	background:url(../stylesheet/images/how-as-bg.gif) no-repeat center top #ededed;
-	min-height:616px;
+	background:url(../stylesheet/images/how-as-bg.gif) no-repeat center 30px #ededed;
+	/*min-height:616px;
+	height: auto;
+	height: 616px;*/
+	padding-bottom: 30px
 	width:100%;
 }
 .registration
@@ -319,8 +325,11 @@ p.paragraph-second
 /**********start Contact us************/
 #contact-us
 {
-	background:url(../stylesheet/images/contact-bg.gif) no-repeat center top #ededed;
-	min-height:747px;
+	background:url(../stylesheet/images/contact-bg.gif) no-repeat center #ededed;
+	/*min-height:747px;
+	height: auto;
+	height: 747px;*/
+	padding-bottom: 20px;
 	width:100%
 }
 #contact-us input
@@ -1440,6 +1449,7 @@ table.activity-list-table tr:hover {
 
 #contain table.activity-list-table .checked,
 .state-display .checked{
+
 	color: #009ADA;
 }
 
@@ -1674,13 +1684,19 @@ table#list-org {
 /**************Close Footer section****************/
 
 /** css for support form **/
+#support-holder
+{
+	position: fixed;
+	width: 100%;
+}
+
 #support-container
 {
 	font-family: 'Amaranth',sans-serif;
 	position: relative;
 	top: 0;
 	left: 0;
-	z-index: 100;
+	z-index: 1000;
 }
 
 #support-wrapper
@@ -1867,7 +1883,7 @@ table#list-org {
 .popup-wrapper .popup-content
 {
 	background-color: #fff;
-	position: fixed;
+	position: absolute;
 	margin-left: -200px;
 	margin-top: -100px;
 	top: 30%;
@@ -1905,11 +1921,11 @@ table#list-org {
 {
 	background: url(images/close-button.png) no-repeat left top;
 	cursor: pointer;
-	height: 62px;
+	height: 67px;
 	position: absolute;
 	top: -24px;
 	right: -30px;
-	width: 66px;
+	width: 75px;
 }
 
 /** Navigation after login**/
@@ -1924,4 +1940,18 @@ table#list-org {
 	color: #7b7c7c;
 	padding: 5px 125px 5px 0;
 	text-align: right;
+}
+
+/** static header **/
+#static-header
+{
+	position: fixed;
+	width: 100%;
+	z-index: 100;
+}
+
+#what-as, #how-as ,#contact-us
+{
+	padding-top: 100px;
+	overflow: hidden;
 }
