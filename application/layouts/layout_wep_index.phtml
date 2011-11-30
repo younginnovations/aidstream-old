@@ -45,6 +45,25 @@
 				</div>
 			</div>
         <div id="header">
+	    <div id="home-user-nav">
+		<?$auth = Zend_Auth::getInstance();
+		    if ($auth->hasIdentity()):?>
+		    <?php $identity = $auth->getIdentity();?>
+		    <?php $session = new Zend_Session_Namespace('superadmin')?>
+		    <?php if($session->identity): ?>
+			<?php echo $this->l('Switch back', 'user/user/switch-back')?>
+			You are masquerading as  <?php echo $this->l($identity->user_name, 'user/user/myaccount',array('attributes' => array('class' => 'user-name')));?>
+			|
+			<?php echo $this->l('Dashborad ', 'wep/dashborad')?>
+			<?php print " , (". $this->l('Logout', 'user/user/logout') . ")";?>
+		    <?php else : ?>
+			You are logged in as  <?php echo $this->l($identity->user_name, 'user/user/myaccount',array('attributes' => array('class' => 'user-name')));?> |
+			<?php echo $this->l(' Dashborad', 'wep/dashborad');?>
+			<?php print " , (". $this->l('Logout', 'user/user/logout') . ")";?>
+		    <?php endif;?>
+		<?endif;?>
+	    </div>
+	    
             <a name="top"></a>
             <div id="nav-logo-section">
                 <div class="container_12">
