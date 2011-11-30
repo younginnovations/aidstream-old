@@ -26,9 +26,7 @@ class IndexController extends Zend_Controller_Action
                 $contact = new Model_Contact;
               	$contact->insert($data);
               	
-                $mail['subject'] = 'Feedback for Aidtype received';
-                $mail['to'] = 'bhabishyat.kc@yipl.com.np';
-                
+                $mail['subject'] = 'Feedback for Aidtype received';                
 
                 $mail['message'] = 'The following user provided feedback:';
                 $mail['message'] .=  "\nName: ".$data['name'];

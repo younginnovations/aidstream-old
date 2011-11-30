@@ -26,8 +26,14 @@ class Model_Mail
         $mail = new Zend_Mail();
         $mail->setBodyText($mailInfo['message'])
             ->setFrom($config->email->fromAddress,$config->email->fromName)
-            ->setSubject($mailInfo['subject'])
-            ->addTo($mailInfo['to']);
+            ->setSubject($mailInfo['subject']);
+        
+        if($mailInfo['to']){
+            $mail->addTo($mailInfo['to']);
+        } else {
+            $mail->addTo($config->email->contact);
+        }
+        
         try {
             $mail->send();
             return true;
