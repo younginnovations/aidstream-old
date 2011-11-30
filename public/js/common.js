@@ -3,6 +3,7 @@ dojo.require('dojo.NodeList-traverse');
 dojo.require('dojo.behavior');
 dojo.require('dijit.Dialog');
 dojo.require('dijit.form.Button');
+dojo.require('dijit.form.Select')
 //dojo.require('dijit.form.CheckBox');
 dojo.require('dijit.form.DateTextBox');
 //dojo.require("dojo.date.locale");

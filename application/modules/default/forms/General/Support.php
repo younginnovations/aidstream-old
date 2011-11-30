@@ -26,6 +26,7 @@ class Form_General_Support extends App_Form
         $related = array('iati'=>'Iati','system'=>'System');
         $form['support_type'] = new Zend_Form_Element_Select('support_type');
         $form['support_type']->setLabel('Related To')
+            ->setAttrib('dojoType','dijit.form.Select')
             ->setMultioptions($related);
         
         $form['support_submit'] = new Zend_Form_Element_Submit('support_submit');
