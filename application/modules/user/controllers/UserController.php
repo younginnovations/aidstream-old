@@ -448,7 +448,7 @@ Thank you.
             if(isset($session->identity)){
                 $auth->getStorage()->write(unserialize($session->identity));
                 Zend_Session::namespaceUnset('superadmin');
-                $this->_redirect('/');
+                $this->_redirect('/admin/dashboard');
             } else {
                 $this->_redirect('/wep/dashboard');
             }
