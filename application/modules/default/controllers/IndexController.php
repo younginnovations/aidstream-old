@@ -26,7 +26,7 @@ class IndexController extends Zend_Controller_Action
                 $contact = new Model_Contact;
               	$contact->insert($data);
               	
-                $mail['subject'] = 'Feedback for Aidtype received';                
+                $mail['subject'] = 'Feedback for AidStream received';                
 
                 $mail['message'] = 'The following user provided feedback:';
                 $mail['message'] .=  "\nName: ".$data['name'];
@@ -38,6 +38,9 @@ class IndexController extends Zend_Controller_Action
                	$this->_helper->FlashMessenger->addMessage(array('message' => 'Thank you for the message.'));
   				$this->_redirect('#contacts');
   				            	
+            } else {
+            	$this->_helper->FlashMessenger->addMessage(array('error' => 'Please provide valid data'));
+            	$this->_redirect('#contacts');
             }
         }    
     }
