@@ -24,7 +24,8 @@
     ?>
     
     <?php 
-	//$this->headScript()->prependFile($this->baseUrl() . '/js/jquery-1.3.2.min.js', $type = 'text/javascript');
+	$this->headScript()->prependFile($this->baseUrl() . '/js/jquery-1.3.2.min.js', $type = 'text/javascript');
+	$this->headScript()->appendFile($this->baseUrl() . '/js/scroll-content.js', $type = 'text/javascript');
         //$this->headScript()->appendFile($this->baseUrl() . '/js/ui.datepicker.js', $type = 'text/javascript');
 	//$this->headScript()->appendFile($this->baseUrl() . '/js/backtotop.js', $type = 'text/javascript');
      $this->headScript()->appendFile($this->baseUrl() . '/js/common.js', $type = 'text/javascript');
@@ -33,7 +34,7 @@
     ?>
 </head>
 
-<body class="">
+<body id="aidstream-homepage">
     <div id="wrapper">
 		<div id="support-holder">
 			<div id="support-container" class="container_12">
@@ -116,21 +117,21 @@
                 </div>
                 <div class="clear"></div>
             </div><!---Close login-section--->
-            <div class="clear"></div>
-        </div><!--header closed-->
-
-        <div class="clear"></div>
-	</div>
-        <div id="content-section"><!--Start content-section--->
-                <?php if ($this->placeholder('title') != ""):?>
-                <h1><?php print $this->placeholder('title')?></h1>
-                <? endif;?>
-                <div id="index-flash-messages">
+			<div id="index-flash-messages">
 			<div class="message-wrapper container_12">
 			<?php $flashMessenger = $this->flashMessages();
                           print $flashMessenger->getMessages();?>
 			</div>
                 </div>
+            <div class="clear"></div>
+        </div><!--header closed-->
+
+        <div class="clear"></div>
+	</div>
+        <div id="content-section" dojotype="dijit.layout.ContentPane"><!--Start content-section--->
+                <?php if ($this->placeholder('title') != ""):?>
+                <h1><?php print $this->placeholder('title')?></h1>
+                <? endif;?>
                 <?php print $this->layout()->content;?>
             <div class="clear"></div>
         </div><!---Close content-section-->

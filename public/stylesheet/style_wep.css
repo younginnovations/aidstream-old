@@ -30,10 +30,17 @@ p
 }
 body
 {
-	background:url(../images/iati-wep/wep-bg.jpg) repeat-x center top #d3d3d3 !important;
+	/*background:url(../images/iati-wep/wep-bg.jpg) repeat-x center top #d3d3d3 !important;*/
+	background:url(images/white-brush-bg.jpg) repeat-x center top #ededed !important;
 	margin:0px;
 	padding:0 0 25px 0;
 }
+
+body#aidstream-homepage
+{
+	padding: 0;
+}
+
 #wapper
 {
 	margin:0px;
@@ -236,16 +243,30 @@ a.login-parent
 {
 	color:#008cff;
 }
+
+/** ---- Homepage ---**/
+#aidstream-homepage #content-section, #aidstream-homepage #content {
+	background: none;
+}
+
+
+
+
 /**********start what is aidstream?************/
 #what-as
 {
-	background: url(../stylesheet/images/what-as-bg.gif) no-repeat center 65px #ededed;
+	/*background: url(../stylesheet/images/what-as-bg.gif) no-repeat center 65px #ededed;*/
 	/*min-height:509px;
 	height: auto;
 	height: 509px;*/
 	padding-bottom: 65px;
 	width:100%;
 }
+
+.about-content {
+	background: url('images/what-is-bg.png') no-repeat right center;
+}
+
 p.pragraph-first
 {
 	font-size:18px;
@@ -265,13 +286,18 @@ p.paragraph-second
 /**********start how to use aidstream?************/
 #how-as
 {
-	background:url(../stylesheet/images/how-as-bg.gif) no-repeat center 30px #ededed;
+	/*background:url(../stylesheet/images/how-as-bg.gif) no-repeat center 30px #ededed;*/
 	/*min-height:616px;
 	height: auto;
 	height: 616px;*/
 	padding-bottom: 30px
 	width:100%;
 }
+
+.how-content {
+	background: url('images/how-to-bg.png') no-repeat right center;
+}
+
 .registration
 {
 	background:url(../stylesheet/images/bottom-1.png) no-repeat top left;
@@ -325,13 +351,18 @@ p.paragraph-second
 /**********start Contact us************/
 #contact-us
 {
-	background:url(../stylesheet/images/contact-bg.gif) no-repeat center #ededed;
+	/*background:url(../stylesheet/images/contact-bg.gif) no-repeat center #ededed;*/
 	/*min-height:747px;
 	height: auto;
 	height: 747px;*/
 	padding-bottom: 20px;
 	width:100%
 }
+
+.contact-content {
+	background: url('images/contact-bg.png') no-repeat right center;
+}
+
 #contact-us input
 {
 	background:#cddadc;
@@ -340,6 +371,21 @@ p.paragraph-second
 	padding:10px 5px;
 	width:380px;
 }
+
+#contact-us #send
+{
+	background: url(images/contact-send.png) no-repeat 0 -46px;
+	cursor: pointer;
+	width: 160px;
+	height: 46px;
+	font-size: 0;
+}
+
+#contact-us #send:hover
+{
+	background-position: 0 0;
+}
+
 #contact-us textarea
 {
 	background:#cddadc;
@@ -1708,7 +1754,7 @@ table#list-org {
 
 #support-container .support
 {
-	background: url("../stylesheet/images/support-bg.png") no-repeat scroll right top transparent;
+	background: url("../stylesheet/images/support-bg.png") no-repeat 0 0 transparent;
    	color: #E8F8D7;
 	cursor: pointer;
 	float: right;
@@ -1722,9 +1768,19 @@ table#list-org {
 	z-index: 100;
 }
 
+#support-container .support:hover,
+#support-container .active
+{
+	background-position: 0 -55px;
+}
+
+
 #support-container .support-form
 {
 	background-color: #6e9743;
+	-moz-box-shadow: -1px -3px 4px #000;
+	-webkit-box-shadow: -1px -3px 4px #000;
+	box-shadow: -1px -3px 4px #000;
 	border-top: 17px solid #5a7240;
 	padding: 29px 25px;
 }
@@ -1883,6 +1939,9 @@ table#list-org {
 .popup-wrapper .popup-content
 {
 	background-color: #fff;
+	-moz-box-shadow: 2px 2px 8px #000;
+	-webkit-box-shadow: 2px 2px 8px #000;
+	box-shadow: 2px 2px 8px #000;
 	position: absolute;
 	margin-left: -200px;
 	margin-top: -100px;
@@ -1896,6 +1955,9 @@ table#list-org {
 .popup-wrapper .inner-content
 {
 	background: url(images/popup-content-bg.jpg) no-repeat 410px 38px;
+	-moz-box-shadow: -2px -2px 8px #000;
+	-webkit-box-shadow: -2px -2px 8px #000;
+	box-shadow: -2px -2px 8px #000;
 	padding: 38px;
 	position: relative;
 }
@@ -1954,4 +2016,15 @@ table#list-org {
 {
 	padding-top: 100px;
 	overflow: hidden;
+}
+
+/** Flash messages**/
+#index-flash-messages
+{
+	background-color: #F3F3F3;
+}
+
+#index-flash-messages li
+{
+	margin: 0;
 }

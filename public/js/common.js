@@ -8,6 +8,8 @@ dojo.require('dijit.form.Select')
 dojo.require('dijit.form.DateTextBox');
 //dojo.require("dojo.date.locale");
 dojo.require('dijit.TooltipDialog');
+dojo.require('dojox.fx.scroll');
+dojo.require('dijit.layout.ContentPane');
 /**
  * @todo some comments on what is required for what
  * @param evt
@@ -388,6 +390,7 @@ function initialize() {
 				  }
 				}).play();
 		}
+		evt.preventDefault();
 	    }
 	},
 	
@@ -482,23 +485,22 @@ function initialize() {
 		"onclick" : function(evt){
 			dojo.query(".popup-wrapper").style('display' , 'none');
 		}
-	},
+	}//,
 
-	//Slide function when top links are clicked
-	".nav a" : {
+	//close support and login forms when click else were
+	/*"body" : {
 		"onclick" : function(evt){
-			var id = dojo.attr(this,'href');
-		    	/*dojo.animateProperty({
-				  node: dojo.byId('user-login'),
-				  duration: 500,
-				  properties: {
-				      scroll: id
-					}
-				  }
-				}).play();*/
-			//evt.preventDefault();
+			console.log(dojo.query('.support'));
+			if(dojo.query('.support').parents())
+			{
+				console.log('found support');
+			}
+			else
+			{
+				console.log('body clicked');
+			}
 		}
-	}
+	}*/
     });
     // End of dojo.behavior.add
     dojo.behavior.apply();
