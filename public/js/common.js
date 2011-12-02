@@ -67,7 +67,7 @@ var messageDialog = function (title, msg) {
 }
 //login slide up
 var loginSlide = function (target) {
-		dojo.query()
+		dojo.query('#login-hidden-overlay').style('display', 'none');
 		dojo.query(target).removeClass('active');
 				  dojo.animateProperty({
 				  node: dojo.byId('user-login'),
@@ -83,6 +83,7 @@ var loginSlide = function (target) {
 
 //login slide down
 var loginSlideDown = function(target) {
+			dojo.query('#login-hidden-overlay').style('display', 'block');
 			dojo.query(target).addClass('active');
 		    	dojo.animateProperty({
 				  node: dojo.byId('user-login'),
@@ -457,8 +458,10 @@ function initialize() {
 	".login-parent" : {
 	    "onclick" : function (evt) {
 		if(dojo.query(this).attr('class') == "login-parent active"){
+			//dojo.query('#login-hidden-overlay').style('display', 'block');
 			loginSlide(this);
 		} else {
+			//dojo.query('#login-hidden-overlay').style('display', 'none');
 			loginSlideDown(this);
 		}
 		evt.preventDefault();
@@ -535,23 +538,22 @@ function initialize() {
 		}
 	},
 
-	//Blur on support textarea fields
-	/*"#support-form #support_query" : {
-		"onblur" : function (evt) {
-			if(dojo.query(this).attr('class') == 'error')
-			{
-				dojo.query(this).removeClass('error');
-				dojo.query(this).val('');
-			}
-		}
-	},*/
-
 	//function to close support form when clicked else were
 	"#hidden-overlay" : {
 		"onclick" : function(evt) {
 			if((dojo.query("#hidden-overlay").style('display')[0]) == 'block')
 			{
 				supportDown('.support');
+			}
+		}
+	},
+
+	//function to close support form when clicked else were
+	"#login-hidden-overlay" : {
+		"onclick" : function(evt) {
+			if((dojo.query("#login-hidden-overlay").style('display')[0]) == 'block')
+			{
+				loginSlide('.login-parent');
 			}
 		}
 	},

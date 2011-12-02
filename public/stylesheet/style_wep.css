@@ -218,7 +218,7 @@ table {
 
 a.login-parent
 {
-	background: url(../stylesheet/images/login-parent-icon.png) no-repeat center left #d5e0e4;
+	background: url(../stylesheet/images/login-icon.png) no-repeat 0 4px #d5e0e4;
 	border-radius: 0px 0px 4px 4px;
 	color:#575a5b;
 	font-size:14px;
@@ -230,6 +230,11 @@ a.login-parent
 	text-decoration:none;
 	z-index:10;
 	
+}
+
+#login-form-section .active
+{
+	background-position: 0 -20px;
 }
 
 /***Close header section***/
@@ -386,10 +391,10 @@ p.paragraph-second
 
 #contact-us #send
 {
-	background: url(images/contact-send.png) no-repeat 0 -46px;
+	background: url(images/contact-send.png) no-repeat 0 -47px;
 	cursor: pointer;
 	width: 160px;
-	height: 46px;
+	height: 45px;
 	font-size: 0;
 }
 
@@ -1773,7 +1778,7 @@ table#list-org {
 	font-size: 14px;
 	line-height: 39px;
    	 width: 72px;
-	height: 55px;
+	height: 54px;
 	padding-left: 25px;
 	position: absolute;
 	right: 0;
@@ -2078,9 +2083,20 @@ table#list-org {
 	display: none;
 	    height: 100%;
 	    left: 0;
-	    opacity: 0.9;
 	    position: fixed;
 	    top: 0;
 	    width: 100%;
 	    z-index: 999;
+}
+
+/** Login hidden overlay **/
+#login-hidden-overlay
+{
+	display: none;
+	    height: 100%;
+	    left: 0;
+	    position: fixed;
+	    top: 0;
+	    width: 100%;
+	    z-index: 99;
 }

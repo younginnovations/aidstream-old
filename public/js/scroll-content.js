@@ -10,20 +10,20 @@ $(document).ready(function() {
 	var what = $('#What-is-AidStream').height();
 	var how = what + $('#How-to-use-AidStream').height();
 
-	$(document).scroll(function() {
-        if(($(this).scrollTop() >= what) && ($(this).scrollTop() < how)) {
+	$(window).scroll(function() {
+		if(($(this).scrollTop() >= what) && ($(this).scrollTop() < how)) {
 			removeActive();
-           $("#how-link").addClass('active');
-        }
-	else if($(this).scrollTop() >= how) {
-		removeActive();
-           $("#contact-link").addClass('active');
-        }
-	else{
-		removeActive();
-           $("#what-link").addClass('active');
-	}
-    });
+		   $("#how-link").addClass('active');
+		}
+		else if($(this).scrollTop() >= how) {
+			removeActive();
+		   $("#contact-link").addClass('active');
+		}
+		else{
+			removeActive();
+		   $("#what-link").addClass('active');
+		}
+    	});
 })
 
 function removeActive()
