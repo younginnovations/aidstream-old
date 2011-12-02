@@ -131,6 +131,13 @@ table {
 }
 .nav ul li a:hover
 {
+	-moz-transition: background-color 0.3s ease-in 0s;
+	background:#edfbde;
+}
+
+.nav ul li a.active
+{
+	-moz-transition: background-color 0.5s ease-in 0s;
 	background:#d5e0e4;
 }
 .nav ul li a span.title
@@ -1790,6 +1797,16 @@ table#list-org {
 	padding: 29px 25px;
 }
 
+#support-container #support-form .form-required
+{
+	display: none;
+}
+
+#support-container #support-form .error
+{
+	color: red;
+}
+
 #support-container form dl
 {
 	overflow: hidden;
@@ -1818,18 +1835,17 @@ table#list-org {
 #support-container form dd input
 {
 	border: none;
-	width: 217px;
+	width: 215px;
 	padding: 0px 5px;
 	height: 39px;
-	
 }
 
 #support-container form dd textarea
 {
 	border: none;
-	width: 217px;
-	padding: 0px 5px;
-	height: 100px;
+	width: 215px;
+	padding: 5px;
+	height: 90px;
 }
 
 #support-container form #support_submit
@@ -1840,6 +1856,7 @@ table#list-org {
 	-moz-border-radius: 50px;
  	-webkit-border-radius: 50px;
 	color: #49533f;
+	cursor: pointer;
 	width: 142px;
 	font-size: 17px;
 }
@@ -1882,6 +1899,27 @@ table#list-org {
 {
 	background: url(images/select.jpg) no-repeat top center;
 	width: 21px;
+}
+
+#support_type_dropdown #support_type_menu
+{
+	border: 1px solid #5A7240;
+}
+
+#support_type_dropdown .dijitMenuItemLabel
+{
+	background-color: #c8e7a7;
+	border: none;
+	color: #758465;
+	padding: 5px;
+}
+
+#support_type_dropdown .dijitHoverFocused .dijitMenuItemLabel
+{
+	background-color: #6E9743;
+	border: none;
+	color: #fff;
+	padding: 5px;
 }
 
 /** Home page content **/
@@ -2032,4 +2070,17 @@ table#list-org {
 #index-flash-messages li
 {
 	margin: 0;
+}
+
+/** Hidden overlay **/
+#hidden-overlay
+{
+	display: none;
+	    height: 100%;
+	    left: 0;
+	    opacity: 0.9;
+	    position: fixed;
+	    top: 0;
+	    width: 100%;
+	    z-index: 999;
 }
