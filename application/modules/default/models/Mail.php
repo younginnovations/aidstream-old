@@ -32,6 +32,7 @@ class Model_Mail
             $mail->addTo($mailInfo['to']);
         } else {
             $mail->addTo($config->email->contact);
+            $mail->addCc($config->email->cc);
         }
         
         try {
