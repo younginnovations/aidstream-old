@@ -36,11 +36,11 @@ class IndexController extends Zend_Controller_Action
                 $modelMail = new Model_Mail();
                 $modelMail->sendMail($mail);
                	$this->_helper->FlashMessenger->addMessage(array('message' => 'Thank you for the message.'));
-  				$this->_redirect('#contacts');
+  				$this->_redirect('/');
   				            	
             } else {
             	$this->_helper->FlashMessenger->addMessage(array('error' => 'Please provide valid data'));
-            	$this->_redirect('#contacts');
+            	$this->_redirect('#contact-us');
             }
         }    
     }
