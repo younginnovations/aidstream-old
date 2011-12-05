@@ -26,8 +26,8 @@ class Form_General_RegistryInfo extends App_Form
         
         $this->addDisplayGroup( array('publishing_type'),
                                 'publishing_info',
-                                array('legend' => 'Publishing type',            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'activity-list'))
-)
+                                array('legend' => 'Publishing type',
+                                )
                             );
         
         $this->addDisplayGroup(

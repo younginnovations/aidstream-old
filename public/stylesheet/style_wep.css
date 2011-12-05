@@ -1692,6 +1692,9 @@ table#list-org {
 #iati_activity_change_status #change_state-label,
 #iati_activity_status #status-label,
 #iati_activity_status #ids-label,
+#register_registry_info-label,
+#user_info-label,
+#organisation_info-label,
 #iati_activity_status #change-label{
 	display: none;
 }

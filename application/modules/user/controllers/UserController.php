@@ -26,31 +26,43 @@ class User_UserController extends Zend_Controller_Action
         $formData = $this->getRequest()->getPost();
         if ($this->getRequest()->isPost()) {
 
-            if ($form->isValid($formData)) {
-
-                $userCheck = new User_Model_DbTable_User();
-                $username = $form->getValue('username');
-                $email = $form->getValue('email');
-                $mobile = $form->getValue('mobile');
-                $result = $userCheck->checkUnique($email);
-                if ($result == TRUE) {
-                    $password = $form->getValue('password');
-                    $data = array();
-                    $data['user_name'] = $form->getValue('username');
-                    $data['email'] = $form->getValue('email');
-                    $data['password'] = md5($password);
+            if ($form->isValid($formData)) {                
+                $data = array();
+                $data['email'] = $formData['email'];
+                $data['first_name'] = $formData['first_name'];
+                $data['middle_name'] = $formData['middle_name'];
+                $data['last_name'] = $formData['last_name'];
+                $data['password'] = $formData['password'];
+                $data['org_name'] = $formData['org_name'];
+                $data['org_address'] = $formData['org_address'];
+                $data['api_key'] = $formData['api_key'];
+                $data['publisher_id'] = $formData['publisher_id'];      
                     
-                    // role id has been set to 2 so that it could take user as role from table role this needs to be changed as needed
-                    $data['role_id'] = 2;
-                    $user = new User_Model_DbTable_User();
-                    $user_id = $user->insert($data);
-                    $this->_redirect('user/user/login');
-                } else {
-                    $this->_helper->FlashMessenger->addMessage(array('error' => 'User already exist. Please enter different email address or username'));
-                }
+                $userRegister = new User_Model_DbTable_UserRegister();
+                $requId = $userRegister->saveRegisterInfo($data);
+                
+                $mail['subject'] = 'User registration request received';                
+
+                $mail['message'] = "The following user registered for aidstream:\n";
+                $mail['message'] .=  "\nOrganisation Name: ".$data['org_name'];
+                $mail['message'] .=  "\nOrganisation Address: ".$data['org_address'];
+                $mail['message'] .=  "\nFirst Name: ".$data['first_name'];
+                $mail['message'] .=  "\nMiddle Name: ".$data['middle_name'];
+                $mail['message'] .=  "\nLast Name: ".$data['last_name'];
+                $mail['message'] .=  "\nEmail: ".$data['email'];
+                $mail['message'] .=  "\nPassword: ".$data['password'];
+                $mail['message'] .=  "\nPublisher Id: ".$data['publisher_id'];
+                $mail['message'] .=  "\nAPI Key: ".$data['api_key'];
+                
+                $modelMail = new Model_Mail();
+                $modelMail->sendMail($mail);
+                
+                $this->_helper->FlashMessenger->addMessage(array('message' => 'Your registration request has been received.'));
+                $this->_redirect('/');
+                
             }//end of if
         }
-        $this->view->placeholder('title')->set('Sign Up');
+        $this->view->placeholder('title')->set('Register user');
     }
 
     /**
