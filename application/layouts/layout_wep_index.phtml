@@ -20,11 +20,12 @@
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style_wep.css');
     
              print $this->headLink();
-    
+    			
     ?>
     
     <?php 
 	$this->headScript()->prependFile($this->baseUrl() . '/js/jquery-1.3.2.min.js', $type = 'text/javascript');
+	$this->headScript()->appendFile($this->baseUrl() . '/js/jquery.easing.1.3.js', $type = 'text/javascript');
 	$this->headScript()->appendFile($this->baseUrl() . '/js/scroll-content.js', $type = 'text/javascript');
         //$this->headScript()->appendFile($this->baseUrl() . '/js/ui.datepicker.js', $type = 'text/javascript');
 	//$this->headScript()->appendFile($this->baseUrl() . '/js/backtotop.js', $type = 'text/javascript');
@@ -36,6 +37,8 @@
 
 <body id="aidstream-homepage">
     <div id="wrapper">
+		<div id="hidden-overlay"></div>
+		<div id="login-hidden-overlay"></div>
 		<div id="support-holder">
 			<div id="support-container" class="container_12">
 				<div id="support-wrapper" class="grid_5 push_7">
@@ -80,9 +83,9 @@
                         <!--<div class="support">Support</div>-->
                         <div class="nav">
                             <ul class="menu">
-                                <li><a href="#contact-us"><span class="title">Contact</span><br /><span>Comments,Suggestions</span></a></li>
-                                <li><a href="#how-as"><span class="title">How</span><br /><span>How to use AidStream?</span></a></li>
-                                <li><a href="#what-as"><span class="title">What</span><br /><span>What is AidStream?</span></a></li>
+                                <li><a href="#contact-us" id="contact-link"><span class="title">Contact</span><br /><span>Comments,Suggestions</span></a></li>
+                                <li><a href="#how-as" id="how-link"><span class="title">How</span><br /><span>How to use AidStream?</span></a></li>
+                                <li><a href="#what-as" class="active" id="what-link"><span class="title">What</span><br /><span>What is AidStream?</span></a></li>
                             </ul>
                         </div><!-----Close nav------->
                     </div>

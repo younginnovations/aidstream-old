@@ -8,8 +8,6 @@ dojo.require('dijit.form.Select')
 dojo.require('dijit.form.DateTextBox');
 //dojo.require("dojo.date.locale");
 dojo.require('dijit.TooltipDialog');
-dojo.require('dojox.fx.scroll');
-dojo.require('dijit.layout.ContentPane');
 /**
  * @todo some comments on what is required for what
  * @param evt
@@ -66,6 +64,100 @@ var messageDialog = function (title, msg) {
     });
     
     msgDlg.show();
+}
+//login slide up
+var loginSlide = function (target) {
+		dojo.query('#login-hidden-overlay').style('display', 'none');
+		dojo.query(target).removeClass('active');
+				  dojo.animateProperty({
+				  node: dojo.byId('user-login'),
+				  duration: 300,
+				  properties: {
+				      height: {
+						start: "98",
+						end: "0"
+					}
+				  }
+				}).play();
+}
+
+//login slide down
+var loginSlideDown = function(target) {
+			dojo.query('#login-hidden-overlay').style('display', 'block');
+			dojo.query(target).addClass('active');
+		    	dojo.animateProperty({
+				  node: dojo.byId('user-login'),
+				  duration: 500,
+				  properties: {
+				      height: {
+						start: "0",
+						end: "98"
+					}
+				  }
+				}).play();
+}
+//support form goes down
+var supportUp = function (target) {
+				dojo.query("#hidden-overlay").style('display', 'block');
+				dojo.query(target).addClass('active');
+				dojo.behavior.apply();
+				dojo.animateProperty({
+				  node: dojo.byId("support-wrapper"),
+				  duration: 500,
+				  properties: {
+				      top: {
+						start: "-379",
+						end: "0"
+					}
+				  }
+				}).play();
+}
+//support form goes up
+var supportDown = function (target) {
+				dojo.query("#hidden-overlay").style('display', 'none');
+				dojo.query(target).removeClass('active');
+				dojo.behavior.apply();
+				dojo.animateProperty({
+				  node: dojo.byId("support-wrapper"),
+				  duration: 500,
+				  properties: {
+				      top: {
+						start: "0",
+						end: "-379"
+					}
+				  }
+				}).play();
+}
+
+//validate support
+var validateSupport = function(){
+			flag = 1;
+			if(dojo.query('#support_name').val() == "")
+			{
+				flag =0;
+				dojo.query('#support_name').addClass('error');
+				dojo.query('#support_name').val('Name cannot be empty');
+			}
+			if(dojo.query('#support_email').val() == "")
+			{
+				flag = 0;
+				dojo.query('#support_email').addClass('error');
+				dojo.query('#support_email').val('Email cannot be empty');
+			}
+			if(dojo.query('#support_query').val() == "")
+			{
+				flag = 0;
+				dojo.query('#support_query').addClass('error');
+				dojo.query('#support_query').val('Query cannot be empty');
+			}
+			if(flag == 1)
+			{
+			if((dojo.query('#support_name').attr('class') == 'error') || (dojo.query('#support_email').attr('class') == 'error') || (dojo.query('#support_query').attr('class') == 'error'))
+				{
+					flag = 0;
+				}
+			}
+			return flag;
 }
 
 function initialize() {
@@ -366,29 +458,11 @@ function initialize() {
 	".login-parent" : {
 	    "onclick" : function (evt) {
 		if(dojo.query(this).attr('class') == "login-parent active"){
-				dojo.query(this).removeClass('active');
-				  dojo.animateProperty({
-				  node: dojo.byId('user-login'),
-				  duration: 300,
-				  properties: {
-				      height: {
-						start: "98",
-						end: "0"
-					}
-				  }
-				}).play();
+			//dojo.query('#login-hidden-overlay').style('display', 'block');
+			loginSlide(this);
 		} else {
-			dojo.query(this).addClass('active');
-		    	dojo.animateProperty({
-				  node: dojo.byId('user-login'),
-				  duration: 500,
-				  properties: {
-				      height: {
-						start: "0",
-						end: "98"
-					}
-				  }
-				}).play();
+			//dojo.query('#login-hidden-overlay').style('display', 'none');
+			loginSlideDown(this);
 		}
 		evt.preventDefault();
 	    }
@@ -422,33 +496,64 @@ function initialize() {
 		"onclick" : function (evt) {
 			if(dojo.query(this).attr('class') == "support active")
 			{
-				dojo.query(this).removeClass('active');
-				dojo.behavior.apply();
-				dojo.animateProperty({
-				  node: dojo.byId("support-wrapper"),
-				  duration: 500,
-				  properties: {
-				      top: {
-						start: "0",
-						end: "-379"
-					}
-				  }
-				}).play();
+				supportDown(this);
 			}
 			else
 			{
-				dojo.query(this).addClass('active');
-				dojo.behavior.apply();
-				dojo.animateProperty({
-				  node: dojo.byId("support-wrapper"),
-				  duration: 500,
-				  properties: {
-				      top: {
-						start: "-379",
-						end: "0"
-					}
-				  }
-				}).play();
+				supportUp(this);
+			}
+		}
+	},
+
+	//validate submit form
+	"#support-form #support_submit" : {
+		"onclick" : function (evt) {
+			var flag = validateSupport();
+			if(flag == 0)
+			{
+				evt.preventDefault();
+			}
+		}
+	},
+
+	//focus on support input fields
+	"#support-form input" : {
+		"onclick" : function (evt) {
+			if(dojo.query(this).attr('class') == 'error')
+			{
+				dojo.query(this).removeClass('error');
+				dojo.query(this).val('');
+			}
+		}
+	},
+
+	//focus on support textarea fields
+	"#support-form #support_query" : {
+		"onclick" : function (evt) {
+			if(dojo.query(this).attr('class') == 'error')
+			{
+				dojo.query(this).removeClass('error');
+				dojo.query(this).val('');
+			}
+		}
+	},
+
+	//function to close support form when clicked else were
+	"#hidden-overlay" : {
+		"onclick" : function(evt) {
+			if((dojo.query("#hidden-overlay").style('display')[0]) == 'block')
+			{
+				supportDown('.support');
+			}
+		}
+	},
+
+	//function to close support form when clicked else were
+	"#login-hidden-overlay" : {
+		"onclick" : function(evt) {
+			if((dojo.query("#login-hidden-overlay").style('display')[0]) == 'block')
+			{
+				loginSlide('.login-parent');
 			}
 		}
 	},
@@ -486,21 +591,6 @@ function initialize() {
 			dojo.query(".popup-wrapper").style('display' , 'none');
 		}
 	}//,
-
-	//close support and login forms when click else were
-	/*"body" : {
-		"onclick" : function(evt){
-			console.log(dojo.query('.support'));
-			if(dojo.query('.support').parents())
-			{
-				console.log('found support');
-			}
-			else
-			{
-				console.log('body clicked');
-			}
-		}
-	}*/
     });
     // End of dojo.behavior.add
     dojo.behavior.apply();
