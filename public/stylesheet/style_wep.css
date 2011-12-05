@@ -985,7 +985,7 @@ button.form-submit, input.form-submit, a.button, .change-password a, .profile-li
 	text-decoration: none;
 }
 
-#login-element #login, #create_new_account, #email_new_password
+#login-element #login, #email_new_password
 {
 	float:none;
 	height:20px;
@@ -996,7 +996,7 @@ button.form-submit, input.form-submit, a.button, .change-password a, .profile-li
 	font-family:Arial, Helvetica, sans-serif;
 	color:#FFF;
 }
-#login-label, #create_new_account-label, #email_new_password-label, #Submit-label
+#email_new_password-label, #Submit-label
 {
 	float:left;
 	width:100px;
@@ -1705,8 +1705,13 @@ table#list-org {
 #iati_activity_status #status-label,
 #iati_activity_status #ids-label,
 #register_registry_info-label,
+#reset_password-label,
+#forgotpassword-label,
+#loginform-label,
+#login-label,
 #user_info-label,
 #organisation_info-label,
+#create_new_account-label,
 #iati_activity_status #change-label{
 	display: none;
 }

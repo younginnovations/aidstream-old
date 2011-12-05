@@ -21,6 +21,20 @@ class User_Form_User_Login extends App_Form
         $login = new Zend_Form_Element_Submit('login');
         $login->setLabel('Login');
 	
-        $this->addElements(array($username,$password,$login));
+        $this->addElements(array($username,$password));
+	
+	$this->addDisplayGroup(
+                               array('username' , 'password'),
+                               'login-form',
+                               array('legend'=> 'Log In')
+                            );
+	$loginForm = $this->getDisplayGroup('login-form');
+        $loginForm->addDecorators(array(
+                array(
+                      array( 'wrapperAll' => 'HtmlTag' ),
+                      array( 'tag' => 'div','class'=>'default-activity-list'))
+            ));
+        
+        $this->addElement($login);
     }
 }//end of class
