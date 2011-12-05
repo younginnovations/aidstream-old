@@ -144,6 +144,17 @@ var validateSupport = function(){
 				dojo.query('#support_email').addClass('error');
 				dojo.query('#support_email').val('Email cannot be empty');
 			}
+			else
+			{
+				var email = dojo.query('#support_email').val();
+				var checkEmail = validEmail(email);
+					if(!checkEmail)
+					{
+						flag = 0;
+						dojo.query('#support_email').addClass('error');
+						dojo.query('#support_email').val('Please input a valid email address!');
+					}
+			}
 			if(dojo.query('#support_query').val() == "")
 			{
 				flag = 0;
@@ -158,6 +169,59 @@ var validateSupport = function(){
 				}
 			}
 			return flag;
+}
+
+var validateContact = function(){
+	flag = 1;
+	if(dojo.query("#contact-form #name").val() == "")
+	{
+		flag = 0;
+		dojo.query("#contact-form #name").addClass('error');
+		dojo.query("#contact-form #name").val('Name cannot be empty');
+	}
+	if(dojo.query("#contact-form #email").val() == "")
+	{
+		flag = 0;
+		dojo.query("#contact-form #email").addClass('error');
+		dojo.query("#contact-form #email").val('Email cannot be empty');
+	}
+	else
+	{
+		var email = dojo.query("#contact-form #email").val();
+		var checkEmail = validEmail(email);
+		if(!checkEmail)
+		{
+			flag = 0;
+			dojo.query("#contact-form #email").addClass('error');
+			dojo.query("#contact-form #email").val('Please input a valid email address!');
+		}
+	}
+	if(dojo.query("#contact-form #message").val() == "")
+	{
+		flag = 0;
+		dojo.query("#contact-form #message").addClass('error');
+		dojo.query("#contact-form #message").val('Message cannot be empty');
+	}
+
+	if(flag == 1)
+	{
+		if((dojo.query('#contact-form #name').attr('class') == 'error') || (dojo.query('#contact-form #email').attr('class') == 'error') || (dojo.query('#contact-form #message"').attr('class') == 'error'))
+		{
+			flag = 0;
+		}
+	}
+	return flag;
+}
+
+var validEmail = function(email){
+		var filter=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+			if (filter.test(email))
+			{
+				return true;
+			}
+			else{
+				return false;
+			}
 }
 
 function initialize() {
@@ -590,7 +654,40 @@ function initialize() {
 		"onclick" : function(evt){
 			dojo.query(".popup-wrapper").style('display' , 'none');
 		}
-	}//,
+	},
+
+	//Javascript validate contact form
+	"#contact-form #send" : {
+		"onclick" : function(evt){
+			var flag = validateContact();
+			if(flag == 0)
+			{
+				evt.preventDefault();
+			}
+		}
+	},
+
+	//Remove error class from contact input on focus
+	"#contact-form input" : {
+		"onclick" : function(evt){
+			if(dojo.query(this).attr('class') == 'error')
+			{
+				dojo.query(this).removeClass('error');
+				dojo.query(this).val('');
+			}
+		}
+	},
+
+	//Remove error class from contact message on focus
+	"#contact-form #message" : {
+		"onclick" : function(evt){
+			if(dojo.query(this).attr('class') == 'error')
+			{
+				dojo.query(this).removeClass('error');
+				dojo.query(this).val('');
+			}
+		}
+	}
     });
     // End of dojo.behavior.add
     dojo.behavior.apply();

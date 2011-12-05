@@ -44,7 +44,7 @@
                 	<div class="contact-content grid_12">
                     	<h1 class="page-title">Contact Us</h1>
                         <p class="pragraph-first">If you have any comments/suggestions, please send them to us.</p>
-                        <form method = "<?php echo $this->form->getMethod();?>" action = "<?php echo $this->form->getAction()?>">
+                        <form method = "<?php echo $this->form->getMethod();?>" action = "<?php echo $this->form->getAction()?>" id = "<?php echo $this->form->getId()?>">
                         	<table>
                             	<tr>
                                 	<td><label><?php echo $this->form->name->renderLabel();?></label></td>
