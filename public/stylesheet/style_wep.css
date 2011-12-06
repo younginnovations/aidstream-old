@@ -1942,6 +1942,7 @@ table#list-org {
 #support-container form #support_type td
 {
 	border: none;
+	background: none;
 }
 
 #support-container form #support_type td.dijitButtonContents
