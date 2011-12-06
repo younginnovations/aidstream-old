@@ -29,7 +29,7 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement_Value
                 ),
                 'currency' => array(
                     'name' => 'currency',
-                    'label' => 'currency',
+                    'label' => 'Currency',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help planned_disbursement-value-currency"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))

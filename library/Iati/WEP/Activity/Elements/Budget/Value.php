@@ -111,7 +111,7 @@ class Iati_WEP_Activity_Elements_Budget_Value extends Iati_WEP_Activity_Elements
         foreach($data as $key => $eachData){
             
             if(empty($this->validators[$key])){ continue; }
-            
+                        
             if($this->required){
                 if((in_array('NotEmpty', $this->validators[$key]) == false) && (empty($eachData))){
                     continue;
@@ -132,12 +132,12 @@ class Iati_WEP_Activity_Elements_Budget_Value extends Iati_WEP_Activity_Elements
               $validator = new $string();
               $error = '';
               if(!$validator->isValid($eachData)){
-                $error = isset($this->error[$key])?$this->error[$key] . $validator->getMessages()
+                $error = isset($this->error[$key])?array_merge($this->error[$key], $validator->getMessages())
                                 :$validator->getMessages();
                   $this->error[$key] = $error;
                   $this->hasError = true;
   
-              }  
+              }
             }
             
         }
