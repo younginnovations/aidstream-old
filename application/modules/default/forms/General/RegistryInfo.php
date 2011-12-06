@@ -6,13 +6,11 @@ class Form_General_RegistryInfo extends App_Form
     {
         $form['publisher_id'] = new Zend_Form_Element_Text('publisher_id');
         $form['publisher_id']->setLabel('Publisher Id')
-            ->setRequired()
             ->setAttrib('class', 'form-text')
             ->addErrorMessage('Please Enter the Publisher ID');
         
         $form['api_key'] = new Zend_Form_Element_Text('api_key');
         $form['api_key']->setLabel('API Key')
-            ->setRequired()
             ->setAttrib('class', 'form-text')
             ->addErrorMessage('Please Enter an API key');
         
