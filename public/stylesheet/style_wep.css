@@ -31,7 +31,7 @@ p
 body
 {
 	/*background:url(../images/iati-wep/wep-bg.jpg) repeat-x center top #d3d3d3 !important;*/
-	background-color: #D3D3D3;
+	/*background-color: #D3D3D3;*/
 	margin:0px;
 	padding:0 0 25px 0;
 }
@@ -2113,3 +2113,32 @@ table#list-org {
 	    width: 100%;
 	    z-index: 99;
 }
+
+/** tooltip **/
+.dijitTooltipContainer {
+    background-color: #FFFFFF;
+    background-image: url("images/tooltip.png");
+    background-position: -575px 100%;
+    background-repeat: repeat-x;
+    border: 1px solid #769DC0;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    font-size: 1em;
+    padding: 6px 8px;
+}
+
+.dijitTooltipBelow .dijitTooltipConnector {
+    background-position: -31px 0;
+    height: 14px;
+    left: 3px;
+    top: 0;
+    width: 16px;
+}
+
+.dijitTooltipConnector {
+    background-image: url("images/tooltip.png");
+    background-repeat: no-repeat;
+    border: 0 none;
+    height: 14px;
+    width: 16px;
+    z-index: 2;
