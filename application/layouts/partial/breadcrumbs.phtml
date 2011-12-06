@@ -234,6 +234,37 @@ switch($identity->role){
             )
         );
         break;
+    default :
+    $container->addPage(
+        array(
+            'label' => 'Home',
+            'module' =>'default',
+            'controller' => 'index',
+            'action' =>'index',
+            'pages' =>array(
+                        array(
+                            'label' => 'Log In',
+                            'module'     => 'user',
+                            'controller' => 'user',
+                            'action'     => 'login',
+                        ),
+                
+                        array(
+                            'label' => 'Register',
+                            'module'     => 'user',
+                            'controller' => 'user',
+                            'action'     => 'register',
+                        ),
+                        array(
+                            'label' => 'Forgot Password',
+                            'module'     => 'user',
+                            'controller' => 'user',
+                            'action'     => 'forgotpassword',
+                        ),
+                    )
+            )
+    );                
+    break;
 
 }
 echo '<div class="breadcrumbs">';
