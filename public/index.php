@@ -7,11 +7,16 @@ defined('APPLICATION_PATH')
 /* -- Define App Environment -- */
 if (strstr($_SERVER['SERVER_NAME'],'dev.yipl.net'))
     define('APPLICATION_ENV', 'staging');
+    
 else if (strstr($_SERVER['SERVER_NAME'],'dev') )
     define('APPLICATION_ENV', 'development');
+
+else if (strstr($_SERVER['SERVER_NAME'],'stage') )
+    define('APPLICATION_ENV', 'staging');
  
 else if (strstr($_SERVER['SERVER_NAME'],'demo'))
     define('APPLICATION_ENV', 'demo');
+    
 else
     define('APPLICATION_ENV', 'production');
     
