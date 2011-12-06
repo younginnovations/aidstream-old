@@ -192,7 +192,6 @@ table {
 {
 	float: none;
 	font-size:12px;
-	font-family: 'Amaranth', sans-serif;
 	font-weight:bold;
 	color:#575a5b;
 	width: auto;
@@ -224,10 +223,11 @@ a.login-parent
 	font-size:14px;
 	font-weight:bold;
 	margin-top:5px;
-	padding:4px 10px 6px 35px;
+	padding:4px 0 6px 35px;
 	position:absolute;
-	left:457px;
+	left:380px;
 	text-decoration:none;
+	width: 125px;
 	z-index:10;
 	
 }
@@ -235,6 +235,41 @@ a.login-parent
 #login-form-section .active
 {
 	background-position: 0 -20px;
+}
+
+/** Register form **/
+.login-section #registration-section
+{
+	font-family: 'Amaranth', sans-serif;
+	font-size: 20px;
+	height: 0;
+	overflow: hidden;
+}
+
+.login-section #registration-section .register-info
+{
+	width: 100%;
+	padding-top: 32px;
+}
+
+.login-section #registration-section .register-text
+{
+	float: left;
+	line-height: 33px;
+	padding: 0 15px 0 5px;
+}
+.login-section #registration-section a
+{
+	background: url("images/register.jpg") no-repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+    display: block;
+    float: left;
+    font-size: 22px;
+    height: 33px;
+    line-height: 33px;
+    text-align: center;
+    text-indent: -9999px;
+    width: 111px;
 }
 
 /***Close header section***/
@@ -372,7 +407,7 @@ p.paragraph-second
 	/*min-height:747px;
 	height: auto;
 	height: 747px;*/
-	padding-bottom: 20px;
+	padding-bottom: 80px;
 	width:100%
 }
 
@@ -935,7 +970,7 @@ select.form-select {
 	margin-top: 10px;
 }
 
-button.form-submit, input.form-submit, a.button, .change-password a, .profile-links, .dashboard-summary a, #Submit{
+button.form-submit, input.form-submit, a.button, .change-password a, .profile-links, .dashboard-summary a, #Submit, #create_new_account, #reset_password, #login{
 
     /*background: url("images/buttons.png") repeat-x scroll 0 0 transparent;
     border-color: #E4E4E4 #D2D2D2 #B4B4B4;
@@ -985,7 +1020,7 @@ button.form-submit, input.form-submit, a.button, .change-password a, .profile-li
 	text-decoration: none;
 }
 
-#login-element #login, #email_new_password
+#email_new_password
 {
 	float:none;
 	height:20px;
@@ -1256,10 +1291,10 @@ legend {
 
 /** new default fieldset css **/
 fieldset{
-    margin-bottom: 20px;
-    padding: 0 0 20px;
+    padding: 0 0 8px;
     background: none;
 }
+
 legend {
    background: none repeat scroll 0 0 #E0DDDD;
     color: #4F4F4F;
@@ -1907,6 +1942,7 @@ table#list-org {
 #support-container form #support_type td
 {
 	border: none;
+	background: none;
 }
 
 #support-container form #support_type td.dijitButtonContents
@@ -2117,4 +2153,39 @@ table#list-org {
 	    top: 0;
 	    width: 100%;
 	    z-index: 99;
+}
+
+/** tooltip **/
+.dijitTooltipContainer {
+    background-color: #FFFFFF;
+    background-image: url("images/tooltip.png");
+    background-position: -575px 100%;
+    background-repeat: repeat-x;
+    border: 1px solid #769DC0;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    font-size: 1em;
+    padding: 6px 8px;
+}
+
+.dijitTooltipBelow .dijitTooltipConnector {
+    background-position: -31px 0;
+    height: 14px;
+    left: 3px;
+    top: 0;
+    width: 16px;
+}
+
+.dijitTooltipConnector {
+    background-image: url("images/tooltip.png");
+    background-repeat: no-repeat;
+    border: 0 none;
+    height: 14px;
+    width: 16px;
+    z-index: 2;
+
+/** Clear class **/
+.nothing
+{
+	clear: both;
 }
