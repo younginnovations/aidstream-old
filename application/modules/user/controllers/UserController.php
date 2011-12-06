@@ -99,7 +99,6 @@ class User_UserController extends Zend_Controller_Action
                 $form->populate($formData);
             }
         }
-        $this->view->placeholder('title')->set('Request New Password');
     }
 
     public function loginAction()
