@@ -79,6 +79,17 @@ var loginSlide = function (target) {
 					}
 				  }
 				}).play();
+
+				  dojo.animateProperty({
+				  node: dojo.byId('registration-section'),
+				  duration: 300,
+				  properties: {
+				      height: {
+						start: "65",
+						end: "0"
+					}
+				  }
+				}).play();
 }
 
 //login slide down
@@ -92,6 +103,17 @@ var loginSlideDown = function(target) {
 				      height: {
 						start: "0",
 						end: "98"
+					}
+				  }
+				}).play();
+
+				  dojo.animateProperty({
+				  node: dojo.byId('registration-section'),
+				  duration: 300,
+				  properties: {
+				      height: {
+						start: "0",
+						end: "65"
 					}
 				  }
 				}).play();

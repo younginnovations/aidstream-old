@@ -8,7 +8,7 @@
 </script>
     <script src="<?php echo $this->baseUrl()?>/js/dojo-1.5.0/dojo/dojo.js" djConfig="parseOnLoad: true">
 </script>
-<!--<link href='http://fonts.googleapis.com/css?family=Amaranth' rel='stylesheet' type='text/css'>-->
+<link href='http://fonts.googleapis.com/css?family=Amaranth' rel='stylesheet' type='text/css'>
     <?php 
     		/**
     		 * @todo if dojo and jquery is being used in the same page use jquery.noconflict
@@ -84,9 +84,9 @@
                         <!--<div class="support">Support</div>-->
                         <div class="nav">
                             <ul class="menu">
-                                <li><a href="<?php echo $this->baseurl(); ?>/#contact-us" id="contact-link"><span class="title">Contact</span><br /><span>Comments,Suggestions</span></a></li>
-                                <li><a href="<?php echo $this->baseurl(); ?>/#how-as" id="how-link"><span class="title">How</span><br /><span>How to use AidStream?</span></a></li>
-                                <li><a href="<?php echo $this->baseurl(); ?>/#what-as" class="active" id="what-link"><span class="title">What</span><br /><span>What is AidStream?</span></a></li>
+                                <li><a href="#contact-us" id="contact-link"><span class="title">Contact</span><br /><span>Comments,Suggestions</span></a></li>
+                                <li><a href="#how-as" id="how-link"><span class="title">How</span><br /><span>How to use AidStream?</span></a></li>
+                                <li><a href="#what-as" class="active" id="what-link"><span class="title">What</span><br /><span>What is AidStream?</span></a></li>
                             </ul>
                         </div><!-----Close nav------->
                     </div>
@@ -96,9 +96,9 @@
             
             <div class="login-section"><!---Start login-section--->
                 <div class="container_12">
-		<div class="registration-section grid_5">
-			<div class="register-info">Not Registered yet? Please <?php print $this->l('Register','user/user/register', array('attributes' => array('target' => '_blank'))); ?>
-			</div>
+		<div id="registration-section" class="grid_5">
+			<div class="register-info"><div class="register-text">Not Registered yet? Please </div><?php print $this->l('Register','user/user/register', array('attributes' => array('target' => '_blank'))); ?>
+			<div class="nothing"></div></div>
 		</div>
                     <div id="login-form-section" class="grid_7">
                             <? $auth = Zend_Auth::getInstance();?>
@@ -119,7 +119,7 @@
 				</table>
 			    </form>
 			</div><!--Close login-form-container-->
-                        <a class="login-parent" href="#">Login</a>
+                        <a class="login-parent" href="#">Login / Register</a>
                         <? endif;?>
                     </div><!-----Close login-form-section---->
                 </div>
