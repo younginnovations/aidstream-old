@@ -243,7 +243,10 @@ class WepController extends Zend_Controller_Action
                     }
 
                     $toEmail['email'] = $data['email'];
-                    $mailerParams = $toEmail;
+                    $mailData = $data;
+                    $mailData['subject'] = 'Account registration confirmed';
+                    $mailData['username'] = $user['user_name'];
+                    $mailerParams = $mailData;
                     $template = 'user-register';
                     $Wep = new App_Notification;
                     $Wep->sendemail($mailerParams,$toEmail['email'],$template);

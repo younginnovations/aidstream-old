@@ -1,8 +1,15 @@
-<?php
-$email 		= $this->email;
-?>
-Hi <?php echo $email;?>,
-
-The user has send confirmation for the registration. 
-       
--- 
+Hi <?php
+echo $this->first_name." ";
+if($this->middle_name){ echo $this->middle_name." ";}
+echo $this->last_name;
+?>,
+<? echo '<br>' ?>
+<? echo '<br>' ?>
+Your registration request has been confirmed. Your account details are:
+<? echo '<br>'; ?>
+Username : <? echo $this->username; ?><? echo '<br>'; ?>
+Password : <? echo $this->password; ?><? echo '<br>'; ?>
+<? echo '<br><br>'; ?>
+------
+<? echo '<br>'; ?>
+Aidstream
