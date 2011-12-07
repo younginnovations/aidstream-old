@@ -1,20 +1,25 @@
-<?php $identity = $this->userInfo();
+<?php
+    $identity = $this->userInfo();
     $published_data = $this->published_data;
     $file_path = $this->file_path;
 ?>
+
 <div class="dashboard-content">
-This page contains all the statistical information of the activity.
+
 <?php if($published_data):?>
-<div class='publish-item'>
-    <div class="publis-item-title">Published Files</div>
-    <dl>
-    <?php foreach($published_data as $data):?>
-    <dd>
-        <a href ="<?php echo $this->baseUrl().$file_path.$data['filename'] ?>" target = "_blank"> <?php echo $data['filename'] ?></a>
-    </dd>
-    <dd><?php echo $data['published_date'] ?></dd>
-    <?php endforeach;?>
-    </dl>
-</div>
+    <div class='publish-item'>
+        <div class="publis-item-title">Published Files</div>
+        <dl>
+        <?php foreach($published_data as $data):?>
+            <dd>
+                <a href ="<?php echo $this->baseUrl().$file_path.$data['filename'] ?>" target = "_blank"> <?php echo $data['filename'] ?></a>
+            </dd>
+            <dd><?php echo $data['published_date'] ?></dd>
+        <?php endforeach;?>
+        </dl>
+    </div>
+<?php else: ?>
+<div class="no-data">No activity has been published.</div>
 <?php endif;?>
+
 </div>
