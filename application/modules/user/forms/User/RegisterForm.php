@@ -81,8 +81,15 @@ class User_Form_User_RegisterForm extends App_Form
         $this->addDisplayGroup(
                                 array('publisher_id' , 'api_key'),
                                 'register_registry_info',
-                                array('legend' => 'Registry Info')
+                                array(
+                                      'legend' => 'Registry Info',
+                                      )
                             );
+        $reg = $this->getDisplayGroup('register_registry_info');
+        $reg->setDescription("If you don't have the registry info please visit the <a href='http://www.iatiregistry.org' target='_blank'>Iati Registry</a>")
+            ->addDecorators(array(
+                array('Description', array('escape' => false, 'tag' => 'div')),
+              ));
         
         $groups = $this->getDisplayGroups();
         foreach($this->getDisplayGroups() as $group){
