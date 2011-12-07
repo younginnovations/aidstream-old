@@ -475,6 +475,7 @@ p.paragraph-second
 {
 	padding-bottom:20px;
 }
+
 #contact-us input#send-bottom
 {
 	background:url(../stylesheet/images/send-bottom.png) no-repeat;
@@ -1321,6 +1322,12 @@ fieldset dl
 {
 	overflow: hidden;
 	margin: 0 10px;
+}
+
+/** register hint **/
+.hint
+{
+	padding: 0 0 10px 10px;
 }
 
 /** fix legend bug for chrome **/
@@ -2193,6 +2200,7 @@ table#list-org {
     height: 14px;
     width: 16px;
     z-index: 2;
+}
 
 /** Clear class **/
 .nothing
