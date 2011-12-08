@@ -484,17 +484,27 @@ function initialize() {
 	    
 	},
 	"#organisation_username" : {
-	    "onchange" : function (evt) {
-			var selected= getTarget(evt);
-			if(selected.value == ''){
-			    dojo.query('#admin_username').attr('value', '');
-			    dojo.query('#admin_username').removeAttr('disabled');
-			}
-			else{
-			    dojo.query('#admin_username').attr('value', selected.value+'_admin');
-			    dojo.query('#admin_username').attr('disabled', 'disabled');
-			}
+	    "found" : function (ele) {
+		if(ele.value == ''){
+		    dojo.query('#admin_username').attr('value', '');
+		    dojo.query('#admin_username').attr('readonly' , 'false');
+		} else {
+		    dojo.query('#admin_username').attr('value', ele.value+'_admin');
+		    dojo.query('#admin_username').attr('readonly', 'true');
+		}
 	    },
+	    
+	    "onchange" : function (evt) {
+		var selected = getTarget(evt);
+		if(selected.value == ''){
+		    dojo.query('#admin_username').attr('value', '');
+		    dojo.query('#admin_username').attr('readonly' , 'false');
+		} else {
+		    dojo.query('#admin_username').attr('value', selected.value+'_admin');
+		    dojo.query('#admin_username').attr('readonly', 'true');
+		}
+	    },
+	    
 	    "onkeyup" : function (evt) {
 	    	dojo.query('#organisation_username').attr('value', getTarget(evt).value.replace(" ",""));
 	    }
