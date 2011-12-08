@@ -455,9 +455,22 @@ function initialize() {
 	    }
 	},
 	".vocabulary_value" : {
+	    "found" : function (ele) {
+		if(ele.value == '' || ele.value == 3){
+		    dojo.query('.non_dac_code').attr('value', '');
+		    dojo.query('.non_dac_code').parent().style('display', 'none');
+		    dojo.query('.sector_value').parent().style('display', 'block');
+		}
+		else{
+		    dojo.query('.sector_value').attr('value', '');
+		    dojo.query('.sector_value').parent().style('display', 'none');
+		    dojo.query('.non_dac_code').parent().style('display', 'block');
+		}
+	    },
+	    
 	    "onchange" : function (evt) {
 		var selected= getTarget(evt);
-		if(selected.value == '' || selected.value == 4){
+		if(selected.value == '' || selected.value == 3){
 		    dojo.query('.non_dac_code').attr('value', '');
 		    dojo.query('.non_dac_code').parent().style('display', 'none');
 		    dojo.query('.sector_value').parent().style('display', 'block');

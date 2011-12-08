@@ -509,7 +509,17 @@ if(!empty($value)): ?>
 <table class='element-values-items'>
 <tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($sector->getAttrib('text')) print ($sector->getAttribValue('text'));?> <?php if($sector->getAttrib('@xml_lang')) printf (" [%s]",($sector->getAttribValue('@xml_lang')));?></td></tr>
 <tr class='element-value element-value-odd'><td class='attrib-label'>Vocabulary</td><td class='attrib-value'> <?php if($sector->getAttrib('@vocabulary')) ($sector->getAttribValue('@vocabulary','Name')!=$sector->getAttribValue('@vocabulary')) ?( printf("%s [%s]",$sector->getAttribValue('@vocabulary','Name'),$sector->getAttribValue('@vocabulary'))):(print($sector->getAttribValue('@vocabulary')));?></td></tr>
-<tr class='element-value element-value-even'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($sector->getAttrib('@code')) ($sector->getAttribValue('@code','Name')!=$sector->getAttribValue('@code')) ?( printf("%s [%s]",$sector->getAttribValue('@code','Name'),$sector->getAttribValue('@code'))):(print($sector->getAttribValue('@code')));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Code</td>
+    <td class='attrib-value'>
+        <?php if($sector->getAttrib('@code')): ?>
+            <?php if($sector->getAttrib('@vocabulary') == 3): ?>
+                <?php ($sector->getAttribValue('@code','Name')!=$sector->getAttribValue('@code')) ?( printf("%s [%s]",$sector->getAttribValue('@code','Name'),$sector->getAttribValue('@code'))):(print($sector->getAttribValue('@code'))); ?>
+            <?php else : ?>
+                <?php print ($sector->getAttrib('@code'));?>
+            <?php endif;?>
+        <?php endif;?>
+    </td>
+</tr>
 <tr class='element-value element-value-odd'><td class='attrib-label'>Percentage</td><td class='attrib-value'> <?php if($sector->getAttrib('@percentage')) print ($sector->getAttribValue('@percentage'));?></td></tr>
 </table><?php endforeach;?>
 </div>
