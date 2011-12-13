@@ -9,14 +9,20 @@
 <?php if($published_data):?>
     <div class='publish-item'>
         <div class="publis-item-title">Published Files</div>
-        <dl>
+        <table>
+            <tr>
+                <th>File</th>
+                <th>Published Date</th>
+            </tr>
         <?php foreach($published_data as $data):?>
-            <dd>
-                <a href ="<?php echo $this->baseUrl().$file_path.$data['filename'] ?>" target = "_blank"> <?php echo $data['filename'] ?></a>
-            </dd>
-            <dd><?php echo $data['published_date'] ?></dd>
+            <tr>
+                <td>
+                    <a href ="<?php echo $this->baseUrl().$file_path.$data['filename'] ?>" target = "_blank"> <?php echo $data['filename'] ?></a>
+                </td>
+                <td><?php echo $data['published_date'] ?></td>
+            </tr>
         <?php endforeach;?>
-        </dl>
+        </table>
     </div>
 <?php else: ?>
 <div class="no-data">No activity has been published.</div>
