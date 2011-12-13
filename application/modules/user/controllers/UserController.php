@@ -473,7 +473,7 @@ Thank you.
             $form = new Form_General_Support();
             if($form->isValid($data)){
                 $modelSupport = new Model_Support();
-                //$modelSupport->saveSupportRequest($data);
+                $modelSupport->saveSupportRequest($data);
                 
                 $mail['subject'] = 'Aidtype support requested';
                 if($data['support_type'] == 'system'){
