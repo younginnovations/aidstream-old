@@ -476,9 +476,6 @@ Thank you.
                 $modelSupport->saveSupportRequest($data);
                 
                 $mail['subject'] = 'Aidtype support requested';
-                if($data['support_type'] == 'system'){
-                    $mail['to'] = 'anjesh@yipl.com.np';
-                }
                 
                 $mail['message'] = 'Support was requested by the following user:';
                 $mail['message'] .=  "\nName: ".$data['support_name'];

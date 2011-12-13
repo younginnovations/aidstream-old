@@ -23,14 +23,10 @@ class Form_General_Support extends App_Form
             ->setAttrib('rows','10')
             ->addErrorMessage('Please enter your query');
         
-        $related = array('iati'=>'Iati','system'=>'System');
-        $form['support_type'] = new Zend_Form_Element_Select('support_type');
-        $form['support_type']->setLabel('Related To')
-            ->setAttrib('dojoType','dijit.form.Select')
-            ->setMultioptions($related);
-        
         $form['support_submit'] = new Zend_Form_Element_Submit('support_submit');
         $form['support_submit']->setLabel('Send now!');
+        
         $this->addElements($form);
+        
     }
 }
