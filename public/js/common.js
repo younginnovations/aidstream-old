@@ -333,41 +333,41 @@ function initialize() {
                 dojo.connect(dojo.byId('cd-ok'), 'onclick', function (e) {
                     confirmDlg.destroyRecursive();
                     var grandParent = dojo.NodeList(removeNode.parentNode.parentNode);
-                    if (grandParent.children('fieldset').length < 2) {
-                        
-                        messageDialog("Warning!", "Sorry! you cannot remove last item.");
-                        
-                    }
-                    else {
-                        var parentNode = dojo.NodeList(removeNode.parentNode);
-                        var removeId = dojo.attr(parentNode.query('input[type="hidden"]')[0], 'value');
-                        
-                        if (parseInt(removeId)) {
-                            dojo.xhrGet({
-                                url: removeUrl ,
-                                handleAs: 'text',
-                                content: {
-                                    "id": removeId
-                                },
-                                load: function (data) {
-				    //console.log(data);
-                                    if(data == 'success'){
-                                        dojo.destroy(parentNode[0]);
-                                    }
-                                    else{
-                                        messageDialog("Error", data);
-                                    }
-                                },
-                                error: function (data) {
-				    //console.log(data);
-                                    messageDialog("Error", "Something went wrong! Please try again");
-                                }
-                            });
-                        }
-                        else {
-                            dojo.destroy(parentNode[0]);
-                        }
-                    }
+                    
+		    var parentNode = dojo.NodeList(removeNode.parentNode);
+		    var removeId = dojo.attr(parentNode.query('input[type="hidden"]')[0], 'value');
+		    console.log(grandParent.children('fieldset').length);
+		    
+		    if (parseInt(removeId)) {
+			dojo.xhrGet({
+			    url: removeUrl ,
+			    handleAs: 'text',
+			    content: {
+				"id": removeId
+			    },
+			    load: function (data) {
+				//console.log(data);
+				if(data == 'success'){
+				    if (grandParent.children('fieldset').length > 1) {
+					dojo.destroy(parentNode[0]);
+				    } else {
+					window.location.reload();
+				    }
+				}
+				else{
+				    messageDialog("Error", data);
+				}
+			    },
+			    error: function (data) {
+				//console.log(data);
+				messageDialog("Error", "Something went wrong! Please try again");
+			    }
+			});
+		    }
+		    else {
+			dojo.destroy(parentNode[0]);
+		    }
+                    
                 });
                 
                 confirmDlg.show();
