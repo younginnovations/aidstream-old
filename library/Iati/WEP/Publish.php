@@ -85,7 +85,7 @@ class Iati_WEP_Publish
                     $countryAttribs = $country[0]->getAttribs();
                     if(0 == sizeof($countryAttribs)){
                         $region = $activity->getElementsByType(Iati_Activity_Element::TYPE_RECIPIENT_REGION);
-                        if(1 > sizeof($region)){
+                        if(sizeof($region) > 1){
                             $segmented_activities[998][] = $activity;
                         } else {
                             $regionAttribs = $region[0]->getAttribs();
@@ -95,7 +95,6 @@ class Iati_WEP_Publish
                                 $segmented_activities[$region[0]->getAttribValue('@code')][] = $activity;
                             }
                         }
-                        $segmented_activities[998][] = $activity;
                     } else {
                         $segmented_activities[$country[0]->getAttribValue('@code')][] = $activity;
                         $this->country = $country[0]->getAttribValue('@code');
