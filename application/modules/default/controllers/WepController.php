@@ -1411,6 +1411,8 @@ class WepController extends Zend_Controller_Action
                     $this->_helper->FlashMessenger->addMessage(array('message' => "Publishing Information Not Found. Activities cannot be published."));
                 } else if(!$registryInfo->publisher_id){
                     $this->_helper->FlashMessenger->addMessage(array('message' => "Publisher Id Not Found. Activities cannot be published."));
+                } else if(!$registryInfo->api_key){
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "Api Key Not Found. Activities cannot be published."));
                 } else {
                     $db->updateActivityStatus($activity_ids,(int)$state);
                     

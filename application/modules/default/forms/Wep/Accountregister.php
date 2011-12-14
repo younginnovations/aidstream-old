@@ -176,7 +176,7 @@ class Form_Wep_Accountregister extends App_Form
             $default_fields[$key] =  ucwords(str_replace("_", " ", $key));
             
             }
-        $defultChecked = array('title','description','activity_status','activity_dates','participating_orgs','recipient_country','sector','budget','transaction');
+        $defultChecked = array('title','description','activity_status','activity_date','participating_org','recipient_country','sector','budget','transaction');
         $this->addElement('multiCheckbox', 'default_fields', array(
             'disableLoadDefaultDecorators' => true,
             'separator'    => '&nbsp;',

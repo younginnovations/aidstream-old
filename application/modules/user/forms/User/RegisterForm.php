@@ -31,6 +31,12 @@ class User_Form_User_RegisterForm extends App_Form
         $lastname->setLabel('last Name')
             ->setRequired()
             ->setAttrib('class', 'form-text');
+        
+        $username = new Zend_Form_Element_Text('username');
+        $username->setLabel('username')
+            ->setRequired()
+            ->setDescription('Please add suffix admin for your username. eg if your username is test please use test_admin')
+            ->setAttrib('class', 'form-text');
 
 
         $email = new Zend_Form_Element_Text('email');
@@ -64,8 +70,27 @@ class User_Form_User_RegisterForm extends App_Form
         $apiKey->setLabel('API Key')
             ->setAttrib('class', 'form-text')
             ->addErrorMessage('Please Enter an API key');
+            
+        $captcha = new Zend_Form_Element_Captcha(
+            'captcha', 
+            array(
+                    'label' => 'Please enter the characters shown in the picture',
+                    'captcha' => array(
+                                       'captcha' => 'Image',
+                                       'wordLen' => 6,
+                                       'timeout' => 300,
+                                       'font' => APPLICATION_PATH.'/../public/font/Ubuntu-B.ttf',
+                                       'imgDir' => APPLICATION_PATH.'/../public/captcha/',
+                                       'imgUrl' => '/captcha/',
+                                       'dotNoiseLevel' => 70,
+                                       'lineNoiseLevel' => 5
+                                    )
+                    )
+            );
 
-        $this->addElements(array($orgname, $orgaddress, $firstname, $middlename, $lastname, $email, $password, $confirmPassword, $publisherId, $apiKey));
+            
+
+        $this->addElements(array($orgname, $orgaddress, $firstname, $middlename, $lastname, $username, $email, $password, $confirmPassword , $captcha));
         
         $this->addDisplayGroup(
                                array('org_name' , 'org_address'),
@@ -74,10 +99,11 @@ class User_Form_User_RegisterForm extends App_Form
                            );
         
         $this->addDisplayGroup(
-                               array('first_name' , 'middle_name' , 'last_name' , 'email', 'password', 'confirmpassword'),
+                               array('first_name' , 'middle_name' , 'last_name' , 'email', 'username' , 'password', 'confirmpassword' , 'captcha'),
                                'user_info',
                                array('legend' => 'User Info')
                            );
+        /*
         $this->addDisplayGroup(
                                 array('publisher_id' , 'api_key'),
                                 'register_registry_info',
@@ -90,6 +116,7 @@ class User_Form_User_RegisterForm extends App_Form
             ->addDecorators(array(
                 array('Description', array('escape' => false, 'tag' => 'div')),
               ));
+        */
         
         $groups = $this->getDisplayGroups();
         foreach($this->getDisplayGroups() as $group){
