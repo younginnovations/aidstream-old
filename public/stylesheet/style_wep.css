@@ -1767,6 +1767,7 @@ table#list-org {
 #user_info-label,
 #organisation_info-label,
 #create_new_account-label,
+#reporting_org-label,
 #iati_activity_status #change-label{
 	display: none;
 }

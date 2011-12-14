@@ -54,6 +54,7 @@ class Form_Wep_ReportingOrganisation extends App_Form
 
         $form['reporting_org_type'] = new Zend_Form_Element_Select('reporting_org_type');
         $form['reporting_org_type']->setLabel('Organisation Type')
+                                    ->setValue($default['reporting_org_type'])
                                     ->addMultiOption('', 'Select anyone')->setAttrib('class', 'form-select')
                                     ->setDecorators( array(
                                                             'ViewHelper',
@@ -93,7 +94,7 @@ class Form_Wep_ReportingOrganisation extends App_Form
         $this->addElements($form);
         $this->addDisplayGroup(array('reporting_org_xmllang', 'reporting_org_ref', 
                                     'reporting_org_type', 'reporting_org_text'),
-                                     'field',array('legend'=>'Reporting Organisaton'));
+                                     'field',array('legend'=>'Reporting Organisation'));
         
         $group = $this->getDisplayGroup('field');
         $group->addDecorators(array(

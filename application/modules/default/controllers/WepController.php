@@ -205,6 +205,7 @@ class WepController extends Zend_Controller_Action
                     $defaultFieldsValues->setCurrency($data['default_currency']);
                     $defaultFieldsValues->setReportingOrg($data['default_reporting_org']);
                     $defaultFieldsValues->setReportingOrgRef($data['reporting_org_ref']);
+                    $defaultFieldsValues->setReportingOrgType($data['reporting_org_type']);
                     $defaultFieldsValues->setHierarchy($data['default_hierarchy']);
                     $defaultFieldsValues->setCollaborationType($data['default_collaboration_type']);
                     $defaultFieldsValues->setFlowType($data['default_flow_type']);
@@ -304,6 +305,7 @@ class WepController extends Zend_Controller_Action
                     $defaultFieldsValuesObj->setReportingOrg($data['default_reporting_org']);
                     $defaultFieldsValuesObj->setHierarchy($data['hierarchy']);
                     $defaultFieldsValuesObj->setReportingOrgRef($data['reporting_org_ref']);
+                    $defaultFieldsValuesObj->setReportingOrgType($data['reporting_org_type']);
                     $defaultFieldsValuesObj->setCollaborationType($data['default_collaboration_type']);
                     $defaultFieldsValuesObj->setFlowType($data['default_flow_type']);
                     $defaultFieldsValuesObj->setFinanceType($data['default_finance_type']);

@@ -6,6 +6,7 @@ class Iati_WEP_AccountDefaultFieldValues
     protected $reporting_org = '';
     protected $hierarchy = 0;
     protected $reporting_org_ref = '';
+    protected $reporting_org_type = '';
     protected $collaboration_type = '';
     protected $flow_type = '';
     protected $finance_type = '';
@@ -29,6 +30,11 @@ class Iati_WEP_AccountDefaultFieldValues
     public function setReportingOrgRef($data)
     {
         $this->reporting_org_ref = $data;   
+    }
+    
+    public function setReportingOrgType($reportingOrgType)
+    {
+        $this->reporting_org_type = $reportingOrgType;
     }
     
     public function setCollaborationType($collaborationType){

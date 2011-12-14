@@ -6,6 +6,30 @@ class Form_Wep_EditDefaults extends App_Form
         $form = array();
         $model = new Model_Wep();
         
+        
+        $form['default_reporting_org'] = new Zend_Form_Element_Text('default_reporting_org');
+        $form['default_reporting_org']->setLabel('Reporting Organisation Name')
+            ->setValue($defaults['field_values']['reporting_org'])
+            ->setRequired()
+            ->setAttrib('class', 'form-text');
+
+        $form['reporting_org_ref'] = new Zend_Form_Element_Text('reporting_org_ref');
+        $form['reporting_org_ref']->setLabel('Reporting Organisation Identifier')
+            ->setRequired()
+            ->setValue($defaults['field_values']['reporting_org_ref'])
+            ->setAttrib('width','20px')
+            ->setAttrib('class', 'form-text');
+            
+        $reportingOrgType = $model->getCodeArray('OrganisationType',null,'1');
+        $form['reporting_org_type'] = new Zend_Form_Element_Select('reporting_org_type');
+        $form['reporting_org_type']->setLabel('Reporting Organisation Type')
+            ->setRequired()
+            ->setValue($defaults['field_values']['reporting_org_type'])
+            ->addMultiOption('','Select anyone')
+            ->addMultiOptions($reportingOrgType)
+            ->setAttrib('width','20px')
+            ->setAttrib('class', 'form-select');
+        
         $currency = $model->getCodeArray('Currency',null,'1');
         $form['default_currency'] = new Zend_Form_Element_Select('default_currency');
         $form['default_currency']->setRequired()
@@ -31,19 +55,6 @@ class Form_Wep_EditDefaults extends App_Form
         $form['hierarchy'] = new Zend_Form_Element_Text('hierarchy');
         $form['hierarchy']->setLabel('Default Hierarchy')
             ->setValue($defaults['field_values']['hierarchy']);
-        
-        
-        $form['default_reporting_org'] = new Zend_Form_Element_Text('default_reporting_org');
-        $form['default_reporting_org']->setLabel('Default Reporting Organisation Name')
-            ->setValue($defaults['field_values']['reporting_org'])
-            ->setRequired()
-            ->setAttrib('class', 'form-text');
-
-        $form['reporting_org_ref'] = new Zend_Form_Element_Text('reporting_org_ref');
-        $form['reporting_org_ref']->setLabel('Default Reporting Organisation Identifier')
-            ->setValue($defaults['field_values']['reporting_org_ref'])
-            ->setAttrib('width','20px')
-            ->setAttrib('class', 'form-text');
                                     
         $form['default_collaboration_type'] = new Zend_Form_Element_Select('default_collaboration_type');
         $form['default_collaboration_type']->setLabel('Default Collaboration Type')
@@ -151,10 +162,15 @@ class Form_Wep_EditDefaults extends App_Form
                         )
         ));
         
+        $this->addDisplayGroup(array( 'reporting_org_ref', 'reporting_org_type' ,'default_reporting_org'),
+                               'reporting_org',
+                               array('legend' =>'Reporting Organisaiton Info')
+                               );
+        
         $registryInfoForm = new Form_General_RegistryInfo();
         $this->addSubForm($registryInfoForm , 'registry_info');
         
-        $this->addDisplayGroup(array('default_currency', 'default_language', 'default_reporting_org', 'reporting_org_ref', 'hierarchy', 'default_collaboration_type' , 'default_flow_type', 'default_finance_type' , 'default_aid_type', 'default_tied_status'),
+        $this->addDisplayGroup(array('default_currency', 'default_language', 'hierarchy', 'default_collaboration_type' , 'default_flow_type', 'default_finance_type' , 'default_aid_type', 'default_tied_status'),
                                'field2',
                                array('legend'=>'Default Field Values')
                             );

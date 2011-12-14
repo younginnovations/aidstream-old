@@ -154,10 +154,9 @@ class AdminController extends Zend_Controller_Action
 
             $defaultFieldsValues = $model->getDefaults('default_field_values', 'account_id', $rowSet['id']);
             $default['field_values'] = $defaultFieldsValues->getDefaultFields();
-
             foreach ($default['field_values'] as $name => $value)
             {
-                if($name != 'reporting_org_ref'){
+                if($name != 'reporting_org_ref' &$name != 'reporting_org_type'){
                     $input['default_'.$name] = $value;
                 } else {
                     $input[$name] = $value;
@@ -244,6 +243,7 @@ class AdminController extends Zend_Controller_Action
                 $defaultFieldsValues->setCurrency($data['default_currency']);
                 $defaultFieldsValues->setReportingOrg($data['default_reporting_org']);
                 $defaultFieldsValues->setReportingOrgRef($data['reporting_org_ref']);
+                $defaultFieldsValues->setReportingOrgType($data['reporting_org_type']);
                 $defaultFieldsValues->setHierarchy($data['default_hierarchy']);
                 $defaultFieldsValues->setCollaborationType($data['default_collaboration_type']);
                 $defaultFieldsValues->setFlowType($data['default_flow_type']);

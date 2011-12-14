@@ -5,6 +5,8 @@ class Form_Wep_Accountregister extends App_Form
     {
         $form = array();
 
+        $model = new Model_Wep();
+        
         $form['organisation_name'] = new Zend_Form_Element_Text('organisation_name');
         $form['organisation_name']->setLabel('Name')
             ->setRequired()
@@ -68,7 +70,6 @@ class Form_Wep_Accountregister extends App_Form
             ->addFilter('stringTrim')
             ->setRequired();
         
-        $model = new Model_Wep();
         $currency = $model->getCodeArray('Currency',null,'1');
         $selectedCurrency = $model->findIdByFieldData('Currency', $defaultFields['field_values']['currency'], '1');
         $form['default_currency'] = new Zend_Form_Element_Select('default_currency');
@@ -102,6 +103,16 @@ class Form_Wep_Accountregister extends App_Form
         $form['reporting_org_ref']->setLabel('Reporting Org Identifier')
             ->setValue($defaultFields['reporting_org_ref'])
             ->setAttrib('class', 'form-text')->setRequired();
+            
+        $reportingOrgType = $model->getCodeArray('OrganisationType',null,'1');
+        $form['reporting_org_type'] = new Zend_Form_Element_Select('reporting_org_type');
+        $form['reporting_org_type']->setLabel('Reporting Organisation Type')
+            ->setRequired()
+            ->setValue($defaultFields['reporting_org_type'])
+            ->addMultiOption('','Select anyone')
+            ->addMultiOptions($reportingOrgType)
+            ->setAttrib('width','20px')
+            ->setAttrib('class', 'form-select');
 
         $form['default_hierarchy'] = new Zend_Form_Element_Text('default_hierarchy');
         $form['default_hierarchy']->setLabel('Hierarchy')
@@ -199,10 +210,15 @@ class Form_Wep_Accountregister extends App_Form
                                 array('legend'=>'Admin Information')
                             );
         
+        $this->addDisplayGroup(array( 'reporting_org_ref', 'reporting_org_type' ,'default_reporting_org'),
+                               'reporting_org',
+                               array('legend' =>'Reporting Organisaiton Info')
+                               );
+        
         $registryInfoForm = new Form_General_RegistryInfo();
         $this->addSubForm($registryInfoForm , 'registry_info');
         
-        $this->addDisplayGroup( array('default_currency', 'default_language', 'default_reporting_org', 'reporting_org_ref', 'default_hierarchy' , 'default_collaboration_type' , 'default_flow_type' , 'default_finance_type' , 'default_aid_type' , 'default_tied_status'),
+        $this->addDisplayGroup( array('default_currency', 'default_language', 'default_hierarchy' , 'default_collaboration_type' , 'default_flow_type' , 'default_finance_type' , 'default_aid_type' , 'default_tied_status'),
                                 'field2',
                                 array('legend'=>'Default Field Values')
                             );
