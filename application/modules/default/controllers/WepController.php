@@ -418,13 +418,23 @@ class WepController extends Zend_Controller_Action
             }
         }
         if($incomplete){
-            $this->_helper->FlashMessenger->addMessage(array(
-                                                             'info' => "You have not provided all the information of
-                                                               Reporting Organisation.Please provide the complete
-                                                               Reporting Organisation Information"
-                                                               )
-                                                       );
-            $this->_redirect('wep/edit-defaults');
+            //For admin user redirect to defaults page.
+            if($identity->role_id == 1){
+                $this->_helper->FlashMessenger->addMessage(array(
+                                                                 'info' => "You have not provided all the information of
+                                                                   Reporting Organisation.Please provide the complete
+                                                                   Reporting Organisation Information"
+                                                                   )
+                                                           );
+                $this->_redirect('wep/edit-defaults');
+            } else { // For other user redirect to dashboard.
+                $this->_helper->FlashMessenger->addMessage(array(
+                                                                 'info' => "All information for Reporting Organisation
+                                                                    is not provided .Please contact you organisation admin"
+                                                                  )
+                                                           );
+                $this->_redirect('wep/dashborad');
+            }
         }
         
         $activityDefaults['@collaboration_type'] = $wepModel->fetchValueById('CollaborationType' , $default['collaboration_type'] , 'Code');

@@ -80,7 +80,6 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'default:wep', 'delete-activity', new App_ActionAssertion('delete_activity'));
         $this->allow('user', 'default:wep', 'edit-activity');
         $this->allow('user', 'default:wep', 'dashboard');
-        $this->allow('user', 'default:wep', 'edit-defaults');
         $this->allow('user', 'default:wep', 'remove-elements');
         $this->allow('user', 'default:wep', 'clone-node');
         $this->allow('user', 'default:wep', 'update-status');
@@ -90,6 +89,7 @@ class App_Acl extends Zend_Acl
         $this->allow('admin', 'user');
 
         $this->allow('admin', 'default:code-list');
+        $this->allow('admin', 'default:wep', 'edit-defaults');
         $this->allow('admin', 'default:wep', 'view-activities');
         $this->allow('admin', 'default:wep', 'delete');
         $this->allow('admin', 'default:wep', 'add-activity');
