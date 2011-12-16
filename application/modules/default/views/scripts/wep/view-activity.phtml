@@ -64,7 +64,7 @@
 $reportingorgs=$activity->getElementsByType(Iati_Activity_Element::TYPE_REPORTING_ORG);
 $value = $reportingorgs[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>ReportingOrg<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=ReportingOrg"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>ReportingOrg</div>
 <div class='element-values'>
 <?php foreach($reportingorgs as $reportingorg):?>
 <table class='element-values-items'>
