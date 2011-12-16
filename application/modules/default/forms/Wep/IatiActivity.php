@@ -86,7 +86,7 @@ class Form_Wep_IatiActivity extends App_Form
                                                         )
                                                 );
         
-        $this->addSubForm($form1, 'Reporting Organisation');
+        //$this->addSubForm($form1, 'Reporting Organisation');
         $this->addElement($iati_identifier);
         
         

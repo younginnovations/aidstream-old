@@ -335,7 +335,7 @@ class Iati_WEP_FormHelper {
         return $index;
     }
 
-    private function _form($name, $action, $method="post", $attribs=null) {
+    private function _form($name, $action, $method="post", $attribs=null) {         
         $_form = sprintf('<form id="element-form" name="%s" action="%s" method="%s" %s>',
         $name, $action, $method, $this->_attr($attribs));
 
@@ -343,8 +343,14 @@ class Iati_WEP_FormHelper {
         /*if ($this->registryTree->getRootNode()->hasMultiple()) {
          $_form .= $this->_addMore(array('id'=>'add-more'));
          }*/
-        $_form .= '<input type="submit" id="Submit" name="save" value="Save and View" class="form-submit"/>';
-        $_form .= '<input type="submit" id="Submit" name="save" value="Save" class="form-submit"/>';
+        $_mainEle = $this->registryTree->getChildNodes($this->registryTree->getRootNode());
+        if('ReportingOrg' == $_mainEle[0]->getClassName()){
+            $_form .= '<input type="submit" id="Submit_and_view" name="save" value="Save and View" class="form-submit disabled" disabled="disabled"/>';
+            $_form .= '<input type="submit" id="Submit" name="save" value="Save" class="form-submit disabled" disabled="disabled"/>';
+        } else {
+            $_form .= '<input type="submit" id="Submit_and_view" name="save" value="Save and View" class="form-submit"/>';
+            $_form .= '<input type="submit" id="Submit" name="save" value="Save" class="form-submit"/>';
+        }
         $_form .= '</form>';
         return $_form;
     }

@@ -35,7 +35,10 @@ class User_Form_User_RegisterForm extends App_Form
         $username = new Zend_Form_Element_Text('username');
         $username->setLabel('username')
             ->setRequired()
-            ->setDescription('Please add suffix admin for your username. eg if your username is test please use test_admin')
+            ->setDescription("Your username will be used as a prefix for all
+                             the users for your organisation.eg if your username
+                             is 'test' the admin user created will be 'test_admin' and
+                             the usernames for other user you create will be 'test_name'.")
             ->setAttrib('class', 'form-text');
 
 
