@@ -33,8 +33,8 @@ class Model_Activity
         
         //Save Iati Identifier
         $iati_identifier = array();
-        $iati_identifier['text'] = $iatiIdentifier['iati_identifier'];
-        $iati_identifier['activity_identifier'] = $iatiIdentifier['activity_identifier'];
+        $iati_identifier['text'] = trim($iatiIdentifier['iati_identifier']);
+        $iati_identifier['activity_identifier'] = trim($iatiIdentifier['activity_identifier']);
         $iati_identifier['activity_id'] = $activityId;
         $iati_identifier_id = $wepModel->insertRowsToTable('iati_identifier', $iati_identifier);
         
