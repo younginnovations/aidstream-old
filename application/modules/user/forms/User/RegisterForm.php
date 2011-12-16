@@ -74,6 +74,7 @@ class User_Form_User_RegisterForm extends App_Form
             ->setAttrib('class', 'form-text')
             ->addErrorMessage('Please Enter an API key');
             
+        $baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
         $captcha = new Zend_Form_Element_Captcha(
             'captcha', 
             array(
@@ -84,7 +85,7 @@ class User_Form_User_RegisterForm extends App_Form
                                        'timeout' => 300,
                                        'font' => APPLICATION_PATH.'/../public/font/Ubuntu-B.ttf',
                                        'imgDir' => APPLICATION_PATH.'/../public/captcha/',
-                                       'imgUrl' => '/captcha/',
+                                       'imgUrl' => $baseUrl.'/captcha/',
                                        'dotNoiseLevel' => 70,
                                        'lineNoiseLevel' => 5
                                     )
