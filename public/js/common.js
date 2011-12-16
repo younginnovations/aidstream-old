@@ -733,6 +733,16 @@ function initialize() {
 				dojo.query(this).val('');
 			}
 		}
+	},
+	
+	//generate iati identifier from reporting org and activity identifier
+	"#activity_identifier" : {
+	    "onkeyup" : function (evt) {
+		var selected = getTarget(evt);
+		var identifier = selected.value.replace(/ /g,'');
+		var repOrg = dojo.query('#reporting_org').attr('value');
+		dojo.query('#iati_identifier_text').attr('value', repOrg+'-'+identifier);
+	    }
 	}
     });
     // End of dojo.behavior.add

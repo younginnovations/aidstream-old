@@ -66,8 +66,10 @@ class Form_Wep_IatiActivity extends App_Form
             )
         );
         
+        /*
         $form1 = new Form_Wep_ReportingOrganisation();
         $form1->add('add', $account_id);
+        $this->addSubForm($form1, 'Reporting Organisation');
         
         $iati_identifier = new Zend_Form_Element_Text('iati_identifier_text');
         $iati_identifier->setLabel('Iati Identifier')->setAttrib('class', 'form-text')
@@ -86,7 +88,6 @@ class Form_Wep_IatiActivity extends App_Form
                                                         )
                                                 );
         
-        //$this->addSubForm($form1, 'Reporting Organisation');
         $this->addElement($iati_identifier);
         
         
@@ -96,6 +97,12 @@ class Form_Wep_IatiActivity extends App_Form
                 array(array('wrapperAll' => 'HtmlTag'), array('tag' => 'div', 'class' => 'default-activity-list'))
             )
         );
+        */
+        $form1 = new Form_Wep_IatiIdentifier();
+        $form1->add('add', $account_id);
+        $form1->removeElement('save');
+        $this->addSubForm($form1, 'Iati Identifier');
+        
         $save = new Zend_Form_Element_Submit('save');
         $save->setValue('Save')->setAttrib('class','form-submit');
         $this->addElement($save);

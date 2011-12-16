@@ -9,10 +9,29 @@ class Form_Wep_IatiIdentifier extends App_Form
         //$form1 = new Form_Wep_ReportingOrganisation();
         //$form1->add('add', $account_id);
         
+        $form['activity_identifier'] = new Zend_Form_Element_Text('activity_identifier');
+        $form['activity_identifier']->setLabel('Your Activity Identifier')
+                                    ->setRequired()
+                                    ->setAttrib('class', 'form-text')
+                                    ->setDecorators( array(
+                                                            'ViewHelper',
+                                                            'Errors',
+                                                            'Label',
+                                                            array('HtmlTag', array(
+                                                                                   'tag'        =>'<div>',
+                                                                                   'placement'  =>'APPEND',
+                                                                                   'class'      =>'help activity-identifier-text'
+                                                                                   )
+                                                                ),
+                                                            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-element'))
+                                                        )
+                                                );
+        
         $form['iati_identifier_text'] = new Zend_Form_Element_Text('iati_identifier_text');
         $form['iati_identifier_text']->setLabel('Iati Identifier')
                                     ->setRequired()
                                     ->setAttrib('class', 'form-text')
+                                    ->setAttrib('readonly', true)
                                     ->setDecorators( array(
                                                             'ViewHelper',
                                                             'Errors',
@@ -26,12 +45,13 @@ class Form_Wep_IatiIdentifier extends App_Form
                                                             array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-element'))
                                                         )
                                                 );
-
+        
+        $form['reporting_org'] = new Zend_Form_Element_Hidden('reporting_org');
         
         //$this->addSubForm($form1, 'Reporting Organisation');
         
         $this->addElements($form);
-        $this->addDisplayGroup(array('iati_identifier_text'), 'field',array('legend'=>'Iati Identifier'));
+        $this->addDisplayGroup(array('reporting_org' , 'activity_identifier' , 'iati_identifier_text'), 'field',array('legend'=>'Iati Identifier'));
         
         $group = $this->getDisplayGroup('field');
         $group->addDecorators(array(

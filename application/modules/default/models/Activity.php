@@ -9,7 +9,7 @@ class Model_Activity
      * If default elements like default finance type are provided they are also created.
      * @param int $orgId    organisation id (activities id) of the organisation creating the activity
      * @param array $default    array of default values, default fields of an organisation
-     * @param string $iatiIdentifier    iati identifier text
+     * @param array $iatiIdentifier    array of iati identifier text and activity identifier
      * @return int $activityId  Activity id of the activity created
      */
     public function createActivity($orgId , $default , $iatiIdentifier)
@@ -33,7 +33,8 @@ class Model_Activity
         
         //Save Iati Identifier
         $iati_identifier = array();
-        $iati_identifier['text'] = $iatiIdentifier;
+        $iati_identifier['text'] = $iatiIdentifier['iati_identifier'];
+        $iati_identifier['activity_identifier'] = $iatiIdentifier['activity_identifier'];
         $iati_identifier['activity_id'] = $activityId;
         $iati_identifier_id = $wepModel->insertRowsToTable('iati_identifier', $iati_identifier);
         

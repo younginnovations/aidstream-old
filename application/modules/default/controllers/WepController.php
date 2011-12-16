@@ -445,6 +445,7 @@ class WepController extends Zend_Controller_Action
 
         $form = new Form_Wep_IatiIdentifier('add', $identity->account_id);
         $form->add('add', $identity->account_id);
+        $form->populate(array('reporting_org'=>$default['reporting_org_ref']));
         
         if ($_POST) {
             try {
@@ -452,10 +453,12 @@ class WepController extends Zend_Controller_Action
                 if (!$form->isValid($data)) {
                     $form->populate($data);
                 } else {
-                    $iatiIdentifierText = $this->getRequest()->getParam('iati_identifier_text');
+                    $iatiIdentifier = array();
+                    $iatiIdentifier['iati_identifier'] = $data['iati_identifier_text'];
+                    $iatiIdentifier['activity_identifier'] = $data['activity_identifier'];
                     
                     $activityModel = new Model_Activity();
-                    $activity_id = $activityModel->createActivity($activities_id , $default , $iatiIdentifierText);
+                    $activity_id = $activityModel->createActivity($activities_id , $default , $iatiIdentifier);
                     
                     //Create Activity Hash
                     $activityHashModel = new Model_ActivityHash();
@@ -947,7 +950,8 @@ class WepController extends Zend_Controller_Action
                 $activity['default_currency'] = $default['currency'];
                 $activity['hierarchy'] = $default['hierarchy'];
                 $form = new Form_Wep_IatiActivity();
-                $form->add('add', $identity->account_id);
+                $form->add('add', $identity->account_id);    
+                $form->populate(array('reporting_org'=>$default['reporting_org_ref']));
 
             }
             if(isset($_GET['activity_id'])){
@@ -989,11 +993,13 @@ class WepController extends Zend_Controller_Action
                         $default['language'] = $formData['xml_lang'];
                         $default['currency'] = $formData['default_currency'];
                         $default['hierarchy'] = $formData['hierarchy'];
-
-                        $iatiIdentifierText = $formData['iati_identifier_text'];
+                        
+                        $iatiIdentifier = array();
+                        $iatiIdentifier['iati_identifier'] = $formData['iati_identifier_text'];
+                        $iatiIdentifier['activity_identifier'] = $formData['activity_identifier'];
                         
                         $activityModel = new Model_Activity();
-                        $activityId = $activityModel->createActivity($activities_id , $default , $iatiIdentifierText);
+                        $activityId = $activityModel->createActivity($activities_id , $default , $iatiIdentifier);
                         
                         //Create Activity Hash
                         $activityHashModel = new Model_ActivityHash();
