@@ -1,12 +1,13 @@
 <?php
 class Iati_WEP_Activity_Elements_Identifier extends Iati_WEP_Activity_Elements_ElementBase
 {
-    protected $attributes = array('id','text',);
+    protected $attributes = array('id','text','activity_identifier');
     protected $text = '';
     protected $id = 0;
     protected $options = array();
     protected $validators = array(
-                                'text' => array('NotEmpty',)
+                                'text' => array('NotEmpty',),
+                                'activity_identifier' => array('NotEmpty')
                             );
     protected $className = 'Identifier';
     protected $attributes_html = array(
@@ -14,10 +15,16 @@ class Iati_WEP_Activity_Elements_Identifier extends Iati_WEP_Activity_Elements_E
                     'name' => 'id',
                     'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
                 ),
+                'activity_identifier' => array(
+                    'name' => 'activity_identifier',
+                    'label' => 'Activity Identifier',
+                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help identifier-text"></div>',
+                    'attrs' => array('class' => array('form-text'))
+                ),
                 'text' => array(
                     'name' => 'text',
-                    'label' => 'Text',
-                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help identifier-text"></div>',
+                    'label' => 'Iati Activity Identifier',
+                    'html' => '<textarea rows="2" cols="20" readonly="true" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help identifier-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
     );
@@ -45,6 +52,7 @@ class Iati_WEP_Activity_Elements_Identifier extends Iati_WEP_Activity_Elements_E
     public function setAttributes ($data) {
         $this->id = (isset($data['id']))?$data['id']:0;
         $this->text = $data['text'];
+        $this->activity_identifier = $data['activity_identifier'];
         
     }
     
@@ -67,6 +75,7 @@ class Iati_WEP_Activity_Elements_Identifier extends Iati_WEP_Activity_Elements_E
     {
         $data['id'] = $this->id;
         $data['text'] = $this->text;
+        $data['activity_identifier'] = $this->activity_identifier;
         //@todo parent id
 //        $data['activity_id'] = parent :: $activity_id;
         
@@ -77,6 +86,7 @@ class Iati_WEP_Activity_Elements_Identifier extends Iati_WEP_Activity_Elements_E
         $data = array();
         $data ['id'] = $this->id;
         $data['text'] = $this->text;
+        $data['activity_identifier'] = $this->activity_identifier;
         
         return $data;
     }

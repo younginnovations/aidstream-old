@@ -850,7 +850,7 @@ class WepController extends Zend_Controller_Action
                 $identifier = $wepModel->listAll('iati_identifier', 'activity_id', $activity['id']);
                 //                    print_r($title[0]['text']);exit;
                 $activity_array[$i]['title'] = ($title[0]['text'])?$title[0]['text']:'No title';
-                $activity_array[$i]['identifier'] = ($identifier[0]['text'])?$identifier[0]['text']:'No Iati Identifier';
+                $activity_array[$i]['identifier'] = ($identifier[0]['activity_identifier'])?$identifier[0]['activity_identifier']:'No Activity Identifier';
                 $activity_array[$i]['last_updated_datetime'] = $activity['@last_updated_datetime'];
                 $activity_array[$i]['id'] = $activity['id'];
                 $activity_array[$i]['status_id']  = $activity['status_id'];
@@ -884,7 +884,7 @@ class WepController extends Zend_Controller_Action
         $activity['@default_currency'] = $model->fetchValueById('Currency', $activity_info[0]['@default_currency'], 'Code');
         
         $iati_identifier_row = $model->getRowById('iati_identifier', 'activity_id', $activity_id);
-        $activity['iati_identifier'] = $iati_identifier_row['text'];
+        $activity['activity_identifier'] = $iati_identifier_row['activity_identifier'];
         $title_row = $model->getRowById('iati_title', 'activity_id', $activity_id);
         $activity['iati_title'] = $title_row['text'];
         
