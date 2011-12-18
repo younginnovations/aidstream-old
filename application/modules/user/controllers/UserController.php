@@ -21,19 +21,17 @@ class User_UserController extends Zend_Controller_Action
 
     public function registerAction()
     {
-        $form = new User_Form_User_RegisterForm();
-        $this->view->form = $form;
         $formData = $this->getRequest()->getPost();
         
+        $form = new User_Form_User_RegisterForm();
         $modelWep = new Model_Wep();
-        if ($this->getRequest()->isPost()) {
+        if ($formData) {
                 if ($form->isValid($formData)) {
                     $result = $modelWep->getRowsByFields('account', 'username', $formData['username']);
                     if (!empty($result)) {
                         $this->_helper->FlashMessenger->addMessage(array('error' => "Username already exists."));
                         $form->populate($formData);
                     } else {
-                        
                         $userModel = new User_Model_User();
                         $accountId = $userModel->registerUser($formData);
                             
@@ -41,8 +39,9 @@ class User_UserController extends Zend_Controller_Action
                         $this->_redirect('/');
                     }
                     
-                }//end of if
+                }
         }
+        $this->view->form = $form;
         $this->view->placeholder('title')->set('Register user');
     }
 
@@ -64,10 +63,19 @@ class User_UserController extends Zend_Controller_Action
 
                 if ($result == FALSE) {
                     try {
-                        $val = $this->sendemail($email);
-                        $resetValue = $val;
+                        
+                        $uniqueId = md5(uniqid());
+                        $resetSite = "http://" . $_SERVER['HTTP_HOST'] . $this->view->baseUrl() . '/user/user/resetpassword/email/' . $email . '/value/' . $uniqueId;
                         $reset = new User_Model_DbTable_Reset();
-                        $reset->insert(array('email' => $email, 'value' => $resetValue, 'reset_flag' => '0'));
+                        $reset->insert(array('email' => $email, 'value' => $uniqueId, 'reset_flag' => '0'));
+                        
+                        //Send Support Mail
+                        $mailParams['subject'] = 'Replacement login information for ' . $email;
+                        $mailParams['reset_url'] = $resetSite;
+                        $template = 'forgot_password.phtml';
+                        $notification = new App_Notification;
+                        $notification->sendemail($mailParams,$template,array($email));
+                       
                         $this->_helper->FlashMessenger->addMessage(array('message' => 'Further instructions have been sent to your e-mail address.'));
                         $this->_redirect('/');
                     } catch (Exception $e) {
@@ -340,43 +348,7 @@ class User_UserController extends Zend_Controller_Action
                 ->setCredentialTreatment('md5(?)');
 
         return $authAdapter;
-    }
-
-    private function sendemail($toEmail)
-    {
-        $mail['from'] = "support@iatistandard.org";
-        $replace = "
-You have requested to reset you account.
-You may reset your password by clicking on this link or copying and pasting it in your browser:!reset_site!
-
-Thank you.
-------
-!site_name!";
-        $siteName = "AidStream";
-
-        $url = "http://" . $_SERVER['HTTP_HOST'] . $this->view->baseUrl() . '/user/user/resetpassword';
-
-        $uniqueId = md5(uniqid());
-
-        $resetSite = "http://" . $_SERVER['HTTP_HOST'] . $this->view->baseUrl() . '/user/user/resetpassword/email/' . $toEmail . '/value/' . $uniqueId;
-
-        $bodyTemp1 = str_replace('!reset_site!', $resetSite, $replace);
-
-        $bodyTemp = str_replace('!view_url!', $url, $bodyTemp1);
-        
-        $message = str_replace('!site_name!', $siteName, $bodyTemp);
-
-        $mail['message'] = $message;
-        $mail['subject'] = 'Replacement login information for ' . $toEmail;
-        $mail['to'] = $toEmail;
-        
-        $modelMail = new Model_Mail();
-        $send = $modelMail->sendMail($mail);
-        
-        return $uniqueId;
-    }
-    
-    
+    }  
     
     public function preDispatch()
     {
@@ -456,15 +428,14 @@ Thank you.
                 $modelSupport = new Model_Support();
                 $modelSupport->saveSupportRequest($data);
                 
-                $mail['subject'] = 'Aidtype support requested';
-                
-                $mail['message'] = 'Support was requested by the following user:';
-                $mail['message'] .=  "\nName: ".$data['support_name'];
-                $mail['message'] .=  "\nEmail: ".$data['support_email'];
-                $mail['message'] .= "\n\nQuery:\n".$data['support_query'];
-                
-                $modelMail = new Model_Mail();
-                $send = $modelMail->sendMail($mail);
+                //Send Support Mail
+                $mailParams['subject'] = 'Aidtype support requested';
+                $mailParams['support_name'] = $data['support_name'];
+                $mailParams['support_email'] = $data['support_email'];
+                $mailParams['support_query'] = $data['support_query'];
+                $template = 'support.phtml';
+                $notification = new App_Notification;
+                $notification->sendemail($mailParams,$template);
                 
                 $this->_helper->FlashMessenger->addMessage(array('message' =>'Thank you. Your query has been received.'));
                 $this->_redirect('/');
