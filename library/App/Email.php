@@ -45,7 +45,7 @@ class App_Email
         $hasContent = false;
 
         // compile html template if available
-        $fileName = 'html.'.$template.'.phtml';
+        $fileName = 'html.'.$template;
         $filePath = $tempPath.'/'.$fileName;
 
         if ( is_file($filePath) ) {
@@ -56,7 +56,7 @@ class App_Email
         }
 
         // compile plain text template if available
-        $fileName = 'plain.'.$template.'.phtml';
+        $fileName = 'plain.'.$template;
         $filePath = $tempPath.'/'.$fileName;
 
         if ( is_file($filePath) ) {

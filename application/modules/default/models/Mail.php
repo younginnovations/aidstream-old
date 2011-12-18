@@ -6,6 +6,8 @@
 class Model_Mail
 {
     /**
+     * @deprecated
+     * 
      *Send mail using zend mail
      *@param array of mail info. array('to'=>'test','from'=>'test','subject'=>'hello','message'=>'how are you');
      *@return boolen true for mail sent, false for not sent

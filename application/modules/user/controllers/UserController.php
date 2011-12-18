@@ -33,91 +33,11 @@ class User_UserController extends Zend_Controller_Action
                         $this->_helper->FlashMessenger->addMessage(array('error' => "Username already exists."));
                         $form->populate($formData);
                     } else {
-                        $data = array();
-                        $data['email'] = $formData['email'];
-                        $data['first_name'] = $formData['first_name'];
-                        $data['middle_name'] = $formData['middle_name'];
-                        $data['last_name'] = $formData['last_name'];
-                        $data['username'] = $formData['username'];
-                        $data['password'] = $formData['password'];
-                        $data['org_name'] = $formData['org_name'];
-                        $data['org_address'] = $formData['org_address'];
-
-                        //Save Organisation Info
-                        $account['name'] = $data['org_name'];
-                        $account['address'] = $data['org_address'];
-                        $account['username'] = trim($data['username']);
-                        $account['uniqid'] = md5(date('Y-m-d H:i:s'));
-                        $account_id = $modelWep->insertRowsToTable('account', $account);
                         
-                        //Save User Info
-                        $user['user_name'] = trim($data['username']).'_admin';
-                        $user['password'] = md5($data['password']);
-                        $user['role_id'] = 1;
-                        $user['email'] = $data['email'];
-                        $user['account_id'] = $account_id;
-                        $user['status'] = 1;
-                        $user_id = $modelWep->insertRowsToTable('user', $user);
-                        
-                        //Save User Profile
-                        $admin['first_name'] = $data['first_name'];
-                        $admin['middle_name'] = $data['middle_name'];
-                        $admin['last_name'] = $data['last_name'];
-                        $admin['user_id'] = $user_id;
-                        $admin_id = $modelWep->insertRowsToTable('profile', $admin);
-                        
-                        //Insert Default Values
-                        $defaultFieldsValues = new Iati_WEP_AccountDefaultFieldValues();                        
-                        $fieldString = serialize($defaultFieldsValues);
-                    
-                        $defaultValues['object'] = $fieldString;
-                        $defaultValues['account_id'] = $account_id;
-                        $defaultValuesId = $modelWep->insertRowsToTable('default_field_values', $defaultValues);
-                        
-                        //Insert Default Fields
-                        $defaultFieldGroup = new Iati_WEP_AccountDisplayFieldGroup();                        
-                        $default = array('title','description','activity_status','activity_date','participating_org','recipient_country','sector','budget','transaction');
-
-                        foreach ($default as $eachField) {
-                            $defaultFieldGroup->setProperties($eachField);
-                        }
-    
-                        $fieldString = serialize($defaultFieldGroup);
-                        $defaultFields['object'] = $fieldString;
-                        $defaultFields['account_id'] = $account_id;
-                        $defaultFieldId = $modelWep->insertRowsToTable('default_field_groups', $defaultFields);
+                        $userModel = new User_Model_User();
+                        $accountId = $userModel->registerUser($formData);
                             
-                        //$userRegister = new User_Model_DbTable_UserRegister();
-                        //$requId = $userRegister->saveRegisterInfo($data);
-                        
-                        /*
-                        $mail['subject'] = 'User registration request received';                
-        
-                        $mail['message'] = "The following user registered for aidstream:\n";
-                        $mail['message'] .=  "\nOrganisation Name: ".$data['org_name'];
-                        $mail['message'] .=  "\nOrganisation Address: ".$data['org_address'];
-                        $mail['message'] .=  "\nFirst Name: ".$data['first_name'];
-                        $mail['message'] .=  "\nMiddle Name: ".$data['middle_name'];
-                        $mail['message'] .=  "\nLast Name: ".$data['last_name'];
-                        $mail['message'] .=  "\nEmail: ".$data['email'];
-                        $mail['message'] .=  "\nPassword: ".$data['password'];
-                        $mail['message'] .=  "\nPublisher Id: ".$data['publisher_id'];
-                        $mail['message'] .=  "\nAPI Key: ".$data['api_key'];
-                        
-                        $modelMail = new Model_Mail();
-                        $modelMail->sendMail($mail);
-                        */
-                        /*
-                        $toEmail['email'] = $data['email'];
-                        $mailData = $data;
-                        $mailData['subject'] = 'Account registration confirmed';
-                        $mailData['username'] = $user['user_name'];
-                        $mailerParams = $mailData;
-                        $template = 'user-register';
-                        $Wep = new App_Notification;
-                        $Wep->sendemail($mailerParams,$toEmail['email'],$template);
-                        */
-                        $this->_helper->FlashMessenger->addMessage(array('message' => 'Thank you for registering. You will receive an email sortly'));
+                        $this->_helper->FlashMessenger->addMessage(array('message' => 'Thank you for registering. You will receive an email shortly'));
                         $this->_redirect('/');
                     }
                     
