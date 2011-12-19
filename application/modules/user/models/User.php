@@ -2,6 +2,14 @@
 
 class User_Model_User
 {
+    /**
+     * Function to create a new account.
+     *
+     * This function creates a new account, admin user for the account, admin user's profile and sets default values for
+     * the admin user. It also sends mail to the user and the admin.
+     * @param array $userData   array of account informatio.
+     * @return int $accountId   id of the account created.
+     */
     public function registerUser($userData)
     {
         $modelWep = new Model_Wep();

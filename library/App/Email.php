@@ -267,7 +267,7 @@ class App_Email
             }
             
         } else {
-            // development has all emails redirected to the user signed in, or the default recipient
+            // development has all emails redirected to the default recipient
             $auth = Zend_Auth::getInstance();
             $mail = $this->_prepareDevEmail($mail);    // add a dev note to top of email
             $mail->clearRecipients();
@@ -284,7 +284,7 @@ class App_Email
                 $this->_logger->notice("Dev email redirected to " . $this->_config->email->bcc);
             }
             */
-            $mail->addTo($this->_config->email->bcc,'DentalCare Test User');
+            $mail->addTo($this->_config->email->bcc,'Test User');
             $this->_logger->notice("Dev email redirected to " . $this->_config->email->bcc);
 
             try {

@@ -6,7 +6,7 @@
 class App_Notification{
     
     /**
-     * Centralized function to send email. Uses Email class for sending mail.
+     * Centralized function to send email. Uses App_Email class for sending mail.
      * @param array $mailParams array of parameters for email. eg. subject, data to be used in message.
      * @param string $template  name of the template file to be used as template for sending mail with .phtml filetype
      * @param array $to         array of email address and name of the recipients. e.g array('test@abc.com'=>'name');
