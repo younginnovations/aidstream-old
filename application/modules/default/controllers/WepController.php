@@ -50,13 +50,11 @@ class WepController extends Zend_Controller_Action
 
         $activities_id = $model->listAll('iati_activities', 'account_id', $identity->account_id);
         if (empty($activities_id)) {
-//            print "ddd";exit;
             $data['@version'] = '01';
             $data['@generated_datetime'] = date('Y-m-d H:i:s');
             $data['user_id'] = $identity->user_id;
             $data['account_id'] = $identity->account_id;
             $data['unqid'] = uniqid();
-//            print_r($data);exit;
             $activities_id = $model->insertRowsToTable('iati_activities', $data);
         } else {
             $activities_id = $activities_id[0]['id'];
@@ -73,7 +71,6 @@ class WepController extends Zend_Controller_Action
         
         $this->view->published_data = $published_data;
         $this->view->file_path = $file_path;
-//            print_r($activities_id);exit;
         $this->view->activities_id = $activities_id;
 
     }
@@ -1417,6 +1414,26 @@ class WepController extends Zend_Controller_Action
             $message['message'] = 'No help is provided for this item';
         }
         $this->_helper->json($message['message']);        
+    }
+    
+    public function viewPublishedFilesAction()
+    {
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $orgId = $identity->account_id;
+        
+        $db = new Model_Published();
+        $publishedFiles = $db->getAllPublishedInfo($orgId);
+        $this->view->published_files = $publishedFiles;
+    }
+    
+    public function deletePublishedFileAction()
+    {
+        $fileId = $this->_getParam('file_id');
+        $db = new Model_Published();
+        $publishedFiles = $db->deleteByFileId($fileId);
+        
+        $this->_helper->FlashMessenger->addMessage(array('message' => "File Deleted Sucessfully."));
+        $this->_redirect('wep/view-published-files');
     }
     
     public function hasData($data)

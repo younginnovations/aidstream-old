@@ -20,20 +20,33 @@ class Model_Published extends Zend_Db_Table_Abstract
             'publishing_org_id = ?'=>$publishingOrgId,
         //    'filename = ?'=>$data['filename'] ,
         );
-        $this->delete($where);
+        $this->update(array('status'=> 0),$where);
     }
     
-    public function getPublishedInfo($account_id)
+    public function getPublishedInfo($accountId)
     {
         $rowSet = $this->select()
-            ->where("publishing_org_id = ?",$account_id);
+            ->where("publishing_org_id = ?",$accountId)
+            ->where("status = 1");
         $result = $this->fetchAll($rowSet)->toArray();
         return $result;
     }
     
-    public function getInfo()
+    public function getAllPublishedInfo($accountId)
     {
-        
+        $rowSet = $this->select()
+            ->where("publishing_org_id = ?",$accountId);
+        $result = $this->fetchAll($rowSet)->toArray();
+        return $result;
     }
     
+    public function deleteByFileId($fileId)
+    {
+        $this->delete(array('id = ?'=>$fileId));
+    }
+    
+    public function deleteByAccountId($accountId)
+    {
+        $this->delete(array('id = ?'=>$fileId));
+    }
 }
