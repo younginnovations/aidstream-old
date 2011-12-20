@@ -654,8 +654,7 @@ class Ckan_Client
 		// Check HTTP response code
 		if ($info['http_code'] !== 201 && $info['http_code'] !== 200)
 		{
-			throw new Exception($info['http_code'] . ': ' . 
-				$this->http_status_codes[$info['http_code']]);
+			return false;
 		}
 		// Determine how to parse
 		if (isset($info['content_type']) && $info['content_type'])

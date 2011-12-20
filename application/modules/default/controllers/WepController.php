@@ -1385,7 +1385,11 @@ class WepController extends Zend_Controller_Action
                     
                     $reg = new Iati_WEP_Publish($account_id,$registryInfo->publisher_id,$registryInfo->api_key,$registryInfo->publishing_type);
                     $reg->publish();
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "Activities Published."));
+                    if($reg->getError()){
+                        $this->_helper->FlashMessenger->addMessage(array('info' => $reg->getError()));
+                    } else {
+                        $this->_helper->FlashMessenger->addMessage(array('message' => "Activities Published."));
+                    }
                     
                 }
             } else {
@@ -1424,6 +1428,8 @@ class WepController extends Zend_Controller_Action
         $db = new Model_Published();
         $publishedFiles = $db->getAllPublishedInfo($orgId);
         $this->view->published_files = $publishedFiles;
+        
+        $this->view->placeholder('title')->set('Published files');
     }
     
     public function deletePublishedFileAction()

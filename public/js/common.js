@@ -743,6 +743,14 @@ function initialize() {
 		var repOrg = dojo.query('#reporting_org').attr('value');
 		dojo.query('#iati_identifier_text').attr('value', repOrg+'-'+identifier);
 	    }
+	},
+	
+	".delete-files" : {
+	    "onclick" : function (evt) {
+		if(!confirm("Are you sure you want to delete the file")){
+		    evt.preventDefault();
+		}
+	    }
 	}
     });
     // End of dojo.behavior.add

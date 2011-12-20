@@ -13,6 +13,7 @@ class Iati_Registry
     protected $activity_period_to;
     protected $activity_count;
     protected $country;
+    protected $error;
     
     
     public function __construct($activities , $publisherId , $apiKey, $file)
@@ -90,12 +91,16 @@ class Iati_Registry
                 $response = $ckan->put_package_entity($tmpfile,$this->json_data);
                 if($response){
                     $this->saveRegistryPublishInfo($response,true);
-                }
+                } else {
+		    $this->error = "Sorry your file could not be pushed to registry";
+		}
             } else{
                 $response = $ckan->post_package_register($this->json_data);
                 if($response){
                     $this->saveRegistryPublishInfo($response);
-                }
+                } else {
+		    $this->error = "Your files could not be published in IATI Registry";
+		}
             }
            
         } catch (Exception $e) {
@@ -129,4 +134,8 @@ class Iati_Registry
         $this->country = $country;
     }
     
+    public function getErrors()
+    {
+	return $this->error;
+    }
 }

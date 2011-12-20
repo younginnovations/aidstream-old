@@ -11,7 +11,14 @@ class Model_Published extends Zend_Db_Table_Abstract
     
     public function savePublishedInfo($data)
     {
-        $this->_insertPublishedInfo($data);
+        $where = array(
+            'publishing_org_id = ?'=> $data['publishing_org_id'],
+            'filename = ?'=>$data['filename'] ,
+        );
+        $updated = $this->update($data, $where);
+        if(!$updated){
+            $this->_insertPublishedInfo($data);
+        }
     }
     
     public function resetPublishedInfo($publishingOrgId)
@@ -35,7 +42,8 @@ class Model_Published extends Zend_Db_Table_Abstract
     public function getAllPublishedInfo($accountId)
     {
         $rowSet = $this->select()
-            ->where("publishing_org_id = ?",$accountId);
+            ->where("publishing_org_id = ?",$accountId)
+            ->order('published_date DESC');
         $result = $this->fetchAll($rowSet)->toArray();
         return $result;
     }

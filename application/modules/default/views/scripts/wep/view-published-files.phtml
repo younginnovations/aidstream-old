@@ -2,19 +2,17 @@
 $publishedFiles = $this->published_files;
 ?>
 <div class="files">
-<table>
+<table class="activity-list-table">
     <thead>
-        <td>Filename</td>
-        <td>Published Date</td>
-        <td>Status</td>
-        <td></td>
+        <th>Filename</th>
+        <th>Published Date</th>
+        <th></th>
     </thead>
     <?php foreach ($publishedFiles as $file): ?>
     <tr>
         <td><?= $file['filename'] ?></td>
         <td><?= $file['published_date'] ?></td>
-        <td><?php ($file['status'])?print ("Published"): print ("Not Published") ?></td>
-        <td><div class="delete-files"><?php echo $this->l('Delete' , 'wep/delete-published-file?file_id='.$file['id']); ?></div></td>
+        <td><?php (!$file['status'])? print $this->l('Delete' , 'wep/delete-published-file?file_id='.$file['id'] , array('attributes'=>array('class'=>'delete-files'))):''; ?></td>
     </tr>
     <?php endforeach; ?>
 </table>

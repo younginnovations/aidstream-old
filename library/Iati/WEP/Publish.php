@@ -9,6 +9,7 @@ class Iati_WEP_Publish
     protected $file_path;
     protected $segmented;
     protected $country;
+    protected $error;
     
     public function __construct($publisher_org_id,$publisher_id,$api_key,$segmented = false)
     {
@@ -59,6 +60,9 @@ class Iati_WEP_Publish
         }
         $registry->prepareRegistryData();
         $registry->publishToRegistry();
+        if($registry->getErrors()){
+            $this->error = $registry->getErrors();
+        }
     }
     
     public function getDataToPublish()
@@ -136,7 +140,8 @@ class Iati_WEP_Publish
         $data = array(
                     'publishing_org_id' => $this->publisher_org_id,
                     'filename' => $filename,
-                    'published_date' => date('Y-m-d h:m:s')
+                    'published_date' => date('Y-m-d h:i:s'),
+                    'status' => 1
                     );
         $db->savePublishedInfo($data);
     }
@@ -146,5 +151,10 @@ class Iati_WEP_Publish
     {
         $modelPublished = new Model_Published();
         $modelPublished->resetPublishedInfo($this->publisher_org_id);
-    }    
+    }
+    
+    public function getError()
+    {
+        return $this->error;
+    }
 }
