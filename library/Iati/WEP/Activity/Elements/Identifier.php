@@ -15,16 +15,21 @@ class Iati_WEP_Activity_Elements_Identifier extends Iati_WEP_Activity_Elements_E
                     'name' => 'id',
                     'html' => '<input type= "hidden" name="%(name)s" value= "%(value)s" />' 
                 ),
+                //added for creating iati-identifier
+                'reporting_org_ref' => array(
+                    'name' => 'reporting_org_ref',
+                    'html' => '<input type= "hidden" name="%(name)s" value = "%(value)s" id="reporting_org"/>'
+                ),
                 'activity_identifier' => array(
                     'name' => 'activity_identifier',
                     'label' => 'Activity Identifier',
-                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help identifier-text"></div>',
+                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s id="activity_identifier">%(value)s</textarea><div class="help identifier-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Iati Activity Identifier',
-                    'html' => '<textarea rows="2" cols="20" readonly="true" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help identifier-text"></div>',
+                    'html' => '<textarea rows="2" cols="20" readonly="true" name="%(name)s" %(attrs)s id="iati_identifier_text">%(value)s</textarea><div class="help identifier-text"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
     );
@@ -53,6 +58,10 @@ class Iati_WEP_Activity_Elements_Identifier extends Iati_WEP_Activity_Elements_E
         $this->id = (isset($data['id']))?$data['id']:0;
         $this->text = $data['text'];
         $this->activity_identifier = $data['activity_identifier'];
+        
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $model = new Model_DefaultFieldValues();
+        $this->reporting_org_ref = $model->getByOrganisationId($identity->account_id, 'reporting_org_ref');
         
     }
     
@@ -85,8 +94,8 @@ class Iati_WEP_Activity_Elements_Identifier extends Iati_WEP_Activity_Elements_E
     public function getCleanedData(){
         $data = array();
         $data ['id'] = $this->id;
-        $data['text'] = $this->text;
-        $data['activity_identifier'] = $this->activity_identifier;
+        $data['text'] = trim($this->text);
+        $data['activity_identifier'] = str_replace(' ','',trim($this->activity_identifier));
         
         return $data;
     }

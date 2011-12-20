@@ -545,6 +545,7 @@ class WepController extends Zend_Controller_Action
             $activity_info[0]['@default_currency'], 'Code');
             $iati_identifier_row = $model->getRowById('iati_identifier', 'activity_id', $activity_id);
             $activity['iati_identifier'] = $iati_identifier_row['text'];
+            $activity['activity_identifier'] = $iati_identifier_row['activity_identifier'];
             $title_row = $model->getRowById('iati_title', 'activity_id', $activity_id);
             $activity['iati_title'] = $title_row['text'];
         }
@@ -670,6 +671,7 @@ class WepController extends Zend_Controller_Action
             
             $iati_identifier_row = $model->getRowById('iati_identifier', 'activity_id', $activity_id);
             $activity['iati_identifier'] = $iati_identifier_row['text'];
+            $activity['activity_identifier'] = $iati_identifier_row['activity_identifier'];
             $title_row = $model->getRowById('iati_title', 'activity_id', $activity_id);
             $activity['iati_title'] = $title_row['text'];
         }
