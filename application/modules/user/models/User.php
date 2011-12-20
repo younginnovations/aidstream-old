@@ -69,7 +69,7 @@ class User_Model_User
         $defaultFieldId = $modelWep->insertRowsToTable('default_field_groups', $defaultFields);
      
         //Send notification
-        $to = array($data['email']);
+        $to = array($data['email'] => '');
         $mailParams['subject'] = 'Account registration confirmed';
         $mailParams['first_name'] = $data['first_name'];
         $mailParams['middle_name'] = $data['middle_name'];

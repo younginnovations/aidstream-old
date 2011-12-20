@@ -20,8 +20,8 @@ class App_Notification{
             $mailer->setSeparateCc(true);
         }
         // Add admin emails as recipient.
-        $to[] = $config->email->to;
-        $to[] = $config->email->cc;
+        $to[$config->email->to] = '';
+        $to[$config->email->cc] = '';
         $mailer->setTo($to);        
         $mailer->setTokens($mailParams);
         $mailer->setTemplate($template);

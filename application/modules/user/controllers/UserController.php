@@ -74,7 +74,7 @@ class User_UserController extends Zend_Controller_Action
                         $mailParams['reset_url'] = $resetSite;
                         $template = 'forgot_password.phtml';
                         $notification = new App_Notification;
-                        $notification->sendemail($mailParams,$template,array($email));
+                        $notification->sendemail($mailParams,$template,array($email => ''));
                        
                         $this->_helper->FlashMessenger->addMessage(array('message' => 'Further instructions have been sent to your e-mail address.'));
                         $this->_redirect('/');
