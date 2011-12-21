@@ -477,6 +477,7 @@ p.paragraph-second
 }
 
 
+
 #contact-us input#send-bottom
 {
 	background:url(../stylesheet/images/send-bottom.png) no-repeat;
@@ -1009,6 +1010,16 @@ button.form-submit, input.form-submit, a.button, .change-password a, .profile-li
     font-size: 14px;
     padding: 10px 20px;
     text-decoration: none;
+}
+
+#Submit_and_view
+{
+	margin-right: 8px;
+}
+
+#element-form .disabled
+{
+	background-color: #E0DDDD !important;
 }
 
 #Signup-label, #button-label, #save-label, #submit-label, #Submit-label, #Save-label{
