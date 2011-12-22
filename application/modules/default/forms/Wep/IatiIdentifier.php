@@ -10,7 +10,7 @@ class Form_Wep_IatiIdentifier extends App_Form
         //$form1->add('add', $account_id);
         
         $form['activity_identifier'] = new Zend_Form_Element_Text('activity_identifier');
-        $form['activity_identifier']->setLabel('Your Activity Identifier')
+        $form['activity_identifier']->setLabel('Activity Identifier')
                                     ->setRequired()
                                     ->setAttrib('class', 'form-text')
                                     ->setDecorators( array(
