@@ -336,7 +336,7 @@ function initialize() {
                     
 		    var parentNode = dojo.NodeList(removeNode.parentNode);
 		    var removeId = dojo.attr(parentNode.query('input[type="hidden"]')[0], 'value');
-		    console.log(grandParent.children('fieldset').length);
+		    //console.log(grandParent.children('fieldset').length);
 		    
 		    if (parseInt(removeId)) {
 			dojo.xhrGet({
@@ -365,7 +365,9 @@ function initialize() {
 			});
 		    }
 		    else {
-			dojo.destroy(parentNode[0]);
+			if (grandParent.children('fieldset').length > 1) {
+					dojo.destroy(parentNode[0]);
+				}
 		    }
                     
                 });
