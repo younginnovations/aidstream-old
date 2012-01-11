@@ -29,6 +29,13 @@ class Form_Wep_EditDefaults extends App_Form
             ->addMultiOptions($reportingOrgType)
             ->setAttrib('width','20px')
             ->setAttrib('class', 'form-select');
+            
+        $language = $model->getCodeArray('Language',null,'1');
+        $form['reporting_org_lang'] = new Zend_Form_Element_Select('reporting_org_lang');
+        $form['reporting_org_lang']->setLabel('Reporting Organisation Language')
+            ->addMultiOption('', 'Select anyone')->setValue($defaults['field_values']['reporting_org_lang'])
+            ->setAttrib('class', 'form-select')
+            ->addMultiOptions($language);
         
         $currency = $model->getCodeArray('Currency',null,'1');
         $form['default_currency'] = new Zend_Form_Element_Select('default_currency');
@@ -162,7 +169,7 @@ class Form_Wep_EditDefaults extends App_Form
                         )
         ));
         
-        $this->addDisplayGroup(array( 'reporting_org_ref', 'reporting_org_type' ,'default_reporting_org'),
+        $this->addDisplayGroup(array( 'reporting_org_ref', 'reporting_org_type' ,'default_reporting_org' , 'reporting_org_lang'),
                                'reporting_org',
                                array('legend' =>'Reporting Organisaiton Info')
                                );

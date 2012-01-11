@@ -28,6 +28,7 @@ class Model_Activity
         $reporting_org['@ref'] = $default['reporting_org_ref'];
         $reporting_org['text'] = $default['reporting_org'];
         $reporting_org['@type'] = $default['reporting_org_type'];
+        $reporting_org['@xml_lang'] = $default['reporting_org_lang'];
         $reporting_org['activity_Id'] = $activityId;
         $reporting_org_id = $wepModel->insertRowsToTable('iati_reporting_org', $reporting_org);
         

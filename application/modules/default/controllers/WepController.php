@@ -303,6 +303,7 @@ class WepController extends Zend_Controller_Action
                     $defaultFieldsValuesObj->setHierarchy($data['hierarchy']);
                     $defaultFieldsValuesObj->setReportingOrgRef($data['reporting_org_ref']);
                     $defaultFieldsValuesObj->setReportingOrgType($data['reporting_org_type']);
+                    $defaultFieldsValuesObj->setReportingOrgLang($data['reporting_org_lang']);
                     $defaultFieldsValuesObj->setCollaborationType($data['default_collaboration_type']);
                     $defaultFieldsValuesObj->setFlowType($data['default_flow_type']);
                     $defaultFieldsValuesObj->setFinanceType($data['default_finance_type']);
@@ -407,6 +408,7 @@ class WepController extends Zend_Controller_Action
         $reporting_org_info['@reporting_org_name'] = $default['reporting_org'];
         $reporting_org_info['@reporting_org_ref'] = $default['reporting_org_ref'];
         $reporting_org_info['@reporting_org_type'] = $wepModel->fetchValueById('OrganisationType' , $default['reporting_org_type'] , 'Code');
+        $reporting_org_info['@reporting_org_lang'] = $wepModel->fetchValueById('Language' , $default['reporting_org_lang'] , 'Name');
         $incomplete = false;
         foreach($reporting_org_info as $reportingOrgValue){
             if(!$reportingOrgValue){
