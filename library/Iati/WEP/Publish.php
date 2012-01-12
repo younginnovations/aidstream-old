@@ -74,37 +74,49 @@ class Iati_WEP_Publish
              *Seperate activities by country or region
              *
              *foreach activity
-             *if count of countries of an activity greater than 1: filename should use 
-             *if count of countries 1 for no country or only one country
-             *  if size of attrib of country 0 i.e no country, check simillarly for region
-             *  else filename should use country name
+             *if number of country is 1 i.e count of country is one and size is not zero, use country code 
+             *else
+             *  if number of region is 1 i.e count of region is one and size is not zero, use region code 
+             *  else if number of regions is greater than 1 , use 998
+             *  else
+             *      if number of countries is 0, use 998
+             *      else use the country with max percentage, if no percentage use first inserted.
             **/
             $segmented_activities = array();
             foreach($activities as $activity)
             {
-                $country = $activity->getElementsByType(Iati_Activity_Element::TYPE_RECIPIENT_COUNTRY);
-                if(sizeof($country) > 1){
-                    $segmented_activities[998][] = $activity;
+                $countries = $activity->getElementsByType(Iati_Activity_Element::TYPE_RECIPIENT_COUNTRY);
+                $countryAttribs = $countries[0]->getAttribs();
+                if(1 == sizeof($countries) && 0 != sizeof($countryAttribs)){
+                    $segmented_activities[$countries[0]->getAttribValue('@code')][] = $activity;
+                    $this->country = $countries[0]->getAttribValue('@code');
                 } else {
-                    $countryAttribs = $country[0]->getAttribs();
-                    if(0 == sizeof($countryAttribs)){
-                        $region = $activity->getElementsByType(Iati_Activity_Element::TYPE_RECIPIENT_REGION);
-                        if(sizeof($region) > 1){
+                    $regions = $activity->getElementsByType(Iati_Activity_Element::TYPE_RECIPIENT_REGION);
+                    $regionAttribs = $regions[0]->getAttribs();
+                    if(1 == sizeof($regions) && 0 != sizeof($regionAttribs)){
+                        $segmented_activities[$regions[0]->getAttribValue('@code')][] = $activity;
+                    } else if(sizeof($regions) > 1) {
+                        $segmented_activities[998][] = $activity;
+                    } else {
+                        if(1 == sizeof($countries)){
                             $segmented_activities[998][] = $activity;
                         } else {
-                            $regionAttribs = $region[0]->getAttribs();
-                            if(0 == sizeof($regionAttribs)){
-                                $segmented_activities[998][] = $activity;
+                            $maxPercent = '';
+                            foreach($countries as $country){
+                                $percent = $country->getAttrib('@percentage');
+                                if($percent > $maxPercent){
+                                    $maxPercent = $percent;
+                                    $maxPercentCountry = $country->getAttribValue('@code');
+                                }
+                            }
+                            if($maxPercentCountry){
+                                $segmented_activities[$maxPercentCountry][] = $activity;
                             } else {
-                                $segmented_activities[$region[0]->getAttribValue('@code')][] = $activity;
+                                $segmented_activities[$countries[0]->getAttribValue('@code')][] = $activity;
                             }
                         }
-                    } else {
-                        $segmented_activities[$country[0]->getAttribValue('@code')][] = $activity;
-                        $this->country = $country[0]->getAttribValue('@code');
                     }
-                    
-                }
+                }                
             }
             return $segmented_activities;
             
