@@ -20,6 +20,12 @@ class Model_User extends Zend_Db_Table_Abstract
         }
         return parent::update($data,array('user_id = ?' => $id));
     }
+    
+    public function updateStatusByAccount($accountId , $status)
+    {
+        return $this->update(array('status' => $status) , array('account_id = ?' => $accountId));
+    }
+    
     public function getUserByAccountId($account_id,$filter = null)
     {
         $select = $this->select()

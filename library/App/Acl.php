@@ -68,7 +68,7 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'user:user', 'edit');
         $this->allow('user', 'default:wep', 'list-activities');
         $this->allow('user', 'default:wep', 'view-activities');
-        //$this->allow('user', 'default:wep', 'view-activity');
+        $this->allow('user', 'default:wep', 'view-activity');
         $this->allow('user', 'default:wep', 'add-activities');
         $this->allow('user', 'default:wep', 'add-activity', new App_ActionAssertion('add_activity'));
         $this->allow('user', 'default:wep', 'activitybar');
@@ -104,6 +104,7 @@ class App_Acl extends Zend_Acl
         $this->allow('admin', 'default:admin', 'delete-user');
         $this->allow('admin', 'default:admin', 'edit-user-permission');
         $this->allow('admin', 'default:admin', 'reset-user-password');
+        $this->allow('admin', 'default:admin', 'change-organisation-status');
 //        $this->allow('admin', 'user:user', 'test', new App_ResourceAssertion('title'));
 //        $this->allow('admin', 'default:wep', 'edit-activity-elements', new App_sResourceAssertion('title'));
         $this->deny('user', 'user:user', 'register');

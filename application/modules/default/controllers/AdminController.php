@@ -156,7 +156,8 @@ class AdminController extends Zend_Controller_Action
             $default['field_values'] = $defaultFieldsValues->getDefaultFields();
             foreach ($default['field_values'] as $name => $value)
             {
-                if($name != 'reporting_org_ref' &$name != 'reporting_org_type'){
+                $noPrefix = array('reporting_org_ref' , 'reporting_org_type' , 'reporting_org_lang');
+                if(!in_array($name , $noPrefix)){
                     $input['default_'.$name] = $value;
                 } else {
                     $input[$name] = $value;
@@ -244,6 +245,7 @@ class AdminController extends Zend_Controller_Action
                 $defaultFieldsValues->setReportingOrg($data['default_reporting_org']);
                 $defaultFieldsValues->setReportingOrgRef($data['reporting_org_ref']);
                 $defaultFieldsValues->setReportingOrgType($data['reporting_org_type']);
+                $defaultFieldsValues->setReportingOrgLang($data['reporting_org_lang']);
                 $defaultFieldsValues->setHierarchy($data['default_hierarchy']);
                 $defaultFieldsValues->setCollaborationType($data['default_collaboration_type']);
                 $defaultFieldsValues->setFlowType($data['default_flow_type']);
@@ -569,6 +571,20 @@ class AdminController extends Zend_Controller_Action
         }else{
             print "no"; exit;
         }
+    }
+    
+    public function changeOrganisationStatusAction()
+    {
+        $data['id'] = $this->_getParam('org_id');
+        $data['status'] = $this->_getParam('status');
+        
+        $orgModel = new Model_Wep();
+        $orgModel->updateRowsToTable('account' , $data);
+        
+        $userModel = new Model_User();
+        $userModel->updateStatusByAccount($data['id'] , $data['status']);
+        
+        $this->_redirect('/admin/list-organisation');
     }
     
     public function listAllUsersAction()
