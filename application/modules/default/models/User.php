@@ -38,6 +38,13 @@ class Model_User extends Zend_Db_Table_Abstract
         return $this->fetchRow($select)->toArray();
         
     }
+    
+    public function getAllUsersByAccountId($accountId)
+    {
+        $select = $this->select()
+            ->where('account_id = ?',$accountId);
+        return $this->fetchAll($select)->toArray();
+    }
     public function getUserCountByAccountId($account_id)
     {
         $select = $this->select()

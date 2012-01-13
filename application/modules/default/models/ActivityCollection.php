@@ -9,6 +9,21 @@ class Model_ActivityCollection extends Zend_Db_Table_Abstract
         
     }
     
+    /**
+     * Function to  get arrray of activity ids for an organisation
+     *
+     * @param int $account_id   organisation id
+     * @return array    array of activity ids associated with the account.
+     */
+    public function getActivityIdsByAccount($account_id)
+    {
+        $rowSet = $this->select()->setIntegrityCheck(false)
+            ->from(array('iact'=>'iati_activity'),'iact.id')
+            ->join(array('iacts'=>'iati_activities'),'iact.activities_id = iacts.id','')
+            ->where('iacts.account_id=?',$account_id);
+        return $this->fetchAll($rowSet)->toArray();
+    }
+    
     public function getActivitiesByStatusAndAccount($status,$account_id)
     {
         $rowSet = $this->select()->setIntegrityCheck(false)
@@ -27,6 +42,5 @@ class Model_ActivityCollection extends Zend_Db_Table_Abstract
             ->join(array('iacts'=>'iati_activities'),'iact.activities_id = iacts.id','')
             ->where('iacts.account_id=?',$account_id);
         return $activities = $this->fetchAll($rowSet)->toArray();
-    }
-    
+    }    
 }

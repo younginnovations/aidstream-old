@@ -288,6 +288,14 @@ class AdminController extends Zend_Controller_Action
         }
     }
 
+    public function deleteOrganisationAction()
+    {
+        $orgId = $this->_getParam('org_id');
+        $model = new Model_Admin();
+        $model->deleteOrganisationById($orgId);
+        $this->_helper->FlashMessenger->addMessage(array('message' => 'Organisation Deleted.'));
+        $this->_redirect('admin/list-organisation');
+    }
     public function registerUserAction()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
@@ -406,14 +414,8 @@ class AdminController extends Zend_Controller_Action
         if($identity->role == 'admin' || $identity->role = 'superadmin'){
             if(isset($_GET['user_id'])){
                 try{
-                    $user_id = $_GET['user_id'];
-                    $userModel = new User_Model_DbTable_User();
-                    $userModel->deleteUser($user_id);
-                    $profileModel = new User_Model_DbTable_Profile();
-                    $profileModel->deleteProfile($user_id);
-                    $wepModel = new Model_Wep();
-                    $wepModel->deleteRow('user_permission', 'user_id', $user_id);
-                    $wepModel->deleteRow('Privilege', 'owner_id', $user_id);
+                    $model = new Model_Admin();
+                    $model->deleteUserById($_GET['user_id']);
                     $this->_helper->FlashMessenger->addMessage(array('message' => 'User Deleted.'));
                     $this->_redirect('admin/list-users');
                 }

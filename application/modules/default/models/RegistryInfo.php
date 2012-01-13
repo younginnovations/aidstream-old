@@ -40,4 +40,9 @@ class Model_RegistryInfo extends Zend_Db_Table_Abstract
             ->where('org_id = ?' , $orgId);
         return ($this->fetchRow($row))?true:false;
     }
+    
+    public function deleteRegistryInfo($orgId)
+    {
+        $this->delete(array('org_id = ?' => $orgId));
+    }
 }

@@ -23,6 +23,8 @@
         <?php print $this->l('Masquerade', "user/user/masquerade?org_id=".$row['id']."&user_id=".$row['user_id']);?>
         |
         <?php print $this->l((($row['status'])?'Disable':'Enable'),"admin/change-organisation-status/?org_id=".$row['id']."&status=".$newStatus); ?>
+        |
+        <?php print $this->l('Delete',"admin/delete-organisation/?org_id=".$row['id']); ?>
     </td>
     </tr>
     <?php $i++;?>
