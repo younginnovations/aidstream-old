@@ -57,6 +57,12 @@ class User_Model_DbTable_User extends Zend_Db_Table_Abstract {
         $where = $this->getAdapter()->quoteInto('user_id = ?', $user_id);
         $this->delete($where);
     }
+    
+    public function getUserByEmail($email)
+    {
+        $select = $this->select()->where('email = ?', $email);
+        return $this->fetchRow($select);
+    }
 
 }
 

@@ -58,10 +58,9 @@ class User_UserController extends Zend_Controller_Action
             if ($form->isValid($formData)) {
                 $email = $form->getValue('email');
 
-                $unique = new User_Model_DbTable_User();
-                $result = $unique->checkUnique($email);
-
-                if ($result == FALSE) {
+                $userModel = new User_Model_DbTable_User();
+                $user = $userModel->getUserByEmail($email);
+                if ($user) {
                     try {
                         
                         $uniqueId = md5(uniqid());
@@ -71,6 +70,7 @@ class User_UserController extends Zend_Controller_Action
                         
                         //Send Support Mail
                         $mailParams['subject'] = 'Replacement login information for ' . $email;
+                        $mailParams['username'] = $user->user_name;
                         $mailParams['reset_url'] = $resetSite;
                         $template = 'forgot_password.phtml';
                         $notification = new App_Notification;
