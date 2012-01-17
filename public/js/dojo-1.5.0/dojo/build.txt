@@ -100,6 +100,3 @@ dojo.js:
 ./../../release/custom-build/dijit/form/Textarea.js
 ./../../release/custom-build/dijit/_TimePicker.js
 ./../../release/custom-build/dijit/form/TimeTextBox.js
-./../../release/custom-build/speedrfp/dijit/Dialog.js
-./../../release/custom-build/speedrfp/db/address/States.js
-./../../release/custom-build/speedrfp/dojo/layers/build-layer-main.js

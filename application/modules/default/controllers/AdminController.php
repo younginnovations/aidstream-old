@@ -29,52 +29,6 @@ class AdminController extends Zend_Controller_Action
         //$this->_helper->layout()->setLayout('layout_wep');
     }
 
-    public function awaitingAction()
-    {
-        $userModel = new Model_User();
-        $data = $userModel->getAwaitingUser();
-        $this->view->data = $data->toArray();
-        $this->view->placeholder('title')->set("Awaiting Approval");
-        
-        //$this->view->blockManager()->enable('partial/blocks/adminmenu.phtml');
-    }
-
-    public function approveAction()
-    {
-        $id = $this->getRequest()->getParam('id');
-        if (!$id) {
-            throw new Exception('Invalid Request');
-        }
-        $status = array('status' => 1);
-        $userModel = new Model_User();
-        $result = $userModel->updateStatus($status, $id);
-        if ($result) {
-            //@todo email params
-            /* $mailerParams = array('email'=> 'abhinav@yipl.com.np');
-              $toEmail = 'manisha@yipl.com.np';
-              $template = 'user-approve';
-              $Wep = new App_Notification;
-              $Wep->sendemail($mailerParams,$toEmail,$template); */
-            $this->_helper->FlashMessenger->addMessage(array('message' => "Your Changes have been saved."));
-            $this->_redirect('admin/awaiting');
-        }
-    }
-
-    public function rejectAction()
-    {
-        $id = $this->getRequest()->getParam('id');
-        if (!$id) {
-            throw new Exception('Invalid Request');
-        }
-        $status = array('status' => 3);
-        $userModel = new Model_User();
-        $result = $userModel->updateStatus($status, $id);
-        if ($result) {
-            $this->_helper->FlashMessenger->addMessage(array('message' => "Your Changes have been saved."));
-            $this->_redirect('admin/awaiting');
-        }
-    }
-
     public function listOrganisationAction()
     {
         $model = new Model_Wep();
@@ -296,6 +250,10 @@ class AdminController extends Zend_Controller_Action
         $this->_helper->FlashMessenger->addMessage(array('message' => 'Organisation Deleted.'));
         $this->_redirect('admin/list-organisation');
     }
+    
+    /**
+     * Function to register new user for the organisation by admin user.
+     */
     public function registerUserAction()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
@@ -587,16 +545,6 @@ class AdminController extends Zend_Controller_Action
         $userModel->updateStatusByAccount($data['id'] , $data['status']);
         
         $this->_redirect('/admin/list-organisation');
-    }
-    
-    public function listAllUsersAction()
-    {
-        
-    }
-    
-    public function addRole()
-    {
-        
     }
 
 }

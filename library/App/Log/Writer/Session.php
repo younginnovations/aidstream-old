@@ -1,6 +1,6 @@
 <?php
 /**
- * SpeedRFP
+ * Aidstream
  * 
  * Custom writer that stores entries in the session.
  * 

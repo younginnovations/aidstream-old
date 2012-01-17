@@ -108,20 +108,9 @@ class WepController extends Zend_Controller_Action
 
     }
 
-    /* public function formAction(){
-     $data = array('xmllang' => array('input'=>'Text', 'table'=>'Language'),
-     '@default-currency'=> array('input' => 'Text', 'table' =>'Currency'),
-     '@hierarchy' => array('input'=>'Text'), '@last-updated-datetime' => array('input'=>'Text'));
-     $form = new Form_Wep_Createform();
-     $form->create($data);
-     //        print "ddd";
-     $this->view->form = $form;
-
-     } */
     /**
-     * @todo clean up comments and extra function
-     * @todo give comments to function where necassary
-     * Enter description here ...
+     * Function to register an organisation by Superadmin
+     * @todo move this action to admin controller
      */
 
     public function registerAction()
@@ -1150,8 +1139,9 @@ class WepController extends Zend_Controller_Action
 
     }
 
-
-
+    /**
+     * @deprecated
+     */
     public function deleteAction()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
