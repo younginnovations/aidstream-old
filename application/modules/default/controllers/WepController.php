@@ -399,8 +399,8 @@ class WepController extends Zend_Controller_Action
         $reporting_org_info['@reporting_org_type'] = $wepModel->fetchValueById('OrganisationType' , $default['reporting_org_type'] , 'Code');
         $reporting_org_info['@reporting_org_lang'] = $wepModel->fetchValueById('Language' , $default['reporting_org_lang'] , 'Name');
         $incomplete = false;
-        foreach($reporting_org_info as $reportingOrgValue){
-            if(!$reportingOrgValue){
+        foreach($reporting_org_info as $key => $reportingOrgValue){
+            if(!$reportingOrgValue && $key != '@reporting_org_lang'){
                 $incomplete = true;
                 break;
             }

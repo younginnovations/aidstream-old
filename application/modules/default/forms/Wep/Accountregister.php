@@ -117,7 +117,6 @@ class Form_Wep_Accountregister extends App_Form
         $language = $model->getCodeArray('Language',null,'1');
         $form['reporting_org_lang'] = new Zend_Form_Element_Select('reporting_org_lang');
         $form['reporting_org_lang']->setLabel('Reporting Organisation Language')
-            ->setRequired()
             ->setValue($defaultFields['reporting_org_lang'])
             ->addMultiOption('','Select anyone')
             ->addMultiOptions($language)
