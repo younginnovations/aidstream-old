@@ -8,6 +8,8 @@ dojo.require('dijit.form.Select')
 dojo.require('dijit.form.DateTextBox');
 //dojo.require("dojo.date.locale");
 dojo.require('dijit.TooltipDialog');
+dojo.require("dijit.InlineEditBox");
+dojo.require("dijit.form.Textarea");
 /**
  * @todo some comments on what is required for what
  * @param evt
@@ -752,6 +754,51 @@ function initialize() {
 		if(!confirm("Are you sure you want to delete the file")){
 		    evt.preventDefault();
 		}
+	    }
+	},
+	".inline-edit-form" : {
+	    "found" : function (ele) {
+		dojo.query(ele).style('display', 'none');
+	    },
+	    
+	    "onsubmit" : function (evt) {
+		evt.preventDefault();
+		var node = getTarget(evt);
+		var id = dojo.query('[name=id]', node).val();
+		var msg = dojo.query('[name=message]', node).val();
+		
+		dojo.xhrPost({
+                    url : APP_BASEPATH + "/admin/edit-help-message",
+                    handleAs : "text",
+		    timeout : 10000,
+                    content : {"id":id , "message":msg},
+                    load : function (data) {
+			var info = dojo.query(node.parentNode.parentNode).children('.value-info');
+			info.style('display' , 'block');
+			info.innerHTML(msg);
+                        dojo.query(node.parentNode).style('display' , 'none');
+                    },
+                    error : function (err) {
+                        console.log(err);
+                    }
+                });
+		
+	    }
+	},
+	
+	".value-info" : {
+	    "onclick" : function (evt) {
+		var node = getTarget(evt);
+		dojo.query(node).style('display' , 'none');
+		dojo.query('.inline-edit-form',node.parentNode).style('display' , 'block');
+	    }
+	},
+	
+	".inline-cancel" : {
+	    "onclick" : function (evt) {
+		var node = getTarget(evt).parentNode.parentNode.parentNode;
+		dojo.query('.value-info' , node).style('display' , 'block');
+		dojo.query('.inline-edit-form',node).style('display' , 'none');
 	    }
 	}
     });

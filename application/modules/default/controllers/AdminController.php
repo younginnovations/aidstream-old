@@ -546,5 +546,37 @@ class AdminController extends Zend_Controller_Action
         
         $this->_redirect('/admin/list-organisation');
     }
+    
+    public function listHelpAction()
+    {
+        $modelHelp = new Model_Help();
+        $helpTopics = $modelHelp->getMessagesForList();
+        $this->view->helpTopics = $helpTopics;
+        
+        $this->view->placeholder('title')->set("Help Topics List");
+    }
+    
+    public function editHelpMessageAction()
+    {
+        $eleId = $this->_getParam('id');
+        if(!$eleId){
+            return false;
+        }
+        $helpModel = new Model_Help();
+        if($this->getRequest()->isPost()){
+            $formData = $this->getRequest()->getPost();
+            if($eleId == 'xml_lang'){
+                $helpModel->updateXmlLangMessages($formData['message']);
+            } else if($eleId == 'iso_date'){
+                $helpModel->updateDateMessages($formData['message']);
+            } else {
+                $id = $formData['id'];
+                unset($formData['submit']);
+                unset($formData['id']);
+                $helpModel->updateHelpMessageById($formData , $id);
+            }
+            return true;
+        }
+    }
 
 }

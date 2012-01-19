@@ -478,6 +478,7 @@ p.paragraph-second
 
 
 
+
 #contact-us input#send-bottom
 {
 	background:url(../stylesheet/images/send-bottom.png) no-repeat;
@@ -2245,3 +2246,37 @@ table#list-org {
 {
 	clear: both;
 }
+
+/** Css for inline edit form **/
+.inline-content {
+    border: 1px solid #EDEEE8;
+    margin-bottom: 10px;
+    padding: 5px;
+	display: block;
+    width: 95%;
+}
+.inline-form input {
+	 background-color: #009ADA;
+    border: medium none;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 11px;
+    padding: 5px 8px;
+	margin-right: 8px;
+}
+
+.xml-lang td,
+.defaults td {
+	width: 25%;
+	vertical-align: top;
+}
+
+.xml-lang td.help-message-text,
+.defaults td.help-message-text {
+	width: 75%;
+}
+
+
