@@ -22,14 +22,13 @@ class User_UserController extends Zend_Controller_Action
     public function registerAction()
     {
         $formData = $this->getRequest()->getPost();
-        
         $form = new User_Form_User_RegisterForm();
         $modelWep = new Model_Wep();
         if ($formData) {
                 if ($form->isValid($formData)) {
-                    $result = $modelWep->getRowsByFields('account', 'username', $formData['username']);
+                    $result = $modelWep->getRowsByFields('account', 'username', $formData['account_identifier']);
                     if (!empty($result)) {
-                        $this->_helper->FlashMessenger->addMessage(array('error' => "Username already exists."));
+                        $this->_helper->FlashMessenger->addMessage(array('error' => "Account Identifier already exists."));
                         $form->populate($formData);
                     } else {
                         $userModel = new User_Model_User();

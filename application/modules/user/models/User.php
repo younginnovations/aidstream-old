@@ -13,13 +13,12 @@ class User_Model_User
     public function registerUser($userData)
     {
         $modelWep = new Model_Wep();
-        
         $data = array();
         $data['email'] = $userData['email'];
         $data['first_name'] = $userData['first_name'];
-        $data['middle_name'] = $userData['middle_name'];
         $data['last_name'] = $userData['last_name'];
-        $data['username'] = $userData['username'];
+        $data['account_identifier'] = $userData['account_identifier'];
+        $data['user_name'] = $userData['user_name'];
         $data['password'] = $userData['password'];
         $data['org_name'] = $userData['org_name'];
         $data['org_address'] = $userData['org_address'];
@@ -27,12 +26,12 @@ class User_Model_User
         //Save Organisation Info
         $account['name'] = $data['org_name'];
         $account['address'] = $data['org_address'];
-        $account['username'] = trim($data['username']);
+        $account['username'] = trim($data['account_identifier']);
         $account['uniqid'] = md5(date('Y-m-d H:i:s'));
         $accountId = $modelWep->insertRowsToTable('account', $account);
         
         //Save User Info
-        $user['user_name'] = trim($data['username']).'_admin';
+        $user['user_name'] = trim($data['user_name']);
         $user['password'] = md5($data['password']);
         $user['role_id'] = 1;
         $user['email'] = $data['email'];
@@ -42,7 +41,6 @@ class User_Model_User
         
         //Save User Profile
         $admin['first_name'] = $data['first_name'];
-        $admin['middle_name'] = $data['middle_name'];
         $admin['last_name'] = $data['last_name'];
         $admin['user_id'] = $user_id;
         $admin_id = $modelWep->insertRowsToTable('profile', $admin);

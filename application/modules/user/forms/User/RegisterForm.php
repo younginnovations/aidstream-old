@@ -13,9 +13,20 @@ class User_Form_User_RegisterForm extends App_Form
             ->setRequired()
             ->setAttrib('class', 'form-text');
             
-        $orgaddress = new Zend_Form_Element_Text('org_address');
+        $orgaddress = new Zend_Form_Element_Textarea('org_address');
         $orgaddress->setLabel('Organisation Address')
+            ->setAttrib('rows' , 4)
             ->setRequired()
+            ->setAttrib('class', 'form-text');
+            
+        $account_identifier = new Zend_Form_Element_Text('account_identifier');
+        $account_identifier->setLabel('Account Identifier')
+            ->setRequired()
+            ->setDescription("Your account identifier will be used as a prefix for all the users in your organisation,
+                             and in the file-naming of your published IATI data. We recommend that you use a short
+                             abbreviation that uniquely identifies your organisation.
+                             If your account identifier is 'abc' the administrator user created with this
+                             registration will be 'abc_admin' and the other users you create will be 'abc'_name.")
             ->setAttrib('class', 'form-text');
             
         $firstname = new Zend_Form_Element_Text('first_name');
@@ -23,22 +34,15 @@ class User_Form_User_RegisterForm extends App_Form
             ->setRequired()
             ->setAttrib('class', 'form-text');
             
-        $middlename = new Zend_Form_Element_Text('middle_name');
-        $middlename->setLabel('middle Name')
-            ->setAttrib('class', 'form-text');
-            
         $lastname = new Zend_Form_Element_Text('last_name');
-        $lastname->setLabel('last Name')
+        $lastname->setLabel('Last Name')
             ->setRequired()
             ->setAttrib('class', 'form-text');
         
-        $username = new Zend_Form_Element_Text('username');
-        $username->setLabel('username')
+        $username = new Zend_Form_Element_Text('user_name');
+        $username->setLabel('User Name')
             ->setRequired()
-            ->setDescription("Your username will be used as a prefix for all
-                             the users for your organisation.eg if your username
-                             is 'test' the admin user created will be 'test_admin' and
-                             the usernames for other user you create will be 'test_name'.")
+            ->setAttrib('readonly' , true)
             ->setAttrib('class', 'form-text');
 
 
@@ -94,16 +98,16 @@ class User_Form_User_RegisterForm extends App_Form
 
             
 
-        $this->addElements(array($orgname, $orgaddress, $firstname, $middlename, $lastname, $username, $email, $password, $confirmPassword , $captcha));
+        $this->addElements(array($orgname, $orgaddress, $account_identifier , $firstname, $lastname, $username, $email, $password, $confirmPassword , $captcha));
         
         $this->addDisplayGroup(
-                               array('org_name' , 'org_address'),
+                               array('org_name' , 'org_address' , 'account_identifier'),
                                'organisation_info',
                                array('legend' => 'Organisation Info')
                            );
         
         $this->addDisplayGroup(
-                               array('first_name' , 'middle_name' , 'last_name' , 'email', 'username' , 'password', 'confirmpassword' , 'captcha'),
+                               array('first_name' , 'last_name' , 'email', 'user_name' , 'password', 'confirmpassword' , 'captcha'),
                                'user_info',
                                array('legend' => 'User Info')
                            );

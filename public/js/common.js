@@ -800,7 +800,15 @@ function initialize() {
 		dojo.query('.value-info' , node).style('display' , 'block');
 		dojo.query('.inline-edit-form',node).style('display' , 'none');
 	    }
+	},
+	
+	"#account_identifier" : {
+	    "onkeyup" : function (evt) {
+		var identifier = getTarget(evt).value.replace(/ /g,'');
+		dojo.query('#user_name').attr('value', identifier+"_admin");
+	    }
 	}
+	
     });
     // End of dojo.behavior.add
     dojo.behavior.apply();
