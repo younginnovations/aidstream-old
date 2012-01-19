@@ -4,17 +4,7 @@ class Model_Admin
 {
     public function deleteOrganisationById($orgId)
     {        
-        $wepModel = new Model_Wep();
-        // Delete account
-        $wepModel->deleteRow('iati_activities' , 'account_id' , $orgId);
-        $wepModel->deleteRow('account' , 'id' , $orgId);
-        
-        // Delete Users
-        $userModel = new Model_User();
-        $users = $userModel->getAllUsersByAccountId($orgId);
-        foreach($users as $user){
-            $this->deleteUserById($user['user_id']);
-        }
+        $wepModel = new Model_Wep();     
 
         // Delete Activities
         $actCollModel = new Model_ActivityCollection();
@@ -31,6 +21,18 @@ class Model_Admin
         // Delete registry info
         $regModel = new Model_RegistryInfo();
         $regModel->deleteRegistryInfo($orgId);
+        
+        // Delete Users
+        $userModel = new Model_User();
+        $users = $userModel->getAllUsersByAccountId($orgId);
+        foreach($users as $user){
+            $this->deleteUserById($user['user_id']);
+        }
+        
+        // Delete account
+        $wepModel->deleteRow('iati_activities' , 'account_id' , $orgId);
+        $wepModel->deleteRow('account' , 'id' , $orgId);
+
     }
     
     public function deleteUserById($userId)

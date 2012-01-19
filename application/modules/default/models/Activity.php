@@ -93,6 +93,6 @@ class Model_Activity
         $dbLayer->deleteRows('Activity', 'id', $activityId);
         
         $modelActivityHash = new Model_ActivityHash();
-        $modelActivityHash->deleteActivityHash($activity_id);
+        $modelActivityHash->deleteActivityHash($activityId);
     }
 }
