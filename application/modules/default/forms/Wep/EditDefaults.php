@@ -171,8 +171,10 @@ class Form_Wep_EditDefaults extends App_Form
         
         $this->addDisplayGroup(array( 'reporting_org_ref', 'reporting_org_type' ,'default_reporting_org' , 'reporting_org_lang'),
                                'reporting_org',
-                               array('legend' =>'Reporting Organisaiton Info')
+                               array('legend' =>'Reporting Organisation Info')
                                );
+        $report = $this->getDisplayGroup('reporting_org');
+        $report->addDecorators(array(array('HtmlTag', array('tag' => 'div' , 'options' =>array('class' => 'help')))));
         
         $registryInfoForm = new Form_General_RegistryInfo();
         $this->addSubForm($registryInfoForm , 'registry_info');

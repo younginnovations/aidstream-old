@@ -409,9 +409,10 @@ class WepController extends Zend_Controller_Action
             //For admin user redirect to defaults page.
             if($identity->role_id == 1){
                 $this->_helper->FlashMessenger->addMessage(array(
-                                                                 'info' => "You have not provided all the information of
-                                                                   Reporting Organisation.Please provide the complete
-                                                                   Reporting Organisation Information"
+                                                                 'info' => "Before you start entering activity data
+                                                                 you need to add some default values that will
+                                                                 automatically be filled in for
+                                                                 each activity you report."
                                                                    )
                                                            );
                 $this->_redirect('wep/edit-defaults');

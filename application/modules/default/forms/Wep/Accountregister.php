@@ -220,7 +220,7 @@ class Form_Wep_Accountregister extends App_Form
         
         $this->addDisplayGroup(array( 'reporting_org_ref', 'reporting_org_type' ,'default_reporting_org' , 'reporting_org_lang'),
                                'reporting_org',
-                               array('legend' =>'Reporting Organisaiton Info')
+                               array('legend' =>'Reporting Organisation Info')
                                );
         
         $registryInfoForm = new Form_General_RegistryInfo();
