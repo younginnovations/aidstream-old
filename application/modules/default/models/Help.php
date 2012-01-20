@@ -44,7 +44,7 @@ class Model_Help extends Zend_Db_Table_Abstract
                 $data['xml_lang'][] = $message;
             } else if (preg_match('/iso_date/' , $message['element_name'])){
                 $data['iso_date'][] = $message;
-            } else if (preg_match('/default/' , $message['element_name'])){
+            } else if (preg_match('/activity_defaults/' , $message['element_name'])){
                 $data['default'][] = $message;
             } else {
                 $data['other'][] = $message;
