@@ -211,4 +211,13 @@ class Iati_WEP_Activity_Elements_ElementBase
                     header("Location: http://$host$uri/$extra");
             }
     }
+    
+    public function getElementDisplayName()
+    {
+	if($this->displayName){
+	    return $this->displayName;
+	} else {
+	    return $this->className;
+	} 
+    }
 }

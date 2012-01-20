@@ -13,6 +13,7 @@ class Iati_WEP_Activity_Elements_ParticipatingOrg extends Iati_WEP_Activity_Elem
                                 'role' => array('NotEmpty',)
                             );
     protected $className = 'ParticipatingOrg';
+    protected $displayName = "ParticipatingOrganisation";
 
     protected $attributes_html = array(
                 'id' => array(

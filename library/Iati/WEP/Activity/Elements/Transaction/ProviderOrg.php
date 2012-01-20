@@ -8,6 +8,7 @@ class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activi
     protected $id = 0;
     protected $options = array();
     protected $className = 'ProviderOrg';
+    protected $displayName = 'ProviderOrganisation';
     protected $validators= array();
     
     protected $attributes_html = array(

@@ -12,6 +12,7 @@ class Iati_WEP_Activity_Elements_ReportingOrg extends Iati_WEP_Activity_Elements
                                 'ref' => array('NotEmpty'),
                             );
     protected $className = 'ReportingOrg';
+    protected $displayName = 'ReportingOrgansation';
     protected $attributes_html = array(
                 'id' => array(
                     'name' => 'id',

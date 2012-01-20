@@ -101,7 +101,7 @@ class Iati_WEP_FormHelper {
             if ($this->ajaxCall) {
                 if ($ele[0] != $this->registryTree->getRootNode()) {
                     $camelCaseToSeperator = new Zend_Filter_Word_CamelCaseToSeparator(" ");
-                    $title = $camelCaseToSeperator->filter($ele[0]->getClassName());
+                    $title = $camelCaseToSeperator->filter($ele[0]->getElementDisplayName());
 
                     if ($ele[0]->isRequired()) {
                         $title .= '<span class="required">*</span>';
@@ -112,7 +112,7 @@ class Iati_WEP_FormHelper {
             }
             else {
                 $camelCaseToSeperator = new Zend_Filter_Word_CamelCaseToSeparator(" ");
-                $title = $camelCaseToSeperator->filter($ele[0]->getClassName());
+                $title = $camelCaseToSeperator->filter($ele[0]->getElementDisplayName());
 
 
                 if ($ele[0]->isRequired()) {

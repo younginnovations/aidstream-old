@@ -45,6 +45,9 @@
                     if(str_replace(" ", "", $key) == $paramValue){
                         $class = "class = highlight";
                     }
+                    if(Iati_WEP_ActivityConstants::hasDisplayName($element)){
+                        $key = Iati_WEP_ActivityConstants::getDisplayName($element);
+                    }
                     print "<li $class><div class='help ".$element."'></div><a $attributes href='". $href ."'>" .$key ."</a></li>";
                 }
             }

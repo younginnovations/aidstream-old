@@ -8,7 +8,7 @@ class Iati_WEP_Activity_Elements_Transaction_ReceiverOrg extends Iati_WEP_Activi
     protected $id = 0;
     protected $options = array();
     protected $className = 'ReceiverOrg';
-    
+    protected $displayName = "ReceiverOrganisation";
     protected $validators = array(
                                 /*'text' => 'NotEmpty',
                                 'code' => 'NotEmpty',*/
