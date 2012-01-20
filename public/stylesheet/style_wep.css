@@ -365,7 +365,7 @@ p.paragraph-second
 	background:url(../stylesheet/images/bottom-1.png) no-repeat top left;
 	font-size:12px;
 	font-family:Arial, Helvetica, sans-serif;
-	padding:0 15px 0 80px;
+	padding:5px 15px 5px 80px;
 	line-height:30px;
 	margin-bottom:20px;
 	width:400px;
@@ -377,10 +377,10 @@ p.paragraph-second
 }
 .data-entry
 {
-	background:url(../stylesheet/images/bottom-2.png) no-repeat top left;
+	background:url(../stylesheet/images/bottom-2.png) no-repeat center left;
 	font-size:12px;
 	font-family:Arial, Helvetica, sans-serif;
-	padding:0 15px 0 80px;
+	padding:5px 15px 5px 80px;
 	line-height:30px;
 	margin-bottom:20px;
 	width:400px;
@@ -395,7 +395,7 @@ p.paragraph-second
 	background:url(../stylesheet/images/bottom-3.png) no-repeat top left;
 	font-size:12px;
 	font-family:Arial, Helvetica, sans-serif;
-	padding:0 15px 0 80px;
+	padding:5px 15px 5px 80px;
 	line-height:30px;
 	margin-bottom:20px;
 	width:400px;
@@ -958,6 +958,10 @@ label
 	display: block;
 	font-weight: bold;
 }
+#publishing_type-element label {
+	width: auto;
+	margin-right: 10px;
+}
 
 #default_fields-element label{
     display: inline;	
@@ -966,6 +970,9 @@ label
 
 .form-item {
 	margin-left: 10px;
+}
+.form-element {
+	margin: 0 10px;
 }
 input.form-text, select.form-select, textarea
 {
@@ -976,8 +983,10 @@ input.form-text, select.form-select, textarea
     padding: 2px;
     width: 300px;
 }
+
 select.form-select {
     background: #FFF url(images/select_arrow.gif) no-repeat right center;
+    width: 306px;
 }
 
 .claro .change-password {
@@ -1290,7 +1299,6 @@ dt{
 	clear:both;
     color: #747474;
     font-weight: bold;
-    float: left;
     margin-right: 10px;
 }
 
@@ -2277,6 +2285,14 @@ table#list-org {
 .xml-lang td.help-message-text,
 .defaults td.help-message-text {
 	width: 75%;
+}
+/* change Default Page */
+
+.default-info {
+	margin: 1.5em 0;
+	padding:0.5em 0;
+	border: 1px dotted #999;
+	border-width: 1px 0;
 }
 
 
