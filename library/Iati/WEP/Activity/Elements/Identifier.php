@@ -23,7 +23,7 @@ class Iati_WEP_Activity_Elements_Identifier extends Iati_WEP_Activity_Elements_E
                 'activity_identifier' => array(
                     'name' => 'activity_identifier',
                     'label' => 'Activity Identifier',
-                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s id="activity_identifier">%(value)s</textarea><div class="help identifier-text"></div>',
+                    'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s id="activity_identifier">%(value)s</textarea><div class="help activity_identifier"></div>',
                     'attrs' => array('class' => array('form-text'))
                 ),
                 'text' => array(

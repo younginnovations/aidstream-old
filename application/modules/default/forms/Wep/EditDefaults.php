@@ -61,6 +61,7 @@ class Form_Wep_EditDefaults extends App_Form
         
         $form['hierarchy'] = new Zend_Form_Element_Text('hierarchy');
         $form['hierarchy']->setLabel('Default Hierarchy')
+            ->setAttrib('class' , 'form-text')
             ->setValue($defaults['field_values']['hierarchy']);
                                     
         $form['default_collaboration_type'] = new Zend_Form_Element_Select('default_collaboration_type');

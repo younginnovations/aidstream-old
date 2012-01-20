@@ -7,11 +7,27 @@ class Form_General_RegistryInfo extends App_Form
         $form['publisher_id'] = new Zend_Form_Element_Text('publisher_id');
         $form['publisher_id']->setLabel('Publisher Id')
             ->setAttrib('class', 'form-text')
+            ->addDecorators(array(array(
+                                        'HtmlTag',
+                                        array(
+                                              'tag'        =>'<div>',
+                                              'placement'  =>'APPEND',
+                                              'class'      =>'help activity_defaults-publisher_id'
+                                          )
+                            )))
             ->addErrorMessage('Please Enter the Publisher ID');
         
         $form['api_key'] = new Zend_Form_Element_Text('api_key');
         $form['api_key']->setLabel('API Key')
             ->setAttrib('class', 'form-text')
+            ->addDecorators(array(array(
+                                        'HtmlTag',
+                                        array(
+                                              'tag'        =>'<div>',
+                                              'placement'  =>'APPEND',
+                                              'class'      =>'help activity_defaults-api_key'
+                                          )
+                            )))
             ->addErrorMessage('Please Enter an API key');
         
         $form['publishing_type'] = new Zend_Form_Element_Radio('publishing_type');
@@ -19,6 +35,7 @@ class Form_General_RegistryInfo extends App_Form
             ->setRequired()
             ->setValue(0)
             ->addMultiOptions(array('Unsegmented' , 'Segmented'));
+        
         
         $this->addElements($form);
         
