@@ -553,7 +553,7 @@ if(!empty($value)): ?>
 $collaborationtypes=$activity->getElementsByType(Iati_Activity_Element::TYPE_COLLABORATION_TYPE);
 $value = $collaborationtypes[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>CollaborationType<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=CollaborationType"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Collaboration Type<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=CollaborationType"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($collaborationtypes as $collaborationtype):?>
 <table class='element-values-items'>
@@ -625,7 +625,7 @@ if(!empty($value)): ?>
 $defaulttiedstatuss=$activity->getElementsByType(Iati_Activity_Element::TYPE_DEFAULT_TIED_STATUS);
 $value = $defaulttiedstatuss[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>DefaultTiedStatus<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=DefaultTiedStatus"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Default Tied Status<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=DefaultTiedStatus"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($defaulttiedstatuss as $defaulttiedstatus):?>
 <table class='element-values-items'>
