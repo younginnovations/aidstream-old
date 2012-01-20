@@ -60,7 +60,11 @@
 						<?php print " , (". $this->l('Logout', 'user/user/logout') . ")";?>
 					    <?php else : ?>
 						You are logged in as  <?php echo $this->l($identity->user_name, 'user/user/myaccount',array('attributes' => array('class' => 'user-name')));?> |
-						<?php echo $this->l(' Dashboard', 'wep/dashboard');?>
+						<?php if($identity->role_id == 3): ?>
+						    <?php echo $this->l(' Dashboard', 'admin/dashboard');?>
+						<?php else : ?>
+						    <?php echo $this->l(' Dashboard', 'wep/dashboard');?>
+						<?php endif; ?>
 						<?php print " , (". $this->l('Logout', 'user/user/logout') . ")";?>
 					    <?php endif;?>
 					</div>
