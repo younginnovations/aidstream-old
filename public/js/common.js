@@ -807,6 +807,14 @@ function initialize() {
 		var identifier = getTarget(evt).value.replace(/ /g,'');
 		dojo.query('#user_name').attr('value', identifier+"_admin");
 	    }
+	},
+	
+	".delete-item" : {
+	    'onclick' : function (evt) {
+		if(!confirm("Are you sure you want to delete this?")){
+		    evt.preventDefault();
+		} 
+	    }
 	}
 	
     });

@@ -24,7 +24,7 @@
         |
         <?php print $this->l((($row['status'])?'Disable':'Enable'),"admin/change-organisation-status/?org_id=".$row['id']."&status=".$newStatus); ?>
         |
-        <?php print $this->l('Delete',"admin/delete-organisation/?org_id=".$row['id']); ?>
+        <?php print $this->l('Delete',"admin/delete-organisation/?org_id=".$row['id'] , array("attributes" => array('class' => 'delete-item'))); ?>
     </td>
     </tr>
     <?php $i++;?>
