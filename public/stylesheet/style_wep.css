@@ -1327,6 +1327,12 @@ fieldset{
     background: none;
 }
 
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	fieldset {
+		padding-top: 8px;
+	}
+}
+
 legend {
    background: none repeat scroll 0 0 #E0DDDD;
     color: #4F4F4F;
@@ -1372,6 +1378,17 @@ fieldset dl
 	border:1px solid #e0dddd;
 	overflow:hidden;
 	padding:0;
+}
+
+.default-activity-list dd {
+	position: relative;
+}
+
+.default-activity-list dd .legend-help {
+	position: absolute;
+	right: 10px;
+	top: 0;
+	z-index: 10;
 }
 
 .inner-wrapper
@@ -1787,7 +1804,9 @@ table#list-org {
 #user_info-label,
 #organisation_info-label,
 #create_new_account-label,
-#reporting_org-label,
+#reporting_org_info-label,
+#default_field_values-label,
+#default_field_groups-label,
 #iati_activity_status #change-label{
 	display: none;
 }

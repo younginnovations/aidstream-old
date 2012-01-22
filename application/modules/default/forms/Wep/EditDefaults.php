@@ -171,28 +171,27 @@ class Form_Wep_EditDefaults extends App_Form
         ));
         
         $this->addDisplayGroup(array( 'reporting_org_ref', 'reporting_org_type' ,'default_reporting_org' , 'reporting_org_lang'),
-                               'reporting_org',
+                               'reporting_org_info',
                                array('legend' =>'Reporting Organisation Info')
                                );
-        $report = $this->getDisplayGroup('reporting_org');
-        $report->addDecorators(array(array('HtmlTag', array('tag' => 'div' , 'options' =>array('class' => 'help')))));
         
         $registryInfoForm = new Form_General_RegistryInfo();
         $this->addSubForm($registryInfoForm , 'registry_info');
         
         $this->addDisplayGroup(array('default_currency', 'default_language', 'hierarchy', 'default_collaboration_type' , 'default_flow_type', 'default_finance_type' , 'default_aid_type', 'default_tied_status'),
-                               'field2',
+                               'default_field_values',
                                array('legend'=>'Default Field Values')
                             );
        
         $df = $this->addDisplayGroup(array('button', 'default_fields',),
-                                    'field3',
+                                    'default_field_groups',
                                     array('legend'=>'Default Field Groups')
                                 );
         
         $groups = $this->getDisplayGroups();
         foreach($groups as $group){
             $group->addDecorators(array(
+                array('HtmlTag' , array('tag' => 'div' , 'class' => 'help activity_defaults-'. $group->getName().' legend-help' , 'placement' => 'PREPEND')),
                 array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'default-activity-list'))
             ));
         }

@@ -36,7 +36,14 @@ class Form_General_RegistryInfo extends App_Form
             ->setValue(0)
             ->addMultiOptions(array('Unsegmented' , 'Segmented'));
         
-        
+        foreach($form as $item_name=>$element)
+        {
+            $form[$item_name]->addDecorators( array(
+                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-element'))
+                    )
+            );
+        }
+
         $this->addElements($form);
         
         $this->addDisplayGroup( array('publishing_type'),
@@ -53,11 +60,14 @@ class Form_General_RegistryInfo extends App_Form
         
         $registry_info = $this->getDisplayGroup('registry_info');
         $registry_info->addDecorators(array(
+            array('HtmlTag' , array('tag' => 'div' , 'class' => 'help activity_defaults-registry_info legend-help' , 'placement' => 'PREPEND')),
             array(array( 'wrapperAll' => 'HtmlTag'), array( 'tag' => 'div','class'=>'default-activity-list'))
         ));
         
         $publishing_info = $this->getDisplayGroup('publishing_info');
+        $publishing_info_legend = $publishing_info->getLegend();
         $publishing_info->addDecorators(array(
+            array('HtmlTag' , array('tag' => 'div' , 'class' => 'help activity_defaults-publishing_type legend-help' , 'placement' => 'PREPEND')),
             array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'default-activity-list'))
         ));
     }
