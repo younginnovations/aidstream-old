@@ -112,13 +112,6 @@ class User_UserController extends Zend_Controller_Action
                 $authAdapter = $this->getAuthAdapter();
                 $username = $form->getValue('username');
                 $password = $form->getValue('password');
-                
-                $model = new User_Model_DbTable_User();                
-                $user = $model->getUserByUsername($username);
-                if (!$user['status']) {
-                    $this->_helper->FlashMessenger->addMessage(array('error' => 'Your account has been disabled. Please contact the system administrator'));
-                    $this->_redirect('/');
-                }
 
                 $authAdapter->setIdentity($username)
                         ->setCredential($password);
@@ -126,6 +119,18 @@ class User_UserController extends Zend_Controller_Action
                 $result = $auth->authenticate($authAdapter);
 
                 if ($result->isvalid()) {
+                    
+                    // check if user account has been disable
+                    $model = new User_Model_DbTable_User();                
+                    $user = $model->getUserByUsername($username);
+                    if (!$user['status']) {
+                        if ($auth->hasIdentity()) {
+                            $auth->clearIdentity();
+                        }
+                        $this->_helper->FlashMessenger->addMessage(array('error' => 'Your account has been disabled. Please contact the system administrator'));
+                        $this->_redirect('/');
+                    }
+                    
                     $identity = $authAdapter->getResultRowObject();
 
                     //getting role from table role and merging it with $authAdapter->getResultRowObject() [adding role to identity]
