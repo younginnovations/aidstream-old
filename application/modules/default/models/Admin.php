@@ -9,8 +9,8 @@ class Model_Admin
         // Delete Activities
         $actCollModel = new Model_ActivityCollection();
         $activities = $actCollModel->getActivityIdsByAccount($orgId);
+        $activityModel = new Model_Activity();
         foreach($activities as $activity){
-            $activityModel = new Model_Activity();
             $activityModel->deleteActivityById($activity['id']);
         }
         

@@ -1161,14 +1161,11 @@ class WepController extends Zend_Controller_Action
     public function deleteActivityAction()
     {
         try{
-            $activity_id = (isset($_GET['activity_id']))?$_GET['activity_id']:NULL;
-            $className = (isset($_GET['classname']))?$_GET['classname']:NULL;
+            $activityId = (isset($_GET['activity_id']))?$_GET['activity_id']:NULL;
+            //$className = (isset($_GET['classname']))?$_GET['classname']:NULL;
 
-            $dbLayer = new Iati_WEP_DbLayer();
-            $del = $dbLayer->deleteRows($className, 'id', $activity_id);
-            
-            $modelActivityHash = new Model_ActivityHash();
-            $modelActivityHash->deleteActivityHash($activity_id);
+            $activityModel = new Model_Activity();
+            $activityModel->deleteActivityById($activityId);
             
             $this->_helper->FlashMessenger->addMessage(array('message' => "Activity Deleted."));
             $this->_redirect('wep/view-activities');
