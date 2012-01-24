@@ -388,7 +388,6 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 	public function deleteChildElements($elementTree, $fieldName, $id)
 	{
 		foreach($elementTree as $elementClassName){
-			$this->delete($elementClassName, $fieldName, $id);
 			$tree = new Iati_WEP_ActivityTreeMapper();
 			$childElementTree = $tree->getActivityTree($elementClassName);
 			if(is_array($childElementTree)){
@@ -399,6 +398,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 					$this->deleteChildElements($childElementTree, $ownField, $ownId);
 				}
 			}
+			$this->delete($elementClassName, $fieldName, $id);
 		}
 	}
 
