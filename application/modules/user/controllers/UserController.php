@@ -432,6 +432,7 @@ class User_UserController extends Zend_Controller_Action
                 $mailParams['support_name'] = $data['support_name'];
                 $mailParams['support_email'] = $data['support_email'];
                 $mailParams['support_query'] = $data['support_query'];
+                $mailParams['servername'] = $_SERVER['SERVER_NAME'];
                 $template = 'support.phtml';
                 $notification = new App_Notification;
                 $notification->sendemail($mailParams,$template);

@@ -26,7 +26,8 @@ class IndexController extends Zend_Controller_Action
                 $contact = new Model_Contact;
               	$contact->insert($data);
               	
-                $mailParams['subject'] = 'Feedback for AidStream received';                
+                $mailParams['subject'] = 'Feedback for AidStream received';
+		$mailParams['servername'] = $_SERVER['SERVER_NAME'];
                 $mailParams['name'] =  $data['name'];
                 $mailParams['email'] =  $data['email'];
                 $mailParams['message'] = $data['message'];
