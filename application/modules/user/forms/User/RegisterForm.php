@@ -38,7 +38,13 @@ class User_Form_User_RegisterForm extends App_Form
         $lastname->setLabel('Last Name')
             ->setRequired()
             ->setAttrib('class', 'form-text');
-        
+            
+        $userIdentifier = new Zend_Form_Element_Text('user_identifier');
+        $userIdentifier->setLabel('User Identifier')
+			->setValue('admin')
+        	->setAttrib('readonly' , true)
+            ->setAttrib('class', 'form-text');
+            
         $username = new Zend_Form_Element_Text('user_name');
         $username->setLabel('User Name')
             ->setRequired()
@@ -98,7 +104,7 @@ class User_Form_User_RegisterForm extends App_Form
 
             
 
-        $this->addElements(array($orgname, $orgaddress, $account_identifier , $firstname, $lastname, $username, $email, $password, $confirmPassword , $captcha));
+        $this->addElements(array($orgname, $orgaddress, $account_identifier , $firstname, $lastname, $userIdentifier, $username, $email, $password, $confirmPassword , $captcha));
         
         $this->addDisplayGroup(
                                array('org_name' , 'org_address' , 'account_identifier'),
@@ -107,7 +113,7 @@ class User_Form_User_RegisterForm extends App_Form
                            );
         
         $this->addDisplayGroup(
-                               array('first_name' , 'last_name' , 'email', 'user_name' , 'password', 'confirmpassword' , 'captcha'),
+                               array('first_name' , 'last_name' , 'email', 'user_identifier', 'user_name' , 'password', 'confirmpassword' , 'captcha'),
                                'user_info',
                                array('legend' => 'User Info')
                            );
