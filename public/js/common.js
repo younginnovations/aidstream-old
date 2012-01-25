@@ -185,7 +185,17 @@ var validateSupport = function(){
 				flag = 0;
 				dojo.query('#support_query').addClass('error');
 				dojo.query('#support_query').val('Query cannot be empty');
+				
 			}
+			else if(dojo.query('#support_query').val().length >= 1000)
+			{
+				
+				flag = 0;
+				dojo.query('#support_query').addClass('error');
+				dojo.query('#support_query').val('Query is too long. Please use maximum of 1000 characters');
+				
+			}
+			
 			if(flag == 1)
 			{
 			if((dojo.query('#support_name').attr('class') == 'error') || (dojo.query('#support_email').attr('class') == 'error') || (dojo.query('#support_query').attr('class') == 'error'))
@@ -193,6 +203,7 @@ var validateSupport = function(){
 					flag = 0;
 				}
 			}
+
 			return flag;
 }
 
@@ -226,6 +237,15 @@ var validateContact = function(){
 		flag = 0;
 		dojo.query("#contact-form #message").addClass('error');
 		dojo.query("#contact-form #message").val('Message cannot be empty');
+		
+	}
+	else if(dojo.query('#contact-form #message').val().length >= 1000)
+	{
+				
+		flag = 0;
+		dojo.query('#contact-form #message').addClass('error');
+		dojo.query('#contact-form #message').val('Query is too long. Please use maximum of 1000 characters');
+		
 	}
 
 	if(flag == 1)
