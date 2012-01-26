@@ -108,8 +108,8 @@ table {
 .nav
 {
 	float:right;
-	width:450px;
-	margin-right: 98px;
+	/*width:450px;*/
+	margin-right: 60px;
 }
 .user-info
 {
@@ -221,7 +221,7 @@ table {
 	height: 20px;
 	left: 35px;
 	position: absolute;
-	width: 26px;
+	width: -27px;
 	z-index: 10;
 }
 
@@ -327,9 +327,10 @@ a.login-parent
 
 .about-content {
 	background: url('images/what-is-bg.png') no-repeat right center;
+	padding-bottom: 80px;
 }
 
-p.pragraph-first
+p.pragraph-first,
 {
 	font-size:18px;
 	font-family:Amaranth,aril,verdana, Geneva, sans-serif;
@@ -342,6 +343,19 @@ p.paragraph-second
 	font-size:12px;
 	line-height:30px;
 	font-family:Arial, Helvetica, sans-serif;
+}
+
+.paragraph-title
+{
+
+	font-size:18px;
+	font-family:Amaranth,aril,verdana, Geneva, sans-serif;
+	color:#202020;
+	line-height:30px;
+}
+
+p.paragraph-about {
+	margin-bottom: 10px;
 }
 /**********close what is aidstream?************/
 
@@ -410,6 +424,11 @@ p.paragraph-second
 }
 /**********close how to use aidstream?************/
 
+/**********start who is IATI************/
+#behind-aidstream .who-content {
+	background: url('images/iati-who.png') no-repeat right bottom;
+}
+/**********close who is IATI************/
 /**********start Contact us************/
 #contact-us
 {
@@ -2059,8 +2078,10 @@ table#list-org {
 }
 
 /** Home page content **/
-#what-as .about-content p
+#what-as .about-content p,
+#behind-aidstream .who-content p
 {
+	line-height: 24px;
 	padding-right: 480px;
 }
 
@@ -2191,7 +2212,7 @@ table#list-org {
 	z-index: 100;
 }
 
-#what-as, #how-as ,#contact-us
+#what-as, #how-as ,#contact-us, #behind-aidstream
 {
 	padding-top: 100px;
 	overflow: hidden;
