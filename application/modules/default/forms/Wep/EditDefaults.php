@@ -116,10 +116,7 @@ class Form_Wep_EditDefaults extends App_Form
                                     
         foreach($form as $item_name=>$element)
         {
-            $form[$item_name]->setDecorators( array(
-                        'ViewHelper',
-                        'Errors',
-                        'Label',
+            $form[$item_name]->addDecorators( array(
                         array('HtmlTag',
                               array(
                                     'tag'        =>'<div>',
@@ -127,7 +124,7 @@ class Form_Wep_EditDefaults extends App_Form
                                     'class'      =>'help activity_defaults-'.$item_name
                                 )
                             ),
-                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-element'))
+                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'fieldset','class'=>'clearfix form-element'))
                     )
             );
         }
@@ -176,7 +173,7 @@ class Form_Wep_EditDefaults extends App_Form
                                );
         
         $registryInfoForm = new Form_General_RegistryInfo();
-        $registryInfoForm->removeDecorator('form');
+        $registryInfoForm->removeDecorator("form");
         $this->addSubForm($registryInfoForm , 'registry_info');
         
         
@@ -191,12 +188,14 @@ class Form_Wep_EditDefaults extends App_Form
                                 );
         
         $groups = $this->getDisplayGroups();
+        
         foreach($groups as $group){
             $group->addDecorators(array(
                 array('HtmlTag' , array('tag' => 'div' , 'class' => 'help activity_defaults-'. $group->getName().' legend-help' , 'placement' => 'PREPEND')),
                 array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'default-activity-list'))
             ));
         }
+        
         $this->addElement($signup);
         $this->setMethod('post');
     }

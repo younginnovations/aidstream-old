@@ -27,13 +27,13 @@
 
 <body class="claro">
     <div id="wrapper">
-		<div id="hidden-overlay"></div>
-			<? $auth = Zend_Auth::getInstance();  ?>
-			<? if($auth->hasIdentity()): ?>
-			<div id="support-container" class="container_12">
-                            <? echo $this->partial('partial/support.phtml') ?>
-			</div>
-			<? endif; ?>
+	<div id="hidden-overlay"></div>
+	<? $auth = Zend_Auth::getInstance();  ?>
+	<? if($auth->hasIdentity()): ?>
+	<div id="support-container" class="container_12">
+	    <? echo $this->partial('partial/support.phtml') ?>
+	</div>
+	<? endif; ?>
         <div id="header">
             <a name="top"></a>
             <div id="nav-logo-section">
@@ -42,7 +42,6 @@
                         <div class="logo"> <a href="<?php print($this->baseUrl());?>/"><img alt="logo" src="<?php print($this->		baseUrl());?>/stylesheet/images/aid-stream-logo.png"></a>
                         </div><!--close logo-->
                         <div class="support">Support</div>
-                        
                         <div class="user-info">
                             <div id="login-nav">
 				<? if ($auth->hasIdentity()):?>
@@ -66,6 +65,7 @@
                         </div><!--Close user-info-->
                     </div>
                 </div>
+		
                 <div class="clear"></div>
             </div>
             
@@ -93,11 +93,6 @@
                 </div>
                 <div class="clear"></div>
             </div><!--Close login-section-->
-
-                    </div><!--Close login-->
-                </div>
-                <div class="clear"></div>
-            </div><!--Close login-section--->
             
             <div class="clear"></div>
             <!--search div start-->
@@ -129,7 +124,7 @@
                             </div>
                         </div><!--Close Content left-->
 
-                        <div id="sidebar-right">
+		        <div id="sidebar-right">
                             <div id="sidebar-right-inner">
                                 <?php if ($auth->hasIdentity())
                                     print $this->partial('partial/section/left-bar.phtml');

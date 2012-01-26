@@ -35,15 +35,16 @@ class Form_General_RegistryInfo extends App_Form
             ->setRequired()
             ->setValue(0)
             ->addMultiOptions(array('Unsegmented' , 'Segmented'));
-        
+            
+            
         foreach($form as $item_name=>$element)
         {
             $form[$item_name]->addDecorators( array(
-                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-element'))
+                        array(array( 'wrapperAll' => 'HtmlTag'), array('tag' => 'fieldset' , 'class'=>'clearfix form-element'))
                     )
             );
         }
-
+            
         $this->addElements($form);
         
         $this->addDisplayGroup( array('publishing_type'),
