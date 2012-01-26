@@ -936,7 +936,6 @@ class WepController extends Zend_Controller_Action
                 $rowSet = $wepModel->getRowsByFields('default_field_values', 'account_id', $identity->account_id);
                 $defaultValues = unserialize($rowSet[0]['object']);
                 $default = $defaultValues->getDefaultFields();
-                //            print_r($default);exit;
                 $activity['xml_lang'] = $default['language'];
                 $activity['default_currency'] = $default['currency'];
                 $activity['hierarchy'] = $default['hierarchy'];
@@ -953,7 +952,6 @@ class WepController extends Zend_Controller_Action
                     $this->_redirect('/user/user/login');
                 }
                 $activity_id = $this->getRequest()->getParam('activity_id');
-                //                print $activity_id;exit;
                 $rowSet = $wepModel->getRowsByFields('iati_activity', 'id', $activity_id);
                 $activity['xml_lang'] = $rowSet[0]['@xml_lang'];
                 $activity['default_currency'] = $rowSet[0]['@default_currency'];
@@ -1001,8 +999,12 @@ class WepController extends Zend_Controller_Action
                     }
                     
                     if(isset($_GET['activity_id'])){
-                        $data['activities_id'] = $rowSet[0]['activities_id'];
+                        //$data['activities_id'] = $rowSet[0]['activities_id'];
                         $data['id'] = $activity_id;
+                        $data['@xml_lang'] = $formData['xml_lang'];
+                        $data['@default_currency'] = $formData['default_currency'];
+                        $data['@hierarchy'] = $formData['hierarchy'];
+                        $result = $wepModel->updateRowsToTable('iati_activity', $data);
                         $wepModel = new Model_Wep();                            
                         $activityHashModel = new Model_ActivityHash();
                         $updated = $activityHashModel->updateHash($activity_id);
@@ -1010,7 +1012,6 @@ class WepController extends Zend_Controller_Action
                             $type = 'info';
                             $message = 'No Changes Made';
                         } else {
-                            $result = $wepModel->updateRowsToTable('iati_activity', $data);
                             //change state to editing
                             $db = new Model_ActivityStatus;
                             $db->updateActivityStatus($activity_id,Iati_WEP_ActivityState::STATUS_EDITING);
