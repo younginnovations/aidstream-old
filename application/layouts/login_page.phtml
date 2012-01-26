@@ -31,9 +31,7 @@
 
 <body class="login-layout">
     <div id="wrapper">
-			<div id="support-container" class="container_12">
-				<? echo $this->partial('partial/support.phtml') ?>
-			</div>
+	
         <div id="header">
             <a name="top"></a>
             <div id="nav-logo-section">
@@ -47,28 +45,20 @@
                                 <li><a href="<? echo $this->baseUrl()?>/#how-as" id="how-link"><span class="title">How</span><br /><span>How to use AidStream?</span></a></li>
                                 <li><a href="<? echo $this->baseUrl()?>/#what-as" id="what-link"><span class="title">What</span><br /><span>What is AidStream?</span></a></li>
                             </ul>
-                        </div><!-----Close nav------->
-                        <!--<div class="nav">
-                            <ul class="menu">
-                                <li><a href="#Contacts"><span class="title">Contact</span><br /><span>Comments,Suggestions</span></a></li>
-                                <li><a href="#How-to-use-AidStream"><span class="title">How</span><br /><span>How to use AidStream?</span></a></li>
-                                <li><a href="#What-is-AidStream"><span class="title">What</span><br /><span>What is AidStream?</span></a></li>
-                            </ul>
-                        </div><!-----Close nav------->
-                        
+                        </div><!--Close nav-->                        
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
             
-            <div class="login-section"><!---Start login-section--->
+            <div class="login-section"><!--Start login-section-->
                 <div class="container_12">
 			<div id="registration-section" class="grid_5">
 			<div class="register-info"><div class="register-text">Not Registered yet? Please </div><?php print $this->l('Register','user/user/register'); ?>
 			<div class="nothing"></div></div>
 		</div>
                     <div id="login-form-section" class="grid_7">
-                            <? $auth = Zend_Auth::getInstance();?>
+			    <? $auth = Zend_Auth::getInstance();  ?>
                             <? if (!$auth->hasIdentity()):?>
                             <? $form = new User_Form_User_Login(); ?>
                         <div id="login-form-container">
@@ -89,17 +79,17 @@
 			<div class="login-arrow"></div>
                         <a class="login-parent" href="#">Login / Register</a>
                         <? endif;?>
-                    </div><!-----Close login-form-section---->
+                    </div><!--Close login-form-section-->
                 </div>
                 <div class="clear"></div>
-            </div><!---Close login-section--->
+            </div><!--Close login-section-->
             <div class="clear"></div>
                    
             <!--search div start-->
 
         <div class="clear"></div>
 
-        <div id="content-section"><!--Start content-section--->
+         <div id="content-section"><!--Start content-section--->
             <div class="container_12">
                 <div class="grid_12">
                     <!--contain div start-->
@@ -111,7 +101,6 @@
                                     <div id="flash-messages"><?php $flashMessenger = $this->flashMessages();
                                         print $flashMessenger->getMessages();?>
                                     </div>
-                                    <!--<h1>IATI Code Lists</h1>-->
                                     <div id="breadcrumb">
                                         <?php print $this->partial('partial/breadcrumbs.phtml', $this->getVars())?>
                                     </div><!-- end of the breadcrumb -->
@@ -121,24 +110,22 @@
                                     <?php print $this->layout()->content;?>
                                 </div>
                             </div>
-                        </div><!---Close Content left-->
+                        </div><!--Close Content left-->
 
                         <div id="sidebar-right">
                             <div id="sidebar-right-inner">
-                            <?php //var_dump($auth->hasIdentity());?>
                                 <?php if ($auth->hasIdentity())
-                                //print "df";exit;
                                     print $this->partial('partial/section/left-bar.phtml');
                                 ?>
                             </div>
                         </div><!--Close sidebar-right-->
                         <div class="clear"></div>
                         <div id="main-content-bottom"></div>
-                    </div><!---Close contain-body--->
+                    </div><!--Close contain-body--->
                 </div><!--close grid 12--->
             </div>
             <div class="clear"></div>
-        </div><!---Close content-section-->
+        </div><!--Close content-section-->
 
         <div class="clear"></div>
 
@@ -146,11 +133,10 @@
             <div class="container_12">
             	<div class="grid_12">
         	    <h2 class="footer-title">Who's using it?</h1>
-                    <!-- <img src="../stylesheet/images/unicef-logo.png" alt="unicef" title="" /> -->
             	</div>
             </div>
             <div class="clearfix"></div>
-        </div><!---Close footer--->
+        </div><!--Close footer-->
 
     </div><!--Close Wrapper-->
 </body>
