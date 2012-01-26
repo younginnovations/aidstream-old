@@ -176,7 +176,9 @@ class Form_Wep_EditDefaults extends App_Form
                                );
         
         $registryInfoForm = new Form_General_RegistryInfo();
+        $registryInfoForm->removeDecorator('form');
         $this->addSubForm($registryInfoForm , 'registry_info');
+        
         
         $this->addDisplayGroup(array('default_currency', 'default_language', 'hierarchy', 'default_collaboration_type' , 'default_flow_type', 'default_finance_type' , 'default_aid_type', 'default_tied_status'),
                                'default_field_values',
