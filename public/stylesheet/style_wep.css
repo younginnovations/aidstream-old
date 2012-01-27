@@ -1399,11 +1399,11 @@ fieldset dl
 	padding:0;
 }
 
-.default-activity-list dd {
+.default-activity-list{
 	position: relative;
 }
 
-.default-activity-list dd .legend-help {
+.default-activity-list .legend-help {
 	position: absolute;
 	right: 10px;
 	top: 0;
