@@ -472,6 +472,22 @@ function initialize() {
 		}
 	    }
 	},
+	
+	"#push_to_registry" : {
+	    "onclick" : function (evt) {
+		var ids = new Array();
+	    	dojo.query('.published-files-list-table  input[type=checkbox]:checked').forEach(function(tag){
+			ids.push(tag.value);
+		    });
+		dojo.query('#file_ids').attr('value',ids.join(","));
+		
+		if(confirm("Are you sure you want to publish the files in IATI Registry?"))
+		{
+		    dojo.byId('publish-to-registry').submit();
+		}
+	    }
+	},
+	
 	".hide-div" : {
 	    "found" : function (ele) {
 		var b = ele.parentNode;

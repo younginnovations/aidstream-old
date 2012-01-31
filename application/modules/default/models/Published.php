@@ -57,4 +57,14 @@ class Model_Published extends Zend_Db_Table_Abstract
     {
         $this->delete(array('id = ?'=>$fileId));
     }
+    
+    /**
+     * @param array $ids    Array of file ids.
+     */
+    public function getPublishedInfoByIds($ids)
+    {
+        $query = $this->select()
+            ->where('id IN (?) ' , $ids);
+        return $this->fetchAll($query)->toArray();
+    }
 }

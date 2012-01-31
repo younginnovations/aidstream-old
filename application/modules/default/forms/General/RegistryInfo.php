@@ -29,6 +29,11 @@ class Form_General_RegistryInfo extends App_Form
                                           )
                             )))
             ->addErrorMessage('Please Enter an API key');
+            
+        $form['update_registry'] = new Zend_Form_Element_Radio('update_registry');
+        $form['update_registry']->setLabel('Automatically Update the IATI Registry when publishing files')
+            ->setValue(0)
+            ->addMultiOptions(array('No' , 'Yes'));
         
         $form['publishing_type'] = new Zend_Form_Element_Radio('publishing_type');
         $form['publishing_type']->setLabel('Publishing Type')
@@ -54,7 +59,7 @@ class Form_General_RegistryInfo extends App_Form
                             );
         
         $this->addDisplayGroup(
-                                array('publisher_id' , 'api_key'),
+                                array('publisher_id' , 'api_key' , 'update_registry'),
                                 'registry_info',
                                 array('legend' => 'Registry Info')
                             );

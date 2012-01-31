@@ -279,6 +279,7 @@ class WepController extends Zend_Controller_Action
                     $registryInfo['publisher_id'] = $data['publisher_id'];
                     $registryInfo['api_key'] = $data['api_key'];
                     $registryInfo['publishing_type'] = $data['publishing_type'][0];
+                    $registryInfo['update_registry'] = $data['update_registry'];
                     $registryInfo['org_id'] = $identity->account_id;
                     $modelRegistryInfo->updateRegistryInfo($registryInfo);
                     
@@ -1347,6 +1348,7 @@ class WepController extends Zend_Controller_Action
         $activity_ids = explode(',',$ids);
         $db = new Model_ActivityStatus;
         $not_valid = false;
+        /*
         if($ids)
         {
             foreach($activity_ids as $activity_id)
@@ -1356,8 +1358,8 @@ class WepController extends Zend_Controller_Action
                     $not_valid = true;
                 }
             }
-        } 
-
+        }
+        */
         if($not_valid){
             $this->_helper->FlashMessenger->addMessage(array('warning' => "The activities cannot be changed to the state. Please check that a state to be changed is valid for all selected activities"));
         } else {            
@@ -1368,21 +1370,38 @@ class WepController extends Zend_Controller_Action
                 $modelRegistryInfo = new Model_RegistryInfo();
                 $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($account_id);
                 if(!$registryInfo){
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "Publishing Information Not Found. Activities cannot be published."));
+                    $this->_helper->FlashMessenger->addMessage(array('error' => "Publishing Information Not Found. Activities cannot be published."));
                 } else if(!$registryInfo->publisher_id){
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "Publisher Id Not Found. Activities cannot be published."));
-                } else if(!$registryInfo->api_key){
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "Api Key Not Found. Activities cannot be published."));
+                    $this->_helper->FlashMessenger->addMessage(array('error' => "Publisher Id Not Found. Activities cannot be published."));
                 } else {
                     $db->updateActivityStatus($activity_ids,(int)$state);
                     
-                    $reg = new Iati_WEP_Publish($account_id,$registryInfo->publisher_id,$registryInfo->api_key,$registryInfo->publishing_type);
-                    $reg->publish();
-                    if($reg->getError()){
-                        $this->_helper->FlashMessenger->addMessage(array('info' => $reg->getError()));
+                    $pub = new Iati_WEP_Publish($account_id, $registryInfo->publisher_id , $registryInfo->publishing_type);
+                    $pub->publish();
+                    
+                    if($registryInfo->update_registry){
+                        if(!$registryInfo->api_key){
+                            $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key Not Found. Activities cannot be published in registry."));
+                        } else {
+                            $reg = new Iati_Registry($registryInfo->publisher_id , $registryInfo->api_key);
+                            $modelPublished = new Model_Published();
+                            $files = $modelPublished->getPublishedInfo($account_id);
+
+                            foreach($files as $file){
+                                $reg->prepareRegistryData($file['filename'] , $file['activity_count'] , $file['data_updated_datetime']);
+                                $reg->publishToRegistry();
+                            }
+                            
+                            if($reg->getErrors()){
+                                $this->_helper->FlashMessenger->addMessage(array('info' => 'Activities xml files created. '.$reg->getErrors()));
+                            } else {
+                                $this->_helper->FlashMessenger->addMessage(array('message' => "Activities published to IATI registry."));
+                            }
+                        }
                     } else {
-                        $this->_helper->FlashMessenger->addMessage(array('message' => "Activities Published."));
+                        $this->_helper->FlashMessenger->addMessage(array('message' => "Activities xml files created."));
                     }
+                    
                     
                 }
             } else {
@@ -1390,6 +1409,41 @@ class WepController extends Zend_Controller_Action
             }
         }
         $this->_redirect('wep/view-activities');
+    }
+    
+    public function publishInRegistryAction()
+    {
+        $fileIds = explode(',' , $this->_getParam('file_ids'));
+
+        if(!$fileIds[0]){
+            $this->_helper->FlashMessenger->addMessage(array('info' => "Please select a file to publish in IATI Registry."));
+            $this->_redirect('wep/view-published-files');
+        }
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $accountId = $identity->account_id;
+        $modelRegistryInfo = new Model_RegistryInfo();
+        $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($accountId);
+        
+        if(!$registryInfo->api_key){
+            $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key Not Found. Activities cannot be published in registry."));
+        } else {
+            $reg = new Iati_Registry($registryInfo->publisher_id , $registryInfo->api_key);
+            $modelPublished = new Model_Published();
+            $files = $modelPublished->getPublishedInfoByIds($fileIds);
+
+            foreach($files as $file){
+                $reg->prepareRegistryData($file['filename'] , $file['activity_count'] , $file['data_updated_datetime']);
+                $reg->publishToRegistry();
+            }
+            
+            if($reg->getErrors()){
+                $this->_helper->FlashMessenger->addMessage(array('info' => $reg->getErrors()));
+            } else {
+                $this->_helper->FlashMessenger->addMessage(array('message' => "Activities published to IATI registry."));
+            }
+        }
+        
+        $this->_redirect('wep/view-published-files');
     }
     
     public function updateActivityUpdatedDatetime($activity_id)
@@ -1418,10 +1472,18 @@ class WepController extends Zend_Controller_Action
         $identity = Zend_Auth::getInstance()->getIdentity();
         $orgId = $identity->account_id;
         
+        $modelRegistryInfo = new Model_RegistryInfo();
+        $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($orgId);
+        
+        $form = new Form_Wep_PublishToRegistry();
+        $form->setAction($this->view->baseUrl().'/wep/publish-in-registry');
+        
         $db = new Model_Published();
         $publishedFiles = $db->getAllPublishedInfo($orgId);
-        $this->view->published_files = $publishedFiles;
         
+        $this->view->published_files = $publishedFiles;
+        $this->view->update_to_registry = $registryInfo->update_registry;
+        $this->view->form = $form;
         $this->view->placeholder('title')->set('Published files');
     }
     

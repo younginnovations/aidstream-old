@@ -9,38 +9,28 @@ class Iati_Registry
     protected $file_url;
     protected $json_data;
     protected $activity_updated_datetime;
-    protected $activity_period_from;
-    protected $activity_period_to;
     protected $activity_count;
     protected $country;
     protected $error;
     
     
-    public function __construct($activities , $publisherId , $apiKey, $file)
+    public function __construct($publisherId , $apiKey)
     {
-        $this->activities = $activities;
         $this->publisher_id = $publisherId;
         $this->api_key = $apiKey;
-        $this->file = $file;
-        $this->recipient = $recipient;
     }
     
     
-    public function prepareRegistryData()
-    {        
+    public function prepareRegistryData($filename , $activityCount , $dataUpdatedDatetime)
+    {
+        $this->file = $filename;
+        $this->activity_count = $activityCount;
+        $this->activity_updated_datetime = $dataUpdatedDatetime;
         //prepare file's url
         $config = new Zend_Config_Ini(APPLICATION_PATH.'/configs/application.ini', APPLICATION_ENV);
         $fc = Zend_Controller_Front::getInstance();
 	$baseUrl =  $fc->getBaseUrl();
         $this->file_url = "http://".$_SERVER['SERVER_NAME']. $baseUrl . $config->xml_folder . $this->file;
-        
-        $this->activity_count = sizeof($this->activities);
-        
-        foreach ($this->activities as $activity){
-            $this->activity_updated_datetime = (strtotime($activity->getAttrib('@last_updated_datetime')) > strtotime($this->activity_updated_datetime))?$activity->getAttrib('@last_updated_datetime'):$this->activity_updated_datetime;
-            $attribs = $activity->getAttribs();
-        }
-        
         $this->_prepareRegistryInputJson();
     }
     
@@ -92,7 +82,7 @@ class Iati_Registry
                 if($response){
                     $this->saveRegistryPublishInfo($response,true);
                 } else {
-		    $this->error = "Sorry your file could not be pushed to registry";
+		    $this->error = "Your file could not be published in IATI Registry";
 		}
             } else{
                 $response = $ckan->post_package_register($this->json_data);

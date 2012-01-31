@@ -977,9 +977,14 @@ label
 	display: block;
 	font-weight: bold;
 }
-#publishing_type-element label {
+#publishing_type-element label,
+#update_registry-element label {
 	width: auto;
 	margin-right: 10px;
+}
+
+#update_registry-element br {
+	display: none;
 }
 
 #default_fields-element label{
