@@ -16,31 +16,29 @@ class WepController extends Zend_Controller_Action
         $this->view->blockManager()->enable('partial/dashboard.phtml');
         $this->view->blockManager()->enable('partial/primarymenu.phtml');
         $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
+        $this->view->blockManager()->enable('partial/published-list.phtml');
+
+        // for role user check if the user has permission to add, publish ,if not disable menu.
         if($identity->role == 'user'){
             $model = new Model_Wep();
             $userPermission = $model->getUserPermission($identity->user_id);
-            //print_r($userPermission);exit;
-            //$permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::VIEW_ACTIVITIES);
-            //if($permission == '0'){
-            //    $this->view->blockManager()->disable('partial/primarymenu.phtml');
-            //}
             $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::ADD_ACTIVITY);
-            if($permission == '0'){
+            $publishPermission = $userPermission->hasPermission(Iati_WEP_PermissionConts::PUBLISH);
+            if(!$permission){
                 $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
+            }
+            if(!$publishPermission){
+                $this->view->blockManager()->disable('partial/published-list.phtml');
             }
         }
         
         $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
-        //        $this->view->blockManager()->enable('partial/dashboard.phtml');
-        /* $contextSwitch = $this->_helper->contextSwitch;
-        $contextSwitch->addActionContext('', 'json')
-        ->initContext('json'); */
+
     }
 
     public function indexAction()
     {
         //$this->view->blockManager()->disable('partial/dashboard.phtml');
-        //        $this->view->blockManager()->enable('partial/login.phtml');
     }
 
     public function dashboardAction()
@@ -77,7 +75,6 @@ class WepController extends Zend_Controller_Action
 
     public function listActivitiesAction()
     {
-        $this->view->blockManager()->enable('partial/dashboard.phtml');
         //@todo list only activities related to the user
         if ($_GET) {
             if ($this->getRequest()->getParam('type')) {
@@ -123,6 +120,7 @@ class WepController extends Zend_Controller_Action
                 $this->view->blockManager()->disable('partial/primarymenu.phtml');
                 $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
                 $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
+                $this->view->blockManager()->disable('partial/published-list.phtml');
                 $this->view->blockManager()->enable('partial/superadmin-menu.phtml');
                 $this->view->blockManager()->enable('partial/dashboard.phtml');
                 $is_admin = true;
@@ -628,11 +626,12 @@ class WepController extends Zend_Controller_Action
             }
         }
         $this->view->form = $a;
-        $this->view->blockManager()->enable('partial/override-activity.phtml');
+
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
         $this->view->blockManager()->disable('partial/primarymenu.phtml');
         $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
         $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
+        $this->view->blockManager()->disable('partial/published-list.phtml');
     }
 
     public function editActivityElementsAction()
@@ -755,11 +754,12 @@ class WepController extends Zend_Controller_Action
                 $a = $formHelper->getForm();
             }
         }
-        $this->view->blockManager()->enable('partial/override-activity.phtml');
+
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
         $this->view->blockManager()->disable('partial/primarymenu.phtml');
         $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
         $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
+        $this->view->blockManager()->disable('partial/published-list.phtml');
          
         $this->view->form = $a;
     }
@@ -918,6 +918,7 @@ class WepController extends Zend_Controller_Action
         $this->view->blockManager()->disable('partial/primarymenu.phtml');
         $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
         $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
+        $this->view->blockManager()->disable('partial/published-list.phtml');
     }
 
     public function editActivityAction()
@@ -1467,10 +1468,16 @@ class WepController extends Zend_Controller_Action
         $this->_helper->json($message['message']);        
     }
     
-    public function viewPublishedFilesAction()
+    public function listPublishedFilesAction()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
         $orgId = $identity->account_id;
+        $publishPermission = 1; // set publish permission to true so that we should only check permission for user.
+        if($identity->role == 'user'){
+            $model = new Model_Wep();
+            $userPermission = $model->getUserPermission($identity->user_id);
+            $publishPermission = $userPermission->hasPermission(Iati_WEP_PermissionConts::PUBLISH);
+        }
         
         $modelRegistryInfo = new Model_RegistryInfo();
         $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($orgId);
@@ -1483,6 +1490,7 @@ class WepController extends Zend_Controller_Action
         
         $this->view->published_files = $publishedFiles;
         $this->view->update_to_registry = $registryInfo->update_registry;
+        $this->view->publish_permission = $publishPermission;
         $this->view->form = $form;
         $this->view->placeholder('title')->set('Published files');
     }
@@ -1494,7 +1502,7 @@ class WepController extends Zend_Controller_Action
         $publishedFiles = $db->deleteByFileId($fileId);
         
         $this->_helper->FlashMessenger->addMessage(array('message' => "File Deleted Sucessfully."));
-        $this->_redirect('wep/view-published-files');
+        $this->_redirect('wep/list-published-files');
     }
     
     public function hasData($data)

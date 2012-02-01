@@ -1,17 +1,22 @@
 <?
-$publishedFiles = $this->published_files;
+    $publishedFiles = $this->published_files;
 ?>
 <div class="files">
 <table class="published-files-list-table">
     <thead>
+        <? if($this->publish_permission): ?>
         <th></th>
+        <? endif; ?>
         <th>Filename</th>
         <th>Published Date</th>
         <th></th>
     </thead>
     <?php foreach ($publishedFiles as $file): ?>
     <tr>
+        <? if($this->publish_permission): ?>
         <td><? if(!$this->update_to_registry): ?><input type="checkbox" name="file_<?php echo $file['id']?>" value="<?php echo $file['id']?>"<?php ($file['status'])? print("checked='checked'") : print("disabled='disabled'"); ?>" /><? endif; ?></td>
+        <? endif; ?>
+        
         <td><?= $file['filename'] ?></td>
         <td><?= $file['published_date'] ?></td>
         <td><?php (!$file['status'])? print $this->l('Delete' , 'wep/delete-published-file?file_id='.$file['id'] , array('attributes'=>array('class'=>'delete-files'))):''; ?></td>
@@ -19,7 +24,9 @@ $publishedFiles = $this->published_files;
     <?php endforeach; ?>
 </table>
 <? if(!$this->update_to_registry): ?>
-<?= $this->form; ?>
+    <? if($this->publish_permission): ?>
+        <?= $this->form; ?>
+    <? endif; ?>
 <? endif; ?>
 </div>
 

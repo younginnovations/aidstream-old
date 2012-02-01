@@ -719,7 +719,9 @@ h2.form-title {
 }
 
 #block-list-menu .action-icon a,
-#block-add-menu .action-icon a
+#block-add-menu .action-icon a,
+#block-list-published-files .action-icon a,
+#block-list-help .action-icon a
 {
 	display: block;
 	width: 48px;
@@ -737,8 +739,18 @@ h2.form-title {
 {
 	background: url(../images/action-add.png) no-repeat left top;
 }
-#block-list-menu a,
-#block-add-menu a
+
+#block-list-published-files .action-icon a
+{
+	background: url(../images/published-files.png) no-repeat left top;
+}
+
+#block-list-help .action-icon a
+{
+	background: url(../images/edit-help-07.png) no-repeat left top;
+}
+
+#sidebar-right .block a
 {
 	font-weight: bold;
 	font-size: 14px;
