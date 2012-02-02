@@ -750,8 +750,10 @@ h2.form-title {
 	background: url(../images/edit-help-07.png) no-repeat left top;
 }
 
-#sidebar-right .block a
-{
+#block-list-menu a,
+#block-add-menu a,
+#block-list-published-files a,
+#block-list-menu a{
 	font-weight: bold;
 	font-size: 14px;
 }
@@ -766,6 +768,8 @@ h2.form-title {
 
 #sidebar-right #block-activity-menu h2 {
 	font-weight: bold;
+	line-height: 25px;
+	margin-bottom: 8px;
 }
 
 #sidebar-right #block-activity-menu .content li {
@@ -1456,6 +1460,7 @@ fieldset dl
 .innermost-wrapper .form-title{
 	display:block;
 	background:#ebebeb;
+
 	font-family:Arial, Helvetica, sans-serif;
 	color:#336666;
 	font-size:14px;
