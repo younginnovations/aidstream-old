@@ -49,7 +49,6 @@ class AdminController extends Zend_Controller_Action
         
         $this->view->rowSet = $org_data;
         
-        $this->view->placeholder('title')->set("Organisation List");
     }
 
     public function viewAction()
@@ -553,7 +552,6 @@ class AdminController extends Zend_Controller_Action
         $helpTopics = $modelHelp->getMessagesForList();
         $this->view->helpTopics = $helpTopics;
         
-        $this->view->placeholder('title')->set("Help Topics List");
     }
     
     public function editHelpMessageAction()
