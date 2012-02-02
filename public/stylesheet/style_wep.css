@@ -1843,6 +1843,8 @@ table#list-org {
 #reporting_org_info-label,
 #default_field_values-label,
 #default_field_groups-label,
+#file_ids-label,
+#push_to_registry-label,
 #iati_activity_status #change-label{
 	display: none;
 }

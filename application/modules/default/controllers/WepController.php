@@ -1492,7 +1492,6 @@ class WepController extends Zend_Controller_Action
         $this->view->update_to_registry = $registryInfo->update_registry;
         $this->view->publish_permission = $publishPermission;
         $this->view->form = $form;
-        $this->view->placeholder('title')->set('Published files');
     }
     
     public function deletePublishedFileAction()

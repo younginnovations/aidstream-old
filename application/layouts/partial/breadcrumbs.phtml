@@ -79,6 +79,12 @@ switch($identity->role){
                         'action'     => 'edit-defaults',
                     ),
                     array(
+                        'label' => 'Published Files',
+                        'module'     => 'default',
+                        'controller' => 'wep',
+                        'action'     => 'list-published-files',
+                    ),
+                    array(
                         'label' => 'Add Activity',
                         'module'     => 'default',
                         'controller' => 'wep',
@@ -176,6 +182,12 @@ switch($identity->role){
                 'controller' => 'wep',
                 'action'     => 'dashboard',
                 'pages'      => array(
+                    array(
+                        'label' => 'Published Files',
+                        'module'     => 'default',
+                        'controller' => 'wep',
+                        'action'     => 'list-published-files',
+                    ),
                     array(
                         'label' => 'Add Activity',
                         'module'     => 'default',
