@@ -753,7 +753,8 @@ h2.form-title {
 #block-list-menu a,
 #block-add-menu a,
 #block-list-published-files a,
-#block-list-menu a{
+#block-list-menu a,
+#block-list-help a{
 	font-weight: bold;
 	font-size: 14px;
 }
