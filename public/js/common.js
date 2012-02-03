@@ -8,8 +8,7 @@ dojo.require('dijit.form.Select')
 dojo.require('dijit.form.DateTextBox');
 //dojo.require("dojo.date.locale");
 dojo.require('dijit.TooltipDialog');
-dojo.require("dijit.InlineEditBox");
-dojo.require("dijit.form.Textarea");
+
 /**
  * @todo some comments on what is required for what
  * @param evt

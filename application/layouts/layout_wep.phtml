@@ -3,12 +3,8 @@
 <head>
     <title>AidStream</title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <script type="text/javascript">
-    var APP_BASEPATH = '<?php echo $this->baseUrl();?>';
-    </script>
-	<script src="<?php echo $this->baseUrl()?>/js/dojo-1.6.1/dojo/dojo.js" djConfig="parseOnLoad: true">
-    </script>
-    <!-- <link href='http://fonts.googleapis.com/css?family=Amaranth' rel='stylesheet' type='text/css'> -->
+    
+
     <?php 
 	    /**
 	     * @todo if dojo and jquery is being used in the same page use jquery.noconflict
@@ -19,7 +15,15 @@
             $this->headLink()->appendStylesheet($this->baseUrl() . '/js/dojo-1.6.1/dijit/themes/claro/claro.css');
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style_wep.css');
             print $this->headLink();
-	    
+    ?>
+    
+    <script type="text/javascript">
+	var APP_BASEPATH = '<?php echo $this->baseUrl();?>';
+    </script>
+    <script src="<?php echo $this->baseUrl()?>/js/dojo-release/dojo/dojo/dojo.js" djConfig="parseOnLoad: true"></script>
+    <?
+	    $this->headScript()->appendFile($this->baseUrl() . '/js/dojo-release/nls/iati_en-us.js', $type = 'text/javascript');
+	    $this->headScript()->appendFile($this->baseUrl() . '/js/dojo-release/iati.js', $type = 'text/javascript');
 	    $this->headScript()->appendFile($this->baseUrl() . '/js/common.js', $type = 'text/javascript');
 	    print $this->headScript();
     ?>
