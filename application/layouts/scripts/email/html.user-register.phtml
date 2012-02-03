@@ -1,0 +1,17 @@
+Hi <?= $this->first_name." "; ?>
+<?php
+if($this->middle_name){ echo $this->middle_name." ";}
+?>
+<?= $this->last_name;?>,
+<br />
+<br />
+Your registration request has been confirmed. Your account details are:<br />
+<br />
+Username : <?= $this->username;?><br />
+Password : <?= $this->password;?><br />
+<br />
+You can visit the site at <a href="<?= $this->url?>" ><?= $this->url?></a><br />
+<br />
+<br />
+------<br />
+AidStream
