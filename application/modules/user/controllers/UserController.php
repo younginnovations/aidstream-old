@@ -74,8 +74,7 @@ class User_UserController extends Zend_Controller_Action
                             $name .= " ".$profile->middle_name;
                         }
                         $name .= " ".$profile->last_name;
-                        var_dump($name);
-                        //Send Support Mail
+
                         $mailParams['subject'] = 'Password reset for ' . $email;
                         $mailParams['name'] = $name;
                         $mailParams['username'] = $user->user_name;
@@ -437,7 +436,7 @@ class User_UserController extends Zend_Controller_Action
                 $modelSupport->saveSupportRequest($data);
                 
                 //Send Support Mail
-                $mailParams['subject'] = 'Aidtype support requested';
+                $mailParams['subject'] = 'Support';
                 $mailParams['support_name'] = $data['support_name'];
                 $mailParams['support_email'] = $data['support_email'];
                 $mailParams['support_query'] = $data['support_query'];
