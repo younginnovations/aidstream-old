@@ -67,8 +67,17 @@ class User_UserController extends Zend_Controller_Action
                         $reset = new User_Model_DbTable_Reset();
                         $reset->insert(array('email' => $email, 'value' => $uniqueId, 'reset_flag' => '0'));
                         
+                        $profileModel = new User_Model_DbTable_Profile();
+                        $profile = $profileModel->getProfileByUserId($user->user_id);
+                        $name = $profile->first_name;
+                        if($profile->middle_name){
+                            $name .= " ".$profile->middle_name;
+                        }
+                        $name .= " ".$profile->last_name;
+                        var_dump($name);
                         //Send Support Mail
-                        $mailParams['subject'] = 'Replacement login information for ' . $email;
+                        $mailParams['subject'] = 'Password reset for ' . $email;
+                        $mailParams['name'] = $name;
                         $mailParams['username'] = $user->user_name;
                         $mailParams['reset_url'] = $resetSite;
                         $template = 'forgot_password.phtml';
