@@ -1195,7 +1195,6 @@ class WepController extends Zend_Controller_Action
             $this->view->form = $form;
         }
 
-        $this->_helper->layout()->setLayout('layout_wep');
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
     }
 
@@ -1418,7 +1417,7 @@ class WepController extends Zend_Controller_Action
 
         if(!$fileIds[0]){
             $this->_helper->FlashMessenger->addMessage(array('info' => "Please select a file to publish in IATI Registry."));
-            $this->_redirect('wep/view-published-files');
+            $this->_redirect('wep/list-published-files');
         }
         $identity = Zend_Auth::getInstance()->getIdentity();
         $accountId = $identity->account_id;
@@ -1444,7 +1443,7 @@ class WepController extends Zend_Controller_Action
             }
         }
         
-        $this->_redirect('wep/view-published-files');
+        $this->_redirect('wep/list-published-files');
     }
     
     public function updateActivityUpdatedDatetime($activity_id)
