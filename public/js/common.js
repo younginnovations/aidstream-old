@@ -68,59 +68,7 @@ var messageDialog = function (title, msg) {
     
     msgDlg.show();
 }
-//login slide up
-var loginSlide = function (target) {
-		dojo.query('#login-hidden-overlay').style('display', 'none');
-		dojo.query(target).removeClass('active');
-				  dojo.animateProperty({
-				  node: dojo.byId('user-login'),
-				  duration: 300,
-				  properties: {
-				      height: {
-						start: "70",
-						end: "0"
-					}
-				  }
-				}).play();
 
-				  dojo.animateProperty({
-				  node: dojo.byId('registration-section'),
-				  duration: 300,
-				  properties: {
-				      height: {
-						start: "65",
-						end: "0"
-					}
-				  }
-				}).play();
-}
-
-//login slide down
-var loginSlideDown = function(target) {
-			dojo.query('#login-hidden-overlay').style('display', 'block');
-			dojo.query(target).addClass('active');
-		    	dojo.animateProperty({
-				  node: dojo.byId('user-login'),
-				  duration: 500,
-				  properties: {
-				      height: {
-						start: "0",
-						end: "70"
-					}
-				  }
-				}).play();
-
-				  dojo.animateProperty({
-				  node: dojo.byId('registration-section'),
-				  duration: 300,
-				  properties: {
-				      height: {
-						start: "0",
-						end: "65"
-					}
-				  }
-				}).play();
-}
 //support form goes down
 var supportUp = function (target) {
 				dojo.query("#hidden-overlay").style('display', 'block');
@@ -205,57 +153,6 @@ var validateSupport = function(){
 			}
 
 			return flag;
-}
-
-var validateContact = function(){
-	flag = 1;
-	if(dojo.query("#contact-form #name").val() == "")
-	{
-		flag = 0;
-		dojo.query("#contact-form #name").addClass('error');
-		dojo.query("#contact-form #name").val('Name cannot be empty');
-	}
-	if(dojo.query("#contact-form #email").val() == "")
-	{
-		flag = 0;
-		dojo.query("#contact-form #email").addClass('error');
-		dojo.query("#contact-form #email").val('Email cannot be empty');
-	}
-	else
-	{
-		var email = dojo.query("#contact-form #email").val();
-		var checkEmail = validEmail(email);
-		if(!checkEmail)
-		{
-			flag = 0;
-			dojo.query("#contact-form #email").addClass('error');
-			dojo.query("#contact-form #email").val('Please input a valid email address!');
-		}
-	}
-	if(dojo.query("#contact-form #message").val() == "")
-	{
-		flag = 0;
-		dojo.query("#contact-form #message").addClass('error');
-		dojo.query("#contact-form #message").val('Message cannot be empty');
-		
-	}
-	else if(dojo.query('#contact-form #message').val().length >= 1000)
-	{
-				
-		flag = 0;
-		dojo.query('#contact-form #message').addClass('error');
-		dojo.query('#contact-form #message').val('Query is too long. Please use maximum of 1000 characters');
-		
-	}
-
-	if(flag == 1)
-	{
-		if((dojo.query('#contact-form #name').attr('class') == 'error') || (dojo.query('#contact-form #email').attr('class') == 'error') || (dojo.query('#contact-form #message"').attr('class') == 'error'))
-		{
-			flag = 0;
-		}
-	}
-	return flag;
 }
 
 var validEmail = function(email){
