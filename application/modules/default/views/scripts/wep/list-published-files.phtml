@@ -1,0 +1,39 @@
+<?
+    $publishedFiles = $this->published_files;
+?>
+<div class="files">
+    <? if(empty($publishedFiles)): ?>
+        <div class="no-data">You haven't published any files yet. Go here
+        <? print $this->l('List Activities' , 'wep/view-activities') ?>
+        to publish your completed activities. </div>
+        
+    <? else: ?>
+        <table class="activity-list-table published-files-list-table">
+            <thead>
+                <? if($this->publish_permission): ?>
+                <th></th>
+                <? endif; ?>
+                <th>Filename</th>
+                <th>Published Date</th>
+                <th></th>
+            </thead>
+            <?php foreach ($publishedFiles as $file): ?>
+            <tr>
+                <? if($this->publish_permission): ?>
+                <td><? if(!$this->update_to_registry): ?><input type="checkbox" name="file_<?php echo $file['id']?>" value="<?php echo $file['id']?>"<?php ($file['status'])? print("checked='checked'") : print("disabled='disabled'"); ?>" /><? endif; ?></td>
+                <? endif; ?>
+                
+                <td><?= $file['filename'] ?></td>
+                <td><?= $file['published_date'] ?></td>
+                <td><?php (!$file['status'])? print $this->l('Delete' , 'wep/delete-published-file?file_id='.$file['id'] , array('attributes'=>array('class'=>'delete-files'))):''; ?></td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <? if(!$this->update_to_registry): ?>
+            <? if($this->publish_permission): ?>
+                <?= $this->form; ?>
+            <? endif; ?>
+        <? endif; ?>
+    <? endif; ?>
+</div>
+

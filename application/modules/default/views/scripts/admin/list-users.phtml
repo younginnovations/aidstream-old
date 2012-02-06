@@ -1,7 +1,8 @@
 <?php $this->headScript()->appendFile($this->baseUrl() . '/js/common.js', $type = 'text/javascript');
 ?>
 <?php if(empty($this->users)):?>
-    Users unavailable.
+    <div class="no-data">You haven't created any users yet.
+    Click the button below to add users to your AidStream account.<br /></div>
 <?php endif;?>
 <?php if($this->users): ?>
 <div class= 'user-list' >
@@ -14,9 +15,7 @@
                 <td class="sn"><?php print $i; ?></td>
                 <td class="title"><?php print $user['first_name'] . " " . $user['middle_name'] . " " . $user['last_name'];?>
                 
-                <div class = "list-action"><?php print $this->l('View', 'admin/view-profile?user_id='.$user['user_id'])?>
-        <?php //print $this->l('Edit', 'admin/edit-profile?user_id='.$user['user_id'])?>
-        <?php //print $this->l('Change Password', 'user/user/changepassword?user_id='.$user['user_id'])?>                    
+                <div class = "list-action"><?php print $this->l('View', 'admin/view-profile?user_id='.$user['user_id'])?>                   
         <?php print $this->l('Delete', 'admin/delete-user?user_id='.$user['user_id'],
                            array('attributes' => array('onclick' => "javascript: return confirm('Do you really want to delete?')")))?>
                 </div>

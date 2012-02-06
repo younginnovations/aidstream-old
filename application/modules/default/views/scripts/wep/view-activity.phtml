@@ -83,7 +83,7 @@ if(!empty($value)): ?>
 $identifiers=$activity->getElementsByType(Iati_Activity_Element::TYPE_IDENTIFIER);
 $value = $identifiers[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Identifier<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=Identifier"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Identifier<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=Identifier"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($identifiers as $identifier):?>
 <table class='element-values-items'>
@@ -100,7 +100,7 @@ if(!empty($value)): ?>
 $otheridentifiers=$activity->getElementsByType(Iati_Activity_Element::TYPE_OTHER_ACTIVITY_IDENTIFIER);
 $value = $otheridentifiers[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Other Activity Identifier<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=OtherActivityIdentifier"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Other Activity Identifier<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=OtherActivityIdentifier"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($otheridentifiers as $otheridentifier):?>
 <table class='element-values-items'>
@@ -119,7 +119,7 @@ if(!empty($value)): ?>
 $titles=$activity->getElementsByType(Iati_Activity_Element::TYPE_TITLE);
 $value = $titles[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Title<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=Title"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Title<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=Title"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($titles as $title):?>
 <table class='element-values-items'>
@@ -136,7 +136,7 @@ if(!empty($value)): ?>
 $descriptions=$activity->getElementsByType(Iati_Activity_Element::TYPE_DESCRIPTION);
 $value = $descriptions[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Description<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=Description"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Description<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=Description"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($descriptions as $description):?>
 <table class='element-values-items'>
@@ -154,7 +154,7 @@ if(!empty($value)): ?>
 $activitystatuss=$activity->getElementsByType(Iati_Activity_Element::TYPE_ACTIVITY_STATUS);
 $value = $activitystatuss[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Activity Status<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=ActivityStatus"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Activity Status<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=ActivityStatus"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($activitystatuss as $activitystatus):?>
 <table class='element-values-items'>
@@ -172,7 +172,7 @@ if(!empty($value)): ?>
 $activitydates=$activity->getElementsByType(Iati_Activity_Element::TYPE_ACTIVITY_DATE);
 $value = $activitydates[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Activity Date<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=ActivityDate"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Activity Date<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=ActivityDate"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($activitydates as $activitydate):?>
 <table class='element-values-items'>
@@ -191,7 +191,7 @@ if(!empty($value)): ?>
 $contactinfos=$activity->getElementsByType(Iati_Activity_Element::TYPE_CONTACT_INFO);
 $value = $contactinfos[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Contact Info<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=ContactInfo"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Contact Info<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=ContactInfo"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($contactinfos as $contactinfo):?>
 <table class='element-values-items'>
@@ -304,7 +304,7 @@ if(!empty($value)): ?>
 $participatingorgs=$activity->getElementsByType(Iati_Activity_Element::TYPE_PARTICIPATING_ORG);
 $value = $participatingorgs[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Participating Organisation<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=ParticipatingOrg"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Participating Organisation<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=ParticipatingOrg"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($participatingorgs as $participatingorg):?>
 <table class='element-values-items'>
@@ -325,7 +325,7 @@ if(!empty($value)): ?>
 $recipientcountrys=$activity->getElementsByType(Iati_Activity_Element::TYPE_RECIPIENT_COUNTRY);
 $value = $recipientcountrys[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Recipient Country<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=RecipientCountry"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Recipient Country<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=RecipientCountry"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($recipientcountrys as $recipientcountry):?>
 <table class='element-values-items'>
@@ -344,7 +344,7 @@ if(!empty($value)): ?>
 $recipientregions=$activity->getElementsByType(Iati_Activity_Element::TYPE_RECIPIENT_REGION);
 $value = $recipientregions[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Recipient Region<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=RecipientRegion"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Recipient Region<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=RecipientRegion"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($recipientregions as $recipientregion):?>
 <table class='element-values-items'>
@@ -363,7 +363,7 @@ if(!empty($value)): ?>
 $locations=$activity->getElementsByType(Iati_Activity_Element::TYPE_LOCATION);
 $value = $locations[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Location<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=Location"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Location<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=Location"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($locations as $location):?>
 <table class='element-values-items'>
@@ -503,7 +503,7 @@ if(!empty($value)): ?>
 $sectors=$activity->getElementsByType(Iati_Activity_Element::TYPE_SECTOR);
 $value = $sectors[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Sector<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=Sector"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Sector<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=Sector"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($sectors as $sector):?>
 <table class='element-values-items'>
@@ -533,7 +533,7 @@ if(!empty($value)): ?>
 $policymarkers=$activity->getElementsByType(Iati_Activity_Element::TYPE_POLICY_MARKER);
 $value = $policymarkers[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Policy Marker<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=PolicyMarker"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Policy Marker<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=PolicyMarker"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($policymarkers as $policymarker):?>
 <table class='element-values-items'>
@@ -553,7 +553,7 @@ if(!empty($value)): ?>
 $collaborationtypes=$activity->getElementsByType(Iati_Activity_Element::TYPE_COLLABORATION_TYPE);
 $value = $collaborationtypes[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Collaboration Type<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=CollaborationType"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Collaboration Type<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=CollaborationType"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($collaborationtypes as $collaborationtype):?>
 <table class='element-values-items'>
@@ -571,7 +571,7 @@ if(!empty($value)): ?>
 $defaultflowtypes=$activity->getElementsByType(Iati_Activity_Element::TYPE_DEFAULT_FLOW_TYPE);
 $value = $defaultflowtypes[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Default Flow Type<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=DefaultFlowType"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Default Flow Type<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=DefaultFlowType"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($defaultflowtypes as $defaultflowtype):?>
 <table class='element-values-items'>
@@ -589,7 +589,7 @@ if(!empty($value)): ?>
 $defaultfinancetypes=$activity->getElementsByType(Iati_Activity_Element::TYPE_DEFAULT_FINANCE_TYPE);
 $value = $defaultfinancetypes[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Default Finance Type<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=DefaultFinanceType"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Default Finance Type<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=DefaultFinanceType"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($defaultfinancetypes as $defaultfinancetype):?>
 <table class='element-values-items'>
@@ -607,7 +607,7 @@ if(!empty($value)): ?>
 $defaultaidtypes=$activity->getElementsByType(Iati_Activity_Element::TYPE_DEFAULT_AID_TYPE);
 $value = $defaultaidtypes[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Default Aid Type<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=DefaultAidType"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Default Aid Type<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=DefaultAidType"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($defaultaidtypes as $defaultaidtype):?>
 <table class='element-values-items'>
@@ -625,7 +625,7 @@ if(!empty($value)): ?>
 $defaulttiedstatuss=$activity->getElementsByType(Iati_Activity_Element::TYPE_DEFAULT_TIED_STATUS);
 $value = $defaulttiedstatuss[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Default Tied Status<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=DefaultTiedStatus"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Default Tied Status<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=DefaultTiedStatus"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($defaulttiedstatuss as $defaulttiedstatus):?>
 <table class='element-values-items'>
@@ -643,7 +643,7 @@ if(!empty($value)): ?>
 $budgets=$activity->getElementsByType(Iati_Activity_Element::TYPE_BUDGET);
 $value = $budgets[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Budget<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=Budget"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Budget<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=Budget"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($budgets as $budget):?>
 <table class='element-values-items'>
@@ -726,7 +726,7 @@ if(!empty($value)): ?>
 $planneddisbursements=$activity->getElementsByType(Iati_Activity_Element::TYPE_PLANNED_DISBURSEMENT);
 $value = $planneddisbursements[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Planned Disbursement<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=PlannedDisbursement"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Planned Disbursement<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=PlannedDisbursement"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($planneddisbursements as $planneddisbursement):?>
 <table class='element-values-items'>
@@ -808,7 +808,7 @@ if(!empty($value)): ?>
 $transactions=$activity->getElementsByType(Iati_Activity_Element::TYPE_TRANSACTION);
 $value = $transactions[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Transaction<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=Transaction"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Transaction<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=Transaction"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($transactions as $transaction):?>
 <table class='element-values-items'>
@@ -1043,7 +1043,7 @@ if(!empty($value)): ?>
 $documentlinks=$activity->getElementsByType(Iati_Activity_Element::TYPE_DOCUMENT_LINK);
 $value = $documentlinks[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Document Link<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=DocumentLink"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Document Link<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=DocumentLink"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($documentlinks as $documentlink):?>
 <table class='element-values-items'>
@@ -1123,7 +1123,7 @@ if(!empty($value)): ?>
 $activitywebsites=$activity->getElementsByType(Iati_Activity_Element::TYPE_ACTIVITY_WEBSITE);
 $value = $activitywebsites[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Activity Website<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=ActivityWebsite"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Activity Website<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=ActivityWebsite"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($activitywebsites as $activitywebsite):?>
 <table class='element-values-items'>
@@ -1140,7 +1140,7 @@ if(!empty($value)): ?>
 $relatedactivitys=$activity->getElementsByType(Iati_Activity_Element::TYPE_RELATED_ACTIVITY);
 $value = $relatedactivitys[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Related Activity<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=RelatedActivity"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Related Activity<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=RelatedActivity"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($relatedactivitys as $relatedactivity):?>
 <table class='element-values-items'>
@@ -1159,7 +1159,7 @@ if(!empty($value)): ?>
 $conditionss=$activity->getElementsByType(Iati_Activity_Element::TYPE_CONDITIONS);
 $value = $conditionss[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Conditions<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=Conditions"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Conditions<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=Conditions"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($conditionss as $conditions):?>
 <table class='element-values-items'>
@@ -1202,7 +1202,7 @@ if(!empty($value)): ?>
 $results=$activity->getElementsByType(Iati_Activity_Element::TYPE_RESULT);
 $value = $results[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Result<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?> &class=Result"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Result<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=Result"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($results as $result):?>
 <table class='element-values-items'>

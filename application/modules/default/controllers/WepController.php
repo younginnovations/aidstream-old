@@ -16,31 +16,29 @@ class WepController extends Zend_Controller_Action
         $this->view->blockManager()->enable('partial/dashboard.phtml');
         $this->view->blockManager()->enable('partial/primarymenu.phtml');
         $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
+        $this->view->blockManager()->enable('partial/published-list.phtml');
+
+        // for role user check if the user has permission to add, publish ,if not disable menu.
         if($identity->role == 'user'){
             $model = new Model_Wep();
             $userPermission = $model->getUserPermission($identity->user_id);
-            //print_r($userPermission);exit;
-            //$permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::VIEW_ACTIVITIES);
-            //if($permission == '0'){
-            //    $this->view->blockManager()->disable('partial/primarymenu.phtml');
-            //}
             $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::ADD_ACTIVITY);
-            if($permission == '0'){
+            $publishPermission = $userPermission->hasPermission(Iati_WEP_PermissionConts::PUBLISH);
+            if(!$permission){
                 $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
+            }
+            if(!$publishPermission){
+                $this->view->blockManager()->disable('partial/published-list.phtml');
             }
         }
         
         $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
-        //        $this->view->blockManager()->enable('partial/dashboard.phtml');
-        /* $contextSwitch = $this->_helper->contextSwitch;
-        $contextSwitch->addActionContext('', 'json')
-        ->initContext('json'); */
+
     }
 
     public function indexAction()
     {
         //$this->view->blockManager()->disable('partial/dashboard.phtml');
-        //        $this->view->blockManager()->enable('partial/login.phtml');
     }
 
     public function dashboardAction()
@@ -77,7 +75,6 @@ class WepController extends Zend_Controller_Action
 
     public function listActivitiesAction()
     {
-        $this->view->blockManager()->enable('partial/dashboard.phtml');
         //@todo list only activities related to the user
         if ($_GET) {
             if ($this->getRequest()->getParam('type')) {
@@ -123,6 +120,7 @@ class WepController extends Zend_Controller_Action
                 $this->view->blockManager()->disable('partial/primarymenu.phtml');
                 $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
                 $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
+                $this->view->blockManager()->disable('partial/published-list.phtml');
                 $this->view->blockManager()->enable('partial/superadmin-menu.phtml');
                 $this->view->blockManager()->enable('partial/dashboard.phtml');
                 $is_admin = true;
@@ -279,6 +277,7 @@ class WepController extends Zend_Controller_Action
                     $registryInfo['publisher_id'] = $data['publisher_id'];
                     $registryInfo['api_key'] = $data['api_key'];
                     $registryInfo['publishing_type'] = $data['publishing_type'][0];
+                    $registryInfo['update_registry'] = $data['update_registry'];
                     $registryInfo['org_id'] = $identity->account_id;
                     $modelRegistryInfo->updateRegistryInfo($registryInfo);
                     
@@ -627,11 +626,12 @@ class WepController extends Zend_Controller_Action
             }
         }
         $this->view->form = $a;
-        $this->view->blockManager()->enable('partial/override-activity.phtml');
+
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
         $this->view->blockManager()->disable('partial/primarymenu.phtml');
         $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
         $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
+        $this->view->blockManager()->disable('partial/published-list.phtml');
     }
 
     public function editActivityElementsAction()
@@ -754,11 +754,12 @@ class WepController extends Zend_Controller_Action
                 $a = $formHelper->getForm();
             }
         }
-        $this->view->blockManager()->enable('partial/override-activity.phtml');
+
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
         $this->view->blockManager()->disable('partial/primarymenu.phtml');
         $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
         $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
+        $this->view->blockManager()->disable('partial/published-list.phtml');
          
         $this->view->form = $a;
     }
@@ -917,6 +918,7 @@ class WepController extends Zend_Controller_Action
         $this->view->blockManager()->disable('partial/primarymenu.phtml');
         $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
         $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
+        $this->view->blockManager()->disable('partial/published-list.phtml');
     }
 
     public function editActivityAction()
@@ -1193,7 +1195,6 @@ class WepController extends Zend_Controller_Action
             $this->view->form = $form;
         }
 
-        $this->_helper->layout()->setLayout('layout_wep');
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
     }
 
@@ -1347,6 +1348,7 @@ class WepController extends Zend_Controller_Action
         $activity_ids = explode(',',$ids);
         $db = new Model_ActivityStatus;
         $not_valid = false;
+        /*
         if($ids)
         {
             foreach($activity_ids as $activity_id)
@@ -1356,8 +1358,8 @@ class WepController extends Zend_Controller_Action
                     $not_valid = true;
                 }
             }
-        } 
-
+        }
+        */
         if($not_valid){
             $this->_helper->FlashMessenger->addMessage(array('warning' => "The activities cannot be changed to the state. Please check that a state to be changed is valid for all selected activities"));
         } else {            
@@ -1368,21 +1370,38 @@ class WepController extends Zend_Controller_Action
                 $modelRegistryInfo = new Model_RegistryInfo();
                 $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($account_id);
                 if(!$registryInfo){
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "Publishing Information Not Found. Activities cannot be published."));
+                    $this->_helper->FlashMessenger->addMessage(array('error' => "Publishing Information Not Found. Activities cannot be published."));
                 } else if(!$registryInfo->publisher_id){
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "Publisher Id Not Found. Activities cannot be published."));
-                } else if(!$registryInfo->api_key){
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "Api Key Not Found. Activities cannot be published."));
+                    $this->_helper->FlashMessenger->addMessage(array('error' => "Publisher Id Not Found. Activities cannot be published."));
                 } else {
                     $db->updateActivityStatus($activity_ids,(int)$state);
                     
-                    $reg = new Iati_WEP_Publish($account_id,$registryInfo->publisher_id,$registryInfo->api_key,$registryInfo->publishing_type);
-                    $reg->publish();
-                    if($reg->getError()){
-                        $this->_helper->FlashMessenger->addMessage(array('info' => $reg->getError()));
+                    $pub = new Iati_WEP_Publish($account_id, $registryInfo->publisher_id , $registryInfo->publishing_type);
+                    $pub->publish();
+                    
+                    if($registryInfo->update_registry){
+                        if(!$registryInfo->api_key){
+                            $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key Not Found. Activities cannot be published in registry."));
+                        } else {
+                            $reg = new Iati_Registry($registryInfo->publisher_id , $registryInfo->api_key);
+                            $modelPublished = new Model_Published();
+                            $files = $modelPublished->getPublishedInfo($account_id);
+
+                            foreach($files as $file){
+                                $reg->prepareRegistryData($file['filename'] , $file['activity_count'] , $file['data_updated_datetime']);
+                                $reg->publishToRegistry();
+                            }
+                            
+                            if($reg->getErrors()){
+                                $this->_helper->FlashMessenger->addMessage(array('info' => 'Activities xml files created. '.$reg->getErrors()));
+                            } else {
+                                $this->_helper->FlashMessenger->addMessage(array('message' => "Activities published to IATI registry."));
+                            }
+                        }
                     } else {
-                        $this->_helper->FlashMessenger->addMessage(array('message' => "Activities Published."));
+                        $this->_helper->FlashMessenger->addMessage(array('message' => "Activities xml files created."));
                     }
+                    
                     
                 }
             } else {
@@ -1390,6 +1409,41 @@ class WepController extends Zend_Controller_Action
             }
         }
         $this->_redirect('wep/view-activities');
+    }
+    
+    public function publishInRegistryAction()
+    {
+        $fileIds = explode(',' , $this->_getParam('file_ids'));
+
+        if(!$fileIds[0]){
+            $this->_helper->FlashMessenger->addMessage(array('info' => "Please select a file to publish in IATI Registry."));
+            $this->_redirect('wep/list-published-files');
+        }
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $accountId = $identity->account_id;
+        $modelRegistryInfo = new Model_RegistryInfo();
+        $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($accountId);
+        
+        if(!$registryInfo->api_key){
+            $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key Not Found. Activities cannot be published in registry."));
+        } else {
+            $reg = new Iati_Registry($registryInfo->publisher_id , $registryInfo->api_key);
+            $modelPublished = new Model_Published();
+            $files = $modelPublished->getPublishedInfoByIds($fileIds);
+
+            foreach($files as $file){
+                $reg->prepareRegistryData($file['filename'] , $file['activity_count'] , $file['data_updated_datetime']);
+                $reg->publishToRegistry();
+            }
+            
+            if($reg->getErrors()){
+                $this->_helper->FlashMessenger->addMessage(array('info' => $reg->getErrors()));
+            } else {
+                $this->_helper->FlashMessenger->addMessage(array('message' => "Activities published to IATI registry."));
+            }
+        }
+        
+        $this->_redirect('wep/list-published-files');
     }
     
     public function updateActivityUpdatedDatetime($activity_id)
@@ -1413,16 +1467,30 @@ class WepController extends Zend_Controller_Action
         $this->_helper->json($message['message']);        
     }
     
-    public function viewPublishedFilesAction()
+    public function listPublishedFilesAction()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
         $orgId = $identity->account_id;
+        $publishPermission = 1; // set publish permission to true so that we should only check permission for user.
+        if($identity->role == 'user'){
+            $model = new Model_Wep();
+            $userPermission = $model->getUserPermission($identity->user_id);
+            $publishPermission = $userPermission->hasPermission(Iati_WEP_PermissionConts::PUBLISH);
+        }
+        
+        $modelRegistryInfo = new Model_RegistryInfo();
+        $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($orgId);
+        
+        $form = new Form_Wep_PublishToRegistry();
+        $form->setAction($this->view->baseUrl().'/wep/publish-in-registry');
         
         $db = new Model_Published();
         $publishedFiles = $db->getAllPublishedInfo($orgId);
-        $this->view->published_files = $publishedFiles;
         
-        $this->view->placeholder('title')->set('Published files');
+        $this->view->published_files = $publishedFiles;
+        $this->view->update_to_registry = $registryInfo->update_registry;
+        $this->view->publish_permission = $publishPermission;
+        $this->view->form = $form;
     }
     
     public function deletePublishedFileAction()
@@ -1432,7 +1500,7 @@ class WepController extends Zend_Controller_Action
         $publishedFiles = $db->deleteByFileId($fileId);
         
         $this->_helper->FlashMessenger->addMessage(array('message' => "File Deleted Sucessfully."));
-        $this->_redirect('wep/view-published-files');
+        $this->_redirect('wep/list-published-files');
     }
     
     public function hasData($data)

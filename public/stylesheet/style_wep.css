@@ -109,7 +109,7 @@ table {
 {
 	float:right;
 	/*width:450px;*/
-	margin-right: 60px;
+	margin-right: 30px;
 }
 .user-info
 {
@@ -719,7 +719,9 @@ h2.form-title {
 }
 
 #block-list-menu .action-icon a,
-#block-add-menu .action-icon a
+#block-add-menu .action-icon a,
+#block-list-published-files .action-icon a,
+#block-list-help .action-icon a
 {
 	display: block;
 	width: 48px;
@@ -737,9 +739,22 @@ h2.form-title {
 {
 	background: url(../images/action-add.png) no-repeat left top;
 }
-#block-list-menu a,
-#block-add-menu a
+
+#block-list-published-files .action-icon a
 {
+	background: url(../images/published-files.png) no-repeat left top;
+}
+
+#block-list-help .action-icon a
+{
+	background: url(../images/edit-help-07.png) no-repeat left top;
+}
+
+#block-list-menu a,
+#block-add-menu a,
+#block-list-published-files a,
+#block-list-menu a,
+#block-list-help a{
 	font-weight: bold;
 	font-size: 14px;
 }
@@ -754,6 +769,8 @@ h2.form-title {
 
 #sidebar-right #block-activity-menu h2 {
 	font-weight: bold;
+	line-height: 25px;
+	margin-bottom: 8px;
 }
 
 #sidebar-right #block-activity-menu .content li {
@@ -977,9 +994,14 @@ label
 	display: block;
 	font-weight: bold;
 }
-#publishing_type-element label {
+#publishing_type-element label,
+#update_registry-element label {
 	width: auto;
 	margin-right: 10px;
+}
+
+#update_registry-element br {
+	display: none;
 }
 
 #default_fields-element label{
@@ -1439,6 +1461,7 @@ fieldset dl
 .innermost-wrapper .form-title{
 	display:block;
 	background:#ebebeb;
+
 	font-family:Arial, Helvetica, sans-serif;
 	color:#336666;
 	font-size:14px;
@@ -1826,6 +1849,8 @@ table#list-org {
 #reporting_org_info-label,
 #default_field_values-label,
 #default_field_groups-label,
+#file_ids-label,
+#push_to_registry-label,
 #iati_activity_status #change-label{
 	display: none;
 }

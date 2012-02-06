@@ -4,18 +4,16 @@ class Iati_WEP_Publish
 {
     protected $publisher_org_id;
     protected $publisher_id;
-    protected $api_key;
     protected $recipient;
     protected $file_path;
     protected $segmented;
     protected $country;
     protected $error;
     
-    public function __construct($publisher_org_id,$publisher_id,$api_key,$segmented = false)
+    public function __construct($publisher_org_id , $publisher_id , $segmented = false)
     {
         $this->publisher_org_id = $publisher_org_id;
         $this->publisher_id = $publisher_id;
-        $this->api_key = $api_key;
         $this->segmented = $segmented;
         
         $config = new Zend_Config_Ini(APPLICATION_PATH.'/configs/application.ini', APPLICATION_ENV);
@@ -35,35 +33,39 @@ class Iati_WEP_Publish
             {
                 $this->recipient = $org;
                 $filename = $this->saveActivityXml($activities);
-                $this->savePublishedInfo($filename);
                 
-                $this->publishToRegistry($activities,$filename);
+                if(is_array($activities)){
+                    foreach ($activities as $activity){
+                        $activityUpdatedDatetime = (strtotime($activity->getAttrib('@last_updated_datetime')) > strtotime($activityUpdatedDatetime))?$activity->getAttrib('@last_updated_datetime'):$activityUpdatedDatetime;
+                    }
+                }
+                
+                $country = '';
+                if(in_array($this->recipient , $this->country)){
+                    $country = $this->recipient;
+                }
+                
+                $this->savePublishedInfo($filename , $country , sizeof($activities) , $activityUpdatedDatetime);
+                
             }
             
         } else {
             // remove existing published info
             $this->resetPublishedInfo();
-            
+
             $filename = $this->saveActivityXml($activitiesCollection);
-            $this->savePublishedInfo($filename);
             
-            $this->publishToRegistry($activitiesCollection,$filename);
+            if(is_array($activitiesCollection)){
+                foreach ($activitiesCollection as $activity){
+                    $activityUpdatedDatetime = (strtotime($activity->getAttrib('@last_updated_datetime')) > strtotime($activityUpdatedDatetime))?$activity->getAttrib('@last_updated_datetime'):$activityUpdatedDatetime;
+                }
+            }
+            
+            $this->savePublishedInfo($filename , '' , sizeof($activitiesCollection) , $activityUpdatedDatetime);
+            
         }
     }
     
-    
-    public function publishToRegistry($activitiesCollection,$filename)
-    {
-        $registry = new Iati_Registry($activitiesCollection , $this->publisher_id , $this->api_key , $this->filepath.$filename);
-        if($this->country){
-            $registry->setCountryName($this->country);
-        }
-        $registry->prepareRegistryData();
-        $registry->publishToRegistry();
-        if($registry->getErrors()){
-            $this->error = $registry->getErrors();
-        }
-    }
     
     public function getDataToPublish()
     {
@@ -89,7 +91,7 @@ class Iati_WEP_Publish
                 $countryAttribs = $countries[0]->getAttribs();
                 if(1 == sizeof($countries) && 0 != sizeof($countryAttribs)){
                     $segmented_activities[$countries[0]->getAttribValue('@code')][] = $activity;
-                    $this->country = $countries[0]->getAttribValue('@code');
+                    $this->country[] = $countries[0]->getAttribValue('@code');
                 } else {
                     $regions = $activity->getElementsByType(Iati_Activity_Element::TYPE_RECIPIENT_REGION);
                     $regionAttribs = $regions[0]->getAttribs();
@@ -111,8 +113,10 @@ class Iati_WEP_Publish
                             }
                             if($maxPercentCountry){
                                 $segmented_activities[$maxPercentCountry][] = $activity;
+                                $this->country[] = $maxPercentCountry;
                             } else {
                                 $segmented_activities[$countries[0]->getAttribValue('@code')][] = $activity;
+                                $this->country[] = $countries[0]->getAttribValue('@code');
                             }
                         }
                     }
@@ -146,12 +150,15 @@ class Iati_WEP_Publish
     }
     
     
-    public function savePublishedInfo($filename)
+    public function savePublishedInfo($filename , $country , $activityCount , $dataLastUpdatedDate)
     {
         $db = new Model_Published();
         $data = array(
                     'publishing_org_id' => $this->publisher_org_id,
                     'filename' => $filename,
+                    'activity_count' => $activityCount,
+                    'country_name' => $country,
+                    'data_updated_datetime' => $dataLastUpdatedDate,
                     'published_date' => date('Y-m-d h:i:s'),
                     'status' => 1
                     );

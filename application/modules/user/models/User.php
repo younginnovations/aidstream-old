@@ -12,6 +12,7 @@ class User_Model_User
      */
     public function registerUser($userData)
     {
+
         $modelWep = new Model_Wep();
         $data = array();
         $data['email'] = $userData['email'];
@@ -74,6 +75,8 @@ class User_Model_User
         $mailParams['last_name'] = $data['last_name'];
         $mailParams['username'] = $user['user_name'];
         $mailParams['password'] = $data['password'];
+        $mailParams['url'] = "http://".$_SERVER['SERVER_NAME'].Zend_Controller_Front::getInstance()->getBaseUrl();
+        
         $template = 'user-register.phtml';
         $Wep = new App_Notification;
         $Wep->sendemail($mailParams,$template,$to);

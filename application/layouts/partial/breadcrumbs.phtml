@@ -22,6 +22,12 @@ switch($identity->role){
                         'action' => 'register',
                     ),
                     array(
+                        'label' => 'List Help Topics',
+                        'module' => 'default',
+                        'controller' => 'admin',
+                        'action' => 'list-help',
+                    ),
+                    array(
                         'label' => 'List Organisation',
                         'module' => 'default',
                         'controller' => 'admin',
@@ -77,6 +83,12 @@ switch($identity->role){
                         'module'     => 'default',
                         'controller' => 'wep',
                         'action'     => 'edit-defaults',
+                    ),
+                    array(
+                        'label' => 'Published Files',
+                        'module'     => 'default',
+                        'controller' => 'wep',
+                        'action'     => 'list-published-files',
                     ),
                     array(
                         'label' => 'Add Activity',
@@ -176,6 +188,12 @@ switch($identity->role){
                 'controller' => 'wep',
                 'action'     => 'dashboard',
                 'pages'      => array(
+                    array(
+                        'label' => 'Published Files',
+                        'module'     => 'default',
+                        'controller' => 'wep',
+                        'action'     => 'list-published-files',
+                    ),
                     array(
                         'label' => 'Add Activity',
                         'module'     => 'default',

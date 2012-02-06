@@ -10,7 +10,7 @@ class Form_Wep_ActivityStatus extends App_Form
         $form['ids'] = new Zend_Form_Element_Hidden('ids');
         $form['status'] = new Zend_Form_Element_Hidden('status');
         $form['change'] = new Zend_Form_Element_Button('change');
-        $form['change']->class = "form-submit";
+        $form['change']->setAttrib( 'class' , "form-submit");
         $this->addElements($form);
     }
 }

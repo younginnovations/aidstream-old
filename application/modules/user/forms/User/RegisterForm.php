@@ -85,6 +85,8 @@ class User_Form_User_RegisterForm extends App_Form
             ->addErrorMessage('Please Enter an API key');
             
         $baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
+        
+        /*
         $captcha = new Zend_Form_Element_Captcha(
             'captcha', 
             array(
@@ -101,6 +103,18 @@ class User_Form_User_RegisterForm extends App_Form
                                     )
                     )
             );
+        */
+        $publickey = '6Ld6RM0SAAAAANYtQD4j-0THK1HBXLUhAsQCXyiH';
+        $privatekey = '6Ld6RM0SAAAAAJlk5mZV9tZ65xfrmHEoXtmYdyHz';
+        $recaptcha = new Zend_Service_ReCaptcha($publickey, $privatekey);
+
+        $captcha = new Zend_Form_Element_Captcha('captcha',
+            array(
+                'captcha'       => 'ReCaptcha',
+                'captchaOptions' => array('captcha' => 'ReCaptcha', 'service' => $recaptcha),
+                'ignore' => true
+                )
+        );
 
             
 

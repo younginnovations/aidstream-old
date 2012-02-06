@@ -67,8 +67,16 @@ class User_UserController extends Zend_Controller_Action
                         $reset = new User_Model_DbTable_Reset();
                         $reset->insert(array('email' => $email, 'value' => $uniqueId, 'reset_flag' => '0'));
                         
-                        //Send Support Mail
-                        $mailParams['subject'] = 'Replacement login information for ' . $email;
+                        $profileModel = new User_Model_DbTable_Profile();
+                        $profile = $profileModel->getProfileByUserId($user->user_id);
+                        $name = $profile->first_name;
+                        if($profile->middle_name){
+                            $name .= " ".$profile->middle_name;
+                        }
+                        $name .= " ".$profile->last_name;
+
+                        $mailParams['subject'] = 'Password reset for ' . $email;
+                        $mailParams['name'] = $name;
                         $mailParams['username'] = $user->user_name;
                         $mailParams['reset_url'] = $resetSite;
                         $template = 'forgot_password.phtml';
@@ -428,7 +436,7 @@ class User_UserController extends Zend_Controller_Action
                 $modelSupport->saveSupportRequest($data);
                 
                 //Send Support Mail
-                $mailParams['subject'] = 'Aidtype support requested';
+                $mailParams['subject'] = 'Support';
                 $mailParams['support_name'] = $data['support_name'];
                 $mailParams['support_email'] = $data['support_email'];
                 $mailParams['support_query'] = $data['support_query'];
