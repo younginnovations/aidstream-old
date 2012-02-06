@@ -39,7 +39,7 @@ class Iati_WEP_Activity_Elements_Location_GazetteerEntry extends Iati_WEP_Activi
     protected $error = array();
     protected $hasError = false;
     protected $multiple = true;
-    protected $required = true;
+    protected $required = false;
     protected $isAttributeSet = false;
 
     public function __construct()

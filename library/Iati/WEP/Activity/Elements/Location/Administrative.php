@@ -11,9 +11,7 @@ class Iati_WEP_Activity_Elements_Location_Administrative extends Iati_WEP_Activi
     protected $className = 'Administrative';
     
     
-    protected $validators = array(
-                                'text' => array('NotEmpty'),
-                            );
+    protected $validators = array();
                             
     protected $attributes_html = array(
                 'id' => array(

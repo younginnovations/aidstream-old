@@ -10,7 +10,7 @@ class Iati_WEP_Activity_Elements_Location_LocationType extends Iati_WEP_Activity
     protected $className = 'LocationType';
     
     protected $validators = array(
-                                'text' => array('NotEmpty'),
+                                'code' => array('NotEmpty'),
                             );
                             
     protected $attributes_html = array(
