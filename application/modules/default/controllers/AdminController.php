@@ -10,6 +10,11 @@ class AdminController extends Zend_Controller_Action
         $this->view->blockManager()->enable('partial/dashboard.phtml');
         if($identity->role === 'superadmin'){
             $this->view->blockManager()->enable('partial/superadmin-menu.phtml');
+        } else {
+            $this->view->blockManager()->enable('partial/primarymenu.phtml');
+            $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
+            $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
+            $this->view->blockManager()->enable('partial/published-list.phtml');
         }
         /* $contextSwitch = $this->_helper->contextSwitch;
           $contextSwitch->addActionContext('', 'json')
@@ -343,11 +348,7 @@ class AdminController extends Zend_Controller_Action
         }
         $this->view->form = $form;
         $this->_helper->layout()->setLayout('layout_wep');
-        if($identity->role != 'superadmin'){
-            $this->view->blockManager()->enable('partial/primarymenu.phtml');
-            $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
-            $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
-        }
+        
     }
     
     public function listUsersAction()
@@ -359,11 +360,6 @@ class AdminController extends Zend_Controller_Action
         //print_r($usersList);exit;
         $this->view->users = $usersList;
         //$this->_helper->layout()->setLayout('layout_wep');
-        if($identity->role != 'superadmin'){
-            $this->view->blockManager()->enable('partial/primarymenu.phtml');
-            $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
-            $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
-        }
     }
     
     public function deleteUserAction(){
@@ -414,11 +410,6 @@ class AdminController extends Zend_Controller_Action
             $this->_helper->FlashMessenger->addMessage(array('error' => 'Access Denied.'));
             $this->_redirect('user/user/login');        
         
-        }
-        if($identity->role != 'superadmin'){
-            $this->view->blockManager()->enable('partial/primarymenu.phtml');
-            $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
-            $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
         }
     }
     
@@ -522,13 +513,10 @@ class AdminController extends Zend_Controller_Action
                     }//end of try catch
                 }
             }
-           if($identity->role != 'superadmin'){
-            $this->view->blockManager()->enable('partial/primarymenu.phtml');
-            $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
-            $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
-        }
+           
         }else{
-            print "no"; exit;
+            print "no user selected";
+            $this->_redirect('admin/list-users');
         }
     }
     
