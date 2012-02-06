@@ -142,7 +142,7 @@ table {
 }
 .nav ul li a span.title
 {
-	font-size:24px;
+	font-size:22px;
 	color:#000;
 }
 .nav ul li a
@@ -151,7 +151,7 @@ table {
 }
 .nav ul li a span
 {
-	font-size:12px;
+	font-size:10px;
 	color:#747474;
 }
 #logo-nav .support
@@ -190,7 +190,7 @@ table {
 }
 #login-form-section label
 {
-	float: none;
+	float: left;
 	font-size:12px;
 	font-weight:bold;
 	color:#575a5b;
@@ -230,7 +230,7 @@ a.login-parent
 	background: url(../stylesheet/images/login-icon.png) no-repeat 0 4px #d5e0e4;
 	border-radius: 0px 0px 4px 4px;
 	color:#575a5b;
-	font-size:14px;
+	font-size:12px;
 	font-weight:bold;
 	margin-top:5px;
 	padding:4px 0 6px 35px;
@@ -251,7 +251,7 @@ a.login-parent
 .login-section #registration-section
 {
 	font-family: 'Amaranth', sans-serif;
-	font-size: 20px;
+	font-size: 18px;
 	height: 0;
 	overflow: hidden;
 }
@@ -1961,6 +1961,7 @@ table#list-org {
 #support-container .support-form .support-links
 {
 	color: #fff;
+	font-size: 10px;
 }
 
 #support-container .support-form .support-links a

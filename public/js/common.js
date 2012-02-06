@@ -77,7 +77,7 @@ var loginSlide = function (target) {
 				  duration: 300,
 				  properties: {
 				      height: {
-						start: "98",
+						start: "70",
 						end: "0"
 					}
 				  }
@@ -105,7 +105,7 @@ var loginSlideDown = function(target) {
 				  properties: {
 				      height: {
 						start: "0",
-						end: "98"
+						end: "70"
 					}
 				  }
 				}).play();
