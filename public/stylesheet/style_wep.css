@@ -1788,7 +1788,7 @@ table#list-org {
 	background-color: #f7f7f7 !important;
 }
 
-.activity-detail-table table tr td {
+.activity-detail-table table tr td, table.add-activity tr td {
 	background-color: none !important;
 	color: #747474 !important;
 	padding: 5px 18px !important;
