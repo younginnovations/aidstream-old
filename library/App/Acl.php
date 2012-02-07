@@ -98,6 +98,7 @@ class App_Acl extends Zend_Acl
         $this->allow('admin', 'default:wep', 'edit-activity-elements');
         $this->allow('admin', 'default:wep', 'publish-in-registry');
         $this->allow('admin', 'default:wep', 'delete-published-file');
+        $this->allow('admin', 'default:wep', 'edit-help-message');
         $this->allow('admin', 'default:admin', 'register-user');
         $this->allow('admin', 'default:wep', 'delete-activity');
         $this->allow('admin', 'default:admin', 'list-users');
