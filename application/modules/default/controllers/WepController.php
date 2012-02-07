@@ -641,8 +641,11 @@ class WepController extends Zend_Controller_Action
         $id = null;
         if ($_GET['class']) {
             $class = $this->_request->getParam('class');
+            $className = 'Iati_WEP_Activity_Elements_'.$class;        
+            $classObj = new $className ();
+            $displayName = $classObj->getElementDisplayName();
             $camelCaseToSeperator = new Zend_Filter_Word_CamelCaseToSeparator(" ");
-            $title = $camelCaseToSeperator->filter($class);
+            $title = $camelCaseToSeperator->filter($displayName);
         }
         if ($_GET['activity_id']) {
             $exists = $model->getRowById('iati_activity', 'id', $_GET['activity_id']);
