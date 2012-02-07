@@ -20,7 +20,7 @@ class Form_Wep_IatiIdentifier extends App_Form
                                                             array('HtmlTag', array(
                                                                                    'tag'        =>'<div>',
                                                                                    'placement'  =>'APPEND',
-                                                                                   'class'      =>'help activity-identifier-text'
+                                                                                   'class'      =>'help activity_identifier'
                                                                                    )
                                                                 ),
                                                             array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-element'))

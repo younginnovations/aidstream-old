@@ -546,7 +546,7 @@ class AdminController extends Zend_Controller_Action
     {
         $eleId = $this->_getParam('id');
         if(!$eleId){
-            return false;
+            echo "element not found" ; exit;
         }
         $helpModel = new Model_Help();
         if($this->getRequest()->isPost()){
@@ -561,7 +561,7 @@ class AdminController extends Zend_Controller_Action
                 unset($formData['id']);
                 $helpModel->updateHelpMessageById($formData , $id);
             }
-            return true;
+            echo 'sucess';exit;
         }
     }
 
