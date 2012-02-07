@@ -7,9 +7,7 @@ class Iati_WEP_Activity_Elements_DocumentLink_Language extends
     protected $id = 0;
     protected $options = array();
     protected $className = 'Language';
-    protected $validators = array(
-                                'text' => array('NotEmpty'),
-                            );
+    protected $validators = array();
     protected $attributes_html = array(
                 'id' => array(
                     'name' => 'id',
