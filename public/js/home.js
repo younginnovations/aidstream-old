@@ -2,6 +2,11 @@ dojo.require('dojo.behavior');
 dojo.require('dojo.NodeList-manipulate');
 dojo.require('dojo.NodeList-traverse');
 
+var getTarget = function (event) {
+    // w3 || IE
+    return event.target || event.srcElement;
+}
+
 //login slide down
 var loginSlideDown = function(target) {
         dojo.query('#login-hidden-overlay').style('display', 'block');
