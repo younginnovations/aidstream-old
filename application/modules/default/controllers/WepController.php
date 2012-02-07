@@ -645,7 +645,7 @@ class WepController extends Zend_Controller_Action
             $classObj = new $className ();
             $displayName = $classObj->getElementDisplayName();
             $camelCaseToSeperator = new Zend_Filter_Word_CamelCaseToSeparator(" ");
-            $title = $camelCaseToSeperator->filter($class);
+            $title = $camelCaseToSeperator->filter($displayName);
         }
         if ($_GET['activity_id']) {
             $exists = $model->getRowById('iati_activity', 'id', $_GET['activity_id']);
