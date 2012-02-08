@@ -552,13 +552,15 @@ class AdminController extends Zend_Controller_Action
         if($this->getRequest()->isPost()){
             $formData = $this->getRequest()->getPost();
             if($eleId == 'xml_lang'){
-                $helpModel->updateXmlLangMessages($formData['message']);
+                $helpModel->updateXmlLangMessages(stripslashes($formData['message']));
             } else if($eleId == 'iso_date'){
-                $helpModel->updateDateMessages($formData['message']);
+                $helpModel->updateDateMessages(stripslashes($formData['message']));
             } else {
                 $id = $formData['id'];
                 unset($formData['submit']);
                 unset($formData['id']);
+                $message = $formData['message'];
+                $formData['message'] = stripslashes($message);
                 $helpModel->updateHelpMessageById($formData , $id);
             }
             echo 'sucess';exit;
