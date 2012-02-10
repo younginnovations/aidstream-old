@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>AidStream</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	
     <?
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/960.css');
@@ -16,7 +16,7 @@
     <script type="text/javascript">
 	var APP_BASEPATH = '<?php echo $this->baseUrl();?>';
     </script>
-    <script src="<?php echo $this->baseUrl()?>/js/dojo-release/dojo/dojo/dojo.js" djConfig="parseOnLoad: true"></script>
+    <script src="<?php echo $this->baseUrl()?>/js/dojo-release/dojo/dojo/dojo.js" djConfig="locale:'en-us'" djConfig="parseOnLoad: true"></script>
     
     <?
 	    $this->headScript()->appendFile($this->baseUrl() . '/js/dojo-release/nls/iati_en-us.js', $type = 'text/javascript');
