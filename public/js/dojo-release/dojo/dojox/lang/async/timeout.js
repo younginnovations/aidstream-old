@@ -5,48 +5,4 @@
 */
 
 
-if(!dojo._hasResource["dojox.lang.async.timeout"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.lang.async.timeout"] = true;
-dojo.provide("dojox.lang.async.timeout");
-
-// Source of Deferred for timeouts
-
-(function(){
-	var d = dojo, timeout = dojox.lang.async.timeout;
-
-	timeout.from = function(ms){
-		return function(){
-			var h, cancel = function(){
-					if(h){
-						clearTimeout(h);
-						h = null;
-					}
-				},
-				x = new d.Deferred(cancel);
-			h = setTimeout(function(){
-				cancel();
-				x.callback(ms);
-			}, ms);
-			return x;
-		};
-	};
-
-	timeout.failOn = function(ms){
-		return function(){
-			var h, cancel = function(){
-					if(h){
-						clearTimeout(h);
-						h = null;
-					}
-				},
-				x = new d.Deferred(cancel);
-			h = setTimeout(function(){
-				cancel();
-				x.errback(ms);
-			}, ms);
-			return x;
-		};
-	};
-})();
-
-}
+if(!dojo._hasResource["dojox.lang.async.timeout"]){dojo._hasResource["dojox.lang.async.timeout"]=true;dojo.provide("dojox.lang.async.timeout");(function(){var d=dojo,_1=dojox.lang.async.timeout;_1.from=function(ms){return function(){var h,_2=function(){if(h){clearTimeout(h);h=null;}},x=new d.Deferred(_2);h=setTimeout(function(){_2();x.callback(ms);},ms);return x;};};_1.failOn=function(ms){return function(){var h,_3=function(){if(h){clearTimeout(h);h=null;}},x=new d.Deferred(_3);h=setTimeout(function(){_3();x.errback(ms);},ms);return x;};};})();}

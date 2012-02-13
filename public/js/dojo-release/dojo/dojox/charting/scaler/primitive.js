@@ -5,41 +5,4 @@
 */
 
 
-if(!dojo._hasResource["dojox.charting.scaler.primitive"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.charting.scaler.primitive"] = true;
-dojo.provide("dojox.charting.scaler.primitive");
-
-dojox.charting.scaler.primitive = {
-	buildScaler: function(/*Number*/ min, /*Number*/ max, /*Number*/ span, /*Object*/ kwArgs){
-		if(min == max){
-			// artificially extend bounds
-			min -= 0.5;
-			max += 0.5;
-			// now the line will be centered
-		}
-		return {
-			bounds: {
-				lower: min,
-				upper: max,
-				from:  min,
-				to:    max,
-				scale: span / (max - min),
-				span:  span
-			},
-			scaler: dojox.charting.scaler.primitive
-		};
-	},
-	buildTicks: function(/*Object*/ scaler, /*Object*/ kwArgs){
-		return {major: [], minor: [], micro: []};	// Object
-	},
-	getTransformerFromModel: function(/*Object*/ scaler){
-		var offset = scaler.bounds.from, scale = scaler.bounds.scale;
-		return function(x){ return (x - offset) * scale; };	// Function
-	},
-	getTransformerFromPlot: function(/*Object*/ scaler){
-		var offset = scaler.bounds.from, scale = scaler.bounds.scale;
-		return function(x){ return x / scale + offset; };	// Function
-	}
-};
-
-}
+if(!dojo._hasResource["dojox.charting.scaler.primitive"]){dojo._hasResource["dojox.charting.scaler.primitive"]=true;dojo.provide("dojox.charting.scaler.primitive");dojox.charting.scaler.primitive={buildScaler:function(_1,_2,_3,_4){if(_1==_2){_1-=0.5;_2+=0.5;}return {bounds:{lower:_1,upper:_2,from:_1,to:_2,scale:_3/(_2-_1),span:_3},scaler:dojox.charting.scaler.primitive};},buildTicks:function(_5,_6){return {major:[],minor:[],micro:[]};},getTransformerFromModel:function(_7){var _8=_7.bounds.from,_9=_7.bounds.scale;return function(x){return (x-_8)*_9;};},getTransformerFromPlot:function(_a){var _b=_a.bounds.from,_c=_a.bounds.scale;return function(x){return x/_c+_b;};}};}
