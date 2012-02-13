@@ -13,6 +13,7 @@
             $defaultField = $model->getDefaults('default_field_groups', 'account_id', $identity->account_id);
             
             $class = '';
+            print 'Identification';
             $href2 = $this->baseUrl(). "/wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=ReportingOrg";
             $attributes = (getRowSet('ReportingOrg', $url['activity_id']))?'class = "active"':'';
             if($paramValue == 'ReportingOrg'){
@@ -29,28 +30,44 @@
             print "<li $class ><div class='help identifier'></div><a $attributes href=$href1>Iati Identifier</a></li>";
             
             $allowed_elements = $defaultField->getProperties();
-            $elements = array('other_activity_identifier','title','description','activity_status','activity_date','contact_info','participating_org','recipient_country','recipient_region','location','sector','policy_marker','collaboration_type','default_flow_type','default_finance_type','default_aid_type','default_tied_status','budget','planned_disbursement','transaction','document_link','activity_website','related_activity','conditions','result');
-            foreach($elements as $element)
+            $titleArray = array('','Basic Activity Information','Participating Organisations','Geopolitical Information','Classifications','Financial','Related Documents','Relations','Performance');            
+            $elements = array(
+                                array('other_activity_identifier'),
+                                array('title','description','activity_status','activity_date','contact_info'),
+                                array ('participating_org'),
+                                array('recipient_country','recipient_region','location'),
+                                array('sector','policy_marker','collaboration_type','default_flow_type','default_finance_type','default_aid_type','default_tied_status'),
+                                array ('budget','planned_disbursement','transaction'),
+                                array ('document_link','activity_website'),
+                                array ('related_activity'),
+                                array ('conditions','result'),
+                            );
+            $i= '0';
+            foreach($elements as $value)
             {
-                if($allowed_elements[$element])
-                {
-                    $attributes = '';
-                    if(getRowSet($element, $url['activity_id'])){
-                        $attributes = 'class = "active"';
-                    }
+                print $titleArray[$i];
+                foreach($value as $element ){                        
+                    if($allowed_elements[$element])
+                    {
+                        $attributes = '';
+                        if(getRowSet($element, $url['activity_id'])){
+                            $attributes = 'class = "active"';
+                        }
                     
-                    $key = ucwords(str_replace("_"," ",$element));
-                    $href = $this->baseUrl()."/wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=".str_replace(" ", "", $key);
-                    $class = '';
-                    if(str_replace(" ", "", $key) == $paramValue){
-                        $class = "class = highlight";
+                        $key = ucwords(str_replace("_"," ",$element));
+                        $href = $this->baseUrl()."/wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=".str_replace(" ", "", $key);
+                        $class = '';
+                        if(str_replace(" ", "", $key) == $paramValue){
+                            $class = "class = highlight";
+                        }
+                        if(Iati_WEP_ActivityConstants::hasDisplayName($element)){
+                            $key = Iati_WEP_ActivityConstants::getDisplayName($element);
+                        }
+                        print "<li $class><div class='help ".$element."'></div><a $attributes href='". $href ."'>" .$key ."</a></li>";
                     }
-                    if(Iati_WEP_ActivityConstants::hasDisplayName($element)){
-                        $key = Iati_WEP_ActivityConstants::getDisplayName($element);
-                    }
-                    print "<li $class><div class='help ".$element."'></div><a $attributes href='". $href ."'>" .$key ."</a></li>";
                 }
-            }
+                $i++;
+            }       
             ?>
             
             </ul>

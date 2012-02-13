@@ -159,12 +159,10 @@ class Form_Wep_EditDefaults extends App_Form
                             'separator'    => '&nbsp;',
                             'multiOptions' => $default_fields,
                             'value' => $checked,
-                            'decorators'   => array(
-                                        'ViewHelper',
+                            'decorators'   => array(                                        
                                         'Errors',
-                                        array('HtmlTag', array('tag' => 'p')
-                                    )          
-                        )
+                                         array('ViewScript', array('viewScript'=>'multicheckboxview.php'))                                            
+                            )
         ));
         
         $this->addDisplayGroup(array( 'reporting_org_ref', 'reporting_org_type' ,'default_reporting_org' , 'reporting_org_lang'),
