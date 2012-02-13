@@ -45,10 +45,10 @@
             $i= '0';
             foreach($elements as $value)
             {
-                print $titleArray[$i];
                 foreach($value as $element ){                        
                     if($allowed_elements[$element])
                     {
+                        print $titleArray[$i];
                         $attributes = '';
                         if(getRowSet($element, $url['activity_id'])){
                             $attributes = 'class = "active"';
