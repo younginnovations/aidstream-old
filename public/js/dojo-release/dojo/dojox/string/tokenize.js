@@ -5,45 +5,4 @@
 */
 
 
-if(!dojo._hasResource["dojox.string.tokenize"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.string.tokenize"] = true;
-dojo.provide("dojox.string.tokenize");
-
-dojox.string.tokenize = function(/*String*/ str, /*RegExp*/ re, /*Function?*/ parseDelim, /*Object?*/ instance){
-	// summary:
-	//		Split a string by a regular expression with the ability to capture the delimeters
-	// parseDelim:
-	//		Each group (excluding the 0 group) is passed as a parameter. If the function returns
-	//		a value, it's added to the list of tokens.
-	// instance:
-	//		Used as the "this" instance when calling parseDelim
-	var tokens = [];
-	var match, content, lastIndex = 0;
-	while(match = re.exec(str)){
-		content = str.slice(lastIndex, re.lastIndex - match[0].length);
-		if(content.length){
-			tokens.push(content);
-		}
-		if(parseDelim){
-			if(dojo.isOpera){
-				var copy = match.slice(0);
-				while(copy.length < match.length){
-					copy.push(null);
-				}
-				match = copy;
-			}
-			var parsed = parseDelim.apply(instance, match.slice(1).concat(tokens.length));
-			if(typeof parsed != "undefined"){
-				tokens.push(parsed);
-			}
-		}
-		lastIndex = re.lastIndex;
-	}
-	content = str.slice(lastIndex);
-	if(content.length){
-		tokens.push(content);
-	}
-	return tokens;
-}
-
-}
+if(!dojo._hasResource["dojox.string.tokenize"]){dojo._hasResource["dojox.string.tokenize"]=true;dojo.provide("dojox.string.tokenize");dojox.string.tokenize=function(_1,re,_2,_3){var _4=[];var _5,_6,_7=0;while(_5=re.exec(_1)){_6=_1.slice(_7,re.lastIndex-_5[0].length);if(_6.length){_4.push(_6);}if(_2){if(dojo.isOpera){var _8=_5.slice(0);while(_8.length<_5.length){_8.push(null);}_5=_8;}var _9=_2.apply(_3,_5.slice(1).concat(_4.length));if(typeof _9!="undefined"){_4.push(_9);}}_7=re.lastIndex;}_6=_1.slice(_7);if(_6.length){_4.push(_6);}return _4;};}
