@@ -1,31 +1,3 @@
-body {
-	background: #fff url(images/body-bg.jpg) repeat-x left top;
-	font-size: 12px;
-	font-family: Arial, Helvetica, "Bitstream Vera Sans", sans-serif;
-	line-height: 18px;
-	padding: 0;
-	margin: 0;
-}
-
-body#activity-viewer-body {
-	background-color: #f3f3f3;
-}
-
-.container-wrapper {
-	position: relative;
-}
-
-a {
-	color:#009ADA;
-	text-decoration: none;
-	outline: none;
-}
-
-a:hover {
-	text-decoration: underline;
-	color:#009ADA;
-}
-
 .expand-collapse {
 	color: #0098db;
 	cursor: pointer;
@@ -336,6 +308,7 @@ table.table-header td {
 }
 
 #header .logo a {
+	background:none;
 	display: block;
 	/*height: 85px;*/
 }

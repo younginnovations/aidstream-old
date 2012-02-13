@@ -1,15 +1,34 @@
 @charset "utf-8";
 /* CSS Document */
+body {
+	font-size: 12px;
+	font-family: Arial, Helvetica, "Bitstream Vera Sans", sans-serif;
+	line-height: 18px;
+	padding: 0;
+	margin: 0;
+}
+
+body#aidstream-homepage
+{
+	font-size: 16px;
+	line-height: 30px;
+	padding: 0;
+}
+
+body#activity-viewer-body {
+	background-color: #f3f3f3;
+}
+
 h1
 {
-	font-family:Arial, Helvetica, sans-serif;
 	color:#887272;
 	padding:5px 0;
 }
 
-h2{
-	font-family: 'Amaranth',sans-serif;
+h2
+{
 	font-size: 25px;
+	line-height: 35px;
 }
 
 h3{
@@ -19,38 +38,33 @@ h3{
 a
 {
 	color:#009ada;
-	/*font-family:Arial, Helvetica, sans-serif;*/
 	outline: none;
+	text-decoration:none;
 }
+
+a:hover
+{
+	background:#009ADA;
+	color: #fff;
+}
+
 p
 {
-	font-family:Arial, Helvetica, sans-serif;
-	font-size:12px;
-	line-height:18px;
-}
-body
-{
-	/*background:url(../images/iati-wep/wep-bg.jpg) repeat-x center top #d3d3d3 !important;*/
-	background-color: #D3D3D3;
-	margin:0px;
-	padding:0 0 25px 0;
+	margin-bottom: 10px;
 }
 
-body#aidstream-homepage
-{
-	padding: 0;
-}
-
-#wapper
+#wrapper
 {
 	margin:0px;
 	padding:0px;
 	overflow: hidden;
 }
-.container-wrapper
-{
-	/*height: 85px;*/
+
+.container-wrapper {
+	position: relative;
 }
+
+
 table {
 	border-collapse: collapse;
 }
@@ -85,15 +99,9 @@ table {
 	float:left;
 }*/
 
-#wrapper
-{
-	background:url(images/white-brush-bg.jpg) repeat-x center top #ededed !important;
-}
-
 #header
 {
 	background:#FFFFFF;
-	font-family: 'Amaranth', sans-serif;
 	/*position:fixed;
 	margin:0;
 	padding:0;
@@ -105,30 +113,34 @@ table {
 	padding:22px 0;
 	width:300px;
 }
+
 .nav
 {
 	float:right;
-	/*width:450px;*/
 	margin-right: 30px;
 }
+
 .user-info
 {
 	float:right;
-	margin:0 15px 15px 0;
+	margin:0 100px 15px 0;
 	width:450px;
 }
+
 .nav ul li
 {
-	font-family: 'Amaranth', sans-serif;
 	float:right;
 	margin-left:10px;
+	line-height:18px;
 }
+
 .nav ul li a
 {	
 	display:block;
 	padding:27px 13px;
 	outline:none;
 }
+
 .nav ul li a:hover
 {
 	-moz-transition: background-color 0.3s ease-in 0s;
@@ -140,54 +152,66 @@ table {
 	-moz-transition: background-color 0.5s ease-in 0s;
 	background:#d5e0e4;
 }
+
 .nav ul li a span.title
 {
 	font-size:22px;
 	color:#000;
 }
+
 .nav ul li a
 {
 	text-decoration:none;
 }
+
 .nav ul li a span
 {
-	font-size:10px;
+	font-size:11px;
 	color:#747474;
 }
+
 #logo-nav .support
 {
-	/*background:url(../stylesheet/images/support-bg.png) no-repeat right top;*/
 	color:#e8f8d7;
 	font-size:14px;
 	float:right;
 	padding:10px 25px 31px 25px;
 }
+
 .login-section
 {
 	background:#d5e0e4;
+	-webkit-box-shadow: 0px 4px 5px 0px #969696;
+	-moz-box-shadow: 0px 4px 5px 0px #969696;
+	box-shadow: 0px 4px 5px 0px #969696; 
 }
+
 #login-form-section
 {
 	float:right;
 	padding:5px 0;
 	position:relative;
 }
+
 #login-form-section table
 {
-	margin:10px 0;
+	margin:3px 0 10px;
 }
+
 #login-form-section tr, #login-form-section tr td
 {
 	vertical-align:top;
 }
+
 #login-form-section input
 {
 	border:1px solid #a5b1b6;
 	font-size:12px;
-	margin: 5px 15px 0 0;
+	margin: 0 15px 0 0;
 	padding:5px 4px;
 	width:195px;
 }
+
 #login-form-section label
 {
 	float: left;
@@ -196,6 +220,12 @@ table {
 	color:#575a5b;
 	width: auto;
 }
+
+.forgot-password
+{
+	font-size:11px;
+}
+
 #login-form-section #login
 {
 	background:url(../stylesheet/images/login-bottom.png) no-repeat;
@@ -204,9 +234,9 @@ table {
 	text-indent:-9999px;
 	width:95px;
 }
+
 #login-form-container
 {
-	/*display:none;*/
 }
 
 #login-form-container #user-login
@@ -229,8 +259,12 @@ a.login-parent
 {
 	background: url(../stylesheet/images/login-icon.png) no-repeat 0 4px #d5e0e4;
 	border-radius: 0px 0px 4px 4px;
+	-webkit-box-shadow: 0px 4px 3px 0px #969696;
+	-moz-box-shadow: 0px 4px 3px 0px #969696;
+	box-shadow: 0px 4px 3px 0px #969696; 
 	color:#575a5b;
 	font-size:12px;
+	line-height:18px;
 	font-weight:bold;
 	margin-top:5px;
 	padding:4px 0 6px 35px;
@@ -250,7 +284,6 @@ a.login-parent
 /** Register form **/
 .login-section #registration-section
 {
-	font-family: 'Amaranth', sans-serif;
 	font-size: 18px;
 	height: 0;
 	overflow: hidden;
@@ -295,7 +328,7 @@ a.login-parent
 	font-size:38px;
 	font-weight:normal;
 	/*margin:145px 0 35px 0;*/
-	margin:72px 0 35px 0;
+	margin:72px 0 20px 0;
 }
 .page-title .aid
 {
@@ -307,7 +340,8 @@ a.login-parent
 }
 
 /** ---- Homepage ---**/
-#aidstream-homepage #content-section, #aidstream-homepage #content {
+#aidstream-homepage #content-section, #aidstream-homepage #content 
+{
 	background: none;
 }
 
@@ -317,10 +351,6 @@ a.login-parent
 /**********start what is aidstream?************/
 #what-as
 {
-	/*background: url(../stylesheet/images/what-as-bg.gif) no-repeat center 65px #ededed;*/
-	/*min-height:509px;
-	height: auto;
-	height: 509px;*/
 	padding-bottom: 65px;
 	width:100%;
 }
@@ -348,24 +378,19 @@ p.paragraph-second
 .paragraph-title
 {
 
-	font-size:18px;
-	font-family:Amaranth,aril,verdana, Geneva, sans-serif;
+	font-size:24px;
 	color:#202020;
 	line-height:30px;
 }
 
 p.paragraph-about {
-	margin-bottom: 10px;
+	margin-bottom: 20px;
 }
 /**********close what is aidstream?************/
 
 /**********start how to use aidstream?************/
 #how-as
 {
-	/*background:url(../stylesheet/images/how-as-bg.gif) no-repeat center 30px #ededed;*/
-	/*min-height:616px;
-	height: auto;
-	height: 616px;*/
 	padding-bottom: 30px
 	width:100%;
 }
@@ -384,11 +409,12 @@ p.paragraph-about {
 	margin-bottom:20px;
 	width:400px;
 }
-.registration span
+
+.registration span, .data-entry span, .publish span
 {
-	font-family:Amaranth,aril,verdana, Geneva, sans-serif;
 	font-size:18px;
 }
+
 .data-entry
 {
 	background:url(../stylesheet/images/bottom-2.png) no-repeat center left;
@@ -399,11 +425,7 @@ p.paragraph-about {
 	margin-bottom:20px;
 	width:400px;
 }
-.data-entry span
-{
-	font-family:Amaranth,aril,verdana, Geneva, sans-serif;
-	font-size:18px;
-}
+
 .publish
 {
 	background:url(../stylesheet/images/bottom-3.png) no-repeat top left;
@@ -417,25 +439,18 @@ p.paragraph-about {
 	height: auto;
 	height: 70px;
 }
-.publish span
-{
-	font-family:Amaranth,aril,verdana, Geneva, sans-serif;
-	font-size:18px;
-}
+
 /**********close how to use aidstream?************/
 
 /**********start who is IATI************/
 #behind-aidstream .who-content {
-	background: url('images/iati-who.png') no-repeat right bottom;
+	background: url('images/iati-who.png') no-repeat right 230px;
 }
 /**********close who is IATI************/
 /**********start Contact us************/
 #contact-us
 {
-	/*background:url(../stylesheet/images/contact-bg.gif) no-repeat center #ededed;*/
-	/*min-height:747px;
-	height: auto;
-	height: 747px;*/
+
 	padding-bottom: 80px;
 	width:100%
 }
@@ -455,7 +470,7 @@ p.paragraph-about {
 
 #contact-us #send
 {
-	background: url(images/contact-send.png) no-repeat 0 -47px;
+	background: url(images/contact-send.png) no-repeat 0 -46px;
 	cursor: pointer;
 	width: 160px;
 	height: 45px;
@@ -479,7 +494,6 @@ p.paragraph-about {
 }
 #contact-us label
 {
-	font-family:Amaranth, Arial, Helvetica, sans-serif;
 	font-size:16px;
 	padding-right:15px;
 	width:80px;
@@ -487,8 +501,8 @@ p.paragraph-about {
 #contact-us td
 {
 	font-size:12px;
-	font-family:Arial, Helvetica, sans-serif;
 	margin-bottom:10px;
+	vertical-align: top;
 }
 #contact-us .note td
 {
@@ -518,11 +532,6 @@ p.paragraph-about {
 	color: #979797;
 	float:right;
 	margin-top:5px;
-}
-
-#login-nav .user-name {
-	background: url(../images/iati-wep/admin.jpg) no-repeat right center;
-	padding-right: 9px;
 }
 
 #login-nav .user-login
@@ -611,17 +620,24 @@ h2.form-title {
 .user-nav a {
 	background: #009ada;
 	display: inline-block;
-	padding: 10px 20px;
+	padding: 5px 20px;
 	color: #FFF;
-	font-size: 14px;
+	font-size: 12px;
 	text-decoration: none;
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 }
-.user-nav .user-dashboard
+
+.user-nav a:hover
 {
-	margin-right: 10px;
+	background:#d5e0e4;
+	color: #009ada;
+}
+
+.user-nav .user-change-defaults
+{
+	margin-left:10px;
 }
 
 
@@ -759,7 +775,8 @@ h2.form-title {
 	font-size: 14px;
 }
 
-#sidebar-right #block-activity-menu {
+#sidebar-right #block-activity-menu 
+{
     background: none;
     border: none;
     border-radius: 0;
@@ -767,19 +784,22 @@ h2.form-title {
     padding: 5px 40px 5px 5px;
 }
 
-#sidebar-right #block-activity-menu h2 {
+#sidebar-right #block-activity-menu h2 
+{
 	font-weight: bold;
 	line-height: 25px;
 	margin-bottom: 8px;
 }
 
-#sidebar-right #block-activity-menu .content li {
+#sidebar-right #block-activity-menu .content li 
+{
 	border-bottom: 1px solid #dbd9d9;
 	display: block;
 }
 
 
-#block-activity-menu .content li a {
+#block-activity-menu .content li a 
+{
 	display:block;
 	padding: 6px 0 7px 25px;
 	background: url(../images/tick.png) no-repeat 5px top;
@@ -787,7 +807,8 @@ h2.form-title {
 }
 
 
-.help {
+.help 
+{
 	overflow: hidden;
 	height: 30px;
 	background: url(../images/help-text.png) no-repeat left 5px;
@@ -796,23 +817,28 @@ h2.form-title {
 	cursor: pointer;
 }
 
-.form-item .help {
+.form-item .help 
+{
 	margin-right: 65px;
 }
 
-.help img{
+.help img
+{
 	vertical-align: text-bottom;
 }
 
 #sidebar-right #block-activity-menu a:hover,
-#block-activity-menu .content li.highlight a{
+#block-activity-menu .content li.highlight a
+{
 	background-color: #fdf6e6;
 	text-decoration: none;
 }
 
-#block-activity-menu .content li a.active{
+#block-activity-menu .content li a.active
+{
 	background-position: 5px -31px;
 }
+
 #nav-list ul li
 {
 	list-style:none;
@@ -822,15 +848,18 @@ h2.form-title {
 	color:#009ADA;
 	font-size:12px;
 }
+
 #nav-list ul li a
 {
 	text-decoration:none;
 	color:#009ADA;
 }
+
 #nav-list ul li a:hover
 {
 	text-decoration:underline;
 }
+
 #contain table
 {
 	border:1px solid #F6F6F6;
@@ -851,16 +880,18 @@ h2.form-title {
 	line-height:18px;
 	text-align:left;
 }
+
 #footer-wapper
 {
 	/*border-bottom:1px solid #B4AAAA;*/
 	border-top:1px solid #B4AAAA;
 	margin-top:15px;
 }
+
 #footer
-{
-	
+{	
 }
+
 #footer-area
 {
 	height:78px;
@@ -868,11 +899,11 @@ h2.form-title {
 	/*background:url(../images/footer-bg.png) no-repeat;
 	height:84px;*/	
 }
+
 #footer-area h2
 {
 	margin-top:10px;
 	color:#887272;
-	font-family:Arial, Helvetica, sans-serif;
 }
 #footer-inner
 {
@@ -882,14 +913,12 @@ h2.form-title {
 {
 	float:left;
 	font-size:12px;
-	font-family:Arial, Helvetica, sans-serif;
 	color:#887272;
 }
 .power-by
 {
 	float:right;
 	font-size:12px;
-	font-family:Arial, Helvetica, sans-serif;
 	color:#887272;
 	margin-top:38px;	
 }
@@ -899,7 +928,6 @@ h2.form-title {
 .errors
 {
 	font-size:12px;
-	font-family:Verdana, Geneva, sans-serif;
 	background:url(../images/wrong-icon.gif) no-repeat center left;
 	color:#FF0000;
 	margin-left:100px;
@@ -922,7 +950,6 @@ h2.form-title {
 {
 	font-size:12px;
 	font-weight:normal;
-	font-family:Verdana, Geneva, sans-serif;
 	background:url(../images/notification.jpg) no-repeat 10px center #f3f3f3;
 	color:#000;
 	padding-left:40px;
@@ -943,7 +970,6 @@ h2.form-title {
 {
 	font-size:12px;
 	font-weight:normal;
-	font-family:Verdana, Geneva, sans-serif;
 	background:url(../images/warning.png) no-repeat 10px center #f3f3f3;
 	color:#000;
 	padding-left:40px;
@@ -961,7 +987,6 @@ ul.error
 	font-size:12px;
 	font-weight:normal;
 	font-style: italic;
-	font-family:Verdana, Geneva, sans-serif;
 	background:url(../images/iati-wep/error.jpg) no-repeat 10px center #f3f3f3;
 	color:#000;
 	padding-left:40px;
@@ -969,7 +994,6 @@ ul.error
 .error
 {
 	font-size:12px;
-	font-family:Verdana, Geneva, sans-serif;
 	color:#FF0000;
 	
 }
@@ -988,7 +1012,6 @@ label
 {
 	float:left;
 	width:160px;
-	font-family:Arial, Helvetica, sans-serif;
 	font-size:12px;
 	color:#525252;
 	display: block;
@@ -1147,8 +1170,6 @@ button.form-submit, input.form-submit, a.button, .change-password a, .profile-li
 {
 	background:#d7e1c5;
 	font-size:10px;
-
-	font-family:Verdana, Geneva, sans-serif;
 	text-align:center;
 	line-height:12px;
 }
@@ -1156,7 +1177,6 @@ button.form-submit, input.form-submit, a.button, .change-password a, .profile-li
 {
 	background:#dbdbdb;
 	font-size:10px;
-	font-family:Verdana, Geneva, sans-serif;
 	text-align:center;
 	line-height:12px;
 }
@@ -1164,7 +1184,6 @@ button.form-submit, input.form-submit, a.button, .change-password a, .profile-li
 {
 	background:#66a9bd;
 	font-size:12px;
-	font-family:Verdana, Geneva, sans-serif;
 	text-align:center;
 	line-height:13px;
 }
@@ -1177,7 +1196,6 @@ button.form-submit, input.form-submit, a.button, .change-password a, .profile-li
 	background:#c9c9c9;
 	border:1px solid #9f7f7f;
 	padding:2px 10px;
-	font-family:Arial, Helvetica, sans-serif;
 	color:#FFF;
 	font-size:12px;
 	text-decoration:none;
@@ -1191,7 +1209,6 @@ button.form-submit, input.form-submit, a.button, .change-password a, .profile-li
 	background:#c9c9c9;
 	border:1px solid #9f7f7f;
 	padding:2px 10px;
-	font-family:Arial, Helvetica, sans-serif;
 	color:#FFF;
 	font-size:12px;
 	text-decoration:none;
@@ -1207,7 +1224,6 @@ button.form-submit, input.form-submit, a.button, .change-password a, .profile-li
 	width:20px;
 	background:#91c5d4;
 	border:1px solid #9f7f7f;
-	font-family:Arial, Helvetica, sans-serif;
 	color:#FFF;
 	font-size:12px;
 	text-decoration:none;
@@ -1222,7 +1238,6 @@ button.form-submit, input.form-submit, a.button, .change-password a, .profile-li
 }
 #page-title
 {
-	font-family:Arial, Helvetica, sans-serif;
 	color:#887272;
 	font-size:12px;
 	font-weight:bold;
@@ -1277,7 +1292,6 @@ code
 {
 	font-size:20px;
 	padding:10px 0;
-	font-family:Arial, Helvetica, sans-serif;
 }
 .retrieving-list h2
 {
@@ -1378,7 +1392,6 @@ legend {
    background: none repeat scroll 0 0 #E0DDDD;
     color: #4F4F4F;
     display: block;
-    font-family: Arial,Helvetica,sans-serif;
     font-size: 16px;
     font-weight: bold;
     margin: 0 0 15px;
@@ -1453,16 +1466,16 @@ fieldset dl
     padding:5px 0;
     margin:10px 0;
 }
+
 .activity-list fieldset.innermost-wrapper.top-element
 {
 	background:#ffffff;
 	margin:0;
 }
+
 .innermost-wrapper .form-title{
 	display:block;
 	background:#ebebeb;
-
-	font-family:Arial, Helvetica, sans-serif;
 	color:#336666;
 	font-size:14px;
 	font-weight:bold;
@@ -1470,6 +1483,7 @@ fieldset dl
 	padding:5px 0 5px 10px;
 	width:568px;
 }
+
 .top-element>.form-title
 {
 	display:block;
@@ -1488,10 +1502,12 @@ fieldset dl
 	padding:0;
 	margin: 0;
 }
+
 .activity-list legend {
 	color: #000;
 	font-size: 14px;
 }
+
 .activity-list .innermost-wrapper legend {
 	/*font-size: 14px;
 	font-weight: bold;
@@ -1580,16 +1596,20 @@ fieldset dl
 	margin-bottom: 20px;
 	padding-left: 5px;
 }
+
 table.activity-list-table .title,
 table.user-list-table .title{
 	width: 210px;
 	width: auto !important;
 	min-width: 210px;
 }
-table.activity-list-table .title a {
+
+table.activity-list-table .title a 
+{
 	font-weight: bold;
 	padding-right: 5px;
 }
+
 #contain table.activity-list-table,  .user-list{
 	margin-bottom: 20px;
 	border: 1px solid #dcdcdc;
@@ -1600,7 +1620,7 @@ table.activity-list-table .title a {
 }
 
 table.activity-list-table .title .title-activity,
-table.user-list-table .title .title-activity{
+table.user-list-table .title .title-activity
 	/*float: left;
 	width: 200px;*/
 }
@@ -1902,7 +1922,6 @@ table#list-org {
 
 #support-container
 {
-	font-family: 'Amaranth',sans-serif;
 	position: relative;
 	top: 0;
 	left: 0;
@@ -1912,21 +1931,23 @@ table#list-org {
 #support-wrapper
 {
 	position: absolute;
-	top: -368px;
+	top: -361px;
 	right: 0;
 }
 
 #support-container .support
 {
-	background: url("../stylesheet/images/support-bg.png") no-repeat 0 0 transparent;
+	background: #93cc56;
+	border-radius:0 0 4px 4px;
+	-moz-border-radius:0 0 4px 4px;
+	-webkit-border-radius:0 0 4px 4px;
    	color: #E8F8D7;
 	cursor: pointer;
 	float: right;
 	font-size: 14px;
-	line-height: 39px;
    	 width: 72px;
-	height: 54px;
-	padding-left: 25px;
+	height: 25px;
+	padding: 5px 0 0 20px;
 	position: absolute;
 	right: 0;
 	z-index: 100;
@@ -1935,32 +1956,36 @@ table#list-org {
 #support-container .support:hover,
 #support-container .active
 {
-	background-position: 0 -55px;
+	background-color: #8bc24f;
 }
 
 
 #support-container .support-form
 {
-	background-color: #6e9743;
-	-moz-box-shadow: -1px -3px 4px #000;
-	-webkit-box-shadow: -1px -3px 4px #000;
-	box-shadow: -1px -3px 4px #000;
-	border-top: 17px solid #5a7240;
-	padding: 0 25px 29px;
+	background-color: #8bc24f;
+	border-top: 2px solid #5a7240;
+	border-radius:0 0 0 4px;
+	-moz-border-radius:0 0 0 4px;
+	-webkit-border-radius:0 0 0 4px;
+	color: #fff;
+	padding: 0 0 13px;
+}
+
+form#support-form
+{
+	padding: 0 25px;
 }
 
 #support-container .support-form .support-info
 {
-	color: #fff;
-	font-weight: bold;
-	font-size: 12px;
-	line-height: 29px;
-	text-align: center;
+	padding: 10px 25px;
 }
 
 #support-container .support-form .support-links
 {
-	color: #fff;
+	background-color: #789a53;
+	border-bottom:1px dotted #fff;
+	padding: 10px 25px;
 	font-size: 10px;
 }
 
@@ -2015,14 +2040,19 @@ table#list-org {
 #support-container form dd input
 {
 	border: none;
+	border-radius:4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
 	width: 215px;
-	padding: 0px 5px;
-	height: 39px;
+	padding: 9px 5px;
 }
 
 #support-container form dd textarea
 {
 	border: none;
+	border-radius:4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
 	width: 215px;
 	padding: 5px;
 	height: 90px;
@@ -2107,8 +2137,11 @@ table#list-org {
 #what-as .about-content p,
 #behind-aidstream .who-content p
 {
-	line-height: 24px;
 	padding-right: 480px;
+}
+
+#what-as .about-content p.pragraph-second
+{
 }
 
 /** Account page **/
@@ -2190,7 +2223,6 @@ table#list-org {
 
 .popup-wrapper .inner-content h1.page-title
 {
-	font-family: 'Amaranth',sans-serif;
 	margin: 0 0 20px;
 	padding-right: 300px;
 }
@@ -2220,13 +2252,14 @@ table#list-org {
 #home-user-nav
 {
 	background-color: #D5E0E4;
+	line-height:16px;
 }
 
 #home-user-nav .nav_container
 {
 	font-size: 11px;
 	color: #7b7c7c;
-	padding: 5px 125px 5px 0;
+	padding: 5px 0 5px 0;
 	text-align: right;
 }
 
