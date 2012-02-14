@@ -285,9 +285,20 @@ function initialize() {
 		var identifier = getTarget(evt).value.replace(/ /g,'');
 		dojo.query('#user_name').attr('value', identifier+"_admin");
 	    }
-	}
+	},
+
+	//function to close support form when clicked else were
+	"#login-hidden-overlay" : {
+		"onclick" : function(evt) {
+			if((dojo.query("#login-hidden-overlay").style('display')[0]) == 'block')
+			{
+				loginSlide('.login-parent');
+			}
+		}
+	},
 	
     });
+
     // End of dojo.behavior.add
     dojo.behavior.apply();
 }
