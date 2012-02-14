@@ -161,7 +161,7 @@ class Form_Wep_EditDefaults extends App_Form
                             'value' => $checked,
                             'decorators'   => array(                                        
                                         'Errors',
-                                         array('ViewScript', array('viewScript'=>'multicheckboxview.php'))                                            
+                                         array('ViewScript', array('viewScript'=>'wep/viewscripts/multicheckboxview.php'))                                            
                             )
         ));
         
