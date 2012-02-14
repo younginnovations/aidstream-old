@@ -28,7 +28,7 @@ class Form_Wep_IatiIdentifier extends App_Form
                                                 );
         
         $form['iati_identifier_text'] = new Zend_Form_Element_Text('iati_identifier_text');
-        $form['iati_identifier_text']->setLabel('Iati Identifier')
+        $form['iati_identifier_text']->setLabel('IATI Identifier')
                                     ->setRequired()
                                     ->setAttrib('class', 'form-text')
                                     ->setAttrib('readonly', true)
@@ -51,7 +51,7 @@ class Form_Wep_IatiIdentifier extends App_Form
         //$this->addSubForm($form1, 'Reporting Organisation');
         
         $this->addElements($form);
-        $this->addDisplayGroup(array('reporting_org' , 'activity_identifier' , 'iati_identifier_text'), 'field',array('legend'=>'Iati Identifier'));
+        $this->addDisplayGroup(array('reporting_org' , 'activity_identifier' , 'iati_identifier_text'), 'field',array('legend'=>'IATI Identifier'));
         
         $group = $this->getDisplayGroup('field');
         $group->addDecorators(array(

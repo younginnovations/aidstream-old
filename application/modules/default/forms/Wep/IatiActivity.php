@@ -101,7 +101,7 @@ class Form_Wep_IatiActivity extends App_Form
         $form1 = new Form_Wep_IatiIdentifier();
         $form1->add('add', $account_id);
         $form1->removeElement('save');
-        $this->addSubForm($form1, 'Iati Identifier');
+        $this->addSubForm($form1, 'IATI Identifier');
         
         $save = new Zend_Form_Element_Submit('save');
         $save->setValue('Save')->setAttrib('class','form-submit');
