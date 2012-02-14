@@ -144,17 +144,18 @@ class Iati_WEP_XmlHandler
         } else {
             $element_xml = $parent->addChild($type,$element['attributes']['text']);
         }
-        
         foreach($element['attributes'] as $attrib=>$value)
         {
             if(preg_match('/@/',$attrib))
             {
-                if($attrib == "@xml_lang"){
-                    $attrib = preg_replace('/_/',':',$attrib);
-                }
                 $name = preg_replace('/@/','',$attrib);
-                $name = preg_replace('/_/','-',$name);
-                $element_xml->addAttribute($name,$value);
+                if($attrib == "@xml_lang"){
+                    $name = preg_replace('/_/',':',$name);
+                    $element_xml->addAttribute($name,$value,'http://www.w3.org/XML/1998/namespace');
+                } else {
+                    $name = preg_replace('/_/','-',$name);
+                    $element_xml->addAttribute($name,$value);
+                }
                 
             }
         }
