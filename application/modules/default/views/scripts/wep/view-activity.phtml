@@ -34,12 +34,14 @@
     <span class="activity_title"> <?php print $title;?> </span>
 </div>
 
-<div class="element-title">Activity Default<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity/?activity_id=<?php echo $this->activityInfo['id']?>"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <table class="activity-detail-table">
 <tr>
     <td>
 
-<div class = "activity-info">
+<div class = "activity-info element-item">
+
+<div class="element-title">Activity Default<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity/?activity_id=<?php echo $this->activityInfo['id']?>"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class="element-values">
 <table class ="activity-info-table">
 <tr class="element-value-even">
     <td class="attrib-label">Language: </td><td class="attrib-value"><?php print $this->activityInfo['@xml_lang'];?></td>
@@ -54,7 +56,7 @@
     <td class="attrib-label">Last Updated Date Time: </td><td class="attrib-value"><?php print $this->activityInfo['@last_updated_datetime'];?></td>
 </tr>
 </table>
-
+</div>
 </div>
 </div>
 
