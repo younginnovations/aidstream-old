@@ -231,6 +231,9 @@ table {
 	background:url(../stylesheet/images/login-bottom.png) no-repeat;
 	border:none;
 	cursor:pointer;
+	height:29px;
+	margin-top:-1px;
+	padding: 0;
 	text-indent:-9999px;
 	width:95px;
 }
@@ -810,11 +813,16 @@ h2.form-title {
 .help 
 {
 	overflow: hidden;
-	height: 30px;
-	background: url(../images/help-text.png) no-repeat left 5px;
+	height: 19px;
+	background: url(../images/help-text.png) no-repeat left center;
 	width: 20px;
 	float: right;
 	cursor: pointer;
+}
+
+.legend-help
+{
+	height:25px;
 }
 
 .form-item .help 
@@ -827,10 +835,21 @@ h2.form-title {
 	vertical-align: text-bottom;
 }
 
+#block-activity-menu .help
+{
+	height:31px;
+}
+
+#block-activity-menu ul li:hover
+{
+	background-color:#def3fc;
+}
+
 #sidebar-right #block-activity-menu a:hover,
 #block-activity-menu .content li.highlight a
 {
-	background-color: #fdf6e6;
+	background-color: #def3fc;
+	color: #009ADA;
 	text-decoration: none;
 }
 
@@ -1011,12 +1030,18 @@ fieldset ul.errors {
 label
 {
 	float:left;
-	width:160px;
+	width:210px;
 	font-size:12px;
 	color:#525252;
 	display: block;
 	font-weight: bold;
 }
+
+dt#update_registry-label label
+{
+	width:auto;
+}
+
 #publishing_type-element label,
 #update_registry-element label {
 	width: auto;
@@ -1036,14 +1061,19 @@ label
 	margin-left: 10px;
 }
 .form-element {
-	margin: 0 10px;
+	margin: 0 10px 5px;
 }
+
+.form-element:hover
+{
+	background-color:#ecf6fc;
+}
+
 input.form-text, select.form-select, textarea
 {
     background: none repeat scroll 0 0 #FFFFFF;
     border:1px solid #cacaca;
     color: #333333;
-    margin-bottom:5px;
     padding: 2px;
     width: 300px;
 }
@@ -1397,6 +1427,11 @@ legend {
     margin: 0 0 15px;
     padding: 5px 0 5px 10px;
     width: 588px;
+}
+
+fieldset:hover legend
+{
+	background-color:#bbbbbb;
 }
 
 fieldset dl
@@ -1871,7 +1906,7 @@ table#list-org {
 #default_field_groups-label,
 #file_ids-label,
 #push_to_registry-label,
-#iati_activity_status #change-label{
+#iati_activity_status #change-label, #reporting_org-label{
 	display: none;
 }
 
@@ -1882,6 +1917,11 @@ table#list-org {
 .edit-element {
 	padding-left: 8px;
 	vertical-align: middle;
+}
+
+a.edit-element:hover
+{
+	background-color:transparent;
 }
 
 /** view activity link **/
