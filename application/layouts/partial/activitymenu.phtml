@@ -65,7 +65,7 @@
                 }
                 print "<li $class><div class='help ".$element."'></div><a $attributes href='". $href ."'>" .$key ."</a></li>";
             }
-             ?>                
+            ?>                
                     </ul>
                 </li>
             <?
@@ -74,35 +74,35 @@
             {
                 $elementExist = false;
                 foreach($value as $element ){
-                    if($allowed_elements[$element])
-                        $elementExist = true;    
+                    if($allowed_elements[$element]) $elementExist = true;    
                 } 
-                if($elementExist)
+                if($elementExist) {
                     print "<li>";
                     print '<div class="menu-category-title">'.$titleArray[$i].'</div>';              
                     print '<ul class="menu-leaf">';
-                foreach($value as $element ){    
-                    if($allowed_elements[$element])
-                    {  
-                        $attributes = '';
-                        if(getRowSet($element, $url['activity_id'])){
-                            $attributes = 'class = "active"';
-                        }
-                    
-                        $key = ucwords(str_replace("_"," ",$element));
-                        $href = $this->baseUrl()."/wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=".str_replace(" ", "", $key);
-                        $class = '';
-                        if(str_replace(" ", "", $key) == $paramValue){
-                            $class = "class = highlight";
-                        }
-                        if(Iati_WEP_ActivityConstants::hasDisplayName($element)){
-                            $key = Iati_WEP_ActivityConstants::getDisplayName($element);
-                        }
-                        print "<li $class><div class='help ".$element."'></div><a $attributes href='". $href ."'>" .$key ."</a></li>";
-                    }                   
-                }
+                    foreach($value as $element ){    
+                        if($allowed_elements[$element])
+                        {  
+                            $attributes = '';
+                            if(getRowSet($element, $url['activity_id'])){
+                                $attributes = 'class = "active"';
+                            }
+                        
+                            $key = ucwords(str_replace("_"," ",$element));
+                            $href = $this->baseUrl()."/wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=".str_replace(" ", "", $key);
+                            $class = '';
+                            if(str_replace(" ", "", $key) == $paramValue){
+                                $class = "class = highlight";
+                            }
+                            if(Iati_WEP_ActivityConstants::hasDisplayName($element)){
+                                $key = Iati_WEP_ActivityConstants::getDisplayName($element);
+                            }
+                            print "<li $class><div class='help ".$element."'></div><a $attributes href='". $href ."'>" .$key ."</a></li>";
+                        }                   
+                    }
                     print "</ul>";
                     print "</li>";
+                }
                 $i++;
             }       
             ?>
