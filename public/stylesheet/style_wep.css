@@ -1850,7 +1850,7 @@ table#list-org {
 
 .activity-detail-table table {
 	border: none !important;
-	border-top: 5px solid #feefd8 !important;
+	/*border-top: 5px solid #feefd8 !important;*/
 	margin-bottom: 12px;
 }
 
