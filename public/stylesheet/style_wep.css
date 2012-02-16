@@ -1,11 +1,18 @@
 @charset "utf-8";
 /* CSS Document */
+*
+{
+	margin: 0;
+	padding: 0;
+}
+
 body {
 	font-size: 12px;
 	font-family: Arial, Helvetica, "Bitstream Vera Sans", sans-serif;
 	line-height: 18px;
 	padding: 0;
 	margin: 0;
+	background-color:#D3D3D3;
 }
 
 body#aidstream-homepage
@@ -17,6 +24,17 @@ body#aidstream-homepage
 
 body#activity-viewer-body {
 	background-color: #f3f3f3;
+}
+
+textarea, input, select
+{
+	font-family:Arial, Helvetica, "Bitstream Vera Sans", sans-serif;
+	font-size: 12px;
+}
+
+input[type="radio"]
+{
+	margin-right:2px;
 }
 
 h1
@@ -57,7 +75,7 @@ p
 {
 	margin:0px;
 	padding:0px;
-	overflow: hidden;
+	
 }
 
 .container-wrapper {
@@ -345,7 +363,7 @@ a.login-parent
 /** ---- Homepage ---**/
 #aidstream-homepage #content-section, #aidstream-homepage #content 
 {
-	background: none;
+	background: f3f3f3;
 }
 
 
@@ -962,9 +980,6 @@ h2.form-title {
 #contain tr, #contain td, #contain th
 {
 	background-color: #f2f2f2;
-	font-size:12px;
-	font-family:Arial, Helvetica, sans-serif;
-	color:#000;
 	padding:5px 5px;
 	line-height:18px;
 	text-align:left;
@@ -1434,13 +1449,14 @@ code
     padding-left:10px;
     margin-bottom:10px;
 }
+
 .remove .button
 {
 	background:url(../stylesheet/images/remove-icon.png) no-repeat center left;
     border: none;
     border-radius: 0;
     color: #009ADA;
-    display: inline-block;
+    display: block;
     font-size: 12px;
 	font-family:Arial, Helvetica, sans-serif;
     font-weight:bold;
@@ -1473,6 +1489,11 @@ code
     color: #009ADA;
 }
 
+.addmore:hover
+{
+	background-color:#dfdfdf;
+}
+
 #form-elements-wrapper div{
     	margin-bottom: 20px;
 }
@@ -1485,7 +1506,6 @@ dt{
 }
 
 dd{
-	margin-bottom: 8px;
 }
 
 dd#button-element {
@@ -1521,9 +1541,9 @@ legend {
     display: block;
     font-size: 16px;
     font-weight: bold;
-    margin: 0 0 15px;
+    margin-top:5px;
     padding: 5px 0 5px 10px;
-    width: 588px;
+    width:100%;
 }
 
 fieldset:hover legend
@@ -1559,6 +1579,11 @@ fieldset dl
 	padding:0;
 }
 
+.activity-list
+{
+	border:none;
+}
+
 .default-activity-list {
 	margin-bottom: 20px;
 	border:1px solid #e0dddd;
@@ -1584,9 +1609,6 @@ fieldset dl
 }
 .nested-items
 {
-	padding:0 10px;
-	width:568px;
-
 }
 .inner-wrapper.top-element .Conditions {
 	padding:0 10px;
@@ -1594,9 +1616,14 @@ fieldset dl
 
 .activity-list fieldset.innermost-wrapper{
     /*padding: 10px;*/
-    background: #ebebeb;
-    padding:5px 0;
-    margin:10px 0;
+    background: #f4f4f4;
+    border-bottom:1px solid #d1d1d1;
+    margin:2px 0;
+}
+
+.activity-list fieldset.innermost-wrapper:hover
+{
+	border-bottom:1px solid #93d1fd;
 }
 
 .activity-list fieldset.innermost-wrapper.top-element
@@ -1613,26 +1640,28 @@ fieldset dl
 	font-weight:bold;
 	/*margin-bottom:10px;*/
 	padding:5px 0 5px 10px;
-	width:568px;
 }
 
 .top-element>.form-title
 {
 	display:block;
 	background:#e0dddd;
-	font-family:Arial, Helvetica, sans-serif;
 	color:#4f4f4f;
 	font-size:16px;
 	font-weight:bold;
-	margin-bottom:15px;
 	padding:5px 0 5px 10px;
-	width:588px;
 }
 
 .activity-list fieldset, .user-list fieldset {
 	background: none;
 	padding:0;
 	margin: 0;
+}
+
+fieldset.innermost + fieldset
+{
+	border-top:1px dashed #c0c0c0;
+	padding-top: 8px;
 }
 
 .activity-list legend {
@@ -1646,6 +1675,19 @@ fieldset dl
 	color: #336666;
 	margin-top:-15px;
 	padding-left:10px;*/
+}
+
+.group-wrapper 
+{
+	float: left;
+	margin: 10px;
+	min-height:147px;
+	width:175px;
+}
+
+.group-title
+{
+	font-weight:bold;
 }
 
 .activity-div{
@@ -1856,18 +1898,14 @@ table.activity-list-table tr:hover {
 }
 .innermost-wrapper.top-element .addmore
 {
-	width:588px;
 }
 .innermost-wrapper .addmore
 {
-		width:568px;
 }
 .addmore{
 	background:#eeeeee;
 	display: block;
-	margin-bottom:10px;
 	padding-left:10px;
-	width:588px;
 }
 
 .addmore .button
@@ -1876,7 +1914,7 @@ table.activity-list-table tr:hover {
     border: none;
     border-radius: 0;
     color: #009ADA;
-    display: inline-block;
+    display: block;
     font-size: 12px;
 	font-family:Arial, Helvetica, sans-serif;
     font-weight:bold;
@@ -1951,6 +1989,11 @@ table#list-org {
 	margin-bottom: 0;
 }
 
+#contain table.element-values-items + table.element-values-items
+{
+	margin-top:4px;
+}
+
 .activity-detail-table tr td{
 	background-color: #fff !important;
 }
@@ -1965,7 +2008,7 @@ table#list-org {
 
 .activity-detail-table table tr td, table.add-activity tr td {
 	background-color: none !important;
-	color: #747474 !important;
+	color: #4A4A4A !important;
 	padding: 3px 7px !important;
 }
 
@@ -2075,7 +2118,7 @@ a.edit-element:hover
 #support-wrapper
 {
 	position: absolute;
-	top: -361px;
+	top: -339px;
 	right: 0;
 }
 
@@ -2538,4 +2581,7 @@ form#support-form
 	border-width: 1px 0;
 }
 
-
+dd#captcha-element
+{
+	margin-left: 208px;
+}

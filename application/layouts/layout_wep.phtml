@@ -29,118 +29,120 @@
     <div id="wrapper">
 	<div id="hidden-overlay"></div>
 	<? $auth = Zend_Auth::getInstance();  ?>
+    <div id="wrap">
 	<? if($auth->hasIdentity()): ?>
 	<div id="support-container" class="container_12">
 	    <? echo $this->partial('partial/support.phtml') ?>
 	</div>
 	<? endif; ?>
-        <div id="header">
-            <a name="top"></a>
-            <div id="nav-logo-section">
-                <div class="container_12">
-                    <div id="logo-nav" class="grid_12">
-                        <div class="logo"> <a href="<?php print($this->baseUrl());?>/"><img alt="logo" src="<?php print($this->		baseUrl());?>/stylesheet/images/aid-stream-logo.png"></a>
-                        </div><!--close logo-->
-                        <!-- <div class="support">Support</div> -->
-                        <div class="user-info">
-                            <div id="login-nav">
-				<? if ($auth->hasIdentity()):?>
-                                    <?php $identity = $auth->getIdentity();?>
-                                    <?php $session = new Zend_Session_Namespace('superadmin')?>
-                                    <?php if($session->identity): ?>
-                                        <?php echo $this->l('Switch back', 'user/user/switch-back')?>
-                                        You are masquerading as  <?php echo $this->l($identity->user_name, 'user/user/myaccount',array('attributes' => array('class' => 'user-name')));?>
-                                        <?php print " , (". $this->l('Logout', 'user/user/logout') . ")";?>
-                                    <?php else : ?>
-                                        You are logged in as  <?php echo $this->l($identity->user_name, 'user/user/myaccount',array('attributes' => array('class' => 'user-name')));?>
-                                        <?php print " , (". $this->l('Logout', 'user/user/logout') . ")";?>
-                                    <?php endif;?>
-                                <? endif;?>
-                            </div>
-                            <div class = "user-nav">
-                                <?php if ($auth->hasIdentity())
-                                     print $this->partial('partial/section/top-bar.phtml');
-                                ?>
-                            </div>
-                        </div><!--Close user-info-->
-                    </div>
-                </div>
-		
-                <div class="clear"></div>
-            </div>
-            
-            <div class="login-section">
-                <div class="container_12">
-                    <div id="login-form-section" class="grid_7">
-                            <? if (!$auth->hasIdentity()):?>
-				<? $form = new User_Form_User_Login(); ?>
-				<form method="<? echo $form->getMethod() ?>" action="<? echo $form->getAction()?>" >
-				    <table>
-					<tr>
-					    <td><label><? echo $form->username->renderLabel();?></label></td>
-					    <td><label><? echo $form->password->renderLabel();?></label></td>
-					</tr>
-					<tr>
-					    <td><? echo $form->username->renderViewHelper();?></td>
-					    <td><? echo $form->password->renderViewHelper();?></td>
-					    <td><? echo $this->formSubmit('login','Login'); ?></td>
-					</tr>
-				    </table>
-				</form>
-				<a class="login-parent" href="#">Login</a>
-			    <? endif;?>
-                    </div><!--Close login form-section-->
-                </div>
-                <div class="clear"></div>
-            </div><!--Close login-section-->
-            
-            <div class="clear"></div>
-            <!--search div start-->
-
-        </div><!--header closed-->
-
-        <div class="clear"></div>
-
-        <div id="content-section"><!--Start content-section--->
-            <div class="container_12">
-                <div class="grid_12">
-                    <!--contain div start-->
-                    <div id="main-content-top"></div>
-                    <div id="contain-body">
-                        <div id="contain-left">
-                            <div id="contain-area">
-                                <div id="contain">
-                                    <div id="flash-messages"><?php $flashMessenger = $this->flashMessages();
-                                        print $flashMessenger->getMessages();?>
-                                    </div>
-                                    <div id="breadcrumb">
-                                        <?php print $this->partial('partial/breadcrumbs.phtml', $this->getVars())?>
-                                    </div><!-- end of the breadcrumb -->
-                                    <?php if ($this->placeholder('title') != ""):?>
-                                    <h1><?php print $this->placeholder('title')?></h1>
+        
+            <div id="header">
+                <a name="top"></a>
+                <div id="nav-logo-section">
+                    <div class="container_12">
+                        <div id="logo-nav" class="grid_12">
+                            <div class="logo"> <a href="<?php print($this->baseUrl());?>/"><img alt="logo" src="<?php print($this->		baseUrl());?>/stylesheet/images/aid-stream-logo.png"></a>
+                            </div><!--close logo-->
+                            <!-- <div class="support">Support</div> -->
+                            <div class="user-info">
+                                <div id="login-nav">
+    				<? if ($auth->hasIdentity()):?>
+                                        <?php $identity = $auth->getIdentity();?>
+                                        <?php $session = new Zend_Session_Namespace('superadmin')?>
+                                        <?php if($session->identity): ?>
+                                            <?php echo $this->l('Switch back', 'user/user/switch-back')?>
+                                            You are masquerading as  <?php echo $this->l($identity->user_name, 'user/user/myaccount',array('attributes' => array('class' => 'user-name')));?>
+                                            <?php print " , (". $this->l('Logout', 'user/user/logout') . ")";?>
+                                        <?php else : ?>
+                                            You are logged in as  <?php echo $this->l($identity->user_name, 'user/user/myaccount',array('attributes' => array('class' => 'user-name')));?>
+                                            <?php print " , (". $this->l('Logout', 'user/user/logout') . ")";?>
+                                        <?php endif;?>
                                     <? endif;?>
-                                    <?php print $this->layout()->content;?>
                                 </div>
-                            </div>
-                        </div><!--Close Content left-->
+                                <div class = "user-nav">
+                                    <?php if ($auth->hasIdentity())
+                                         print $this->partial('partial/section/top-bar.phtml');
+                                    ?>
+                                </div>
+                            </div><!--Close user-info-->
+                        </div>
+                    </div>
+    		
+                    <div class="clear"></div>
+                </div>
+                
+                <div class="login-section">
+                    <div class="container_12">
+                        <div id="login-form-section" class="grid_7">
+                                <? if (!$auth->hasIdentity()):?>
+    				<? $form = new User_Form_User_Login(); ?>
+    				<form method="<? echo $form->getMethod() ?>" action="<? echo $form->getAction()?>" >
+    				    <table>
+    					<tr>
+    					    <td><label><? echo $form->username->renderLabel();?></label></td>
+    					    <td><label><? echo $form->password->renderLabel();?></label></td>
+    					</tr>
+    					<tr>
+    					    <td><? echo $form->username->renderViewHelper();?></td>
+    					    <td><? echo $form->password->renderViewHelper();?></td>
+    					    <td><? echo $this->formSubmit('login','Login'); ?></td>
+    					</tr>
+    				    </table>
+    				</form>
+    				<a class="login-parent" href="#">Login</a>
+    			    <? endif;?>
+                        </div><!--Close login form-section-->
+                    </div>
+                    <div class="clear"></div>
+                </div><!--Close login-section-->
+                
+                <div class="clear"></div>
+                <!--search div start-->
 
-		        <div id="sidebar-right">
-                            <div id="sidebar-right-inner">
-                                <?php if ($auth->hasIdentity())
-                                    print $this->partial('partial/section/left-bar.phtml');
-                                ?>
-                            </div>
-                        </div><!--Close sidebar-right-->
-                        <div class="clear"></div>
-                        <div id="main-content-bottom"></div>
-                    </div><!--Close contain-body--->
-                </div><!--close grid 12--->
-            </div>
+            </div><!--header closed-->
+
             <div class="clear"></div>
-        </div><!--Close content-section-->
 
-        <div class="clear"></div>
+            <div id="content-section"><!--Start content-section--->
+                <div class="container_12">
+                    <div class="grid_12">
+                        <!--contain div start-->
+                        <div id="main-content-top"></div>
+                        <div id="contain-body">
+                            <div id="contain-left">
+                                <div id="contain-area">
+                                    <div id="contain">
+                                        <div id="flash-messages"><?php $flashMessenger = $this->flashMessages();
+                                            print $flashMessenger->getMessages();?>
+                                        </div>
+                                        <div id="breadcrumb">
+                                            <?php print $this->partial('partial/breadcrumbs.phtml', $this->getVars())?>
+                                        </div><!-- end of the breadcrumb -->
+                                        <?php if ($this->placeholder('title') != ""):?>
+                                        <h1><?php print $this->placeholder('title')?></h1>
+                                        <? endif;?>
+                                        <?php print $this->layout()->content;?>
+                                    </div>
+                                </div>
+                            </div><!--Close Content left-->
 
+    		        <div id="sidebar-right">
+                                <div id="sidebar-right-inner">
+                                    <?php if ($auth->hasIdentity())
+                                        print $this->partial('partial/section/left-bar.phtml');
+                                    ?>
+                                </div>
+                            </div><!--Close sidebar-right-->
+                            <div class="clear"></div>
+                            <div id="main-content-bottom"></div>
+                        </div><!--Close contain-body--->
+                    </div><!--close grid 12--->
+                </div>
+                <div class="clear"></div>
+            </div><!--Close content-section-->
+
+            <div class="clear"></div>
+        </div><!-- /wrap -->
         <div id="footer"><!--Start footer-->
             <div class="container_12">
             	<div class="grid_12">

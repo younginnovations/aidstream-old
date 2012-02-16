@@ -78,7 +78,7 @@ var supportUp = function (target) {
 				  duration: 500,
 				  properties: {
 				      top: {
-						start: "-361",
+						start: "-339",
 						end: "0"
 					}
 				  }
@@ -95,7 +95,7 @@ var supportDown = function (target) {
 				  properties: {
 				      top: {
 						start: "0",
-						end: "-361"
+						end: "-339"
 					}
 				  }
 				}).play();
