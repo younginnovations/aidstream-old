@@ -634,8 +634,7 @@ h2.form-title {
 
 .user-nav a:hover
 {
-	background:#d5e0e4;
-	color: #009ada;
+	background:#037bac;
 }
 
 .user-nav .user-change-defaults
@@ -737,6 +736,14 @@ h2.form-title {
 	margin-bottom: 10px;
 }
 
+#sidebar-right .block:hover
+{
+	border-color:#8BBCF8;
+	-webkit-box-shadow: 0px 0px 5px 2px #ccc;
+	-moz-box-shadow: 0px 0px 5px 2px #ccc;
+	box-shadow: 0px 0px 5px 2px #ccc; 
+}
+
 #block-list-menu .action-icon a,
 #block-add-menu .action-icon a,
 #block-list-published-files .action-icon a,
@@ -794,9 +801,51 @@ h2.form-title {
 	margin-bottom: 8px;
 }
 
+#sidebar-right #block-activity-menu ul li
+{
+	border: 1px solid #e9e9e9;
+	border-radius:4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	font-weight:bold;
+	padding: 5px;
+	margin-bottom: 5px;
+}
+
+#sidebar-right #block-activity-menu ul li:hover
+{
+
+	-webkit-box-shadow: 0px 0px 5px 2px #ccc;
+	-moz-box-shadow: 0px 0px 5px 2px #ccc;
+	box-shadow: 0px 0px 5px 2px #ccc; 
+}
+
+#sidebar-right #block-activity-menu:hover, #sidebar-right #block-activity-menu ul.menu-leaf li:hover
+{
+	box-shadow:none;
+	-webkit-box-shadow:none;
+	-moz-box-shadow:none;
+}
+
+#sidebar-right #block-activity-menu ul.menu-leaf li
+{
+	border:none;
+	border-bottom: 1px solid #dbd9d9;
+	border-radius:0;
+	-moz-border-radius:0;
+	-webkit-border-radius:0;
+	font-weight:normal;
+	padding: 0;
+	margin-bottom: 0;
+}
+
+#sidebar-right #block-activity-menu ul.menu-leaf li:hover
+{
+	border-bottom:1px solid #8bbcf8;
+}
+
 #sidebar-right #block-activity-menu .content li 
 {
-	border-bottom: 1px solid #dbd9d9;
 	display: block;
 }
 
@@ -806,7 +855,6 @@ h2.form-title {
 	display:block;
 	padding: 6px 0 7px 25px;
 	background: url(../images/tick.png) no-repeat 5px top;
-	width: 191px;
 }
 
 
@@ -814,10 +862,26 @@ h2.form-title {
 {
 	overflow: hidden;
 	height: 19px;
-	background: url(../images/help-text.png) no-repeat left center;
+	background: url(../images/help-text.png) no-repeat left 9px;
 	width: 20px;
 	float: right;
 	cursor: pointer;
+}
+
+.help:hover
+{
+	background-position:0 -35px;
+	cursor: help;
+}
+
+.form-element .help
+{
+	background-position:0 2px;
+}
+
+.form-element .help:hover
+{
+	background-position:0 -42px;
 }
 
 .legend-help
@@ -827,8 +891,14 @@ h2.form-title {
 
 .form-item .help 
 {
-	margin-right: 65px;
+	background-position:0 3px;
+	margin-right: 12px;
 }
+
+.form-item .help:hover
+{
+	background-position:0 -41px;
+} 
 
 .help img
 {
@@ -840,7 +910,7 @@ h2.form-title {
 	height:31px;
 }
 
-#block-activity-menu ul li:hover
+#block-activity-menu ul.menu-leaf li:hover
 {
 	background-color:#def3fc;
 }
@@ -1060,11 +1130,11 @@ dt#update_registry-label label
 .form-item {
 	margin-left: 10px;
 }
-.form-element {
+.form-element, .form-item {
 	margin: 0 10px 5px;
 }
 
-.form-element:hover
+.form-element:hover, .form-item:hover
 {
 	background-color:#ecf6fc;
 }
@@ -1112,8 +1182,13 @@ button.form-submit, input.form-submit, a.button, .change-password a, .profile-li
     cursor: pointer;
     display: inline-block;
     font-size: 14px;
-    padding: 10px 20px;
+    padding: 5px 20px;
     text-decoration: none;
+}
+
+button.form-submit:hover, input.form-submit:hover, a.button:hover, .change-password a:hover, .profile-links:hover, .dashboard-summary a:hover, #Submit:hover, #create_new_account:hover, #reset_password:hover, #login:hover
+{
+	background: none repeat scroll 0 0 #037bac;
 }
 
 #Submit_and_view
@@ -1124,6 +1199,12 @@ button.form-submit, input.form-submit, a.button, .change-password a, .profile-li
 #element-form .disabled
 {
 	background-color: #E0DDDD !important;
+}
+
+#element-form .disabled:hover
+{
+	color: #fff;
+	cursor: default;
 }
 
 #Signup-label, #button-label, #save-label, #submit-label, #Submit-label, #Save-label{
@@ -1366,8 +1447,24 @@ code
     padding: 5px 0 5px 22px;
     text-decoration: none;
 }
+
 .remove-this {
     cursor: pointer;
+}
+
+.remove .button:hover, .addmore .button:hover
+{
+	background-color:transparent;
+}
+
+.remove .button:hover
+{
+	background:url(../stylesheet/images/remove-icon.png) no-repeat center left;
+}
+
+.addmore .button:hover
+{
+	background:url("../stylesheet/images/add-icon.png") no-repeat scroll left center transparent;
 }
 
 #add-more{
@@ -1570,7 +1667,7 @@ fieldset dl
 #contain table.activity-info-table {
 	border: 1px solid #e7e6fb;
 	background: #F6F6F6;
-	margin-bottom: 12px;
+	margin-bottom: 0;
 }
 #contain table.activity-info-table th {
 	padding-right: 15px;
@@ -1581,8 +1678,8 @@ fieldset dl
 	
 }
 
-#contain table.activity-info-table td {
-	padding: 5px 18px;
+#contain table.activity-info-table td, #contain table.activity-detail-table td {
+	/*padding: 5px 18px;*/
 	width: 135px;
 }
 
@@ -1851,7 +1948,7 @@ table#list-org {
 .activity-detail-table table {
 	border: none !important;
 	/*border-top: 5px solid #feefd8 !important;*/
-	margin-bottom: 12px;
+	margin-bottom: 0;
 }
 
 .activity-detail-table tr td{
@@ -1869,10 +1966,10 @@ table#list-org {
 .activity-detail-table table tr td, table.add-activity tr td {
 	background-color: none !important;
 	color: #747474 !important;
-	padding: 5px 18px !important;
+	padding: 3px 7px !important;
 }
 
-.activity-detail-table table tr td.attrib-label {
+.activity-detail-table table tr td.attrib-label,  .activity-detail-table tr td.attrib-label{
 	width: 30% !important;
 	font-weight: bold;
 }
@@ -1886,6 +1983,13 @@ table#list-org {
 	font-size: 13px;
     font-weight: bold;
     padding: 0 0 5px;
+}
+
+.element-item
+{
+	border: 1px dotted #ccc;
+	padding: 5px 10px;
+	margin-bottom: 5px;
 }
 
 #iati_activity_change_status #status-label,
