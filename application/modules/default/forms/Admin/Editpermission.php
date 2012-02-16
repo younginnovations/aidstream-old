@@ -6,8 +6,13 @@ class Form_Admin_Editpermission extends App_Form
     {
         //print_r($defaultFields);exit;
         $button = new Zend_Form_Element_Button('button');
-        $button->setLabel('Check All');
-        $button->setAttrib('class', 'check-uncheck');
+        $button->setLabel('Check All')
+            ->addDecorators(array(array(
+                                        array('wrapperAll' => 'HtmlTag') ,
+                                        array('tag' => 'div' , 'class' => 'clearfix form-item')
+                                        )
+                                  ))
+            ->setAttrib('class', 'check-uncheck');
         
         $this->addElement($button);
         //print_r($defaultFields);exit;
@@ -50,7 +55,12 @@ class Form_Admin_Editpermission extends App_Form
         $signup->setValue('Submit')->setAttrib('id', 'Submit');
         //$this->addElement('default_fields');
         $this->addDisplayGroup(array('button', 'default_fields',), 'field3',array('legend'=>'User Permissions'));
-       
+        $group = $this->getDisplayGroup('field3');
+        $group->setDecorators(array(
+            'FormElements',
+            'Fieldset',
+            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'default-activity-list'))
+        ));
         $this->addElement($signup);
         $this->setMethod('post');
     }

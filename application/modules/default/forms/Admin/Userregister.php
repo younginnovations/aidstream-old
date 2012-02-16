@@ -31,43 +31,6 @@ class Form_Admin_Userregister extends App_Form
         ->addValidator('emailAddress', false)
         ->addFilter('stringTrim')
         ->setRequired();
-                                        
-        foreach($defaultFields['fields'] as $key=>$eachDefault){
-            if($key == 'add_activity' || $key == 'add_activity_elements'){
-                $key = 'add';
-                $default_fields['add'] = 'Add';
-            }
-            elseif($key == 'edit_activity' || $key == 'edit_activity_elements'){
-                $key = 'edit';
-                $default_fields['edit'] = 'Edit';
-            }
-            else if($key == 'delete_activity' || $key == 'delete_activity_elements'){
-                $key = 'delete';
-                $default_fields['delete'] = 'Delete';
-            }
-            else if($key == 'view_activities'){
-                continue;
-            }
-            else{
-                $default_fields[$key] =  ucwords(str_replace("_", " ", $key));
-            }
-            if($eachDefault == '1'){
-                $checked[] = $key;
-            }
-        }
-        $this->addElement('multiCheckbox', 'default_fields', array(
-                        'disableLoadDefaultDecorators' => true,
-                        'separator'    => '&nbsp;',
-                        'multiOptions' => $default_fields,
-                        'value' => $checked,
-                        'decorators'   => array(
-                                    'ViewHelper',
-                                    'Errors',
-                                array('HtmlTag', array('tag' => 'p'))          
-                        )
-        ));
-        
-        //@todo reCaptcha
 
         $signup = new Zend_Form_Element_Submit('Signup');
         $signup->setValue('signup')->setAttrib('id', 'Submit');
@@ -77,15 +40,31 @@ class Form_Admin_Userregister extends App_Form
         $button->setLabel('Check All');
         $button->setAttrib('class', 'check-uncheck');
         
-        $this->addElement($button);
         $this->addElements($form);
-        
+        // add clearfix div for all form items
+        foreach($form as $element){
+            $element->addDecorators(array(array(array('wrapperAll' => 'HtmlTag') ,
+                                                array('tag' => 'div' , 'class' => 'clearfix form-item'))
+                                          ));
+        }
         
         $this->addDisplayGroup(array('first_name', 'middle_name', 'last_name', 'user_name', 'password', 'confirmpassword', 'email'),
                                         'field1',array('legend'=>'User Information'));
-       
-        $this->addDisplayGroup(array('button', 'default_fields',), 'field3',array('legend'=>'User Permission'));
-       
+        // add wrapper class for the group
+        $group = $this->getDisplayGroup('field1');
+        $group->setDecorators(array(
+            'FormElements',
+            'Fieldset',
+            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'default-activity-list'))
+        ));
+        
+        // add permission form
+        $permissionForm = new Form_Admin_Editpermission();
+        $permissionForm->edit($defaultFields);
+        $permissionForm->removeDecorator('form');
+        $permissionForm->removeElement('submit');
+        $this->addSubForm($permissionForm , 'test');
+               
         $this->addElement($signup);
         $this->setMethod('post');
     }
