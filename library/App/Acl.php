@@ -43,6 +43,7 @@ class App_Acl extends Zend_Acl
         $this->allow('guest', 'user:user', 'resetpassword');
         $this->allow('guest', 'default:index', 'index');
         $this->allow('guest', 'default:error', 'error');
+        $this->allow('guest', 'default:error', 'error404');
         $this->allow('guest', 'default:code-list', 'code-list-index');
         $this->allow('guest', 'default:code-list', 'view-code');
         $this->allow('guest', 'default:code-list', 'view-category');

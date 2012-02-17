@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>AidStream</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	
+    <?php 
+            $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/960.css');
+            $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/reset.css');
+            $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style.css');
+            $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style_wep.css');
+    
+            print $this->headLink();
+    
+    ?>
+    <script type="text/javascript">
+	var APP_BASEPATH = '<?php echo $this->baseUrl();?>';
+    </script>
+    <script src="<?php echo $this->baseUrl()?>/js/dojo-release/dojo/dojo/dojo.js" djConfig="locale:'en-us'" djConfig="parseOnLoad: true"></script>
+    <?
+	$this->headScript()->appendFile($this->baseUrl() . '/js/dojo-release/nls/iati_en-us.js', $type = 'text/javascript');
+	$this->headScript()->appendFile($this->baseUrl() . '/js/dojo-release/iati.js', $type = 'text/javascript');
+	$this->headScript()->appendFile($this->baseUrl() . '/js/home.js', $type = 'text/javascript');
+	
+        print $this->headScript();
+    ?>
+</head>
+
+<body class="login-layout">
+    <div id="wrapper">
+	
+        <div id="header">
+            <a name="top"></a>
+            <div id="nav-logo-section">
+                <div class="container_12">
+                    <div id="logo-nav" class="grid_12">
+                        <div class="logo"> <a href="<?php print($this->baseUrl());?>/"><img alt="logo" src="<?php print($this->		baseUrl());?>/stylesheet/images/aid-stream-logo.png"></a>
+                        </div><!----close logo----->
+			<div class="nav">
+                            <ul class="menu">
+                                <li><a href="<? echo $this->baseUrl()?>/#contact-us" id="contact-link"><span class="title">Contact</span><br /><span>Comments,Suggestions</span></a></li>
+				<li><a href="<? echo $this->baseUrl()?>/#behind-aidstream" id="about-link"><span class="title">Who</span><br /><span>Who is behind AidStream?</span></a></li>
+                                <li><a href="<? echo $this->baseUrl()?>/#how-as" id="how-link"><span class="title">How</span><br /><span>How to use AidStream?</span></a></li>
+                                <li><a href="<? echo $this->baseUrl()?>/#what-as" id="what-link"><span class="title">What</span><br /><span>What is AidStream?</span></a></li>
+                            </ul>
+                        </div><!--Close nav-->                        
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            
+            <div class="login-section"><!--Start login-section-->
+                <div class="container_12">
+			<div id="registration-section" class="grid_5">
+			<div class="register-info"><div class="register-text">Not Registered yet? Please </div><?php print $this->l('Register','user/user/register'); ?>
+			<div class="nothing"></div></div>
+		</div>
+                    <div id="login-form-section" class="grid_7">
+			    <? $auth = Zend_Auth::getInstance();  ?>
+                            <? if (!$auth->hasIdentity()):?>
+                            <? $form = new User_Form_User_Login(); ?>
+                        <div id="login-form-container">
+			    <form method="<? echo $form->getMethod() ?>" action="<? echo $form->getAction()?>" id="<? echo $form->getId() ?>" >
+				<table>
+				    <tr>
+					<td><label><? echo $form->username->renderLabel();?></label></td>
+					<td><label><? echo $form->password->renderLabel();?></label><div class='forgot-password'>(<?php echo $this->l('Forgot Password?', 'user/user/forgotpassword');?>)</div></td>
+				    </tr>
+				    <tr>
+					<td><? echo $form->username->renderViewHelper();?><span id='username-error' class="error" ></span></td>
+					<td><? echo $form->password->renderViewHelper();?><span id='password-error' class="error" ></span></td>
+					<td><? echo $this->formSubmit('login','Login'); ?> </td>
+				    </tr>
+				</table>
+			    </form>
+			</div><!--Close login-form-container-->
+			<div class="login-arrow"></div>
+                        <a class="login-parent" href="#">Login / Register</a>
+                        <? endif;?>
+                    </div><!--Close login-form-section-->
+                </div>
+                <div class="clear"></div>
+            </div><!--Close login-section-->
+            <div class="clear"></div>
+                   
+            <!--search div start-->
+
+        <div class="clear"></div>
+
+         <div id="content-section"><!--Start content-section--->
+            <div class="container_12">
+                <div class="grid_12">
+                    <!--contain div start-->
+                    <div id="main-content-top"></div>
+                    <div id="contain-body">
+                        <div id="contain-left">
+                            <div id="contain-area">
+                                <div id="contain">
+                                    <div id="flash-messages"><?php $flashMessenger = $this->flashMessages();
+                                        print $flashMessenger->getMessages();?>
+                                    </div>
+                                    
+                                    <?php if ($this->placeholder('title') != ""):?>
+                                    <h1><?php print $this->placeholder('title')?></h1>
+                                    <? endif;?>
+                                    <?php print $this->layout()->content;?>
+                                </div>
+                            </div>
+                        </div><!--Close Content left-->
+
+                        <div id="sidebar-right">
+                            <div id="sidebar-right-inner">
+                                <?php if ($auth->hasIdentity())
+                                    print $this->partial('partial/section/left-bar.phtml');
+                                ?>
+                            </div>
+                        </div><!--Close sidebar-right-->
+                        <div class="clear"></div>
+                        <div id="main-content-bottom"></div>
+                    </div><!--Close contain-body--->
+                </div><!--close grid 12--->
+            </div>
+            <div class="clear"></div>
+        </div><!--Close content-section-->
+
+        <div class="clear"></div>
+
+        <div id="footer"><!--Start footer-->
+            <div class="container_12">
+            	<div class="grid_12">
+        	    <h2 class="footer-title">Who's using it?</h1>
+            	</div>
+            </div>
+            <div class="clearfix"></div>
+        </div><!--Close footer-->
+
+    </div><!--Close Wrapper-->
+</body>
+</html>
