@@ -7,9 +7,9 @@
 }
 
 body {
-	font-size: 12px;
+	font-size: 13px;
 	font-family: Arial, Helvetica, "Bitstream Vera Sans", sans-serif;
-	line-height: 18px;
+	line-height: 19px;
 	padding: 0;
 	margin: 0;
 	background-color:#D3D3D3;
@@ -26,10 +26,10 @@ body#activity-viewer-body {
 	background-color: #f3f3f3;
 }
 
-textarea, input, select
+textarea, input, select, button
 {
 	font-family:Arial, Helvetica, "Bitstream Vera Sans", sans-serif;
-	font-size: 12px;
+	font-size: 13px;
 }
 
 input[type="radio"]
@@ -1116,10 +1116,9 @@ label
 {
 	float:left;
 	width:210px;
-	font-size:12px;
 	color:#525252;
 	display: block;
-	font-weight: bold;
+	font-weight: normal;
 }
 
 dt#update_registry-label label
@@ -1780,7 +1779,7 @@ table.user-list-table .title{
 
 table.activity-list-table .title a 
 {
-	font-weight: bold;
+	font-size:12px;
 	padding-right: 5px;
 }
 
@@ -1806,8 +1805,7 @@ table.user-list-table .title .list-action{
 }
 
 table.user-list-table .title .list-action a {
-	font-weight: bold;
-
+	font-size:12px;
 }
 
 #contain table.user-list-table {
@@ -2014,7 +2012,6 @@ table#list-org {
 
 .activity-detail-table table tr td.attrib-label,  .activity-detail-table tr td.attrib-label{
 	width: 30% !important;
-	font-weight: bold;
 }
 
 .activity-detail-table table tr td.attrib-value {
@@ -2117,6 +2114,8 @@ a.edit-element:hover
 
 #support-wrapper
 {
+	font-size:12px;
+	line-height:18px;
 	position: absolute;
 	top: -339px;
 	right: 0;
