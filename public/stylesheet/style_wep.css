@@ -1126,6 +1126,16 @@ select.form-select {
     width: 306px;
 }
 
+option
+{
+	padding: 0 5px;
+}
+
+input[type="checkbox"]
+{
+	margin: 0 5px;
+}
+
 .claro .change-password {
 	margin-top: 10px;
 }
@@ -1467,7 +1477,7 @@ dd{
 }
 
 dd#button-element {
-	margin-bottom: 0;
+	margin: 10px;
 }
 
 /**fieldset{
@@ -1568,9 +1578,6 @@ fieldset dl
 .nested-items
 {
 }
-.inner-wrapper.top-element .Conditions {
-	padding:0 10px;
-}
 
 .activity-list fieldset.innermost-wrapper{
     /*padding: 10px;*/
@@ -1639,7 +1646,6 @@ fieldset.innermost + fieldset
 {
 	float: left;
 	margin: 10px;
-	min-height:147px;
 	width:175px;
 }
 
