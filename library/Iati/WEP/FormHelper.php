@@ -165,7 +165,7 @@ class Iati_WEP_FormHelper {
                     $_cls = 'innermost-wrapper';
                 }
                 
-                if($this->registryTree->getRootNode() == $this->registryTree->getParentNode($obj)){
+                if(!$this->ajaxCall && $this->registryTree->getRootNode() == $this->registryTree->getParentNode($obj)){
                     $_cls .= ' top-element';
                 }
             }
