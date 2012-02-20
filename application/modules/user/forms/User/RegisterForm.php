@@ -145,7 +145,14 @@ class User_Form_User_RegisterForm extends App_Form
                 array('Description', array('escape' => false, 'tag' => 'div')),
               ));
         */
-        
+        // Add wrapper to all element
+        foreach($this->getElements() as $item)
+        {
+            $item->addDecorators( array(
+                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
+                    )
+            );
+        }
         $groups = $this->getDisplayGroups();
         foreach($this->getDisplayGroups() as $group){
             $group->addDecorators(array(

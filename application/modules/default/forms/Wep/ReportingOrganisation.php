@@ -26,7 +26,7 @@ class Form_Wep_ReportingOrganisation extends App_Form
                                                                                    'class'      =>'help reporting_org-xml_lang'
                                                                                    )
                                                                 ),
-                                                            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-element'))
+                                                            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
                                                         )
                                                 );;
         foreach($language as $key => $eachLanguage){
@@ -48,7 +48,7 @@ class Form_Wep_ReportingOrganisation extends App_Form
                                                                                    'class'      =>'help reporting_org-ref'
                                                                                    )
                                                                 ),
-                                                            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-element'))
+                                                            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
                                                         )
                                                 );
 
@@ -66,7 +66,7 @@ class Form_Wep_ReportingOrganisation extends App_Form
                                                                                    'class'      =>'help reporting_org-type'
                                                                                    )
                                                                 ),
-                                                            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-element'))
+                                                            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
                                                         )
                                         );
         foreach($organisationType as $key => $eachType){
@@ -86,7 +86,7 @@ class Form_Wep_ReportingOrganisation extends App_Form
                                                                                    'class'      =>'help reporting_org-text'
                                                                                    )
                                                                 ),
-                                                            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-element'))
+                                                            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
                                                         )
                                                 );
         

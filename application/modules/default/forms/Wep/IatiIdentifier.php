@@ -23,7 +23,7 @@ class Form_Wep_IatiIdentifier extends App_Form
                                                                                    'class'      =>'help activity_identifier'
                                                                                    )
                                                                 ),
-                                                            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-element'))
+                                                            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
                                                         )
                                                 );
         
@@ -42,7 +42,7 @@ class Form_Wep_IatiIdentifier extends App_Form
                                                                                    'class'      =>'help identifier-text'
                                                                                    )
                                                                 ),
-                                                            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-element'))
+                                                            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
                                                         )
                                                 );
         

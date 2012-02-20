@@ -22,7 +22,13 @@ class User_Form_User_Login extends App_Form
         $login->setLabel('Login');
 	
         $this->addElements(array($username,$password));
-	
+	foreach($this->getElements() as $item)
+        {
+            $item->addDecorators( array(
+                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
+                    )
+            );
+        }
 	$this->addDisplayGroup(
                                array('username' , 'password'),
                                'login-form',

@@ -52,7 +52,7 @@ class Form_Wep_IatiActivity extends App_Form
                                                'class'      =>'help activity-'.$item_name
                                                )
                             ),
-                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-element'))
+                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
                     )
             );
         }

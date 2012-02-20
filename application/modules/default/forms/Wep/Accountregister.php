@@ -190,7 +190,13 @@ class Form_Wep_Accountregister extends App_Form
         $this->addElement($button);
                                          
         $this->addElements($form);
-        
+        foreach($form as $item_name=>$element)
+        {
+            $form[$item_name]->addDecorators( array(
+                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
+                    )
+            );
+        }
         foreach($defaultFields['fields'] as $key=>$eachDefault){
             $default_fields[$key] =  ucwords(str_replace("_", " ", $key));
             
