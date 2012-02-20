@@ -24,9 +24,10 @@
         $result = array_intersect( $key , $checked );          
         $array[$titleArray[$i]] = $result;                 
         $i++;
-    }   
+    }
 ?>
 
+<?php $elementcount = 0 ?>
 <?php foreach($array as $option => $value): ?>
 <div class="group-wrapper">
     <div class="group-title"><?php echo $option ?></div>
@@ -35,6 +36,10 @@
         <input type="checkbox" id = "<?= $value ?>" name = "<?= $elem->getName().'[]' ?>" value ="<?= $value ?>" "<?php if(in_array($value , $values)){ echo ' checked="checked"'; }?>/>
         <?php echo ucwords(str_replace("_", " ", $value)) ?><br/>
     <?php endforeach; ?>
+    <?php $elementcount++ ?>
     </div>
 </div>
+<?php if($elementcount%3 == 0): ?>
+    <div class="clear"></div>
+<?php endif; ?>
 <?php endforeach; ?>
