@@ -107,15 +107,6 @@ table {
 *:first-child + html .clearfix {
   min-height: 1%;
 }
-/*#header
-{
-	height:165px;
-}
-#header-logo
-{
-	margin-top:35px;
-	float:left;
-}*/
 
 #header
 {
@@ -246,13 +237,12 @@ table {
 
 #login-form-section #login
 {
-	background:url(../stylesheet/images/login-bottom.png) no-repeat;
 	border:none;
 	cursor:pointer;
+	font-weight:bold;
 	height:29px;
-	margin-top:-1px;
+	margin-top:-2px;
 	padding: 0;
-	text-indent:-9999px;
 	width:95px;
 }
 
@@ -278,7 +268,8 @@ table {
 
 a.login-parent
 {
-	background: url(../stylesheet/images/login-icon.png) no-repeat 0 4px #d5e0e4;
+	background-color:#d5e0e4;
+	background-position:-131px -3008px;
 	border-radius: 0px 0px 4px 4px;
 	-webkit-box-shadow: 0px 4px 3px 0px #969696;
 	-moz-box-shadow: 0px 4px 3px 0px #969696;
@@ -299,7 +290,14 @@ a.login-parent
 
 #login-form-section .active
 {
-	background-position: 0 -20px;
+	background-position: -131px -3041px;
+}
+
+/** Homepage Sprite **/
+.login-section #registration-section a, a.login-parent, .about-content, .how-content, .registration, .data-entry, .publish, .contact-content, #contact-us #send
+{
+	background-image:url(images/homepage-sprite.png);
+	background-repeat:no-repeat;
 }
 
 /** Register form **/
@@ -322,18 +320,23 @@ a.login-parent
 	line-height: 33px;
 	padding: 0 15px 0 5px;
 }
+
 .login-section #registration-section a
 {
-	background: url("images/register.jpg") no-repeat scroll 0 0 transparent;
+	background-position:0 -3012px;
     color: #FFFFFF;
     display: block;
     float: left;
-    font-size: 22px;
+    font-size: 16px;
     height: 33px;
     line-height: 33px;
     text-align: center;
-    text-indent: -9999px;
     width: 111px;
+}
+
+.login-section #registration-section a:hover
+{
+	background-position:0 -3054PX;
 }
 
 /***Close header section***/
@@ -377,7 +380,7 @@ a.login-parent
 }
 
 .about-content {
-	background: url('images/what-is-bg.png') no-repeat right center;
+	background-position:455px 23px;
 	padding-bottom: 80px;
 }
 
@@ -417,12 +420,12 @@ p.paragraph-about {
 }
 
 .how-content {
-	background: url('images/how-to-bg.png') no-repeat right center;
+	background-position:455px -677px;
 }
 
 .registration
 {
-	background:url(../stylesheet/images/bottom-1.png) no-repeat top left;
+	background-position:0 -2353px;
 	font-size:12px;
 	font-family:Arial, Helvetica, sans-serif;
 	padding:5px 15px 5px 80px;
@@ -438,7 +441,7 @@ p.paragraph-about {
 
 .data-entry
 {
-	background:url(../stylesheet/images/bottom-2.png) no-repeat center left;
+	background-position:0 -2549px;
 	font-size:12px;
 	font-family:Arial, Helvetica, sans-serif;
 	padding:5px 15px 5px 80px;
@@ -449,7 +452,7 @@ p.paragraph-about {
 
 .publish
 {
-	background:url(../stylesheet/images/bottom-3.png) no-repeat top left;
+	background-position:0 -2735px;
 	font-size:12px;
 	font-family:Arial, Helvetica, sans-serif;
 	padding:5px 15px 5px 80px;
@@ -477,7 +480,7 @@ p.paragraph-about {
 }
 
 .contact-content {
-	background: url('images/contact-bg.png') no-repeat right center;
+	background-position:600px -1500px;
 }
 
 #contact-us input
@@ -491,7 +494,7 @@ p.paragraph-about {
 
 #contact-us #send
 {
-	background: url(images/contact-send.png) no-repeat 0 -46px;
+	background-position:0 -2941px;
 	cursor: pointer;
 	width: 160px;
 	height: 45px;
@@ -500,7 +503,7 @@ p.paragraph-about {
 
 #contact-us #send:hover
 {
-	background-position: 0 0;
+	background-position: -185px -2941px;
 }
 
 #contact-us textarea
@@ -575,51 +578,7 @@ p.paragraph-about {
 	text-indent:-9999px;
 	margin-right:5px;
 }
-/*
-#signup
-{
-	display:block;
-	height:20px;
-	width:60px;
-	float:right;
-	background:url(../images/signup-tab.png) no-repeat !important;
-	text-indent:-9999px;
-}
-#navigation
-{
-	height:35px;
-	background:url(../images/navigation-bg.png) no-repeat;
-}
-.home
-{
-	border:none !Important;
-}
-#navigation ul
-{
-	margin:0px;
-	padding:0px;
-}
-#navigation ul li
-{
-	list-style:none;
-	float:left;
-	font-family:Arial, Helvetica, sans-serif;
-	font-size:12px;
-	margin:10px 0 0 15px;
-	color:#887272;
-	border-left:1px solid #887272;
-	height:15px;
-}
-#navigation ul li a
-{
-	padding-left:15px;
-	color:#887272;
-	text-decoration:none;
-}
-#navigation ul li a:hover
-{
-	text-decoration:underline;
-}*/
+
 #content-section
 {
 	background:#f3f3f3;
