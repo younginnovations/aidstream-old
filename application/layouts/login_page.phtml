@@ -29,64 +29,71 @@
 
 <body class="login-layout">
     <div id="wrapper">
-	
-        <div id="header">
-            <a name="top"></a>
-            <div id="nav-logo-section">
-                <div class="container_12">
-                    <div id="logo-nav" class="grid_12">
-                        <div class="logo"> <a href="<?php print($this->baseUrl());?>/"><img alt="logo" src="<?php print($this->		baseUrl());?>/stylesheet/images/aid-stream-logo.png"></a>
-                        </div><!----close logo----->
-			<div class="nav">
-                            <ul class="menu">
-                                <li><a href="<? echo $this->baseUrl()?>/#contact-us" id="contact-link"><span class="title">Contact</span><br /><span>Comments,Suggestions</span></a></li>
-				<li><a href="<? echo $this->baseUrl()?>/#behind-aidstream" id="about-link"><span class="title">Who</span><br /><span>Who is behind AidStream?</span></a></li>
-                                <li><a href="<? echo $this->baseUrl()?>/#how-as" id="how-link"><span class="title">How</span><br /><span>How to use AidStream?</span></a></li>
-                                <li><a href="<? echo $this->baseUrl()?>/#what-as" id="what-link"><span class="title">What</span><br /><span>What is AidStream?</span></a></li>
-                            </ul>
-                        </div><!--Close nav-->                        
+        <div id="static-header">
+            <div id="header">
+                <a name="top"></a>
+                <div id="nav-logo-section">
+                    <div class="container_12">
+                        <div id="logo-nav" class="grid_12">
+                            <div class="logo"> <a href="<?php print($this->baseUrl());?>/"><img alt="logo" src="<?php print($this->		baseUrl());?>/stylesheet/images/aid-stream-logo.png"></a>
+                            </div><!----close logo----->
+                            <div class="nav">
+                                <ul class="menu">
+                                    <li><a href="<? echo $this->baseUrl()?>/#contact-us" id="contact-link"><span class="title">Contact</span><br /><span>Comments,Suggestions</span></a></li>
+    				                <li><a href="<? echo $this->baseUrl()?>/#behind-aidstream" id="about-link"><span class="title">Who</span><br /><span>Who is behind AidStream?</span></a></li>
+                                    <li><a href="<? echo $this->baseUrl()?>/#how-as" id="how-link"><span class="title">How</span><br /><span>How to use AidStream?</span></a></li>
+                                    <li><a href="<? echo $this->baseUrl()?>/#what-as" id="what-link"><span class="title">What</span><br /><span>What is AidStream?</span></a></li>
+                                </ul>
+                            </div><!--Close nav-->                        
+                        </div><!-- /logo-nav -->
+                    </div><!-- /container-12 -->
+                    <div class="clear"></div>
+                </div><!-- /logo-nav-section -->
+                
+                <div class="login-section"><!--Start login-section-->
+                    <div class="container_12">
+                        
+                        <div id="registration-section" class="grid_5">
+                            <div class="register-info">
+                                    <div class="register-text">Not Registered yet? Please </div>
+                                    <?php print $this->l('Register','user/user/register'); ?>
+                                    <div class="nothing"></div>
+                            </div>
+                        </div>
+
+                        <div id="login-form-section" class="grid_7">
+                            <? $auth = Zend_Auth::getInstance();  ?>
+                                <? if (!$auth->hasIdentity()):?>
+                                <? $form = new User_Form_User_Login(); ?>
+                                <div id="login-form-container">
+                                    <form method="<? echo $form->getMethod() ?>" action="<? echo $form->getAction()?>" id="<? echo $form->getId() ?>" >
+                        				<table>
+                        				    <tr>
+                        					<td><label><? echo $form->username->renderLabel();?></label></td>
+                        					<td><label><? echo $form->password->renderLabel();?></label><div class='forgot-password'>(<?php echo $this->l('Forgot Password?', 'user/user/forgotpassword');?>)</div></td>
+                        				    </tr>
+                        				    <tr>
+                        					<td><? echo $form->username->renderViewHelper();?><span id='username-error' class="error" ></span></td>
+                        					<td><? echo $form->password->renderViewHelper();?><span id='password-error' class="error" ></span></td>
+                        					<td><? echo $this->formSubmit('login','Login'); ?> </td>
+                        				    </tr>
+                        				</table>
+                                    </form>
+                                </div><!--Close login-form-container-->
+                                <div class="login-arrow"></div>
+                                <a class="login-parent" href="#">Login / Register</a>
+                            <? endif;?>
+                        </div><!--Close login-form-section-->
+
                     </div>
-                </div>
+                    <div class="clear"></div>
+                </div><!--Close login-section-->
                 <div class="clear"></div>
-            </div>
-            
-            <div class="login-section"><!--Start login-section-->
-                <div class="container_12">
-			<div id="registration-section" class="grid_5">
-			<div class="register-info"><div class="register-text">Not Registered yet? Please </div><?php print $this->l('Register','user/user/register'); ?>
-			<div class="nothing"></div></div>
-		</div>
-                    <div id="login-form-section" class="grid_7">
-			    <? $auth = Zend_Auth::getInstance();  ?>
-                            <? if (!$auth->hasIdentity()):?>
-                            <? $form = new User_Form_User_Login(); ?>
-                        <div id="login-form-container">
-			    <form method="<? echo $form->getMethod() ?>" action="<? echo $form->getAction()?>" id="<? echo $form->getId() ?>" >
-				<table>
-				    <tr>
-					<td><label><? echo $form->username->renderLabel();?></label></td>
-					<td><label><? echo $form->password->renderLabel();?></label><div class='forgot-password'>(<?php echo $this->l('Forgot Password?', 'user/user/forgotpassword');?>)</div></td>
-				    </tr>
-				    <tr>
-					<td><? echo $form->username->renderViewHelper();?><span id='username-error' class="error" ></span></td>
-					<td><? echo $form->password->renderViewHelper();?><span id='password-error' class="error" ></span></td>
-					<td><? echo $this->formSubmit('login','Login'); ?> </td>
-				    </tr>
-				</table>
-			    </form>
-			</div><!--Close login-form-container-->
-			<div class="login-arrow"></div>
-                        <a class="login-parent" href="#">Login / Register</a>
-                        <? endif;?>
-                    </div><!--Close login-form-section-->
-                </div>
-                <div class="clear"></div>
-            </div><!--Close login-section-->
-            <div class="clear"></div>
-                   
+            </div><!-- /header -->
+        </div><!-- /static-header-->           
             <!--search div start-->
 
-        <div class="clear"></div>
+            <div class="clear"></div>
 
          <div id="content-section"><!--Start content-section--->
             <div class="container_12">

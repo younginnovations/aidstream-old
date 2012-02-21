@@ -193,6 +193,7 @@ table {
 	-webkit-box-shadow: 0px 4px 5px 0px #969696;
 	-moz-box-shadow: 0px 4px 5px 0px #969696;
 	box-shadow: 0px 4px 5px 0px #969696; 
+	padding-bottom:4px;
 }
 
 #login-form-section
@@ -254,6 +255,7 @@ table {
 {
 	height: 0px;
 	overflow: hidden;
+	line-height:30px
 }
 
 #login-form-section .login-arrow
@@ -583,6 +585,12 @@ p.paragraph-about {
 {
 	background:#f3f3f3;
 }
+
+.login-layout #content-section
+{
+	margin-top: 100px;
+}
+
 .list-action {
 	display: none;
 }
@@ -1013,7 +1021,7 @@ h2.form-title {
 {
 	font-size:12px;
 	font-weight:normal;
-	background:url(../images/notification.jpg) no-repeat 10px center #f3f3f3;
+	background:url(../images/notification.png) no-repeat 10px center;
 	color:#000;
 	padding-left:40px;
 	border-radius: 4px 4px 4px 4px;
@@ -1033,7 +1041,7 @@ h2.form-title {
 {
 	font-size:12px;
 	font-weight:normal;
-	background:url(../images/warning.png) no-repeat 10px center #f3f3f3;
+	background:url(../images/warning.png) no-repeat 10px center;
 	color:#000;
 	padding-left:40px;
 	border-radius: 4px 4px 4px 4px;
@@ -1050,7 +1058,7 @@ ul.error
 	font-size:12px;
 	font-weight:normal;
 	font-style: italic;
-	background:url(../images/iati-wep/error.jpg) no-repeat 10px center #f3f3f3;
+	background:url(../images/error.png) no-repeat 10px center;
 	color:#000;
 	padding-left:40px;
 }
@@ -1069,6 +1077,12 @@ ul.error
 fieldset ul.errors {
 	margin-left: 170px;
 }
+
+.message, .info, .error
+{
+	background-color:#fce9b6;
+}
+
 /*Login pages*/
 
 label
@@ -2444,7 +2458,12 @@ form#support-form
 /** Flash messages**/
 #index-flash-messages
 {
-	background-color: #F3F3F3;
+	background-color: #fce9b6;
+}
+
+#index-flash-messages ul.error
+{
+	background-color: #fce9b6;
 }
 
 #index-flash-messages li
