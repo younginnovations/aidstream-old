@@ -1532,11 +1532,6 @@ fieldset dl
 }
 
 /** fix legend bug for chrome **/
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-fieldset dl
-{
-	padding-top: 15px;
-}
 }
 
 /* Activity page fieldset */
@@ -1976,7 +1971,7 @@ table#list-org {
 }
 
 .activity-detail-table table tr td.attrib-label,  .activity-detail-table tr td.attrib-label{
-	width: 30% !important;
+	width: 40% !important;
 }
 
 .activity-detail-table table tr td.attrib-value {
