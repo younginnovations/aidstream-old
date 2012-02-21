@@ -10,7 +10,7 @@ class User_UserController extends Zend_Controller_Action
 
     public function init()
     {
-        $this->_helper->layout()->setLayout('layout_wep');
+        $this->_helper->layout()->setLayout('login_page');
         /* Initialize action controller here */
     }
 
@@ -205,7 +205,21 @@ class User_UserController extends Zend_Controller_Action
         if($identity->role != 'superadmin'){
             $this->view->blockManager()->enable('partial/primarymenu.phtml');
             $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
+            $this->view->blockManager()->enable('partial/published-list.phtml');
             $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
+            // for role user check if the user has permission to add, publish ,if not disable menu.
+            if($identity->role == 'user'){
+                $model = new Model_Wep();
+                $userPermission = $model->getUserPermission($identity->user_id);
+                $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::ADD_ACTIVITY);
+                $publishPermission = $userPermission->hasPermission(Iati_WEP_PermissionConts::PUBLISH);
+                if(!$permission){
+                    $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
+                }
+                if(!$publishPermission){
+                    $this->view->blockManager()->disable('partial/published-list.phtml');
+                }
+            }
         }
     }
 
@@ -356,11 +370,6 @@ class User_UserController extends Zend_Controller_Action
 
         return $authAdapter;
     }  
-    
-    public function preDispatch()
-    {
-        $this->_helper->layout()->setLayout('login_page');
-    }
 
     public function testAction()
     {

@@ -83,6 +83,11 @@ class Iati_WEP_ActivityState
         return true;
     }
     
+    protected function _getNextStatus($status)
+    {
+        return self::_getStatus(++$status);
+    }
+    
     public static function getStatus($status_key = null)
     {
         return self::getInstance()->_getStatus($status_key);
@@ -101,5 +106,23 @@ class Iati_WEP_ActivityState
     public static function hasPermissionForState($state)
     {
         return self::getInstance()->_hasPermissionForState($state);
+    }
+    
+    public static function getNextStatus($state)
+    {
+        if($state == Iati_WEP_ActivityState::STATUS_EDITING) {
+            $next_state = Iati_WEP_ActivityState::STATUS_TO_BE_CHECKED;
+            
+        } else if($state == Iati_WEP_ActivityState::STATUS_TO_BE_CHECKED) {
+            
+            $next_state = Iati_WEP_ActivityState::STATUS_CHECKED;
+            
+        } else if($state == Iati_WEP_ActivityState::STATUS_CHECKED) {
+ 
+            $next_state = Iati_WEP_ActivityState::STATUS_PUBLISHED;
+        } else {
+            $next_state = null;
+        }
+        return $next_state;
     }
 }

@@ -852,13 +852,15 @@ class WepController extends Zend_Controller_Action
                 $i++;
             }
         }
+        if(Iati_WEP_ActivityState::hasPermissionForState(Iati_WEP_ActivityState::STATUS_PUBLISHED)){
+            $status_form = new Form_Wep_ActivityStatus();
+            $status_form->change->setLabel('Publish');
+            $status_form->change->setAttrib('id','publish');
+            $status_form->status->setValue(Iati_WEP_ActivityState::STATUS_PUBLISHED);
+            $status_form->setAction($this->view->baseUrl()."/wep/update-status");
+        }
 
         $this->view->activity_array = $activity_array;
-        $status_form = new Form_Wep_ActivityStatus();
-        $status_form->change->setLabel('Publish');
-        $status_form->change->setAttrib('id','publish');
-        $status_form->status->setValue(Iati_WEP_ActivityState::STATUS_PUBLISHED);
-        $status_form->setAction($this->view->baseUrl()."/wep/update-status");
         $this->view->status_form = $status_form;
     }
     
@@ -866,7 +868,6 @@ class WepController extends Zend_Controller_Action
     {
         if(!$activity_id = $this->getRequest()->getParam('activity_id'))
         {
-            //$this->_helper->FlashMessenger->addMessage(array('warning' => "Activity not found."));
             $this->_redirect('/wep/view-activities');
         }
         
@@ -883,24 +884,12 @@ class WepController extends Zend_Controller_Action
         $title_row = $model->getRowById('iati_title', 'activity_id', $activity_id);
         $activity['iati_title'] = $title_row['text'];
         
-        $status_form = new Form_Wep_ActivityChangeState();
-        $status_form->setAction($this->view->baseUrl()."/wep/update-status");
-        $status_form->ids->setValue($activity_id);
-        
-        if($state == Iati_WEP_ActivityState::STATUS_EDITING) {
-            $next_state = Iati_WEP_ActivityState::STATUS_TO_BE_CHECKED;
-            
-        } else if($state == Iati_WEP_ActivityState::STATUS_TO_BE_CHECKED) {
-            
-            $next_state = Iati_WEP_ActivityState::STATUS_CHECKED;
-            
-        } else if($state == Iati_WEP_ActivityState::STATUS_CHECKED) {
- 
-            $next_state = Iati_WEP_ActivityState::STATUS_PUBLISHED;
-        } else {
-            $next_state = null;
-        }
+        // Get form for status change
+        $next_state = Iati_WEP_ActivityState::getNextStatus($state);
         if($next_state && Iati_WEP_ActivityState::hasPermissionForState($next_state)){
+            $status_form = new Form_Wep_ActivityChangeState();
+            $status_form->setAction($this->view->baseUrl()."/wep/update-status");
+            $status_form->ids->setValue($activity_id);
             $status_form->status->setValue($next_state);
             $status_form->change_state->setLabel(Iati_WEP_ActivityState::getStatus($next_state));
         } else {
