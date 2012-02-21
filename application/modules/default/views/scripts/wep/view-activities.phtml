@@ -73,7 +73,7 @@
         </tbody>
     </table>
 </div>
-<?php print $this->status_form->render();?>
+<?php print ($this->status_form);?>
 <?php else: ?>
 <div class="no-data">No activity has been created. Please click on <?php echo $this->l('Add New Activity' , 'wep/add-activity');?> to create new activity.</div>
 <?php endif;?>
