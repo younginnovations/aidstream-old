@@ -30,6 +30,14 @@ class User_Form_User_Forgotpassword extends App_Form
             ));
         
         $this->addElement($login);
+        
+        foreach($this->getElements() as $element){
+            $element->addDecorators(array(
+                array(
+                      array( 'wrapperAll' => 'HtmlTag' ),
+                      array( 'tag' => 'div','class'=>'form-item'))
+            ));
+        }
     }
 
 }
