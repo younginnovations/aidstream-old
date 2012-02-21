@@ -39,13 +39,13 @@ input[type="radio"]
 
 h1
 {
-	color:#887272;
+	color:#000;
+	font-size:16px;
 	padding:5px 0;
 }
 
 h2
 {
-	font-size: 25px;
 	line-height: 35px;
 }
 
@@ -1107,9 +1107,10 @@ dt#update_registry-label label
 	margin: 0 10px 5px;
 }
 
-.form-element:hover, .form-item:hover
+.form-element:hover, .form-item:hover, .form-item:hover label
 {
 	background-color:#ecf6fc;
+	color: #000;
 }
 
 input.form-text, select.form-select, textarea
@@ -1343,6 +1344,18 @@ button.form-submit:hover, input.form-submit:hover, a.button:hover, .change-passw
 {
 	padding:10px 0;
 }
+
+#contain p.description
+{
+	color: #696969;
+	font-style:italic;
+}
+
+#contain .form-item:hover p.description
+{
+	color:#525252;
+}
+
 .code-list
 {
 	/*border:1px solid #000;*/
@@ -1511,7 +1524,7 @@ legend {
     font-weight: bold;
     margin-top:5px;
     padding: 5px 0 5px 10px;
-    width:100%;
+    width:590px;
 }
 
 fieldset:hover legend
@@ -1618,7 +1631,7 @@ fieldset dl
 	margin: 0;
 }
 
-fieldset.innermost + fieldset
+fieldset.innermost + fieldset, fieldset.inner + fieldset
 {
 	border-top:1px dashed #c0c0c0;
 	padding-top: 8px;
@@ -2077,7 +2090,7 @@ a.edit-element:hover
 	font-size:12px;
 	line-height:18px;
 	position: absolute;
-	top: -339px;
+	top: -342px;
 	right: 0;
 }
 
@@ -2227,6 +2240,11 @@ form#support-form
 	height: 39px;
 	margin: 0;
 	padding: 10px 5px 0;
+}
+
+#support_submit-element
+{
+	margin-top: 5px;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
