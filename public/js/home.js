@@ -229,6 +229,17 @@ function initialize() {
 					}
 				  }
 				}).play();
+                        
+                        dojo.animateProperty({
+                                node: dojo.byId('registration-section'),
+                                duration: 300,
+                                properties: {
+                                    height: {
+                                              start: "0",
+                                              end: "65"
+                                      }
+                                }
+                        }).play();
 		}
 	},
 
