@@ -829,6 +829,11 @@ h2.form-title {
 	margin-bottom: 0;
 }
 
+#sidebar-right #block-activity-menu ul.menu-leaf li:last-child
+{
+	border-bottom-color:#fff;
+}
+
 #sidebar-right #block-activity-menu ul.menu-leaf li:hover
 {
 	border-bottom:1px solid #8bbcf8;
@@ -844,7 +849,6 @@ h2.form-title {
 {
 	display:block;
 	padding: 6px 0 7px 25px;
-	background: url(../images/tick.png) no-repeat 5px top;
 }
 
 
@@ -911,11 +915,6 @@ h2.form-title {
 	background-color: #def3fc;
 	color: #009ADA;
 	text-decoration: none;
-}
-
-#block-activity-menu .content li a.active
-{
-	background-position: 5px -31px;
 }
 
 #nav-list ul li
@@ -1452,7 +1451,6 @@ code
 
 .remove .button
 {
-	background:url(../stylesheet/images/remove-icon.png) no-repeat 0 5px;
     border: none;
     border-radius: 0;
     color: #009ADA;
@@ -1462,29 +1460,10 @@ code
     text-decoration: none;
 }
 
-.remove .button:hover
-{
-	background:url(../stylesheet/images/remove-icon.png) no-repeat 0 -27px;
-}
-
 fieldset.remove-highlight
 {
 	outline:1px dashed #F7675C;
 	border-radius:4px;
-}
-
-.remove-this {
-    cursor: pointer;
-}
-
-.remove .button:hover, .addmore .button:hover
-{
-	background-color:transparent;
-}
-
-.addmore .button:hover
-{
-	background:url("../stylesheet/images/add-icon.png") no-repeat scroll 0 -27px;
 }
 
 #add-more{
@@ -1904,7 +1883,7 @@ table.activity-list-table tr:hover {
 
 .addmore .button
 {
-	background:url(../stylesheet/images/add-icon.png) no-repeat 0 5px;
+	background-color:transparent;
     border: none;
     border-radius: 0;
     color: #009ADA;
@@ -2655,4 +2634,47 @@ button#cd-cancel, button#cd-ok
 	border-radius:4px;
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
+}
+
+.remove a.button, .addmore a.button, #block-activity-menu .content li a
+{
+	background-image:url('images/inner-pages-icons.png');
+	background-repeat:no-repeat;
+	background-color:transparent;
+}
+
+.remove a.button:hover, .addmore a.button:hover, #block-activity-menu .content li a:hover
+{
+	background-color:transparent;
+}
+
+.remove .button
+{
+	background-position:0 5px;
+}
+
+.remove .button:hover
+{
+	background-position:0 -27px;
+}
+
+.addmore .button
+{
+	background-position:0 -58px;
+}
+
+.addmore a.button:hover
+{
+	background-color:transparent;
+	background-position:0 -90px;
+}
+
+#block-activity-menu .content li a
+{
+	background-position:0 -149px;
+}
+
+#block-activity-menu .content li a.active
+{
+	background-position:0 -120px;
 }
