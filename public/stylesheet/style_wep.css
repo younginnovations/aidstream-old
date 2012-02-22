@@ -1452,14 +1452,25 @@ code
 
 .remove .button
 {
-	background:url(../stylesheet/images/remove-icon.png) no-repeat center left;
+	background:url(../stylesheet/images/remove-icon.png) no-repeat 0 5px;
     border: none;
     border-radius: 0;
     color: #009ADA;
-    display: block;
+    display: inline-block;
     font-size: 12px;
     padding: 5px 0 5px 22px;
     text-decoration: none;
+}
+
+.remove .button:hover
+{
+	background:url(../stylesheet/images/remove-icon.png) no-repeat 0 -27px;
+}
+
+fieldset.remove-highlight
+{
+	outline:1px dashed #F7675C;
+	border-radius:4px;
 }
 
 .remove-this {
@@ -1469,11 +1480,6 @@ code
 .remove .button:hover, .addmore .button:hover
 {
 	background-color:transparent;
-}
-
-.remove .button:hover
-{
-	background:url(../stylesheet/images/remove-icon.png) no-repeat center left;
 }
 
 .addmore .button:hover
