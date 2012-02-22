@@ -1657,8 +1657,14 @@ fieldset.innermost + fieldset, fieldset.inner + fieldset
 	background:#84be45;
 	border:none;
 	border-radius:4px;
+	cursor: pointer;
 	color: #fff;
 	padding:5px 10px;
+}
+
+.check-uncheck:hover
+{
+	background:#6c9e37;
 }
 
 .group-wrapper 
