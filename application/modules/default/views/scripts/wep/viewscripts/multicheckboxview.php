@@ -1,7 +1,6 @@
 <?php
     $elem = $this->element;
     $values = $elem->getValue(true);
-    
     $checked = array();
     foreach($elem->getMultiOptions() as $option =>$value){
         $checked[] = $option;
@@ -33,9 +32,10 @@
     <div class="group-title"><?php echo $option ?></div>
     <div class="group-elements">
     <?php foreach($value as $value): ?>
-        <input type="checkbox" id = "<?= $value ?>" name = "<?= $elem->getName().'[]' ?>" value ="<?= $value ?>" "<?php if(in_array($value , $values)){ echo ' checked="checked"'; }?>/>
-        <?php echo ucwords(str_replace("_", " ", $value)) ?> <? if(in_array($value , Iati_WEP_AccountDisplayFieldGroup::$defaults)):?>
-        <span class="recommended">*</span>
+        <input type="checkbox" id = "<?= $value ?>" name = "<?= $elem->getName().'[]' ?>" value ="<?= $value ?>" <?php if($values) if(in_array($value , $values)){ echo ' checked="checked"'; }?>/>
+        <?php echo ucwords(str_replace("_", " ", $value)) ?>
+        <? if(in_array($value , Iati_WEP_AccountDisplayFieldGroup::$defaults)):?>
+            <span class="recommended">*</span>
         <? endif; ?>
         <br/>
     <?php endforeach; ?>
