@@ -1666,6 +1666,23 @@ fieldset.innermost + fieldset, fieldset.inner + fieldset
 	width:175px;
 }
 
+.recommended 
+{
+	color: #437c15;
+	font-weight:bold;
+}
+
+.recommended-message
+{
+	background-color:#e6e7e6;
+	border-radius:4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	font-style:italic;
+	margin: 0 10px;
+	padding: 5px;
+}
+
 .group-title
 {
 	font-weight:bold;
