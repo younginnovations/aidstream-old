@@ -129,6 +129,9 @@ class Ckan_Client
 		{
 			$this->set_api_key($api_key);
 		}
+                // set base URI from application.ini
+                $this->base_url = Zend_Registry::getInstance()->config->registry;
+                
 		// Set base URI and Ckan_client user agent string.
 		//$this->set_base_url();
 		$this->set_user_agent();
