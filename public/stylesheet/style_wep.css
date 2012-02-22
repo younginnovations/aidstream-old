@@ -2576,8 +2576,8 @@ form#support-form
 .defaults td.help-message-text {
 	width: 75%;
 }
-/* change Default Page */
 
+/* change Default Page */
 .default-info {
 	background:#fff88d url('images/help-bulb.png') no-repeat 10px center;
 	margin: 1.5em 0;
