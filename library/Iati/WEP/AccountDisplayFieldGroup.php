@@ -27,6 +27,9 @@ class Iati_WEP_AccountDisplayFieldGroup
     protected $conditions = '0';
     protected $result = '0';
     
+    public static $defaults = array('title' , 'transaction' , 'activity_status' , 'budget' , 'activity_date' ,
+                                       'participating_org' , 'description' , 'recipient_country' , 'sector');
+    
     public function getProperties(){
         return get_object_vars($this);
     }
