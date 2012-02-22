@@ -1484,7 +1484,7 @@ fieldset.remove-highlight
 
 .addmore .button:hover
 {
-	background:url("../stylesheet/images/add-icon.png") no-repeat scroll left center transparent;
+	background:url("../stylesheet/images/add-icon.png") no-repeat scroll 0 -27px;
 }
 
 #add-more{
@@ -1904,7 +1904,7 @@ table.activity-list-table tr:hover {
 
 .addmore .button
 {
-	background:url(../stylesheet/images/add-icon.png) no-repeat center left;
+	background:url(../stylesheet/images/add-icon.png) no-repeat 0 5px;
     border: none;
     border-radius: 0;
     color: #009ADA;
