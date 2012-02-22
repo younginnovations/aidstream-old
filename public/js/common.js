@@ -224,6 +224,16 @@ function initialize() {
             }
         },
         ".remove-this" : {
+            "onmouseover" : function(evt) {
+                var node = getTarget(evt).parentNode.parentNode;
+                dojo.addClass(node , 'remove-highlight');
+            },
+            
+            "onmouseout" : function(evt) {
+                var node = getTarget(evt).parentNode.parentNode;
+                dojo.removeClass(node , 'remove-highlight');
+            },
+            
             "onclick" : function (evt) {
                 
                 var removeNode = getTarget(evt).parentNode;
