@@ -41,14 +41,19 @@ class User_Form_User_RegisterForm extends App_Form
             
         $userIdentifier = new Zend_Form_Element_Text('user_identifier');
         $userIdentifier->setLabel('User Identifier')
-			->setValue('admin')
-        	->setAttrib('readonly' , true)
+	    ->setValue('admin')
+            ->setAttrib('readonly' , true)
+            ->setDescription('User Identifier is used to identify various users for a given Organization.
+                             The newly registered user will always have admin as User Identifier and will
+                             have administrative privilege in the system.')
             ->setAttrib('class', 'form-text');
             
         $username = new Zend_Form_Element_Text('user_name');
         $username->setLabel('User Name')
             ->setRequired()
             ->setAttrib('readonly' , true)
+            ->setDescription('User Name is a combination of Account Identifier and User Identifier.
+                             You may only change Account Identifier portion of the username')
             ->setAttrib('class', 'form-text');
 
 
