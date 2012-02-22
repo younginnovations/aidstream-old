@@ -2593,9 +2593,9 @@ dd#captcha-element
 .dijitDialogUnderlayWrapper
 {
 	background:#000 !important;
-	opacity: 0.85;
-	-moz-opacity: 0.85;
-	filter:alpha(opacity=8.5);
+	opacity: 0.7;
+	-moz-opacity: 0.7;
+	filter:alpha(opacity=7);
 }
 
 .dijitDialogUnderlay, .claro .dijitDialogUnderlay
@@ -2631,7 +2631,16 @@ dd#captcha-element
 	margin-left: 0 !important;
 }
 
-.claro .dijitButton .dijitButtonNode, .claro .dijitDropDownButton .dijitButtonNode, .claro .dijitComboButton .dijitButtonNode, .claro .dijitToggleButton .dijitButtonNode
+button#cd-cancel, button#cd-ok
+{
+	cursor: pointer;
+	margin: 0.2em;
+	border-radius:4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+}
+
+.claro .dijitButton .dijitButtonNode, .claro .dijitDropDownButton .dijitButtonNode, .claro .dijitComboButton .dijitButtonNode, .claro .dijitToggleButton .dijitButtonNode, button#cd-cancel, button#cd-ok
 {
 	background-color:#009ADA;
 	background-image:none;
@@ -2640,7 +2649,7 @@ dd#captcha-element
 	padding:5px 10px;
 }
 
-.claro .dijitButtonHover .dijitButtonNode, .claro .dijitDropDownButtonHover .dijitButtonNode, .claro .dijitComboButtonHover .dijitButtonNode, .claro .dijitToggleButtonHover .dijitButtonNode
+.claro .dijitButtonHover .dijitButtonNode, .claro .dijitDropDownButtonHover .dijitButtonNode, .claro .dijitComboButtonHover .dijitButtonNode, .claro .dijitToggleButtonHover .dijitButtonNode, button#cd-cancel:hover, button#cd-ok:hover
 {
 	background-color:#037BAC;
 	border-radius:4px;
