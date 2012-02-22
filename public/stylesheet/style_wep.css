@@ -591,6 +591,11 @@ p.paragraph-about {
 	margin-top: 100px;
 }
 
+@media screen and (-webkit-min-device-pixel-ratio:0)
+{
+	.login-layout #content-section {margin-top: 0; padding-top:100px;}
+}
+
 .list-action {
 	display: none;
 }
@@ -1453,8 +1458,6 @@ code
     color: #009ADA;
     display: block;
     font-size: 12px;
-	font-family:Arial, Helvetica, sans-serif;
-    font-weight:bold;
     padding: 5px 0 5px 22px;
     text-decoration: none;
 }
@@ -1901,8 +1904,6 @@ table.activity-list-table tr:hover {
     color: #009ADA;
     display: block;
     font-size: 12px;
-	font-family:Arial, Helvetica, sans-serif;
-    font-weight:bold;
     padding: 5px 0 5px 22px;
     text-decoration: none;
 }
@@ -2580,4 +2581,63 @@ form#support-form
 dd#captcha-element
 {
 	margin-left: 208px;
+}
+
+/* Dojo pop up overrides */
+.dijitDialogUnderlayWrapper
+{
+	background:#000 !important;
+	opacity: 0.85;
+	-moz-opacity: 0.85;
+	filter:alpha(opacity=8.5);
+}
+
+.dijitDialogUnderlay, .claro .dijitDialogUnderlay
+{
+	background-color:transparent;
+}
+
+.claro .dijitDialog
+{
+	border:none;
+	border-radius:4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+}
+
+.claro .dijitDialogTitleBar
+{
+	background-color:#fff;
+	background-image:none;
+	border:none;
+	font-size:18px;
+	padding: 20px 20px 5px;
+}
+
+.claro .dijitDialogPaneContent
+{
+	border-top:none;
+	padding: 0 20px 8px;
+}
+
+.claro .dijitDialogPaneContent p
+{
+	margin-left: 0 !important;
+}
+
+.claro .dijitButton .dijitButtonNode, .claro .dijitDropDownButton .dijitButtonNode, .claro .dijitComboButton .dijitButtonNode, .claro .dijitToggleButton .dijitButtonNode
+{
+	background-color:#009ADA;
+	background-image:none;
+	border:none;
+	color: #fff;
+	padding:5px 10px;
+}
+
+.claro .dijitButtonHover .dijitButtonNode, .claro .dijitDropDownButtonHover .dijitButtonNode, .claro .dijitComboButtonHover .dijitButtonNode, .claro .dijitToggleButtonHover .dijitButtonNode
+{
+	background-color:#037BAC;
+	border-radius:4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
 }
