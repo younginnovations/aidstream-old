@@ -240,7 +240,7 @@ function initialize() {
             },
             
             "onclick" : function (evt) {
-                
+
                 var removeNode = getTarget(evt).parentNode;
                 var removeUrl = dojo.attr(getTarget(evt), 'href');
                 //var grandParent = new dojo.NodeList(getTarget(evt).parentNode.parentNode);
@@ -250,6 +250,9 @@ function initialize() {
                 msg += '<p>This will remove all the subitems(if any) as well.</p>';
                 msg += '<p style="margin-left:100px"><button dojoType="dijit.form.Button" type="button" id="cd-ok">OK</button>';
                 msg += '<button dojoType="dijit.form.Button" type="button" id="cd-cancel">Cancel</button></p>';
+                
+                // Destroy all dialog box before creating new. Used to remove dialog box remaining after clicking close.
+                dojo.query('.dijitDialog').forEach(dojo.destroy);
                 
                 var confirmDlg = new dijit.Dialog({
                     title: "Are you Sure?",
