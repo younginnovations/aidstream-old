@@ -1652,6 +1652,15 @@ fieldset.innermost + fieldset, fieldset.inner + fieldset
 	padding-left:10px;*/
 }
 
+.check-uncheck 
+{
+	background:#84be45;
+	border:none;
+	border-radius:4px;
+	color: #fff;
+	padding:5px 10px;
+}
+
 .group-wrapper 
 {
 	float: left;
