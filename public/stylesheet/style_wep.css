@@ -2047,7 +2047,7 @@ table#list-org {
 }
 
 .edit-element {
-	padding-left: 8px;
+	padding: 4px 0 0 5px;
 	vertical-align: middle;
 }
 
