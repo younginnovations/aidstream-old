@@ -2103,7 +2103,7 @@ a.edit-element:hover
 	position: relative;
 	top: 0;
 	left: 0;
-	z-index: 1000;
+	z-index: 900;
 }
 
 #support-wrapper
