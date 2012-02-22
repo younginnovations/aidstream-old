@@ -42,10 +42,15 @@ var getTarget = function (event) {
 }
 
 var createDateTextBox = function (id, name, value) {
+    if(value){
+        date = value
+    } else {
+        date = 0;
+    }
     var dob = new dijit.form.DateTextBox({
         id : id,
         name : name, 
-	value : value,
+	value : date,
 	constraints: {datePattern:'yyyy-MM-dd'}
 	
     }, id);
