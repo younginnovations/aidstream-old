@@ -1023,13 +1023,8 @@ h2.form-title {
 
 .message, .info
 {
-	font-size:12px;
-	font-weight:normal;
 	background:url(../images/notification.png) no-repeat 10px center;
-	color:#000;
 	padding-left:40px;
-	border-radius: 4px 4px 4px 4px;
-	font-style: italic;
 }
 .message li
 {
@@ -1043,13 +1038,9 @@ h2.form-title {
 
 .warning, .info
 {
-	font-size:12px;
-	font-weight:normal;
 	background:url(../images/warning.png) no-repeat 10px center;
-	color:#000;
 	padding-left:40px;
 	border-radius: 4px 4px 4px 4px;
-	font-style: italic;
 }
 .warning li, .info li
 {
@@ -1059,16 +1050,11 @@ h2.form-title {
 
 ul.error
 {
-	font-size:12px;
-	font-weight:normal;
-	font-style: italic;
 	background:url(../images/error.png) no-repeat 10px center;
-	color:#000;
 	padding-left:40px;
 }
 .error
 {
-	font-size:12px;
 	color:#FF0000;
 	
 }
@@ -1082,9 +1068,15 @@ fieldset ul.errors {
 	margin-left: 170px;
 }
 
-.message, .info, .error
+.message, .info, .error, ul.error
 {
 	background-color:#fce9b6;
+	border-radius: 4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	font-size:12px;
+	font-style:italic;
+	color: #000;
 }
 
 /*Login pages*/
@@ -1682,6 +1674,8 @@ fieldset.innermost + fieldset, fieldset.inner + fieldset
 .activity-div{
     margin-bottom: 20px;   
 }
+
+.recommended
 
 .popup{
 	display:none;
