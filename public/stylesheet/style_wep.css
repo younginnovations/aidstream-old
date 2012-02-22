@@ -2105,7 +2105,7 @@ a.edit-element:hover
 	font-size:12px;
 	line-height:18px;
 	position: absolute;
-	top: -342px;
+	top: -330px;
 	right: 0;
 }
 
@@ -2144,6 +2144,7 @@ a.edit-element:hover
 	color: #fff;
 	padding: 0 0 13px;
 }
+
 
 form#support-form
 {
@@ -2235,14 +2236,20 @@ form#support-form
 #support-container form #support_submit
 {
 	background-color: #caf39f;
-	border: 3px solid #587737;
-	border-radius: 50px;
-	-moz-border-radius: 50px;
- 	-webkit-border-radius: 50px;
+	border: 1px solid #587737;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+ 	-webkit-border-radius: 4px;
 	color: #49533f;
 	cursor: pointer;
-	width: 142px;
-	font-size: 17px;
+	font-size: 14px;
+	padding: 5px 10px;
+	width:auto;
+}
+
+#support-container form #support_submit:hover
+{
+	background-color:#a4d572;
 }
 
 #support-container form #support_type
@@ -2476,12 +2483,12 @@ form#support-form
 #hidden-overlay
 {
 	display: none;
-	    height: 100%;
-	    left: 0;
-	    position: fixed;
-	    top: 0;
-	    width: 100%;
-	    z-index: 999;
+	height: 100%;
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 899;
 }
 
 /** Login hidden overlay **/
@@ -2572,10 +2579,10 @@ form#support-form
 /* change Default Page */
 
 .default-info {
+	background:#fff88d url('images/help-bulb.png') no-repeat 10px center;
 	margin: 1.5em 0;
-	padding:0.5em 0;
-	border: 1px dotted #999;
-	border-width: 1px 0;
+	padding:10px 10px 10px 79px;
+	border: 1px dotted #aaa23b;
 }
 
 dd#captcha-element
