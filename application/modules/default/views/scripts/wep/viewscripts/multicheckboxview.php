@@ -34,7 +34,10 @@
     <div class="group-elements">
     <?php foreach($value as $value): ?>
         <input type="checkbox" id = "<?= $value ?>" name = "<?= $elem->getName().'[]' ?>" value ="<?= $value ?>" "<?php if(in_array($value , $values)){ echo ' checked="checked"'; }?>/>
-        <?php echo ucwords(str_replace("_", " ", $value)) ?><br/>
+        <?php echo ucwords(str_replace("_", " ", $value)) ?> <? if(in_array($value , Iati_WEP_AccountDisplayFieldGroup::$defaults)):?>
+        <span class="recommended">*</span>
+        <? endif; ?>
+        <br/>
     <?php endforeach; ?>
     <?php $elementcount++ ?>
     </div>
@@ -43,3 +46,4 @@
     <div class="clear"></div>
 <?php endif; ?>
 <?php endforeach; ?>
+<div class="recommended-message"> <span class="recommended">*</span> Recommended groups.</div>

@@ -89,7 +89,7 @@ class User_UserController extends Zend_Controller_Action
                         $this->_helper->FlashMessenger->addMessage(array('error' => 'Error in sending mail.'));
                     }//end of try catch
                 } else {
-                    $this->_helper->FlashMessenger->addMessage(array('error' => 'Sorry, ' . $email . ' is not recognized as a valid e-mail address.'));
+                    $this->_helper->FlashMessenger->addMessage(array('error' => 'Sorry, ' . $email . ' is not a registered email in AidStream.'));
                 }//end of if
             } else {
                 $form->populate($formData);
