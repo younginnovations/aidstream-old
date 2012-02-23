@@ -258,16 +258,6 @@ table {
 	line-height:30px
 }
 
-#login-form-section .login-arrow
-{
-	background: url(images/login-arrow.png) no-repeat 0 5px;
-	height: 20px;
-	left: 35px;
-	position: absolute;
-	width: -27px;
-	z-index: 10;
-}
-
 a.login-parent
 {
 	background-color:#d5e0e4;
@@ -540,7 +530,6 @@ p.paragraph-about {
 
 #contact-us input#send-bottom
 {
-	background:url(../stylesheet/images/send-bottom.png) no-repeat;
 	padding-bottom:24px;
 	text-indent:-9999px;
 	cursor:pointer;
@@ -558,27 +547,6 @@ p.paragraph-about {
 	color: #979797;
 	float:right;
 	margin-top:5px;
-}
-
-#login-nav .user-login
-{
-	display:block;
-	height:20px;
-	width:60px;
-	float:right;
-	background:url(../images/Login-tab.png) no-repeat;
-	text-indent:-9999px;
-	/*margin-right:5px;*/
-}
-#login-nav .user-logout
-{
-	display:block;
-	height:20px;
-	width:60px;
-	float:right;
-	background:url(../images/Logout-tab.png) no-repeat;
-	text-indent:-9999px;
-	margin-right:5px;
 }
 
 #content-section
@@ -634,15 +602,12 @@ h2.form-title {
 
 
 #main-content-top {
-	background: url(../images/iati-wep/content-top.jpg) no-repeat;
+	background: #fff;
+	border-radius:4px 4px 0 0;
 	margin-top:15px;
 	height: 4px;
 }
 
-#main-content-bottom {
-	background: url(../images/iati-wep/content-bottom.jpg) no-repeat;
-	height: 4px;
-}
 #contain-body
 {
 	background-color: #fff;
@@ -662,24 +627,6 @@ h2.form-title {
 	margin-left: 20px;
 }
 
-#contain-top
-{
-	background:url(../images/contain-left-top-bg.png) no-repeat;
-	height:9px;
-	width:700px;
-	margin:0px;
-	padding:0px;
-}
-#contain-bottom
-{
-	background:url(../images/contain-left-bottom-bg.png) no-repeat;
-	height:9px;
-	width:700px;
-}
-#contain-area
-
-}
-
 #contain
 {
 	margin:0 20px;
@@ -689,18 +636,7 @@ h2.form-title {
 {
 	float:right;	
 }
-#contain-right-top
-{
-	background:url(../images/right-contain-top-bg.png) no-repeat;
-	height:9px;
-	width:220px;
-}
-#contain-right-bottom
-{
-	background:url(../images/right-contain-bottom-bg.png) no-repeat;
-	height:9px;
-	width:220px;
-}
+
 #contain-right-area
 {
 	width:218x;
@@ -746,24 +682,6 @@ h2.form-title {
 	outline: none;
 	float: left;
 	margin-right: 12px;
-}
-#block-list-menu .action-icon a
-{
-	background: url(../images/action-list.png) no-repeat left top;
-}
-#block-add-menu .action-icon a
-{
-	background: url(../images/action-add.png) no-repeat left top;
-}
-
-#block-list-published-files .action-icon a
-{
-	background: url(../images/published-files.png) no-repeat left top;
-}
-
-#block-list-help .action-icon a
-{
-	background: url(../images/edit-help-07.png) no-repeat left top;
 }
 
 #block-list-menu a,
@@ -970,9 +888,7 @@ h2.form-title {
 #footer-area
 {
 	height:78px;
-	width:940px;
-	/*background:url(../images/footer-bg.png) no-repeat;
-	height:84px;*/	
+	width:940px;	
 }
 
 #footer-area h2
@@ -998,86 +914,7 @@ h2.form-title {
 	margin-top:38px;	
 }
 
-/*alert massage*/
 
-.errors
-{
-	font-size:12px;
-	background:url(../images/wrong-icon.gif) no-repeat center left;
-	color:#FF0000;
-	margin-left:100px;
-	padding:1px 0 1px 20px;
-}
-.errors li
-{
-	margin:5px 0;
-}
-.form-required
-{
-	color:#F00;
-}
-
-#flash-messages ul {
-	margin-bottom: 10px;
-}
-
-.message, .info
-{
-	background:url(../images/notification.png) no-repeat 10px center;
-	padding-left:40px;
-}
-.message li
-{
-	padding: 9px;
-}
-.warning li, .info li
-{
-	margin: 0;
-	padding: 9px;
-}
-
-.warning, .info
-{
-	background:url(../images/warning.png) no-repeat 10px center;
-	padding-left:40px;
-	border-radius: 4px 4px 4px 4px;
-}
-.warning li, .info li
-{
-	margin: 0;
-	padding: 9px;
-}
-
-ul.error
-{
-	background:url(../images/error.png) no-repeat 10px center;
-	padding-left:40px;
-}
-.error
-{
-	color:#FF0000;
-	
-}
-.error li
-{
-	margin:9px 0;
-	padding: 9px;
-}
-
-fieldset ul.errors {
-	margin-left: 170px;
-}
-
-.message, .info, .error, ul.error
-{
-	background-color:#fce9b6;
-	border-radius: 4px;
-	-moz-border-radius:4px;
-	-webkit-border-radius:4px;
-	font-size:12px;
-	font-style:italic;
-	color: #000;
-}
 
 /*Login pages*/
 
@@ -1133,7 +970,6 @@ input.form-text, select.form-select, textarea
 }
 
 select.form-select {
-    background: #FFF url(images/select_arrow.gif) no-repeat right center;
     width: 306px;
 }
 
@@ -1151,7 +987,7 @@ input[type="checkbox"]
 	margin-top: 10px;
 }
 
-button.form-submit, input.form-submit, a.button, .change-password a, .profile-links, .dashboard-summary a, #Submit, #create_new_account, #reset_password, #login{
+button.form-submit, input.form-submit, a.button, .change-password a, .profile-links, .dashboard-summary a, #Submit, #create_new_account, #reset_password, #login, .change-password a{
 
     /*background: url("images/buttons.png") repeat-x scroll 0 0 transparent;
     border-color: #E4E4E4 #D2D2D2 #B4B4B4;
@@ -1180,9 +1016,15 @@ button.form-submit, input.form-submit, a.button, .change-password a, .profile-li
     text-decoration: none;
 }
 
-button.form-submit:hover, input.form-submit:hover, a.button:hover, .change-password a:hover, .profile-links:hover, .dashboard-summary a:hover, #Submit:hover, #create_new_account:hover, #reset_password:hover, #login:hover
+button.form-submit:hover, input.form-submit:hover, a.button:hover, .change-password a:hover, .profile-links:hover, .dashboard-summary a:hover, #Submit:hover, #create_new_account:hover, #reset_password:hover, #login:hover, .change-password a:hover
 {
 	background: none repeat scroll 0 0 #037bac;
+}
+
+#oldpassword-element p.description 
+{
+	margin-left:210px;
+	padding: 5px 0;
 }
 
 #Submit_and_view
@@ -1859,7 +1701,7 @@ table.activity-list-table tr:hover {
 	position: relative;
 }
 .activity-state .override-link {
-	background: url("../images/left-arrow.png") no-repeat scroll left center transparent;
+	background-position: 0 -181px;
 	font-weight: bold;
 	padding-left: 12px;
 	display: block;
@@ -2280,56 +2122,6 @@ form#support-form
 	margin-top: 5px;
 }
 
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-	#support-container form #support_type
-	{
-		width: 217px;
-		height: 31px;
-	}
-}
-
-#support-container form #support_type td
-{
-	border: none;
-	background: none;
-}
-
-#support-container form #support_type td.dijitButtonContents
-{
-	width: 250px;
-	*width: 245px;
-	-width: 245px;
-	*padding-left: 5px;
-	-padding-left: 5px;
-}
-
-#support-container form #support_type .dijitArrowButtonInner
-{
-	background: url(images/select.jpg) no-repeat top center;
-	width: 21px;
-}
-
-#support_type_dropdown #support_type_menu
-{
-	border: 1px solid #5A7240;
-}
-
-#support_type_dropdown .dijitMenuItemLabel
-{
-	background-color: #c8e7a7;
-	border: none;
-	color: #758465;
-	padding: 5px;
-}
-
-#support_type_dropdown .dijitHoverFocused .dijitMenuItemLabel
-{
-	background-color: #6E9743;
-	border: none;
-	color: #fff;
-	padding: 5px;
-}
-
 /** Home page content **/
 #what-as .about-content p,
 #behind-aidstream .who-content p
@@ -2364,13 +2156,6 @@ form#support-form
 	color: #595959;
 	font-size: 12px;
 	font-weight: normal;
-}
-
-.change-password a
-{
-	background-color: #f1f1f1;
-	color: #009ada;
-	font-size: 12px;
 }
 
 /** popup theming **/
@@ -2588,19 +2373,6 @@ form#support-form
 	width: 75%;
 }
 
-/* change Default Page */
-.default-info {
-	background:#fff88d url('images/help-bulb.png') no-repeat 10px center;
-	margin: 1.5em 0;
-	padding:10px 10px 10px 79px;
-	border: 1px dotted #aaa23b;
-}
-
-dd#captcha-element
-{
-	margin-left: 208px;
-}
-
 /* Dojo pop up overrides */
 .dijitDialogUnderlayWrapper
 {
@@ -2669,7 +2441,7 @@ button#cd-cancel, button#cd-ok
 	-webkit-border-radius:4px;
 }
 
-.remove a.button, .addmore a.button, #block-activity-menu .content li a
+.remove a.button, .addmore a.button, #block-activity-menu .content li a, .action-icon a, .default-info, .message, .info, .error, ul.error, .warning, .activity-state .override-link
 {
 	background-image:url('images/inner-pages-icons.png');
 	background-repeat:no-repeat;
@@ -2710,4 +2482,151 @@ button#cd-cancel, button#cd-ok
 #block-activity-menu .content li a.active
 {
 	background-position:0 -120px;
+}
+
+#block-list-menu .action-icon a
+{
+	background-position:0 -679px;
+}
+
+#block-list-menu:hover .action-icon a
+{
+	background-position:0 -759px;
+}
+
+#block-add-menu .action-icon a
+{
+	background-position:0 -844px;
+}
+
+#block-add-menu:hover .action-icon a
+{
+	background-position:0 -927px;
+}
+
+#block-list-published-files .action-icon a
+{
+	background-position:0 -1010px;
+}
+
+#block-list-published-files:hover .action-icon a
+{
+	background-position:0 -1093px;
+}
+
+#block-list-help .action-icon a
+{
+	background-position:0 -1176px;
+}
+
+#block-list-help:hover .action-icon a
+{
+	background-position:0 -1259px;
+}
+
+/* change Default Page */
+.default-info {
+	background-color:#fff88d;
+	background-position:10px -275px;
+	margin: 1.5em 0;
+	padding:10px 10px 10px 79px;
+	border: 1px dotted #aaa23b;
+}
+
+dd#captcha-element
+{
+	margin-left: 208px;
+}
+
+/*alert massage*/
+
+.errors
+{
+	font-size:12px;
+	background:url(../images/wrong-icon.gif) no-repeat center left;
+	color:#FF0000;
+	margin-left:100px;
+	padding:1px 0 1px 20px;
+}
+.errors li
+{
+	margin:5px 0;
+}
+.form-required
+{
+	color:#F00;
+}
+
+#flash-messages ul {
+	margin-bottom: 10px;
+}
+
+.message, .info
+{
+	background-position:15px -503px;
+	padding-left:40px;
+}
+
+#flash-messages .message, #flash-messages .info
+{
+	background-position:15px -508px;
+}
+
+.message li
+{
+	padding: 9px;
+}
+.warning li, .info li
+{
+	margin: 0;
+	padding: 9px;
+}
+
+.warning
+{
+	background-position:15px -586px;
+	padding-left:40px;
+}
+
+#flash-messages .warning
+{
+	background-position:15px -589px;
+}
+
+.warning li, .info li, .error li
+{
+	margin: 0;
+	padding: 9px;
+}
+
+ul.error
+{
+	background-position:15px -420px;
+	padding-left:40px;
+}
+
+#flash-messages ul.error
+{
+	background-position:15px -425px;
+}
+
+.error
+{
+	color:#FF0000;
+	
+}
+
+fieldset ul.errors {
+	margin-left: 170px;
+}
+
+.message, .info, .error, ul.error, .warning
+{
+	background-color:#fce9b6;
+	border-radius: 4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	font-size:12px;
+	font-style:italic;
+	color: #000;
 }
