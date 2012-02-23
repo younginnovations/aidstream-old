@@ -31,6 +31,13 @@ class User_Form_User_Changepassword extends App_Form
         $submit->setValue('change')->setAttrib('class', 'form-submit');
         $this->addElement($submit);
         $this->setMethod('post');
+        foreach($this->getElements() as $element){
+            $element->addDecorators(array(
+                array(
+                      array( 'wrapperAll' => 'HtmlTag' ),
+                      array( 'tag' => 'div','class'=>'form-item'))
+            ));
+        }
     }
 
 }
