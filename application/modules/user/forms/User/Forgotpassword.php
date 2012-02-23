@@ -10,7 +10,9 @@ class User_Form_User_Forgotpassword extends App_Form
         $this->setMethod('post');
         
         $email = new Zend_Form_Element_Text('email');
-        $email->setLabel('Email')->setRequired();
+        $email->setLabel('Email')
+            ->setRequired()
+            ->setAttrib('class' , 'form-text');
         $this->addElement($email);
 
         $login = new Zend_Form_Element_Submit('reset_password');

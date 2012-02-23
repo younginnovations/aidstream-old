@@ -11,12 +11,14 @@ class User_Form_User_Login extends App_Form
 	    ->setAction(Zend_Controller_Front::getInstance()->getBaseUrl().'/user/user/login');
 	    
         $username = new Zend_Form_Element_Text('username');
-        $username->setLabel('Username')->setRequired()
-        	->setAttrib('class','input_box username');
+        $username->setLabel('Username')
+            ->setRequired()
+            ->setAttrib('class','input_box username form-text');
 
         $password = new Zend_Form_Element_Password('password');
         $password->setLabel('Password')
-        	 ->setAttrib('class','input_box password')->setRequired();
+            ->setRequired()
+            ->setAttrib('class','input_box password form-text');
 
         $login = new Zend_Form_Element_Submit('login');
         $login->setLabel('Login');
