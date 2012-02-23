@@ -627,11 +627,6 @@ h2.form-title {
 	margin-left: 20px;
 }
 
-#contain
-{
-	margin:0 20px;
-	padding-bottom:20px;
-}
 #contain-right
 {
 	float:right;	
@@ -704,6 +699,7 @@ h2.form-title {
 
 #sidebar-right #block-activity-menu h2 
 {
+	font-size:18px;
 	font-weight: bold;
 	line-height: 25px;
 	margin-bottom: 8px;
