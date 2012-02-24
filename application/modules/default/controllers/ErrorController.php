@@ -5,6 +5,15 @@ class ErrorController extends Zend_Controller_Action
     public function init()
     {
         $this->_helper->Layout->setLayout('layout_error');
+        
+        // diable all menu items
+        $this->view->blockManager()->disable('partial/superadmin-menu.phtml');
+        $this->view->blockManager()->disable('partial/dashboard.phtml');
+        $this->view->blockManager()->disable('partial/primarymenu.phtml');
+        $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
+        $this->view->blockManager()->disable('partial/published-list.phtml');
+        $this->view->blockManager()->disable('partial/published-list.phtml');
+        $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
     }
     public function errorAction()
     {
@@ -32,10 +41,9 @@ class ErrorController extends Zend_Controller_Action
                     $this->view->message = 'Application error';
                     break;
             }
-            
             // Log exception, if logger available
             if ($log = $this->getLog()) {
-                $log->crit($this->view->message, $errors->exception);
+                $log->log($errors->exception->getMessage(), Zend_log::CRIT);
             }
         }
         

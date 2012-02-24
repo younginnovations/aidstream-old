@@ -32,7 +32,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         $sessionOptions = Zend_Registry::get('config')->resources->session->toArray();
         Zend_Session::setOptions($sessionOptions);
-        Zend_Session::start();
     }
 
     function _initFrontController()
@@ -123,16 +122,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $writer_filesys = new Zend_Log_Writer_Stream(APPLICATION_PATH . '/../data/log/zf.iati.log');
         $logger->addWriter($writer_filesys);
 
-        // non-production gets firebug and session log writers
-        if (APPLICATION_ENV != 'production') {
-            $writer_firebug = new Zend_Log_Writer_Firebug();
-            //$logger->addWriter($writer_firebug);
-
-
-            $writer_session = new App_Log_Writer_Session();
-            $logger->addWriter($writer_session);
-        } // production gets email log writer
-        elseif (APPLICATION_ENV == 'production') {
+        if (APPLICATION_ENV == 'production') {
             $email = new Zend_Mail();
 
             $email->setFrom($config['fromAddress'])->addTo($config['errLogging']);
