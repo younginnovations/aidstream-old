@@ -2536,7 +2536,7 @@ dd#captcha-element
 
 /*alert massage*/
 
-.errors
+.errors, p.error
 {
 	font-size:12px;
 	background:url(../images/wrong-icon.gif) no-repeat center left;
@@ -2544,6 +2544,12 @@ dd#captcha-element
 	margin-left:100px;
 	padding:1px 0 1px 20px;
 }
+
+p.error, #contain p.error
+{
+	padding-left:20px;
+}
+
 .errors li
 {
 	margin:5px 0;
@@ -2616,7 +2622,7 @@ span#username-error.error, span#password-error.error
 	background:none;	
 }
 
-fieldset ul.errors {
+fieldset ul.errors, fieldset p.error {
 	margin-left: 210px;
 }
 
