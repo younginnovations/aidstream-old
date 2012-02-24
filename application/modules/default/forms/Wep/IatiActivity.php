@@ -16,7 +16,10 @@ class Form_Wep_IatiActivity extends App_Form
 
         }
         $form['xml_lang'] = new Zend_Form_Element_Select('xml_lang');
-        $form['xml_lang']->setLabel('Language')->setAttrib('class', 'form-select')->addMultiOption('', 'Select anyone');
+        $form['xml_lang']->setLabel('Language')
+            ->setAttrib('class', 'form-select')
+            ->setRequired()
+            ->addMultiOption('', 'Select anyone');
         if($status != 'edit'){
             $form['xml_lang']->setValue($default['language']);
         }
@@ -27,7 +30,9 @@ class Form_Wep_IatiActivity extends App_Form
          
         $form['default_currency'] = new Zend_Form_Element_Select('default_currency');
         $form['default_currency']->setLabel('Default Currency')
-        ->setAttrib('class', 'form-select')->addMultiOption('', 'Select anyone');
+            ->setRequired()
+            ->setAttrib('class', 'form-select')
+            ->addMultiOption('', 'Select anyone');
          if($status != 'edit'){
             $form['default_currency']->setValue($default['currency']);
         }
@@ -48,7 +53,7 @@ class Form_Wep_IatiActivity extends App_Form
                         'Label',
                         array('HtmlTag', array(
                                                'tag'        =>'<div>',
-                                               'placement'  =>'APPEND',
+                                               'placement'  =>'PREPEND',
                                                'class'      =>'help activity-'.$item_name
                                                )
                             ),
