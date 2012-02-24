@@ -352,8 +352,8 @@ class User_UserController extends Zend_Controller_Action
     public function logoutAction()
     {
         Zend_Session:: namespaceUnset('superadmin');
-        $auth = Zend_Auth::getInstance()->getIdentity();
         Zend_Auth::getInstance()->clearIdentity();
+        Zend_Session::forgetMe();
         
         $this->_helper->FlashMessenger->addMessage(array('message' => 'Successfully logged out.'));
 

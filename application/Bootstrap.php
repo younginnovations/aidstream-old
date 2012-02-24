@@ -11,6 +11,29 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                             "namespace" => '',
                             "basePath" => APPLICATION_PATH . '/modules/default'));                
     }
+    
+    protected function _initRegisterNamespace()
+    {
+        $autoloader = Zend_Loader_Autoloader::getInstance();
+        $autoloader->registerNamespace('Iati_');
+        $autoloader->registerNamespace('App_');
+        $autoloader->registerNamespace('Ckan_');
+    }
+    
+    protected function _initRegistry()
+    {
+        $registry = Zend_Registry::getInstance();
+        $registry->config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', APPLICATION_ENV, true);
+
+        return $registry;
+    }
+    
+    protected function _initSession()
+    {
+        $sessionOptions = Zend_Registry::get('config')->resources->session->toArray();
+        Zend_Session::setOptions($sessionOptions);
+        Zend_Session::start();
+    }
 
     function _initFrontController()
     {
@@ -37,14 +60,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->headTitle('ZendFramework');
         // Initialize Zendx jquery viewHelper
         $view->addHelperPath('ZendX/JQuery/View/Helper/', 'ZendX_JQuery_View_Helper');
-    }
-
-    protected function _initRegisterNamespace()
-    {
-        $autoloader = Zend_Loader_Autoloader::getInstance();
-        $autoloader->registerNamespace('Iati_');
-        $autoloader->registerNamespace('App_');
-        $autoloader->registerNamespace('Ckan_');
     }
 
     /* public function _initRouter()
@@ -86,7 +101,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         //$auth = Zend_Auth::getInstance();
         $frontController = Zend_Controller_Front::getInstance();
         $frontController->registerPlugin(new App_AccessCheck($this->_acl));
-
+        
         //for the guest user role is assigned as guest rather than null and for other roles it is fetched from zend_auth
         if (Zend_Auth::getInstance()->hasIdentity()) {
             Zend_Registry::set('role', Zend_Auth::getInstance()->getStorage()->read()->role);
@@ -97,14 +112,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         // writing the Zend_Acl to registry allowing to use it any where in the model
 
         Zend_Registry::set('acl', $this->_acl);
-    }
-
-    protected function _initRegistry()
-    {
-        $registry = Zend_Registry::getInstance();
-        $registry->config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', APPLICATION_ENV, true);
-
-        return $registry;
     }
 
     protected function _initLogger()
