@@ -2536,7 +2536,7 @@ dd#captcha-element
 
 /*alert massage*/
 
-.errors
+.errors, p.error
 {
 	font-size:12px;
 	background:url(../images/wrong-icon.gif) no-repeat center left;
@@ -2544,6 +2544,12 @@ dd#captcha-element
 	margin-left:100px;
 	padding:1px 0 1px 20px;
 }
+
+p.error, #contain p.error
+{
+	padding-left:20px;
+}
+
 .errors li
 {
 	margin:5px 0;
@@ -2606,14 +2612,18 @@ ul.error
 	background-position:15px -425px;
 }
 
-.error
+.error, span#username-error.error, span#password-error.error
 {
-	color:#FF0000;
-	
+	color:#FF0000;	
 }
 
-fieldset ul.errors {
-	margin-left: 170px;
+span#username-error.error, span#password-error.error
+{
+	background:none;	
+}
+
+fieldset ul.errors, fieldset p.error {
+	margin-left: 210px;
 }
 
 .message, .info, .error, ul.error, .warning
@@ -2625,4 +2635,16 @@ fieldset ul.errors {
 	font-size:12px;
 	font-style:italic;
 	color: #000;
+}
+
+input.error, select.error, textarea.error
+{
+	background:none;
+	border:1px solid #d80808;
+	border-radius:0;
+}
+
+fieldset #captcha-element ul.errors
+{
+	margin-left:0;
 }
