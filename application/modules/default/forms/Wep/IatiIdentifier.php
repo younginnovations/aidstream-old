@@ -19,7 +19,7 @@ class Form_Wep_IatiIdentifier extends App_Form
                                                             'Label',
                                                             array('HtmlTag', array(
                                                                                    'tag'        =>'<div>',
-                                                                                   'placement'  =>'APPEND',
+                                                                                   'placement'  =>'PREPEND',
                                                                                    'class'      =>'help activity_identifier'
                                                                                    )
                                                                 ),
@@ -38,7 +38,7 @@ class Form_Wep_IatiIdentifier extends App_Form
                                                             'Label',
                                                             array('HtmlTag', array(
                                                                                    'tag'        =>'<div>',
-                                                                                   'placement'  =>'APPEND',
+                                                                                   'placement'  =>'PREPEND',
                                                                                    'class'      =>'help identifier-text'
                                                                                    )
                                                                 ),

@@ -120,7 +120,7 @@ class Form_Wep_EditDefaults extends App_Form
                         array('HtmlTag',
                               array(
                                     'tag'        =>'<div>',
-                                    'placement'  =>'APPEND',
+                                    'placement'  =>'PREPEND',
                                     'class'      =>'help activity_defaults-'.$item_name
                                 )
                             ),
