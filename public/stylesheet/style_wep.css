@@ -2606,14 +2606,18 @@ ul.error
 	background-position:15px -425px;
 }
 
-.error
+.error, span#username-error.error, span#password-error.error
 {
-	color:#FF0000;
-	
+	color:#FF0000;	
+}
+
+span#username-error.error, span#password-error.error
+{
+	background:none;	
 }
 
 fieldset ul.errors {
-	margin-left: 170px;
+	margin-left: 210px;
 }
 
 .message, .info, .error, ul.error, .warning
@@ -2625,4 +2629,16 @@ fieldset ul.errors {
 	font-size:12px;
 	font-style:italic;
 	color: #000;
+}
+
+input.error, select.error, textarea.error
+{
+	background:none;
+	border:1px solid #d80808;
+	border-radius:0;
+}
+
+fieldset #captcha-element ul.errors
+{
+	margin-left:0;
 }
