@@ -22,6 +22,8 @@ class User_Form_User_RegisterForm extends App_Form
         $account_identifier = new Zend_Form_Element_Text('account_identifier');
         $account_identifier->setLabel('Account Identifier')
             ->setRequired()
+            ->addValidator('Db_NoRecordExists', false, array('table' => 'account','field' => 'username'))
+            ->addErrorMessage('This account identifier is already used')
             ->setDescription("Your account identifier will be used as a prefix for all the users in your organisation,
                              and in the file-naming of your published IATI data. We recommend that you use a short
                              abbreviation that uniquely identifies your organisation.

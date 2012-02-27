@@ -26,18 +26,11 @@ class User_UserController extends Zend_Controller_Action
         $modelWep = new Model_Wep();
         if ($formData) {
                 if ($form->isValid($formData)) {
-                    $result = $modelWep->getRowsByFields('account', 'username', $formData['account_identifier']);
-                    if (!empty($result)) {
-                        $this->_helper->FlashMessenger->addMessage(array('error' => "Account Identifier already exists."));
-                        $form->populate($formData);
-                    } else {
-                        $userModel = new User_Model_User();
-                        $accountId = $userModel->registerUser($formData);
-                            
-                        $this->_helper->FlashMessenger->addMessage(array('message' => 'Thank you for registering. You will receive an email shortly'));
-                        $this->_redirect('/');
-                    }
-                    
+                    $userModel = new User_Model_User();
+                    $accountId = $userModel->registerUser($formData);
+                        
+                    $this->_helper->FlashMessenger->addMessage(array('message' => 'Thank you for registering. You will receive an email shortly'));
+                    $this->_redirect('/');                    
                 }
         }
         $this->view->form = $form;
