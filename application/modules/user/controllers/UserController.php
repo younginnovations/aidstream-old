@@ -139,7 +139,7 @@ class User_UserController extends Zend_Controller_Action
                         $this->_redirect('/');
                     }
                     
-                    $identity = $authAdapter->getResultRowObject();
+                    $identity = $authAdapter->getResultRowObject(null , 'password');
 
                     //getting role from table role and merging it with $authAdapter->getResultRowObject() [adding role to identity]
                     $rolevalue = new User_Model_DbTable_Role;
@@ -400,8 +400,7 @@ class User_UserController extends Zend_Controller_Action
                 $authAdapter->setIdentity($user_id)
                     ->setCredential($account_id);
                 $accountAuth->authenticate($authAdapter);
-                $identity = $authAdapter->getResultRowObject();
-    
+                $identity = $authAdapter->getResultRowObject(null, 'password');
                 $rolevalue = new User_Model_DbTable_Role;
                 $role = $rolevalue->getRoleById($identity->role_id);
                 $std = new stdClass;
