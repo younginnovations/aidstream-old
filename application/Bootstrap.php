@@ -117,9 +117,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         $config = $this->getOption('email');
         $logger = new Zend_Log();
-        //$logger->addPriority('SQL');
-        // TODO set filter for production env--supress logging under warning level
+        
+        // register our custom error handler
+        App_Error_Handler::register();
+        
         $writer_filesys = new Zend_Log_Writer_Stream(APPLICATION_PATH . '/../data/log/zf.iati.log');
+        $writer_filesys->addFilter(Zend_Log::WARN);
+        
         $logger->addWriter($writer_filesys);
 
         if (APPLICATION_ENV == 'production') {

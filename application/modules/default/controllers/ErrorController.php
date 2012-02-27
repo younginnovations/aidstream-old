@@ -43,7 +43,7 @@ class ErrorController extends Zend_Controller_Action
             }
             // Log exception, if logger available
             if ($log = $this->getLog()) {
-                $log->log($errors->exception->getMessage(), Zend_log::CRIT);
+                $log->log($errors->exception->getMessage() , Zend_Log::ERR);
             }
         }
         
