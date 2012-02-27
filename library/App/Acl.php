@@ -44,17 +44,6 @@ class App_Acl extends Zend_Acl
         $this->allow('guest', 'default:index', 'index');
         $this->allow('guest', 'default:error', 'error');
         $this->allow('guest', 'default:error', 'error404');
-        $this->allow('guest', 'default:code-list', 'code-list-index');
-        $this->allow('guest', 'default:code-list', 'view-code');
-        $this->allow('guest', 'default:code-list', 'view-category');
-        $this->allow('guest', 'default:form');
-        $this->allow('guest', 'default:iati');
-        $this->allow('guest', 'default:iatixmlcompliance');
-        $this->allow('guest', 'default:crstoiati');
-        $this->allow('guest', 'default:api');
-        $this->allow('guest', 'default:activityviewer');
-        $this->allow('guest', 'default:iatixmlController');
-        $this->allow('guest', 'default:wep', 'register');
         $this->allow('guest', 'default:wep', 'index');
         $this->allow('guest', 'nullresources');
 
@@ -77,7 +66,6 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'default:wep', 'edit-activity-elements', new App_ActionAssertion('edit_activity_elements'));
         $this->allow('user', 'default:wep', 'publish-in-registry' , new App_ActionAssertion('publish'));
         $this->allow('user', 'default:wep', 'delete-published-file' , new App_ActionAssertion('publish'));
-        $this->allow('user', 'default:addelement');
         $this->allow('user', 'default:wep', 'delete', new App_ActionAssertion('delete'));
         
         $this->allow('user', 'default:wep', 'delete-activity', new App_ActionAssertion('delete_activity'));
@@ -89,9 +77,7 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'default:wep', 'get-help-message');
         $this->allow('user', 'default:wep', 'list-published-files');
 
-
         $this->allow('admin', 'user');
-
         $this->allow('admin', 'default:code-list');
         $this->allow('admin', 'default:wep', 'edit-defaults');
         $this->allow('admin', 'default:wep', 'view-activities');
@@ -109,11 +95,10 @@ class App_Acl extends Zend_Acl
         $this->allow('admin', 'default:admin', 'delete-user');
         $this->allow('admin', 'default:admin', 'edit-user-permission');
         $this->allow('admin', 'default:admin', 'reset-user-password');
-        $this->allow('admin', 'default:admin', 'change-organisation-status');
-//        $this->allow('admin', 'user:user', 'test', new App_ResourceAssertion('title'));
-//        $this->allow('admin', 'default:wep', 'edit-activity-elements', new App_sResourceAssertion('title'));
-        $this->deny('user', 'user:user', 'register');
+
         $this->allow('superadmin', 'default:admin');
+        $this->allow('superadmin', 'default:admin' , 'register');
+        $this->allow('superadmin', 'default:admin', 'change-organisation-status');
     }
 
     public function isAllowed($role = null, $resource = null, $privilege = null)
