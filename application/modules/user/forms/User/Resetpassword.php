@@ -24,6 +24,13 @@ class User_Form_User_Resetpassword extends App_Form
 
         $this->addElements(array($email, $password, $confirmPassword, $login));
         $this->setMethod('post');
+        foreach($this->getElements() as $item)
+        {
+            $item->addDecorators( array(
+                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
+                    )
+            );
+        }
     }
 
 }
