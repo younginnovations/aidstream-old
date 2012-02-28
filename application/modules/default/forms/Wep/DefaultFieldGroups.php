@@ -3,7 +3,7 @@ class Form_Wep_DefaultFieldGroups extends App_Form
 {
 
     public function load($defaults){
-        
+
         $button = new Zend_Form_Element_Button('button');
         $button->setLabel('Check All')
             ->setAttrib('class', 'check-uncheck');
@@ -16,7 +16,6 @@ class Form_Wep_DefaultFieldGroups extends App_Form
                 $checked[] = $key;
             }
         }
-                
         $this->addElement('multiCheckbox', 'default_fields', array(
                                 'disableLoadDefaultDecorators' => true,
                                 'separator'    => '&nbsp;',

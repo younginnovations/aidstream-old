@@ -1,7 +1,7 @@
 <?php
 class Form_Wep_Accountregister extends App_Form
 {
-    public function add($defaultFields = '', $state = 'add')
+    public function add($defaults = '', $state = 'add')
     {
         $form = array();
 
@@ -21,6 +21,8 @@ class Form_Wep_Accountregister extends App_Form
         $form['organisation_username'] = new Zend_Form_Element_Text('organisation_username');
         $form['organisation_username']->setLabel("Username Prefix <a href='#' id='suffix'>?</a>")
             ->setRequired()
+            ->addValidator('Db_NoRecordExists', false, array('table' => 'account','field' => 'username'))
+            ->addErrorMessage('Prefix is already used')
             ->setDescription('<div class="popup">This name will be prefixed to all the usernames created for the organisation (eg if the prefix is ABC then the username will be ABC_admin for admin user.)</div>')
             ->setAttrib('class', 'form-text')
             ->setDecorators(array(
@@ -70,124 +72,12 @@ class Form_Wep_Accountregister extends App_Form
             ->addFilter('stringTrim')
             ->setRequired();
         
-        $currency = $model->getCodeArray('Currency',null,'1');
-        $selectedCurrency = $model->findIdByFieldData('Currency', $defaultFields['field_values']['currency'], '1');
-        $form['default_currency'] = new Zend_Form_Element_Select('default_currency');
-        $form['default_currency']->setRequired()
-            ->setLabel('Currency')
-            ->setValue($selectedCurrency[0]['id'])
-            ->addMultiOption('', 'Select anyone')
-            ->setAttrib('class', 'form-select');
-        foreach($currency as $key => $eachCurrency){
-            $form['default_currency']->addMultiOption($key, $eachCurrency);
-        }
-        
-        $language = $model->getCodeArray('Language',null,'1');
-        $selectedLanguage = $model->findIdByFieldData('Language', $defaultFields['field_values']['language'], '1');
-        $form['default_language'] = new Zend_Form_Element_Select('default_language');
-        $form['default_language']->setRequired()
-            ->setLabel('Language')
-            ->setValue($selectedLanguage[0]['id'])
-            ->addMultiOption('', 'Select anyone')
-            ->setAttrib('class', 'form-select');
-        foreach($language as $key => $eachLanguage){
-            $form['default_language']->addMultiOption($key, $eachLanguage);
-        }
-        
-        $form['default_reporting_org'] = new Zend_Form_Element_Text('default_reporting_org');
-        $form['default_reporting_org']->setLabel('Reporting Org Name')
-            ->setValue($defaultFields['reporting_org'])
-            ->setRequired()->setAttrib('class', 'form-text');
-        
-        $form['reporting_org_ref'] = new Zend_Form_Element_Text('reporting_org_ref');
-        $form['reporting_org_ref']->setLabel('Reporting Org Identifier')
-            ->setValue($defaultFields['reporting_org_ref'])
-            ->setAttrib('class', 'form-text')->setRequired();
-            
-        $reportingOrgType = $model->getCodeArray('OrganisationType',null,'1');
-        $form['reporting_org_type'] = new Zend_Form_Element_Select('reporting_org_type');
-        $form['reporting_org_type']->setLabel('Reporting Organisation Type')
-            ->setRequired()
-            ->setValue($defaultFields['reporting_org_type'])
-            ->addMultiOption('','Select anyone')
-            ->addMultiOptions($reportingOrgType)
-            ->setAttrib('width','20px')
-            ->setAttrib('class', 'form-select');
-            
-        $language = $model->getCodeArray('Language',null,'1');
-        $form['reporting_org_lang'] = new Zend_Form_Element_Select('reporting_org_lang');
-        $form['reporting_org_lang']->setLabel('Reporting Organisation Language')
-            ->setValue($defaultFields['reporting_org_lang'])
-            ->addMultiOption('','Select anyone')
-            ->addMultiOptions($language)
-            ->setAttrib('class', 'form-select');
-
-        $form['default_hierarchy'] = new Zend_Form_Element_Text('default_hierarchy');
-        $form['default_hierarchy']->setLabel('Hierarchy')
-            ->setValue($defaultFields['hierarchy'])
-            ->setAttrib('class', 'form-text');
-                                
-        $form['default_collaboration_type'] = new Zend_Form_Element_Select('default_collaboration_type');
-        $form['default_collaboration_type']->setLabel('Default Collaboration Type')
-            ->setValue($defaults['field_values']['default_collaboration_type'])
-            ->addMultiOption('','Select Anyone')
-            ->setAttrib('class', 'form-select');
-        $collaborationTypes = $model->getCodeArray('CollaborationType',null,'1');
-        foreach($collaborationTypes as $key => $collaborationType){
-            $form['default_collaboration_type']->addMultiOption($key, $collaborationType);
-        }
-        
-        $form['default_flow_type'] = new Zend_Form_Element_Select('default_flow_type');
-        $form['default_flow_type']->setLabel('Default Flow Type')
-            ->setValue($defaults['field_values']['default_flow_type'])
-            ->addMultiOption('','Select Anyone')
-            ->setAttrib('class', 'form-select');
-        $flowTypes = $model->getCodeArray('FlowType',null,'1');
-        foreach($flowTypes as $key => $flowType){
-            $form['default_flow_type']->addMultiOption($key, $flowType);
-        }
-        
-        $form['default_finance_type'] = new Zend_Form_Element_Select('default_finance_type');
-        $form['default_finance_type']->setLabel('Default Finance Type')
-            ->setValue($defaults['field_values']['default_finance_type'])
-            ->addMultiOption('','Select Anyone')
-            ->setAttrib('class', 'form-select');
-        $financeTypes = $model->getCodeArray('FinanceType',null,'1');
-        foreach($financeTypes as $key => $financeType){
-            $form['default_finance_type']->addMultiOption($key, $financeType);
-        }
-        
-        $form['default_aid_type'] = new Zend_Form_Element_Select('default_aid_type');
-        $form['default_aid_type']->setLabel('Default Aid Type')
-            ->setValue($defaults['field_values']['default_aid_type'])
-            ->addMultiOption('','Select Anyone')
-            ->setAttrib('class', 'form-select');
-        $aidTypes = $model->getCodeArray('AidType',null,'1');
-        foreach($aidTypes as $key => $aidType){
-            $form['default_aid_type']->addMultiOption($key, $aidType);
-        }
-        
-        $form['default_tied_status'] = new Zend_Form_Element_Select('default_tied_status');
-        $form['default_tied_status']->setLabel('Default Tied Status')
-            ->setValue($defaults['field_values']['default_tied_status'])
-            ->addMultiOption('','Select Anyone')
-            ->setAttrib('class', 'form-select');
-        $tiedStatuses = $model->getCodeArray('TiedStatus',null,'1');
-        foreach($tiedStatuses as $key => $tiedStatus){
-            $form['default_tied_status']->addMultiOption($key, $tiedStatus);
-        }
         
         //@todo reCaptcha
                                 
         $signup = new Zend_Form_Element_Submit('Signup');
         $signup->setValue('signup')
             ->setAttrib('class', 'form-submit');
-        
-        $button = new Zend_Form_Element_Button('button');
-        $button->setLabel('Check All')
-            ->setAttrib('class', 'check-uncheck');
-        
-        $this->addElement($button);
                                          
         $this->addElements($form);
         foreach($form as $item_name=>$element)
@@ -197,23 +87,7 @@ class Form_Wep_Accountregister extends App_Form
                     )
             );
         }
-        foreach($defaultFields['fields'] as $key=>$eachDefault){
-            $default_fields[$key] =  ucwords(str_replace("_", " ", $key));
-            
-            }
-        $defultChecked = array('title','description','activity_status','activity_date','participating_org','recipient_country','sector','budget','transaction');
-        $this->addElement('multiCheckbox', 'default_fields', array(
-            'disableLoadDefaultDecorators' => true,
-            'separator'    => '&nbsp;',
-            'value'      => $defultChecked,
-            'multiOptions' => $default_fields,
-            'decorators'   => array(
-                'ViewHelper',
-                'Errors',
-                array('HtmlTag', array('tag' => 'p'))          
-            )
-        ));
-        
+
         $this->addDisplayGroup( array('organisation_name', 'organisation_address', 'organisation_username'),
                                 'field',
                                 array('legend'=>'Organisation Information')
@@ -224,23 +98,17 @@ class Form_Wep_Accountregister extends App_Form
                                 array('legend'=>'Admin Information')
                             );
         
-        $this->addDisplayGroup(array( 'reporting_org_ref', 'reporting_org_type' ,'default_reporting_org' , 'reporting_org_lang'),
-                               'reporting_org',
-                               array('legend' =>'Reporting Organisation Info')
-                               );
+        // Default Field Values form
+        $defValues = new Form_Wep_DefaultFieldValues();
+        $defValues->load($defaults);
+        $defValues->removeDecorator('form');
+        $this->addSubForm($defValues , 'default_field_values');
         
-        $registryInfoForm = new Form_General_RegistryInfo();
-        $this->addSubForm($registryInfoForm , 'registry_info');
-        
-        $this->addDisplayGroup( array('default_currency', 'default_language', 'default_hierarchy' , 'default_collaboration_type' , 'default_flow_type' , 'default_finance_type' , 'default_aid_type' , 'default_tied_status'),
-                                'field2',
-                                array('legend'=>'Default Field Values')
-                            );
-       
-        $this->addDisplayGroup( array('button','default_fields',),
-                                'field3',
-                                array('legend'=>'Default Field Groups')
-                            );
+        //Default Field Groups form
+        $disGroup = new Form_Wep_DefaultFieldGroups();
+        $disGroup->load($defaults);
+        $disGroup->removeDecorator('form');
+        $this->addSubForm($disGroup , 'default_field_groups');
         
         $groups = $this->getDisplayGroups();
         foreach($groups as $group){

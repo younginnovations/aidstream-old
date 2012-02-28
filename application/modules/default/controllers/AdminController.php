@@ -81,64 +81,39 @@ class AdminController extends Zend_Controller_Action
 
     public function editOrganisationAction()
     {
-            if($this->getRequest()->isGet()){
+        if($this->getRequest()->isGet()){
             $org_info = array();
             $id = $this->_request->getParam('id');
             $model = new Model_Wep();
-            $userModel = new Model_User();
-            $modelRegistryInfo = new Model_RegistryInfo();
             
             $rowSet = $model->getRowById('account', 'id', $id);
             $org_info['organisation_name'] = $rowSet['name'];
             $org_info['organisation_address'] = $rowSet['address'];
             $org_info['organisation_username'] = $rowSet['username'];
 
+            $userModel = new Model_User();
             $user_info = $userModel->getUserByAccountId($rowSet['id'],array('role_id'=>1));
             $user_profile = $model->getRowById('profile','user_id',$user_info['user_id']);
             $user = $model->getRowById('user', 'user_id', $user_info['user_id']);
             $user_info['admin_username'] = $user['user_name'];
             
             //Create edit form
-            $defaultFieldsValues = new Iati_WEP_AccountDefaultFieldValues();
+            $defaultFieldsValues = $model->getDefaults('default_field_values', 'account_id', $rowSet['id']);
             $default['field_values'] = $defaultFieldsValues->getDefaultFields();
-            $defaultFieldGroup = new Iati_WEP_AccountDisplayFieldGroup();
+            $defaultFieldGroup = $model->getDefaults('default_field_groups', 'account_id',$rowSet['id']);
             $default['fields'] = $defaultFieldGroup->getProperties();
             
             $form = new Form_Wep_Accountregister();
             $form->add($default);
+            
             $form->addElement('hidden','org_id',array('value'=>$rowSet['id']));
             $form->addElement('hidden','user_id',array('value'=>$user_info['user_id']));
             $form->addElement('hidden','profile_id',array('value'=>$user_profile['id']));
 
-            $defaultFieldsValues = $model->getDefaults('default_field_values', 'account_id', $rowSet['id']);
-            $default['field_values'] = $defaultFieldsValues->getDefaultFields();
-            foreach ($default['field_values'] as $name => $value)
-            {
-                $noPrefix = array('reporting_org_ref' , 'reporting_org_type' , 'reporting_org_lang');
-                if(!in_array($name , $noPrefix)){
-                    $input['default_'.$name] = $value;
-                } else {
-                    $input[$name] = $value;
-                }
-            }
-            
-            $defaultFieldGroup = $model->getDefaults('default_field_groups', 'account_id',$rowSet['id']);
-            $fields = $defaultFieldGroup->getProperties();
-            foreach($fields as $key=>$eachDefault){
-                if($eachDefault == '1'){
-                    $checked[] = $key;
-                }
-            }
-            $input_fields['default_fields'] = $checked;
             $form->populate($org_info);
             $form->populate($user_info);
             $form->populate($user_profile);
-            $form->populate($input);
-            $form->populate($input_fields);
-            $registryInfoData = $modelRegistryInfo->getOrgRegistryInfo($id);
-            if($registryInfoData){
-                $form->populate($registryInfoData->toArray());
-            }
+            
             //Disable name and username as they should not be edited
             $form->organisation_name->setAttrib('readonly','true');
             $form->organisation_username->setAttrib('readonly','true');
@@ -147,42 +122,36 @@ class AdminController extends Zend_Controller_Action
             $form->setAction($this->view->baseUrl().'/admin/update-organisation');
         
             $this->view->form = $form;
-          }
-          
+        }  
     }
     
     public function updateOrganisationAction()
     {
-        if(!empty($_POST)){
-            $defaultFieldsValues = new Iati_WEP_AccountDefaultFieldValues();
-            $default['field_values'] = $defaultFieldsValues->getDefaultFields();
-            $defaultFieldGroup = new Iati_WEP_AccountDisplayFieldGroup();
-            $default['fields'] = $defaultFieldGroup->getProperties();
-            $form = new Form_Wep_Accountregister();
-            $form->add($default);
-            
+        if(!empty($_POST)){            
             $data = $this->getRequest()->getPost();
-            
+            $model = new Model_Wep();
+
             $account_id = $org_id = $data['org_id'];
             $user_id = $data['user_id'];
             $profile_id = $data['profile_id'];
+            
+            // Remove password element if password is empty.
             if(!$data['password']){
                 unset($data['password']);
                 unset($data['confirmpassword']);
             }
+
+            $defaultFieldsValues = $model->getDefaults('default_field_values', 'account_id', $org_id);
+            $default['field_values'] = $defaultFieldsValues->getDefaultFields();
+            $defaultFieldGroup = $model->getDefaults('default_field_groups', 'account_id',$org_id);
+            $default['fields'] = $defaultFieldGroup->getProperties();
+            $form = new Form_Wep_Accountregister();
+            $form->add($default);
+            $form->organisation_username->clearValidators();
+
             if($form->isValidPartial($data)){
-                $model = new Model_Wep();
                 $account['address'] = $data['organisation_address'];
                 $model->updateRow('account', $account,'id',$org_id);
-
-                //Update Publishing Info
-                $registryInfo = array();
-                $registryInfo['publisher_id'] = $data['publisher_id'];
-                $registryInfo['api_key'] = $data['api_key'];
-                $registryInfo['publishing_type'] = $data['publishing_type'][0];
-                $registryInfo['org_id'] = $org_id;
-                $modelRegistryInfo = new Model_RegistryInfo();
-                $modelRegistryInfo->updateRegistryInfo($registryInfo);
                 
                 //Update User Info
                 if($data['password']){
@@ -200,21 +169,18 @@ class AdminController extends Zend_Controller_Action
                 //Update Default Values
                 $defaultFieldsValues->setLanguage($data['default_language']);
                 $defaultFieldsValues->setCurrency($data['default_currency']);
-                $defaultFieldsValues->setReportingOrg($data['default_reporting_org']);
-                $defaultFieldsValues->setReportingOrgRef($data['reporting_org_ref']);
-                $defaultFieldsValues->setReportingOrgType($data['reporting_org_type']);
-                $defaultFieldsValues->setReportingOrgLang($data['reporting_org_lang']);
-                $defaultFieldsValues->setHierarchy($data['default_hierarchy']);
+                $defaultFieldsValues->setHierarchy($data['hierarchy']);
                 $defaultFieldsValues->setCollaborationType($data['default_collaboration_type']);
                 $defaultFieldsValues->setFlowType($data['default_flow_type']);
                 $defaultFieldsValues->setFinanceType($data['default_finance_type']);
                 $defaultFieldsValues->setAidType($data['default_aid_type']);
                 $defaultFieldsValues->setTiedStatus($data['default_tied_status']);
-                
                 $fieldString = serialize($defaultFieldsValues);
                 $defaultValues['object'] = $fieldString;
                 $defaultValues['account_id'] = $account_id;
                 $defaultValuesId = $model->updateRow('default_field_values', $defaultValues,'account_id',$account_id);
+
+                $defaultFieldGroup = new Iati_WEP_AccountDisplayFieldGroup();
                 $i = 0;
                 foreach ($data['default_fields'] as $eachField) {
                     $defaultKey[$i] = $eachField;
@@ -275,6 +241,7 @@ class AdminController extends Zend_Controller_Action
                 $is_admin = true;
             }
         }
+        
         $defaultFieldsValues = new Iati_WEP_AccountDefaultFieldValues();
         $default['field_values'] = $defaultFieldsValues->getDefaultFields();
         $defaultFieldGroup = new Iati_WEP_AccountDisplayFieldGroup();
@@ -286,18 +253,9 @@ class AdminController extends Zend_Controller_Action
             try {
                 $data = $this->getRequest()->getPost();
                 $model = new Model_Wep();
-                $result = $model->getRowsByFields('account', 'username', $data['organisation_username']);
                 if (!$form->isValid($data)) {
                     $form->populate($data);
-                }
-                //@todo check for unique username. fix the bug
-                else if (!empty($result)) {
-                    $this->_helper->FlashMessenger->addMessage(array('error' => "Username already exists."));
-                    $form->populate($data);
                 } else {
-
-                    //@todo send email notification to super admin
-                    
                     //Save Account Info
                     $account['name'] = $data['organisation_name'];
                     $account['address'] = $data['organisation_address'];
@@ -305,27 +263,13 @@ class AdminController extends Zend_Controller_Action
                     $account['uniqid'] = md5(date('Y-m-d H:i:s'));
                     $account_id = $model->insertRowsToTable('account', $account);
                     
-                    /*
-                    //Save Publishing Info
-                    $registryInfo = array();
-                    $registryInfo['publisher_id'] = $data['publisher_id'];
-                    $registryInfo['api_key'] = $data['api_key'];
-                    $registryInfo['publishing_type'] = $data['publishing_type'][0];
-                    $registryInfo['org_id'] = $account_id;
-                    $modelRegistryInfo = new Model_RegistryInfo();
-                    $modelRegistryInfo->saveRegistryInfo($registryInfo);
-                    */
-                    
                     //Save User Info
                     $user['user_name'] = trim($data['organisation_username']) . "_admin";
                     $user['password'] = md5($data['password']);
                     $user['role_id'] = 1;
                     $user['email'] = $data['email'];
                     $user['account_id'] = $account_id;
-                    $user['status'] = 0;
-                    if($is_admin){
-                        $user['status'] = 1;
-                    }
+                    $user['status'] = 1;
                     $user_id = $model->insertRowsToTable('user', $user);
                     
                     //Save User Profile
@@ -338,12 +282,7 @@ class AdminController extends Zend_Controller_Action
                     //Save Default Fields
                     $defaultFieldsValues->setLanguage($data['default_language']);
                     $defaultFieldsValues->setCurrency($data['default_currency']);
-                    /*
-                    $defaultFieldsValues->setReportingOrg($data['default_reporting_org']);
-                    $defaultFieldsValues->setReportingOrgRef($data['reporting_org_ref']);
-                    $defaultFieldsValues->setReportingOrgType($data['reporting_org_type']);
-                    */
-                    $defaultFieldsValues->setHierarchy($data['default_hierarchy']);
+                    $defaultFieldsValues->setHierarchy($data['hierarchy']);
                     $defaultFieldsValues->setCollaborationType($data['default_collaboration_type']);
                     $defaultFieldsValues->setFlowType($data['default_flow_type']);
                     $defaultFieldsValues->setFinanceType($data['default_finance_type']);
@@ -353,6 +292,8 @@ class AdminController extends Zend_Controller_Action
                     $defaultValues['object'] = $fieldString;
                     $defaultValues['account_id'] = $account_id;
                     $defaultValuesId = $model->insertRowsToTable('default_field_values', $defaultValues);
+                    
+                    //Save Default Groups
                     $i = 0;
                     foreach ($data['default_fields'] as $eachField) {
                         $defaultKey[$i] = $eachField;
@@ -368,35 +309,33 @@ class AdminController extends Zend_Controller_Action
                     $privilegeFields['resource'] = serialize($defaultKey);
                     $privilegeFields['owner_id'] = $account_id;
                     $privilegeFieldId = $model->insertRowsToTable('Privilege', $privilegeFields);
-
-                    $identity = Zend_Auth::getInstance();
-                    if($identity->hasIdentity()){
-                        $identity = $identity->getIdentity();
-                        $from['email'] = $identity->email;
-                    }
-                    else{
-                        $bootstrap = $this->getInvokeArg('bootstrap');
-                        $config = $bootstrap->getOptions();
-                        $from['email'] = $config['email']['fromAddress'];
-                    }
-
-                    $toEmail['email'] = $data['email'];
-                    $mailData = $data;
-                    $mailData['subject'] = 'Account registration confirmed';
-                    $mailData['username'] = $user['user_name'];
-                    $mailerParams = $mailData;
-                    $template = 'user-register';
+                    
+                    // Send register mail.
+                    $to = array($data['email'] => '');
+                    $mailParams['subject'] = 'Account registration confirmed';
+                    $mailParams['first_name'] = $data['first_name'];
+                    $mailParams['middle_name'] = $data['middle_name'];
+                    $mailParams['last_name'] = $data['last_name'];
+                    $mailParams['username'] = $user['user_name'];
+                    $mailParams['password'] = $data['password'];
+                    $mailParams['url'] = "http://".$_SERVER['SERVER_NAME'].Zend_Controller_Front::getInstance()->getBaseUrl();
+                    
+                    $template = 'user-register.phtml';
                     $Wep = new App_Notification;
-                    $Wep->sendemail($mailerParams,$toEmail['email'],$template);
-                  
+                    $Wep->sendemail($mailParams,$template,$to);
+                    
                     $this->_helper->FlashMessenger->addMessage(array('message' => "Account successfully registered."));
-                    $this->_redirect('user/user/login');
+                    //$this->_redirect('user/user/login');
                 }
             } catch (Exception $e) {
                 print $e->getMessage();
             }
             
         }
+        // Populate form with basic recommended default groups.
+        $basic['default_fields'] = Iati_WEP_AccountDisplayFieldGroup::$defaults;
+        $form->populate($basic);
+        
         $this->view->form = $form;
         $this->view->blockManager()->disable('partial/primarymenu.phtml');
     }

@@ -460,6 +460,14 @@ function initialize() {
 	    
 	    "onkeyup" : function (evt) {
 	    	dojo.query('#organisation_username').attr('value', getTarget(evt).value.replace(" ",""));
+                var selected = getTarget(evt);
+                if(selected.value == ''){
+		    dojo.query('#admin_username').attr('value', '');
+		    dojo.query('#admin_username').attr('readonly' , 'false');
+		} else {
+		    dojo.query('#admin_username').attr('value', selected.value+'_admin');
+		    dojo.query('#admin_username').attr('readonly', 'true');
+		}
 	    }
 	},
 	
