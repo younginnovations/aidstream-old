@@ -325,7 +325,7 @@ class AdminController extends Zend_Controller_Action
                     $Wep->sendemail($mailParams,$template,$to);
                     
                     $this->_helper->FlashMessenger->addMessage(array('message' => "Account successfully registered."));
-                    //$this->_redirect('user/user/login');
+                    $this->_redirect('admin/list-organisation');
                 }
             } catch (Exception $e) {
                 print $e->getMessage();
