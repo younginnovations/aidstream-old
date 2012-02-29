@@ -63,7 +63,11 @@ class User_Model_DbTable_User extends Zend_Db_Table_Abstract {
         $select = $this->select()->where('email = ?', $email);
         return $this->fetchRow($select);
     }
-
+    
+    public function updateUserByEmail($data , $email)
+    {
+        return $this->update($data ,  array('email = ?' => $email));
+    }
 }
 
 ?>

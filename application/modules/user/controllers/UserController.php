@@ -274,7 +274,7 @@ class User_UserController extends Zend_Controller_Action
 
                     //update the password in user table
                     $data['password'] = md5($password);
-                    $isupdated = $userModel->update($data, array('email = ?' => $resetEmail));
+                    $isupdated = $userModel->updateUserByEmail($data, $resetEmail);
                     if($isupdated){
                         //update the reset value in reset table
                         $resetData['reset_flag'] = 0;
