@@ -56,7 +56,7 @@ class User_UserController extends Zend_Controller_Action
                     try {
                         
                         $uniqueId = md5(uniqid());
-                        $resetSite = "http://" . $_SERVER['HTTP_HOST'] . $this->view->baseUrl() . '/user/user/resetpassword/email/' . $email . '/value/' . $uniqueId;
+                        $resetSite = "http://" . $_SERVER['HTTP_HOST'] . $this->view->baseUrl() . '/user/user/resetpassword/email/' . urlencode($email) . '/value/' . urlencode($uniqueId);
                         $reset = new User_Model_DbTable_Reset();
                         $reset->insert(array('email' => $email, 'value' => $uniqueId, 'reset_flag' => '1'));
                         
@@ -255,8 +255,7 @@ class User_UserController extends Zend_Controller_Action
     public function resetpasswordAction()
     {
         $resetValue = $this->getRequest()->getParam('value');
-        $resetEmail = $this->getRequest()->getParam('email');
-
+        $resetEmail = $this->_getParam('email');
         $userModel = new User_Model_DbTable_User();
         $reset = new User_Model_DbTable_Reset();
         $resetResult = $reset->uniqueValue($resetEmail, $resetValue);
