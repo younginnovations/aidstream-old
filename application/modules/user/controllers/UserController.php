@@ -58,7 +58,7 @@ class User_UserController extends Zend_Controller_Action
                         $uniqueId = md5(uniqid());
                         $resetSite = "http://" . $_SERVER['HTTP_HOST'] . $this->view->baseUrl() . '/user/user/resetpassword/email/' . $email . '/value/' . $uniqueId;
                         $reset = new User_Model_DbTable_Reset();
-                        $reset->insert(array('email' => $email, 'value' => $uniqueId, 'reset_flag' => '0'));
+                        $reset->insert(array('email' => $email, 'value' => $uniqueId, 'reset_flag' => '1'));
                         
                         $profileModel = new User_Model_DbTable_Profile();
                         $profile = $profileModel->getProfileByUserId($user->user_id);
@@ -260,11 +260,11 @@ class User_UserController extends Zend_Controller_Action
         $userModel = new User_Model_DbTable_User();
         $reset = new User_Model_DbTable_Reset();
         $resetResult = $reset->uniqueValue($resetEmail, $resetValue);
-        $resetId = $reset->getResetId($resetEmail, $resetValue);
-        if ($resetResult == FALSE) {
-            $this->_helper->FlashMessenger->addMessage(array('error' => 'You have already used this one-time login link.'));
+        if (!$resetResult) {
+            $this->_helper->FlashMessenger->addMessage(array('error' => 'You have already used this one-time reset link.'));
             $this->_redirect('/');
         } else {
+            $resetId = $reset->getResetId($resetEmail, $resetValue);
             $form = new User_Form_User_Resetpassword();
             $this->view->form = $form;
             if ($this->getRequest()->isPost()) {
@@ -275,17 +275,21 @@ class User_UserController extends Zend_Controller_Action
 
                     //update the password in user table
                     $data['password'] = md5($password);
-                    $userModel->update($data, array('email = ?' => $resetEmail));
-                    //update the reset value in reset table
-                    $resetData['reset_flag'] = 1;
-                    $reset->update($resetData, array('reset_id' => $resetId));
+                    $isupdated = $userModel->update($data, array('email = ?' => $resetEmail));
+                    if($isupdated){
+                        //update the reset value in reset table
+                        $resetData['reset_flag'] = 0;
+                        $reset->update($resetData, array('reset_id' => $resetId));
+                        $this->_helper->FlashMessenger->addMessage(array('message' => 'Your password has been changed sucessfully.'));
+                    } else {
+                        $this->_helper->FlashMessenger->addMessage(array('error' => 'Sorry some error occured please try again later.'));
+                    }
                     $this->_redirect('/');
                 }
             } else {
                 $form->populate(array('email' => $resetEmail));
             }
         }//end of outer if
-        $this->view->placeholder('title')->set('Reset Password');
     }
 
     //end of else

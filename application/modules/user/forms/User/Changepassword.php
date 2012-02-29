@@ -25,19 +25,21 @@ class User_Form_User_Changepassword extends App_Form
 
 
 
-        $this->addElements(array($oldpassword, $password, $confirmPassword, $submit));
-        foreach($this->getElements() as $item)
-        {
-            $item->addDecorators( array(
-                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
-                    )
-            );
-        }
+        $this->addElements(array($oldpassword, $password, $confirmPassword));
         $this->addDisplayGroup(array('oldpassword', 'password', 'confirmpassword'), 'field1',array('legend'=>'Change Password'));
         $submit = new Zend_Form_Element_Submit('Submit');
-        $submit->setValue('change')->setAttrib('class', 'form-submit');
+        $submit->setValue('change')
+            ->setAttrib('class', 'form-submit');
+            
         $this->addElement($submit);
         $this->setMethod('post');
+        
+        $displayGroup = $this->getDisplayGroup('field1');
+        $displayGroup->addDecorators(array(
+                array(
+                      array( 'wrapperAll' => 'HtmlTag' ),
+                      array( 'tag' => 'div','class'=>'default-activity-list'))
+            ));
         foreach($this->getElements() as $element){
             $element->addDecorators(array(
                 array(
