@@ -487,6 +487,8 @@ function initialize() {
 		}
 	    }
 	},
+        
+        // Help tooltip display.
 	".help" : {
 	    "onclick" : function (evt) {
 		var node = getTarget(evt);
@@ -519,10 +521,9 @@ function initialize() {
 	},
 	"body" : {
 	    "onclick" : function (evt) {
-		if(!dojo.hasClass(evt.target, "dijitTooltipDialogPopup"))
-		{
-		    dojo.query('.dijitTooltipDialogPopup').forEach(dojo.destroy);
-		}
+                if(!dojo.hasClass(evt.target, "dijitTooltipContents")){
+                    dojo.query('.dijitTooltipDialogPopup').forEach(dojo.destroy);
+                }
 	    }
 	},
 	
