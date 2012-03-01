@@ -813,6 +813,11 @@ h2.form-title {
 	vertical-align: text-bottom;
 }
 
+.dijitTooltipDialog
+{
+        outline:none;
+}
+
 #block-activity-menu .help
 {
 	height:31px;
