@@ -81,7 +81,7 @@ class Iati_WEP_Activity_Elements_Transaction_ProviderOrg extends Iati_WEP_Activi
     public function attributeState()
     {
         foreach($this->attributes as $attribute){
-            if($this->$attribute){
+            if($this->$attribute && $attribute != 'id'){
                 $this->isAttributeSet = true;
                 break;
             }

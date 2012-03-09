@@ -77,7 +77,7 @@ class Iati_WEP_Activity_Elements_Transaction_TiedStatus extends Iati_WEP_Activit
     public function attributeState()
     {
         foreach($this->attributes as $attribute){
-            if($this->$attribute){
+            if($this->$attribute && $attribute != 'id'){
                 $this->isAttributeSet = true;
                 break;
             }
