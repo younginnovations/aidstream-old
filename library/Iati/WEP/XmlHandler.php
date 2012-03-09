@@ -114,7 +114,6 @@ class Iati_WEP_XmlHandler
     protected function getElementsData($element)
     {
         $type = $element->getType();
-        
         $attribs = $element->getValidAttribs();
         $attributes = array();
         $model_wep = new Model_Wep();
@@ -122,6 +121,12 @@ class Iati_WEP_XmlHandler
         {
             if($element->getAttrib($attrib)){
                 $attributes[$attrib] = $element->getAttribValue($attrib);
+                // In case of setor code we do not fetch value from table if vocabulary is non-dac code
+                if($type == 'Sector' && $attrib == '@code'){
+                    if('3' != $element->getAttrib('@vocabulary')){
+                        $attributes[$attrib] = $element->getAttrib($attrib);
+                    }
+                }
             }
         }
         $elements['type'] = $element->getXmlElementTag();

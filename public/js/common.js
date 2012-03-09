@@ -409,29 +409,31 @@ function initialize() {
 	},
 	".vocabulary_value" : {
 	    "found" : function (ele) {
+                var formWrapper = ele.parentNode.parentNode;
 		if(ele.value == '' || ele.value == 3){
-		    dojo.query('.non_dac_code').attr('value', '');
-		    dojo.query('.non_dac_code').parent().style('display', 'none');
-		    dojo.query('.sector_value').parent().style('display', 'block');
+		    dojo.query('.non_dac_code' , formWrapper).attr('value', '');
+		    dojo.query('.non_dac_code' , formWrapper).parent().style('display', 'none');
+		    dojo.query('.sector_value', formWrapper).parent().style('display', 'block');
 		}
 		else{
-		    dojo.query('.sector_value').attr('value', '');
-		    dojo.query('.sector_value').parent().style('display', 'none');
-		    dojo.query('.non_dac_code').parent().style('display', 'block');
+		    dojo.query('.sector_value' , formWrapper).attr('value', '');
+		    dojo.query('.sector_value' , formWrapper).parent().style('display', 'none');
+		    dojo.query('.non_dac_code' , formWrapper).parent().style('display', 'block');
 		}
 	    },
 	    
 	    "onchange" : function (evt) {
 		var selected= getTarget(evt);
+		var formWrapper = selected.parentNode.parentNode;
 		if(selected.value == '' || selected.value == 3){
-		    dojo.query('.non_dac_code').attr('value', '');
-		    dojo.query('.non_dac_code').parent().style('display', 'none');
-		    dojo.query('.sector_value').parent().style('display', 'block');
+		    dojo.query('.non_dac_code' , formWrapper).attr('value', '');
+		    dojo.query('.non_dac_code' , formWrapper).parent().style('display', 'none');
+		    dojo.query('.sector_value', formWrapper).parent().style('display', 'block');
 		}
 		else{
-		    dojo.query('.sector_value').attr('value', '');
-		    dojo.query('.sector_value').parent().style('display', 'none');
-		    dojo.query('.non_dac_code').parent().style('display', 'block');
+		    dojo.query('.sector_value' , formWrapper).attr('value', '');
+		    dojo.query('.sector_value' , formWrapper).parent().style('display', 'none');
+		    dojo.query('.non_dac_code' , formWrapper).parent().style('display', 'block');
 		}
 	    }
 	    
