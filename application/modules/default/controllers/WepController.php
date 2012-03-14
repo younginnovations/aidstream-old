@@ -411,7 +411,9 @@ class WepController extends Zend_Controller_Action
         if(isset($class)){
             try{
                 if($_POST){
+                    //var_dump($_POST);
                     $flatArray = $this->flatArray($_POST);
+                    //echo "<pre>";
                     //print_r($flatArray);exit;
                     $activity = new Iati_WEP_Activity_Elements_Activity();
                     $activity->setAttributes(array('activity_id' => $activity_id));
@@ -667,8 +669,19 @@ class WepController extends Zend_Controller_Action
 
         array_push($parents, $class);
         $formHelper = new Iati_WEP_FormHelper();
-        $a = $formHelper->getFormWithAjax($parents, $items);
-        print $a;exit;
+        if($parents[0] == 'Transaction'){
+            $item = rand(0,10);
+            $a = $formHelper->getFormWithAjax($parents, $item);
+            $partialPath = Zend_Registry::get('config')->resources->layout->layoutpath;
+            $myView = new Zend_View;
+            $myView->setScriptPath($partialPath.'/partial');
+            $myView->assign('form' , $a);
+            $form = $myView->render('form.phtml');
+            print $form;exit;
+        } else {
+            $a = $formHelper->getFormWithAjax($parents, $items);
+            print $a;exit;
+        }
         $this->_helper->layout->disableLayout();
         //     $this->_helper->viewRenderer->setNoRender(true);
     }
@@ -944,7 +957,6 @@ class WepController extends Zend_Controller_Action
 
     public function removeElementsAction()
     {
-
         $this->_helper->layout->disableLayout();
         if($this->_request->isGet()){
             try{
@@ -1111,7 +1123,6 @@ class WepController extends Zend_Controller_Action
 
         }
         //    print_r($final);exit;
-
 
         return $final;
         //    print_r($final);
@@ -1380,5 +1391,61 @@ class WepController extends Zend_Controller_Action
             }
         }
         return false;
+    }
+    
+    public function editElementAction()
+    {
+        $class = $this->_getParam('class');
+        $activityId = $this->_getParam('activity_id');
+        
+        $dbLayer = new Iati_WEP_DbLayer();
+        $classname = 'Iati_WEP_Activity_'. $class . 'Factory';
+        $registryTree = Iati_WEP_TreeRegistry::getInstance();
+        $initial = $this->getInitialValues($activityId, $class);
+        $factory = new $classname();
+        $factory->setInitialValues($initial);
+        
+        $rowSet = $dbLayer->getRowSet($class, 'activity_id', $activityId, true);
+        $elements = $rowSet->getElements();
+        $attributes = $elements[0]->getAttribs();
+        if(empty($attributes)){
+            $activity = new Iati_WEP_Activity_Elements_Activity();
+            $activity->setAttributes(array('activity_id' => $activityId));    
+            $registryTree->addNode($activity);
+            $tree = $factory->factory($class);
+        } else {
+            $tree = $factory->extractData($rowSet, $activityId);
+        }
+        $formHelper = new Iati_WEP_FormHelper();
+        $form = $formHelper->getForm();
+        if($formData = $this->getRequest()->getPost()){
+            if($form->isValidPartial($formData)){
+                $activity = new Iati_WEP_Activity_Elements_Activity();
+                $activity->setAttributes(array('activity_id' => $activityId));
+                $registryTree = Iati_WEP_TreeRegistry::getInstance();
+                $registryTree->addNode($activity);
+                $factory->setInitialValues($initial);
+                $tree = $factory->factory($class, $formData);
+                $elementClassName = 'Iati_Activity_Element_Activity';
+                $element = new $elementClassName ();
+                $data = $activity->getCleanedData();
+                $element->setAttribs($data);
+                $activityTree = $factory->cleanData($activity, $element);
+                $dbLayer->save($activityTree);
+                $form = $formHelper->getForm();
+                $tree = $factory->extractData($rowSet, $activityId);
+                $this->_helper->FlashMessenger->addMessage(array('message' => "$class saved sucessfully."));
+            } else {
+                $form->populate($formData);
+                $this->_helper->FlashMessenger->addMessage(array('error' => "You have some error in you data."));
+            }
+        }
+
+        $this->view->form = $form;
+        $this->view->blockManager()->enable('partial/override-activity.phtml');
+        $this->view->blockManager()->enable('partial/activitymenu.phtml');
+        $this->view->blockManager()->disable('partial/primarymenu.phtml');
+        $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
+        $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
     }
 }

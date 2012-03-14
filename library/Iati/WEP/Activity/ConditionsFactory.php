@@ -190,7 +190,6 @@ class Iati_WEP_Activity_ConditionsFactory
     
     public function extractData($elementTree, $activity_id)
     {
-//        print_r($elementTree);exit;
         $registryTree = Iati_WEP_TreeRegistry::getInstance();
         $activity = new Iati_WEP_Activity_Elements_Activity();
         $activity->setAttributes(array('activity_id', $activity_id));

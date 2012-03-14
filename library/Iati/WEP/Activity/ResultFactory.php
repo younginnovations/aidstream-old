@@ -65,6 +65,7 @@ class Iati_WEP_Activity_ResultFactory
             return $this->createResult($values);
         }
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
+        
         $string = 'Iati_WEP_Activity_Elements_Result_' . $class.'Factory';
         $object = new $string ();
         if($values){

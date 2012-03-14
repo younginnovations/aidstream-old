@@ -1319,6 +1319,7 @@ dt{
 	clear:both;
     color: #747474;
     font-weight: bold;
+    float: left; 
     margin-right: 10px;
 }
 

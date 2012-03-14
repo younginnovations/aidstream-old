@@ -1,5 +1,5 @@
 <?php
-class Iati_WEP_Activity_Elements_Result_IndicatorFactory
+class Iati_WEP_Activity_Elements_Result_IndicatorFactory extends Iati_WEP_Activity_BaseFactory
 {
     protected $defaultValues = array();
     protected $globalObject;
@@ -53,9 +53,9 @@ class Iati_WEP_Activity_Elements_Result_IndicatorFactory
         $registryTree->addNode ($indicator, $this->globalObject);
         $this->createTitle ( $indicator, $flatArray);
         $this->createDescription ( $indicator, $flatArray);
-//        $this->createBaseline ($indicator, $flatArray);
-//        $this->createTarget ( $indicator, $flatArray);
-//        $this->createActual ( $indicator, $flatArray);
+        $this->createBaseline ($indicator, $flatArray);
+        $this->createTarget ( $indicator, $flatArray);
+        $this->createActual ( $indicator, $flatArray);
         
         return $registryTree;
     }
@@ -63,7 +63,6 @@ class Iati_WEP_Activity_Elements_Result_IndicatorFactory
     public function createTitle($parent = null, $values = array())
     {
         $object = new Iati_WEP_Activity_Elements_Result_Indicator_Title ();
-//        print_r($object);exit;
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
 
         if($values){
@@ -73,9 +72,7 @@ class Iati_WEP_Activity_Elements_Result_IndicatorFactory
         }
         else{
             $object->setAttributes( $this->getInitialValues() );
-//            print_r($object);exit;
             $registryTree->addNode ($object, $parent);
-//            print_r($registryTree->xml());exit;
         }
 
         return $registryTree;
@@ -108,7 +105,7 @@ class Iati_WEP_Activity_Elements_Result_IndicatorFactory
             foreach($values as $k => $v)
             {
                 if(is_array($v)){
-                    $object = new Iati_WEP_Activity_Elements_Result_Baseline ();
+                    $object = new Iati_WEP_Activity_Elements_Result_Indicator_Baseline ();
                     $data = $this->getFields('BaseLine', $v);
                     $object->setAttributes($data);
                     $registryTree->addNode($object, $parent);

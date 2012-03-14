@@ -1,5 +1,5 @@
 <?php
-class Iati_WEP_Activity_Elements_Result_TitleFactory //extends Iati_WEP_Activity_BaseFactory
+class Iati_WEP_Activity_Elements_Result_TitleFactory extends Iati_WEP_Activity_BaseFactory
 {
     protected $defaultValues = array();
     protected $globalObject;
