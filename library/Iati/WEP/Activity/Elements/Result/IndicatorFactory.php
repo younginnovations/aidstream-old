@@ -1,5 +1,5 @@
 <?php
-class Iati_WEP_Activity_Elements_Result_IndicatorFactory extends Iati_WEP_Activity_BaseFactory
+class Iati_WEP_Activity_Elements_Result_IndicatorFactory extends Iati_WEP_Activity_ResultFactory
 {
     protected $defaultValues = array();
     protected $globalObject;
@@ -22,18 +22,14 @@ class Iati_WEP_Activity_Elements_Result_IndicatorFactory extends Iati_WEP_Activi
     {
 
         $this->globalObject = $parent;
-
-        $function = 'create' . $objectType;
+        $object = "create".$objectType;
         if($data){
-            $this->globalObject = $parent;
-            foreach($data as $key => $values){
-                if(is_array($values)){
-                    $tree = $this->$function ($data);
-                }
+            foreach($data['Indicator'] as $indicator){
+                $tree = $this->createIndicator($indicator);
             }
         }
         else{
-            $tree = $this->$function ($data);
+            $tree = $this->$object($data);
         }
 
         return $tree;
@@ -64,11 +60,13 @@ class Iati_WEP_Activity_Elements_Result_IndicatorFactory extends Iati_WEP_Activi
     {
         $object = new Iati_WEP_Activity_Elements_Result_Indicator_Title ();
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
-
         if($values){
-            $data = $this->getFields('Title', $values);
-            $object->setAttributes($data);
-            $registryTree->addNode($object, $parent);
+            foreach($values['Title'] as $title){
+                $object = new Iati_WEP_Activity_Elements_Result_Indicator_Title ();
+                $data = $this->getFields('Title', $title);
+                $object->setAttributes($data);
+                $registryTree->addNode($object, $parent);
+            }
         }
         else{
             $object->setAttributes( $this->getInitialValues() );
@@ -84,9 +82,12 @@ class Iati_WEP_Activity_Elements_Result_IndicatorFactory extends Iati_WEP_Activi
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
 
         if($values){
-            $data = $this->getFields('Result_Description', $values);
-            $object->setAttributes($data);
-            $registryTree->addNode($object, $parent);
+            foreach($values['Description'] as $indicator){
+                $object = new Iati_WEP_Activity_Elements_Result_Indicator_Description ();
+                $data = $this->getFields('Description', $indicator);
+                $object->setAttributes($data);
+                $registryTree->addNode($object, $parent);
+            }
         }
         else{
             $object->setAttributes( $this->getInitialValues() );
@@ -102,19 +103,13 @@ class Iati_WEP_Activity_Elements_Result_IndicatorFactory extends Iati_WEP_Activi
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
 
         if($values){
-            foreach($values as $k => $v)
-            {
-                if(is_array($v)){
-                    $object = new Iati_WEP_Activity_Elements_Result_Indicator_Baseline ();
-                    $data = $this->getFields('BaseLine', $v);
-                    $object->setAttributes($data);
-                    $registryTree->addNode($object, $parent);
-                }
-
+            foreach($values['Baseline'] as $baseline){
+                $object = new Iati_WEP_Activity_Elements_Result_Indicator_Baseline ();
+                $data = $this->getFields('BaseLine', $baseline);
+                $object->setAttributes($data);
+                $registryTree->addNode($object, $parent);
             }
-
-        }
-        else{
+        } else {
             $object->setAttributes( $this->getInitialValues() );
             $registryTree->addNode ($object, $parent);
         }
@@ -127,20 +122,14 @@ class Iati_WEP_Activity_Elements_Result_IndicatorFactory extends Iati_WEP_Activi
         $object = new Iati_WEP_Activity_Elements_Result_Indicator_Target ();
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
 
-        if($values){
-            foreach($values as $k => $v)
-            {
-                if(is_array($v)){
-                    $object = new Iati_WEP_Activity_Elements_Result_Indicator_Target ();
-                    $data = $this->getFields('Target', $v);
-                    $object->setAttributes($data);
-                    $registryTree->addNode($object, $parent);
-                }
-
+       if($values){
+            foreach($values['Target'] as $target){
+                $object = new Iati_WEP_Activity_Elements_Result_Indicator_Target ();
+                $data = $this->getFields('Target', $target);
+                $object->setAttributes($data);
+                $registryTree->addNode($object, $parent);
             }
-
-        }
-        else{
+        } else{
             $object->setAttributes( $this->getInitialValues() );
             $registryTree->addNode ($object, $parent);
         }
@@ -152,21 +141,14 @@ class Iati_WEP_Activity_Elements_Result_IndicatorFactory extends Iati_WEP_Activi
     {
         $object = new Iati_WEP_Activity_Elements_Result_Indicator_Actual ();
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
-
         if($values){
-            foreach($values as $k => $v)
-            {
-                if(is_array($v)){
-                    $object = new Iati_WEP_Activity_Elements_Result_Indicator_Actual ();
-                    $data = $this->getFields('Actual', $v);
-                    $object->setAttributes($data);
-                    $registryTree->addNode($object, $parent);
-                }
-
+            foreach($values['Actual'] as $actual){
+                $object = new Iati_WEP_Activity_Elements_Result_Indicator_Actual ();
+                $data = $this->getFields('Actual', $actual);
+                $object->setAttributes($data);
+                $registryTree->addNode($object, $parent);
             }
-
-        }
-        else{
+        } else {
             $object->setAttributes( $this->getInitialValues() );
             $registryTree->addNode ($object, $parent);
         }
@@ -194,6 +176,7 @@ class Iati_WEP_Activity_Elements_Result_IndicatorFactory extends Iati_WEP_Activi
         return $registry->getRootNode();
     }
 
+/*
     public function getFields($class, $data)
     {
         $newArray = array();
@@ -212,7 +195,7 @@ class Iati_WEP_Activity_Elements_Result_IndicatorFactory extends Iati_WEP_Activi
         }
         return $newArray;
     }
-
+*/
     /**
      * recursive validation function
      * @param $obj

@@ -1,5 +1,5 @@
 <?php
-class Iati_WEP_Activity_Elements_Result_DescriptionFactory extends Iati_WEP_Activity_BaseFactory
+class Iati_WEP_Activity_Elements_Result_DescriptionFactory extends Iati_WEP_Activity_ResultFactory
 {
     protected $defaultValues = array();
     protected $globalObject;
@@ -17,11 +17,8 @@ class Iati_WEP_Activity_Elements_Result_DescriptionFactory extends Iati_WEP_Acti
     {
         $this->globalObject = $parent;
         if($data){
-            $this->globalObject = $this->getRootNode();
-            foreach ($data as $key => $values){
-                if(is_array ($values)){
-                    $tree = $this->createObjects ('Result_'.$objectType, $this->globalObject, $values);
-                }
+            foreach ($data['Description'] as $description){
+                $tree = $this->createObjects ('Result_'.$objectType, $this->globalObject, $description);
             }
         }
         else{
@@ -40,7 +37,6 @@ class Iati_WEP_Activity_Elements_Result_DescriptionFactory extends Iati_WEP_Acti
     {
         $string = 'Iati_WEP_Activity_Elements_' . $class;
         $object = new $string ();
-//        print_r($this->getInitialValues());exit;
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
 
         if($values){
@@ -76,6 +72,7 @@ class Iati_WEP_Activity_Elements_Result_DescriptionFactory extends Iati_WEP_Acti
         return $registry->getRootNode();
     }
 
+/*
     public function getFields($class, $data)
     {
         $newArray = array();
@@ -88,7 +85,7 @@ class Iati_WEP_Activity_Elements_Result_DescriptionFactory extends Iati_WEP_Acti
         }
         return $newArray;
     }
-
+*/
     /**
      * recursive validation function
      * @param $obj

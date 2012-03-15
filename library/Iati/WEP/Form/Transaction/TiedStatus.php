@@ -1,13 +1,12 @@
 <?php
 
-class Iati_WEP_Form_Transaction_TiedStatus extends App_Form
+class Iati_WEP_Form_Transaction_TiedStatus extends Iati_Form
 {
     public function init()
     {
-        $element = new Iati_WEP_Activity_Elements_Transaction_TiedStatus();
         $model = new Model_Wep();
         
-        $this->setAttrib('class' , 'first-child non-required-element')
+        $this->setAttrib('class' , 'first-child')
             ->setMethod('post')
             ->setIsArray(true);
             
@@ -15,7 +14,7 @@ class Iati_WEP_Form_Transaction_TiedStatus extends App_Form
         
         $form['id'] = new Zend_Form_Element_Hidden('id');
         
-        $codes = $element->getOptions('code');
+        $codes = $model->getCodeArray('TiedStatus', null, '1' , true);;
         $form['code'] = new Zend_Form_Element_Select('code');
         $form['code']->setLabel('Code')
             ->setAttrib('class' , 'form-select')

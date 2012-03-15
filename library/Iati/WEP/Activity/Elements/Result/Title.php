@@ -54,7 +54,6 @@ class Iati_WEP_Activity_Elements_Result_Title extends Iati_WEP_Activity_Elements
     }
     
     public function setAttributes ($data) {
-//        print_r($data);exit;
         $this->id = (isset($data['id']))?$data['id']:0; 
         $this->xml_lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
         $this->text = $data['text'];
@@ -79,7 +78,6 @@ class Iati_WEP_Activity_Elements_Result_Title extends Iati_WEP_Activity_Elements
         $data['id'] = $this->id;
         $data['xml_lang'] = $this->xml_lang;
         $data['text'] = $this->text;
-//        print_r($data);exit;
         foreach($data as $key => $eachData){
             
             if(empty($this->validators[$key])){ continue; }

@@ -48,7 +48,7 @@ class Iati_WEP_Activity_Elements_Result_Indicator extends Iati_WEP_Activity_Elem
     public function setAttributes ($data) {
         
         $this->id = (isset($data['id']))?$data['id']:0; 
-        $this->code = (key_exists('@measure', $data))?$data['@measure']:$data['measure'];
+        $this->measure = (key_exists('@measure', $data))?$data['@measure']:$data['measure'];
     }
     
     public function getOptions($name = NULL)

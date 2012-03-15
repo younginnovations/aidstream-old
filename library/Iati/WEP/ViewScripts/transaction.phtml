@@ -1,0 +1,12 @@
+<?php $form = $this->element; ?>
+<form action="<?php echo $form->getAction(); ?>" method ="<?php $form->getMethod();?>">
+<?php print $form->id; ?>
+<?php print $form->ref ?>
+<div class= "subforms" >    
+    <?php foreach($form->getSubforms() as $subform): ?>
+        <?php echo $subform; ?>
+    <?php endforeach; ?>
+</div>
+<?php print $form->remove; ?>
+<div class="form-item form-submit"><input type="submit" value="Save"></div>
+</form>

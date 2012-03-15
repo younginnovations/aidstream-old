@@ -21,7 +21,6 @@ class Iati_WEP_Activity_TransactionFactory
     public function factory($objectType = 'Transaction', $data = array())
     {
         $this->globalObject = $this->getRootNode();
-
         if($data){
             $this->globalObject = $this->getRootNode();
             foreach($data['Transaction'] as $transaction){

@@ -119,7 +119,7 @@ class Model_Wep extends Zend_Db_Table_Abstract
     
     
     
-    public function getCodeArray($tblName, $codeid, $lang)
+    public function getCodeArray($tblName, $codeid, $lang , $nullOption = false)
     {
         $this->_name = $tblName;
         if (isset($codeid))
@@ -130,6 +130,9 @@ class Model_Wep extends Zend_Db_Table_Abstract
         
         $result = $this->fetchAll($rowSet)->toArray();
         $finalResult = array();
+        if($nullOption){
+            $finalResult[''] = 'Select Anyone';
+        }   
         foreach($result as $key => $eachResult)
         {
             $name = '';

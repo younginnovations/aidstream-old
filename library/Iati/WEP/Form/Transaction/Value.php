@@ -1,6 +1,6 @@
 <?php
 
-class Iati_WEP_Form_Transaction_Value extends App_Form
+class Iati_WEP_Form_Transaction_Value extends Iati_Form
 {
     public function init()
     {

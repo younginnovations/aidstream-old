@@ -20,7 +20,8 @@ class Iati_WEP_FormHelper {
     public function getFormWithAjax ($parents, $items) {
 
         $this->ajaxCall = true;
-        if($parents[0] == 'Transaction'){
+        if(!$parents || preg_match('/Transaction|Result/',$parents[0])){
+            $this->parentNames = $parents;
             $form = $this->genForm($this->registryTree->getRootNode(), null , $items);
             return $form;
         }
@@ -80,38 +81,31 @@ class Iati_WEP_FormHelper {
         $form_string = $this->_form($this->registryTree->getRootNode()->getClassName(), '#');
         $root = $this->registryTree->getRootNode();        
         $_mainEle = $this->registryTree->getChildNodes($root);
-        if('Transaction' == $_mainEle[0]->getClassName()){
-            $count = 0;
+        if('Transaction' == $_mainEle[0]->getClassName() || 'Result' == $_mainEle[0]->getClassName()){
             if($_mainEle[0]->getMultiple()){
-                $form = new App_Form();
+                $form = new Iati_Form();
                 foreach($_mainEle as $mainEle){
                     $eleForm = $this->genForm($mainEle , null , null);
-                    if($count == 0){
-                        $eleForm->setAttrib('class','top-element collapsable');
-                    }
+                    $eleForm->removeDecorator('form');
                     $formName = $eleForm->getElementsBelongTo();
                     //Add main element form to main form
                     $form->addSubForm($eleForm , "{$formName}");
-                    $count++;
                 }
-                //$form->setDescription("<a href='/wep/clone-node?classname=$className' class='add-element'>Add More</a>");
-                //$form->addDecorators(array(array('HtmlTag', array('tag' => 'div' , 'value' => $className ,'class'=>'add-element' , 'placement' => 'APPEND'))));
                 $className = $mainEle->getClassName();
-                $form->addDecorators(array(
-                    array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'main-wrapper'))
-                ));
+    
                 $add = new Iati_Form_Element_Note('add');
-                $add->addDecorator('HtmlTag', array('tag' => 'div' , 'class' => 'button'));
-                $add->setValue("<a href='#' class='add-element' value='$className'> Add More</a>");
-                //$add->setOrder(101);
+                $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'add-element button'));
+                $add->setValue("<a href='#' class='button' value='$className'> Add More</a>");
+                
                 $form->addElement($add);
-                //$form->addSubmitButton('Save');
+                $form->addSubmitButton('Save');
+                $this->addWrapper($form , $_mainEle[0]);
+                
                 return $form;
             } else {
                 $form = $this->genForm($_mainEle[0] , null , $count);
-                $form->addDecorators(array(
-                    array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'main-wrapper'))
-                ));
+                $form->addSubmitButton('Save');
+                $this->addWrapper($form , $_mainEle[0]);
             }
         }
         $finalHtml = $this->genHtml(array($root));
@@ -138,47 +132,126 @@ class Iati_WEP_FormHelper {
             $className = $mainEle->getClassName();
             $camelCaseToSeperator = new Zend_Filter_Word_CamelCaseToSeparator(" ");
             $title = $camelCaseToSeperator->filter($className);
+            if($this->ajaxCall){
+                if($this->parentNames){
+                    $parentnames = $this->parentNames;
+                    $parentsArray = array();
+                    $belongs = '';
+                    foreach($this->parentNames as $parent){
+                        $temp = explode('-' , $parent);
+                        $parentsArray[] = $temp[0];
+                        if(!$belongs){
+                            $belongs = "{$temp[0]}[{$temp[1]}]";
+                        } else {
+                            $belongs .= "[{$temp[0]}][{$temp[1]}]";
+                        }
+                    }
+                    $parentname = implode('_' ,$parentsArray );
+                    $className = $parentname."_".$className;
+                    $belongs .= "[{$mainEle->getClassName()}][{$eleCount}]";
+                } else {
+                    $belongs = "{$mainEle->getClassName()}[{$eleCount}]";
+                }
+            }
             $formName = 'Iati_WEP_Form_'.$className;
             //Create form
             $form = new $formName();
-            $form->setElementsBelongTo("{$className}[{$eleCount}]");
-            $attrs = $this->getAttrib($mainEle , $className , $eleCount);
+            if($this->ajaxCall){
+                $form->setElementsBelongTo("{$belongs}");
+            } else {
+                $form->setElementsBelongTo("{$className}[{$eleCount}]");
+            }
+            $attrs = $this->getAttrib($mainEle , $eleCount);
             $form->populate($attrs);
-            //$form->removeDecorator('form');
-            $form->addDecorators( array(
-                                        array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'fieldset' , 'options' => array('legend' => $title)),
-                                        )
-                                );
-            //Create child forms
-            $children = $this->registryTree->getChildNodes($mainEle);
-            if(!empty($children) ){
-                foreach($children as $key => $child){
-                    $this->genForm($child , $form , null);
-                }
-            }
-            if($mainEle->getMultiple()){                
+            
+            $this->getChildForms($form , $mainEle);
+            if($mainEle->hasMultiple()){
+                $eleName = str_replace('Iati_WEP_Activity_Elements_' , '' , get_class($mainEle));
                 $remove = new Iati_Form_Element_Note('remove');
-                $remove->setValue("<a href='/wep/remove-elements?classname=$className' class='remove-this'> Remove This</a>");
-                $remove->addDecorator('HtmlTag', array('tag' => 'div' , 'class' => 'remove button'));
-                $form->addElements(array($add , $remove));               
+                $remove->setValue("<a href='/wep/remove-elements?classname={$eleName}' class='remove-element button'> Remove This</a>");
+                $remove->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'remove button'));
+                $form->addElements(array($remove));
             }
-            $form->addSubmitButton('Save');
+            if($this->ajaxCall){
+                $form->removeDecorator('form');
+            }
             return $form;
         } else {
             //Create form
             $elementClass = $mainEle->getClassName();
             $formClassName = preg_replace('/Activity_Elements/','Form',get_class($mainEle));
-            $formValues = $this->getAttrib($mainEle , $elementClass , $eleCount);
-            $parentForm->addSubElement($formClassName , $elementClass , $eleCount , $formValues , $mainEle->getMultiple());
+            $formValues = $this->getAttrib($mainEle, $eleCount);
+            $subForm = $parentForm->addSubElement($formClassName , $mainEle , $eleCount , $formValues);
+            
+            $this->getChildForms($subForm , $mainEle);
+            
+            if($mainEle->hasMultiple()){
+                $eleName = str_replace('Iati_WEP_Activity_Elements_' , '' , get_class($mainEle));
+                $remove = new Iati_Form_Element_Note('remove');
+                $remove->setValue("<a href='/wep/remove-elements?classname={$eleName}' class='remove-element button'> Remove This</a>");
+                $remove->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'remove button'));
+                $subForm->addElements(array($remove));
+            }
+            
+            return $subForm;
+        }
+    }
+    
+    public function getChildForms($form , $mainEle){
+        //Create child forms
+        $class = preg_replace('/Iati_WEP_Activity_Elements_/' , '' , get_class($mainEle));
+        $tree = new Iati_WEP_ActivityTreeMapper();
+        $childElements = $tree->getActivityTree($class);
+        if($childElements){
+            foreach($childElements as $element){
+                $eleName = str_replace($class."_", '' , $element);
+                $children = $this->registryTree->getChildNodes($mainEle , $eleName);
+                if(!empty($children) ){
+                    $hasMultiple = $children[0]->hasMultiple();
+                    if($hasMultiple){
+                        $subEleForm = new Iati_Form();
+                        $subEleForm->removeDecorator('form');
+                    }
+                    foreach($children as $key => $child){
+                        if($hasMultiple){
+                            $eleForm = $this->genForm($child , $subEleForm , null);
+                        } else {
+                            $eleForm = $this->genForm($child , $form , null);
+                            $this->addWrapper($eleForm , $children[0]);
+                        }
+                    }
+                    if($hasMultiple){
+                        $add = new Iati_Form_Element_Note('add');
+                        $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'add-element button'));
+                        $add->setValue("<a href='#' class='button' value='$eleName'> Add More</a>");
+                        $subEleForm->addElement($add);
 
-            //Create child forms
-            $children = $this->registryTree->getChildNodes($mainEle);
-            if(!empty($children) ){
-                foreach($children as $key => $child){
-                    $this->genForm($child , $subForm , null);
+                        $this->addWrapper($subEleForm , $children[0]);
+                        $form->addSubForm($subEleForm , $eleName);
+                    }
                 }
             }
         }
+    }
+    
+    public function addWrapper($form , $element){
+        if($element->hasMultiple()){
+            foreach($form->getSubForms() as $tmpForm){
+                $formClass = $tmpForm->getAttrib('class');
+            }
+        } else {
+            $formClass = $form->getAttrib('class');
+        }
+        $camelCaseToSeperator = new Zend_Filter_Word_CamelCaseToSeparator(" ");
+        $title = $camelCaseToSeperator->filter($element->getClassName());
+        if($element->isRequired()){
+            $title .= " * ";
+        } 
+        $form->addDecorators( array(
+                    array( 'wrapper' => 'HtmlTag' ), array( 'tag' => 'fieldset' , 'options' => array('legend' => $title , 'class' => $formClass))
+                    )
+        );
+        $form->addDecorators( array(array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'element-wrapper'))));
     }
 
     public function genHtml ($nodes) {
@@ -467,7 +540,7 @@ class Iati_WEP_FormHelper {
         return (count($_attrs) > 0 ? implode(' ', $_attrs) : '');
     }
     
-    protected function getAttrib($ele , $className , $key)
+    protected function getAttrib($ele , $key)
     {
         $attrs = $ele->getCleanedData();
         $validData = array();

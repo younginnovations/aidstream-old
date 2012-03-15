@@ -197,7 +197,6 @@ function initialize() {
                 for (var i = 0; i < values.length; i++) {
                     ajx['item' + i] = values[i];
                 }
-		console.log(ajx);
                 dojo.xhrGet({
                     url : dojo.attr(getTarget(evt), 'href'),
                     handleAs : 'text',
@@ -242,13 +241,8 @@ function initialize() {
             },
             
             "onclick" : function (evt) {
-<<<<<<< HEAD
-
-=======
                 evt.preventDefault();
->>>>>>> add more and remove added
                 var removeNode = getTarget(evt).parentNode;
-		console.log(removeNode);
                 var removeUrl = dojo.attr(getTarget(evt), 'href');
                 //var grandParent = new dojo.NodeList(getTarget(evt).parentNode.parentNode);
                 //var parentNode = new dojo.NodeList(getTarget(evt).parentNode);
@@ -305,7 +299,6 @@ function initialize() {
 			});
 		    }
 		    else {
-			alert('called');
 			if (grandParent.children('fieldset').length > 1) {
 					dojo.destroy(parentNode[0]);
 				}
@@ -782,14 +775,14 @@ function initialize() {
 
 	".non-required-element" : {
 	    "found" : function (ele) {
-		dojo.query('dl' , ele).style('display', 'none');
+		dojo.query('div:first-child' , ele).style('display', 'none');
 	    }
 	},
 	
 	".non-required-element >legend" : {
 	    "onclick" : function (evt) {
 		    var ele = getTarget(evt);
-		    var node = dojo.query('dl' , ele.parentNode);
+		    var node = dojo.query("div:first-child" , ele.parentNode);
 		    if(node.style('display') == 'block' || node.style('display') == ''){
 			node.style('display', 'none');
 		    } else {
@@ -802,37 +795,23 @@ function initialize() {
             'onclick' : function (evt) {
 		evt.preventDefault();
                 var node = new dojo.NodeList(getTarget(evt));
-		var name = node.attr('value');
+                var value = node.attr('value')[0];
 		var url = APP_BASEPATH + "/wep/clone-node";
-		/*
-		console.log(node);
-                node = node.parent('div');
-                console.log(node);
                 
-                var sp = node.query('input').attr('name')[0];
+                var wrapperNode = dojo.query(getTarget(evt)).parents(".element-wrapper").first();
+                var lastNode =wrapperNode.children('fieldset:last-of-type');
+                var input = lastNode.query('input').attr('id');
+                var refEle = input[input.length - 1];
+                refEle = refEle.replace(/-\w+$/,'');
+                // prepare input object for get parameter                
+                var data = new Object();
+                data['class'] = value;
+                data['refEle'] = refEle;
                 
-                sp = sp.split(/\[(\d+)\]/);
-                var values = new Array();
-    
-                for (var i = 1; i < sp.length; i++) {
-                    if (sp[i] !== '') {
-                        values.push(sp[i]);
-                    }
-                }
-                ajx = new Object();
-    
-                //ajx['classname'] = sp[0].split(/_/)[0];
-    
-                for (var i = 0; i < values.length; i++) {
-                    ajx['item' + i] = values[i];
-                }
-		*/
                 dojo.xhrGet({
                     url : url,
                     handleAs : 'text',
-                    content : {
-				"classname": name
-			    },
+                    content : data,
                     load : function (data) {
                         dojo.place(data, getTarget(evt).parentNode, "before");
                         dojo.behavior.apply();
@@ -840,10 +819,92 @@ function initialize() {
                     error : function (err) {
                         
                     }
-                });                
+                });
+                //*/
             }
         },
 	
+        ".remove-element" : {
+            "onmouseover" : function(evt) {
+                var node = getTarget(evt).parentNode.parentNode;
+                dojo.addClass(node , 'remove-highlight');
+            },
+            
+            "onmouseout" : function(evt) {
+                var node = getTarget(evt).parentNode.parentNode;
+                dojo.removeClass(node , 'remove-highlight');
+            },
+            
+            "onclick" : function (evt) {
+                evt.preventDefault();
+                var removeNode = getTarget(evt).parentNode;
+                var removeUrl = dojo.attr(getTarget(evt), 'href');
+                //var grandParent = new dojo.NodeList(getTarget(evt).parentNode.parentNode);
+                //var parentNode = new dojo.NodeList(getTarget(evt).parentNode);
+                var msg = '<div><p>Are you sure you want to delete this item?</p>';
+                msg += '<p>This will remove all the subitems(if any) as well.</p>';
+                msg += '<p style="margin-left:100px"><button dojoType="dijit.form.Button" type="button" id="cd-ok">OK</button>';
+                msg += '<button dojoType="dijit.form.Button" type="button" id="cd-cancel">Cancel</button></p>';
+                
+                // Destroy all dialog box before creating new. Used to remove dialog box remaining after clicking close.
+                dojo.query('.dijitDialog').forEach(dojo.destroy);
+                
+                var confirmDlg = new dijit.Dialog({
+                    title: "Are you Sure?",
+                    style: "width: 320px",
+                    parseOnLoad: true,
+                    content: msg
+                });
+                
+                dojo.connect(dojo.byId('cd-cancel'), 'onclick', function (e) {
+                    confirmDlg.destroyRecursive();
+                });
+                
+                dojo.connect(dojo.byId('cd-ok'), 'onclick', function (e) {
+                    confirmDlg.destroyRecursive();
+                    var grandParent = dojo.NodeList(removeNode.parentNode.parentNode);
+                    console.log(grandParent);
+		    var parentNode = dojo.NodeList(removeNode.parentNode);
+		    var removeId = dojo.attr(parentNode.query('input[type="hidden"]')[0], 'value');
+		    //console.log(grandParent.children('fieldset').length);
+		    if (parseInt(removeId)) {
+			dojo.xhrGet({
+			    url: removeUrl ,
+			    handleAs: 'text',
+			    content: {
+				"id": removeId
+			    },
+			    load: function (data) {
+				//console.log(data);
+				if(data == 'success'){
+				    if (grandParent.children('.form-wrapper').length > 1) {
+					dojo.destroy(parentNode[0]);
+				    } else {
+					window.location.reload();
+				    }
+				}
+				else{
+				    messageDialog("Error", data);
+				}
+			    },
+			    error: function (data) {
+				//console.log(data);
+				messageDialog("Error", "Something went wrong! Please try again");
+			    }
+			});
+		    }
+		    else {
+			if (grandParent.children('.form-wrapper').length > 1) {
+                                dojo.destroy(parentNode[0]);
+                        }
+		    }
+                    
+                });
+                
+                confirmDlg.show();
+            }
+        },
+        
 	".collapsed" : {
 	    "found" : function (ele) {
 		dojo.query('dl' , ele).style('display', 'none');

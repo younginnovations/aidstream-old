@@ -22,13 +22,10 @@ class Iati_WEP_Activity_ResultFactory
     {
 
         $this->globalObject = $this->getRootNode();
-
         if($data){
             $this->globalObject = $this->getRootNode();
-            foreach($data as $key => $values){
-                if(is_array($values)){
-                    $tree = $this->createObjects ($objectType, null, $data);
-                }
+            foreach($data['Result'] as $result){
+                $tree = $this->createResult($result);
             }
         }
         else{
@@ -40,7 +37,6 @@ class Iati_WEP_Activity_ResultFactory
 
     public function createResult($flatArray = array())
     {
-        //        var_dump($flatArray);exit;
         $result = new Iati_WEP_Activity_Elements_Result ();
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
         if($flatArray){
@@ -54,7 +50,6 @@ class Iati_WEP_Activity_ResultFactory
         $this->createObjects ( 'Title', $result, $flatArray);
         $this->createObjects ( 'Description', $result, $flatArray);
         $this->createObjects ( 'Indicator', $result, $flatArray);
-
         return $registryTree;
 
     }
@@ -76,17 +71,6 @@ class Iati_WEP_Activity_ResultFactory
             $object->setInitialValues ( $this->getInitialValues () );
             $object->factory($class, $parent);
         }
-
-        /*if($values){
-            $data = $this->getFields($class, $values);
-            $object->setAttributes($data);
-            $registryTree->addNode($object, $parent);
-        }
-        else{
-            $object->setAttributes( $this->getInitialValues() );
-            $registryTree->addNode ($object, $parent);
-        }
-*/
         
         return $registryTree;
     }
@@ -114,16 +98,18 @@ class Iati_WEP_Activity_ResultFactory
     public function getFields($class, $data)
     {
         $newArray = array();
-
-        foreach($data as $key => $value){
-            if(is_array($value)){
-                foreach($value as $k => $v){
-                
-                $key_array = explode('_', $k);
-                if($key_array[0] == $class){
-                    array_shift($key_array);
-                    $newArray[implode("_", $key_array)] = $v;
-                }
+        $values = $data[$class];
+        if($values){
+            //@todo modify this code
+            foreach($values as $attrs){
+                $newArray = $attrs;
+            }
+        } else {
+            foreach($data as $key => $value){
+                if(is_array($value)){
+                   continue;
+                } else { 
+                    $newArray[$key] = $value;
                 }
             }
         }
@@ -212,14 +198,13 @@ class Iati_WEP_Activity_ResultFactory
                     $object1 = new $className1;
                     $object1->setAttributes($eachChild->getAttribs());
                     $registryTree->addNode($object1, $object);
-                    
                     if($eachChild->getElements()){
                         $subChildren = $eachChild->getElements();
-                        $parent = $eachChild->getType();
+                        $subParent = $eachChild->getType();
                         foreach($subChildren as $eachSubChild){
-                            $className1 = 'Iati_WEP_Activity_Elements_' . $parent . "_" . $eachSubChild->getType();
+                            $className1 = 'Iati_WEP_Activity_Elements_' . $parent."_". $subParent. "_" . $eachSubChild->getType();
                             $object2 = new $className1;
-                            $object2->setAttributes($eachChild->getAttribs());
+                            $object2->setAttributes($eachSubChild->getAttribs());
                             $registryTree->addNode($object2, $object1);
                         }
                     }

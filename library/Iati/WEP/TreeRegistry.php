@@ -143,18 +143,21 @@ class Iati_WEP_TreeRegistry {
     }
     
     /**
-     * Returns all child nodes of a current object
+     * Returns child nodes of a current object
      * @param $obj Object
+     * @param String $type type of child elements to select , if null all child are selected
      * @return $childs List of Objects
      *
      */
-    public function getChildNodes ($obj) {
+    public function getChildNodes ($obj , $type = null) {
         $childs = $this->selectNode($obj)->children();
         $objects = array();
-        foreach ($childs as $child) {
-            $attr = $child->attributes();
-            $attr = (string)$attr['id'];
-            array_push($objects, self::$_objects[$attr]);
+        foreach ($childs as $key => $child) {
+            if(!$type || $key == $type){
+                $attr = $child->attributes();
+                $attr = (string)$attr['id'];
+                array_push($objects, self::$_objects[$attr]);
+            }
         }
         return $objects;
     }

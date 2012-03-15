@@ -63,10 +63,11 @@ class Iati_WEP_Activity_Elements_Result_Indicator_Actual extends Iati_WEP_Activi
     }
     
     public function setAttributes ($data) {
-//        print_r($data);exit;
         $this->id = (isset($data['id']))?$data['id']:0; 
-        $this->code = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
+        $this->lang = (key_exists('@xml_lang', $data))?$data['@xml_lang']:$data['xml_lang'];
         $this->text = $data['text'];
+        $this->value = (key_exists('@value', $data))?$data['@value']:$data['value'];
+        $this->year = (key_exists('@year', $data))?$data['@year']:$data['year'];
     }
     
     public function getOptions($name = NULL)

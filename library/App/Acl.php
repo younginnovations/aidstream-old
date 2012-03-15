@@ -64,6 +64,7 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'default:wep', 'activitybar');
         $this->allow('user', 'default:wep', 'add-activity-elements', new App_ActionAssertion('add_activity_elements'));
         $this->allow('user', 'default:wep', 'edit-activity-elements', new App_ActionAssertion('edit_activity_elements'));
+        $this->allow('user', 'default:wep', 'edit-element', new App_ActionAssertion('edit_activity_elements'));
         $this->allow('user', 'default:wep', 'publish-in-registry' , new App_ActionAssertion('publish'));
         $this->allow('user', 'default:wep', 'delete-published-file' , new App_ActionAssertion('publish'));
         $this->allow('user', 'default:wep', 'delete', new App_ActionAssertion('delete'));
@@ -85,6 +86,7 @@ class App_Acl extends Zend_Acl
         $this->allow('admin', 'default:wep', 'add-activity');
         $this->allow('admin', 'default:wep', 'add-activity-elements');
         $this->allow('admin', 'default:wep', 'edit-activity-elements');
+        $this->allow('admin', 'default:wep', 'edit-element');
         $this->allow('admin', 'default:wep', 'publish-in-registry');
         $this->allow('admin', 'default:wep', 'delete-published-file');
         $this->allow('admin', 'default:wep', 'edit-help-message');

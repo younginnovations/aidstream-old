@@ -1294,7 +1294,7 @@ code
     text-decoration: none;
 }
 
-fieldset.remove-highlight
+fieldset.remove-highlight , .remove-highlight
 {
 	outline:1px dashed #F7675C;
 	border-radius:4px;

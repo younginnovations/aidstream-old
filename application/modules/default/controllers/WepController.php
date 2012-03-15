@@ -637,50 +637,75 @@ class WepController extends Zend_Controller_Action
     public function cloneNodeAction()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
-
-        if($_GET['classname'])
-        {
-            $class = $_GET['classname'];
-        }
-        $initial = $this->getInitialValues($activity_id, $class);
-        $parents = array();
-        $items = array();
-        $parentExp = "/^parent/";
-        $itemExp = "/^item/";
-        //print_r($_GET);exit;
-        foreach($_GET as $key => $eachValue){
-            if(preg_match($parentExp, $key)){
-                $a = explode('parent', $key);
-                $parents[$a[1]] = $eachValue;
+        // Treating transaction and result elements seperately
+        if(isset($_GET['class'])){
+            
+            $class = $this->_getParam('class');
+            $refItem = $this->_getParam('refEle');
+            $item = substr($refItem , -1);
+            $refItem = preg_replace("/$class.*$/" , '' ,  $refItem);
+            $refItem = rtrim($refItem , '-');
+            $parents = array();
+            preg_match_all('/\w+-\d+/' , $refItem , $parents);
+            if(!empty($parents[0])){
+                //Factory classes are present in the activity directory but for lower level
+                //elements they are present inside the element directory or the activity directory
+                $parent = preg_replace('/-\d+/', '', $refItem);
+                $parent = preg_replace('/-/' , '_', $parent);
+                $classname = 'Iati_WEP_Activity_' . $parent . 'Factory';
+                if(!class_exists($classname)){
+                    $classname = 'Iati_WEP_Activity_Elements_' . $parent . 'Factory';
+                }
+            } else {
+                $classname = 'Iati_WEP_Activity_' . $class . 'Factory';
             }
-            if(preg_match($itemExp, $key)){
-                $a = explode('item', $key);
-                $items[$a[1]] = $eachValue;
-            }
-        }
-        //       print_r($_GET);exit;
-
-        $class1 = (isset($parents[0]))?$parents[0]:$class;
-        //print_r($class1);exit;
-        $classname = 'Iati_WEP_Activity_' . $class1 . 'Factory';
-        $factory = new $classname;
-        $factory->setInitialValues($initial);
-        $tree = $factory->factory($class);
-
-        array_push($parents, $class);
-        $formHelper = new Iati_WEP_FormHelper();
-        if($parents[0] == 'Transaction'){
-            $item = rand(0,10);
-            $a = $formHelper->getFormWithAjax($parents, $item);
+            //array_push($parents , $class);
+            $factory = new $classname;
+            $factory->setInitialValues($initial);
+            $tree = $factory->factory($class);
+            $item++;
+            
+            $formHelper = new Iati_WEP_FormHelper();
+            $a = $formHelper->getFormWithAjax($parents[0], $item);
             $partialPath = Zend_Registry::get('config')->resources->layout->layoutpath;
             $myView = new Zend_View;
             $myView->setScriptPath($partialPath.'/partial');
             $myView->assign('form' , $a);
             $form = $myView->render('form.phtml');
-            print $form;exit;
+            print $form;
+            exit;
+            
         } else {
+            if($_GET['classname'])
+            {
+                $class = $_GET['classname'];
+            }
+            $initial = $this->getInitialValues($activity_id, $class);
+            $parents = array();
+            $items = array();
+            $parentExp = "/^parent/";
+            $itemExp = "/^item/";
+            foreach($_GET as $key => $eachValue){
+                if(preg_match($parentExp, $key)){
+                    $a = explode('parent', $key);
+                    $parents[$a[1]] = $eachValue;
+                }
+                if(preg_match($itemExp, $key)){
+                    $a = explode('item', $key);
+                    $items[$a[1]] = $eachValue;
+                }
+            }
+            $class1 = (isset($parents[0]))?$parents[0]:$class;
+            $classname = 'Iati_WEP_Activity_' . $class1 . 'Factory';
+            $factory = new $classname;
+            $factory->setInitialValues($initial);
+            $tree = $factory->factory($class);
+    
+            array_push($parents, $class);
+            $formHelper = new Iati_WEP_FormHelper();
             $a = $formHelper->getFormWithAjax($parents, $items);
-            print $a;exit;
+            print $a;
+            exit;
         }
         $this->_helper->layout->disableLayout();
         //     $this->_helper->viewRenderer->setNoRender(true);
@@ -960,16 +985,6 @@ class WepController extends Zend_Controller_Action
         $this->_helper->layout->disableLayout();
         if($this->_request->isGet()){
             try{
-                //                print_r($this->_request->getParam('class'));exit;
-                /*$id = $this->_request->getParam('id');
-                $string = 'Iati_WEP_Activity_' . $this->_request->getParam('class');
-                $obj = new $string();
-                $class = $obj->getTableName();
-                $model = new Model_Wep();
-                $model->deleteRowById($id, $class);
-                print 'success';
-                exit();*/
-
                 if($_GET['classname'])
                 {
                     $class = $_GET['classname'];
@@ -992,27 +1007,17 @@ class WepController extends Zend_Controller_Action
                 }
 
                 $class1 = (isset($parents[0]))?$parents[0]. "_" . $class:$class;
-                //               $className = 'Activity';
                 $fieldName = 'id';
                 $value = $id;
                 $dbLayer = new Iati_WEP_DbLayer();
                 $del = $dbLayer->deleteRows($class1, $fieldName, $value);
                 print 'success';
                 exit();
-
-            } /*catch (Exception $e) {
-
-                print 'Error occured while deleting.';
-                exit();
-            }*/
-            catch(Exception $e){
+                 
+            } catch(Exception $e){
                 print $e; exit();
             }
-
-        }
-        else{
-        }
-
+        }        
     }
 
     /**
@@ -1412,14 +1417,18 @@ class WepController extends Zend_Controller_Action
             $activity = new Iati_WEP_Activity_Elements_Activity();
             $activity->setAttributes(array('activity_id' => $activityId));    
             $registryTree->addNode($activity);
-            $tree = $factory->factory($class);
+            $factory->factory($class);
         } else {
-            $tree = $factory->extractData($rowSet, $activityId);
+            $factory->extractData($rowSet, $activityId);
         }
         $formHelper = new Iati_WEP_FormHelper();
         $form = $formHelper->getForm();
         if($formData = $this->getRequest()->getPost()){
+            $factory->factory($class , $formData);
+            $form = $formHelper->getForm();
             if($form->isValidPartial($formData)){
+                //echo "<pre>";
+                //print_r($formData );exit;
                 $activity = new Iati_WEP_Activity_Elements_Activity();
                 $activity->setAttributes(array('activity_id' => $activityId));
                 $registryTree = Iati_WEP_TreeRegistry::getInstance();
@@ -1447,5 +1456,6 @@ class WepController extends Zend_Controller_Action
         $this->view->blockManager()->disable('partial/primarymenu.phtml');
         $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
         $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
+        $this->view->blockManager()->disable('partial/published-list.phtml');
     }
 }

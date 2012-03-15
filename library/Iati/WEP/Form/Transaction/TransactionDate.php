@@ -1,10 +1,10 @@
 <?php
 
-class Iati_WEP_Form_Transaction_TransactionDate extends App_Form
+class Iati_WEP_Form_Transaction_TransactionDate extends Iati_Form
 {
     public function init()
     {
-        $this->setAttrib('class' , 'first-child non-required-element')
+        $this->setAttrib('class' , 'first-child')
             ->setMethod('post')
             ->setIsArray(true);
             

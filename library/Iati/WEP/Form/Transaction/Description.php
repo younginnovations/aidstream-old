@@ -1,12 +1,12 @@
 <?php
 
-class Iati_WEP_Form_Transaction_Description extends App_Form
+class Iati_WEP_Form_Transaction_Description extends Iati_Form
 {
     public function init()
     {
         $model = new Model_Wep();
 
-        $this->setAttrib('class' , 'first-child non-required-element')
+        $this->setAttrib('class' , 'first-child')
             ->setMethod('post')
             ->setIsArray(true);
             
@@ -18,7 +18,7 @@ class Iati_WEP_Form_Transaction_Description extends App_Form
         $form['text']->setLabel('Text')
             ->setAttribs(array('rows'=>'3' , 'cols'=> '20'));
         
-        $lang = $model->getCodeArray('Language', null, '1');
+        $lang = $model->getCodeArray('Language', null, '1' , true);
         $form['lang'] = new Zend_Form_Element_Select('lang');
         $form['lang']->setLabel('Language')
             ->setAttrib('class' , 'form-select')

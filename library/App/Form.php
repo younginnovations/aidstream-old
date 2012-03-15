@@ -88,6 +88,8 @@ class App_Form extends Zend_Form
         }
         $subForm->addDecorators( array(array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','options' => array('class'=>'element-wrapper')))));
         $this->addSubForm($subForm,"{$elementClassName}{$elementCount}");
+        
+        return $subForm;
     }
     
     /**

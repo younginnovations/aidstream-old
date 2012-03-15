@@ -99,12 +99,8 @@ class Iati_WEP_Activity_ContactInfoFactory
     {
         $object = new Iati_WEP_Activity_Elements_ContactInfo_Telephone ();
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
-        echo "<pre>";
-var_dump($values);
         if($values){
                     $data = $this->getFields('Telephone', $values, true);
-                    var_dump($data);exit;
-//                    print_r($data);
                     foreach($data as $eachData){
                     $object = new Iati_WEP_Activity_Elements_ContactInfo_Telephone ();    
                     $object->setAttributes($eachData);

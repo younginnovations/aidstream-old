@@ -1,5 +1,5 @@
 <?php
-class Iati_WEP_Activity_Elements_Result_TitleFactory extends Iati_WEP_Activity_BaseFactory
+class Iati_WEP_Activity_Elements_Result_TitleFactory extends Iati_WEP_Activity_ResultFactory
 {
     protected $defaultValues = array();
     protected $globalObject;
@@ -15,14 +15,10 @@ class Iati_WEP_Activity_Elements_Result_TitleFactory extends Iati_WEP_Activity_B
 
     public function factory($objectType = 'Title', $parent = NULL, $data = array())
     {
-//        print_r($parent);exit;
         $this->globalObject = $parent;
         if($data){
-            $this->globalObject = $parent;
-            foreach ($data as $key => $values){
-                if(is_array ($values)){
-                    $tree = $this->createObjects ('Result_'.$objectType, $this->globalObject, $values);
-                }
+            foreach($data['Title'] as $title){
+                $this->createObjects ('Result_'.$objectType, $this->globalObject , $title);
             }
         }
         else{
@@ -41,7 +37,6 @@ class Iati_WEP_Activity_Elements_Result_TitleFactory extends Iati_WEP_Activity_B
     {
         $string = 'Iati_WEP_Activity_Elements_' . $class;
         $object = new $string ();
-//        print_r($this->getInitialValues());exit;
         $registryTree = Iati_WEP_TreeRegistry::getInstance ();
 
         if($values){
@@ -78,6 +73,7 @@ class Iati_WEP_Activity_Elements_Result_TitleFactory extends Iati_WEP_Activity_B
         return $registry->getRootNode();
     }
 
+/*
     public function getFields($class, $data)
     {
         $newArray = array();
@@ -90,7 +86,7 @@ class Iati_WEP_Activity_Elements_Result_TitleFactory extends Iati_WEP_Activity_B
         }
         return $newArray;
     }
-
+*/
     /**
      * recursive validation function
      * @param $obj

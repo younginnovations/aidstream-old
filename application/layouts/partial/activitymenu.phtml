@@ -90,6 +90,9 @@
                         
                             $key = ucwords(str_replace("_"," ",$element));
                             $href = $this->baseUrl()."/wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=".str_replace(" ", "", $key);
+                            if($element == 'transaction' || $element == 'result'){
+                                $href = $this->baseUrl()."/wep/edit-element/?activity_id=". $url['activity_id'] ."&class=".str_replace(" ", "", $key);
+                            }
                             $class = '';
                             if(str_replace(" ", "", $key) == $paramValue){
                                 $class = "class = highlight";

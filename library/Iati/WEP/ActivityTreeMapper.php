@@ -31,8 +31,8 @@ class Iati_WEP_ActivityTreeMapper {
     'Result' =>
         	array(
         	0 => 'Result_Description',
-        	1 => 'Result_Indicator',
-        	2 => 'Result_Title',
+        	1 => 'Result_Title',
+                2 => 'Result_Indicator',
         	),
     'Result_Indicator' =>
         	array(

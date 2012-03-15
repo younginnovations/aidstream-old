@@ -53,7 +53,7 @@ class Iati_WEP_Activity_Elements_Result extends Iati_WEP_Activity_Elements_Eleme
     
     public function setAttributes ($data) {
         $this->id = (isset($data['id']))?$data['id']:0; 
-        $this->ref = (isset($data['@type']))?$data['@type']:$data['type'];
+        $this->type = (isset($data['@type']))?$data['@type']:$data['type'];
     }
     
     public function getOptions($attr)
@@ -89,7 +89,7 @@ class Iati_WEP_Activity_Elements_Result extends Iati_WEP_Activity_Elements_Eleme
     public function getCleanedData(){
         $data = array();
         $data['id'] = $this->id;
-        $data['type'] = $this->type;
+        $data['@type'] = $this->type;
         
         return $data;
     }
