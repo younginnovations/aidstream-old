@@ -100,7 +100,9 @@ class Iati_WEP_XmlHandler
         $element_data = $this->getElementsData($element);
         if(empty($element_data['attributes']))
         {
-            return null;
+            if(!$element->getElements()){
+                return null;
+            }
         }
         $element_node = $this->_generateXml($element_data,$parent);
         
