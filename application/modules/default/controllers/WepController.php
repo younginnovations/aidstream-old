@@ -1409,45 +1409,44 @@ class WepController extends Zend_Controller_Action
         $initial = $this->getInitialValues($activityId, $class);
         $factory = new $classname();
         $factory->setInitialValues($initial);
-        
-        $rowSet = $dbLayer->getRowSet($class, 'activity_id', $activityId, true);
-        $elements = $rowSet->getElements();
-        $attributes = $elements[0]->getAttribs();
-        if(empty($attributes)){
-            $activity = new Iati_WEP_Activity_Elements_Activity();
-            $activity->setAttributes(array('activity_id' => $activityId));    
-            $registryTree->addNode($activity);
-            $factory->factory($class);
-        } else {
-            $factory->extractData($rowSet, $activityId);
-        }
         $formHelper = new Iati_WEP_FormHelper();
-        $form = $formHelper->getForm();
+
         if($formData = $this->getRequest()->getPost()){
-            $factory->factory($class , $formData);
+            $activity = new Iati_WEP_Activity_Elements_Activity();
+            $activity->setAttributes(array('activity_id' => $activityId));
+            $registryTree->addNode($activity);
+            $tree = $factory->factory($class, $formData);
             $form = $formHelper->getForm();
-            if($form->isValidPartial($formData)){
-                //echo "<pre>";
-                //print_r($formData );exit;
-                $activity = new Iati_WEP_Activity_Elements_Activity();
-                $activity->setAttributes(array('activity_id' => $activityId));
-                $registryTree = Iati_WEP_TreeRegistry::getInstance();
-                $registryTree->addNode($activity);
-                $factory->setInitialValues($initial);
-                $tree = $factory->factory($class, $formData);
+            $form->populate($formData);
+            if($form->validate()){
                 $elementClassName = 'Iati_Activity_Element_Activity';
                 $element = new $elementClassName ();
                 $data = $activity->getCleanedData();
                 $element->setAttribs($data);
                 $activityTree = $factory->cleanData($activity, $element);
                 $dbLayer->save($activityTree);
+                $rowSet = $dbLayer->getRowSet($class, 'activity_id', $activityId, true);
+                $factory->extractData($rowSet, $activityId);
                 $form = $formHelper->getForm();
-                $tree = $factory->extractData($rowSet, $activityId);
+
                 $this->_helper->FlashMessenger->addMessage(array('message' => "$class saved sucessfully."));
             } else {
                 $form->populate($formData);
                 $this->_helper->FlashMessenger->addMessage(array('error' => "You have some error in you data."));
             }
+        } else {
+            $rowSet = $dbLayer->getRowSet($class, 'activity_id', $activityId, true);
+            $elements = $rowSet->getElements();
+            $attributes = $elements[0]->getAttribs();
+            if(empty($attributes)){
+                $activity = new Iati_WEP_Activity_Elements_Activity();
+                $activity->setAttributes(array('activity_id' => $activityId));    
+                $registryTree->addNode($activity);
+                $factory->factory($class);
+            } else {
+                $factory->extractData($rowSet, $activityId);
+            }
+            $form = $formHelper->getForm();
         }
 
         $this->view->form = $form;

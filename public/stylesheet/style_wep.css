@@ -2788,3 +2788,7 @@ td.data-value {
 	background-color:#fff;
 	padding:10px 15px;
 }
+
+#id-element , #id-label {
+    display : none;
+}

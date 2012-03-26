@@ -115,13 +115,14 @@ class Iati_Form extends Zend_Form
         );
     }
     
-    public function validate($formData){
+    public function validate(){
+        $isValid = true;
         if(!$this->getSubForms()){
             $elementClass = preg_replace('/Form/' , 'Activity_Elements' , get_class($this));
             $element = new $elementClass();
             if($element->isRequired()){
-                return $this->isValid($formData);
-                
+                $values = $this->getValues();
+                return $this->isValid($values);   
             } else {
                 $values = $this->getValues();
                 $name = $this->getName();
@@ -131,23 +132,28 @@ class Iati_Form extends Zend_Form
                 unset($data['remove']);
                 unset($data['add']);
                 $notEmpty = false;
-                foreach($data as $value){
-                    if($value){
+                foreach($data as $key=>$value){
+                    if($value && $key !== 'id'){
                         $notEmpty = true;
                     }
                 }
                 if($notEmpty){
-                    return $this->isValid($formData);
+                    $values = $this->getValues();
+                    return $this->isValid($values);
                 }
                 return true;
             }
         }
         foreach($this->getSubForms() as $subform){
-            $isValid = $subform->validate($formData);
-            if(!$isValid){
-                return false;
+            if(!$subform->validate()){
+                $isValid = false;
             }
         }
-        return true;
+        foreach($this->getElements() as $element){
+            if(!$element->isValid($element->getValue())){
+                $isValid = false;
+            }
+        }
+        return $isValid;
     }
 }
