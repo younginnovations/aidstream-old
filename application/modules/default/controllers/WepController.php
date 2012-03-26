@@ -661,6 +661,7 @@ class WepController extends Zend_Controller_Action
             }
             //array_push($parents , $class);
             $factory = new $classname;
+            $initial = $this->getInitialValues('', $class);
             $factory->setInitialValues($initial);
             $tree = $factory->factory($class);
             $item++;
@@ -1402,7 +1403,18 @@ class WepController extends Zend_Controller_Action
     {
         $class = $this->_getParam('class');
         $activityId = $this->_getParam('activity_id');
-        
+        $model = new Model_Wep();
+        $activity_info = $model->listAll('iati_activity', 'id', $activityId);
+        if (empty($activity_info)) {
+            //@todo 
+        }
+        $activity = $activity_info[0];
+                
+        $iati_identifier_row = $model->getRowById('iati_identifier', 'activity_id', $activityId);
+        $activity['iati_identifier'] = $iati_identifier_row['text'];
+        $activity['activity_identifier'] = $iati_identifier_row['activity_identifier'];
+        $title_row = $model->getRowById('iati_title', 'activity_id', $activityId);
+        $activity['iati_title'] = $title_row['text'];
         $dbLayer = new Iati_WEP_DbLayer();
         $classname = 'Iati_WEP_Activity_'. $class . 'Factory';
         $registryTree = Iati_WEP_TreeRegistry::getInstance();
@@ -1450,6 +1462,7 @@ class WepController extends Zend_Controller_Action
         }
 
         $this->view->form = $form;
+        $this->view->activityInfo = $activity;
         $this->view->blockManager()->enable('partial/override-activity.phtml');
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
         $this->view->blockManager()->disable('partial/primarymenu.phtml');
