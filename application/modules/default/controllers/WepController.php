@@ -642,7 +642,9 @@ class WepController extends Zend_Controller_Action
             
             $class = $this->_getParam('class');
             $refItem = $this->_getParam('refEle');
-            $item = substr($refItem , -1);
+            $reg = "/{$class}-\d+/";
+            preg_match( $reg , $refItem ,  $matches );
+            $item = substr($matches[0] , -1);
             $refItem = preg_replace("/$class.*$/" , '' ,  $refItem);
             $refItem = rtrim($refItem , '-');
             $parents = array();
@@ -1404,17 +1406,7 @@ class WepController extends Zend_Controller_Action
         $class = $this->_getParam('class');
         $activityId = $this->_getParam('activity_id');
         $model = new Model_Wep();
-        $activity_info = $model->listAll('iati_activity', 'id', $activityId);
-        if (empty($activity_info)) {
-            //@todo 
-        }
-        $activity = $activity_info[0];
-                
-        $iati_identifier_row = $model->getRowById('iati_identifier', 'activity_id', $activityId);
-        $activity['iati_identifier'] = $iati_identifier_row['text'];
-        $activity['activity_identifier'] = $iati_identifier_row['activity_identifier'];
-        $title_row = $model->getRowById('iati_title', 'activity_id', $activityId);
-        $activity['iati_title'] = $title_row['text'];
+        
         $dbLayer = new Iati_WEP_DbLayer();
         $classname = 'Iati_WEP_Activity_'. $class . 'Factory';
         $registryTree = Iati_WEP_TreeRegistry::getInstance();
@@ -1460,7 +1452,18 @@ class WepController extends Zend_Controller_Action
             }
             $form = $formHelper->getForm();
         }
-
+        $activity_info = $model->listAll('iati_activity', 'id', $activityId);
+        if (empty($activity_info)) {
+            //@todo 
+        }
+        $activity = $activity_info[0];
+                
+        $iati_identifier_row = $model->getRowById('iati_identifier', 'activity_id', $activityId);
+        $activity['iati_identifier'] = $iati_identifier_row['text'];
+        $activity['activity_identifier'] = $iati_identifier_row['activity_identifier'];
+        $title_row = $model->getRowById('iati_title', 'activity_id', $activityId);
+        $activity['iati_title'] = $title_row['text'];
+        
         $this->view->form = $form;
         $this->view->activityInfo = $activity;
         $this->view->blockManager()->enable('partial/override-activity.phtml');

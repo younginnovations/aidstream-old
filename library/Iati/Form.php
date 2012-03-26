@@ -6,13 +6,13 @@
 class Iati_Form extends Zend_Form
 {
     protected $_defaultDisplayGroupClass = 'Iati_Form_DisplayGroup';
-    
+
     public function loadDefaultDecorators()
     {
         if ($this->loadDefaultDecoratorsIsDisabled()) {
             return;
         }
- 
+
         $decorators = $this->getDecorators();
         if (empty($decorators)) {
             $this->addDecorator('FormElements')
@@ -20,11 +20,11 @@ class Iati_Form extends Zend_Form
                 ->addDecorators( array(array(array( 'wrapper' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'form-wrapper'))));
         }
     }
-    
+
     public function render()
     {
         $requiredSuffx = '<span title="This field is required." class="form-required">*</span>';
-        
+
         foreach ($this->getElements() as $element) {
             $decorator = $element->getDecorator('Label');
             if ($decorator) {
@@ -36,15 +36,22 @@ class Iati_Form extends Zend_Form
             }
             if ($element->getErrors()) {
                 $this->addElementClass($element, 'error');
-                
+
             }
-            
+
             // Add a wrapper div to all elements other than add and remove buttons.
             if($element->getName() != 'add' && $element->getName() != 'remove'){
-                $element->addDecorators(array(
-                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'form-item clearfix'))
+                if($element->getName() == 'id'){
+                    $element->addDecorators(array(
+                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'form-item ele-id clearfix'))
                     )
-                );
+                    );
+                } else {
+	                $element->addDecorators(array(
+	                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'form-item clearfix'))
+	                    )
+	                );
+                }
             }
         }
 
@@ -71,14 +78,14 @@ class Iati_Form extends Zend_Form
 
         return $this;
     }
-    
+
     /**
      * Function to add Sub Elements form to the element.
      *
      * @param String $formClass  Class name of the form to be added.
      * @param Object $element        Object of the Element whose form is added
      * @param Integer $elementCount     Count value for the element. It is added as the array key for the element's array
-     * @param Array $attribs        Array of form element values. 
+     * @param Array $attribs        Array of form element values.
      */
     public function addSubElement($formClass, $element , $elementCount , $attribs = null )
     {
@@ -90,10 +97,10 @@ class Iati_Form extends Zend_Form
             $subForm->populate($attribs);
         }
         $this->addSubForm($subForm,"{$elementClassName}{$elementCount}");
-        
+
         return $subForm;
     }
-    
+
     /**
      * Function to add submit button to the form
      *
@@ -114,7 +121,7 @@ class Iati_Form extends Zend_Form
             )
         );
     }
-    
+
     public function validate(){
         $isValid = true;
         if(!$this->getSubForms()){
@@ -122,7 +129,7 @@ class Iati_Form extends Zend_Form
             $element = new $elementClass();
             if($element->isRequired()){
                 $values = $this->getValues();
-                return $this->isValid($values);   
+                return $this->isValid($values);
             } else {
                 $values = $this->getValues();
                 $name = $this->getName();

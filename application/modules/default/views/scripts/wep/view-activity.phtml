@@ -809,7 +809,7 @@ if(!empty($value)): ?>
 $transactions=$activity->getElementsByType(Iati_Activity_Element::TYPE_TRANSACTION);
 $value = $transactions[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Transaction<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=Transaction"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Transaction<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-element/?activity_id=<?php echo $this->activityInfo['id']?>&class=Transaction"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($transactions as $transaction):?>
 <table class='element-values-items'>
@@ -1203,11 +1203,187 @@ if(!empty($value)): ?>
 $results=$activity->getElementsByType(Iati_Activity_Element::TYPE_RESULT);
 $value = $results[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Result<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id']?>&class=Result"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Result<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-element/?activity_id=<?php echo $this->activityInfo['id']?>&class=Result"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($results as $result):?>
 <table class='element-values-items'>
 <tr class='element-value element-value-even'><td class='attrib-label'>Type</td><td class='attrib-value'> <?php if($result->getAttrib('@type')) ($result->getAttribValue('@type','Name')!=$result->getAttribValue('@type')) ?( printf("%s [%s]",$result->getAttribValue('@type','Name'),$result->getAttribValue('@type'))):(print($result->getAttribValue('@type')));?></td></tr>
+
+<tr>
+<td colspan=2>
+<!--  title Starts -->
+<?php
+$titles=$result->getElementsByType('Title');
+$value = $titles[0]->getAttribs();
+if(!empty($value)): ?>
+<div class='element-item'><div class='element-title'>Title</div>
+<div class='element-values'>
+<?php foreach($titles as $title):?>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($title->getAttrib('text')) print ($title->getAttribValue('text'));?> <?php if($title->getAttrib('@xml_lang')) printf (" [%s]",($condition->getAttribValue('@xml_lang')));?></td></tr>
+</table>
+<?php endforeach;?>
+</div>
+</div>
+<?php endif;?>
+</td>
+</tr>
+<!-- title Ends -->
+
+<tr>
+<td colspan=2>
+<!--  Description Starts -->
+<?php
+$descriptions=$result->getElementsByType('Description');
+$value = $descriptions[0]->getAttribs();
+if(!empty($value)): ?>
+<div class='element-item'><div class='element-title'>Description</div>
+<div class='element-values'>
+<?php foreach($descriptions as $description):?>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($description->getAttrib('text')) print ($description->getAttribValue('text'));?> <?php if($description->getAttrib('@xml_lang')) printf (" [%s]",($condition->getAttribValue('@xml_lang')));?></td></tr>
+</table>
+<?php endforeach;?>
+</div>
+</div>
+<?php endif;?>
+</td>
+</tr>
+<!-- Description Ends -->
+
+<tr>
+<td colspan=2>
+<!--  indicator Starts -->
+<?php
+$indicators=$result->getElementsByType('Indicator');
+$value = $indicators[0]->getAttribs();
+if(!empty($value)): ?>
+<div class='element-item'><div class='element-title'>Indicator</div>
+<div class='element-values'>
+<?php foreach($indicators as $indicator):?>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($indicator->getAttrib('text')) print ($indicator->getAttribValue('text'));?> <?php if($indicator->getAttrib('@xml_lang')) printf (" [%s]",($condition->getAttribValue('@xml_lang')));?></td></tr>
+
+<tr>
+<td colspan=2>
+<!--  title Starts -->
+<?php
+$titles=$indicator->getElementsByType('Title');
+$value = $titles[0]->getAttribs();
+if(!empty($value)): ?>
+<div class='element-item'><div class='element-title'>Title</div>
+<div class='element-values'>
+<?php foreach($titles as $title):?>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($title->getAttrib('text')) print ($title->getAttribValue('text'));?> <?php if($title->getAttrib('@xml_lang')) printf (" [%s]",($title->getAttribValue('@xml_lang')));?></td></tr>
+</table>
+<?php endforeach;?>
+</div>
+</div>
+<?php endif;?>
+</td>
+</tr>
+<!-- title Ends -->
+
+<tr>
+<td colspan=2>
+<!--  Description Starts -->
+<?php
+$descriptions=$indicator->getElementsByType('Description');
+$value = $descriptions[0]->getAttribs();
+if(!empty($value)): ?>
+<div class='element-item'><div class='element-title'>Description</div>
+<div class='element-values'>
+<?php foreach($descriptions as $description):?>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($description->getAttrib('text')) print ($description->getAttribValue('text'));?> <?php if($description->getAttrib('@xml_lang')) printf (" [%s]",($description->getAttribValue('@xml_lang')));?></td></tr>
+</table>
+<?php endforeach;?>
+</div>
+</div>
+<?php endif;?>
+</td>
+</tr>
+<!-- Description Ends -->
+
+<tr>
+<td colspan=2>
+<!--  baseline Starts -->
+<?php
+$baselines=$indicator->getElementsByType('Baseline');
+$value = $baselines[0]->getAttribs();
+if(!empty($value)): ?>
+<div class='element-item'><div class='element-title'>Baseline</div>
+<div class='element-values'>
+<?php foreach($baselines as $baseline):?>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($baseline->getAttrib('text')) print ($baseline->getAttribValue('text'));?> <?php if($baseline->getAttrib('@xml_lang')) printf (" [%s]",($baseline->getAttribValue('@xml_lang')));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Year</td><td class='attrib-value'> <?php if($baseline->getAttrib('@year')) ($baseline->getAttribValue('@year','Name')!=$baseline->getAttribValue('@year')) ?( printf("%s [%s]",$baseline->getAttribValue('@year','Name'),$baseline->getAttribValue('@year'))):(print($baseline->getAttribValue('@year')));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Value</td><td class='attrib-value'> <?php if($baseline->getAttrib('@value')) ($baseline->getAttribValue('@value','Name')!=$baseline->getAttribValue('@value')) ?( printf("%s [%s]",$baseline->getAttribValue('@value','Name'),$baseline->getAttribValue('@value'))):(print($baseline->getAttribValue('@value')));?></td></tr>
+</table>
+<?php endforeach;?>
+</div>
+</div>
+<?php endif;?>
+</td>
+</tr>
+<!-- baseline Ends -->
+
+<tr>
+<td colspan=2>
+<!--  target Starts -->
+<?php
+$targets=$indicator->getElementsByType('Target');
+$value = $targets[0]->getAttribs();
+if(!empty($value)): ?>
+<div class='element-item'><div class='element-title'>Target</div>
+<div class='element-values'>
+<?php foreach($targets as $target):?>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($target->getAttrib('text')) print ($target->getAttribValue('text'));?> <?php if($target->getAttrib('@xml_lang')) printf (" [%s]",($target->getAttribValue('@xml_lang')));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Year</td><td class='attrib-value'> <?php if($target->getAttrib('@year')) ($target->getAttribValue('@year','Name')!=$target->getAttribValue('@year')) ?( printf("%s [%s]",$target->getAttribValue('@year','Name'),$target->getAttribValue('@year'))):(print($target->getAttribValue('@year')));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Value</td><td class='attrib-value'> <?php if($target->getAttrib('@value')) ($target->getAttribValue('@value','Name')!=$target->getAttribValue('@value')) ?( printf("%s [%s]",$target->getAttribValue('@value','Name'),$target->getAttribValue('@value'))):(print($target->getAttribValue('@value')));?></td></tr>
+</table>
+<?php endforeach;?>
+</div>
+</div>
+<?php endif;?>
+</td>
+</tr>
+<!-- target Ends -->
+
+<tr>
+<td colspan=2>
+<!--  actual Starts -->
+<?php
+$actuals=$indicator->getElementsByType('Actual');
+$value = $actuals[0]->getAttribs();
+if(!empty($value)): ?>
+<div class='element-item'><div class='element-title'>Actual</div>
+<div class='element-values'>
+<?php foreach($actuals as $actual):?>
+<table class='element-values-items'>
+<tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($actual->getAttrib('text')) print ($actual->getAttribValue('text'));?> <?php if($actual->getAttrib('@xml_lang')) printf (" [%s]",($actual->getAttribValue('@xml_lang')));?></td></tr>
+<tr class='element-value element-value-odd'><td class='attrib-label'>Year</td><td class='attrib-value'> <?php if($actual->getAttrib('@year')) ($actual->getAttribValue('@year','Name')!=$actual->getAttribValue('@year')) ?( printf("%s [%s]",$actual->getAttribValue('@year','Name'),$actual->getAttribValue('@year'))):(print($actual->getAttribValue('@year')));?></td></tr>
+<tr class='element-value element-value-even'><td class='attrib-label'>Value</td><td class='attrib-value'> <?php if($actual->getAttrib('@value')) ($actual->getAttribValue('@value','Name')!=$actual->getAttribValue('@value')) ?( printf("%s [%s]",$actual->getAttribValue('@value','Name'),$actual->getAttribValue('@value'))):(print($actual->getAttribValue('@value')));?></td></tr>
+</table>
+<?php endforeach;?>
+</div>
+</div>
+<?php endif;?>
+</td>
+</tr>
+<!-- actual Ends -->
+
+</table>
+<?php endforeach;?>
+</div>
+</div>
+<?php endif;?>
+</td>
+</tr>
+<!-- indicator Ends -->
+
 </table><?php endforeach;?>
 </div>
 </div>

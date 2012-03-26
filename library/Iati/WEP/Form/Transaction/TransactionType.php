@@ -19,11 +19,13 @@ class Iati_WEP_Form_Transaction_TransactionType extends Iati_Form
         $form['code']->setLabel('Code')
             ->setRequired()
             ->setAttrib('class' , 'form-select')
-            ->setMultioptions($codes);
+            ->setMultioptions($codes)
+            ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help transaction-transaction_type-code' , 'placement' => 'PREPEND'))));
                     
         $form['text'] = new Zend_Form_Element_Textarea('text');
         $form['text']->setLabel('Text')
-            ->setAttribs(array('rows'=>'3' , 'cols'=> '20'));
+            ->setAttribs(array('rows'=>'3' , 'cols'=> '20'))
+            ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help transaction-transaction_type-text' , 'placement' => 'PREPEND'))));
         
         $this->addElements($form);
     }

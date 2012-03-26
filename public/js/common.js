@@ -799,7 +799,7 @@ function initialize() {
 		var url = APP_BASEPATH + "/wep/clone-node";
                 
                 var wrapperNode = dojo.query(getTarget(evt)).parents(".element-wrapper").first();
-                var lastNode =wrapperNode.children('fieldset:last-of-type');
+                var lastNode =wrapperNode.children('fieldset').last().query(".form-wrapper").last();
                 var input = lastNode.query('input').attr('id');
                 var refEle = input[input.length - 1];
                 refEle = refEle.replace(/-\w+$/,'');
