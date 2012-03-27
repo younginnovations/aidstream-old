@@ -1237,7 +1237,7 @@ class WepController extends Zend_Controller_Action
                             $files = $modelPublished->getPublishedInfo($account_id);
 
                             foreach($files as $file){
-                                $reg->prepareRegistryData($file['filename'] , $file['activity_count'] , $file['data_updated_datetime']);
+                                $reg->prepareRegistryData($file);
                                 $reg->publishToRegistry();
                             }
                             
@@ -1281,7 +1281,7 @@ class WepController extends Zend_Controller_Action
             $files = $modelPublished->getPublishedInfoByIds($fileIds);
 
             foreach($files as $file){
-                $reg->prepareRegistryData($file['filename'] , $file['activity_count'] , $file['data_updated_datetime']);
+                $reg->prepareRegistryData($file);
                 $reg->publishToRegistry();
             }
             

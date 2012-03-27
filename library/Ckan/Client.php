@@ -111,6 +111,8 @@ class Ckan_Client
 	 * @since	Version 0.1.0
 	 */
 	private $version = '0.1.0';
+	
+	private $error;
 
 	// Magic methods ------------------------------------------------------
 
@@ -657,6 +659,7 @@ class Ckan_Client
 		// Check HTTP response code
 		if ($info['http_code'] !== 201 && $info['http_code'] !== 200)
 		{
+		    $this->error = $this->http_status_codes[$info['http_code']];
 			return false;
 		}
 		// Determine how to parse
@@ -696,6 +699,11 @@ class Ckan_Client
 			}
 		}
 		return FALSE;
+	}
+	
+	public function getError()
+	{
+	    return $this->error;    
 	}
 
 }

@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * 
+ * Class to generate xml files from the activities.
+ * @author bhabishyat
+ *
+ */
 class Iati_WEP_Publish
 {
     protected $publisher_org_id;
@@ -20,7 +25,11 @@ class Iati_WEP_Publish
         $this->file_path = $config->public_folder.$config->xml_folder;
     }
     
-    
+    /**
+     * 
+     * Function to publish xml data. Calls internal functions to prepare and 
+     * save xml file and save the published data to local database.
+     */
     public function publish()
     {
         $activitiesCollection = $this->getDataToPublish();
@@ -66,7 +75,10 @@ class Iati_WEP_Publish
         }
     }
     
-    
+    /**
+     * 
+     * Function to fetch data from the local database and generates array of activities base on segmentation.
+     */
     public function getDataToPublish()
     {
         $oActivitycollection = new Iati_ActivityCollection();
@@ -129,7 +141,11 @@ class Iati_WEP_Publish
         }
     }
     
-    
+    /**
+     * 
+     * Creates xml file using Iati_WEP_Xmlhandler and saves them to local directory.
+     * @param Array $activities	Array of activities to be published.
+     */
     public function saveActivityXml($activities)
     {
         $oXmlHandler = new Iati_WEP_XmlHandler($activities);
@@ -145,11 +161,19 @@ class Iati_WEP_Publish
         
         $fp = fopen($this->file_path.$filename,'w');
         fwrite($fp,$oXmlHandler->getXmlOutput());
+        fclose($fp);
         
         return $filename;
     }
     
-    
+    /**
+     * 
+     * Save publish data to local database.
+     * @param String $filename
+     * @param String $country
+     * @param Integer $activityCount
+     * @param Datetime $dataLastUpdatedDate
+     */
     public function savePublishedInfo($filename , $country , $activityCount , $dataLastUpdatedDate)
     {
         $db = new Model_Published();
@@ -165,13 +189,20 @@ class Iati_WEP_Publish
         $db->savePublishedInfo($data);
     }
     
-    
+    /**
+     * 
+     * Reset all published info for the publisher i.e change status of the published files.
+     */
     public function resetPublishedInfo()
     {
         $modelPublished = new Model_Published();
         $modelPublished->resetPublishedInfo($this->publisher_org_id);
     }
     
+    /**
+     * 
+     * @return	Returns error generated during publish.
+     */
     public function getError()
     {
         return $this->error;

@@ -67,4 +67,9 @@ class Model_Published extends Zend_Db_Table_Abstract
             ->where('id IN (?) ' , $ids);
         return $this->fetchAll($query)->toArray();
     }
+    
+    public function markAsPushedToRegistry($fileId)
+    {
+        $this->update(array('pushed_to_registry'=> '1') , array('id = ?' => $fileId));
+    }
 }
