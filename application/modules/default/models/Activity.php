@@ -95,4 +95,30 @@ class Model_Activity
         $modelActivityHash = new Model_ActivityHash();
         $modelActivityHash->deleteActivityHash($activityId);
     }
+    
+    /**
+     * 
+     * Count activity by status from the given array of activities
+     * @param Array $activities	array of activities.
+     * @return Array	array containing activities count by status.
+     */
+    public function getCountByState($activities)
+    {
+        $state = array();
+        foreach($activities as $activity){
+            $state[$activity['status_id']]++;
+        }
+        return $state;
+    }
+    
+    public function getLastUpdatedDatetime($activities)
+    {
+        $date = $activities[0]['@last_updated_datetime'];
+        foreach($activities as $activity){
+            if($activity['@last_updated_datetime'] > $date){
+                $date = $activity['@last_updated_datetime'];
+            }
+        }
+        return $date;
+    }
 }
