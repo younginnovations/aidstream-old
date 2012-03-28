@@ -71,10 +71,17 @@ class Model_ActivityCollection extends Zend_Db_Table_Abstract
             if($sectorData){
                 foreach($sectorData as $sectorValue){
                     if($sectorValue['@vocabulary'] == 3){
-                        $sectors[] = $model->fetchValueById('Sector', $sectorValue['@code'] , 'Name');
+                        $sectorName = $model->fetchValueById('Sector', $sectorValue['@code'] , 'Name');
+                        if(strlen($sectorName) > 27){
+                            $sectorName = substr($sectorName, 25)."...";
+                        }
                     } else {
-                        $sectors[] = $sectorValue['@code'];
+                        $sectorName = $sectorValue['text'];
+                        if(strlen($sectorName) > 27){
+                            $sectorName = substr($sectorName, 25)."...";
+                        }
                     }
+                    $sectors[] = $sectorName;
                 }
             }
 
@@ -92,7 +99,7 @@ class Model_ActivityCollection extends Zend_Db_Table_Abstract
         }
         $output = array();
         $output['status'] = $activityStatus;
-        $output['sector'] = $sectors;
+        $output['sector'] = array_unique($sectors);
         return $output;
     }
 }

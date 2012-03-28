@@ -677,6 +677,8 @@ class WepController extends Zend_Controller_Action
     public function viewActivitiesAction()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
+        $wepModel = new Model_Wep();
+
         if ($_GET) {
             $activities_id = $this->getRequest()->getParam('activities_id');
             $wepModel = new Model_Wep();
@@ -688,20 +690,14 @@ class WepController extends Zend_Controller_Action
             }
         }
         else{
-            $wepModel = new Model_Wep();
             $activities = $wepModel->listAll('iati_activities', 'account_id', $identity->account_id);
             $activities_id = $activities[0]['id'];
         }
-        $wepModel = new Model_Wep();
-        //            $activities = $wepModel->listAll('iati_activities', 'id', $activities_id);
-
-        //            $this->view->activities_info = $activities_info[0];
 
         $this->view->activities_id = $activities_id;
         $activityArray = $wepModel->listAll('iati_activity', 'activities_id', $activities_id);
 
         //foreach activity get activity title
-        $wepModel = new Model_Wep();
         $titleArray = array();
         if ($activityArray) {
             $i = 0;
@@ -719,8 +715,15 @@ class WepController extends Zend_Controller_Action
             }
         }
         if(Iati_WEP_ActivityState::hasPermissionForState(Iati_WEP_ActivityState::STATUS_PUBLISHED)){
-            $status_form = new Form_Wep_ActivityStatus();
-            $status_form->change->setLabel('Publish');
+            $modelRegistryInfo = new Model_RegistryInfo();
+	        $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($identity->account_id);
+
+	        $status_form = new Form_Wep_ActivityStatus();
+            if($registryInfo->update_registry){
+                $status_form->change->setLabel('Publish and Register');
+            } else {
+                $status_form->change->setLabel('Publish');
+            }
             $status_form->change->setAttrib('id','publish');
             $status_form->status->setValue(Iati_WEP_ActivityState::STATUS_PUBLISHED);
             $status_form->setAction($this->view->baseUrl()."/wep/update-status");
