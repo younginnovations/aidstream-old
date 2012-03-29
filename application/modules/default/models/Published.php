@@ -3,12 +3,12 @@
 class Model_Published extends Zend_Db_Table_Abstract
 {
     protected $_name = 'published';
-    
+
     protected function _insertPublishedInfo($data)
     {
         return parent::insert($data);
     }
-    
+
     public function savePublishedInfo($data)
     {
         $where = array(
@@ -20,7 +20,7 @@ class Model_Published extends Zend_Db_Table_Abstract
             $this->_insertPublishedInfo($data);
         }
     }
-    
+
     public function resetPublishedInfo($publishingOrgId)
     {
         $where = array(
@@ -29,7 +29,7 @@ class Model_Published extends Zend_Db_Table_Abstract
         );
         $this->update(array('status'=> 0),$where);
     }
-    
+
     public function getPublishedInfo($accountId)
     {
         $rowSet = $this->select()
@@ -38,26 +38,28 @@ class Model_Published extends Zend_Db_Table_Abstract
         $result = $this->fetchAll($rowSet)->toArray();
         return $result;
     }
-    
+
     public function getAllPublishedInfo($accountId)
     {
-        $rowSet = $this->select()
-            ->where("publishing_org_id = ?",$accountId)
-            ->order('published_date DESC');
+        $rowSet = $this->select()->setIntegrityCheck(false)
+            ->from("$this->_name as pub" , 'pub.*')
+            ->joinLeft('registry_published_data as rpd', 'pub.id = rpd.file_id' ,  'rpd.response')
+            ->where("pub.publishing_org_id = ?",$accountId)
+            ->order('pub.published_date DESC');
         $result = $this->fetchAll($rowSet)->toArray();
         return $result;
     }
-    
+
     public function deleteByFileId($fileId)
     {
         $this->delete(array('id = ?'=>$fileId));
     }
-    
+
     public function deleteByAccountId($accountId)
     {
         $this->delete(array('id = ?'=>$fileId));
     }
-    
+
     /**
      * @param array $ids    Array of file ids.
      */
@@ -67,7 +69,7 @@ class Model_Published extends Zend_Db_Table_Abstract
             ->where('id IN (?) ' , $ids);
         return $this->fetchAll($query)->toArray();
     }
-    
+
     public function markAsPushedToRegistry($fileId)
     {
         $this->update(array('pushed_to_registry'=> '1') , array('id = ?' => $fileId));

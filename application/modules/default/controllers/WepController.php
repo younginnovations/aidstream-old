@@ -71,7 +71,6 @@ class WepController extends Zend_Controller_Action
         $publishedFiles = $regPublishModel->getPublishedInfoByOrg($account_id);
 
         $this->view->published_data = $published_data;
-        $this->view->file_path = Zend_Registry::get('config')->xml_folder;
         $this->view->activity_count = sizeof($activities);
         $this->view->state_count = $activityModel->getCountByState($activities);
         $this->view->last_updated_datetime = $activityModel->getLastUpdatedDatetime($activities);
@@ -1277,7 +1276,7 @@ class WepController extends Zend_Controller_Action
         $fileIds = explode(',' , $this->_getParam('file_ids'));
 
         if(!$fileIds[0]){
-            $this->_helper->FlashMessenger->addMessage(array('info' => "Please select a file to publish in IATI Registry."));
+            $this->_helper->FlashMessenger->addMessage(array('info' => "Please select a file to register in IATI Registry."));
             $this->_redirect('wep/list-published-files');
         }
         $identity = Zend_Auth::getInstance()->getIdentity();
@@ -1286,7 +1285,7 @@ class WepController extends Zend_Controller_Action
         $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($accountId);
 
         if(!$registryInfo->api_key){
-            $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key Not Found. Activities cannot be published in registry."));
+            $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key Not Found. Activities cannot be registered in IATI Registry."));
         } else {
             $reg = new Iati_Registry($registryInfo->publisher_id , $registryInfo->api_key);
             $modelPublished = new Model_Published();
@@ -1298,9 +1297,9 @@ class WepController extends Zend_Controller_Action
             }
 
             if($reg->getErrors()){
-                $this->_helper->FlashMessenger->addMessage(array('info' => $reg->getErrors()));
+                $this->_helper->FlashMessenger->addMessage(array('error' => $reg->getErrors()));
             } else {
-                $this->_helper->FlashMessenger->addMessage(array('message' => "Activities published to IATI registry."));
+                $this->_helper->FlashMessenger->addMessage(array('message' => "Activities registered to IATI registry."));
             }
         }
 

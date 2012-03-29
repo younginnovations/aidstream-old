@@ -682,10 +682,37 @@ function initialize() {
 	
 	".delete-files" : {
 	    "onclick" : function (evt) {
-		if(!confirm("Are you sure you want to delete the file")){
-		    evt.preventDefault();
+		evt.preventDefault();
+		var msg;
+		if(dojo.hasClass(this , 'published')){
+			msg = "<p>This xml file is linked from IATI Registry. People might be using this file. Are you sure you want to delete it? </p>";
+		} else {
+			msg = "<p>Are you sure you want to delete the file?</p>";		
 		}
-	    }
+		msg += '<p style="margin-left:100px"><button dojoType="dijit.form.Button" type="button" id="cd-ok">OK</button>';
+		msg += '<button dojoType="dijit.form.Button" type="button" id="cd-cancel">Cancel</button></p>';
+		// Destroy all dialog box before creating new. Used to remove dialog box remaining after clicking close.
+        dojo.query('.dijitDialog').forEach(dojo.destroy);
+        
+        var confirmDlg = new dijit.Dialog({
+            title: "Are you Sure?",
+            style: "width: 320px",
+            parseOnLoad: true,
+            content: msg
+        });
+        
+        dojo.connect(dojo.byId('cd-cancel'), 'onclick', function (e) {
+            confirmDlg.destroyRecursive();
+        });
+        
+        dojo.connect(dojo.byId('cd-ok'), 'onclick', function (e) {
+            confirmDlg.destroyRecursive();
+            var url = dojo.query(getTarget(evt)).attr('href');
+            window.location = url;
+        });
+        
+        confirmDlg.show();
+		}
 	},
 	".inline-edit-form" : {
 	    "found" : function (ele) {
