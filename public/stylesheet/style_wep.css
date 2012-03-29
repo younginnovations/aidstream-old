@@ -987,7 +987,7 @@ input[type="checkbox"]
 	margin-top: 10px;
 }
 
-button.form-submit, input.form-submit, a.button, .change-password a, .profile-links, .dashboard-summary a, #Submit, #create_new_account, #reset_password, #login, .change-password a{
+button.form-submit, input.form-submit, a.button, .change-password a, .profile-links, .dashboard-summary a, #Submit, #create_new_account, #reset_password, #login, .change-password a, #save{
 
     /*background: url("images/buttons.png") repeat-x scroll 0 0 transparent;
     border-color: #E4E4E4 #D2D2D2 #B4B4B4;
@@ -1016,7 +1016,7 @@ button.form-submit, input.form-submit, a.button, .change-password a, .profile-li
     text-decoration: none;
 }
 
-button.form-submit:hover, input.form-submit:hover, a.button:hover, .change-password a:hover, .profile-links:hover, .dashboard-summary a:hover, #Submit:hover, #create_new_account:hover, #reset_password:hover, #login:hover, .change-password a:hover
+button.form-submit:hover, input.form-submit:hover, a.button:hover, .change-password a:hover, .profile-links:hover, .dashboard-summary a:hover, #Submit:hover, #create_new_account:hover, #reset_password:hover, #login:hover, .change-password a:hover, #save:hover
 {
 	background: none repeat scroll 0 0 #037bac;
 }
@@ -1294,6 +1294,10 @@ code
     text-decoration: none;
 }
 
+.remove .remove-element {
+	display: block;
+}
+
 fieldset.remove-highlight , .remove-highlight
 {
 	outline:1px dashed #F7675C;
@@ -1425,14 +1429,14 @@ fieldset dl
 {
 }
 
-.activity-list fieldset.innermost-wrapper{
+.activity-list fieldset.innermost-wrapper, .element-wrapper .form-wrapper .element-wrapper{
     /*padding: 10px;*/
     background: #f4f4f4;
     border-bottom:1px solid #d1d1d1;
     margin:2px 0;
 }
 
-.activity-list fieldset.innermost-wrapper:hover
+.activity-list fieldset.innermost-wrapper:hover, .element-wrapper .form-wrapper .element-wrapper:hover
 {
 	border-bottom:1px solid #93d1fd;
 }
@@ -1443,7 +1447,7 @@ fieldset dl
 	margin:0;
 }
 
-.innermost-wrapper .form-title{
+.innermost-wrapper .form-title, .element-wrapper .first-child legend {
 	display:block;
 	background:#ebebeb;
 	color:#336666;
@@ -1452,6 +1456,19 @@ fieldset dl
 	/*margin-bottom:10px;*/
 	padding:5px 0 5px 10px;
 }
+
+.element-wrapper .first-child .second-child legend {
+	background:none;
+	color:#000;
+	font-size:13px;
+	width:570px;
+}
+
+.element-wrapper .first-child .second-child {
+	background: #F4F4F4;
+}
+
+
 
 .top-element>.form-title
 {
@@ -1740,13 +1757,13 @@ table.activity-list-table tr:hover {
 .innermost-wrapper .addmore
 {
 }
-.addmore{
+.addmore, .add-element{
 	background:#eeeeee;
 	display: block;
 	padding-left:10px;
 }
 
-.addmore .button
+.addmore .button, .add-element .button
 {
 	background-color:transparent;
     border: none;
@@ -1763,7 +1780,7 @@ table.activity-list-table tr:hover {
 	font-size: 16px;
 }
 
-#element-form #Submit {
+#element-form #Submit, #save {
 	margin-top: 10px;
 	margin-right: 8px;
 }
@@ -2461,7 +2478,7 @@ button#cd-cancel, button#cd-ok
 	-webkit-border-radius:4px;
 }
 
-.remove a.button, .addmore a.button, #block-activity-menu .content li a, .action-icon a, .default-info, .message, .info, .error, ul.error, .warning, .activity-state .override-link, #activity-state-info td.data-label
+.remove a.button, .addmore a.button, #block-activity-menu .content li a, .action-icon a, .default-info, .message, .info, .error, ul.error, .warning, .activity-state .override-link, .add-element a.button, #activity-state-info td.data-label
 {
 	background-image:url('images/inner-pages-icons.png');
 	background-repeat:no-repeat;
@@ -2483,12 +2500,12 @@ button#cd-cancel, button#cd-ok
 	background-position:0 -27px;
 }
 
-.addmore .button
+.addmore .button, .add-element .button
 {
 	background-position:0 -58px;
 }
 
-.addmore a.button:hover
+.addmore a.button:hover, .add-element .button:hover
 {
 	background-color:transparent;
 	background-position:0 -90px;
@@ -2789,6 +2806,6 @@ td.data-value {
 	padding:10px 15px;
 }
 
-#id-element , #id-label {
+.ele-id {
     display : none;
 }
