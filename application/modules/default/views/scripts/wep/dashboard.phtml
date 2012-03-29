@@ -7,48 +7,89 @@
 
 <div class="dashboard-content">
 	<div class="general-info">
-		<span>Total Activities:<span class="activity-count"><?php echo $this->activity_count; ?></span></span>
-		<span>Last Updated Date:</span><span><?php echo date('F d, Y' , strtotime($this->last_updated_datetime));?></span>
+		<span id="total-activities-wrapper" class="general-info-item-wrapper">
+			<span  class="general-info-label">Total Activities:</span>
+			<span class="activity-count general-info-value"><?php echo $this->activity_count; ?></span>
+		</span>
+
+		<span id="last-updated-wrapper" class="general-info-item-wrapper">
+			<span class="general-info-label">Last Updated Date:</span>
+			<span class="general-info-value"><?php echo date('F d, Y' , strtotime($this->last_updated_datetime));?></span>
+		</span>
 	</div>
 
-	<div class="activity-state-info">
-		<div class="block-info">Activities at different state</div>
-		<div class="block-data">
-		    <?php foreach(Iati_WEP_ActivityState::getStatus() as $stateId=>$stateName):?>
-		    <div class="data-label"><?php echo $stateName;?></div>
-		    <div class="data-value"><?php echo ($stateCount[$stateId])?$stateCount[$stateId]:0;?></div>
-		    <?php endforeach;?>
-	    </div>
+	<div class="dashboard-left-col">
+
+		<div id="activity-state-info" class="dashboard-block">
+			<div class="block-info">Activities at different state</div>
+			<div class="block-data">
+				<div class="block-data-inner">
+					<table class="block-data-list">
+					    <?php foreach(Iati_WEP_ActivityState::getStatus() as $stateId=>$stateName):?>
+					    <tr class="block-data-item">
+						    <td id="<?php echo strtolower(preg_replace('/ /', '-', $stateName));?>" class="data-label"><?php echo $stateName;?></td>
+						    <td class="data-value"><?php echo ($stateCount[$stateId])?$stateCount[$stateId]:0;?></td>
+						</tr>
+					    <?php endforeach;?>
+				    </table>
+				</div>
+		    </div>
+		</div>
+
+		<div id="activity-sectors-info"  class="dashboard-block">
+			<div class="block-info">Sectors Covered <span class="view-all-link"><!-- <a href="#">view all</a>--></span></div>
+			<div class="block-data">
+				<div class="block-data-inner">
+					<table class="block-data-list">
+						<?php foreach($this->activity_elements_info['sector'] as $sector):?>
+						<tr class="block-data-item">
+							<td class="data-value"><?php echo $sector;?></td>
+						</tr>
+						<?php endforeach;?>
+					</table>
+				</div>
+		    </div>
+		</div>
+
 	</div>
 
-	<div class="activity-status-info">
-		<div class="block-info">Activities by status</div>
-		<div class="block-data">
-			<?php foreach($this->activity_elements_info['status'] as $status):?>
-			<div class="data-label"><?php echo $status['Name']; ?></div>
-			<div class="data-value"><?php echo ($status['count'])?($status['count']):0; ?></div>
-			<?php endforeach;?>
-	    </div>
+
+	<div class="dashboard-right-col">
+
+		<div id="activity-status-info" class="dashboard-block">
+			<div class="block-info">Activities by status</div>
+			<div class="block-data">
+				<div class="block-data-inner">
+					<table class="block-data-list">
+						<?php foreach($this->activity_elements_info['status'] as $status):?>
+							<tr class="block-data-item">
+
+								<td class="data-label"><?php echo $status['Name']; ?></div>
+								<td class="data-value"><?php echo ($status['count'])?($status['count']):0; ?></div>
+							</tr>
+						<?php endforeach;?>
+					</table>
+				</div>
+		    </div>
+		</div>
+
+	
+		<div id="registry-info"  class="dashboard-block">
+			<div class="block-info">Iati Registry</div>
+			<div class="block-data">
+				<div class="block-data-inner">
+					<?php if($this->published_activity_count):?>
+					<a href="<?php echo $this->registry_url;?>" target="_blank"><?php echo $this->published_activity_count;?> activities</a> registered at IATI Registry.
+					You may see the published files <a href='<?php echo $this->baseUrl().'/wep/list-published-files'?>'>here</a>
+					<?php else:?>
+					None of your activities has been published to IATI registry.
+					<?php endif;?>
+				</div>
+		    </div>
+		</div>
+
 	</div>
 
-	<div class="activity-sectors-info">
-		<div class="block-info">Sectors Covered <span class="view-all-link"><!-- <a href="#">view all</a>--></span></div>
-		<div class="block-data">
-			<?php foreach($this->activity_elements_info['sector'] as $sector):?>
-			<div class="data-value"><?php echo $sector;?></div>
-			<?php endforeach;?>
-	    </div>
-	</div>
+	<div class="clear"></div>
 
-	<div class="registry-info">
-		<div class="block-info">Iati Registry</div>
-		<div class="block-data">
-		<?php if($this->published_activity_count):?>
-		<a href="<?php echo $this->registry_url;?>" target="_blank"><?php echo $this->published_activity_count;?> activities</a> registered at IATI Registry.
-		You may see the published files <a href='<?php echo $this->baseUrl().'/wep/list-published-files'?>'>here</a>
-		<?php else:?>
-		None of you activities has been published to IATI registry.
-		<?php endif;?>
-	    </div>
-	</div>
 </div>
