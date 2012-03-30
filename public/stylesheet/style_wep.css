@@ -1544,15 +1544,6 @@ fieldset.innermost + fieldset, fieldset.inner + fieldset
 
 /* Activity Info */
 
-.sub_element {
-	border-left:1px solid #eee;
-	/*margin-bottom: 10px;*/
-}
-
-.sub_element:hover {
-	border-left:1px dashed #B9E0FB;
-} 
-
 #contain table.activity-info-table {
 	border: none;
 	background: #F6F6F6;
@@ -1891,10 +1882,14 @@ table#list-org {
 	margin-bottom:0;
 }
 
-.sub_element .element-values-items {
+.element-values-items, #contain table.activity-info-table {
 	border-left:2px solid #cfcdcd;
 	margin-bottom:10px;
 	padding-left:10px;
+}
+
+.element-values-items:hover, #contain table.activity-info-table:hover {
+	border-left:2px solid #B9E0FB;
 }
 
 #iati_activity_change_status #status-label,
