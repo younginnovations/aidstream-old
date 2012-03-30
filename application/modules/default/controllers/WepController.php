@@ -1343,12 +1343,14 @@ class WepController extends Zend_Controller_Action
 
         $form = new Form_Wep_PublishToRegistry();
         $form->setAction($this->view->baseUrl().'/wep/publish-in-registry');
+        if($registryInfo->update_registry){
+            $form->push_to_registry->setAttrib('disabled', 'disabled');
+        }
 
         $db = new Model_Published();
         $publishedFiles = $db->getAllPublishedInfo($orgId);
 
         $this->view->published_files = $publishedFiles;
-        $this->view->update_to_registry = $registryInfo->update_registry;
         $this->view->publish_permission = $publishPermission;
         $this->view->form = $form;
     }

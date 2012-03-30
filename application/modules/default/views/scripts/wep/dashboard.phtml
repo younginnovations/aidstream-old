@@ -13,8 +13,10 @@
 		</span>
 
 		<span id="last-updated-wrapper" class="general-info-item-wrapper">
-			<span class="general-info-label">Last Updated Date:</span>
-			<span class="general-info-value"><?php echo date('F d, Y' , strtotime($this->last_updated_datetime));?></span>
+			<?php if($this->last_updated_datetime):?>
+				<span class="general-info-label">Last Updated Date:</span>
+				<span class="general-info-value"><?php echo date('F d, Y' , strtotime($this->last_updated_datetime));?></span>
+			<?php endif;?>
 		</span>
 	</div>
 
@@ -73,16 +75,16 @@
 		    </div>
 		</div>
 
-	
+
 		<div id="registry-info"  class="dashboard-block">
-			<div class="block-info">Iati Registry</div>
+			<div class="block-info">IATI Registry</div>
 			<div class="block-data">
 				<div class="block-data-inner">
 					<?php if($this->published_activity_count):?>
 					<a href="<?php echo $this->registry_url;?>" target="_blank"><?php echo $this->published_activity_count;?> activities</a> registered at IATI Registry.
 					You may see the published files <a href='<?php echo $this->baseUrl().'/wep/list-published-files'?>'>here</a>
 					<?php else:?>
-					None of your activities has been published to IATI registry.
+					None of your activities has been published to <a href="http://iatiregistry.org" target="_blank">IATI Registry.</a>
 					<?php endif;?>
 				</div>
 		    </div>

@@ -70,18 +70,20 @@ class Model_ActivityCollection extends Zend_Db_Table_Abstract
             $sectorData = $model->listAll('iati_sector', 'activity_id', $activity['id']);
             if($sectorData){
                 foreach($sectorData as $sectorValue){
-                    if($sectorValue['@vocabulary'] == 3){
+                    if(!$sectorValue['@vocabulary'] || $sectorValue['@vocabulary'] == 3){
                         $sectorName = $model->fetchValueById('Sector', $sectorValue['@code'] , 'Name');
                         if(strlen($sectorName) > 27){
-                            $sectorName = substr($sectorName, 25)."...";
+                            $sectorName = substr($sectorName, 0 , 25)."...";
                         }
                     } else {
                         $sectorName = $sectorValue['text'];
                         if(strlen($sectorName) > 27){
-                            $sectorName = substr($sectorName, 25)."...";
+                            $sectorName = substr($sectorName, 0 , 25)."...";
                         }
                     }
-                    $sectors[] = $sectorName;
+                    if($sectorName){
+                        $sectors[] = $sectorName;
+                    }
                 }
             }
 
@@ -91,11 +93,16 @@ class Model_ActivityCollection extends Zend_Db_Table_Abstract
 	            foreach($statusData as $statusValue){
 	               $status[$statusValue['@code']] += 1;
 	            }
+            } else {
+                $status['unknown'] += 1;
             }
         }
         foreach($iatiStatuses as $iatiStatus){
             $iatiStatus['count'] = $status[$iatiStatus['Code']];
             $activityStatus[] = $iatiStatus;
+        }
+        if($status['unknown']){
+            $activityStatus[] = array('Name' => 'Status Unspecified' , 'count' => $status['unknown']);
         }
         $output = array();
         $output['status'] = $activityStatus;

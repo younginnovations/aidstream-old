@@ -46,11 +46,9 @@
             </tr>
             <?php endforeach; ?>
         </table>
-        <? if(!$this->update_to_registry): ?>
             <? if($this->publish_permission): ?>
                 <?php echo $this->form; ?>
             <? endif; ?>
-        <? endif; ?>
     <? endif; ?>
 </div>
 
