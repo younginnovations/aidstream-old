@@ -859,7 +859,6 @@ h2.form-title {
 
 #contain table
 {
-	border:1px solid #F6F6F6;
 	width:100%;
 }
 
@@ -1546,12 +1545,16 @@ fieldset.innermost + fieldset, fieldset.inner + fieldset
 /* Activity Info */
 
 .sub_element {
-	border-bottom: 1px dotted #c9c9c9;
+	border-left:1px solid #eee;
 	/*margin-bottom: 10px;*/
 }
 
+.sub_element:hover {
+	border-left:1px dashed #B9E0FB;
+} 
+
 #contain table.activity-info-table {
-	border: 1px solid #e7e6fb;
+	border: none;
 	background: #F6F6F6;
 	margin-bottom: 0;
 }
@@ -1825,7 +1828,7 @@ table#list-org {
 }
 
 .activity-detail-table table {
-	border: none !important;
+	/*border: none !important;*/
 	/*border-top: 5px solid #feefd8 !important;*/
 	margin-bottom: 0;
 }
@@ -1870,9 +1873,28 @@ table#list-org {
 
 .element-item
 {
-	border: 1px dotted #ccc;
-	padding: 5px 10px;
-	margin-bottom: 5px;
+	border: 1px solid #EEEEEE;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 0 5px #EEEEEE;
+    margin-bottom: 10px;
+    padding: 5px 10px;
+}
+
+.element-item:hover{
+	border:1px solid #B9E0FB;
+	box-shadow: 0 0 5px #B9E0FB;
+}
+
+.sub_element .element-item {
+	border:none;
+	box-shadow:none;
+	margin-bottom:0;
+}
+
+.sub_element .element-values-items {
+	border-left:2px solid #cfcdcd;
+	margin-bottom:10px;
+	padding-left:10px;
 }
 
 #iati_activity_change_status #status-label,
