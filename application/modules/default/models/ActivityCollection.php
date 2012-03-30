@@ -72,13 +72,14 @@ class Model_ActivityCollection extends Zend_Db_Table_Abstract
                 foreach($sectorData as $sectorValue){
                     if(!$sectorValue['@vocabulary'] || $sectorValue['@vocabulary'] == 3){
                         $sectorName = $model->fetchValueById('Sector', $sectorValue['@code'] , 'Name');
-                        if(strlen($sectorName) > 27){
-                            $sectorName = substr($sectorName, 0 , 25)."...";
+                        if(strlen($sectorName) > 35){
+                            $sectorName = substr($sectorName, 0 , 32)."...";
                         }
                     } else {
                         $sectorName = $sectorValue['text'];
-                        if(strlen($sectorName) > 27){
-                            $sectorName = substr($sectorName, 0 , 25)."...";
+                        if(strlen($sectorName) > 35){
+                            $sectorName = preg_replace('/ \w+$/', '', substr($sectorName, 0 , 32));
+                            $sectorName .= "&hellip;";
                         }
                     }
                     if($sectorName){
