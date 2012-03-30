@@ -101,8 +101,9 @@ class Model_ActivityCollection extends Zend_Db_Table_Abstract
             $iatiStatus['count'] = $status[$iatiStatus['Code']];
             $activityStatus[] = $iatiStatus;
         }
-        //var_dump($activityStatus);exit;
-        $activityStatus[] = array('Name' => 'Status Unspecified' , 'count' => $status['unknown']);
+        if($status['unknown']){
+            $activityStatus[] = array('Name' => 'Status Unspecified' , 'count' => $status['unknown']);
+        }
         $output = array();
         $output['status'] = $activityStatus;
         $output['sector'] = array_unique($sectors);
