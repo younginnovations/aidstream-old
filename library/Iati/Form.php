@@ -29,7 +29,7 @@ class Iati_Form extends Zend_Form
             $decorator = $element->getDecorator('Label');
             if ($decorator) {
                 if ($element->getLabel()) { // need to check this, since label decorator can be blank
-                    $element->setLabel($element->getLabel() . ":&nbsp;");
+                    $element->setLabel($element->getLabel() . "&nbsp;");
                 }
                 $decorator->setOption('requiredSuffix', $requiredSuffx);
                 $decorator->setOption('escape', false);
@@ -113,6 +113,13 @@ class Iati_Form extends Zend_Form
         if($this->submit){
             $this->removeElement('sumbit');
         }
+        $this->addElement('submit' , 'save_and_view',
+            array(
+                'label' => 'Save and View',
+                'required' => false,
+                'ignore'   => false,
+            )
+        );
         $this->addElement('submit' , 'save',
             array(
                 'label'    => $label,

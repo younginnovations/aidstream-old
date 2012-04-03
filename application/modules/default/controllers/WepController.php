@@ -639,7 +639,7 @@ class WepController extends Zend_Controller_Action
         $identity = Zend_Auth::getInstance()->getIdentity();
         // Treating transaction and result elements seperately
         if(isset($_GET['class'])){
-            
+
             $class = $this->_getParam('class');
             $refItem = $this->_getParam('refEle');
             $reg = "/{$class}-\d+/";
@@ -667,7 +667,7 @@ class WepController extends Zend_Controller_Action
             $factory->setInitialValues($initial);
             $tree = $factory->factory($class);
             $item++;
-            
+
             $formHelper = new Iati_WEP_FormHelper();
             $a = $formHelper->getFormWithAjax($parents[0], $item);
             $partialPath = Zend_Registry::get('config')->resources->layout->layoutpath;
@@ -677,7 +677,7 @@ class WepController extends Zend_Controller_Action
             $form = $myView->render('form.phtml');
             print $form;
             exit;
-            
+
         } else {
             if($_GET['classname'])
             {
@@ -703,7 +703,7 @@ class WepController extends Zend_Controller_Action
             $factory = new $classname;
             $factory->setInitialValues($initial);
             $tree = $factory->factory($class);
-    
+
             array_push($parents, $class);
             $formHelper = new Iati_WEP_FormHelper();
             $a = $formHelper->getFormWithAjax($parents, $items);
@@ -1016,11 +1016,11 @@ class WepController extends Zend_Controller_Action
                 $del = $dbLayer->deleteRows($class1, $fieldName, $value);
                 print 'success';
                 exit();
-                 
+
             } catch(Exception $e){
                 print $e; exit();
             }
-        }        
+        }
     }
 
     /**
@@ -1400,13 +1400,13 @@ class WepController extends Zend_Controller_Action
         }
         return false;
     }
-    
+
     public function editElementAction()
     {
         $class = $this->_getParam('class');
         $activityId = $this->_getParam('activity_id');
         $model = new Model_Wep();
-        
+
         $dbLayer = new Iati_WEP_DbLayer();
         $classname = 'Iati_WEP_Activity_'. $class . 'Factory';
         $registryTree = Iati_WEP_TreeRegistry::getInstance();
@@ -1434,6 +1434,9 @@ class WepController extends Zend_Controller_Action
                 $form = $formHelper->getForm();
 
                 $this->_helper->FlashMessenger->addMessage(array('message' => "$class saved sucessfully."));
+                if(isset($formData['save_and_view'])){
+                    $this->_redirect('wep/view-activity/'.$activityId);
+                }
             } else {
                 $form->populate($formData);
                 $this->_helper->FlashMessenger->addMessage(array('error' => "You have some error in you data."));
@@ -1444,7 +1447,7 @@ class WepController extends Zend_Controller_Action
             $attributes = $elements[0]->getAttribs();
             if(empty($attributes)){
                 $activity = new Iati_WEP_Activity_Elements_Activity();
-                $activity->setAttributes(array('activity_id' => $activityId));    
+                $activity->setAttributes(array('activity_id' => $activityId));
                 $registryTree->addNode($activity);
                 $factory->factory($class);
             } else {
@@ -1454,16 +1457,16 @@ class WepController extends Zend_Controller_Action
         }
         $activity_info = $model->listAll('iati_activity', 'id', $activityId);
         if (empty($activity_info)) {
-            //@todo 
+            //@todo
         }
         $activity = $activity_info[0];
-                
+
         $iati_identifier_row = $model->getRowById('iati_identifier', 'activity_id', $activityId);
         $activity['iati_identifier'] = $iati_identifier_row['text'];
         $activity['activity_identifier'] = $iati_identifier_row['activity_identifier'];
         $title_row = $model->getRowById('iati_title', 'activity_id', $activityId);
         $activity['iati_title'] = $title_row['text'];
-        
+
         $this->view->form = $form;
         $this->view->activityInfo = $activity;
         $this->view->blockManager()->enable('partial/override-activity.phtml');

@@ -16,7 +16,8 @@ class Iati_WEP_Form_Transaction_TiedStatus extends Iati_Form
 
         $codes = $model->getCodeArray('TiedStatus', null, '1' , true);;
         $form['code'] = new Zend_Form_Element_Select('code');
-        $form['code']->setLabel('Code')
+        $form['code']->setLabel('Tied Status Code')
+            ->setRequired()
             ->setAttrib('class' , 'form-select')
             ->setMultioptions($codes)
             ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help transaction-tied_status-code' , 'placement' => 'PREPEND'))));

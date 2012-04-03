@@ -27,16 +27,16 @@ class Iati_WEP_FormHelper {
         }
         // this code needs to be refactored as it is modified only for "Conditions" element
         // this is done because the case of conditions is unique, and is not handled right now
-        // the parent element i.e. Conditions occures only once (multiple = false) whereas, 
-        // the child element Condition occures multiple times 
+        // the parent element i.e. Conditions occures only once (multiple = false) whereas,
+        // the child element Condition occures multiple times
         // so when the "add more" is done, the parent is also found and extra "[]" is added
         // so remove this problem the parent portion is removed from the array $parents which is $parent[0]
-        if($parents[0] == 'Conditions'){ 
-            $parents = array(); $parents[0] = 'Condition'; 
+        if($parents[0] == 'Conditions'){
+            $parents = array(); $parents[0] = 'Condition';
         }
-        
+
         //======================================================================================
-        
+
         $this->parentNames = $parents;
 //        print_r($parents);exit;
 
@@ -53,7 +53,7 @@ class Iati_WEP_FormHelper {
         //}
         //else{
             foreach($this->parentNames as $key => $val) {
-                
+
                 $this->indexValues[$this->parentNames[$key]] = $items[$key];
             }
         //}
@@ -63,7 +63,7 @@ class Iati_WEP_FormHelper {
         //        unset($this->indexValues[$key]);
         //    }
         //}
-        
+
         //$this->indexValues = $items;
         //print_r($this->parentNames);
         //print_r($this->indexValues);
@@ -77,9 +77,9 @@ class Iati_WEP_FormHelper {
     }
 
     public function getForm() {
-    
+
         $form_string = $this->_form($this->registryTree->getRootNode()->getClassName(), '#');
-        $root = $this->registryTree->getRootNode();        
+        $root = $this->registryTree->getRootNode();
         $_mainEle = $this->registryTree->getChildNodes($root);
         if('Transaction' == $_mainEle[0]->getClassName() || 'Result' == $_mainEle[0]->getClassName()){
             if($_mainEle[0]->getMultiple()){
@@ -92,15 +92,15 @@ class Iati_WEP_FormHelper {
                     $form->addSubForm($eleForm , "{$formName}");
                 }
                 $className = $mainEle->getClassName();
-    
+
                 $add = new Iati_Form_Element_Note('add');
                 $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'add-element button'));
                 $add->setValue("<a href='#' class='button' value='$className'> Add More</a>");
-                
+
                 $form->addElement($add);
                 $form->addSubmitButton('Save');
                 $this->addWrapper($form , $_mainEle[0]);
-                
+
                 return $form;
             } else {
                 $form = $this->genForm($_mainEle[0] , null , $count);
@@ -119,7 +119,7 @@ class Iati_WEP_FormHelper {
 
         return $form;
     }
-    
+
     /**
      * Function to generate form
      */
@@ -163,7 +163,7 @@ class Iati_WEP_FormHelper {
             }
             $attrs = $this->getAttrib($mainEle , $eleCount);
             $form->populate($attrs);
-            
+
             $this->getChildForms($form , $mainEle);
             if($mainEle->hasMultiple()){
                 $eleName = str_replace('Iati_WEP_Activity_Elements_' , '' , get_class($mainEle));
@@ -182,9 +182,9 @@ class Iati_WEP_FormHelper {
             $formClassName = preg_replace('/Activity_Elements/','Form',get_class($mainEle));
             $formValues = $this->getAttrib($mainEle, $eleCount);
             $subForm = $parentForm->addSubElement($formClassName , $mainEle , $eleCount , $formValues);
-            
+
             $this->getChildForms($subForm , $mainEle);
-            
+
             if($mainEle->hasMultiple()){
                 $eleName = str_replace('Iati_WEP_Activity_Elements_' , '' , get_class($mainEle));
                 $remove = new Iati_Form_Element_Note('remove');
@@ -192,11 +192,11 @@ class Iati_WEP_FormHelper {
                 $remove->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'remove button'));
                 $subForm->addElements(array($remove));
             }
-            
+
             return $subForm;
         }
     }
-    
+
     public function getChildForms($form , $mainEle){
         //Create child forms
         $class = preg_replace('/Iati_WEP_Activity_Elements_/' , '' , get_class($mainEle));
@@ -233,7 +233,7 @@ class Iati_WEP_FormHelper {
             }
         }
     }
-    
+
     public function addWrapper($form , $element){
         if($element->hasMultiple()){
             foreach($form->getSubForms() as $tmpForm){
@@ -243,10 +243,10 @@ class Iati_WEP_FormHelper {
             $formClass = $form->getAttrib('class');
         }
         $camelCaseToSeperator = new Zend_Filter_Word_CamelCaseToSeparator(" ");
-        $title = $camelCaseToSeperator->filter($element->getClassName());
+        $title = $camelCaseToSeperator->filter($element->getElementDisplayName());
         if($element->isRequired()){
             $title .= " * ";
-        } 
+        }
         $form->addDecorators( array(
                     array( 'wrapper' => 'HtmlTag' ), array( 'tag' => 'fieldset' , 'options' => array('legend' => $title , 'class' => $formClass))
                     )
@@ -328,7 +328,7 @@ class Iati_WEP_FormHelper {
                 else {
                     $_cls = 'innermost-wrapper';
                 }
-                
+
                 if(!$this->ajaxCall && $this->registryTree->getRootNode() == $this->registryTree->getParentNode($obj)){
                     $_cls .= ' top-element';
                 }
@@ -439,7 +439,7 @@ class Iati_WEP_FormHelper {
         if ($obj->hasMultiple() && !array_key_exists($obj->getClassName(), $index)) {
             $index[$obj->getClassName()] = $obj->getObjectId();
         }
-        
+
         return $index;
         /*
          if ($this->ajaxCall) {
@@ -500,7 +500,7 @@ class Iati_WEP_FormHelper {
         return $index;
     }
 
-    private function _form($name, $action, $method="post", $attribs=null) {         
+    private function _form($name, $action, $method="post", $attribs=null) {
         $_form = sprintf('<form id="element-form" name="%s" action="%s" method="%s" %s>',
         $name, $action, $method, $this->_attr($attribs));
 
@@ -539,7 +539,7 @@ class Iati_WEP_FormHelper {
         }
         return (count($_attrs) > 0 ? implode(' ', $_attrs) : '');
     }
-    
+
     protected function getAttrib($ele , $key)
     {
         $attrs = $ele->getCleanedData();

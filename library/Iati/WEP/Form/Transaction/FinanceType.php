@@ -16,7 +16,8 @@ class Iati_WEP_Form_Transaction_FinanceType extends Iati_Form
 
         $codes = $model->getCodeArray('FinanceType', null, '1' , true);
         $form['code'] = new Zend_Form_Element_Select('code');
-        $form['code']->setLabel('Code')
+        $form['code']->setLabel('Finance Type Code')
+            ->setRequired()
             ->setAttrib('class' , 'form-select')
             ->setMultioptions($codes)
             ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help transaction-finance_type-code' , 'placement' => 'PREPEND'))));

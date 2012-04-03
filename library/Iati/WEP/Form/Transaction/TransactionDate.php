@@ -14,6 +14,7 @@ class Iati_WEP_Form_Transaction_TransactionDate extends Iati_Form
 
         $form['iso_date'] = new Zend_Form_Element_Text('iso_date');
         $form['iso_date']->setLabel('Date')
+            ->setRequired()
             ->setAttrib('class' , 'datepicker' )
             ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help transaction-transaction_date-iso_date' , 'placement' => 'PREPEND'))));
 

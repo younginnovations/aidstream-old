@@ -16,7 +16,8 @@ class Iati_WEP_Form_Transaction_AidType extends Iati_Form
 
         $codes = $model->getCodeArray('AidType', null, '1' , true);
         $form['code'] = new Zend_Form_Element_Select('code');
-        $form['code']->setLabel('Code')
+        $form['code']->setLabel('Aid Type Code')
+            ->setRequired()
             ->setAttrib('class' , 'form-select')
             ->setMultioptions($codes)
             ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help transaction-aid_type-code' , 'placement' => 'PREPEND'))));

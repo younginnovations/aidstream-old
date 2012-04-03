@@ -2,7 +2,7 @@
 
 ?>
 
-<?php  
+<?php
 $container = new Zend_Navigation();
 $this->navigation($container);
 
@@ -47,7 +47,7 @@ switch($identity->role){
                         'controller' => 'admin',
                         'action' => 'awaiting',
                     ),
-                    
+
                     array(
                         'label' => 'View',
                         'module' => 'default',
@@ -141,6 +141,12 @@ switch($identity->role){
                                 'controller' => 'wep',
                                 'action'     => 'edit-activity-elements',
                             ),
+                            array(
+                                'label' => 'Edit Activity',
+                                'module'     => 'default',
+                                'controller' => 'wep',
+                                'action'     => 'edit-element',
+                            ),
                         ),
                     ),
                     array(
@@ -175,7 +181,7 @@ switch($identity->role){
                             ),
                         ),
                     ),
-                    
+
                 ),
             )
         );
@@ -247,7 +253,7 @@ switch($identity->role){
                             'user_id' => $identity->user_id,
                         )
                     ),
-                    
+
                 ),
             )
         );
@@ -266,7 +272,7 @@ switch($identity->role){
                             'controller' => 'user',
                             'action'     => 'login',
                         ),
-                
+
                         array(
                             'label' => 'Register',
                             'module'     => 'user',
@@ -281,7 +287,7 @@ switch($identity->role){
                         ),
                     )
             )
-    );                
+    );
     break;
 
 }
@@ -291,5 +297,4 @@ echo '</div>';
 
 
 
-    
-    
+

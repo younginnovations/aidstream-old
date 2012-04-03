@@ -16,7 +16,8 @@ class Iati_WEP_Form_Transaction_FlowType extends Iati_Form
 
         $codes = $model->getCodeArray('FlowType', null, '1' , true);
         $form['code'] = new Zend_Form_Element_Select('code');
-        $form['code']->setLabel('Code')
+        $form['code']->setLabel('Flow Type Code')
+            ->setRequired()
             ->setAttrib('class' , 'form-select')
             ->setMultioptions($codes)
             ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help transaction-flow_type-code' , 'placement' => 'PREPEND'))));
