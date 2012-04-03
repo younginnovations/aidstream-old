@@ -991,9 +991,6 @@ class WepController extends Zend_Controller_Action
                 if($_GET['classname'])
                 {
                     $class = $_GET['classname'];
-                    if($class == 'OtherActivityIdentifier'){
-                        $class = "OtherIdentifier";
-                    }
                 }
 
                 if($_GET['id']){
