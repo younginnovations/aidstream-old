@@ -12,11 +12,12 @@ class User_Form_User_Edit extends App_Form
         $db = Zend_Db_Table_Abstract::getDefaultAdapter();
         $clause = $db->quoteInto('user_id != ?', $user_id);
         $accountObj = new User_Model_DbTable_Account();
-        $userName = strtok($auth->user_name, '_'); 
+        $userName = strtok($auth->user_name, '_');
         $account = $accountObj->getAccountRowByUserName('account', 'username', $userName);
-        
+
         $this->setName('Edit Account');
-        $form = array();
+        $form = array();        $this->setMethod('post');
+
         if($roleName != 'superadmin')
         {
         $form['name'] = new Zend_Form_Element_Text('name');
@@ -29,11 +30,11 @@ class User_Form_User_Edit extends App_Form
             ->setRequired()
             ->setAttrib('rows', '4')
             ->setAttrib('class', 'form-text');
-        }    
+        }
         if($roleName == 'user')
         {
-            $form['address']->setAttrib('readonly', 'true');  
-        }      
+            $form['address']->setAttrib('readonly', 'true');
+        }
         $form['first_name'] = new Zend_Form_Element_Text('first_name');
         $form['first_name']->setLabel('First Name')
             ->setRequired()
@@ -51,36 +52,49 @@ class User_Form_User_Edit extends App_Form
                  array('table' => 'user', 'field' => 'email', 'exclude' => $clause,
                  'messages' => array(
                  Zend_Validate_Db_NoRecordExists::ERROR_RECORD_FOUND => 'Email Address already exists.')));
-           
+
         if($roleName == 'admin')
-        { 
+        {
             $filePath = $baseUrl.'/uploads/image/'.$account['file_name'] ;
             $remove = $baseUrl.'/user/user/remove/user_id/';
-            
+
             if($account['file_name']){
                 $form['image'] = new Zend_Form_Element_Image('image');
                 $form['image']->setImage($filePath)
                     ->setLabel('Logo')
-                    ->setDescription('<a href="'.$remove.$user_id.'/user_name/'.$userName.'" class ="remove-logo" title = "Remove Logo" >Remove</a>')
-                    ->setDecorators(array(
-                                    'ViewHelper',
-                                    array('Description', array('escape' => false, 'tag' => false)),
-                                    array('HtmlTag', array('tag' => 'dd')),
-                                    array('Label', array('tag' => 'dt')),
-                                    'Errors',
-                                    ));
-            }    
+                    ->setAttrib('height' , '100')
+                    ->setDescription('<a href="'.$remove.$user_id.'/user_name/'.$userName.'" class ="remove-logo" title = "Remove Logo" >Remove</a>');
+            }
             $form['file'] = new Zend_Form_Element_File('file');
             $form['file']->setLabel('Change')
                 ->addValidator('Extension', false, 'jpg,jpeg,png,gif')
-                ->getValidator('Extension')->setMessage('This file type is not supportted.'); 
+                ->getValidator('Extension')->setMessage('This file type is not supportted.');
             if($account['file_name']){
                 $form['file']->setLabel('Upload Logo');
             }
         }
-        $form['save'] = new Zend_Form_Element_Submit('save');
-        $form['save']->setValue('save');
+        foreach($form as $element){
+            $element->addDecorators( array(
+                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
+                    )
+            );
+        }
+
         $this->addElements($form);
-        $this->setMethod('post');
+        $this->addDisplayGroup(
+                               array_keys($form),
+                               'edit-user-form',
+                               array('legend'=> 'Edit Profile')
+                            );
+        $editUser = $this->getDisplayGroup('edit-user-form');
+        $editUser->addDecorators(array(
+                array(
+                      array( 'wrapperAll' => 'HtmlTag' ),
+                      array( 'tag' => 'div','class'=>'default-activity-list'))
+            ));
+        $save = new Zend_Form_Element_Submit('save');
+        $save->setValue('save')
+            ->setAttrib('class' , 'form-submit');
+        $this->addElement($save);
     }
 }

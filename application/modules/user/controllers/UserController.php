@@ -28,9 +28,9 @@ class User_UserController extends Zend_Controller_Action
                 if ($form->isValid($formData)) {
                     $userModel = new User_Model_User();
                     $accountId = $userModel->registerUser($formData);
-                        
+
                     $this->_helper->FlashMessenger->addMessage(array('message' => 'Thank you for registering. You will receive an email shortly'));
-                    $this->_redirect('/');                    
+                    $this->_redirect('/');
                 }
         }
         $this->view->form = $form;
@@ -54,12 +54,12 @@ class User_UserController extends Zend_Controller_Action
                 $user = $userModel->getUserByEmail($email);
                 if ($user) {
                     try {
-                        
+
                         $uniqueId = md5(uniqid());
                         $resetSite = "http://" . $_SERVER['HTTP_HOST'] . $this->view->baseUrl() . '/user/user/resetpassword/email/' . urlencode($email) . '/value/' . urlencode($uniqueId);
                         $reset = new User_Model_DbTable_Reset();
                         $reset->insert(array('email' => $email, 'value' => $uniqueId, 'reset_flag' => '1'));
-                        
+
                         $profileModel = new User_Model_DbTable_Profile();
                         $profile = $profileModel->getProfileByUserId($user->user_id);
                         $name = $profile->first_name;
@@ -75,7 +75,7 @@ class User_UserController extends Zend_Controller_Action
                         $template = 'forgot_password.phtml';
                         $notification = new App_Notification;
                         $notification->sendemail($mailParams,$template,array($email => ''));
-                       
+
                         $this->_helper->FlashMessenger->addMessage(array('message' => 'Further instructions have been sent to your e-mail address.'));
                         $this->_redirect('/');
                     } catch (Exception $e) {
@@ -120,9 +120,9 @@ class User_UserController extends Zend_Controller_Action
                 $result = $auth->authenticate($authAdapter);
 
                 if ($result->isvalid()) {
-                    
+
                     // check if user account has been disable
-                    $model = new User_Model_DbTable_User();                
+                    $model = new User_Model_DbTable_User();
                     $user = $model->getUserByUsername($username);
                     if (!$user['status']) {
                         if ($auth->hasIdentity()) {
@@ -131,7 +131,7 @@ class User_UserController extends Zend_Controller_Action
                         $this->_helper->FlashMessenger->addMessage(array('error' => 'Your account has been disabled. Please contact the system administrator'));
                         $this->_redirect('/');
                     }
-                    
+
                     $identity = $authAdapter->getResultRowObject(null , 'password');
 
                     //getting role from table role and merging it with $authAdapter->getResultRowObject() [adding role to identity]
@@ -152,7 +152,7 @@ class User_UserController extends Zend_Controller_Action
                     }elseif ($identity->role == 'user'){
                         $this->_redirect('wep/dashboard');
                     }
-                
+
                 }
                 else
                     $this->_helper->FlashMessenger->addMessage(array('error' => 'Invalid username or password.'));
@@ -179,7 +179,7 @@ class User_UserController extends Zend_Controller_Action
         $profileModel = new User_Model_DbTable_Profile();
         $row1 = $profileModel->getProfileByUserId($user_id);
         $accountObj = new User_Model_DbTable_Account();
-        $userName = strtok($row['user_name'], '_'); 
+        $userName = strtok($row['user_name'], '_');
         $account = $accountObj->getAccountRowByUserName('account', 'username', $userName);
         $this->view->account = $account;
         $this->view->profile = $row1;
@@ -219,7 +219,7 @@ class User_UserController extends Zend_Controller_Action
             }
         }
     }
-    
+
     public function removeAction()
     {
         $userName = $this->getRequest()->getParam('user_name');
@@ -228,24 +228,25 @@ class User_UserController extends Zend_Controller_Action
         $accountObj->updateFileNameWithNull($userName);
         $this->_redirect('user/user/edit/user_id/' . $user_id);
     }
-    
+
     public function editAction()
     {
         $auth = Zend_Auth::getInstance()->getIdentity();
         $roleName = $auth->role;
-        $uploadDir = APPLICATION_PATH.'/../public/uploads/image/';
-        
+        $uploadDir = Zend_Registry::get('config')->upload_dir."/image/";
+        //$uploadDir = APPLICATION_PATH.'/../public/uploads/image/';
+
         $user_id = $this->getRequest()->getParam('user_id');
         $userModel = new User_Model_DbTable_User();
         $row = $userModel->getUserById($user_id);
         $profileModel = new User_Model_DbTable_Profile();
         $row1 = $profileModel->getProfileByUserId($user_id);
         $accountObj = new User_Model_DbTable_Account();
-        $userName = strtok($row['user_name'], '_'); 
+        $userName = strtok($row['user_name'], '_');
         $account = $accountObj->getAccountRowByUserName('account', 'username', $userName);
-       
+
         $form = new User_Form_User_Edit();
-       
+
         if ($this->getRequest()->isPost()) {
             $formData = $this->getRequest()->getPost();
             if ($form->isValid($formData)) {
@@ -263,10 +264,13 @@ class User_UserController extends Zend_Controller_Action
                     $data['file_name'] = basename($source);
                     try{
                            $upload->receive();
+                           if(file_exists($uploadDir.$account['file_name'])){
+                               unlink($uploadDir.$account['file_name']);
+                           }
                            $accountObj->insertFileNameOrUpdate($data ,  $userName);
                     } catch(Zend_File_Transfer_Exception $e) {
-                        $e->getMessage();    
-                    }  
+                        $e->getMessage();
+                    }
                 }
                 $this->_redirect('user/user/myaccount/user_id/' . $row->user_id);
             }else{
@@ -278,8 +282,8 @@ class User_UserController extends Zend_Controller_Action
                 if($roleName != 'superadmin')
                 {
                     $form->populate($account->toArray());
-                }    
-        }   
+                }
+        }
         $this->view->form = $form;
         $identity  = Zend_Auth::getInstance()->getIdentity();
         $this->_helper->layout()->setLayout('layout_wep');
@@ -419,7 +423,7 @@ class User_UserController extends Zend_Controller_Action
         Zend_Session:: namespaceUnset('superadmin');
         Zend_Auth::getInstance()->clearIdentity();
         Zend_Session::forgetMe();
-        
+
         $this->_helper->FlashMessenger->addMessage(array('message' => 'Successfully logged out.'));
 
         $this->_redirect('');
@@ -434,7 +438,7 @@ class User_UserController extends Zend_Controller_Action
                 ->setCredentialTreatment('md5(?)');
 
         return $authAdapter;
-    }  
+    }
 
     public function testAction()
     {
@@ -442,14 +446,14 @@ class User_UserController extends Zend_Controller_Action
         $role = $test->required();
         $this->view->userRole = $role;
     }
-    
+
     public function masqueradeAction()
     {
         $accountAuth = Zend_Auth::getInstance();
         if($accountAuth->hasIdentity()){
             $identity = $accountAuth->getIdentity();
             if($identity->role == 'superadmin') {
-                
+
                 $account_id = $this->_getParam('org_id');
                 $user_id = $this->_getParam('user_id');
                 if(!$account_id || !$user_id){
@@ -461,7 +465,7 @@ class User_UserController extends Zend_Controller_Action
                 $authAdapter->setTableName('user')
                     ->setIdentityColumn('user_id')
                     ->setCredentialColumn('account_id');
-                    
+
                 $authAdapter->setIdentity($user_id)
                     ->setCredential($account_id);
                 $accountAuth->authenticate($authAdapter);
@@ -470,20 +474,20 @@ class User_UserController extends Zend_Controller_Action
                 $role = $rolevalue->getRoleById($identity->role_id);
                 $std = new stdClass;
                 $std->role = $role['role'];
-    
+
                 $identity = (object) array_merge((array) $identity, (array) $std);
                 $accountAuth->getStorage()->write($identity);
                 $session = new Zend_Session_Namespace('superadmin');
                 $session->identity = serialize($superAdminIdentity);
                 $this->_redirect('/wep/dashboard');
-                
+
             } else {
                 $this->_helper->FlashMessenger->addMessage(array('error' => 'You are not authorised to masquerade.'));
                 $this->_redirect('/wep/dashboard');
             }
-        } 
+        }
     }
-    
+
     public function switchBackAction()
     {
         $auth = Zend_Auth::getInstance();
@@ -498,7 +502,7 @@ class User_UserController extends Zend_Controller_Action
             }
         }
     }
-    
+
     public function supportAction()
     {
         if(isset($_POST)){
@@ -507,7 +511,7 @@ class User_UserController extends Zend_Controller_Action
             if($form->isValid($data)){
                 $modelSupport = new Model_Support();
                 $modelSupport->saveSupportRequest($data);
-                
+
                 //Send Support Mail
                 $mailParams['subject'] = 'Support';
                 $mailParams['support_name'] = $data['support_name'];
@@ -517,7 +521,7 @@ class User_UserController extends Zend_Controller_Action
                 $template = 'support.phtml';
                 $notification = new App_Notification;
                 $notification->sendemail($mailParams,$template);
-                
+
                 $this->_helper->FlashMessenger->addMessage(array('message' =>'Thank you. Your query has been received.'));
                 $this->_redirect('/');
             } else {

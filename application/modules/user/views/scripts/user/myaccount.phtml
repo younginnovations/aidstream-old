@@ -5,14 +5,14 @@
     if($roleName != 'superadmin'){
         $fileName = $accountObj->getFileName($userName);
         $baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
-        $filePath = $baseUrl.'/uploads/image/'.$fileName['file_name'] ; 
-    }  
+        $filePath = $baseUrl.'/uploads/image/'.$fileName['file_name'] ;
+    }
 ?>
 <div class = "profile-info">
 <table class = "profile-table">
     <?php if($roleName != 'superadmin'): ?>
-    <?php if($fileName['file_name'] != '0'): ?>
-       <img src="<?php print $filePath; ?>" alt="logo"/>
+    <?php if($fileName['file_name']): ?>
+       <img src="<?php print $filePath; ?>" alt="logo" height='100'/>
     <?php endif ?>
     <tr>
         <td>Organization Name : <?php print $this->account['name']; ?></td>
@@ -22,7 +22,7 @@
     </tr>
     <?php endif ?>
     <tr>
-        <td>Name : <?php print $this->profile->first_name . 
+        <td>Name : <?php print $this->profile->first_name .
                                   (($this->profile->middle_name)? " ".
                                    $this->profile->middle_name ." " : " ") .
                                    $this->profile->last_name;?></td>
@@ -32,7 +32,7 @@
     </tr>
     <tr>
         <td>User Name : <?php print $this->row->user_name?></td>
-    </tr>   
+    </tr>
 </table>
 </div>
 <div class = "change-password"><?php print $this->l('Edit','user/user/edit/user_id/'.$this->row->user_id)?></div>
