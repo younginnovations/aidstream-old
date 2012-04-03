@@ -1,2 +1,14 @@
 <?php
-print $this->form;
+    $auth = Zend_Auth::getInstance()->getIdentity();
+    $user_id = $auth->user_id;
+    $roleName = $auth->role;
+    $userName = $auth->user_name;
+    $accountObj = new User_Model_DbTable_Account();
+    $userName = strtok($userName, '_');
+    $account = $accountObj->getAccountRowByUserName('account', 'username', $userName);
+    if($roleName != 'superadmin'){
+       $filePath = $baseUrl.'/uploads/image/'.$account['file_name'] ; 
+    }
+?>
+    <?php print $this->form; ?> 
+    

@@ -178,6 +178,10 @@ class User_UserController extends Zend_Controller_Action
         $row = $userModel->getUserById($user_id);
         $profileModel = new User_Model_DbTable_Profile();
         $row1 = $profileModel->getProfileByUserId($user_id);
+        $accountObj = new User_Model_DbTable_Account();
+        $userName = strtok($row['user_name'], '_'); 
+        $account = $accountObj->getAccountRowByUserName('account', 'username', $userName);
+        $this->view->account = $account;
         $this->view->profile = $row1;
         $this->view->row = $row;
         $identity  = Zend_Auth::getInstance()->getIdentity();
@@ -215,37 +219,102 @@ class User_UserController extends Zend_Controller_Action
             }
         }
     }
-
+    
+    public function removeAction()
+    {
+        $userName = $this->getRequest()->getParam('user_name');
+        $user_id = $this->getRequest()->getParam('user_id');
+        $accountObj = new User_Model_DbTable_Account();
+        $accountObj->updateFileNameWithNull($userName);
+        $this->_redirect('user/user/edit/user_id/' . $user_id);
+    }
+    
     public function editAction()
     {
+        $auth = Zend_Auth::getInstance()->getIdentity();
+        $roleName = $auth->role;
+        $uploadDir = APPLICATION_PATH.'/../public/uploads/image/';
+        
         $user_id = $this->getRequest()->getParam('user_id');
-        $model = new User_Model_DbTable_User();
-        $row = $model->getUserById($user_id);
+        $userModel = new User_Model_DbTable_User();
+        $row = $userModel->getUserById($user_id);
+        $profileModel = new User_Model_DbTable_Profile();
+        $row1 = $profileModel->getProfileByUserId($user_id);
+        $accountObj = new User_Model_DbTable_Account();
+        $userName = strtok($row['user_name'], '_'); 
+        $account = $accountObj->getAccountRowByUserName('account', 'username', $userName);
+       
         $form = new User_Form_User_Edit();
-        $this->view->form = $form;
-
+       
         if ($this->getRequest()->isPost()) {
             $formData = $this->getRequest()->getPost();
             if ($form->isValid($formData)) {
-
-
-                $username = $form->getValue('username');
-                $email = $form->getValue('email');
-                $mobile = $form->getValue('mobile');
-                $data = array();
-                $data['user_name'] = $username;
-                $data['email'] = $email;
-                $user_id = $model->editUser($data, $row->user_id);
-
-                $useId['user_id'] = $user_id;
-
+                $data['address'] = $form->getValue('address');
+                $data['first_name'] = $form->getValue('first_name');
+                $data['last_name'] = $form->getValue('last_name');
+                $data['email'] = $form->getValue('email');
+                $accountObj->updateAccount($data, $userName);
+                $value = $userModel->updateUser($data, $user_id);
+                $profileModel->updateProfile($data, $user_id);
+                if($roleName != 'user'){
+                    $upload = new Zend_File_Transfer_Adapter_Http();
+                    $upload->setDestination($uploadDir);
+                    $source = $upload->getFileName();
+                    $data['file_name'] = basename($source);
+                    try{
+                           $upload->receive();
+                           $accountObj->insertFileNameOrUpdate($data ,  $userName);
+                    } catch(Zend_File_Transfer_Exception $e) {
+                        $e->getMessage();    
+                    }  
+                }
                 $this->_redirect('user/user/myaccount/user_id/' . $row->user_id);
-            }//end of inner if
-        } else {
-            $form->populate($row->toArray());
+            }else{
+                $form->populate($formData);
+            }
+        }else {
+                $form->populate($row->toArray());
+                $form->populate($row1->toArray());
+                if($roleName != 'superadmin')
+                {
+                    $form->populate($account->toArray());
+                }    
+        }   
+        $this->view->form = $form;
+        $identity  = Zend_Auth::getInstance()->getIdentity();
+        $this->_helper->layout()->setLayout('layout_wep');
+        if($identity->role == 'user'){
+            $model = new Model_Wep();
+            $userPermission = $model->getUserPermission($identity->user_id);
+            $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::VIEW_ACTIVITIES);
+            if($permission == '0'){
+                $this->view->blockManager()->disable('partial/primarymenu.phtml');
+            }
+            $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::ADD_ACTIVITY);
+            if($permission == '0'){
+                $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
+            }
         }
-        $this->view->placeholder('title')->set('Edit account');
-//        $this->_helper->layout()->setLayout('layout');
+        $this->view->blockManager()->enable('partial/dashboard.phtml');
+        if($identity->role != 'superadmin'){
+            $this->view->blockManager()->enable('partial/primarymenu.phtml');
+            $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
+            $this->view->blockManager()->enable('partial/published-list.phtml');
+            $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
+            // for role user check if the user has permission to add, publish ,if not disable menu.
+            if($identity->role == 'user'){
+                $model = new Model_Wep();
+                $userPermission = $model->getUserPermission($identity->user_id);
+                $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::ADD_ACTIVITY);
+                $publishPermission = $userPermission->hasPermission(Iati_WEP_PermissionConts::PUBLISH);
+                if(!$permission){
+                    $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
+                }
+                if(!$publishPermission){
+                    $this->view->blockManager()->disable('partial/published-list.phtml');
+                }
+            }
+        }
     }
 
     /**

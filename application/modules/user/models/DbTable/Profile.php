@@ -13,4 +13,10 @@ class User_Model_DbTable_Profile extends Zend_Db_Table_Abstract {
         $where = $this->getAdapter()->quoteInto('user_id = ?', $user_id);
         $this->delete($where);
     }
+    
+    public function updateProfile($data, $user_id){
+        $value['first_name'] = $data['first_name'];
+        $value['last_name'] = $data['last_name'];
+        return parent::update($value, array('user_id = ?' => $user_id));
+    }
 }

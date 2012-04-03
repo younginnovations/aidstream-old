@@ -5,22 +5,82 @@ class User_Form_User_Edit extends App_Form
 
     public function init()
     {
-        $username = new Zend_Form_Element_Text('username');
-        $username->setLabel('Username')->setRequired();
-
-        $email = new Zend_Form_Element_Text('email');
-        $email->setLabel('Email')->setRequired();
-
-//        $mobile = new Zend_Form_Element_Text('mobile');
-//        $mobile->setLabel('Phone No')
-//                ->addValidator('int', false)
-//                ->setRequired();
-
-        $save = new Zend_Form_Element_Submit('Save');
-        $save->setValue('save');
-
-        $this->addElements(array($username, $email, $save));
+        $baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
+        $auth = Zend_Auth::getInstance()->getIdentity();
+        $user_id = $auth->user_id;
+        $roleName = $auth->role;
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+        $clause = $db->quoteInto('user_id != ?', $user_id);
+        $accountObj = new User_Model_DbTable_Account();
+        $userName = strtok($auth->user_name, '_'); 
+        $account = $accountObj->getAccountRowByUserName('account', 'username', $userName);
+        
+        $this->setName('Edit Account');
+        $form = array();
+        if($roleName != 'superadmin')
+        {
+        $form['name'] = new Zend_Form_Element_Text('name');
+        $form['name']->setLabel('Orgainization Name')
+            ->setAttrib('class', 'form-text')
+            ->setAttrib('readonly', 'true')
+            ->setRequired();
+        $form['address'] = new Zend_Form_Element_Textarea('address');
+        $form['address']->setLabel('Orgainization Address')
+            ->setRequired()
+            ->setAttrib('rows', '4')
+            ->setAttrib('class', 'form-text');
+        }    
+        if($roleName == 'user')
+        {
+            $form['address']->setAttrib('readonly', 'true');  
+        }      
+        $form['first_name'] = new Zend_Form_Element_Text('first_name');
+        $form['first_name']->setLabel('First Name')
+            ->setRequired()
+            ->setAttrib('class', 'form-text');
+        $form['last_name'] = new Zend_Form_Element_Text('last_name');
+        $form['last_name']->setLabel('Last Name')
+           ->setRequired()
+           ->setAttrib('class', 'form-text');
+        $form['email'] = new Zend_Form_Element_Text('email');
+        $form['email']->setLabel('Email')
+           ->setRequired()
+           ->addValidator('emailAddress', false)
+           ->setAttrib('class', 'form-text')
+           ->addValidator('Db_NoRecordExists', false,
+                 array('table' => 'user', 'field' => 'email', 'exclude' => $clause,
+                 'messages' => array(
+                 Zend_Validate_Db_NoRecordExists::ERROR_RECORD_FOUND => 'Email Address already exists.')));
+           
+        if($roleName == 'admin')
+        { 
+            $filePath = $baseUrl.'/uploads/image/'.$account['file_name'] ;
+            $remove = $baseUrl.'/user/user/remove/user_id/';
+            
+            if($account['file_name']){
+                $form['image'] = new Zend_Form_Element_Image('image');
+                $form['image']->setImage($filePath)
+                    ->setLabel('Logo')
+                    ->setDescription('<a href="'.$remove.$user_id.'/user_name/'.$userName.'" class ="remove-logo" title = "Remove Logo" >Remove</a>')
+                    ->setDecorators(array(
+                                    'ViewHelper',
+                                    array('Description', array('escape' => false, 'tag' => false)),
+                                    array('HtmlTag', array('tag' => 'dd')),
+                                    array('Label', array('tag' => 'dt')),
+                                    'Errors',
+                                    ));
+            }    
+            $form['file'] = new Zend_Form_Element_File('file');
+            $form['file']->setLabel('Change')
+                ->addValidator('Extension', false, 'jpg,jpeg,png,gif')
+                ->getValidator('Extension')->setMessage('This file type is not supportted.'); 
+            if($account['file_name']){
+                $form['file']->setLabel('Upload Logo');
+            }
+        }
+        $form['save'] = new Zend_Form_Element_Submit('save');
+        $form['save']->setValue('save');
+        $this->addElements($form);
         $this->setMethod('post');
     }
-
 }

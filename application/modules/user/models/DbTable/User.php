@@ -68,6 +68,12 @@ class User_Model_DbTable_User extends Zend_Db_Table_Abstract {
     {
         return $this->update($data ,  array('email = ?' => $email));
     }
+
+  	public function updateUser($data, $user_id)
+    {
+        $value['email'] = $data['email'];
+        return parent::update($value, array('user_id = ?' => $user_id));
+    }
 }
 
 ?>

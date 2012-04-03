@@ -1,17 +1,39 @@
-<h2><?php print $this->row->user_name?></h2>
+<?php
+    $userName = $this->account['username'];
+    $roleName = $this->row['user_name'];
+    $accountObj = new User_Model_DbTable_Account();
+    if($roleName != 'superadmin'){
+        $fileName = $accountObj->getFileName($userName);
+        $baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
+        $filePath = $baseUrl.'/uploads/image/'.$fileName['file_name'] ; 
+    }  
+?>
 <div class = "profile-info">
 <table class = "profile-table">
-
+    <?php if($roleName != 'superadmin'): ?>
+    <?php if($fileName['file_name'] != '0'): ?>
+       <img src="<?php print $filePath; ?>" alt="logo"/>
+    <?php endif ?>
     <tr>
-        <td><?php 
-        print $this->profile->first_name . 
-                            (($this->profile->middle_name)? " ".$this->profile->middle_name ." " : " ") .
-                             $this->profile->last_name;?></td>
+        <td>Organization Name : <?php print $this->account['name']; ?></td>
     </tr>
     <tr>
-        <td class="account-email"><?php print $this->row->email?></td>
-    </tr> 
+        <td>Organization Address : <?php print $this->account['address']; ?></td>
+    </tr>
+    <?php endif ?>
+    <tr>
+        <td>Name : <?php print $this->profile->first_name . 
+                                  (($this->profile->middle_name)? " ".
+                                   $this->profile->middle_name ." " : " ") .
+                                   $this->profile->last_name;?></td>
+    </tr>
+    <tr>
+        <td>Email : <?php print $this->row->email?></td>
+    </tr>
+    <tr>
+        <td>User Name : <?php print $this->row->user_name?></td>
+    </tr>   
 </table>
 </div>
-<!--<div class = "edit-button"><?php print $this->l('Edit','user/user/edit/user_id/'.$this->row->user_id)?></div>-->
+<div class = "change-password"><?php print $this->l('Edit','user/user/edit/user_id/'.$this->row->user_id)?></div>
 <div class = "change-password"><?php print $this->l('Change Password','user/user/changepassword/user_id/'.$this->row->user_id)?></div>
