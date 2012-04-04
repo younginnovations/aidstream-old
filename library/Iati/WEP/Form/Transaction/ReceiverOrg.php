@@ -23,7 +23,7 @@ class Iati_WEP_Form_Transaction_ReceiverOrg extends Iati_Form
             ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help transaction-receiver_org-ref' , 'placement' => 'PREPEND'))));
 
         $form['receiver_activity_id'] = new Zend_Form_Element_Text('receiver_activity_id');
-        $form['receiver_activity_id']->setLabel('Reciever Activity Id')
+        $form['receiver_activity_id']->setLabel('Receiver Activity Id')
             ->setAttrib('class' , 'form-text')
             ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help transaction-receiver_org-receiver_activity_id' , 'placement' => 'PREPEND'))));
         $this->addElements($form);

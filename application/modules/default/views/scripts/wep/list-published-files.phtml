@@ -24,7 +24,7 @@
                 <td><? if(!$this->update_to_registry): ?><input type="checkbox" name="file_<?php echo $file['id']?>" value="<?php echo $file['id']?>"<?php ($file['status'])? print("checked='checked'") : print("disabled='disabled'"); ?>" /><? endif; ?></td>
                 <? endif; ?>
 
-                <td><a href="<?php echo Zend_Registry::get('config')->xml_folder.$file['filename']?>" target="_blank"><?php echo $file['filename'] ?></a></td>
+                <td><a href="<?php echo $this->baseUrl().Zend_Registry::get('config')->xml_folder.$file['filename']?>" target="_blank"><?php echo $file['filename'] ?></a></td>
                 <td><?php echo $file['published_date'] ?></td>
                 <td>
                 <?php if( $file['pushed_to_registry']): ?>
