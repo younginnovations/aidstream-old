@@ -5,8 +5,12 @@
     $model = new User_Model_DbTable_Account();
     $images = $model->getFileNamesForFooter();
 ?>
+<ul>
 <?php foreach($images as $image):?>
+<li>
 <img src="<?php echo $this->baseUrl().'/uploads/image/'.$image['file_name']; ?>"
-	alt="<?php echo $image['file_name']; ?>" height='100px'>
+	alt="<?php echo $image['file_name']; ?>">
+</li>
 <?php endforeach; ?>
+</ul>
 </div>

@@ -62,7 +62,6 @@ class User_Form_User_Edit extends App_Form
                 $form['image'] = new Zend_Form_Element_Image('image');
                 $form['image']->setImage($filePath)
                     ->setLabel('Logo')
-                    ->setAttrib('height' , '100')
                     ->setDescription('<a href="'.$remove.$user_id.'/user_name/'.$userName.'" class ="remove-logo" title = "Remove Logo" >Remove</a>')
                     ->setDecorators(array(
                                     'ViewHelper',

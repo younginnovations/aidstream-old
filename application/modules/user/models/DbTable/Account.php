@@ -37,7 +37,8 @@ class User_Model_DbTable_Account extends Zend_Db_Table_Abstract {
     {
         $select = $this->select()
             ->from($this , array('file_name'))
-            ->where('file_name <> ""');
+            ->where('file_name <> ""')
+            ->where('display_in_footer = ?' , 1);
         return $this->fetchAll($select)->toArray();
     }
 }

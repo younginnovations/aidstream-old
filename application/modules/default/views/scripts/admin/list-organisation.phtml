@@ -1,7 +1,7 @@
 <table id="list-org">
 <thead>
 <tr>
-    <th>S.N.</th><th>Organisation Name</th><th>Users</th><th>Activities</th><th>Status</th><th>Action</th>
+    <th>S.N.</th><th>Organisation Name</th><th>Users</th><th>Activities</th><th>Status</th><th>Displayed In Footer</th><th>Action</th>
 <!--    <th>Action</th>-->
 </tr>
 </thead>
@@ -11,12 +11,14 @@
 <tbody>
     <?php foreach($this->rowSet as $key=>$row):?>
     <?php $newStatus = ($row['status'])? 0: 1; ?>
+    <?php $newDisplay = ($row['display_in_footer'])? 0:1;?>
     <tr>
     <td><?php print $i;?></td>
     <td><?php print $row['name']?></td>
     <td><?php print $row['users_count']?></td>
     <td><?php print $row['activity_count']?></td>
     <td class='toggle-status' value='<?php echo $row['status'] ?>'><?php print ($row['status'])?'Enabled': 'Disabled';?></td>
+    <td><?php print $this->l((($row['display_in_footer'])?'Yes':'No'),"admin/change-footer-display/?org_id=".$row['id']."&display=".$newDisplay);?>
     <td>
         <?php print $this->l('Edit', 'admin/edit-organisation/?id='.$row['id']);?>
         |

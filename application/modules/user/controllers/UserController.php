@@ -260,13 +260,15 @@ class User_UserController extends Zend_Controller_Action
                 if($roleName != 'user'){
                     $upload = new Zend_File_Transfer_Adapter_Http();
                     $upload->setDestination($uploadDir);
+                    $upload->addFilter(new Iati_Filter_File_Resize(array(
+						    'width' => 150,
+						    'height' => 100,
+						    'keepRatio' => true,
+						)));
                     $source = $upload->getFileName();
                     $data['file_name'] = basename($source);
                     try{
                            $upload->receive();
-                           if(file_exists($uploadDir.$account['file_name'])){
-                               unlink($uploadDir.$account['file_name']);
-                           }
                            $accountObj->insertFileNameOrUpdate($data ,  $userName);
                     } catch(Zend_File_Transfer_Exception $e) {
                         $e->getMessage();
