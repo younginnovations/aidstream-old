@@ -168,7 +168,8 @@ class Iati_WEP_FormHelper {
             if($mainEle->hasMultiple()){
                 $eleName = str_replace('Iati_WEP_Activity_Elements_' , '' , get_class($mainEle));
                 $remove = new Iati_Form_Element_Note('remove');
-                $remove->setValue("<a href='/wep/remove-elements?classname={$eleName}' class='remove-element button'> Remove This</a>");
+                $removeUrl = Zend_Controller_Front::getInstance()->getBaseUrl()."/wep/remove-elements?classname={$eleName}";
+                $remove->setValue("<a href='{$removeUrl}' class='remove-element button'> Remove This</a>");
                 $remove->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'remove button'));
                 $form->addElements(array($remove));
             }
@@ -188,7 +189,8 @@ class Iati_WEP_FormHelper {
             if($mainEle->hasMultiple()){
                 $eleName = str_replace('Iati_WEP_Activity_Elements_' , '' , get_class($mainEle));
                 $remove = new Iati_Form_Element_Note('remove');
-                $remove->setValue("<a href='/wep/remove-elements?classname={$eleName}' class='remove-element button'> Remove This</a>");
+                $removeUrl = Zend_Controller_Front::getInstance()->getBaseUrl()."/wep/remove-elements?classname={$eleName}";
+                $remove->setValue("<a href='{$removeUrl}' class='remove-element button'> Remove This</a>");
                 $remove->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'remove button'));
                 $subForm->addElements(array($remove));
             }
