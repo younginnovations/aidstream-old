@@ -4,9 +4,9 @@
     <title>AidStream</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <?php 
-            $this->headLink()->headLink(array('rel' => 'shortcut icon', 
-                                    'type' => 'image/png', 
+    <?php
+            $this->headLink()->headLink(array('rel' => 'shortcut icon',
+                                    'type' => 'image/png',
                                   'href' => $this->baseUrl() . '/favicon.png'),
                                   'PREPEND');
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/960.css');
@@ -16,7 +16,7 @@
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style_wep.css');
             print $this->headLink();
     ?>
-    
+
     <script type="text/javascript">
 	var APP_BASEPATH = '<?php echo $this->baseUrl();?>';
     </script>
@@ -39,7 +39,7 @@
 	    <? echo $this->partial('partial/support.phtml') ?>
 	</div>
 	<? endif; ?>
-        
+
             <div id="header">
                 <a name="top"></a>
                 <div id="nav-logo-section">
@@ -71,10 +71,10 @@
                             </div><!--Close user-info-->
                         </div>
                     </div>
-    		
+
                     <div class="clear"></div>
                 </div>
-                
+
                 <div class="login-section">
                     <div class="container_12">
                         <div id="login-form-section" class="grid_7">
@@ -99,7 +99,7 @@
                     </div>
                     <div class="clear"></div>
                 </div><!--Close login-section-->
-                
+
                 <div class="clear"></div>
                 <!--search div start-->
 
@@ -150,7 +150,7 @@
         <div id="footer"><!--Start footer-->
             <div class="container_12">
             	<div class="grid_12">
-        	    <h2 class="footer-title">Who's using it?</h1>
+            		    <? echo $this->partial('partial/layout/footer.phtml') ?>
             	</div>
             </div>
             <div class="clearfix"></div>

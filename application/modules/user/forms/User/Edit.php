@@ -16,7 +16,7 @@ class User_Form_User_Edit extends App_Form
         $account = $accountObj->getAccountRowByUserName('account', 'username', $userName);
 
         $this->setName('Edit Account');
-        $form = array();        $this->setMethod('post');
+        $form = array();
 
         if($roleName != 'superadmin')
         {
@@ -63,7 +63,15 @@ class User_Form_User_Edit extends App_Form
                 $form['image']->setImage($filePath)
                     ->setLabel('Logo')
                     ->setAttrib('height' , '100')
-                    ->setDescription('<a href="'.$remove.$user_id.'/user_name/'.$userName.'" class ="remove-logo" title = "Remove Logo" >Remove</a>');
+                    ->setDescription('<a href="'.$remove.$user_id.'/user_name/'.$userName.'" class ="remove-logo" title = "Remove Logo" >Remove</a>')
+                    ->setDecorators(array(
+                                    'ViewHelper',
+                                    array('Description', array('escape' => false, 'tag' => false)),
+                                    array('HtmlTag', array('tag' => 'dd')),
+                                    array('Label', array('tag' => 'dt')),
+                                    'Errors',
+                                   ));
+
             }
             $form['file'] = new Zend_Form_Element_File('file');
             $form['file']->setLabel('Change')

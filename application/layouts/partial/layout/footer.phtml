@@ -1,0 +1,12 @@
+<h2 class="footer-title">Who's using it?
+</h1>
+<div class="footer-images">
+<?php
+    $model = new User_Model_DbTable_Account();
+    $images = $model->getFileNamesForFooter();
+?>
+<?php foreach($images as $image):?>
+<img src="<?php echo $this->baseUrl().'/uploads/image/'.$image['file_name']; ?>"
+	alt="<?php echo $image['file_name']; ?>" height='100px'>
+<?php endforeach; ?>
+</div>

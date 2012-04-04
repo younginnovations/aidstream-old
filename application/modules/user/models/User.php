@@ -30,7 +30,7 @@ class User_Model_User
         $account['username'] = trim($data['account_identifier']);
         $account['uniqid'] = md5(date('Y-m-d H:i:s'));
         $accountId = $modelWep->insertRowsToTable('account', $account);
-        
+
         //Save User Info
         $user['user_name'] = trim($data['user_name']);
         $user['password'] = md5($data['password']);
@@ -39,23 +39,23 @@ class User_Model_User
         $user['account_id'] = $accountId;
         $user['status'] = 1;
         $user_id = $modelWep->insertRowsToTable('user', $user);
-        
+
         //Save User Profile
         $admin['first_name'] = $data['first_name'];
         $admin['last_name'] = $data['last_name'];
         $admin['user_id'] = $user_id;
         $admin_id = $modelWep->insertRowsToTable('profile', $admin);
-        
+
         //Insert Default Values
-        $defaultFieldsValues = new Iati_WEP_AccountDefaultFieldValues();                        
+        $defaultFieldsValues = new Iati_WEP_AccountDefaultFieldValues();
         $fieldString = serialize($defaultFieldsValues);
-    
+
         $defaultValues['object'] = $fieldString;
         $defaultValues['account_id'] = $accountId;
         $defaultValuesId = $modelWep->insertRowsToTable('default_field_values', $defaultValues);
-        
+
         //Insert Default Fields
-        $defaultFieldGroup = new Iati_WEP_AccountDisplayFieldGroup();                        
+        $defaultFieldGroup = new Iati_WEP_AccountDisplayFieldGroup();
         $default = array('title','description','activity_status','activity_date','participating_org','recipient_country','sector','budget','transaction');
 
         foreach ($default as $eachField) {
@@ -66,7 +66,7 @@ class User_Model_User
         $defaultFields['object'] = $fieldString;
         $defaultFields['account_id'] = $accountId;
         $defaultFieldId = $modelWep->insertRowsToTable('default_field_groups', $defaultFields);
-     
+
         //Send notification
         $to = array($data['email'] => '');
         $mailParams['subject'] = 'Account registration confirmed';
@@ -76,11 +76,11 @@ class User_Model_User
         $mailParams['username'] = $user['user_name'];
         $mailParams['password'] = $data['password'];
         $mailParams['url'] = "http://".$_SERVER['SERVER_NAME'].Zend_Controller_Front::getInstance()->getBaseUrl();
-        
+
         $template = 'user-register.phtml';
         $Wep = new App_Notification;
         $Wep->sendemail($mailParams,$template,$to);
-        
+
         return $accountId;
     }
 }
