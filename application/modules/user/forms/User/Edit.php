@@ -76,7 +76,7 @@ class User_Form_User_Edit extends App_Form
             $form['file']->setLabel('Change')
                 ->addValidator('Extension', false, 'jpg,jpeg,png,gif')
                 ->getValidator('Extension')->setMessage('This file type is not supportted.');
-            if($account['file_name']){
+            if(!$account['file_name']){
                 $form['file']->setLabel('Upload Logo');
             }
         }
