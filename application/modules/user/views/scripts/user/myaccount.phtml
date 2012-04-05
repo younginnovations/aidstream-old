@@ -8,32 +8,72 @@
         $filePath = $baseUrl.'/uploads/image/'.$fileName['file_name'] ;
     }
 ?>
+
+<h1>
+    My Profile 
+    <span class = "edit-this"><?php print $this->l('Edit','user/user/edit/user_id/'.$this->row->user_id)?></span>
+
+    <span>|</span>
+
+    <span class = "change-password"><?php print $this->l('Change Password','user/user/changepassword/user_id/'.$this->row->user_id)?></span>
+</h1>
+
+
+
 <div class = "profile-info">
-<table class = "profile-table">
-    <?php if($roleName != 'superadmin'): ?>
-    <?php if($fileName['file_name']): ?>
-       <img src="<?php print $filePath; ?>" alt="logo"/>
-    <?php endif ?>
-    <tr>
-        <td>Organization Name : <?php print $this->account['name']; ?></td>
-    </tr>
-    <tr>
-        <td>Organization Address : <?php print $this->account['address']; ?></td>
-    </tr>
-    <?php endif ?>
-    <tr>
-        <td>Name : <?php print $this->profile->first_name .
-                                  (($this->profile->middle_name)? " ".
-                                   $this->profile->middle_name ." " : " ") .
-                                   $this->profile->last_name;?></td>
-    </tr>
-    <tr>
-        <td>Email : <?php print $this->row->email?></td>
-    </tr>
-    <tr>
-        <td>User Name : <?php print $this->row->user_name?></td>
-    </tr>
-</table>
+    <div class="profile-info-inner">
+
+        <div class="individual-name profile-item">
+            <span class="profile-item-label">Name:</span> 
+            <span class="profile-item-value"><?php print $this->profile->first_name .
+                                      (($this->profile->middle_name)? " ".
+                                       $this->profile->middle_name ." " : " ") .
+                                       $this->profile->last_name;?></span>
+        </div>
+
+        <div class="individual-email profile-item">
+            <span class="profile-item-label">Email:</span> 
+            <span class="profile-item-value"><?php print $this->row->email?></span>
+        </div>
+        
+        <div class="individual-username profile-item">
+            <span class="profile-item-label">Username:</span> 
+            <span class="profile-item-value"><?php print $this->row->user_name?></span>
+        </div>
+    </div>
 </div>
-<div class = "change-password"><?php print $this->l('Edit','user/user/edit/user_id/'.$this->row->user_id)?></div>
-<div class = "change-password"><?php print $this->l('Change Password','user/user/changepassword/user_id/'.$this->row->user_id)?></div>
+
+<?php if($roleName != 'superadmin'): ?>
+
+    <div id="organization-info">
+
+        <h2>Organization details</h2>
+
+        <?php if($fileName['file_name']): ?>
+               <div id="organization-logo"><img src="<?php print $filePath; ?>" alt="logo"/></div>
+
+        <?php else: ?>
+
+                <div id="organization-logo"><img src="<?php echo $this->baseUrl().'/images/default-logo.png' ?>" alt="logo"/></div>
+
+        <?php endif ?>
+
+
+
+                <div id="organization-details">
+                    <div class="organization-name organization-deatail-item">
+                            <div class="profile-item-label">Organization Name:</div> 
+                            <div class="profile-item-value"><?php print $this->account['name']; ?></div>
+                    </div>
+                        
+                    <div class="organization-address organization-deatail-item">
+                            <div class="profile-item-label">Organization Address:</div> 
+                            <div class="profile-item-value"><?php print $this->account['address']; ?></div>
+                    </div>
+                </div>
+        <div class="clear"></div>
+    </div>
+
+<?php endif ?>
+
+

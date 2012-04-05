@@ -896,6 +896,12 @@ h2.form-title {
 	margin-top:10px;
 	color:#887272;
 }
+
+#footer .footer-images ul li {
+	display: inline;
+	margin-right:10px;
+}
+
 #footer-inner
 {
 	margin:0 10px 0 10px;
@@ -1023,7 +1029,7 @@ button.form-submit:hover, input.form-submit:hover, a.button:hover, .change-passw
 
 #oldpassword-element p.description 
 {
-	margin-left:210px;
+	margin-left:220px;
 	padding: 5px 0;
 }
 
@@ -1907,7 +1913,7 @@ table#list-org {
 }
 
 .element-values-items:hover, #contain table.activity-info-table:hover {
-	border-left:2px solid #B9E0FB;
+	border-left:2px solid #40a3e8;
 }
 
 #iati_activity_change_status #status-label,
@@ -2171,28 +2177,80 @@ form#support-form
 }
 
 /** Account page **/
-.profile-info table
-{
-	border: none !important;
+#organization-logo {
+	border-right:1px solid #ccc;
+	float:left;
+	padding-right:10px;
 }
 
-.profile-info tr
-{
-	background: none !important;
+#organization-info {
+	margin-bottom:20px;
 }
 
-.profile-info td
-{
-	background: none !important;
-	font-size: 15px;
-	font-weight: bold;
+#organization-info h2 {
+	margin-bottom:10px;
 }
 
-.profile-info td.account-email 
-{
-	color: #595959;
-	font-size: 12px;
-	font-weight: normal;
+#organization-details {
+	margin-left: 170px;
+}
+
+.organization-deatail-item {
+	margin-bottom:10px;
+}
+
+.profile-info {
+	background: -moz-linear-gradient(center top , #F6F4F4 0%, #F8F8F8 100%) repeat scroll 0 0 transparent;
+    border: 1px solid #E3E3E4;
+    border-radius: 4px 4px 4px 4px;
+    margin-bottom: 10px;
+    padding: 11px;
+}
+
+.profile-info-inner {
+	background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #E1E0E0;
+    border-radius: 4px 4px 4px 4px;
+}
+
+.profile-item {
+	border-bottom:1px solid #E6E7E7;
+	padding:5px;
+	margin-bottom:5px;
+}
+
+.individual-username {
+	border-bottom:none;
+}
+
+.profile-item-label {
+	color:#727272;
+}
+
+h1 span {
+	color:#ccc;
+	font-size:12px;
+	font-weight:normal;
+}
+
+.edit-this {
+	margin-left:10px;
+}
+
+h1 .edit-this a, h1 .change-password a {
+	background:transparent;
+	color:#009ADA;
+	font-size:12px;
+	font-weight:normal;
+	padding:0;
+}
+
+h1 .edit-this a:hover, h1 .change-password a:hover {
+	background:#009ADA;
+	border-radius:0;
+	color:#fff;
+	display: inline;
+	padding:0;
 }
 
 /** popup theming **/
