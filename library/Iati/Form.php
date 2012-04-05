@@ -43,8 +43,13 @@ class Iati_Form extends Zend_Form
             if($element->getName() != 'add' && $element->getName() != 'remove'){
                 if($element->getName() == 'id'){
                     $element->addDecorators(array(
-                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'form-item ele-id clearfix'))
-                    )
+	                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'form-item ele-id clearfix'))
+	                    )
+                    );
+                } else if($element->getName() == 'save_and_view' || $element->getName() == 'save'){
+                     $element->addDecorators(array(
+	                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'form-item ele-submit-buttons clearfix'))
+	                    )
                     );
                 } else {
 	                $element->addDecorators(array(

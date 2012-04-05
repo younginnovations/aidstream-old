@@ -99,12 +99,14 @@ class Iati_WEP_FormHelper {
 
                 $form->addElement($add);
                 $form->addSubmitButton('Save');
+                $form->setAttrib('class' , 'clearfix');
                 $this->addWrapper($form , $_mainEle[0]);
 
                 return $form;
             } else {
                 $form = $this->genForm($_mainEle[0] , null , $count);
                 $form->addSubmitButton('Save');
+                $form->setAttrib('class' , 'clearfix');
                 $this->addWrapper($form , $_mainEle[0]);
             }
         }
