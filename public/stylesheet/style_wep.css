@@ -2248,7 +2248,7 @@ form#support-form
 	color:#727272;
 }
 
-h1 span {
+h1.my-profile-title span {
 	color:#ccc;
 	font-size:12px;
 	font-weight:normal;
