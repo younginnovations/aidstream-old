@@ -217,6 +217,8 @@ class User_UserController extends Zend_Controller_Action
                     $this->view->blockManager()->disable('partial/published-list.phtml');
                 }
             }
+        } else {
+            $this->view->blockManager()->enable('partial/superadmin-menu.phtml');
         }
     }
 
@@ -320,6 +322,8 @@ class User_UserController extends Zend_Controller_Action
                     $this->view->blockManager()->disable('partial/published-list.phtml');
                 }
             }
+        } else {
+            $this->view->blockManager()->enable('partial/superadmin-menu.phtml');
         }
     }
 
