@@ -966,6 +966,10 @@ dt#update_registry-label label
 	color: #000;
 }
 
+.ele-submit-buttons.form-item:hover {
+	background-color: transparent;
+}
+
 input.form-text, select.form-select, textarea
 {
     background: none repeat scroll 0 0 #FFFFFF;
