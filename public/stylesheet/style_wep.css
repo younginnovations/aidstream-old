@@ -1031,6 +1031,11 @@ button.form-submit:hover, input.form-submit:hover, a.button:hover, .change-passw
 	background: none repeat scroll 0 0 #037bac;
 }
 
+button.form-submit[disabled=disabled] {
+	background-color:#ccc;
+	cursor:default;
+}
+
 .ele-submit-buttons.clearfix {
 	clear:none;
 	float:left;
