@@ -1430,7 +1430,23 @@ class WepController extends Zend_Controller_Action
                 $factory->extractData($rowSet, $activityId);
                 $form = $formHelper->getForm();
 
-                $this->_helper->FlashMessenger->addMessage(array('message' => "$class saved sucessfully."));
+                //Update Activity Hash
+                $activityHashModel = new Model_ActivityHash();
+                $updated = $activityHashModel->updateHash($activityId);
+                if(!$updated){
+                    $type = 'info';
+                    $message = 'No Changes Made';
+                } else {
+                    //update the activity so that the last updated time is updated
+                    $this->updateActivityUpdatedDatetime($activityId);
+
+                    //change state to editing
+                    $db = new Model_ActivityStatus;
+                    $db->updateActivityStatus($activityId,Iati_WEP_ActivityState::STATUS_EDITING);
+                    $type = 'message';
+                    $message = "$class successfully updated.";
+                }
+                $this->_helper->FlashMessenger->addMessage(array($type => $message));
                 if(isset($formData['save_and_view'])){
                     $this->_redirect('wep/view-activity/'.$activityId);
                 }
