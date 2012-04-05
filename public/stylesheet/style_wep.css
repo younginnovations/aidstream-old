@@ -993,7 +993,7 @@ input[type="checkbox"]
 	margin-top: 10px;
 }
 
-button.form-submit, input.form-submit, a.button, .change-password a, .profile-links, .dashboard-summary a, #Submit, #create_new_account, #reset_password, #login, .change-password a, #save{
+button.form-submit, input.form-submit, a.button, .change-password a, .profile-links, .dashboard-summary a, #Submit, #create_new_account, #reset_password, #login, .change-password a, #save, #save_and_view{
 
     /*background: url("images/buttons.png") repeat-x scroll 0 0 transparent;
     border-color: #E4E4E4 #D2D2D2 #B4B4B4;
@@ -1022,9 +1022,18 @@ button.form-submit, input.form-submit, a.button, .change-password a, .profile-li
     text-decoration: none;
 }
 
-button.form-submit:hover, input.form-submit:hover, a.button:hover, .change-password a:hover, .profile-links:hover, .dashboard-summary a:hover, #Submit:hover, #create_new_account:hover, #reset_password:hover, #login:hover, .change-password a:hover, #save:hover
+button.form-submit:hover, input.form-submit:hover, a.button:hover, .change-password a:hover, .profile-links:hover, .dashboard-summary a:hover, #Submit:hover, #create_new_account:hover, #reset_password:hover, #login:hover, .change-password a:hover, #save:hover, #save_and_view:hover
 {
 	background: none repeat scroll 0 0 #037bac;
+}
+
+.ele-submit-buttons.clearfix {
+	clear:none;
+	float:left;
+}
+
+dt#save_and_view-label {
+	display:none;
 }
 
 #oldpassword-element p.description 
@@ -1331,6 +1340,10 @@ dt{
     font-weight: bold;
     float: left; 
     margin-right: 10px;
+}
+
+dt#edituserform-label {
+	display: none;
 }
 
 dd{
@@ -1786,9 +1799,13 @@ table.activity-list-table tr:hover {
 	font-size: 16px;
 }
 
-#element-form #Submit, #save {
+#element-form #Submit, #save, #save_and_view {
 	margin-top: 10px;
 	margin-right: 8px;
+}
+
+.ele-submit-buttons {
+	margin:0;
 }
 
 /** Breadcrumb **/
