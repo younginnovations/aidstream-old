@@ -998,23 +998,16 @@ input[type="checkbox"]
 }
 
 button.form-submit, input.form-submit, a.button, .change-password a, .profile-links, .dashboard-summary a, #Submit, #create_new_account, #reset_password, #login, .change-password a, #save, #save_and_view{
+    background: rgb(125,185,232); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(125,185,232,1) 0%, rgba(0,119,169,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(125,185,232,1)), color-stop(100%,rgba(0,119,169,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(125,185,232,1) 0%,rgba(0,119,169,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(125,185,232,1) 0%,rgba(0,119,169,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(125,185,232,1) 0%,rgba(0,119,169,1) 100%); /* IE10+ */
+background: linear-gradient(top,  rgba(125,185,232,1) 0%,rgba(0,119,169,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7db9e8', endColorstr='#0077a9',GradientType=0 ); /* IE6-9 */
 
-    /*background: url("images/buttons.png") repeat-x scroll 0 0 transparent;
-    border-color: #E4E4E4 #D2D2D2 #B4B4B4;
-    border-radius: 20px 20px 20px 20px;
-    border-style: solid;
-    border-width: 1px;
-    color: #5A5A5A;
-    cursor: pointer;
-    font-family: "Lucida Grande",Verdana,sans-serif;
-    font-size: 1.077em;
-    font-weight: normal;
-    margin-bottom: 1em;
-    margin-right: 1em;
-    padding: 4px 17px;
-    text-align: center;*/
-    background-color: #009ADA;
-    border: none;
+    border: 1px solid #0186be;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px 4px 4px 4px;
@@ -1028,7 +1021,27 @@ button.form-submit, input.form-submit, a.button, .change-password a, .profile-li
 
 button.form-submit:hover, input.form-submit:hover, a.button:hover, .change-password a:hover, .profile-links:hover, .dashboard-summary a:hover, #Submit:hover, #create_new_account:hover, #reset_password:hover, #login:hover, .change-password a:hover, #save:hover, #save_and_view:hover
 {
-	background: none repeat scroll 0 0 #037bac;
+	background: rgb(125,185,232); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(125,185,232,1) 0%, rgba(0,107,201,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(125,185,232,1)), color-stop(100%,rgba(0,107,201,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(125,185,232,1) 0%,rgba(0,107,201,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(125,185,232,1) 0%,rgba(0,107,201,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(125,185,232,1) 0%,rgba(0,107,201,1) 100%); /* IE10+ */
+background: linear-gradient(top,  rgba(125,185,232,1) 0%,rgba(0,107,201,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7db9e8', endColorstr='#006bc9',GradientType=0 ); /* IE6-9 */
+
+}
+
+button.form-submit:active, input.form-submit:active, a.button:active, .change-password a:active, .profile-links:active, .dashboard-summary a:active, #Submit:active, #create_new_account:active, #reset_password:active, #login:active, .change-password a:active, #save:active, #save_and_view:active 
+{
+	background: rgb(115,160,214); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(115,160,214,1) 0%, rgba(0,110,183,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(115,160,214,1)), color-stop(100%,rgba(0,110,183,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(115,160,214,1) 0%,rgba(0,110,183,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(115,160,214,1) 0%,rgba(0,110,183,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(115,160,214,1) 0%,rgba(0,110,183,1) 100%); /* IE10+ */
+background: linear-gradient(top,  rgba(115,160,214,1) 0%,rgba(0,110,183,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#73a0d6', endColorstr='#006eb7',GradientType=0 ); /* IE6-9 */
 }
 
 button.form-submit[disabled=disabled] {
@@ -1535,8 +1548,15 @@ fieldset.innermost + fieldset, fieldset.inner + fieldset
 
 .check-uncheck 
 {
-	background:#84be45;
-	border:none;
+	background: rgb(132,190,69); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(132,190,69,1) 0%, rgba(110,164,51,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(132,190,69,1)), color-stop(100%,rgba(110,164,51,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(132,190,69,1) 0%,rgba(110,164,51,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(132,190,69,1) 0%,rgba(110,164,51,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(132,190,69,1) 0%,rgba(110,164,51,1) 100%); /* IE10+ */
+background: linear-gradient(top,  rgba(132,190,69,1) 0%,rgba(110,164,51,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#84be45', endColorstr='#6ea433',GradientType=0 ); /* IE6-9 */
+	border:1px solid #72a739;
 	border-radius:4px;
 	cursor: pointer;
 	color: #fff;
@@ -1545,7 +1565,15 @@ fieldset.innermost + fieldset, fieldset.inner + fieldset
 
 .check-uncheck:hover
 {
-	background:#6c9e37;
+	background: rgb(135,183,67); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(135,183,67,1) 0%, rgba(110,164,51,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(135,183,67,1)), color-stop(100%,rgba(110,164,51,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(135,183,67,1) 0%,rgba(110,164,51,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(135,183,67,1) 0%,rgba(110,164,51,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(135,183,67,1) 0%,rgba(110,164,51,1) 100%); /* IE10+ */
+background: linear-gradient(top,  rgba(135,183,67,1) 0%,rgba(110,164,51,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#87b743', endColorstr='#6ea433',GradientType=0 ); /* IE6-9 */
+
 }
 
 .group-wrapper 
