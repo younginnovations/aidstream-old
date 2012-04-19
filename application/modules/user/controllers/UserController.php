@@ -518,12 +518,16 @@ class User_UserController extends Zend_Controller_Action
                 $modelSupport = new Model_Support();
                 $modelSupport->saveSupportRequest($data);
 
+                $model = new Model_Wep();
+                $account = $model->getRowById('account', 'id', Zend_Auth::getInstance()->getIdentity()->account_id);
+
                 //Send Support Mail
                 $mailParams['subject'] = 'Support';
                 $mailParams['support_name'] = $data['support_name'];
                 $mailParams['support_email'] = $data['support_email'];
                 $mailParams['support_query'] = $data['support_query'];
                 $mailParams['servername'] = $_SERVER['SERVER_NAME'];
+                $mailParams['account_name'] = $account['name'];
                 $template = 'support.phtml';
                 $notification = new App_Notification;
                 $notification->sendemail($mailParams,$template);
@@ -532,7 +536,6 @@ class User_UserController extends Zend_Controller_Action
                 $this->_redirect('/');
             } else {
                 $this->_helper->FlashMessenger->addMessage(array('error' => 'Please provide valid data'));
-                $this->_redirect('/');
             }
         }
     }
