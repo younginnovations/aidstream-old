@@ -17,6 +17,7 @@ class User_Model_DbTable_Account extends Zend_Db_Table_Abstract {
 
     public function updateAccount($data, $userName){
         $value['address'] = $data['address'];
+        $value['url'] = $data['url'];
         return parent::update($value, array('username = ?' => $userName));
     }
 
@@ -36,7 +37,7 @@ class User_Model_DbTable_Account extends Zend_Db_Table_Abstract {
     public function getFileNamesForFooter()
     {
         $select = $this->select()
-            ->from($this , array('file_name'))
+            ->from($this , array('file_name' , 'url'))
             ->where('file_name <> ""')
             ->where('display_in_footer = ?' , 1);
         return $this->fetchAll($select)->toArray();

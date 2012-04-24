@@ -75,10 +75,16 @@ class User_Form_User_Edit extends App_Form
             $form['file'] = new Zend_Form_Element_File('file');
             $form['file']->setLabel('Change')
                 ->addValidator('Extension', false, 'jpg,jpeg,png,gif')
-                ->getValidator('Extension')->setMessage('This file type is not supportted.');
+                ->setDescription('Please use jpg/jpeg/png/gif format and 150x150 dimensions image.')
+                ->getValidator('Extension')->setMessage('Please use jpg/jpeg/png/gif format image.');
             if(!$account['file_name']){
                 $form['file']->setLabel('Upload Logo');
             }
+
+            $form['url'] = new Zend_Form_Element_Text('url');
+            $form['url']->setLabel('Organisation Url')
+            ->addValidator(new App_Validate_Url())
+            ->setAttrib('class', 'form-text');
         }
         foreach($form as $element){
             $element->addDecorators( array(

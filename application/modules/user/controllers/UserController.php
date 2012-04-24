@@ -256,6 +256,7 @@ class User_UserController extends Zend_Controller_Action
                 $data['first_name'] = $form->getValue('first_name');
                 $data['last_name'] = $form->getValue('last_name');
                 $data['email'] = $form->getValue('email');
+                $data['url'] = $form->getValue('url');
                 $accountObj->updateAccount($data, $userName);
                 $value = $userModel->updateUser($data, $user_id);
                 $profileModel->updateProfile($data, $user_id);
@@ -264,7 +265,7 @@ class User_UserController extends Zend_Controller_Action
                     $upload->setDestination($uploadDir);
                     $upload->addFilter(new Iati_Filter_File_Resize(array(
 						    'width' => 150,
-						    'height' => 100,
+						    'height' => 150,
 						    'keepRatio' => true,
 						)));
                     $source = $upload->getFileName();

@@ -20,23 +20,25 @@
     ?>
     <script type="text/javascript">
 	var APP_BASEPATH = '<?php echo $this->baseUrl();?>';
-        
+
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-30707725-1']);
         _gaq.push(['_trackPageview']);
-      
+
         (function() {
           var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
           ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
-        
+
     </script>
     <script src="<?php echo $this->baseUrl()?>/js/dojo-release/dojo/dojo/dojo.js" djConfig="locale:'en-us'" djConfig="parseOnLoad: true"></script>
     <?
 	$this->headScript()->appendFile($this->baseUrl() . '/js/dojo-release/nls/iati_en-us.js', $type = 'text/javascript');
 	$this->headScript()->appendFile($this->baseUrl() . '/js/dojo-release/iati.js', $type = 'text/javascript');
 	$this->headScript()->appendFile($this->baseUrl() . '/js/home.js', $type = 'text/javascript');
+	$this->headScript()->prependFile($this->baseUrl() . '/js/jquery-1.3.2.min.js', $type = 'text/javascript');
+	$this->headScript()->appendFile($this->baseUrl() . '/js/jcarousellite.js', $type = 'text/javascript');
 
         print $this->headScript();
     ?>

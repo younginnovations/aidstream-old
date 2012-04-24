@@ -5,12 +5,35 @@
     $model = new User_Model_DbTable_Account();
     $images = $model->getFileNamesForFooter();
 ?>
-<ul>
-<?php foreach($images as $image):?>
-<li>
-<img src="<?php echo $this->baseUrl().'/uploads/image/'.$image['file_name']; ?>"
-	alt="<?php echo $image['file_name']; ?>">
-</li>
-<?php endforeach; ?>
-</ul>
+<div class="footer-slider">
+<div class="prev">prev</div>
+<div class="slider">
+	<ul>
+	<?php foreach($images as $image):?>
+		<li>
+		<?php if($image['url']):?>
+		<a href='<?php echo $image['url']?>' target="_blank"><img src="<?php echo $this->baseUrl().'/uploads/image/'.$image['file_name']; ?>"
+			alt="<?php echo $image['file_name']; ?>"></a>
+		<?php else :?>
+		<img src="<?php echo $this->baseUrl().'/uploads/image/'.$image['file_name']; ?>"
+			alt="<?php echo $image['file_name']; ?>" >
+		<?php endif;?>
+		</li>
+	<?php endforeach; ?>
+	</ul>
 </div>
+<div class="next">next</div>
+</div>
+</div>
+<script type="text/javascript">
+		jQuery(window).load(function(){
+		         jQuery('.slider').jCarouselLite({
+			         	btnNext:".next",
+			         	btnPrev:".prev",
+			         	auto:false,
+		                visible:1,
+		                eleHeight:150,
+		                speed:1000
+		          });
+		});
+</script>
