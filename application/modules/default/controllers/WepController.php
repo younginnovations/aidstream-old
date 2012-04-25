@@ -800,7 +800,7 @@ class WepController extends Zend_Controller_Action
             $status_form->setAction($this->view->baseUrl()."/wep/update-status");
             $status_form->ids->setValue($activity_id);
             $status_form->status->setValue($next_state);
-            $status_form->change_state->setLabel(Iati_WEP_ActivityState::getStatus($next_state));
+            $status_form->change_state->setLabel(Iati_WEP_ActivityState::getAction($next_state));
         } else {
             $status_form = null;
         }
