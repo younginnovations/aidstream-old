@@ -1742,19 +1742,19 @@ table.activity-list-table tr:hover {
 	font-weight: normal;
 }
 
-#contain table.activity-list-table .editing,
-.state-display .editing{
+#contain table.activity-list-table .edit,
+.state-display .edit{
 	color: #446030;
 }
 
-#contain table.activity-list-table .checked,
-.state-display .checked{
+#contain table.activity-list-table .verified,
+.state-display .verified{
 
 	color: #009ADA;
 }
 
-#contain table.activity-list-table .to-be-checked,
-.state-display .to_be_checked{
+#contain table.activity-list-table .completed,
+.state-display .completed{
 	color: #0b8053;
 }
 
@@ -2023,8 +2023,9 @@ a.edit-element:hover
 /**************Start Footer section****************/
 #footer
 {
-	background:#d3d3d3;
-	padding-bottom:40px;
+	background:#fff;
+	border-top:5px solid #d3d3d3;
+	padding-bottom:20px;
 }
 #footer .footer-title
 {
@@ -2033,6 +2034,12 @@ a.edit-element:hover
 	font-weight:normal;
 	margin:40px 0 15px;
 }
+
+.footer-slider .prev, .footer-slider .next 
+{
+	display:none;
+}
+
 /**************Close Footer section****************/
 
 /** css for support form **/
@@ -2892,15 +2899,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f4f4', end
 	padding-left:35px;
 }
 
-#editing {
+#edit {
 	background-position:10px -1337px;
 }
 
-#to-be-checked {
+#completed {
 	background-position:10px -1376px;
 }
 
-#checked {
+#verified {
 	background-position:10px -1415px;
 }
 
