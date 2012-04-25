@@ -997,7 +997,7 @@ input[type="checkbox"]
 	margin-top: 10px;
 }
 
-button.form-submit, input.form-submit, a.button, .change-password a, .profile-links, .dashboard-summary a, #Submit, #create_new_account, #reset_password, #login, .change-password a, #save, #save_and_view{
+button.form-submit, input.form-submit, a.button, .profile-links, .dashboard-summary a, #Submit, #create_new_account, #reset_password, #login, #save, #save_and_view{
     background: rgb(125,185,232); /* Old browsers */
 background: -moz-linear-gradient(top,  rgba(125,185,232,1) 0%, rgba(0,119,169,1) 100%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(125,185,232,1)), color-stop(100%,rgba(0,119,169,1))); /* Chrome,Safari4+ */
