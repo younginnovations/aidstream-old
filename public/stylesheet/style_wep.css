@@ -1019,7 +1019,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7db9e8', end
     text-decoration: none;
 }
 
-button.form-submit:hover, input.form-submit:hover, a.button:hover, .change-password a:hover, .profile-links:hover, .dashboard-summary a:hover, #Submit:hover, #create_new_account:hover, #reset_password:hover, #login:hover, .change-password a:hover, #save:hover, #save_and_view:hover
+button.form-submit:hover, input.form-submit:hover, a.button:hover, .profile-links:hover, .dashboard-summary a:hover, #Submit:hover, #create_new_account:hover, #reset_password:hover, #login:hover, #save:hover, #save_and_view:hover
 {
 	background: rgb(125,185,232); /* Old browsers */
 background: -moz-linear-gradient(top,  rgba(125,185,232,1) 0%, rgba(0,107,201,1) 100%); /* FF3.6+ */
@@ -1045,7 +1045,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#73a0d6', end
 }
 
 button.form-submit[disabled=disabled] {
-	background-color:#ccc;
+	background:#ccc;
+	border:none;
 	cursor:default;
 }
 
