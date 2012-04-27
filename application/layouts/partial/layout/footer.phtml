@@ -5,6 +5,8 @@
     $model = new User_Model_DbTable_Account();
     $images = $model->getFileNamesForFooter();
 ?>
+<?php $number_of_images = sizeof($images);?>
+<?php $start = rand($min, $number_of_images-1);?>
 <div class="footer-slider">
 <div class="prev">prev</div>
 <div class="slider">
@@ -30,9 +32,10 @@
 		         jQuery('.slider').jCarouselLite({
 			         	btnNext:".next",
 			         	btnPrev:".prev",
-			         	auto:false,
-		                visible:1,
-		                eleHeight:150,
+			         	auto:true,
+		                visible:5,
+		                start:<?php echo $start;?>,
+		                eleHeight:100,
 		                speed:1000
 		          });
 		});

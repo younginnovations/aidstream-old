@@ -265,7 +265,7 @@ class User_UserController extends Zend_Controller_Action
                     $upload->setDestination($uploadDir);
                     $upload->addFilter(new Iati_Filter_File_Resize(array(
 						    'width' => 150,
-						    'height' => 150,
+						    'height' => 100,
 						    'keepRatio' => true,
 						)));
                     $source = $upload->getFileName();
