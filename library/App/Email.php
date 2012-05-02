@@ -312,7 +312,10 @@ class App_Email
         $mail->setSubject($this->_subject)
             ->setFrom($this->_config->email->fromAddress, $this->_config->email->fromName)
             ->setReturnPath($this->_config->email->fromAddress, $this->_config->email->fromName)
-            ->setReplyTo($this->_config->email->fromAddress, $this->_config->email->fromName);
+            ->setReplyTo($this->_config->email->fromAddress, $this->_config->email->fromName)
+            ->addHeader('MIME-Version', '1.0')
+            ->addHeader('Content-Transfer-Encoding', '8bit')
+            ->addHeader('X-Mailer:', 'PHP/'.phpversion());
 
         if ( strlen($this->_body_plain) ) {
             $mail->setBodyText($this->_body_plain);
