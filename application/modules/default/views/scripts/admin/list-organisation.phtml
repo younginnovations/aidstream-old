@@ -18,7 +18,13 @@
     <td><?php print $row['users_count']?></td>
     <td><?php print $row['activity_count']?></td>
     <td class='toggle-status' value='<?php echo $row['status'] ?>'><?php print ($row['status'])?'Enabled': 'Disabled';?></td>
+    <?php if($row['file_name']):?>
     <td><?php print $this->l((($row['display_in_footer'])?'Yes':'No'),"admin/change-footer-display/?org_id=".$row['id']."&display=".$newDisplay);?>
+    <?php else: ?>
+    <td><?php print 'No'; ?></td>
+    <?php endif;?>
+
+
     <td>
         <?php print $this->l('Edit', 'admin/edit-organisation/?id='.$row['id']);?>
         |
