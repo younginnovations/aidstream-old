@@ -5,27 +5,27 @@
 class Iati_WEP_XmlHandler
 {
     protected $xml;
-    
+
     function __construct($activities)
     {
         $this->prepareXmlWrapper();
-        
+
         //Generate xml for each activity
         foreach($activities as $activity)
         {
             $this->generateActivityXml($activity);
         }
     }
-    
+
     /**
      *Prepare The xml top level coantainer i.e acitvities.
      */
     public function prepareXmlWrapper()
     {
-        $this->xml = new SimpleXMLElement('<iati-activities></iati-activities>');
+        $this->xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><iati-activities></iati-activities>');
         $this->xml->addAttribute('generated-datetime',date('Y-m-d h:m:s'));
     }
-    
+
      /**
      *returns xml output of the activities
      */
@@ -33,7 +33,7 @@ class Iati_WEP_XmlHandler
     {
         return $this->xml->asXML();
     }
-    
+
     /**
      *@param object $activity an activity object
      *@return xml of the activity
@@ -41,7 +41,7 @@ class Iati_WEP_XmlHandler
     public function generateActivityXml($activity)
     {
         $activity_node = $this->_getXmlNode($activity,$this->xml);
-        
+
         $this->getElementXml( $activity->getElementsByType(Iati_Activity_Element::TYPE_REPORTING_ORG) , $activity_node);
         $this->getElementXml( $activity->getElementsByType(Iati_Activity_Element::TYPE_IDENTIFIER) , $activity_node);
         $this->getElementXml( $activity->getElementsByType(Iati_Activity_Element::TYPE_OTHER_ACTIVITY_IDENTIFIER) , $activity_node);
@@ -70,10 +70,10 @@ class Iati_WEP_XmlHandler
         $this->getElementXml( $activity->getElementsByType(Iati_Activity_Element::TYPE_CONDITIONS) , $activity_node);
         $this->getElementXml( $activity->getElementsByType(Iati_Activity_Element::TYPE_RESULT) , $activity_node);
     }
-    
+
     /**
      *@param array $element array elements whose xml is to be generated
-     *@param Object $parent Simplexmlobject of the parent element 
+     *@param Object $parent Simplexmlobject of the parent element
      */
     public function getElementXml($elements,$parent = null)
     {
@@ -89,7 +89,7 @@ class Iati_WEP_XmlHandler
             }
         }
     }
-    
+
      /**
      *@param array $element elements whose xml is to be generated
      *@param Object $parent Simplexmlobject of the parent element
@@ -105,10 +105,10 @@ class Iati_WEP_XmlHandler
             }
         }
         $element_node = $this->_generateXml($element_data,$parent);
-        
+
         return $element_node;
     }
-    
+
     /**
      *Gets values for all the attributes of the element
      *@param Object $element object of the element whose xml is being prepared
@@ -133,10 +133,10 @@ class Iati_WEP_XmlHandler
         }
         $elements['type'] = $element->getXmlElementTag();
         $elements['attributes'] = $attributes;
-        
+
         return $elements;
     }
-    
+
     /**
      *Funtion to generate xml
      *@param array $element the first element is the type and the second is array of attrib value key value pair
@@ -144,8 +144,8 @@ class Iati_WEP_XmlHandler
     protected function _generateXml($element,$parent = null)
     {
         $type= $element['type'];
-        
-        
+
+
         if(!is_object($parent)){
             $element_xml = new SimpleXMLElement("<$type>".$element['attributes']['text']."</$type>");
         } else {
@@ -163,7 +163,7 @@ class Iati_WEP_XmlHandler
                     $name = preg_replace('/_/','-',$name);
                     $element_xml->addAttribute($name,$value);
                 }
-                
+
             }
         }
         return $element_xml;
