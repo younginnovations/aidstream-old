@@ -42,10 +42,13 @@
             <span class="profile-item-value"><?php print $this->row->user_name?></span>
         </div>
 
-        <div class="individual-url profile-item">
+        <?php if($roleName != 'superadmin'):?>
+        <div class="individual-url profile-item last">
             <span class="profile-item-label">Organisation Url:</span>
             <span class="profile-item-value"><?php print $this->account->url?></span>
         </div>
+        <?php endif; ?>
+
     </div>
 </div>
 
