@@ -21,12 +21,12 @@ class User_Form_User_Edit extends App_Form
         if($roleName != 'superadmin')
         {
         $form['name'] = new Zend_Form_Element_Text('name');
-        $form['name']->setLabel('Orgainization Name')
+        $form['name']->setLabel('Orgainisation Name')
             ->setAttrib('class', 'form-text')
             ->setAttrib('readonly', 'true')
             ->setRequired();
         $form['address'] = new Zend_Form_Element_Textarea('address');
-        $form['address']->setLabel('Orgainization Address')
+        $form['address']->setLabel('Orgainisation Address')
             ->setRequired()
             ->setAttrib('rows', '4')
             ->setAttrib('class', 'form-text');
