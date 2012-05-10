@@ -125,7 +125,7 @@ class Iati_WEP_XmlHandler
                 $attributes[$attrib] = $element->getAttribValue($attrib);
                 // In case of setor code we do not fetch value from table if vocabulary is non-dac code
                 if($type == 'Sector' && $attrib == '@code'){
-                    if('3' != $element->getAttrib('@vocabulary')){
+                    if($element->getAttrib('@vocabulary') && '3' != $element->getAttrib('@vocabulary')){
                         $attributes[$attrib] = $element->getAttrib($attrib);
                     }
                 }
