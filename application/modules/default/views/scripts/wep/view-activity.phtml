@@ -513,7 +513,7 @@ if(!empty($value)): ?>
 <tr class='element-value element-value-even'><td class='attrib-label'>Code</td>
     <td class='attrib-value'>
         <?php if($sector->getAttrib('@code')): ?>
-            <?php if($sector->getAttrib('@vocabulary') == 3): ?>
+            <?php if(!$sector->getAttrib('@vocabulary') || $sector->getAttrib('@vocabulary') == 3): ?>
                 <?php ($sector->getAttribValue('@code','Name')!=$sector->getAttribValue('@code')) ?( printf("%s [%s]",$sector->getAttribValue('@code','Name'),$sector->getAttribValue('@code'))):(print($sector->getAttribValue('@code'))); ?>
             <?php else : ?>
                 <?php print ($sector->getAttrib('@code'));?>
