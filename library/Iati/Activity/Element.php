@@ -267,6 +267,10 @@ class Iati_Activity_Element
             $switch = $this->_type."_".preg_replace('/@/','',$code);
             switch($switch)
             {
+                case Activity_default_currency:
+                    $return = 'Currency';
+                    break;
+                
                 case Language_text:
                     $return = 'Language';
                     break;
