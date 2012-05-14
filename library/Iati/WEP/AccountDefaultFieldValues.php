@@ -4,7 +4,7 @@ class Iati_WEP_AccountDefaultFieldValues
     protected $language = 'en';
     protected $currency = 'USD';
     protected $reporting_org = '';
-    protected $hierarchy = 0;
+    protected $hierarchy = 1;
     protected $reporting_org_ref = '';
     protected $reporting_org_type = '';
     protected $reporting_org_lang = '';
