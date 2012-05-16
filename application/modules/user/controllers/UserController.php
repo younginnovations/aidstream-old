@@ -179,8 +179,7 @@ class User_UserController extends Zend_Controller_Action
         $profileModel = new User_Model_DbTable_Profile();
         $row1 = $profileModel->getProfileByUserId($user_id);
         $accountObj = new User_Model_DbTable_Account();
-        $userName = strtok($row['user_name'], '_');
-        $account = $accountObj->getAccountRowByUserName('account', 'username', $userName);
+        $account = $accountObj->getAccountRowByUserName('account', 'id', $row->account_id);
         $this->view->account = $account;
         $this->view->profile = $row1;
         $this->view->row = $row;
