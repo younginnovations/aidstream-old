@@ -3,7 +3,12 @@
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
     public $_acl;
-
+    
+    public function _initMemory()
+    {
+        ini_set('memory_limit' , '128M');
+    }
+    
     protected function _initModuleAutoLoad()
     {
         $moduleLoader = new Zend_Application_Module_Autoloader(
