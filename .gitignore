@@ -1,4 +1,5 @@
 *.orig
+.htaccess
 library/Zend/
 public/error_log
 tests/output
