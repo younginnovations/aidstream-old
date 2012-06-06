@@ -306,13 +306,19 @@ class App_Email
         if ($q_insert) {
             $this->q_insert();
             return;
-        } 
-
+        }
+        // Use smtp transport for sending using smtp server.
+        $config = array(
+                        'port' => $this->_config->email->port,
+                  );
+        $transport = new Zend_Mail_Transport_Smtp($this->_config->email->host,$config);
+        Zend_Mail::setDefaultTransport($transport);
+        
         $mail = new Zend_Mail();
         $mail->setSubject($this->_subject)
             ->setFrom($this->_config->email->fromAddress, $this->_config->email->fromName)
-            ->setReturnPath($this->_config->email->fromAddress, $this->_config->email->fromName)
-            ->setReplyTo($this->_config->email->fromAddress, $this->_config->email->fromName)
+            ->setReturnPath($this->_config->email->replyTo, $this->_config->email->fromName)
+            ->setReplyTo($this->_config->email->replyTo, $this->_config->email->fromName)
             ->addHeader('MIME-Version', '1.0')
             ->addHeader('Content-Transfer-Encoding', '8bit')
             ->addHeader('X-Mailer:', 'PHP/'.phpversion());
