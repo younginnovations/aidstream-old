@@ -22,27 +22,27 @@ class Iati_WEP_Activity_Elements_ReportingOrg extends Iati_WEP_Activity_Elements
                     'name' => 'ref',
                     'label' => 'Organisation Identifier',
                     'html' => '<input type="text" name="%(name)s" %(attrs)s value= "%(value)s" /><div class="help reporting_org-ref"></div>',
-                    'attrs' => array('class' => array('form-text'))
+                    'attrs' => array('class' => array('form-text'), 'disabled' => 'disabled')
                 ),
                 'type' => array(
                     'name' => 'type',
                     'label' => 'Organisation Type',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help reporting_org-type"></div>',
                     'options' => '',
-                    'attrs' => array('class' => array('form-select'))
+                    'attrs' => array('class' => array('form-select') , 'disabled' => 'disabled')
                 ),
                 'text' => array(
                     'name' => 'text',
                     'label' => 'Text',
                     'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help reporting_org-text"></div>',
-                    'attrs' => array('class' => array('form-text'))
+                    'attrs' => array('class' => array('form-text'), 'disabled' => 'disabled')
                 ),
                 'xml_lang' => array(
                     'name' => 'xml_lang',
                     'label' => 'Language',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help reporting_org-xml_lang"></div>',
                     'options' => '',
-                    'attrs' => array('class' => array('form-select'))
+                    'attrs' => array('class' => array('form-select') , 'disabled' => 'disabled')
                 ),
     );
     protected static $count = 0;
