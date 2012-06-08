@@ -1,0 +1,141 @@
+<div class="section black" id="What-is-AidStream">
+        <div class="content"> 
+            <div id="what-as"><!---Start what-as--->   	
+            	<div class="container_12">
+                	<div class="about-content grid_12">          	
+                        <h1 class="page-title">What is <span class="aid">Aid</span><span class="stream">Stream</span>?</h1>
+			<p class ="pragraph-first">AidStream is an online platform for organisations that wish to publish aid data in the International Aid Transparency Initiative(IATI) format without getting into complexities of <a href="http://iatistandard.org" target="_blank">IATI</a>.</p>
+			<p class="pragraph-second">Once registered into the system, organisations will have access to relevant forms to enter structured data, store them, make changes in future and publish them in <a href="http://iatiregistry.org" target="_blank">IATI Registry</a>.</p>
+			<p class="pragraph-first"><a id="about-morelink" href="#">Read more</a></p>
+                 	</div>
+                </div> 
+                <div class="clear"></div>               
+            </div><!---Close what-as--->
+         </div><!---Close content--->         
+         </div><!---Close section block What-is-AidStream--->
+         
+         <div class="section black" id="How-to-use-AidStream">
+         <div class="content">   	
+            <div id="how-as"><!---start how-as---> 
+            	<div class="container_12">
+                	<div class="how-content grid_12">
+                    	<h1 class="page-title">How to use <span class="aid">Aid</span><span class="stream">Stream</span>?</h1>
+                        <p class="pragraph-first">AidStream is very easy to use.<br /> Please follow the steps mentioned below:</p>
+                        <div class="registration">
+                        	<span>Registration</span><br /><b><?php print $this->l('Register','user/user/register'); ?></b> in AidStream with required information.
+                        </div>
+                        <div class="data-entry">
+                            <span>Data Entry</span><br />You can login and enter the data in an easy manner.
+                        </div>
+                        <div class="publish">
+                            <span>Publish</span><br />Finally you can publish your activities to IATI-Registry.
+                        </div>                      
+                    </div>
+                <div class="clear"></div>
+                </div>
+            </div><!---Close how-as--->
+         </div><!---Close content--->         
+         </div><!---Close section block How-to-use-AidStream--->
+
+		<div class="section black" id="Who-is-AidStream">
+				<div class="content"> 
+				    <div id="behind-aidstream"><!---Start what-as--->   	
+				    	<div class="container_12">
+				        	<div class="who-content grid_12">          	
+				                <h1 class="page-title">Who is behind <span class="aid">Aid</span><span class="stream">Stream</span>?</h1>
+						<p>
+						AidStream has been developed by <a href="http://www.younginnovations.com.np" target="_blank">YoungInnovations</a>
+						supported by the <a href="http://www.aidinfo.org" target="_blank">Aidinfo programme</a>
+						of <a href="http://www.devinit.org" target="_blank">Development Initiatives</a>.
+						</p>
+						<br />
+						<div class ="paragraph-title">Aidinfo</div>
+						<p class="pragraph-second paragraph-about">Aidinfo is based in the UK and works
+						to accelerate poverty reduction by making aid more transparent,
+						particularly through its support of the  <a href="http://www.iatistandard.org" target="_blank">International Aid Transparency
+						Initiative</a>.
+						It acts as the secretariat and provides logistical support
+						for the IATI Technical Advisory Group.</p>
+						
+						<div class ="paragraph-title">YoungInnovations</div>
+						<p class="pragraph-second paragraph-about">
+						YoungInnovations is a Nepal-based company providing cutting-edge software
+						and web solutions to a wide range of partners in Nepal and abroad.
+						Currently it is implementing the
+						<a href="http://www.mobilenepal.net" target="_blank">"Mobile Social Networking Nepal"</a>
+						initiative in partnership with the World Bank's
+						<a href="http://www.infodev.org" target="_blank">infoDev</a>
+						programme to build a community around mobile technologies.
+						YoungInnovations is also becoming increasingly involved in the open data arena.
+						</p>
+				         	</div>
+				        </div> 
+				        <div class="clear"></div>               
+				    </div><!---Close what-as--->
+				 </div><!---Close content--->         
+				 </div><!---Close section block What-is-AidStream--->
+
+         <div class="section black" id="Contacts">
+         <div class="content">    
+            <div id="contact-us">
+            	<div class="container_12">
+                	<div class="contact-content grid_12">
+                    	<h1 class="page-title">Contact Us</h1>
+                        <p class="pragraph-first">If you have any comments/suggestions, please send them to us.</p>
+                        <form method = "<?php echo $this->form->getMethod();?>" action = "<?php echo $this->form->getAction()?>" id = "<?php echo $this->form->getId()?>">
+                        	<table>
+                            	<tr>
+                                	<td><label><?php echo $this->form->name->renderLabel();?></label></td>
+                                    <td><?php echo $this->form->name->renderViewHelper();?></td>
+                                </tr>
+                                <tr class="note">
+                                	<td></td>
+                                    <td>So that we know who to reply.</td>
+                                </tr>
+                                <tr>
+                                	<td><label><?php echo $this->form->email->renderLabel();?></label></td>
+                                    <td><?php echo $this->form->email->renderViewHelper();?></td>
+                                </tr>
+                                <tr class="note">
+                                	<td></td>
+                                    <td>So that we know where to reply.</td>
+                                </tr>
+                                <tr>
+                                	<td style="vertical-align:top"><label><?php echo $this->form->message->renderLabel();?></label></td>
+                                    <td><?php echo $this->form->message->renderViewHelper();?></td>
+                                </tr>
+                                <tr class="note">
+                                	<td></td>
+                                	<td>So that we know what to reply.</td>
+                                </tr>
+                                <tr>
+                                	<td></td>
+                                	<td><? echo $this->formSubmit('send','Send'); ?></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div><!---Close contact--->
+        </div><!---Close content--->         
+       	</div><!---Close section block Contacts--->
+	<div class="popup-wrapper">
+		<div class="popup-content">
+		<div class="inner-content">
+		<div class="close-link"></div>
+		<h1 class="page-title">What is <span class="aid">Aid</span><span class="stream">Stream</span>?</h1>
+		<p class="paragraph-first gap">The issue of foreign aid transparency and aid effectiveness has been a topic of debate and discussion at an international level since quite some time.</p>
+
+		<p class="pragraph-second gap">Making aid data openly available in uniform standard format, both from donors and recipients, is a vital step in making foreign  aid more transparent. This open availability of aid data enables individuals and organisations to access aid data , analyse them and ask questions regarding proper implementation of aid driven activities thereby enhancing aid effectiveness and accountability. </p>
+						
+		<p class="pragraph-second">International Aid Transparency Initiative (IATI) is one such format endorsed by many countries, governments and donor agencies. This comprehensive format of publishing aid data is envisioned to be used by both donor agencies and reporting organisations. However, there seems to be an acute need of a platform to expedite the process of entering and publishing the aid data.</p>
+
+		<p class="pragraph-second">AidStream stands as one such platform, that presents complexity of the <a href="http://iatistandard.org" target="_blank">IATI</a> in an understandable and a consumable way. User friendly interfaces within the platform enhance an effortless entry, update and publish of the aid data in the IATI format for organisations that want to publish IATI data. The system hides all the complexities and technicalities of the xml. With AidStream, the necessity to understand the details of the IATI standard becomes lesser. All that needs to be done is to register into the system, enter the data and publish it. The data will be easily published to the <a href="http://iatiregistry.org" target="_blank">IATI registry </a>. In addition, AidStream guarantees high security, proper maintenance and easy accessability of the aid data.</p></div>
+</div>
+			<div class="fade"></div>
+</div>
+
+
+
+
+

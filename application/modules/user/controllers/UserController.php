@@ -143,6 +143,11 @@ class User_UserController extends Zend_Controller_Action
                     $identity = (object) array_merge((array) $identity, (array) $obj2);
                     $authStorage = $auth->getStorage();
                     $authStorage->write($identity);
+                    
+                    $accModel = new User_Model_DbTable_Account();
+                    $account = $accModel->getAccountRowByUserName('account' , 'id' , $identity->account_id);
+                    $simplified = new Zend_Session_Namespace('simplified');
+                    $simplified->simplified = $account->simplified;
 
                     $this->_helper->FlashMessenger->addMessage(array('message' => 'Successfully Logged In'));
                     if ($identity->role == 'superadmin') {
@@ -152,7 +157,6 @@ class User_UserController extends Zend_Controller_Action
                     }elseif ($identity->role == 'user'){
                         $this->_redirect('wep/dashboard');
                     }
-
                 }
                 else
                     $this->_helper->FlashMessenger->addMessage(array('error' => 'Invalid username or password.'));
@@ -483,6 +487,12 @@ class User_UserController extends Zend_Controller_Action
 
                 $identity = (object) array_merge((array) $identity, (array) $std);
                 $accountAuth->getStorage()->write($identity);
+                    
+                $accModel = new User_Model_DbTable_Account();
+                $account = $accModel->getAccountRowByUserName('account' , 'id' , $identity->account_id);
+                $simplified = new Zend_Session_Namespace('simplified');
+                $simplified->simplified = $account->simplified;
+                
                 $session = new Zend_Session_Namespace('superadmin');
                 $session->identity = serialize($superAdminIdentity);
                 $this->_redirect('/wep/dashboard');

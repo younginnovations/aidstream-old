@@ -3,7 +3,11 @@
     <div class="block-inner">
 	<div class="content">
 	    <div class="action-icon"><?php print $this->l('List Activities', 'wep/view-activities');?></div>
-	    <?php print $this->l('List Activities', 'wep/view-activities');?>
+            <?php  if(Simplified_Model_Simplified::isSimplified()): ?>
+                <?php print $this->l('List Activities', 'simplified/default/view-activities');?>
+            <?php else: ?>
+                <?php print $this->l('List Activities', 'wep/view-activities');?>
+            <?php endif; ?>
 	    <div>You can list activities using this link.</div>
 	</div>
     </div>

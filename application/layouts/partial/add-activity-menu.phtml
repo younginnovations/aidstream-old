@@ -3,7 +3,11 @@
     <div class="block-inner"?>
 	<div class="content clearfix">
 	    <div class="action-icon"><?php print $this->l('Add new Activity', 'wep/add-activity');?></div>
-	    <?php print $this->l('Add new Activity', 'wep/add-activity');?>
+            <?php  if(Simplified_Model_Simplified::isSimplified()): ?>
+                <?php print $this->l('Add new Activity', 'simplified/default/add-activity');?>
+            <?php else :?>
+                <?php print $this->l('Add new Activity', 'wep/add-activity');?>
+            <?php endif;?>
 	    <div>You can add new activity using this link.</div>
 	    
 	</div>

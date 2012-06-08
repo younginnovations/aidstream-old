@@ -43,6 +43,10 @@ class WepController extends Zend_Controller_Action
 
     public function dashboardAction()
     {
+        if(Simplified_Model_Simplified::isSimplified()){
+            $this->_redirect('simplified/default/dashboard');
+        }
+        
         $identity = Zend_Auth::getInstance()->getIdentity();
         $account_id = $identity->account_id;
         $model = new Model_Wep();
@@ -115,6 +119,9 @@ class WepController extends Zend_Controller_Action
 
     public function editDefaultsAction()
     {
+        if(Simplified_Model_Simplified::isSimplified()){
+            $this->_redirect('simplified/default/edit-defaults');
+        }
         $identity = Zend_Auth::getInstance()->getIdentity();
         $model = new Model_Wep();
         $modelRegistryInfo = new Model_RegistryInfo();
@@ -716,6 +723,10 @@ class WepController extends Zend_Controller_Action
 
     public function viewActivitiesAction()
     {
+        if(Simplified_Model_Simplified::isSimplified()){
+            $this->_redirect('simplified/default/view-activities');
+        }
+        
         $identity = Zend_Auth::getInstance()->getIdentity();
         $wepModel = new Model_Wep();
 
