@@ -1496,6 +1496,27 @@ class WepController extends Zend_Controller_Action
 
         $model = new Model_ReportingOrg();
         $model->updateReportingOrg($reportingOrgId);
+        
+        $activityId = $model->getActivityIdById($reportingOrgId);
+
+        //Update Activity Hash
+        $activityHashModel = new Model_ActivityHash();
+        $updated = $activityHashModel->updateHash($activityId);
+        if(!$updated){
+            $type = 'info';
+            $message = "Already up to date. To make changes please change values in 'Change Defaults' and then update.";
+        } else {
+            //update the activity so that the last updated time is updated
+            $this->updateActivityUpdatedDatetime($activityId);
+
+            //change state to editing
+            $db = new Model_ActivityStatus;
+            $db->updateActivityStatus($activityId,Iati_WEP_ActivityState::STATUS_EDITING);
+            $type = 'message';
+            $message = "Updated Reporting Organisation sucessfully";
+        }
+        $this->_helper->FlashMessenger->addMessage(array($type => $message));
+        
         exit;
     }
 }
