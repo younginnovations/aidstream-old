@@ -1837,7 +1837,7 @@ table.activity-list-table tr:hover {
 	font-size: 16px;
 }
 
-#element-form #Submit, #save, #save_and_view {
+#element-form #Submit, #save, #save_and_view ,  #update-reporting-org {
 	margin-top: 10px;
 	margin-right: 8px;
 }

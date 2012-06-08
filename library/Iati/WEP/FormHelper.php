@@ -514,8 +514,7 @@ class Iati_WEP_FormHelper {
          }*/
         $_mainEle = $this->registryTree->getChildNodes($this->registryTree->getRootNode());
         if('ReportingOrg' == $_mainEle[0]->getClassName()){
-            $_form .= '<input type="submit" id="Submit_and_view" name="save" value="Save and View" class="form-submit disabled" disabled="disabled"/>';
-            $_form .= '<input type="submit" id="Submit" name="save" value="Save" class="form-submit disabled" disabled="disabled"/>';
+            $_form .= '<input type="button" id="update-reporting-org" name="update" value="Update" class="form-submit" />';
         } else {
             $_form .= '<input type="submit" id="Submit_and_view" name="save" value="Save and View" class="form-submit"/>';
             $_form .= '<input type="submit" id="Submit" name="save" value="Save" class="form-submit"/>';

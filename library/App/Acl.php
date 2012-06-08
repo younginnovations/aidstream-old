@@ -87,6 +87,7 @@ class App_Acl extends Zend_Acl
         $this->allow('admin', 'default:wep', 'add-activity-elements');
         $this->allow('admin', 'default:wep', 'edit-activity-elements');
         $this->allow('admin', 'default:wep', 'edit-element');
+        $this->allow('admin', 'default:wep', 'update-reporting-org');
         $this->allow('admin', 'default:wep', 'publish-in-registry');
         $this->allow('admin', 'default:wep', 'delete-published-file');
         $this->allow('admin', 'default:wep', 'edit-help-message');

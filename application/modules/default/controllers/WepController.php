@@ -1489,4 +1489,13 @@ class WepController extends Zend_Controller_Action
         $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
         $this->view->blockManager()->disable('partial/published-list.phtml');
     }
+    
+    public function updateReportingOrgAction()
+    {
+        $reportingOrgId = $this->_getParam('id');
+
+        $model = new Model_ReportingOrg();
+        $model->updateReportingOrg($reportingOrgId);
+        exit;
+    }
 }

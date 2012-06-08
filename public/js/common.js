@@ -909,7 +909,26 @@ function initialize() {
 	    "found" : function (ele) {
 		dojo.query('dl' , ele).style('display', 'none');
 	    }
-	}
+	},
+        
+        "#update-reporting-org" : {
+            "onclick" : function (evt) {
+                var Id = dojo.attr(dojo.query('input[name=ReportingOrg_id]')[0] , 'value');
+                dojo.xhrPost({
+			    url: APP_BASEPATH + "/wep/update-reporting-org" ,
+			    handleAs: 'text',
+			    content: {
+				"id": Id
+			    },
+			    load: function (data) {
+				window.location.reload();
+			    },
+			    error: function (data) {
+				messageDialog("Error", "Something went wrong! Please try again");
+			    }
+			});
+            }
+        }
     });
     // End of dojo.behavior.add
     dojo.behavior.apply();
