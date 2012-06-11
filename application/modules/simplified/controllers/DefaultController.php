@@ -184,33 +184,13 @@ class Simplified_DefaultController extends Zend_Controller_Action
     public function addActivityAction()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
-        if ($_GET) {
-            $activities_id = $this->getRequest()->getParam('activities_id');
-            $wepModel = new Model_Wep();
-            $exists = $wepModel->getRowById('iati_activities', 'id', $_GET['activities_id']);
-            if(!$exists){
-                $this->_helper->FlashMessenger->addMessage(array('message' => "Invalid Id."));
-                $this->_redirect('/user/user/login');
-            }
-        }
-        else{
-            $wepModel = new Model_Wep();
-            $activities = $wepModel->listAll('iati_activities', 'account_id', $identity->account_id);
-            $activities_id = $activities[0]['id'];
-        }
-
+    
         $model = new Model_Viewcode();
         $rowSet = $model->getRowsByFields('default_field_values' , 'account_id' , $identity->account_id);
 
         $defaultValues = unserialize($rowSet[0]['object']);
         $default = $defaultValues->getDefaultFields();
         $wepModel = new Model_Wep();
-
-        $activity_info['@xml_lang'] = $wepModel->fetchValueById('Language' , $default['language'] , 'Code');
-        $activity_info['@default_currency'] = $wepModel->fetchValueById('Currency' , $default['currency'] , 'Code');
-        $activity_info['@hierarchy'] = $default['hierarchy'];
-        $activity_info['@last_updated_datetime'] = date('Y-m-d H:i:s');
-        $activity_info['activities_id'] = $activities_id;
 
         $reporting_org_info['@reporting_org_name'] = $default['reporting_org'];
         $reporting_org_info['@reporting_org_ref'] = $default['reporting_org_ref'];
@@ -233,23 +213,28 @@ class Simplified_DefaultController extends Zend_Controller_Action
                                                                  each activity you report."
                                                                    )
                                                            );
-                $this->_redirect('wep/edit-defaults');
+                $this->_redirect('wep/simplified/edit-defaults');
             } else { // For other user redirect to dashboard.
                 $this->_helper->FlashMessenger->addMessage(array(
                                                                  'info' => "All information for Reporting Organisation
                                                                     is not provided .Please contact you organisation admin"
                                                                   )
                                                            );
-                $this->_redirect('wep/dashborad');
+                $this->_redirect('wep/simplified/dashborad');
             }
         }
-
+/*
         $activityDefaults['@collaboration_type'] = $wepModel->fetchValueById('CollaborationType' , $default['collaboration_type'] , 'Code');
         $activityDefaults['@flow_type'] = $wepModel->fetchValueById('FlowType' , $default['flow_type'] , 'Code');
         $activityDefaults['@finance_type'] = $wepModel->fetchValueById('FinanceType' , $default['finance_type'] , 'Code');
         $activityDefaults['@aid_type'] = $wepModel->fetchValueById('AidType' , $default['aid_type'] , 'Code');
         $activityDefaults['@tied_status'] = $wepModel->fetchValueById('TiedStatus' , $default['tied_status'] , 'Code');
-
+*/
+        $data = $this->_request->getPost();
+        if($data){
+            Simplified_Model_Simplified::addActivity($data , $default);
+            
+        }
         $form = new Simplified_Form_Activity_Default();
 
         

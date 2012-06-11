@@ -122,12 +122,12 @@ class Model_Wep extends Zend_Db_Table_Abstract
     public function getCodeArray($tblName, $codeid, $lang , $nullOption = false)
     {
         $this->_name = $tblName;
-        if (isset($codeid))
+        if ($codeid)
         $rowSet = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART)->setIntegrityCheck(false)
         ->where('id = ?', $codeid)->where('lang_id = ?',$lang);
         else
         $rowSet = $this->select()->where('lang_id = ?',$lang)->order(array('Code ASC'));
-        
+
         $result = $this->fetchAll($rowSet)->toArray();
         $finalResult = array();
         if($nullOption){
