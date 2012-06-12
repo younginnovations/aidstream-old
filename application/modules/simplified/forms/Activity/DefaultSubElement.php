@@ -14,7 +14,7 @@ class Simplified_Form_Activity_DefaultSubElement extends App_Form
         $model = new Model_Wep();
         $form = array();
 
-        $form['amount'] = new Zend_Form_Element_Text('Amount');
+        $form['amount'] = new Zend_Form_Element_Text('amount');
         $form['amount']->setLabel('Amount')
             ->setAttrib('class', 'form-text');
 

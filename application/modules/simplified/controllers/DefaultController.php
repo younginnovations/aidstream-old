@@ -230,14 +230,18 @@ class Simplified_DefaultController extends Zend_Controller_Action
         $activityDefaults['@aid_type'] = $wepModel->fetchValueById('AidType' , $default['aid_type'] , 'Code');
         $activityDefaults['@tied_status'] = $wepModel->fetchValueById('TiedStatus' , $default['tied_status'] , 'Code');
 */
-        $data = $this->_request->getPost();
-        if($data){
-            Simplified_Model_Simplified::addActivity($data , $default);
-            
-        }
         $form = new Simplified_Form_Activity_Default();
 
-        
+        $data = $this->_request->getPost();
+        if($data){
+            if($form->isValid($data)){
+                Simplified_Model_Simplified::addActivity($data , $default);
+            } else {
+                $form->populate($data);
+                $this->_helper->FlashMessenger->addMessage(array('error' => 'You have some error in you data'));
+            }
+            
+        }        
 
         $this->view->activities_id = $activities_id;
         $this->view->activity_info = $activity_info;
