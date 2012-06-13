@@ -1,7 +1,6 @@
 <?php
 /**
  * @todo some class description required
- * Enter description here ...
  * @author YIPL Dev team
  *
  */
@@ -43,38 +42,6 @@ class Simplified_DefaultController extends Zend_Controller_Action
 
     public function dashboardAction()
     {
-
-    }
-
-    public function listActivitiesAction()
-    {
-        //@todo list only activities related to the user
-        if ($_GET) {
-            if ($this->getRequest()->getParam('type')) {
-                $tblName = $this->getRequest()->getParam('type');
-            }
-            /* if($identity->role == 'admin'){
-             $field = 'account_id';
-             }
-             else{
-             $field = 'user_id';
-             }
-
-             $field_data = $this->getRequest()->getParam('id'); */
-            if ($this->getRequest()->getParam('account_id')) {
-                $field = 'account_id';
-                //print $field;exit();
-                $id = $this->getRequest()->getParam('account_id');
-            }
-            if ($this->getRequest()->getParam('user_id')) {
-                $field = 'user_id';
-                $id = $this->getRequest()->getParam('user_id');
-            }
-
-            $model = new Model_Wep();
-            $rowSet = $model->listAll($tblName, $field, $id);
-            $this->view->rowSet = $rowSet;
-        }
 
     }
 
@@ -148,39 +115,6 @@ class Simplified_DefaultController extends Zend_Controller_Action
         $this->view->form = $form;
     }
 
-    public function addActivitiesAction()
-    {
-        $identity = Zend_Auth::getInstance()->getIdentity();
-        $form = new Form_Wep_IatiActivities();
-        $form->add();
-        if ($this->getRequest()->isPost()) {
-            try {
-                $data = $this->getRequest()->getPost();
-                if (!$form->isValid($data)) {
-                    $form->populate($data);
-                } else {
-                    $wepModel = new Model_Wep();
-
-                    $data1['@version'] = $this->_request->getParam('version');
-                    $data1['@generated_datetime'] = $this->_request->getParam('generated_datetime');
-                    $data1['unqid'] = uniqid();
-                    $data1['user_id'] = $identity->user_id;
-                    $data1['account_id'] = $identity->account_id;
-
-                    $activities_id = $wepModel->insertRowsToTable('iati_activities', $data1);
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "Activities Saved."));
-
-                    $this->_redirect('wep/list-activities?account_id=' . $identity->account_id . '&type=iati_activities');
-                }
-            } catch (Exception $e) {
-                print $e;
-            }
-        }
-
-        $this->view->form = $form;
-        $this->view->blockManager()->enable('partial/dashboard.phtml');
-    }
-
     public function addActivityAction()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
@@ -194,8 +128,8 @@ class Simplified_DefaultController extends Zend_Controller_Action
 
         $reporting_org_info['@reporting_org_name'] = $default['reporting_org'];
         $reporting_org_info['@reporting_org_ref'] = $default['reporting_org_ref'];
-        $reporting_org_info['@reporting_org_type'] = $wepModel->fetchValueById('OrganisationType' , $default['reporting_org_type'] , 'Code');
-        $reporting_org_info['@reporting_org_lang'] = $wepModel->fetchValueById('Language' , $default['reporting_org_lang'] , 'Name');
+        $reporting_org_info['@reporting_org_type'] =$default['reporting_org_type'];
+        $reporting_org_info['@reporting_org_lang'] = $default['reporting_org_lang'];
         $incomplete = false;
         foreach($reporting_org_info as $key => $reportingOrgValue){
             if(!$reportingOrgValue && $key != '@reporting_org_lang'){
@@ -223,19 +157,13 @@ class Simplified_DefaultController extends Zend_Controller_Action
                 $this->_redirect('wep/simplified/dashborad');
             }
         }
-/*
-        $activityDefaults['@collaboration_type'] = $wepModel->fetchValueById('CollaborationType' , $default['collaboration_type'] , 'Code');
-        $activityDefaults['@flow_type'] = $wepModel->fetchValueById('FlowType' , $default['flow_type'] , 'Code');
-        $activityDefaults['@finance_type'] = $wepModel->fetchValueById('FinanceType' , $default['finance_type'] , 'Code');
-        $activityDefaults['@aid_type'] = $wepModel->fetchValueById('AidType' , $default['aid_type'] , 'Code');
-        $activityDefaults['@tied_status'] = $wepModel->fetchValueById('TiedStatus' , $default['tied_status'] , 'Code');
-*/
         $form = new Simplified_Form_Activity_Default();
 
         $data = $this->_request->getPost();
         if($data){
             if($form->isValid($data)){
                 Simplified_Model_Simplified::addActivity($data , $default);
+                $this->_helper->FlashMessenger->addMessage(array('message' => 'Activity created sucessfully'));
             } else {
                 $form->populate($data);
                 $this->_helper->FlashMessenger->addMessage(array('error' => 'You have some error in you data'));
@@ -246,7 +174,6 @@ class Simplified_DefaultController extends Zend_Controller_Action
         $this->view->activities_id = $activities_id;
         $this->view->activity_info = $activity_info;
         $this->view->reporting_org_info = $reporting_org_info;
-        $this->view->activityDefaults = $activityDefaults;
         $this->view->form = $form;
         
     }
@@ -393,261 +320,67 @@ class Simplified_DefaultController extends Zend_Controller_Action
     public function editActivityAction()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
-        if ($_GET) {
-            $wepModel = new Model_Wep();
-            if(isset($_GET['activities_id'])){
-                $exists = $wepModel->getRowById('iati_activities', 'id', $_GET['activities_id']);
-                if(!$exists){
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "Activities does not exist."));
+        $wepModel = new Model_Wep();
+        if($activityId = $this->getRequest()->getParam('activity_id')){
+            $activity = $wepModel->getRowById('iati_activity', 'id', $activityId);
+            if(!$activity){
+                $this->_helper->FlashMessenger->addMessage(array('warning' => "Activity does not exist."));
 
-                    $this->_redirect('/user/user/login');
-                }
-
-                $activities_id = $this->getRequest()->getParam('activities_id');
-                $rowSet = $wepModel->getRowsByFields('default_field_values', 'account_id', $identity->account_id);
-                $defaultValues = unserialize($rowSet[0]['object']);
-                $default = $defaultValues->getDefaultFields();
-                $activity['xml_lang'] = $default['language'];
-                $activity['default_currency'] = $default['currency'];
-                $activity['hierarchy'] = $default['hierarchy'];
-                $form = new Form_Wep_IatiActivity();
-                $form->add('add', $identity->account_id);
-                $form->populate(array('reporting_org'=>$default['reporting_org_ref']));
-
+                $this->_redirect('/simplified/default/dashboard');
             }
-            if(isset($_GET['activity_id'])){
-                $exists = $wepModel->getRowById('iati_activity', 'id', $_GET['activity_id']);
-                if(!$exists){
-                    $this->_helper->FlashMessenger->addMessage(array('warning' => "Activity does not exist."));
+            $dbLayer = new Iati_WEP_DbLayer();
+            $activityData = $dbLayer->getRowSet('Activity', 'id', $activityId, true, true);
+            
+            $model = new Simplified_Model_Simplified();
+            $data = $model->getDataForForm($activityData);
+            
+            $form = new Simplified_Form_Activity_Default();
+            $form->populate($data);
+            $this->view->activityInfo = $activityInfo;
+        }
 
-                    $this->_redirect('/user/user/login');
-                }
-                $activity_id = $this->getRequest()->getParam('activity_id');
-                $rowSet = $wepModel->getRowsByFields('iati_activity', 'id', $activity_id);
-                $activity['xml_lang'] = $rowSet[0]['@xml_lang'];
-                $activity['default_currency'] = $rowSet[0]['@default_currency'];
-                $activity['hierarchy'] = $rowSet[0]['@hierarchy'];
-                $activity['activities_id'] = $rowSet[0]['activities_id'];
-                $form = new Form_Wep_EditIatiActivity();
-                $form->edit($identity->account_id);
+        if ($this->getRequest()->isPost()) {
+            $formData = $this->getRequest()->getPost();
+            if (!$form->isValid($formData)) {
 
-
-                $aActivityInfo = $wepModel->listAll('iati_activity', 'id', $activity_id);
-                $activityInfo = $aActivityInfo[0];
-                $iati_identifier_row = $wepModel->getRowById('iati_identifier', 'activity_id', $activity_id);
-                $activityInfo['iati_identifier'] = $iati_identifier_row['text'];
-                $title_row = $wepModel->getRowById('iati_title', 'activity_id', $activity_id);
-                $activityInfo['iati_title'] = $title_row['text'];
-
-                $this->view->activityInfo = $activityInfo;
-            }
-
-            if ($this->getRequest()->isPost()) {
-                $formData = $this->getRequest()->getPost();
-                if (!$form->isValid($formData)) {
-
-                    $form->populate($formData);
-                } else {
-                    if(isset($_GET['activities_id'])){
-
-                        $default['language'] = $formData['xml_lang'];
-                        $default['currency'] = $formData['default_currency'];
-                        $default['hierarchy'] = $formData['hierarchy'];
-
-                        $iatiIdentifier = array();
-                        $iatiIdentifier['iati_identifier'] = $formData['iati_identifier_text'];
-                        $iatiIdentifier['activity_identifier'] = $formData['activity_identifier'];
-
-                        $activityModel = new Model_Activity();
-                        $activityId = $activityModel->createActivity($activities_id , $default , $iatiIdentifier);
-
-                        //Create Activity Hash
-                        $activityHashModel = new Model_ActivityHash();
-                        $updated = $activityHashModel->updateHash($activityId);
-
-                        $this->_helper->FlashMessenger->addMessage(array('message' => "Activity Sucessfully Created."));
-                        $this->_redirect('wep/view-activity/' . $activityId);
-                    }
-
-                    if(isset($_GET['activity_id'])){
-                        //$data['activities_id'] = $rowSet[0]['activities_id'];
-                        $data['id'] = $activity_id;
-                        $data['@xml_lang'] = $formData['xml_lang'];
-                        $data['@default_currency'] = $formData['default_currency'];
-                        $data['@hierarchy'] = $formData['hierarchy'];
-                        $result = $wepModel->updateRowsToTable('iati_activity', $data);
-                        $wepModel = new Model_Wep();
-                        $activityHashModel = new Model_ActivityHash();
-                        $updated = $activityHashModel->updateHash($activity_id);
-                        if(!$updated){
-                            $type = 'info';
-                            $message = 'No Changes Made';
-                        } else {
-                            //change state to editing
-                            $db = new Model_ActivityStatus;
-                            $db->updateActivityStatus($activity_id,Iati_WEP_ActivityState::STATUS_EDITING);
-                            $type = 'message';
-                            $message = "Activity overridden";
-                        }
-                        $this->_helper->FlashMessenger
-                                ->addMessage(array($type => $message));
-                    }
-                    $this->_redirect('wep/view-activity/' . $activity_id);
-                }//end of inner if
+                $form->populate($formData);
             } else {
-
-                $form->populate($activity);
-
-            }
-
-            $this->view->form = $form;
-            $this->view->activity_id = $activity_id;
-        }
-
-    }
-
- 
-    function flatArray ($array) {
-        $result = array();
-
-        foreach ($array as $key => $val) {
-            array_push($result, $this->recurArray($key, $val, array()));
-        }
-
-        //    print_r($result);
-
-        $result_depths = array();
-        foreach($result as $array) {
-            $depth = (is_array($array)) ? $this->array_depth($array) : 1;
-            array_push($result_depths, $depth);
-        }
-
-        $max_depth = max($result_depths);
-
-        $final = $this->combineAll($result, $max_depth);
-
-        //    print_r($final);exit;
-
-        //print_r($final['0']);
-        foreach($final as $key => $val) {
-            if (!is_array($val)) {
-                continue;
-            }
-
-            $result_depths = array();
-            foreach($final[$key] as $array) {
-                $depth = (is_array($array)) ? $this->array_depth($array) : 1;
-                array_push($result_depths, $depth);
-            }
-            $max_depth = max($result_depths);
-            $final[$key] = $this->combineAll($final[$key], $max_depth);
-
-            foreach($final[$key] as $k => $v) {
-                if (!is_array($v)) {
-                    continue;
-                }
-
-                $result_depths = array();
-                foreach($final[$key][$k] as $array) {
-                    $depth = (is_array($array)) ? $this->array_depth($array) : 1;
-                    array_push($result_depths, $depth);
-                }
-                $max_depth = max($result_depths);
-                $final[$key][$k] = $this->combineAll($final[$key][$k], $max_depth);
-
-            }
-
-        }
-        //    print_r($final);exit;
-
-        return $final;
-        //    print_r($final);
-    }
-
-    function combineAll($array, $max_depth=4, $depth=1, $result=array()) {
-        $process = array();
-        foreach($array as $k => $a) {
-            if (is_array($a)) {
-                if ($this->array_depth($a) == $depth) {
-                    array_push($process, $a);
-                }
-            }
-            else {
-                $result[$k] = $a;
-            }
-        }
-
-        if ($depth > $max_depth) {
-            return $result;
-        }
-
-        while (!empty($process)) {
-            $arr = array_shift($process);
-
-            foreach ($arr as $key => $val) {
-                if (isset($result[$key]) && is_array($result[$key])) {
-                    //print_r($result[$key]);
-                    /*
-                    if (sizeof($val) < 2) {
-                    list($k, $v) = each($val);
-                    if (is_array($result[$key][$k])) {
-                    array_push($result[$key][$k], $v);
+                if(isset($_GET['activity_id'])){
+                    var_dump('called');exit;
+                    //$data['activities_id'] = $rowSet[0]['activities_id'];
+                    $data['id'] = $activity_id;
+                    $data['@xml_lang'] = $formData['xml_lang'];
+                    $data['@default_currency'] = $formData['default_currency'];
+                    $data['@hierarchy'] = $formData['hierarchy'];
+                    $result = $wepModel->updateRowsToTable('iati_activity', $data);
+                    $wepModel = new Model_Wep();
+                    $activityHashModel = new Model_ActivityHash();
+                    $updated = $activityHashModel->updateHash($activity_id);
+                    if(!$updated){
+                        $type = 'info';
+                        $message = 'No Changes Made';
+                    } else {
+                        //change state to editing
+                        $db = new Model_ActivityStatus;
+                        $db->updateActivityStatus($activity_id,Iati_WEP_ActivityState::STATUS_EDITING);
+                        $type = 'message';
+                        $message = "Activity overridden";
                     }
-                    else {
-                    $result[$key][$k] = $v;
-                    }
-                    }
-                    else {*/
-                    array_push($result[$key], $val);
-                    //}
+                    $this->_helper->FlashMessenger
+                            ->addMessage(array($type => $message));
                 }
-                else {
-                    $result[$key] = $val;
-                }
-            }
+                $this->_redirect('wep/view-activity/' . $activity_id);
+            }//end of inner if
+        } else {
+
+            $form->populate($activity);
+
         }
 
-        return $this->combineAll($array, $max_depth, ++$depth, $result);
-    }
+        $this->view->form = $form;
+        $this->view->activity_id = $activity_id;
 
-    /**
-     * Actual recursion happens here
-     *
-     */
-    function recurArray ($key, $arr, $array) {
-
-        if (is_array($arr)) {
-            foreach ($arr as $k => $v) {
-                $array[$k] = $this->recurArray($key, $v, array());
-            }
-        }
-        else {
-            return array($key => $arr);
-        }
-
-        return $array;
-    }
-
-    /**
-     *
-     * http://stackoverflow.com/questions/262891/
-     *    is-there-a-way-to-find-how-how-deep-a-php-array-is
-     */
-    function array_depth ($array) {
-        $max_depth = 1;
-
-        foreach ($array as $value) {
-            if (is_array($value)) {
-                $depth = $this->array_depth($value) + 1;
-
-                if ($depth > $max_depth) {
-                    $max_depth = $depth;
-                }
-            }
-        }
-        return $max_depth;
-    }
-    
+    }    
     public function updateActivityUpdatedDatetime($activity_id)
     {
         $model = new Model_Wep();

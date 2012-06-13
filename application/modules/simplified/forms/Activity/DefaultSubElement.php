@@ -8,11 +8,15 @@
 class Simplified_Form_Activity_DefaultSubElement extends App_Form
 {
     public function init(){
+        if($this->data) { echo "caleld";exit;}
         $this->setAttrib('class' , 'simplified-sub-element')
             ->setIsArray(true);
             
         $model = new Model_Wep();
         $form = array();
+        
+        $form['id'] = new Zend_Form_Element_Hidden('id');
+        $form['id']->setValue($this->data['id']);
 
         $form['amount'] = new Zend_Form_Element_Text('amount');
         $form['amount']->setLabel('Amount')

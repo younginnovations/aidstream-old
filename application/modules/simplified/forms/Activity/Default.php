@@ -66,7 +66,7 @@ class Simplified_Form_Activity_Default extends App_Form
         $this->addElements($form);
         
         // Budget
-        $budget = new Simplified_Form_Activity_Budget();
+        $budget = new Simplified_Form_Activity_Budget(array('data' => $this->data['budget']));
         $this->addSubForm($budget , 'budget');
         $budget->removeDecorator('form');
         

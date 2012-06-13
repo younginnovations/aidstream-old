@@ -1,6 +1,8 @@
 <?php
 class Simplified_Form_Activity_Budget extends Simplified_Form_Activity_DefaultSubElement
 {
+    protected $data;
+    
     public function init()
     {
         parent::init();
@@ -21,6 +23,11 @@ class Simplified_Form_Activity_Budget extends Simplified_Form_Activity_DefaultSu
         $this->addElement($signedDate);
         
         $this->setElementsBelongTo('budget[0]');
+    }
+    
+    public function setData($data)
+    {
+        $this->data = $data;
     }
     
 }
