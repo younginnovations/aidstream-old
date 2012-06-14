@@ -223,15 +223,18 @@ class Simplified_Model_Simplified
         
         // Get Document 
         $docObj = $activity->getElementsByType(Iati_Activity_Element::TYPE_DOCUMENT_LINK);
+        $data['document_id'] = $docObj[0]->getAttrib('id');
         $data['document_url'] = $docObj[0]->getAttrib('@url');
         // get document category
         $docCat = $docObj[0]->getElementsByType('Category');
         if($docCat){
+            $data['document_category_id'] = $docCat[0]->getAttrib('id');
             $data['document_category_code'] = $docCat[0]->getAttrib('@code');
         }
         // get document title
         $docTitle = $docObj[0]->getElementsByType('Title');
         if($docTitle){
+            $data['document_title_id'] = $docTitle[0]->getAttrib('id');
             $data['document_title'] = $docTitle[0]->getAttrib('text');
         }
         
@@ -321,5 +324,164 @@ class Simplified_Model_Simplified
         $data['sector_id'] = $sector['id'];
         $data['sector'] = $sector['@code'];
         return $data;
+    }
+    
+    public function updateActivity($data)
+    {
+        //Update title
+        $title['text'] = $data['title'];
+        $title['@xml_lang'] = $default['language'];
+        $title['activity_id'] = $activityId;
+        $model->updateRowsToTable('iati_title' , $title);
+        
+        //Update Description
+        $description['@type'] = 1; //@todo check.
+        $description['@xml_lang'] = $default['language'];
+        $description['text'] = $data['description'];
+        $description['activity_id'] = $activityId;
+        $model->updateRowsToTable('iati_description' , $description);
+        
+        //Update funding org
+        $funding['@role'] = 1;
+        $funding['text'] = $data['funding_org'];
+        $funding['activity_id'] = $activityId;
+        $model->updateRowsToTable('iati_participating_org' , $funding);
+        
+        //Update Start date
+        if($data['start_date']){
+            $startDate['@iso_date'] = $data['start_date'];
+            $startDate['@type'] = 3;
+            $startDate['@xml_lang'] = $default['language'];
+            $startDate['text'] = '';
+            $startDate['activity_id'] = $activityId;
+            $model->updateRowsToTable('iati_activity_date' , $startDate);            
+        }
+        //Update End date
+        if($data['end_date']){
+            $endDate['@iso_date'] = $data['end_date'];
+            $endDate['@type'] = 4;
+            $endDate['@xml_lang'] = $default['language'];
+            $endDate['text'] = '';
+            $endDate['activity_id'] = $activityId;
+            $model->updateRowsToTable('iati_activity_date' , $endDate);            
+        }
+        //Update Document
+        if($data['document_url']){
+            $docUrl['@url'] = $data['document_url'];
+            $docUrl['activity_id'] = $activityId;
+            $documentId = $model->updateRowsToTable('iati_document_link' , $docUrl);
+
+            //update document link category
+            $docCat['@code'] = $data['document_category_code'];
+            $docCat['text'] = '';
+            $docCat['@xml_lang'] = $default['language']; 
+            $docCat['document_link_id'] = $documentId;
+            $model->updateRowsToTable('iati_document_link/category' , $docCat);
+
+             //update document link title
+            $docTitle['text'] = $data['document_title'];
+            $docTitle['@xml_lang'] = $default['language']; 
+            $docTitle['document_link_id'] = $documentId;
+            $model->updateRowsToTable('iati_document_link/title' , $docTitle);
+            
+        }
+        
+        //Update Location
+        if($data['location_name']){
+            $loc['activity_id'] = $activityId;
+            $locId = $model->updateRowsToTable('iati_location' , $loc);
+            
+            //update Location Name
+            $locName['@xml_lang'] = $default['language'];
+            $locName['text'] = $data['location_name'];
+            $locName['location_id'] = $locId;
+            $model->updateRowsToTable('iati_location/name' , $locName);
+        }
+        
+        //Update Budget
+        foreach($data['budget'] as $budgetData){
+            if($budgetData['amount']){
+                $budget['@type'] = '';
+                $budget['activity_id'] = $activityId;
+                $budgetId = $model->updateRowsToTable('iati_budget' , $budget);
+                
+                //update Budget value
+                $budValue['text'] = $budgetData['amount'];
+                $budValue['@value_date'] = $budgetData['signed_date'];
+                $budValue['@currency'] = $budgetData['currency'];
+                $budValue['budget_id'] = $budgetId;
+                $model->updateRowsToTable('iati_budget/value' , $budValue);
+                
+                //update Budget Start
+                $budStart['@iso_date'] = $budgetData['start_date'];
+                $budStart['budget_id'] = $budgetId;
+                $model->updateRowsToTable('iati_budget/period_start' , $budStart);
+                
+                //update Budget End
+                $budEnd['@iso_date'] = $budgetData['end_date'];
+                $budEnd['budget_id'] = $budgetId;
+                $model->updateRowsToTable('iati_budget/period_end' , $budEnd);            
+            }
+        }
+        
+        //Update Transaction
+        // Commitment
+        foreach($data['commitment'] as $commitment){
+            if($commitment['amount']){
+                $tran['activity_id'] = $activityId;
+                $transactionId = $model->updateRowsToTable('iati_transaction' , $tran);
+                //update transaction type
+                $tranType['@code'] = 1;//@todo check
+                $tranType['transaction_id'] = $transactionId;
+                $model->updateRowsToTable('iati_transaction/transaction_type' , $tranType);
+                 //update transaction value
+                $tranValue['@currency'] = $commitment['currency'];
+                $tranValue['text'] = $commitment['amount'];
+                $tranValue['@value_date'] = $commitment['start_date'];
+                $tranValue['transaction_id'] = $transactionId;
+                $model->updateRowsToTable('iati_transaction/value' , $tranValue);
+            }
+        }
+        //Update Incomming Fund
+        foreach($data['incommingFund'] as $incommingFund){
+            if($incommingFund['amount']){
+                $tran['activity_id'] = $activityId;
+                $transactionId = $model->updateRowsToTable('iati_transaction' , $tran);
+                //update transaction type
+                $tranType['@code'] = 5;//@todo check
+                $tranType['transaction_id'] = $transactionId;
+                $model->updateRowsToTable('iati_transaction/transaction_type' , $tranType);
+                //update transaction value
+                $tranValue['@currency'] = $incommingFund['currency'];
+                $tranValue['text'] = $incommingFund['amount'];
+                $tranValue['@value_date'] = $incommingFund['start_date'];
+                $tranValue['transaction_id'] = $transactionId;
+                $model->updateRowsToTable('iati_transaction/value' , $tranValue);
+            }
+        }
+        //Update Expenditure
+        foreach($data['expenditure'] as $expenditure){
+            if($expenditure['amount']){
+                $tran['activity_id'] = $activityId;
+                $transactionId = $model->updateRowsToTable('iati_transaction' , $tran);
+                //update transaction type
+                $tranType['@code'] = 4;//@todo check
+                $tranType['transaction_id'] = $transactionId;
+                $model->updateRowsToTable('iati_transaction/transaction_type' , $tranType);
+                //update transaction value
+                $tranValue['@currency'] = $expenditure['currency'];
+                $tranValue['text'] = $expenditure['amount'];
+                $tranValue['@value_date'] = $expenditure['start_date'];
+                $tranValue['transaction_id'] = $transactionId;
+                $model->updateRowsToTable('iati_transaction/value' , $tranValue);
+
+            }
+        }
+        
+        //Update Sector
+        $sector['@code'] = $data['sector'];
+        $sector['@vocabulary'] = 3; // @todo check
+        $sector['activity_id'] = $activityId;
+        $model->updateRowsToTable('iati_sector' , $sector);
     }
 }

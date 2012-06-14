@@ -8,7 +8,6 @@
 class Simplified_Form_Activity_DefaultSubElement extends App_Form
 {
     public function init(){
-        if($this->data) { echo "caleld";exit;}
         $this->setAttrib('class' , 'simplified-sub-element')
             ->setIsArray(true);
             
@@ -20,20 +19,24 @@ class Simplified_Form_Activity_DefaultSubElement extends App_Form
 
         $form['amount'] = new Zend_Form_Element_Text('amount');
         $form['amount']->setLabel('Amount')
+            ->setValue($this->data['amount'])
             ->setAttrib('class', 'form-text');
 
         $form['start_date'] = new Zend_Form_Element_Text('start_date');
         $form['start_date']->setLabel('Start Date')
+            ->setValue($this->data['start_date'])
             ->setAttrib('class', 'form-text datepicker');
 
         $form['end_date'] = new Zend_Form_Element_Text('end_date');
         $form['end_date']->setLabel('End Date')
+            ->setValue($this->data['end_date'])
             ->setAttrib('class', 'form-text datepicker');
             
         $currency = $model->getCodeArray('Currency' , '' , 1 , true);
         $form['currency'] = new Zend_Form_Element_Select('currency');
         $form['currency']->setLabel('Currency')
             ->addMultiOptions($currency)
+            ->setValue($this->data['currency'])
             ->setAttrib('class', 'form-text');
 
         foreach($form as $item_name=>$element)

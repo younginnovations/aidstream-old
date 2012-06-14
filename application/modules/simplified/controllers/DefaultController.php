@@ -333,12 +333,16 @@ class Simplified_DefaultController extends Zend_Controller_Action
             
             $model = new Simplified_Model_Simplified();
             $data = $model->getDataForForm($activityData);
+            // Get identifier
+            $identifier = $wepModel->getRowById('iati_identifier', 'activity_id', $activityId);
+            $data['identifier_id'] = $identifier['id'];
+            $data['identifier'] = $identifier['activity_identifier'];
             
-            $form = new Simplified_Form_Activity_Default();
-            $form->populate($data);
+            
+            $form = new Simplified_Form_Activity_Default(array('data' => $data));
             $this->view->activityInfo = $activityInfo;
         }
-
+        
         if ($this->getRequest()->isPost()) {
             $formData = $this->getRequest()->getPost();
             if (!$form->isValid($formData)) {
