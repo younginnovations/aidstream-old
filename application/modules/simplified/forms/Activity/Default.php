@@ -137,7 +137,7 @@ class Simplified_Form_Activity_Default extends App_Form
         // incommingFund
         if($this->data['incommingFund']){
             foreach($this->data['incommingFund'] as $key=>$incommingFundData){
-                $incommingFund = new Simplified_Form_Activity_Transaction_IncommingFund(array('data' => $commitmentData , 'count' => $key));
+                $incommingFund = new Simplified_Form_Activity_Transaction_IncommingFund(array('data' => $incommingFundData , 'count' => $key));
                 $this->addSubForm($incommingFund , 'incommingFund'.$key);
                 $incommingFund->removeDecorator('form');
             }

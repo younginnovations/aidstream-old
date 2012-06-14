@@ -2,7 +2,7 @@
 class Simplified_Form_Activity_Transaction_IncommingFund extends Simplified_Form_Activity_DefaultSubElement
 {
     protected $data;
-    protected $count;
+    protected $count = 0;
     
     public function init()
     {

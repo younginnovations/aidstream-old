@@ -13,12 +13,13 @@
         <?php print($change_status_form)?>
     </div>
     <?php if($userPermission && $permission == '1'):?>
-    <span class = "override-link"><?php echo $this->l('Override Activity Default', 'wep/edit-activity/?activity_id='
-                                                            . $this->activityInfo['id'])?></span>
+    <span class = "override-link"><?php echo $this->l('Edit Activity', 'simplified/default/edit-activity/?activity_id='
+                                                            . $this->activityInfo['id'])?>
+    </span>
 
 <?php endif; ?>
 <?php if(!$userPermission): ?>
-<span class = "override-link"><?php echo $this->l('Override Activity Default', 'wep/edit-activity/?activity_id='
+<span class = "override-link"><?php echo $this->l('Edit Activity', 'simplified/default/edit-activity/?activity_id='
                                                             . $this->activityInfo['id'])?></span>
 
 <?php endif; ?>

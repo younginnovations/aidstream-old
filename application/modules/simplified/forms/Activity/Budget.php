@@ -2,7 +2,7 @@
 class Simplified_Form_Activity_Budget extends Simplified_Form_Activity_DefaultSubElement
 {
     protected $data;
-    protected $count;
+    protected $count = 0;
     
     public function init()
     {
@@ -20,9 +20,8 @@ class Simplified_Form_Activity_Budget extends Simplified_Form_Activity_DefaultSu
                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
                    )
         );
-        
         $this->addElement($signedDate);
-        
+
         $this->setElementsBelongTo("budget[{$this->count}]");
     }
     

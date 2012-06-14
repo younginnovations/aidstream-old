@@ -16,6 +16,16 @@ class Simplified_Form_Activity_DefaultSubElement extends App_Form
         
         $form['id'] = new Zend_Form_Element_Hidden('id');
         $form['id']->setValue($this->data['id']);
+        
+        $form['start_id'] = new Zend_Form_Element_Hidden('start_id');
+        $form['start_id']->setValue($this->data['start_id']);
+        
+        $form['end_id'] = new Zend_Form_Element_Hidden('end_id');
+        $form['end_id']->setValue($this->data['end_id']);
+        
+        $form['value_id'] = new Zend_Form_Element_Hidden('value_id');
+        $form['value_id']->setValue($this->data['value_id']);
+        $this->addElements($form);
 
         $form['amount'] = new Zend_Form_Element_Text('amount');
         $form['amount']->setLabel('Amount')

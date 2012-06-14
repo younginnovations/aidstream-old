@@ -321,64 +321,66 @@ class Simplified_DefaultController extends Zend_Controller_Action
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
         $wepModel = new Model_Wep();
-        if($activityId = $this->getRequest()->getParam('activity_id')){
-            $activity = $wepModel->getRowById('iati_activity', 'id', $activityId);
-            if(!$activity){
-                $this->_helper->FlashMessenger->addMessage(array('warning' => "Activity does not exist."));
+        $identity = Zend_Auth::getInstance()->getIdentity();
+    
+        $modelVc = new Model_Viewcode();
+        $rowSet = $modelVc->getRowsByFields('default_field_values' , 'account_id' , $identity->account_id);
+        $defaultValues = unserialize($rowSet[0]['object']);
+        $default = $defaultValues->getDefaultFields();
 
-                $this->_redirect('/simplified/default/dashboard');
-            }
-            $dbLayer = new Iati_WEP_DbLayer();
-            $activityData = $dbLayer->getRowSet('Activity', 'id', $activityId, true, true);
-            
-            $model = new Simplified_Model_Simplified();
-            $data = $model->getDataForForm($activityData);
-            // Get identifier
-            $identifier = $wepModel->getRowById('iati_identifier', 'activity_id', $activityId);
-            $data['identifier_id'] = $identifier['id'];
-            $data['identifier'] = $identifier['activity_identifier'];
-            
-            
-            $form = new Simplified_Form_Activity_Default(array('data' => $data));
-            $this->view->activityInfo = $activityInfo;
-        }
-        
         if ($this->getRequest()->isPost()) {
             $formData = $this->getRequest()->getPost();
+            $form = new Simplified_Form_Activity_Default(array('data' => $formData));
+            
             if (!$form->isValid($formData)) {
-
-                $form->populate($formData);
+                $this->_helper->FlashMessenger->addMessage(array('error' => 'You have some error in form data'));
             } else {
-                if(isset($_GET['activity_id'])){
-                    var_dump('called');exit;
-                    //$data['activities_id'] = $rowSet[0]['activities_id'];
-                    $data['id'] = $activity_id;
-                    $data['@xml_lang'] = $formData['xml_lang'];
-                    $data['@default_currency'] = $formData['default_currency'];
-                    $data['@hierarchy'] = $formData['hierarchy'];
-                    $result = $wepModel->updateRowsToTable('iati_activity', $data);
-                    $wepModel = new Model_Wep();
-                    $activityHashModel = new Model_ActivityHash();
-                    $updated = $activityHashModel->updateHash($activity_id);
-                    if(!$updated){
-                        $type = 'info';
-                        $message = 'No Changes Made';
-                    } else {
-                        //change state to editing
-                        $db = new Model_ActivityStatus;
-                        $db->updateActivityStatus($activity_id,Iati_WEP_ActivityState::STATUS_EDITING);
-                        $type = 'message';
-                        $message = "Activity overridden";
-                    }
-                    $this->_helper->FlashMessenger
-                            ->addMessage(array($type => $message));
+                $activityId = $formData['activity_id'];
+                $model = new Simplified_Model_Simplified();
+                $model->updateActivity($formData , $default);
+                /*
+                $activityHashModel = new Model_ActivityHash();
+                $updated = $activityHashModel->updateHash($activity_id);
+                if(!$updated){
+                    $type = 'info';
+                    $message = 'No Changes Made';
+                } else {
+                    //change state to editing
+                    $db = new Model_ActivityStatus;
+                    $db->updateActivityStatus($activity_id,Iati_WEP_ActivityState::STATUS_EDITING);
+                    $type = 'message';
+                    $message = "Activity updated sucessfully";
                 }
-                $this->_redirect('wep/view-activity/' . $activity_id);
+                */
+                 $type = 'message';
+                    $message = "Activity updated sucessfully";
+                $this->_helper->FlashMessenger->addMessage(array($type => $message));
+                $this->_redirect('simplified/default/view-activity/' . $activityId);
             }//end of inner if
         } else {
+            if($activityId = $this->getRequest()->getParam('activity_id')){
+                $activity = $wepModel->getRowById('iati_activity', 'id', $activityId);
+                if(!$activity){
+                    $this->_helper->FlashMessenger->addMessage(array('warning' => "Activity does not exist."));
+    
+                    $this->_redirect('/simplified/default/dashboard');
+                }
+            
+                $dbLayer = new Iati_WEP_DbLayer();
+                $activityData = $dbLayer->getRowSet('Activity', 'id', $activityId, true, true);
 
-            $form->populate($activity);
-
+                $model = new Simplified_Model_Simplified();
+                $data = $model->getDataForForm($activityData);
+                $data['activity_id'] = $activity['id'];
+                // Get identifier
+                $identifier = $wepModel->getRowById('iati_identifier', 'activity_id', $activityId);
+                $data['identifier_id'] = $identifier['id'];
+                $data['identifier'] = $identifier['activity_identifier'];
+                
+                
+                $form = new Simplified_Form_Activity_Default(array('data' => $data));
+                $this->view->activityInfo = $activityInfo;
+            }
         }
 
         $this->view->form = $form;
