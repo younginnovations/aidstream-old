@@ -5,7 +5,7 @@
  * @author bhabishyat
  *
  */
-class Simplified_Form_Activity_DefaultSubElement extends App_Form
+class Simplified_Form_Activity_DefaultSubElement extends Iati_Form
 {
     public function init(){
         $this->setAttrib('class' , 'simplified-sub-element')

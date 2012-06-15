@@ -161,11 +161,14 @@ class Simplified_DefaultController extends Zend_Controller_Action
 
         $data = $this->_request->getPost();
         if($data){
+            $form = new Simplified_Form_Activity_Default(array('data' => $data));
             if($form->isValid($data)){
-                Simplified_Model_Simplified::addActivity($data , $default);
+                $modelSimplified = new Simplified_Model_Simplified();
+                $activityId = $modelSimplified->addActivity($data , $default);
                 $this->_helper->FlashMessenger->addMessage(array('message' => 'Activity created sucessfully'));
+                $this->_redirect('/simplified/default/view-activity/'.$activityId);
+                
             } else {
-                $form->populate($data);
                 $this->_helper->FlashMessenger->addMessage(array('error' => 'You have some error in you data'));
             }
             
@@ -331,7 +334,6 @@ class Simplified_DefaultController extends Zend_Controller_Action
         if ($this->getRequest()->isPost()) {
             $formData = $this->getRequest()->getPost();
             $form = new Simplified_Form_Activity_Default(array('data' => $formData));
-            
             if (!$form->isValid($formData)) {
                 $this->_helper->FlashMessenger->addMessage(array('error' => 'You have some error in form data'));
             } else {
@@ -406,5 +408,26 @@ class Simplified_DefaultController extends Zend_Controller_Action
             $message['message'] = 'No help is provided for this item';
         }
         $this->_helper->json($message['message']);
+    }
+    
+    public function getFormAction()
+    {
+        $class = $this->_getParam('class');
+        $refEle = $this->_getParam('refEle');
+        $count = 0;
+        if($refEle){
+            $temp = explode('-' , $refEle);
+            $count = $temp[1] + 1;
+        }
+        $formName = 'Simplified_Form_Activity_'.$class;
+        $form = new $formName(array('count' => $count));
+        $form->removeDecorator('form');
+        $partialPath = Zend_Registry::get('config')->resources->layout->layoutpath;
+        $myView = new Zend_View;
+        $myView->setScriptPath($partialPath.'/partial');
+        $myView->assign('form' , $form);
+        $form = $myView->render('form.phtml');
+        print $form;
+        exit;
     }
 }

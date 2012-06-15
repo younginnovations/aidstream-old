@@ -41,7 +41,8 @@ class Iati_Form extends Zend_Form
 
             // Add a wrapper div to all elements other than add and remove buttons.
             if($element->getName() != 'add' && $element->getName() != 'remove'){
-                if($element->getName() == 'id'){
+
+                if($element->getName() == 'id' || ($element->getType() == 'Zend_Form_Element_Hidden' && preg_match('/_id/' , $element->getName()))){
                     $element->addDecorators(array(
 	                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'form-item ele-id clearfix'))
 	                    )

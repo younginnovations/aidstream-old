@@ -1,5 +1,5 @@
 <?php
-class Simplified_Form_Activity_Default extends App_Form
+class Simplified_Form_Activity_Default extends Iati_Form
 {
     protected $data;
     public function init(){
@@ -109,56 +109,85 @@ class Simplified_Form_Activity_Default extends App_Form
         $this->addElements($form);
         
         // Budget
+        $budgetForm = new App_Form();
+        $budgetForm->removeDecorator('form');
         if($this->data['budget']){
             foreach($this->data['budget'] as $key=>$budgetData){
                 $budget = new Simplified_Form_Activity_Budget(array('data' => $budgetData , 'count' => $key));
-                $this->addSubForm($budget , 'budget'.$key);
+                $budgetForm->addSubForm($budget , 'budget'.$key);
                 $budget->removeDecorator('form');
             }
+            
         } else {
             $budget = new Simplified_Form_Activity_Budget(array('data' => $budgetData));
-            $this->addSubForm($budget , 'budget');
+            $budgetForm->addSubForm($budget , 'budget');
             $budget->removeDecorator('form');
         }
+        $add = new Iati_Form_Element_Note('add');
+        $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'simplified-add-more'));
+        $add->setValue("<a href='#' class='button' value='Budget'> Add More</a>");
+        $budgetForm->addElement($add);
+        $this->addSubForm($budgetForm , 'budget_wrapper');
         
         // Commitment
+        $commForm = new App_Form();
+        $commForm->removeDecorator('form');
         if($this->data['commitment']){
             foreach($this->data['commitment'] as $key=>$commitmentData){
                 $commitment = new Simplified_Form_Activity_Transaction_Commitment(array('data' => $commitmentData , 'count' => $key));
-                $this->addSubForm($commitment , 'commitment'.$key);
+                $commForm->addSubForm($commitment , 'commitment'.$key);
                 $commitment->removeDecorator('form');
             }
         } else {
             $commitment = new Simplified_Form_Activity_Transaction_Commitment();
-            $this->addSubForm($commitment , 'commitment');
+            $commForm->addSubForm($commitment , 'commitment');
             $commitment->removeDecorator('form');
         }
+        $add = new Iati_Form_Element_Note('add');
+        $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'simplified-add-more'));
+        $add->setValue("<a href='#' class='button' value='Transaction_Commitment'> Add More</a>");
+        $commForm->addElement($add);
+        $this->addSubForm($commForm , 'commitment_wrapper');
         
         // incommingFund
+        $incommForm = new App_Form();
+        $incommForm->removeDecorator('form');
         if($this->data['incommingFund']){
             foreach($this->data['incommingFund'] as $key=>$incommingFundData){
                 $incommingFund = new Simplified_Form_Activity_Transaction_IncommingFund(array('data' => $incommingFundData , 'count' => $key));
-                $this->addSubForm($incommingFund , 'incommingFund'.$key);
+                $incommForm->addSubForm($incommingFund , 'incommingFund'.$key);
                 $incommingFund->removeDecorator('form');
             }
         } else {
             $incommingFund = new Simplified_Form_Activity_Transaction_IncommingFund();
-            $this->addSubForm($incommingFund , 'incommingFund');
+            $incommForm->addSubForm($incommingFund , 'incommingFund');
             $incommingFund->removeDecorator('form');
         }
+        $add = new Iati_Form_Element_Note('add');
+        $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'simplified-add-more'));
+        $add->setValue("<a href='#' class='button' value='Transaction_IncommingFund'> Add More</a>");
+        $incommForm->addElement($add);
+        $this->addSubForm($incommForm , 'incomming_fund_wrapper');
         
         // Expenditure
+        $expForm = new App_Form();
+        $expForm->removeDecorator('form');
         if($this->data['expenditure']){
             foreach($this->data['expenditure'] as $key=>$expenditureData){
                 $expenditure = new Simplified_Form_Activity_Transaction_Expenditure(array('data' => $expenditureData , 'count' => $key));
-                $this->addSubForm($expenditure , 'expenditure'.$key);
+                $expForm->addSubForm($expenditure , 'expenditure'.$key);
                 $expenditure->removeDecorator('form');
             }
         } else {
             $expenditure = new Simplified_Form_Activity_Transaction_Expenditure();
-            $this->addSubForm($expenditure , 'expenditure');
+            $expForm->addSubForm($expenditure , 'expenditure');
             $expenditure->removeDecorator('form');
         }
+        $add = new Iati_Form_Element_Note('add');
+        $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'simplified-add-more'));
+        $add->setValue("<a href='#' class='button' value='Transaction_Expenditure'> Add More</a>");
+        $expForm->addElement($add);
+        $this->addSubForm($expForm , 'expenditure_wrapper');
         
         $form['sector_id'] = new Zend_Form_Element_Hidden('sector_id');
         $form['sector_id']->setValue($this->data['sector_id']);

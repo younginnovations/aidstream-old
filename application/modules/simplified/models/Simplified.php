@@ -15,7 +15,7 @@ class Simplified_Model_Simplified
     /**
      *Function to save activity
      */
-    public static function addActivity($data , $default)
+    public function addActivity($data , $default)
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
         //var_dump($data);exit;
@@ -191,6 +191,8 @@ class Simplified_Model_Simplified
         $sector['@vocabulary'] = 3; // @todo check
         $sector['activity_id'] = $activityId;
         $model->insertRowsToTable('iati_sector' , $sector);
+        
+        return $activityId;
         
     }
     
@@ -443,12 +445,13 @@ class Simplified_Model_Simplified
             $locName['id'] = $data['location_id'];
             $model->updateRowsToTable('iati_location/name' , $locName);
         }
-        
+
         //Update Budget
         foreach($data['budget'] as $budgetData){
             if($budgetData['id']){
                 //update Budget value
                 if($budgetData['value_id']){
+                    $budValue = array();
                     $budValue['text'] = $budgetData['amount'];
                     $budValue['@value_date'] = $budgetData['signed_date'];
                     $budValue['@currency'] = $budgetData['currency'];
@@ -458,6 +461,7 @@ class Simplified_Model_Simplified
                 
                 //update Budget Start
                 if($budgetData['start_id']){
+                    $budStart = array();
                     $budStart['@iso_date'] = $budgetData['start_date'];
                     $budStart['id'] = $budgetData['start_id'];
                     $model->updateRowsToTable('iati_budget/period_start' , $budStart);
@@ -465,40 +469,36 @@ class Simplified_Model_Simplified
                 
                 //update Budget End
                 if($budgetData['end_id']){
+                    $budEnd = array();
                     $budEnd['@iso_date'] = $budgetData['end_date'];
                     $budEnd['id'] = $budgetData['end_id'];
                     $model->updateRowsToTable('iati_budget/period_end' , $budEnd);
                 }
             } elseif($this->hasValue($budgetData)) {
+                $budget = array();
                 $budget['@type'] = '';
                 $budget['activity_id'] = $activityId;
                 $budgetId = $model->insertRowsToTable('iati_budget' , $budget);
-                
+
                 //Insert Budget value
-                if($budgetData['amount']){
-                    $budValue = array();
-                    $budValue['text'] = $budgetData['amount'];
-                    $budValue['@value_date'] = $budgetData['signed_date'];
-                    $budValue['@currency'] = $budgetData['currency'];
-                    $budValue['budget_id'] = $budgetId;
-                    $model->insertRowsToTable('iati_budget/value' , $budValue);
-                }
+                $budValue = array();
+                $budValue['text'] = $budgetData['amount'];
+                $budValue['@value_date'] = $budgetData['signed_date'];
+                $budValue['@currency'] = $budgetData['currency'];
+                $budValue['budget_id'] = $budgetId;
+                $model->insertRowsToTable('iati_budget/value' , $budValue);
                 
                 //Insert Budget Start
-                if($budgetData['start_date']){
-                    $budgetStart = array();
-                    $budStart['@iso_date'] = $budgetData['start_date'];
-                    $budStart['budget_id'] = $budgetId;
-                    $model->insertRowsToTable('iati_budget/period_start' , $budStart);
-                }
+                $budStart = array();
+                $budStart['@iso_date'] = $budgetData['start_date'];
+                $budStart['budget_id'] = $budgetId;
+                $model->insertRowsToTable('iati_budget/period_start' , $budStart);
                 
                 //Insert Budget End
-                if($budgetData['end_date']){
-                    $budEnd = array();
-                    $budEnd['@iso_date'] = $budgetData['end_date'];
-                    $budEnd['budget_id'] = $budgetId;
-                    $model->insertRowsToTable('iati_budget/period_end' , $budEnd);
-                }
+                $budEnd = array();
+                $budEnd['@iso_date'] = $budgetData['end_date'];
+                $budEnd['budget_id'] = $budgetId;
+                $model->insertRowsToTable('iati_budget/period_end' , $budEnd);
             }
         }
         
@@ -507,12 +507,14 @@ class Simplified_Model_Simplified
         foreach($data['commitment'] as $commitment){
             if($commitment['value_id']){
                  //update transaction value
+                $tranValue = array();
                 $tranValue['@currency'] = $commitment['currency'];
                 $tranValue['text'] = $commitment['amount'];
                 $tranValue['@value_date'] = $commitment['start_date'];
                 $tranValue['id'] = $commitment['value_id'];
                 $model->updateRowsToTable('iati_transaction/value' , $tranValue);
-            } elseif($this->hasValue($committment)) {
+            } elseif($this->hasValue($commitment)) {
+                $tran = array();
                 $tran['activity_id'] = $activityId;
                 $transactionId = $model->insertRowsToTable('iati_transaction' , $tran);
                 //insert transaction type
@@ -521,7 +523,7 @@ class Simplified_Model_Simplified
                 $tranType['transaction_id'] = $transactionId;
                 $model->insertRowsToTable('iati_transaction/transaction_type' , $tranType);
                  //insert transaction value
-                $transValue= array();
+                $tranValue= array();
                 $tranValue['@currency'] = $commitment['currency'];
                 $tranValue['text'] = $commitment['amount'];
                 $tranValue['@value_date'] = $commitment['start_date'];
@@ -534,12 +536,14 @@ class Simplified_Model_Simplified
         foreach($data['incommingFund'] as $incommingFund){
             if($incommingFund['value_id']){
                 //update transaction value
+                $tranValue = array();
                 $tranValue['@currency'] = $incommingFund['currency'];
                 $tranValue['text'] = $incommingFund['amount'];
                 $tranValue['@value_date'] = $incommingFund['start_date'];
                 $tranValue['id'] = $incommingFund['value_id'];
                 $model->updateRowsToTable('iati_transaction/value' , $tranValue);
             } elseif($this->hasValue($incommingFund)) {
+                $tran = array();
                 $tran['activity_id'] = $activityId;
                 $transactionId = $model->insertRowsToTable('iati_transaction' , $tran);
                 //update transaction type
@@ -548,7 +552,7 @@ class Simplified_Model_Simplified
                 $tranType['transaction_id'] = $transactionId;
                 $model->insertRowsToTable('iati_transaction/transaction_type' , $tranType);
                 //update transaction value
-                $transValue = array();
+                $tranValue = array();
                 $tranValue['@currency'] = $incommingFund['currency'];
                 $tranValue['text'] = $incommingFund['amount'];
                 $tranValue['@value_date'] = $incommingFund['start_date'];
@@ -559,12 +563,14 @@ class Simplified_Model_Simplified
         //Update Expenditure
         foreach($data['expenditure'] as $expenditure){
             if($expenditure['value_id']){
+                $tranValue = array();
                 $tranValue['@currency'] = $expenditure['currency'];
                 $tranValue['text'] = $expenditure['amount'];
                 $tranValue['@value_date'] = $expenditure['start_date'];
                 $tranValue['id'] = $expenditure['value_id'];
                 $model->updateRowsToTable('iati_transaction/value' , $tranValue);
             } elseif($this->hasValue($expenditure)) {
+                $tran = array();
                 $tran['activity_id'] = $activityId;
                 $transactionId = $model->insertRowsToTable('iati_transaction' , $tran);
                 //update transaction type

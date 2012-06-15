@@ -928,6 +928,40 @@ function initialize() {
 			    }
 			});
             }
+        },
+        
+        ".simplified-add-more": {
+            "onclick" : function (evt) {
+                evt.preventDefault();
+                var node = new dojo.NodeList(getTarget(evt));
+
+                var value = node.attr('value')[0];
+		var url = APP_BASEPATH + "/simplified/default/get-form";
+                var wrapperNode = dojo.query(getTarget(evt)).parents(".zend_form").first();
+                var lastNode =wrapperNode.query(".form-wrapper").last();
+                
+                var input = lastNode.query('input').attr('id');
+                var refEle = input[0];
+                refEle = refEle.replace(/-\w+$/,'');
+                console.log(refEle);
+                // prepare input object for get parameter                
+                var data = new Object();
+                data['class'] = value;
+                data['refEle'] = refEle;
+                
+                dojo.xhrGet({
+                    url : url,
+                    handleAs : 'text',
+                    content : data,
+                    load : function (data) {
+                        dojo.place(data, getTarget(evt).parentNode, "before");
+                        dojo.behavior.apply();
+                    },
+                    error : function (err) {
+                        consolo.log(err);
+                    }
+                });
+            }
         }
     });
     // End of dojo.behavior.add
