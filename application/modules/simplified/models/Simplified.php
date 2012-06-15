@@ -23,7 +23,7 @@ class Simplified_Model_Simplified
         $modelActivity =  new Model_Activity();
         //Create activity and its defaults
         $iatiIdentifier['activity_identifier'] = $data['identifier'];
-        $iatiIdentifier['iati_identifier'] = $default['reporting_org_ref']."_".trim($data['identifier']);
+        $iatiIdentifier['iati_identifier'] = $default['reporting_org_ref']."-".trim($data['identifier']);
         $activityId = $modelActivity->createActivity($identity->account_id , $default , $iatiIdentifier);
     
         //Create title
@@ -349,7 +349,7 @@ class Simplified_Model_Simplified
         //Update Activity Identifier
         if($data['identifier_id']){
             $iatiIdentifier['activity_identifier'] = $data['identifier'];
-            $iatiIdentifier['text'] = $default['reporting_org_ref']."_".trim($data['identifier']);
+            $iatiIdentifier['text'] = $default['reporting_org_ref']."-".trim($data['identifier']);
             $iatiIdentifier['id'] = $data['identifier_id'];
             $model->updateRowsToTable('iati_identifier' , $iatiIdentifier);
         }
@@ -590,7 +590,7 @@ class Simplified_Model_Simplified
         }
 
         //Update Sector
-        if($sector['sector_id']){
+        if($data['sector_id']){
             $sector['@code'] = $data['sector'];
             $sector['id'] = $data['sector_id'];
             $model->updateRowsToTable('iati_sector' , $sector);

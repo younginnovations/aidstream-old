@@ -192,9 +192,11 @@ class Simplified_Form_Activity_Default extends Iati_Form
         $form['sector_id'] = new Zend_Form_Element_Hidden('sector_id');
         $form['sector_id']->setValue($this->data['sector_id']);
         
-        $form['sector'] = new Zend_Form_Element_Text('sector');
+        
+        $sectorCodes = $model->getCodeArray('Sector' , '' , 1 , true);
+        $form['sector'] = new Zend_Form_Element_Select('sector');
         $form['sector']->setLabel('Sector')
-            ->setRequired()
+            ->addMultiOptions($sectorCodes)
             ->setValue($this->data['sector'])
             ->setAttrib('class', 'form-text');
         $this->addElements($form);
