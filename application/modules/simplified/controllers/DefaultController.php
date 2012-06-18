@@ -430,4 +430,32 @@ class Simplified_DefaultController extends Zend_Controller_Action
         print $form;
         exit;
     }
+    
+    
+    public function removeElementAction()
+    {
+        $this->_helper->layout->disableLayout();
+        if($this->_request->isGet()){
+            try{
+                if($_GET['classname'])
+                {
+                    $class = $_GET['classname'];
+                }
+
+                if($_GET['id']){
+                    $id = $_GET['id'];
+                }
+
+                $fieldName = 'id';
+                $value = $id;
+                $dbLayer = new Iati_WEP_DbLayer();
+                $del = $dbLayer->deleteRows($class, $fieldName, $value);
+                print 'success';
+                exit();
+
+            } catch(Exception $e){
+                print $e; exit();
+            }
+        }
+    }
 }

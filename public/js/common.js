@@ -863,7 +863,6 @@ function initialize() {
                 dojo.connect(dojo.byId('cd-ok'), 'onclick', function (e) {
                     confirmDlg.destroyRecursive();
                     var grandParent = dojo.NodeList(removeNode.parentNode.parentNode);
-                    console.log(grandParent);
 		    var parentNode = dojo.NodeList(removeNode.parentNode);
 		    var removeId = dojo.attr(parentNode.query('input[type="hidden"]')[0], 'value');
 		    //console.log(grandParent.children('fieldset').length);
@@ -943,7 +942,7 @@ function initialize() {
                 var input = lastNode.query('input').attr('id');
                 var refEle = input[0];
                 refEle = refEle.replace(/-\w+$/,'');
-                console.log(refEle);
+
                 // prepare input object for get parameter                
                 var data = new Object();
                 data['class'] = value;
@@ -958,9 +957,77 @@ function initialize() {
                         dojo.behavior.apply();
                     },
                     error : function (err) {
-                        consolo.log(err);
+                        console.log(err);
                     }
                 });
+            }
+        },
+        
+        ".simplified-remove-element" : {
+            'onclick' : function (evt) {
+                
+                var msg = '<div><p>Are you sure you want to delete this element?</p>';
+                msg += '<p style="margin-left:100px"><button dojoType="dijit.form.Button" type="button" id="cd-ok">OK</button>';
+                msg += '<button dojoType="dijit.form.Button" type="button" id="cd-cancel">Cancel</button></p>';
+                
+                // Destroy all dialog box before creating new. Used to remove dialog box remaining after clicking close.
+                dojo.query('.dijitDialog').forEach(dojo.destroy);
+                
+                var confirmDlg = new dijit.Dialog({
+                    title: "Are you Sure?",
+                    style: "width: 320px",
+                    parseOnLoad: true,
+                    content: msg
+                });
+                
+                dojo.connect(dojo.byId('cd-cancel'), 'onclick', function (e) {
+                    confirmDlg.destroyRecursive();
+                });
+                
+                dojo.connect(dojo.byId('cd-ok'), 'onclick', function (e) {
+                    confirmDlg.destroyRecursive();
+                    var removeUrl = APP_BASEPATH + "/simplified/default/remove-element";
+                    
+                    var removeNode = getTarget(evt).parentNode;
+                    var wrapperNode = dojo.NodeList(removeNode.parentNode);
+                    var grandParent = dojo.NodeList(removeNode.parentNode.parentNode);
+                    var removeId = dojo.attr(wrapperNode.query('input[type="hidden"]')[0], 'value');
+                    var className = dojo.attr(getTarget(evt) , 'value');
+                    if (parseInt(removeId)) {
+                        dojo.xhrGet({
+                            url: removeUrl ,
+                            handleAs: 'text',
+                            content: {
+                                "id": removeId,
+                                "classname" : className
+                            },
+                            load: function (data) {
+                                //console.log(data);
+                                if(data == 'success'){
+                                    if (grandParent.children('.form-wrapper').length > 1) {
+                                        dojo.destroy(wrapperNode[0]);
+                                    } else {
+                                        window.location.reload();
+                                    }
+                                }
+                                else{
+                                    messageDialog("Error", data);
+                                }
+                            },
+                            error: function (data) {
+                                //console.log(data);
+                                messageDialog("Error", "Something went wrong! Please try again");
+                            }
+                        });
+                    }
+                    else {
+                        if (grandParent.children('.form-wrapper').length > 1) {
+                            dojo.destroy(wrapperNode[0]);
+                        }
+                    }
+                });
+                
+                confirmDlg.show();
             }
         }
     });

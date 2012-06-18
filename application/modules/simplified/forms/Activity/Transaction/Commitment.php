@@ -14,6 +14,11 @@ class Simplified_Form_Activity_Transaction_Commitment extends Simplified_Form_Ac
         $this->removeElement('end_date');
         
         $this->setElementsBelongTo("commitment[{$this->count}]");
+        // Add remove button
+        $remove = new Iati_Form_Element_Note('remove');
+        $remove->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'simplified-remove-element'));
+        $remove->setValue("<a href='#' class='button' value='Transaction'> Remove element</a>");
+        $this->addElement($remove);
     }
     
     public function setData($data)

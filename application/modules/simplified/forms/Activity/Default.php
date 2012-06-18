@@ -209,9 +209,12 @@ class Simplified_Form_Activity_Default extends Iati_Form
             );
         }
         
-        $submit = new Zend_Form_Element_Submit('Submit');
-        $submit->setValue('Save');
-        $this->addElement($submit);
+        $this->addElement('submit' , 'save',
+            array(
+                'label'    => 'Save',
+                'required' => false,
+            )
+        );
     }
     
     public function setData($data)

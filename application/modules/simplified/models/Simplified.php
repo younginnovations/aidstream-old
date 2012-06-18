@@ -323,7 +323,7 @@ class Simplified_Model_Simplified
                 //get transaction value
                 $transactionVal =  $transaction->getElementsByType('Value');
                 if(!empty($transactionVal)){
-                    //$data[$type][$count]['id'] = $transaction->getAttrib('id');
+                    $data[$type][$count]['id'] = $transaction->getAttrib('id');
                     $data[$type][$count]['value_id'] = $transactionVal[0]->getAttrib('id');
                     $data[$type][$count]['currency'] = $transactionVal[0]->getAttrib('@currency');
                     $data[$type][$count]['start_date'] = $transactionVal[0]->getAttrib('@value_date');
