@@ -1313,7 +1313,7 @@ code
 	color:#999999;
 }
 
-.remove{
+.remove, .simplified-remove-element{
     display: block;
     color: #009ADA;
     display: block;
@@ -1321,7 +1321,7 @@ code
     margin-bottom:10px;
 }
 
-.remove .button
+.remove .button, .simplified-remove-element a.button
 {
     border: none;
     border-radius: 0;
@@ -1814,13 +1814,13 @@ table.activity-list-table tr:hover {
 .innermost-wrapper .addmore
 {
 }
-.addmore, .add-element{
+.addmore, .add-element, .simplified-add-more{
 	background:#eeeeee;
 	display: block;
 	padding-left:10px;
 }
 
-.addmore .button, .add-element .button
+.addmore .button, .add-element .button, .simplified-add-more .button
 {
 	background-color:transparent;
     border: none;
@@ -2598,7 +2598,7 @@ button#cd-cancel, button#cd-ok
 	-webkit-border-radius:4px;
 }
 
-.remove a.button, .addmore a.button, #block-activity-menu .content li a, .action-icon a, .default-info, .message, .info, .error, ul.error, .warning, .activity-state .override-link, .add-element a.button, #activity-state-info td.data-label
+.remove a.button, .addmore a.button, #block-activity-menu .content li a, .action-icon a, .default-info, .message, .info, .error, ul.error, .warning, .activity-state .override-link, .add-element a.button, #activity-state-info td.data-label, .simplified-remove-element a.button, .simplified-add-more .button, .simplified-add-more .button:hover
 {
 	background-image:url('images/inner-pages-icons.png');
 	background-repeat:no-repeat;
@@ -2610,22 +2610,22 @@ button#cd-cancel, button#cd-ok
 	background-color:transparent;
 }
 
-.remove .button
+.remove .button, .simplified-remove-element a.button
 {
 	background-position:0 5px;
 }
 
-.remove .button:hover
+.remove .button:hover, .simplified-remove-element a.button:hover
 {
 	background-position:0 -27px;
 }
 
-.addmore .button, .add-element .button
+.addmore .button, .add-element .button, .simplified-add-more .button
 {
 	background-position:0 -58px;
 }
 
-.addmore a.button:hover, .add-element .button:hover
+.addmore a.button:hover, .add-element .button:hover, .simplified-add-more a.button:hover
 {
 	background-color:transparent;
 	background-position:0 -90px;
@@ -2928,4 +2928,28 @@ td.data-value {
 
 .ele-id {
     display : none;
+}
+
+/*-- Simplified --*/
+#simplified-default-form select{
+	width: 304px;
+}
+
+#simplified-default-form .zend_form {
+	margin:10px 0;
+}
+
+#simplified-default-form .zend_form .form-wrapper {
+	background:#F4F4F4;
+	padding:10px 0;
+	padding-bottom:0;
+}
+
+#commitment-0-remove-label {
+	display:none;
+}
+
+.simplified-remove-element {
+	display:block;
+	margin-bottom:0;
 }
