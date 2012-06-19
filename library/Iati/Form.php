@@ -58,6 +58,8 @@ class Iati_Form extends Zend_Form
 	                    )
 	                );
                 }
+            } else {
+                $element->removeDecorator('label');
             }
         }
 

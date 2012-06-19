@@ -28,6 +28,10 @@ class App_Form extends Zend_Form
                 $this->addElementClass($element, 'error');
                 
             }
+            
+            if($element->getName() == 'add' || $element->getName() == 'remove'){
+                $element->removeDecorator('label');
+            }
         }
 
         $output = parent::render();
