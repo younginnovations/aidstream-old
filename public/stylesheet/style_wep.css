@@ -2945,6 +2945,10 @@ td.data-value {
 	padding-bottom:0;
 }
 
+#simplified-default-form .zend_form .form-wrapper + .form-wrapper {
+	border-top:1px dashed #cdcdcd;
+}
+
 #commitment-0-remove-label {
 	display:none;
 }
