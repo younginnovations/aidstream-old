@@ -165,6 +165,11 @@ class Simplified_DefaultController extends Zend_Controller_Action
             if($form->isValid($data)){
                 $modelSimplified = new Simplified_Model_Simplified();
                 $activityId = $modelSimplified->addActivity($data , $default);
+                
+                //Create Activity Hash
+                $activityHashModel = new Model_ActivityHash();
+                $updated = $activityHashModel->updateHash($activityId);
+                
                 $this->_helper->FlashMessenger->addMessage(array('message' => 'Activity created sucessfully'));
                 $this->_redirect('/simplified/default/view-activity/'.$activityId);
                 
@@ -340,22 +345,20 @@ class Simplified_DefaultController extends Zend_Controller_Action
                 $activityId = $formData['activity_id'];
                 $model = new Simplified_Model_Simplified();
                 $model->updateActivity($formData , $default);
-                /*
+                
                 $activityHashModel = new Model_ActivityHash();
-                $updated = $activityHashModel->updateHash($activity_id);
+                $updated = $activityHashModel->updateHash($activityId);
                 if(!$updated){
                     $type = 'info';
                     $message = 'No Changes Made';
                 } else {
                     //change state to editing
                     $db = new Model_ActivityStatus;
-                    $db->updateActivityStatus($activity_id,Iati_WEP_ActivityState::STATUS_EDITING);
+                    $db->updateActivityStatus($activityId,Iati_WEP_ActivityState::STATUS_EDITING);
                     $type = 'message';
-                    $message = "Activity updated sucessfully";
+                    $message = "Information updated sucessfully";
                 }
-                */
-                 $type = 'message';
-                    $message = "Activity updated sucessfully";
+                
                 $this->_helper->FlashMessenger->addMessage(array($type => $message));
                 $this->_redirect('simplified/default/view-activity/' . $activityId);
             }//end of inner if
