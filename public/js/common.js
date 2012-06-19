@@ -964,6 +964,15 @@ function initialize() {
         },
         
         ".simplified-remove-element" : {
+             "onmouseover" : function(evt) {
+                var node = getTarget(evt).parentNode.parentNode;
+                dojo.addClass(node , 'remove-highlight');
+            },
+            
+            "onmouseout" : function(evt) {
+                var node = getTarget(evt).parentNode.parentNode;
+                dojo.removeClass(node , 'remove-highlight');
+            },
             'onclick' : function (evt) {
                 
                 var msg = '<div><p>Are you sure you want to delete this element?</p>';
