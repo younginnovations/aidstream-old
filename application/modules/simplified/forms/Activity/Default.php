@@ -219,7 +219,10 @@ class Simplified_Form_Activity_Default extends Iati_Form
                 'required' => false,
             )
         );
-    }
+        
+        $this->addDecorators(array(
+            array('ViewScript', array('viewScript' => 'default/viewscripts/simplified.phtml'))
+        ));    }
     
     public function setData($data)
     {

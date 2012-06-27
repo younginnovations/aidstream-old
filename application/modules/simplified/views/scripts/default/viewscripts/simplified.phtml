@@ -1,0 +1,71 @@
+<?php
+$form = $this->element;
+?>
+<div>
+    <form id="<?php echo $this->element->getAttrib('id')?>" method="post">
+    <?php print $form->getElement('activity_id'); ?>
+    <?php print $form->getElement('identifier_id'); ?>
+    <?php print $form->getElement('title_id'); ?>
+    <?php print $form->getElement('description_id'); ?>
+    <?php print $form->getElement('funding_org_id'); ?>
+    <?php print $form->getElement('start_date_id'); ?>
+    <?php print $form->getElement('end_date_id'); ?>
+    <?php print $form->getElement('location_id'); ?>
+    <?php print $form->getElement('sector_id'); ?>
+    
+    <div class="form-elements-wrapper">
+        <div class="elements-group-title">
+            Project Information
+        </div>
+        <div class="elements-group">
+            <?php print $form->getElement('identifier')?>
+            <?php print $form->getElement('title')?>
+            <?php print $form->getElement('description')?>
+            <?php print $form->getElement('funding_org')?>
+            <?php print $form->getElement('start_date')?>
+            <?php print $form->getElement('end_date')?>
+            <?php print $form->getElement('location_name')?>
+            <?php print $form->getElement('sector')?>
+        </div>
+    </div>
+    
+    <div class="form-elements-wrapper">
+        <div class="elements-group-title">
+            Document Information
+        </div>
+        <div class="elements-group">
+            <?php print $form->getSubForm('document_wrapper'); ?>
+        </div>
+    </div>
+        
+    <div class="form-elements-wrapper">
+        <div class="elements-group-title">
+            Budget Information
+        </div>
+        <div class="elements-group">
+            <?php print $form->getSubForm('budget_wrapper'); ?>
+        </div>
+    </div>
+    
+    <div class="form-elements-wrapper">
+        <div class="elements-group-title">
+            Incomming Fund Information
+        </div>
+        <div class="elements-group">
+            <?php print $form->getSubForm('incomming_fund_wrapper'); ?>
+        </div>
+    </div>
+        
+    <div class="form-elements-wrapper">
+        <div class="elements-group-title">
+            Expenditure Information
+        </div>
+        <div class="elements-group">
+            <?php print $form->getSubForm('expenditure_wrapper'); ?>
+        </div>
+    </div>
+    
+    <?php print $form->getElement('save')?>
+    </form>
+</div>
+        

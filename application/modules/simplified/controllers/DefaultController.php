@@ -278,30 +278,29 @@ class Simplified_DefaultController extends Zend_Controller_Action
     
     public function viewActivityAction()
     {
-        if(!$activity_id = $this->getRequest()->getParam('activity_id'))
+        if(!$activityId = $this->getRequest()->getParam('activity_id'))
         {
             $this->_redirect('/wep/view-activities');
         }
 
         $identity = Zend_Auth::getInstance()->getIdentity();
         $model = new Model_Wep();
-        $activity_info = $model->listAll('iati_activity', 'id', $activity_id);
+        
+        $activity_info = $model->listAll('iati_activity', 'id', $activityId);
         $activity = $activity_info[0];
         $state = $activity['status_id'];
         $activity['@xml_lang'] = $model->fetchValueById('Language', $activity_info[0]['@xml_lang'], 'Code');
         $activity['@default_currency'] = $model->fetchValueById('Currency', $activity_info[0]['@default_currency'], 'Code');
 
-        $iati_identifier_row = $model->getRowById('iati_identifier', 'activity_id', $activity_id);
+        $iati_identifier_row = $model->getRowById('iati_identifier', 'activity_id', $activityId);
         $activity['activity_identifier'] = $iati_identifier_row['activity_identifier'];
-        $title_row = $model->getRowById('iati_title', 'activity_id', $activity_id);
-        $activity['iati_title'] = $title_row['text'];
 
         // Get form for status change
         $next_state = Iati_WEP_ActivityState::getNextStatus($state);
         if($next_state && Iati_WEP_ActivityState::hasPermissionForState($next_state)){
             $status_form = new Form_Wep_ActivityChangeState();
             $status_form->setAction($this->view->baseUrl()."/wep/update-status");
-            $status_form->ids->setValue($activity_id);
+            $status_form->ids->setValue($activityId);
             $status_form->status->setValue($next_state);
             $status_form->change_state->setLabel(Iati_WEP_ActivityState::getAction($next_state));
         } else {
@@ -309,14 +308,15 @@ class Simplified_DefaultController extends Zend_Controller_Action
         }
 
         $dbLayer = new Iati_WEP_DbLayer();
-        $activitys = $dbLayer->getRowSet('Activity', 'id', $activity_id, true, true);
-        $output = '';
-        $this->view->activity = $activitys;
-
+        $activityData = $dbLayer->getRowSet('Activity', 'id', $activityId, true, true);
+        $model = new Simplified_Model_Simplified();
+        $data = $model->getDataForForm($activityData);
+        
+        $this->view->activityData = $data;
         $this->view->status_form = $status_form;
         $this->view->state = $state;
         $this->view->activityInfo = $activity;
-        $this->view->activity_id = $activity_id;
+        $this->view->activity_id = $activityId;
     }
     
     public function viewIatiActivityAction()
