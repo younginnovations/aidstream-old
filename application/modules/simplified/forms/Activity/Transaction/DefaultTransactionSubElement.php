@@ -1,11 +1,11 @@
 <?php
 /**
  *
- * Default subform containing amount,start date and end date to be used by simplified form elements.
+ * Default transaction subform containing amount,start date and end date to be used by simplified form elements.
  * @author bhabishyat
  *
  */
-class Simplified_Form_Activity_DefaultSubElement extends Iati_Form
+class Simplified_Form_Activity_Transaction_DefaultTransactionSubElement extends Iati_Form
 {
     public function init(){
         $this->setAttrib('class' , 'simplified-sub-element')

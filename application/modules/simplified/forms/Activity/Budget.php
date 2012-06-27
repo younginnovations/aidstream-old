@@ -1,5 +1,5 @@
 <?php
-class Simplified_Form_Activity_Budget extends Simplified_Form_Activity_DefaultSubElement
+class Simplified_Form_Activity_Budget extends Iati_Form
 {
     protected $data;
     protected $count = 0;
@@ -7,20 +7,53 @@ class Simplified_Form_Activity_Budget extends Simplified_Form_Activity_DefaultSu
     public function init()
     {
         parent::init();
-        $this->getElement('amount')->setLabel('Budget Amount');
-        $this->getElement('start_date')->setLabel('Budget Start Date');
-        $this->getElement('end_date')->setLabel('Budget End Date');
-        $this->getElement('currency')->setLabel('Budget Currency');
+        $this->setAttrib('class' , 'simplified-sub-element')
+            ->setIsArray(true);
+            
+        $model = new Model_Wep();
+        $form = array();
         
-        $signedDate = new Zend_Form_Element_Text('signed_date');
-        $signedDate->setLabel('Contract Signed  Date')
+        $form['id'] = new Zend_Form_Element_Hidden('id');
+        $form['id']->setValue($this->data['id']);
+        
+        $form['start_id'] = new Zend_Form_Element_Hidden('start_id');
+        $form['start_id']->setValue($this->data['start_id']);
+        
+        $form['end_id'] = new Zend_Form_Element_Hidden('end_id');
+        $form['end_id']->setValue($this->data['end_id']);
+        
+        $form['value_id'] = new Zend_Form_Element_Hidden('value_id');
+        $form['value_id']->setValue($this->data['value_id']);
+        $this->addElements($form);
+
+        $form['amount'] = new Zend_Form_Element_Text('amount');
+        $form['amount']->setLabel('Amount')
+            ->setValue($this->data['amount'])
+            ->setAttrib('class', 'form-text');
+
+        $form['start_date'] = new Zend_Form_Element_Text('start_date');
+        $form['start_date']->setLabel('Start Date')
+            ->setValue($this->data['start_date'])
+            ->setAttrib('class', 'form-text datepicker');
+
+        $form['end_date'] = new Zend_Form_Element_Text('end_date');
+        $form['end_date']->setLabel('End Date')
+            ->setValue($this->data['end_date'])
+            ->setAttrib('class', 'form-text datepicker');
+            
+        $currency = $model->getCodeArray('Currency' , '' , 1 , true);
+        $form['currency'] = new Zend_Form_Element_Select('currency');
+        $form['currency']->setLabel('Currency')
+            ->addMultiOptions($currency)
+            ->setValue($this->data['currency'])
+            ->setAttrib('class', 'form-text');
+        
+        $form['signed_date'] = new Zend_Form_Element_Text('signed_date');
+        $form['signed_date']->setLabel('Contract Signed  Date')
             ->setValue($this->data['signed_date'])
             ->setAttrib('class', 'form-text datepicker');
-        $signedDate->addDecorators( array(
-                       array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
-                   )
-        );
-        $this->addElement($signedDate);
+
+        $this->addElements($form);
 
         $this->setElementsBelongTo("budget[{$this->count}]");
         // Add remove button

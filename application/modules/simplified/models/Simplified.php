@@ -64,28 +64,31 @@ class Simplified_Model_Simplified
             $model->insertRowsToTable('iati_activity_date' , $endDate);            
         }
         //Create Document
-        if($data['document_url']){
-            $docUrl['@url'] = $data['document_url'];
-            $docUrl['activity_id'] = $activityId;
-            $documentId = $model->insertRowsToTable('iati_document_link' , $docUrl);
-            
-            //Insert document link category
-            if($data['document_category_code']){
-                $docCat['@code'] = $data['document_category_code'];
-                $docCat['text'] = '';
-                $docCat['@xml_lang'] = $default['language']; 
-                $docCat['document_link_id'] = $documentId;
-                $model->insertRowsToTable('iati_document_link/category' , $docCat);
+        foreach($data['document'] as $document){
+            if($this->hasValue($document)){
+                if($document['url']){
+                    $docUrl['@url'] = $document['url'];
+                    $docUrl['activity_id'] = $activityId;
+                    $documentId = $model->insertRowsToTable('iati_document_link' , $docUrl);
+                    
+                    //Insert document link category
+                    if($document['category_code']){
+                        $docCat['@code'] = $document['category_code'];
+                        $docCat['text'] = '';
+                        $docCat['@xml_lang'] = $default['language']; 
+                        $docCat['document_link_id'] = $documentId;
+                        $model->insertRowsToTable('iati_document_link/category' , $docCat);
+                    }
+        
+                     //Insert document link title
+                    if($document['title']){
+                        $docTitle['text'] = $document['title'];
+                        $docTitle['@xml_lang'] = $default['language']; 
+                        $docTitle['document_link_id'] = $documentId;
+                        $model->insertRowsToTable('iati_document_link/title' , $docTitle);
+                    }          
+                }
             }
-
-             //Insert document link title
-            if($data['document_title']){
-                $docTitle['text'] = $data['document_title'];
-                $docTitle['@xml_lang'] = $default['language']; 
-                $docTitle['document_link_id'] = $documentId;
-                $model->insertRowsToTable('iati_document_link/title' , $docTitle);
-            }
-            
         }
         
         //Create Location
@@ -235,21 +238,27 @@ class Simplified_Model_Simplified
         
         // Get Document 
         $docObj = $activity->getElementsByType(Iati_Activity_Element::TYPE_DOCUMENT_LINK);
-        $data['document_id'] = $docObj[0]->getAttrib('id');
-        $data['document_url'] = $docObj[0]->getAttrib('@url');
-        // get document category
-        $docCat = $docObj[0]->getElementsByType('Category');
-        if($docCat){
-            $data['document_category_id'] = $docCat[0]->getAttrib('id');
-            $data['document_category_code'] = $docCat[0]->getAttrib('@code');
+        $docdata = $docObj[0]->getattribs();
+        $count = 0;
+        if($docdata['id']){
+            foreach($docObj as $document){
+                $data['document'][$count]['id'] = $document->getAttrib('id');
+                $data['document'][$count]['url'] = $document->getAttrib('@url');
+                // get document category
+                $docCat = $document->getElementsByType('Category');
+                if(!empty($docCat)){
+                    $data['document'][$count]['category_id'] = $docCat[0]->getAttrib('id');
+                    $data['document'][$count]['category_code'] = $docCat[0]->getAttrib('@code');
+                }
+                // get document title
+                $docTitle = $document->getElementsByType('Title');
+                if(!empty($docTitle)){
+                    $data['document'][$count]['title_id'] = $docTitle[0]->getAttrib('id');
+                    $data['document'][$count]['title'] = $docTitle[0]->getAttrib('text');
+                }
+                $count++;
+            }
         }
-        // get document title
-        $docTitle = $docObj[0]->getElementsByType('Title');
-        if($docTitle){
-            $data['document_title_id'] = $docTitle[0]->getAttrib('id');
-            $data['document_title'] = $docTitle[0]->getAttrib('text');
-        }
-        
         // Get location
         $locationObj = $activity->getElementsByType(Iati_Activity_Element::TYPE_LOCATION);
         $location = $locationObj[0]->getAttribs();
@@ -397,40 +406,52 @@ class Simplified_Model_Simplified
         }
 
         //Update Document
-        if($data['document_id']){
-            $docUrl['@url'] = $data['document_url'];
-            $docUrl['id'] = $data['document_id'];
-            $documentId = $model->updateRowsToTable('iati_document_link' , $docUrl);
-
-            //update document link category
-            $docCat['@code'] = $data['document_category_code'];
-            $docCat['@xml_lang'] = $default['language']; 
-            $docCat['id'] = $data['document_category_id'];
-            $model->updateRowsToTable('iati_document_link/category' , $docCat);
-
-             //update document link title
-            $docTitle['text'] = $data['document_title'];
-            $docTitle['@xml_lang'] = $default['language']; 
-            $docTitle['id'] = $data['document_title_id'];
-            $model->updateRowsToTable('iati_document_link/title' , $docTitle);
-            
-        } elseif($data['document_url']){
-            $docUrl['@url'] = $data['document_url'];
-            $docUrl['activity_id'] = $activityId;
-            $documentId = $model->insertRowsToTable('iati_document_link' , $docUrl);
-            
-            //Insert document link category
-            $docCat['@code'] = $data['document_category_code'];
-            $docCat['text'] = '';
-            $docCat['@xml_lang'] = $default['language']; 
-            $docCat['document_link_id'] = $documentId;
-            $model->insertRowsToTable('iati_document_link/category' , $docCat);
-
-             //Insert document link title
-            $docTitle['text'] = $data['document_title'];
-            $docTitle['@xml_lang'] = $default['language']; 
-            $docTitle['document_link_id'] = $documentId;
-            $model->insertRowsToTable('iati_document_link/title' , $docTitle);
+        foreach($data['document'] as $documentData){
+            if($documentData['id']){
+                $docUrl = array();
+                $docUrl['@url'] = $documentData['url'];
+                $docUrl['id'] = $documentData['id'];
+                $documentId = $model->updateRowsToTable('iati_document_link' , $docUrl);
+    
+                //update document link category
+                if($documentData['category_id']){
+                    $docCat = array();
+                    $docCat['@code'] = $documentData['category_code'];
+                    $docCat['@xml_lang'] = $default['language']; 
+                    $docCat['id'] = $documentData['category_id'];
+                    $model->updateRowsToTable('iati_document_link/category' , $docCat);
+                }
+    
+                //update document link title
+                if($documentData['title_id']){
+                    $docTitle = array();
+                    $docTitle['text'] = $documentData['title'];
+                    $docTitle['@xml_lang'] = $default['language']; 
+                    $docTitle['id'] = $documentData['title_id'];
+                    $model->updateRowsToTable('iati_document_link/title' , $docTitle);
+                }
+                
+            } elseif($this->hasValue($documentData)){
+                $docUrl = array();
+                $docUrl['@url'] = $documentData['url'];
+                $docUrl['activity_id'] = $activityId;
+                $documentId = $model->insertRowsToTable('iati_document_link' , $docUrl);
+                
+                //Insert document link category
+                $docCat = array();
+                $docCat['@code'] = $documentData['category_code'];
+                $docCat['text'] = '';
+                $docCat['@xml_lang'] = $default['language']; 
+                $docCat['document_link_id'] = $documentId;
+                $model->insertRowsToTable('iati_document_link/category' , $docCat);
+    
+                //Insert document link title
+                $docTitle = array();
+                $docTitle['text'] = $documentData['title'];
+                $docTitle['@xml_lang'] = $default['language']; 
+                $docTitle['document_link_id'] = $documentId;
+                $model->insertRowsToTable('iati_document_link/title' , $docTitle);
+            }
         }
         
         //Update Location

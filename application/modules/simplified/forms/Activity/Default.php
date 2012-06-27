@@ -69,32 +69,31 @@ class Simplified_Form_Activity_Default extends Iati_Form
             ->setValue($this->data['end_date'])
             ->setAttrib('class', 'form-text datepicker');
         
-        $form['document_id'] = new Zend_Form_Element_Hidden('document_id');
-        $form['document_id']->setValue($this->data['document_id']);
+        $this->addElements($form);
 
-        $form['document_url'] = new Zend_Form_Element_Text('document_url');
-        $form['document_url']->setLabel('Document Url')
-            ->setValue($this->data['document_url'])
-            ->setAttrib('class', 'form-text');
             
-        $form['document_category_id'] = new Zend_Form_Element_Hidden('document_category_id');
-        $form['document_category_id']->setValue($this->data['document_category_id']);
-
-        $categoryCodes = $model->getCodeArray('DocumentCategory' , '' , 1 , true);
-        $form['document_category_code'] = new Zend_Form_Element_Select('document_category_code');
-        $form['document_category_code']->setLabel('Document Category Code')
-            ->addMultiOptions($categoryCodes)
-            ->setValue($this->data['document_category_code'])
-            ->setAttrib('class', 'form-text');
+        // document
+        $documentForm = new App_Form();
+        $documentForm->removeDecorator('form');
+        if($this->data['document']){
+            foreach($this->data['document'] as $key=>$documentData){
+                $document = new Simplified_Form_Activity_Document(array('data' => $documentData , 'count' => $key));
+                $documentForm->addSubForm($document , 'document'.$key);
+                $document->removeDecorator('form');
+            }
             
-        $form['document_title_id'] = new Zend_Form_Element_Hidden('document_title_id');
-        $form['document_title_id']->setValue($this->data['document_title_id']);
-
-        $form['document_title'] = new Zend_Form_Element_Text('document_title');
-        $form['document_title']->setLabel('Document Title')
-            ->setValue($this->data['document_title'])
-            ->setAttrib('class', 'form-text');
-            
+        } else {
+            $document = new Simplified_Form_Activity_Document(array('data' => $documentData));
+            $documentForm->addSubForm($document , 'document');
+            $document->removeDecorator('form');
+        }
+        $add = new Iati_Form_Element_Note('add');
+        $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'simplified-add-more'));
+        $add->setValue("<a href='#' class='button' value='Document'> Add More</a>");
+        $documentForm->addElement($add);
+        $this->addSubForm($documentForm , 'document_wrapper');
+        
+        
         $form['location_id'] = new Zend_Form_Element_Hidden('location_id');
         $form['location_id']->setValue($this->data['location_id']);
 
@@ -129,6 +128,10 @@ class Simplified_Form_Activity_Default extends Iati_Form
         $budgetForm->addElement($add);
         $this->addSubForm($budgetForm , 'budget_wrapper');
         
+        /**
+         * @deprecated
+         */
+        /*
         // Commitment
         $commForm = new App_Form();
         $commForm->removeDecorator('form');
@@ -148,6 +151,7 @@ class Simplified_Form_Activity_Default extends Iati_Form
         $add->setValue("<a href='#' class='button' value='Transaction_Commitment'> Add More</a>");
         $commForm->addElement($add);
         $this->addSubForm($commForm , 'commitment_wrapper');
+        */
         
         // incommingFund
         $incommForm = new App_Form();
