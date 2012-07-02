@@ -46,7 +46,7 @@ class Simplified_Form_Activity_Budget extends Iati_Form
         $form['currency']->setLabel('Currency')
             ->addMultiOptions($currency)
             ->setValue($this->data['currency'])
-            ->setAttrib('class', 'form-text');
+            ->setAttrib('class', 'form-select');
         
         $form['signed_date'] = new Zend_Form_Element_Text('signed_date');
         $form['signed_date']->setLabel('Contract Signed  Date')

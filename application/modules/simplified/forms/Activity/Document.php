@@ -29,7 +29,7 @@ class Simplified_Form_Activity_Document extends Iati_Form
         $form['category_code']->setLabel('Category Code')
             ->addMultiOptions($categoryCodes)
             ->setValue($this->data['category_code'])
-            ->setAttrib('class', 'form-text');
+            ->setAttrib('class', 'form-select');
             
         $form['title_id'] = new Zend_Form_Element_Hidden('title_id');
         $form['title_id']->setValue($this->data['title_id']);

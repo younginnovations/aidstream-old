@@ -14,6 +14,7 @@
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style.css');
             $this->headLink()->appendStylesheet($this->baseUrl() . '/js/dojo-1.6.1/dijit/themes/claro/claro.css');
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style_wep.css');
+            $this->headLink()->appendStylesheet($this->baseUrl() . '/js/select2/select2.css');
 
             print $this->headLink();
     ?>
@@ -36,6 +37,9 @@
     <?
 	    $this->headScript()->appendFile($this->baseUrl() . '/js/dojo-release/nls/iati_en-us.js', $type = 'text/javascript');
 	    $this->headScript()->appendFile($this->baseUrl() . '/js/dojo-release/iati.js', $type = 'text/javascript');
+            $this->headScript()->prependFile($this->baseUrl() . '/js/jquery-min-1.7.js', $type = 'text/javascript'); 
+            $this->headScript()->appendFile($this->baseUrl() . '/js/select2/select2.js', $type = 'text/javascript');
+            $this->headScript()->appendFile($this->baseUrl() . '/js/select.js', $type = 'text/javascript');  
 	    $this->headScript()->appendFile($this->baseUrl() . '/js/common.js', $type = 'text/javascript');
 	    print $this->headScript();
     ?>

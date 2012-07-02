@@ -47,7 +47,7 @@ class Simplified_Form_Activity_Transaction_DefaultTransactionSubElement extends 
         $form['currency']->setLabel('Currency')
             ->addMultiOptions($currency)
             ->setValue($this->data['currency'])
-            ->setAttrib('class', 'form-text');
+            ->setAttrib('class', 'form-select');
 
         foreach($form as $item_name=>$element)
         {
