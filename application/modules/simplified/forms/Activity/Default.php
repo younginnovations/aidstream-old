@@ -194,7 +194,7 @@ class Simplified_Form_Activity_Default extends Iati_Form
         $this->addSubForm($expForm , 'expenditure_wrapper');
         
         
-        $sectorCodes = $model->getCodeArray('Sector' , '' , 1 , true);
+        $sectorCodes = $model->getCodeArray('Sector' , '' , 1);
         $sectors = $this->data['sector'];
         if($sectors){
             foreach($sectors as $sector){
@@ -203,7 +203,6 @@ class Simplified_Form_Activity_Default extends Iati_Form
         }
         $form['sector'] = new Zend_Form_Element_Select('sector');
         $form['sector']->setLabel('Sector')
-            ->setRequired(true)
             ->addMultiOptions($sectorCodes)
             ->setRegisterInArrayValidator(false)
             ->setValue($sectorData)

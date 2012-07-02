@@ -619,15 +619,45 @@ class Simplified_Model_Simplified
         }
 
         //Update Sector
-        if($this->hasValue($data['sector'])){
-            $model->deleteRow('iati_sector' , 'activity_id' , $activityId);
-            foreach($data['sector'] as $sectorData){
-                $sector['@code'] = $sectorData;
-                $sector['@vocabulary'] = 3; // @todo check
-                $sector['activity_id'] = $activityId;
-                $model->insertRowsToTable('iati_sector' , $sector);
+        
+        // First fetch all sectors for the activity.
+        $sectors = $model->listAll('iati_sector' , 'activity_id' , $activityId);
+        $sectorIds = array();
+        if(!empty($sectors)){
+            foreach($sectors as $sectorValues){
+                $sectorIds[$sectorValues['id']] = $sectorValues['@code'];
             }
-            //$model->updateRowsToTable('iati_sector' , $sector);
+        }
+        
+        if($this->hasValue($data['sector'])){          
+            // Check already present sectors in the input data. unset existing data from input data and remove ids.
+            foreach($data['sector'] as $key=>$sectorData){
+                if(!empty($sectorIds)){
+                    foreach($sectorIds as $id=>$code){
+                        if($code == $sectorData){
+                            unset($sectorIds[$id]);
+                            unset($data['sector'][$key]);
+                        } 
+                    }
+                }
+            }
+        }
+            
+        // Insert remaining input data to table if any
+        if(!empty($data['sector'])){
+            foreach($data['sector'] as $sectorData){
+                    $sector = array();
+                    $sector['@code'] = $sectorData;
+                    $sector['@vocabulary'] = 3; // @todo check
+                    $sector['activity_id'] = $activityId;
+                    $model->insertRowsToTable('iati_sector' , $sector);
+                }
+        }
+        
+        // Remove existing sector data for the activity that is not entered as input if any.
+        if(!empty($sectorIds)){
+            $secModel = new Simplified_Model_DbTable_Sector();
+            $secModel->deleteSectorsByIds(array_keys($sectorIds));
         }
     }
     
