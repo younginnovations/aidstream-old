@@ -31,7 +31,7 @@
         <tr><td>Actual End Date</td><td><?php echo $activityData['end_date'];?></td></tr>
         <tr><td>District/VDC Name</td><td><?php echo $activityData['location_name'];?></td></tr>
         <?php if($activityData['sector']): ?>
-        <tr><td>Sector</td><td><?php echo $model->fetchValueById('Sector' , $activityData['sector'], 'Name');?></td></tr>
+        <tr><td>Sector</td><td><?php foreach($activityData['sector'] as $sector) { echo $model->fetchValueById('Sector' , $sector, 'Name');echo "<br>";} ?></td></tr>
         <?php endif;?>
     </table>
 </div>

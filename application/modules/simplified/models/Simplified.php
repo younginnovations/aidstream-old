@@ -190,10 +190,14 @@ class Simplified_Model_Simplified
         }
         
         //Create Sector
-        $sector['@code'] = $data['sector'];
-        $sector['@vocabulary'] = 3; // @todo check
-        $sector['activity_id'] = $activityId;
-        $model->insertRowsToTable('iati_sector' , $sector);
+        if($this->hasValue($data['sector'])){
+            foreach($data['sector'] as $sectorData){
+                $sector['@code'] = $sectorData;
+                $sector['@vocabulary'] = 3; // @todo check
+                $sector['activity_id'] = $activityId;
+                $model->insertRowsToTable('iati_sector' , $sector);
+            }
+        }
         
         return $activityId;
         
@@ -343,9 +347,13 @@ class Simplified_Model_Simplified
         
         // Get sector
         $sectorObj = $activity->getElementsByType(Iati_Activity_Element::TYPE_SECTOR);
-        $sector = $sectorObj[0]->getAttribs();
-        $data['sector_id'] = $sector['id'];
-        $data['sector'] = $sector['@code'];
+        if(!empty($sectorObj)){
+            $count = 0;
+            foreach($sectorObj as $sector){
+                $data['sector'][$count]['sector'] = $sector->getAttrib('@code');
+                $count++;
+            }
+        }
         return $data;
     }
     
@@ -611,10 +619,15 @@ class Simplified_Model_Simplified
         }
 
         //Update Sector
-        if($data['sector_id']){
-            $sector['@code'] = $data['sector'];
-            $sector['id'] = $data['sector_id'];
-            $model->updateRowsToTable('iati_sector' , $sector);
+        if($this->hasValue($data['sector'])){
+            $model->deleteRow('iati_sector' , 'activity_id' , $activityId);
+            foreach($data['sector'] as $sectorData){
+                $sector['@code'] = $sectorData;
+                $sector['@vocabulary'] = 3; // @todo check
+                $sector['activity_id'] = $activityId;
+                $model->insertRowsToTable('iati_sector' , $sector);
+            }
+            //$model->updateRowsToTable('iati_sector' , $sector);
         }
     }
     

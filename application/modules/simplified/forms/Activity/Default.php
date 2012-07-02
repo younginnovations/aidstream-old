@@ -193,15 +193,21 @@ class Simplified_Form_Activity_Default extends Iati_Form
         $expForm->addElement($add);
         $this->addSubForm($expForm , 'expenditure_wrapper');
         
-        $form['sector_id'] = new Zend_Form_Element_Hidden('sector_id');
-        $form['sector_id']->setValue($this->data['sector_id']);
-        
         
         $sectorCodes = $model->getCodeArray('Sector' , '' , 1 , true);
+        $sectors = $this->data['sector'];
+        if($sectors){
+            foreach($sectors as $sector){
+                $sectorData[] = $sector['sector'];
+            }
+        }
         $form['sector'] = new Zend_Form_Element_Select('sector');
         $form['sector']->setLabel('Sector')
+            ->setRequired(true)
             ->addMultiOptions($sectorCodes)
-            ->setValue($this->data['sector'])
+            ->setRegisterInArrayValidator(false)
+            ->setValue($sectorData)
+            ->setAttrib('multiple', 'true')
             ->setAttrib('class', 'form-text');
         $this->addElements($form);
         
