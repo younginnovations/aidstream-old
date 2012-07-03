@@ -5,88 +5,104 @@
     $model = new Model_Wep();
 ?>
 
-<div class= "activity-state">
-    <div class="state-display">
-        <div class='label'>State: <span class="<?php print strtolower(str_replace(" ", "_", Iati_WEP_ActivityState::getStatus($this->state)))?>"><?php print(Iati_WEP_ActivityState::getStatus($this->state));?></div>
-    </div>
-    <div class='change-state'>
-        <?php print($change_status_form)?>
-    </div>
-    <span class = "edit-link"><?php echo $this->l('Edit this Activity', 'simplified/default/edit-activity/?activity_id='
-                                                            . $this->activityInfo['id'])?>
-    </span>
-</div>
+<div id="simplified_activity">
 
-<div class="activity-title"> <?php print ($activityData['title'])?$activityData['title']:'No Title' ?></div>
-<div class="activity-identifier"> <span class="activity-identifier-title">Project Identifer: </span><span class="activity-identifier-value"><?php print $this->activityInfo['activity_identifier']?></span></div>
-
-<div class="activity-elements-view-wrapper">
-    <div class="activity-elements-view-title">
-        Project information
-    </div>
-    <table class="activity-elements-view" id="project-info-view">
-        <tr><td>Description</td><td><?php echo $activityData['description'];?></td></tr>
-        <tr><td>Funding Organisation</td><td><?php echo $activityData['funding_org'];?></td></tr>
-        <tr><td>Actual Start Date</td><td><?php echo $activityData['start_date'];?></td></tr>
-        <tr><td>Actual End Date</td><td><?php echo $activityData['end_date'];?></td></tr>
-        <tr><td>District/VDC Name</td><td><?php echo $activityData['location_name'];?></td></tr>
-        <?php if($activityData['sector']): ?>
-        <tr><td>Sector</td><td><?php foreach($activityData['sector'] as $sector) { echo $model->fetchValueById('Sector' , $sector, 'Name');echo "<br>";} ?></td></tr>
-        <?php endif;?>
-    </table>
-</div>
-
-<div class="activity-elements-view-wrapper">
-    <div class="activity-elements-view-title">
-        Document information
-    </div>
-    <table class="activity-elements-view" id="document-info-view">
-        <tr class="table-header"><td>Url</td><td>Title</td><td>Category Code</td></tr>
-        <?php if ($activityData['document']): ?>
-        <?php foreach($activityData['document'] as $document):?>
-            <tr><td><?php echo $document['url'];?></td><td><?php echo $document['title'];?></td><td><?php if($document['category_code']) { echo $model->fetchValueById('DocumentCategory' , $document['category_code']); }?></td></tr>
-        <?php endforeach;?>
-        <?php endif; ?>
-    </table>
-</div>
-
-<div class="activity-elements-view-wrapper">
-    <div class="activity-elements-view-title">
-        Budget information
-    </div>
-    <table class="activity-elements-view" id="budget-info-view">
-        <tr class="table-header"><td>Amount</td><td>Start Date</td><td>End Date</td><td>Currency</td><td>Contract Signed Date</td></tr>
+    <div class= "activity-state">
+        <div class="state-display">
+            <div class='label'>State: <span class="<?php print strtolower(str_replace(" ", "_", Iati_WEP_ActivityState::getStatus($this->state)))?>"><?php print(Iati_WEP_ActivityState::getStatus($this->state));?></div>
+        </div>
+        <div class='change-state'>
+            <?php print($change_status_form)?>
+        </div>
         
-        <?php foreach($activityData['budget'] as $budget):?>
-            <tr><td><?php echo $budget['amount'];?></td><td><?php echo $budget['start_date'];?></td><td><?php echo $budget['end_date'];?></td><td><?php if($budget['currency']) { echo $model->fetchValueById('Currency' , $budget['currency']); }?></td><td><?php echo $budget['signed_date'];?></td></tr>
-        <?php endforeach;?>
-    </table>
-</div>
-
-<div class="activity-elements-view-wrapper">
-    <div class="activity-elements-view-title">
-        Incomming Fund information
     </div>
-    <table class="activity-elements-view" id="incomming-fund-info-view">
-        <tr class="table-header"><td>Amount</td><td>Date</td><td>Currency</td></tr>
-        <?php if($activityData['incommingFund']): ?>
-        <?php foreach($activityData['incommingFund'] as $incommingFund):?>
-            <tr><td><?php echo $incommingFund['amount'];?></td><td><?php echo $incommingFund['start_date'];?></td><td><?php if($incommingFund['currency']) { echo $model->fetchValueById('Currency' , $incommingFund['currency']); }?></td></tr>
-        <?php endforeach;?>
-        <?php endif;?>
-    </table>
-</div>
 
-<div class="activity-elements-view-wrapper">
-    <div class="activity-elements-view-title">
-        Expenditure Fund information
+    <div class="title-edit-wrapper">
+        <div class = "edit-link"><?php echo $this->l('Edit this Activity', 'simplified/default/edit-activity/?activity_id='
+                                                                    . $this->activityInfo['id'])?>
+            </div>
+        <div class="activity-title"> <?php print ($activityData['title'])?$activityData['title']:'No Title' ?></div>
+
+        <div class="activity-identifier"> <span class="activity-identifier-title">Project Identifer: </span><span class="activity-identifier-value"><?php print $this->activityInfo['activity_identifier']?></span></div>
+        <div class="clear"></div>
     </div>
-    <table class="activity-elements-view" id="expenditure-info-view">
-        <tr class="table-header"><td>Amount</td><td>Date</td><td>Currency</td></tr>
-        <?php if ($activityData['expenditure']): ?>
-        <?php foreach($activityData['expenditure'] as $expenditure):?>
-            <tr><td><?php echo $expenditure['amount'];?></td><td><?php echo $expenditure['start_date'];?></td><td><?php if($expenditure['currency']) { echo $model->fetchValueById('Currency' , $expenditure['currency']); }?></td></tr>
-        <?php endforeach;?>
-        <?php endif; ?>
-    </table>
+
+    <div class="activity-elements-view-wrapper">
+        <div class="activity-elements-view-title">
+            Project information
+        </div>
+        <table class="activity-elements-view" id="project-info-view">
+            <tr class="activity_view_first"><td class="activity_view_label">Description</td><td><?php echo $activityData['description'];?></td></tr>
+            <tr><td class="activity_view_label">Funding Organisation</td><td><?php echo $activityData['funding_org'];?></td></tr>
+            <tr><td class="activity_view_label">Actual Start Date</td><td><?php echo $activityData['start_date'];?></td></tr>
+            <tr><td class="activity_view_label">Actual End Date</td><td><?php echo $activityData['end_date'];?></td></tr>
+            <tr><td class="activity_view_label">District/VDC Name</td><td><?php echo $activityData['location_name'];?></td></tr>
+            <?php if($activityData['sector']): ?>
+            <tr><td class="activity_view_label">Sector</td><td><?php foreach($activityData['sector'] as $sector) { echo $model->fetchValueById('Sector' , $sector, 'Name');echo "<br>";} ?></td></tr>
+            <?php endif;?>
+        </table>
+    </div>
+
+    <div class="activity-elements-view-wrapper">
+        <div class="activity-elements-view-title">
+            Document information
+        </div>
+        <table class="activity-elements-view" id="document-info-view">
+            <thead>
+                <tr class="table-header"><th>Url</th><th>Title</th><th>Category Code</th></tr>
+            </thead>
+            <?php if ($activityData['document']): ?>
+            <?php foreach($activityData['document'] as $document):?>
+                <tr><td><?php echo $document['url'];?></td><td><?php echo $document['title'];?></td><td><?php if($document['category_code']) { echo $model->fetchValueById('DocumentCategory' , $document['category_code']); }?></td></tr>
+            <?php endforeach;?>
+            <?php endif; ?>
+        </table>
+    </div>
+
+    <div class="activity-elements-view-wrapper">
+        <div class="activity-elements-view-title">
+            Budget information
+        </div>
+        <table class="activity-elements-view" id="budget-info-view">
+            <thead>
+                <tr class="table-header"><th>Amount</th><th>Start Date</th><th>End Date</th><th>Currency</th><th>Contract Signed Date</th></tr>
+            </thead>
+            
+            <?php foreach($activityData['budget'] as $budget):?>
+                <tr><td><?php echo $budget['amount'];?></td><td><?php echo $budget['start_date'];?></td><td><?php echo $budget['end_date'];?></td><td><?php if($budget['currency']) { echo $model->fetchValueById('Currency' , $budget['currency']); }?></td><td><?php echo $budget['signed_date'];?></td></tr>
+            <?php endforeach;?>
+        </table>
+    </div>
+
+    <div class="activity-elements-view-wrapper">
+        <div class="activity-elements-view-title">
+            Incomming Fund information
+        </div>
+        <table class="activity-elements-view" id="incomming-fund-info-view">
+            <thead>
+                <tr class="table-header"><th>Amount</th><th>Date</th><th>Currency</th></tr>
+            </thead>
+            <?php if($activityData['incommingFund']): ?>
+            <?php foreach($activityData['incommingFund'] as $incommingFund):?>
+                <tr><td><?php echo $incommingFund['amount'];?></td><td><?php echo $incommingFund['start_date'];?></td><td><?php if($incommingFund['currency']) { echo $model->fetchValueById('Currency' , $incommingFund['currency']); }?></td></tr>
+            <?php endforeach;?>
+            <?php endif;?>
+        </table>
+    </div>
+
+    <div class="activity-elements-view-wrapper">
+        <div class="activity-elements-view-title">
+            Expenditure Fund information
+        </div>
+        <table class="activity-elements-view" id="expenditure-info-view">
+            <thead>
+                <tr class="table-header"><th>Amount</th><th>Date</th><th>Currency</th></tr>
+            </thead>
+            <?php if ($activityData['expenditure']): ?>
+            <?php foreach($activityData['expenditure'] as $expenditure):?>
+                <tr><td><?php echo $expenditure['amount'];?></td><td><?php echo $expenditure['start_date'];?></td><td><?php if($expenditure['currency']) { echo $model->fetchValueById('Currency' , $expenditure['currency']); }?></td></tr>
+            <?php endforeach;?>
+            <?php endif; ?>
+        </table>
+    </div>
 </div>
