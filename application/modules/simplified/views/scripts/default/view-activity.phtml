@@ -53,7 +53,7 @@
             </thead>
             <?php if ($activityData['document']): ?>
             <?php foreach($activityData['document'] as $document):?>
-                <tr><td><?php echo $document['url'];?></td><td><?php echo $document['title'];?></td><td><?php if($document['category_code']) { echo $model->fetchValueById('DocumentCategory' , $document['category_code']); }?></td></tr>
+                <tr><td><?php echo ($document['url'])?$document['url']:'-';?></td><td><?php echo ($document['title'])?$document['title']:'-';?></td><td><?php if($document['category_code']) { echo $model->fetchValueById('DocumentCategory' , $document['category_code']); } else { echo "-";}?></td></tr>
             <?php endforeach;?>
             <?php endif; ?>
         </table>
@@ -67,10 +67,11 @@
             <thead>
                 <tr class="table-header"><th>Amount</th><th>Start Date</th><th>End Date</th><th>Currency</th><th>Contract Signed Date</th></tr>
             </thead>
-            
+            <?php if ($activityData['budget']): ?>
             <?php foreach($activityData['budget'] as $budget):?>
-                <tr><td><?php echo $budget['amount'];?></td><td><?php echo $budget['start_date'];?></td><td><?php echo $budget['end_date'];?></td><td><?php if($budget['currency']) { echo $model->fetchValueById('Currency' , $budget['currency']); }?></td><td><?php echo $budget['signed_date'];?></td></tr>
+                <tr><td><?php echo ($budget['amount'])?$budget['amount']:"-";?></td><td><?php echo ($budget['start_date'])?$budget['start_date']:'-';?></td><td><?php echo ($budget['end_date'])?$budget['end_date']:'-';?></td><td><?php if($budget['currency']) { echo $model->fetchValueById('Currency' , $budget['currency']); } else {echo "-";} ?></td><td><?php echo ($budget['signed_date'])?$budget['signed_date']:'-';?></td></tr>
             <?php endforeach;?>
+            <?php endif; ?>
         </table>
     </div>
 
@@ -84,7 +85,7 @@
             </thead>
             <?php if($activityData['incommingFund']): ?>
             <?php foreach($activityData['incommingFund'] as $incommingFund):?>
-                <tr><td><?php echo $incommingFund['amount'];?></td><td><?php echo $incommingFund['start_date'];?></td><td><?php if($incommingFund['currency']) { echo $model->fetchValueById('Currency' , $incommingFund['currency']); }?></td></tr>
+                <tr><td><?php echo ($incommingFund['amount'])?$incommingFund['amount']:"-";?></td><td><?php echo ($incommingFund['start_date'])?$incommingFund['start_date']:"-";?></td><td><?php if($incommingFund['currency']) { echo $model->fetchValueById('Currency' , $incommingFund['currency']); } else {echo "-";}?></td></tr>
             <?php endforeach;?>
             <?php endif;?>
         </table>
@@ -100,7 +101,7 @@
             </thead>
             <?php if ($activityData['expenditure']): ?>
             <?php foreach($activityData['expenditure'] as $expenditure):?>
-                <tr><td><?php echo $expenditure['amount'];?></td><td><?php echo $expenditure['start_date'];?></td><td><?php if($expenditure['currency']) { echo $model->fetchValueById('Currency' , $expenditure['currency']); }?></td></tr>
+                <tr><td><?php echo ($expenditure['amount'])?$expenditure['amount']:'-';?></td><td><?php echo ($expenditure['start_date'])?$expenditure['start_date']:'-';?></td><td><?php if($expenditure['currency']) { echo $model->fetchValueById('Currency' , $expenditure['currency']); } else { echo "-"; }?></td></tr>
             <?php endforeach;?>
             <?php endif; ?>
         </table>
