@@ -16,12 +16,12 @@ class Model_ReportingOrg extends Zend_Db_Table_Abstract
         $reportingOrg['@xml_lang'] = $defaults['reporting_org_lang'];
         $reportingOrg['text'] = $defaults['reporting_org'];
         
-        $this->update($reportingOrg , array('id'=>$id));
+        $this->update($reportingOrg , array('id = ?'=>$id));
     }
     
     public function getActivityIdById($id)
     {
-        $row = $this->fetchRow(array('id'=>$id));
+        $row = $this->fetchRow(array('id = ?'=>$id));
         return $row->activity_id;
     }
 }
