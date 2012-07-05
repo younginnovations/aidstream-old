@@ -21,7 +21,7 @@ class Iati_WEP_Form_Transaction_Value extends Iati_Form
             ->setAttribs(array('rows'=>'2' , 'cols'=> '20'))
             ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help transaction-value-text' , 'placement' => 'PREPEND'))));
 
-        $currency = $element->getOptions('currency');
+        $currency = $model->getCodeArray('Currency', null, '1' , true);
         $form['currency'] = new Zend_Form_Element_Select('currency');
         $form['currency']->setLabel('Currency')
             ->setAttrib('class' , 'form-select')

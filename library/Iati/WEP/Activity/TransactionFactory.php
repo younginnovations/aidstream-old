@@ -41,11 +41,13 @@ class Iati_WEP_Activity_TransactionFactory
             $data = $this->getFields('Transaction', $flatArray);
             $transaction->setAttributes($data);
         }
+        /*
         else{
             $initialValue = $this->getInitialValues();
             $initialValue['@ref'] = '';
             $transaction->setAttributes( $initialValue );
         }
+        */
         $registryTree->addNode ($transaction, $this->globalObject);
         
         $this->createObjects ( 'TransactionType', $transaction, $flatArray);
@@ -79,7 +81,7 @@ class Iati_WEP_Activity_TransactionFactory
             $registryTree->addNode($object, $parent);
         }
         else{
-            $object->setAttributes( $this->getInitialValues() );
+            //$object->setAttributes( $this->getInitialValues() );
             $registryTree->addNode ($object, $parent);
         }
         return $registryTree;
