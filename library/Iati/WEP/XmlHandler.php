@@ -149,7 +149,7 @@ class Iati_WEP_XmlHandler
         if(!is_object($parent)){
             $element_xml = new SimpleXMLElement("<$type>".$element['attributes']['text']."</$type>");
         } else {
-            $element_xml = $parent->addChild($type,$element['attributes']['text']);
+            $element_xml = $parent->addChild($type,preg_replace('/&(?!\w+;)/' , '&amp;' , $element['attributes']['text']));
         }
         foreach($element['attributes'] as $attrib=>$value)
         {
