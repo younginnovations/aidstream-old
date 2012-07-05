@@ -1832,6 +1832,10 @@ table.activity-list-table tr:hover {
     text-decoration: none;
 }
 
+.simplified-add-more {
+	border: 1px solid #e1e1e1;
+}
+
 .addmore .button span,
 .remove .button span{
 	font-size: 16px;
@@ -2954,7 +2958,7 @@ td.data-value {
 }
 
 .simplified-remove-element {
-	display:block;
+	display:inline;
 	margin-bottom:0;
 }
 
@@ -2999,7 +3003,7 @@ td.data-value {
 	color: #414141;
 }
 
-#simplified_activity .activity-elements-view-wrapper {
+#simplified_activity .activity-elements-view-wrapper, #simplified-default-form .form-elements-wrapper {
 	background: #f2f2f2;
 	border: 1px solid #cacaca;
 	-webkit-box-shadow: inset 0px 0px 0px 1px #ffffff;
@@ -3008,7 +3012,7 @@ td.data-value {
 	padding:20px;
 }
 
-.activity-elements-view-title {
+#simplified_activity .activity-elements-view-title, #simplified-default-form .elements-group-title {
 	font-size: 21px;
 	line-height: 29px;
 	margin-bottom: 10px;
@@ -3037,3 +3041,7 @@ td.activity_view_label {
 	border-top:none;
 }
 
+/*-- Simplified form --*/
+#simplified-default-form .form-elements-wrapper {
+
+}
