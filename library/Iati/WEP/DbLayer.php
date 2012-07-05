@@ -48,8 +48,16 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 				$attribs = $object->getAttribs ();
 				$attribResult = $this->checkIsEmptyAttribs ( $attribs );
 				//if there is not attributes in the object but contains childElements then ProcessIt (insert/update)
-				if ($attribResult == false && $object->getElements ())
+				if ($attribResult == false && $object->getElements ()){
 					$attribResult = true;
+				} else if($attribResult && !$object->getElements()) {
+                                    // In case only id attribute is present delete the element as it is not required.
+                                    if($this->hasIdAttribOnly($attribs)){
+                                        $type = preg_replace('/Iati_Activity_Element_/' , '' , get_class($object));
+                                        $this->delete($type , 'id' , $attribs['id']);
+                                        $attribResult = false;
+                                    }
+				}
 				if ($attribResult) {
 					if ($parentId) {
 						$parentField = $this->conditionFormatter ( $parentType );
@@ -74,6 +82,7 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 						}
 					}
 				}
+                                
 			}
 		} catch ( Exception $e){
 		return false;
@@ -417,9 +426,27 @@ class Iati_WEP_DbLayer extends Zend_Db_Table_Abstract {
 		if ($tableName) {
 			$this->_name = $tableName;
 			$where = $this->getAdapter()->quoteInto($fieldName . "= ?", $value);
-			//						var_dump("Deleting From table ".$tableName. " where ".$fieldName." is equal to ".$value);
+			//						var_dump("Deleting From table ".$tableName. " where ".$fieldName." is equal to ".$value);exit;
 			parent::delete($where);
 		}
 	}
+        
+        public function hasIdAttribOnly($attribs)
+        {
+            if($attribs['activity_id']) unset($attribs['activity_id']);
+            foreach($attribs as $key=>$value){
+                if($value){
+                    if($key == 'id'){
+                        $idAttrib = true;
+                    } else {
+                        $otherAttrib = true;
+                    }
+                }
+            }
+            if($idAttrib && !$otherAttrib){
+                return true;
+            }
+            return false;
+        }
 
 }

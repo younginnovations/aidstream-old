@@ -133,6 +133,20 @@ class Iati_WEP_Activity_Elements_ElementBase
 
     public function validate($data)
     {
+        // Check if the only data available is id, if yes then return without validation.
+        $temp = $data;
+        unset($temp['id']);
+        $empty = true;
+        foreach($temp as $value){
+            if($value){
+                $empty = false;
+                break;
+            }
+        }
+        if($empty){
+            return;
+        }
+        
         foreach($data as $key => $eachData){
 
             if(empty($this->validators[$key])){ continue; }
