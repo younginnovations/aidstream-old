@@ -144,6 +144,7 @@ class Iati_WEP_Activity_Elements_ElementBase
             }
         }
         if($empty){
+            if(!$this->required)
             return;
         }
         
