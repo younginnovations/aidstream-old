@@ -40,10 +40,18 @@ class Simplified_Model_Simplified
         $model->insertRowsToTable('iati_description' , $description);
         
         //Create funding org
-        $funding['@role'] = 1;
-        $funding['text'] = $data['funding_org'];
-        $funding['activity_id'] = $activityId;
-        $model->insertRowsToTable('iati_participating_org' , $funding);
+        // Funding org data is received as a comma seperated value
+        if($data['funding_org']){
+            $fundingOrgs = explode(',' , $data['funding_org']);
+            foreach($fundingOrgs as $fundingOrg){
+                $funding = array();
+                $funding['@role'] = 1;
+                $funding['text'] = $fundingOrg;
+                $funding['@xml_lang'] = $default['language'];
+                $funding['activity_id'] = $activityId;
+                $model->insertRowsToTable('iati_participating_org' , $funding);
+            }
+        }
         
         //Create Start date
         if($data['start_date']){
@@ -223,9 +231,13 @@ class Simplified_Model_Simplified
         
         // Get participating org
         $participatingOrgObj = $activity->getElementsByType(Iati_Activity_Element::TYPE_PARTICIPATING_ORG);
-        $participatingOrgValue = $participatingOrgObj[0]->getAttribs();
-        $data['funding_org_id'] = $participatingOrgValue['id'];
-        $data['funding_org'] = $participatingOrgValue['text'];
+        if(!empty($participatingOrgObj)){
+            $count = 0;
+            foreach($participatingOrgObj as $participatingOrg){
+                $data['funding_org'][$count] = $participatingOrg->getAttrib('text');
+                $count++;
+            }
+        }
         
         // Get Activity date (start data and end date)
         $activityDateObj = $activity->getElementsByType(Iati_Activity_Element::TYPE_ACTIVITY_DATE);
@@ -390,12 +402,46 @@ class Simplified_Model_Simplified
         }
 
         //Update funding org
-        if($data['funding_org_id']){
-            $funding['text'] = $data['funding_org'];
-            $funding['id'] = $data['funding_org_id'];
-            $model->updateRowsToTable('iati_participating_org' , $funding);
+        
+        // First fetch all funding orgs for the activity.
+        $fundingOrgModel = new Simplified_Model_DbTable_FundingOrg();
+        $fundingOrganisations = $fundingOrgModel->getFundingOrgsByActivityId($activityId);
+        $fundingOrganisationCodes = array();
+        if(!empty($fundingOrganisations)){
+            foreach($fundingOrganisations as $fundingOrganisationValues){
+                $fundingOrganisationCodes[$fundingOrganisationValues['id']] = $fundingOrganisationValues['text'];
+            }
+        }
+        if($data['funding_org']){
+            $fundingOrgs = explode(',' , $data['funding_org']);
+            // Check already present Funding Orgs in the input data. unset existing data from input data and remove ids.
+            foreach($fundingOrgs as $key=>$fundingOrgData){
+                if(!empty($fundingOrganisationCodes)){
+                    foreach($fundingOrganisationCodes as $id=>$code){
+                        if($code == $fundingOrgData){
+                            unset($fundingOrganisationCodes[$id]);
+                            unset($fundingOrgs[$key]);
+                        } 
+                    }
+                }
+            }           
+        }
+
+        if($fundingOrgs){
+            foreach($fundingOrgs as $fundingOrg){
+                $funding = array();
+                $funding['@role'] = 1;
+                $funding['text'] = $fundingOrg;
+                $funding['@xml_lang'] = $default['language'];
+                $funding['activity_id'] = $activityId;
+                $model->insertRowsToTable('iati_participating_org' , $funding);
+            }
         }
         
+        if(!empty($fundingOrganisationCodes)){
+            $fundingOrgModel->deleteFundingOrgsByIds(array_keys($fundingOrganisationCodes));
+        }
+
         //Update Start date
         if($data['start_date_id']){
             $startDate['@iso_date'] = $data['start_date'];

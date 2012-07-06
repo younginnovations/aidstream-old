@@ -41,16 +41,24 @@ class Simplified_Form_Activity_Default extends Iati_Form
             ->setAttrib('COLS', '40')
             ->setAttrib('ROWS', '4')
             ->setAttrib('class', 'form-text');
-            
-        $form['funding_org_id'] = new Zend_Form_Element_Hidden('funding_org_id');
-        $form['funding_org_id']->setValue($this->data['funding_org_id']);
-
+          
+        $fundingOrgData = $this->data['funding_org'];
+        $fundingOrgs = '';
+        if($fundingOrgData){
+            $fundingOrgs = implode(',' , $fundingOrgData);
+        }
+        $form['funding_org'] = new Zend_Form_Element_Hidden('funding_org');
+        $form['funding_org']->setValue($fundingOrgs)
+            ->setLabel('Funding Organisation')
+            ->setAttrib('style' , 'width:300px');
+        
+        /*
         $form['funding_org'] = new Zend_Form_Element_Text('funding_org');
         $form['funding_org']->setLabel('Funding Organisation')
             ->setRequired()
-            ->setValue($this->data['funding_org'])
+            ->setValue(array('test'))
             ->setAttrib('class', 'form-text');
-            
+        */   
         $form['start_date_id'] = new Zend_Form_Element_Hidden('start_date_id');
         $form['start_date_id']->setValue($this->data['start_date_id']);
 

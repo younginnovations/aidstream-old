@@ -33,7 +33,7 @@
         </div>
         <table class="activity-elements-view" id="project-info-view">
             <tr class="activity_view_first"><td class="activity_view_label">Description</td><td><?php echo $activityData['description'];?></td></tr>
-            <tr><td class="activity_view_label">Funding Organisation</td><td><?php echo $activityData['funding_org'];?></td></tr>
+            <tr><td class="activity_view_label">Funding Organisation</td><td><?php if($activityData['funding_org']) { foreach($activityData['funding_org'] as $fundingOrg) { echo $fundingOrg."<br>";}}?></td></tr>
             <tr><td class="activity_view_label">Actual Start Date</td><td><?php echo $activityData['start_date'];?></td></tr>
             <tr><td class="activity_view_label">Actual End Date</td><td><?php echo $activityData['end_date'];?></td></tr>
             <tr><td class="activity_view_label">District/VDC Name</td><td><?php echo $activityData['location_name'];?></td></tr>
