@@ -384,6 +384,16 @@ class Simplified_Model_Simplified
        // var_dump($data);exit;
         $model = new Model_Wep();
         $activityId = $data['activity_id'];
+        
+        //Update Reporting Organisation
+        $repOrg = $model->getRowsByFields('iati_reporting_org' , 'activity_id' , $activityId);
+        $reportingOrg = array();
+        $reportingOrg['id'] = $repOrg[0]['id'];
+        $reportingOrg['@ref'] = $default['reporting_org_ref'];
+        $reportingOrg['text'] = $default['reporting_org'];
+        $reportingOrg['@type'] = $default['reporting_org_type'];
+        $reportingOrg['@xml_lang'] = $default['reporting_org_lang'];
+        $model->updateRowsToTable('iati_reporting_org' , $reportingOrg);
 
         //Update Activity Identifier
         if($data['identifier_id']){
