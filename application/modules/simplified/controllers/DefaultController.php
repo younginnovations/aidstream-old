@@ -1,6 +1,5 @@
 <?php
 /**
- * @todo some class description required
  * @author YIPL Dev team
  *
  */

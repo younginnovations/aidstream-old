@@ -17,4 +17,11 @@ class Simplified_Model_DbTable_FundingOrg extends Zend_Db_Table_Abstract
         $where = $this->getAdapter()->quoteInto('id IN (?)', $ids);
         $this->delete($where);
     }
+    
+    public function getAllFundingOrgs()
+    {
+        $select = $this->select()
+            ->from($this , array('id' , 'text'));
+        return $this->fetchAll($select)->toArray();
+    }
 }
