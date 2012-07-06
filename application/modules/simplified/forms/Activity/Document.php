@@ -45,7 +45,7 @@ class Simplified_Form_Activity_Document extends Iati_Form
         // Add remove button
         $remove = new Iati_Form_Element_Note('remove');
         $remove->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'simplified-remove-element'));
-        $remove->setValue("<a href='#' class='button' value='Budget'> Remove element</a>");
+        $remove->setValue("<a href='#' class='button' value='DocumentLink'> Remove element</a>");
         $this->addElement($remove);
     }
     
