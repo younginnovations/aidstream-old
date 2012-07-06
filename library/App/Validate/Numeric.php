@@ -13,7 +13,7 @@ class App_Validate_Numeric extends Zend_Validate_Abstract
         $this->_setValue($value);
  
         if (!is_numeric($value)) {
-            $this->_error();
+            $this->_error(self::NUMERIC);
             return false;
         }
  
