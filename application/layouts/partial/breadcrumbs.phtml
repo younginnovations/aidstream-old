@@ -201,6 +201,42 @@ switch($identity->role){
                 ),
             )
         );
+        $container->addPage(
+            array(
+                'label'         => 'Dashboard',
+                'module'        => 'simplified',
+                'controller'    => 'default',
+                'action'        => 'dashboard',
+                'pages'         =>  array(
+                    array(
+                        'label' => 'List Activities',
+                        'module'     => 'simplified',
+                        'controller' => 'default',
+                        'action'     => 'view-activities',
+                        'pages' => array(
+                            array(
+                                'label' => 'View Activity',
+                                'module'     => 'simplified',
+                                'controller' => 'default',
+                                'action'     => 'view-activity',
+                            ),
+                            array(
+                                'label' => 'Add Activity',
+                                'module'     => 'simplified',
+                                'controller' => 'default',
+                                'action'     => 'add-activity',
+                            ),
+                            array(
+                                'label' => 'Edit Activity',
+                                'module'     => 'simplified',
+                                'controller' => 'default',
+                                'action'     => 'edit-activity',
+                            ),
+                        )
+                    )
+                )
+            )
+        );
         break;
     case 'user':
         $container->addPage(
