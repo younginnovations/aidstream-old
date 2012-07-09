@@ -3045,3 +3045,7 @@ td.activity_view_label {
 #simplified-default-form .form-elements-wrapper {
 
 }
+
+.table-width {
+	width:200px;
+}

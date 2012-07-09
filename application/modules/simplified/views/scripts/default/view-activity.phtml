@@ -53,7 +53,7 @@
             </thead>
             <?php if ($activityData['document']): ?>
             <?php foreach($activityData['document'] as $document):?>
-                <tr><td><?php echo ($document['url'])?$document['url']:'-';?></td><td><?php echo ($document['title'])?$document['title']:'-';?></td><td><?php if($document['category_code']) { echo $model->fetchValueById('DocumentCategory' , $document['category_code']); } else { echo "-";}?></td></tr>
+                <tr><td class="table-width"><?php echo ($document['url'])?$document['url']:'-';?></td><td><?php echo ($document['title'])?$document['title']:'-';?></td><td><?php if($document['category_code']) { echo $model->fetchValueById('DocumentCategory' , $document['category_code']); } else { echo "-";}?></td></tr>
             <?php endforeach;?>
             <?php endif; ?>
         </table>
