@@ -5,7 +5,7 @@
  * @author bhabishyat
  *
  */
-class Simplified_Form_Activity_Transaction_DefaultTransactionSubElement extends Iati_Form
+class Simplified_Form_Activity_Transaction_DefaultTransactionSubElement extends Iati_SimplifiedForm
 {
     public function init(){
         $this->setAttrib('class' , 'simplified-sub-element')
@@ -29,12 +29,14 @@ class Simplified_Form_Activity_Transaction_DefaultTransactionSubElement extends 
 
         $form['amount'] = new Zend_Form_Element_Text('amount');
         $form['amount']->setLabel('Amount')
+            ->setRequired()
             ->setValue($this->data['amount'])
             ->addValidator(new App_Validate_Numeric())
             ->setAttrib('class', 'form-text');
 
         $form['start_date'] = new Zend_Form_Element_Text('start_date');
-        $form['start_date']->setLabel('Start Date')
+        $form['start_date']->setLabel('Value Date')
+            ->setRequired()
             ->setValue($this->data['start_date'])
             ->setAttrib('class', 'form-text datepicker');
 

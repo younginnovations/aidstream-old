@@ -1,5 +1,5 @@
 <?php
-class Simplified_Form_Activity_Default extends Iati_Form
+class Simplified_Form_Activity_Default extends Iati_SimplifiedForm
 {
     protected $data;
     public function init(){

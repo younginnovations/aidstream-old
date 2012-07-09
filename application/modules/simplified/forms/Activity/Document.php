@@ -1,5 +1,5 @@
 <?php
-class Simplified_Form_Activity_Document extends Iati_Form
+class Simplified_Form_Activity_Document extends Iati_SimplifiedForm
 {
     protected $data;
     protected $count = 0;
@@ -18,6 +18,7 @@ class Simplified_Form_Activity_Document extends Iati_Form
 
         $form['url'] = new Zend_Form_Element_Text('url');
         $form['url']->setLabel('Url')
+            ->setRequired()
             ->setValue($this->data['url'])
             ->setAttrib('class', 'form-text');
             
@@ -27,6 +28,7 @@ class Simplified_Form_Activity_Document extends Iati_Form
         $categoryCodes = $model->getCodeArray('DocumentCategory' , '' , 1 , true);
         $form['category_code'] = new Zend_Form_Element_Select('category_code');
         $form['category_code']->setLabel('Category Code')
+            ->setRequired()
             ->addMultiOptions($categoryCodes)
             ->setValue($this->data['category_code'])
             ->setAttrib('class', 'form-select');
@@ -36,6 +38,7 @@ class Simplified_Form_Activity_Document extends Iati_Form
 
         $form['title'] = new Zend_Form_Element_Text('title');
         $form['title']->setLabel('Title')
+            ->setRequired()
             ->setValue($this->data['title'])
             ->setAttrib('class', 'form-text');
             

@@ -1,5 +1,5 @@
 <?php
-class Simplified_Form_Activity_Budget extends Iati_Form
+class Simplified_Form_Activity_Budget extends Iati_SimplifiedForm
 {
     protected $data;
     protected $count = 0;
@@ -28,17 +28,20 @@ class Simplified_Form_Activity_Budget extends Iati_Form
 
         $form['amount'] = new Zend_Form_Element_Text('amount');
         $form['amount']->setLabel('Amount')
+            ->setRequired()
             ->setValue($this->data['amount'])
             ->addValidator(new App_Validate_Numeric())
             ->setAttrib('class', 'form-text');
 
         $form['start_date'] = new Zend_Form_Element_Text('start_date');
         $form['start_date']->setLabel('Start Date')
+            ->setRequired()
             ->setValue($this->data['start_date'])
             ->setAttrib('class', 'form-text datepicker');
 
         $form['end_date'] = new Zend_Form_Element_Text('end_date');
         $form['end_date']->setLabel('End Date')
+            ->setRequired()
             ->setValue($this->data['end_date'])
             ->setAttrib('class', 'form-text datepicker');
             
@@ -51,6 +54,7 @@ class Simplified_Form_Activity_Budget extends Iati_Form
         
         $form['signed_date'] = new Zend_Form_Element_Text('signed_date');
         $form['signed_date']->setLabel('Contract Signed  Date')
+            ->setRequired()
             ->setValue($this->data['signed_date'])
             ->setAttrib('class', 'form-text datepicker');
 

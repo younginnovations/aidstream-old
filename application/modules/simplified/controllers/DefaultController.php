@@ -161,7 +161,7 @@ class Simplified_DefaultController extends Zend_Controller_Action
         $data = $this->_request->getPost();
         if($data){
             $form = new Simplified_Form_Activity_Default(array('data' => $data));
-            if($form->isValid($data)){
+            if($form->validate($data)){
                 $modelSimplified = new Simplified_Model_Simplified();
                 $activityId = $modelSimplified->addActivity($data , $default);
                 
@@ -381,7 +381,7 @@ class Simplified_DefaultController extends Zend_Controller_Action
         if ($this->getRequest()->isPost()) {
             $formData = $this->getRequest()->getPost();
             $form = new Simplified_Form_Activity_Default(array('data' => $formData));
-            if (!$form->isValid($formData)) {
+            if (!$form->validate($formData)) {
                 $this->_helper->FlashMessenger->addMessage(array('error' => 'You have some error in form data'));
             } else {
                 $activityId = $formData['activity_id'];
