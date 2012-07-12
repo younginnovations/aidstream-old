@@ -27,6 +27,12 @@ dojo.connect = function (source, event, object, method, once) {
 }
 */
 
+dojo.behavior._apply = dojo.behavior.apply;
+dojo.behavior.apply = function (){
+    loadSelect2();
+    dojo.behavior._apply();    
+}
+
 var checkUncheck = function (evt, checklist, checkstate) {
     dojo.forEach(checklist,
         function(el, idx, ary) {
