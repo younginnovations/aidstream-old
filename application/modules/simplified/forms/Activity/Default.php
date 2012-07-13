@@ -44,7 +44,8 @@ class Simplified_Form_Activity_Default extends Iati_SimplifiedForm
           
         $fundingOrgData = $this->data['funding_org'];
         $fundingOrgs = '';
-        if($fundingOrgData){
+
+        if($fundingOrgData && is_array($fundingOrgData)){
             $fundingOrgs = implode(',' , $fundingOrgData);
         }
         $form['funding_org'] = new Zend_Form_Element_Hidden('funding_org');
