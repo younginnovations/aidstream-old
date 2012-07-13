@@ -41,7 +41,41 @@ class Simplified_DefaultController extends Zend_Controller_Action
 
     public function dashboardAction()
     {
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $account_id = $identity->account_id;
+        $model = new Model_Wep();
+        $activityModel = new Model_Activity();
 
+        $activities_id = $model->listAll('iati_activities', 'account_id', $account_id);
+        if (empty($activities_id)) {
+            $data['@version'] = '01';
+            $data['@generated_datetime'] = date('Y-m-d H:i:s');
+            $data['user_id'] = $identity->user_id;
+            $data['account_id'] = $identity->account_id;
+            $data['unqid'] = uniqid();
+            $activities_id = $model->insertRowsToTable('iati_activities', $data);
+        } else {
+            $activities_id = $activities_id[0]['id'];
+        }
+        $activityCollModel = new Model_ActivityCollection();
+        $activities = $activityCollModel->getActivitiesByAccount($account_id);
+        $activitiesAttribs = $activityCollModel->getActivityAttribs($activities);
+
+
+        $regInfoModel = new Model_RegistryInfo();
+        $regInfo = $regInfoModel->getOrgRegistryInfo($account_id);
+
+        $regPublishModel = new Model_RegistryPublishedData();
+        $publishedFiles = $regPublishModel->getPublishedInfoByOrg($account_id);
+
+        $this->view->published_data = $published_data;
+        $this->view->activity_count = sizeof($activities);
+        $this->view->state_count = $activityModel->getCountByState($activities);
+        $this->view->last_updated_datetime = $activityModel->getLastUpdatedDatetime($activities);
+        $this->view->published_activity_count = $regPublishModel->getActivityCount($publishedFiles);
+        $this->view->activity_elements_info = $activitiesAttribs;
+        $this->view->registry_url = Zend_Registry::get('config')->registry."../publisher/".$regInfo->publisher_id;
+        $this->view->activities_id = $activities_id;
     }
 
     public function editDefaultsAction()
