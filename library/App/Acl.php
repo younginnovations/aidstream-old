@@ -102,6 +102,7 @@ class App_Acl extends Zend_Acl
         $this->allow('superadmin', 'default:admin');
         $this->allow('superadmin', 'default:admin' , 'register');
         $this->allow('superadmin', 'default:admin', 'change-organisation-status');
+        $this->allow('superadmin', 'default:admin', 'set-simplified');
     }
 
     public function isAllowed($role = null, $resource = null, $privilege = null)

@@ -592,7 +592,7 @@ class AdminController extends Zend_Controller_Action
 
                         $this->_redirect('admin/list-users');
 
-                    } catch (Exception $e) {
+                    } catch (Elistxception $e) {
                         print 'Error Occured';
                         print $e->getMessage();
                     }//end of try catch
@@ -662,6 +662,23 @@ class AdminController extends Zend_Controller_Action
         $orgModel->updateRowsToTable('account' , $data);
 
         $this->_helper->FlashMessenger->addMessage(array('message' => 'Footer display changed sucessfully.'));
+        $this->_redirect('admin/list-organisation');
+    }
+    
+    public function setSimplifiedAction()
+    {
+        $data['id'] = $this->_getParam('org_id');
+        if(!$data['id']){
+            $this->_redirect('admin/list-organisation');
+        }
+        $isSimplified = $this->_getParam('simplified');
+        $data['simplified'] =  $isSimplified;
+
+        $orgModel = new Model_Wep();
+        $orgModel->updateRowsToTable('account' , $data);
+        
+        $outMessage = ($data['simplified'])?"Organisation type changed to Simplified": "Organisatin type changed to Default";
+        $this->_helper->FlashMessenger->addMessage(array('message' => $outMessage));
         $this->_redirect('admin/list-organisation');
     }
 
