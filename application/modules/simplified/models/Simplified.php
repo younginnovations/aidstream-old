@@ -593,6 +593,7 @@ class Simplified_Model_Simplified
         
         //Update Transaction
         // Commitment
+        /* Removed
         foreach($data['commitment_wrapper']['commitment'] as $commitment){
             if($commitment['value_id']){
                  //update transaction value
@@ -620,6 +621,7 @@ class Simplified_Model_Simplified
                 $model->insertRowsToTable('iati_transaction/value' , $tranValue);
             }
         }
+        */
  
         //Update Incomming Fund
         foreach($data['incomming_fund_wrapper']['incommingFund'] as $incommingFund){
@@ -724,9 +726,11 @@ class Simplified_Model_Simplified
     
     public function hasValue($data)
     {
-        foreach($data as $key=>$value){
-            if($key == 'remove' || $key == 'add') continue;
-            if($value) return true;
+        if($data){
+            foreach($data as $key=>$value){
+                if($key == 'remove' || $key == 'add') continue;
+                if($value) return true;
+            }
         }
         return false;
     }
