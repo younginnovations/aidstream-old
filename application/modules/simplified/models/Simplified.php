@@ -728,7 +728,7 @@ class Simplified_Model_Simplified
     {
         if($data){
             foreach($data as $key=>$value){
-                if($key == 'remove' || $key == 'add') continue;
+                if($key && ($key == 'remove' || $key == 'add')) continue;
                 if($value) return true;
             }
         }

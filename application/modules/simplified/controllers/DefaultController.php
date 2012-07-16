@@ -197,8 +197,10 @@ class Simplified_DefaultController extends Zend_Controller_Action
             $form = new Simplified_Form_Activity_Default(array('data' => $data));
             if($form->validate($data)){
                 $fundingOrgData = $data['funding_org'];
+                $sector = $data['sector'];
                 $data = $form->getValues($data);
                 $data['funding_org'] = $fundingOrgData;
+                $data['sector'] = $sector;
                 
                 $modelSimplified = new Simplified_Model_Simplified();
                 $activityId = $modelSimplified->addActivity($data , $default);
@@ -425,8 +427,11 @@ class Simplified_DefaultController extends Zend_Controller_Action
                 $this->_helper->FlashMessenger->addMessage(array('error' => 'You have some error in form data'));
             } else {
                 $fundingOrgData = $formData['funding_org'];
+                $sector = $formData['sector'];
                 $formData = $form->getValues($formData);
                 $formData['funding_org'] = $fundingOrgData;
+                $formData['sector'] = $sector;
+
                 $activityId = $formData['activity_id'];
                 $model = new Simplified_Model_Simplified();
                 $model->updateActivity($formData , $default);
