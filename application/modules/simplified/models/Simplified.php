@@ -72,31 +72,29 @@ class Simplified_Model_Simplified
             $model->insertRowsToTable('iati_activity_date' , $endDate);            
         }
         //Create Document
-        if($data['document']){
-            foreach($data['document'] as $document){
-                if($this->hasValue($document)){
-                    if($document['url']){
-                        $docUrl['@url'] = $document['url'];
-                        $docUrl['activity_id'] = $activityId;
-                        $documentId = $model->insertRowsToTable('iati_document_link' , $docUrl);
-                        
-                        //Insert document link category
-                        if($document['category_code']){
-                            $docCat['@code'] = $document['category_code'];
-                            $docCat['text'] = '';
-                            $docCat['@xml_lang'] = $default['language']; 
-                            $docCat['document_link_id'] = $documentId;
-                            $model->insertRowsToTable('iati_document_link/category' , $docCat);
-                        }
-            
-                         //Insert document link title
-                        if($document['title']){
-                            $docTitle['text'] = $document['title'];
-                            $docTitle['@xml_lang'] = $default['language']; 
-                            $docTitle['document_link_id'] = $documentId;
-                            $model->insertRowsToTable('iati_document_link/title' , $docTitle);
-                        }          
+        foreach($data['document_wrapper']['document'] as $document){
+            if($this->hasValue($document)){
+                if($document['url']){
+                    $docUrl['@url'] = $document['url'];
+                    $docUrl['activity_id'] = $activityId;
+                    $documentId = $model->insertRowsToTable('iati_document_link' , $docUrl);
+                    
+                    //Insert document link category
+                    if($document['category_code']){
+                        $docCat['@code'] = $document['category_code'];
+                        $docCat['text'] = '';
+                        $docCat['@xml_lang'] = $default['language']; 
+                        $docCat['document_link_id'] = $documentId;
+                        $model->insertRowsToTable('iati_document_link/category' , $docCat);
                     }
+        
+                     //Insert document link title
+                    if($document['title']){
+                        $docTitle['text'] = $document['title'];
+                        $docTitle['@xml_lang'] = $default['language']; 
+                        $docTitle['document_link_id'] = $documentId;
+                        $model->insertRowsToTable('iati_document_link/title' , $docTitle);
+                    }          
                 }
             }
         }
@@ -114,96 +112,92 @@ class Simplified_Model_Simplified
         }
         
         //Create Budget
-        if($data['budget']){
-            foreach($data['budget'] as $budgetData){
-                if($this->hasValue($budgetData)){
-                    $budget['@type'] = '';
-                    $budget['activity_id'] = $activityId;
-                    $budgetId = $model->insertRowsToTable('iati_budget' , $budget);
-                    
-                    //Insert Budget value
-                    if($budgetData['amount']){
-                        $budValue['text'] = $budgetData['amount'];
-                        $budValue['@value_date'] = $budgetData['signed_date'];
-                        $budValue['@currency'] = $budgetData['currency'];
-                        $budValue['budget_id'] = $budgetId;
-                        $model->insertRowsToTable('iati_budget/value' , $budValue);
-                    }
-                    
-                    //Insert Budget Start
-                    if($budgetData['start_date']){
-                        $budStart['@iso_date'] = $budgetData['start_date'];
-                        $budStart['budget_id'] = $budgetId;
-                        $model->insertRowsToTable('iati_budget/period_start' , $budStart);
-                    }
-                    
-                    //Insert Budget End
-                    if($budgetData['end_date']){
-                        $budEnd['@iso_date'] = $budgetData['end_date'];
-                        $budEnd['budget_id'] = $budgetId;
-                        $model->insertRowsToTable('iati_budget/period_end' , $budEnd);
-                    }
+        foreach($data['budget_wrapper']['budget'] as $budgetData){
+            if($this->hasValue($budgetData)){
+                $budget['@type'] = '';
+                $budget['activity_id'] = $activityId;
+                $budgetId = $model->insertRowsToTable('iati_budget' , $budget);
+                
+                //Insert Budget value
+                if($budgetData['amount']){
+                    $budValue['text'] = $budgetData['amount'];
+                    $budValue['@value_date'] = $budgetData['signed_date'];
+                    $budValue['@currency'] = $budgetData['currency'];
+                    $budValue['budget_id'] = $budgetId;
+                    $model->insertRowsToTable('iati_budget/value' , $budValue);
+                }
+                
+                //Insert Budget Start
+                if($budgetData['start_date']){
+                    $budStart['@iso_date'] = $budgetData['start_date'];
+                    $budStart['budget_id'] = $budgetId;
+                    $model->insertRowsToTable('iati_budget/period_start' , $budStart);
+                }
+                
+                //Insert Budget End
+                if($budgetData['end_date']){
+                    $budEnd['@iso_date'] = $budgetData['end_date'];
+                    $budEnd['budget_id'] = $budgetId;
+                    $model->insertRowsToTable('iati_budget/period_end' , $budEnd);
                 }
             }
         }
         
         //Create Transaction
         // Commitment
-        if($data['commitment']){
-            foreach($data['commitment'] as $commitment){
-                if($this->hasValue($commitment)){
-                    $tran['activity_id'] = $activityId;
-                    $transactionId = $model->insertRowsToTable('iati_transaction' , $tran);
-                    //Insert transaction type
-                    $tranType['@code'] = 1;//@todo check
-                    $tranType['transaction_id'] = $transactionId;
-                    $model->insertRowsToTable('iati_transaction/transaction_type' , $tranType);
-                     //Insert transaction value
-                    $tranValue['@currency'] = $commitment['currency'];
-                    $tranValue['text'] = $commitment['amount'];
-                    $tranValue['@value_date'] = $commitment['start_date'];
-                    $tranValue['transaction_id'] = $transactionId;
-                    $model->insertRowsToTable('iati_transaction/value' , $tranValue);
-                }
+        /* removed.
+        foreach($data['commitment_wrapper']['commitment'] as $commitment){
+            if($this->hasValue($commitment)){
+                $tran['activity_id'] = $activityId;
+                $transactionId = $model->insertRowsToTable('iati_transaction' , $tran);
+                //Insert transaction type
+                $tranType['@code'] = 1;//@todo check
+                $tranType['transaction_id'] = $transactionId;
+                $model->insertRowsToTable('iati_transaction/transaction_type' , $tranType);
+                 //Insert transaction value
+                $tranValue['@currency'] = $commitment['currency'];
+                $tranValue['text'] = $commitment['amount'];
+                $tranValue['@value_date'] = $commitment['start_date'];
+                $tranValue['transaction_id'] = $transactionId;
+                $model->insertRowsToTable('iati_transaction/value' , $tranValue);
             }
         }
+        */
+
         //Incomming Fund
-        if($data['incommingFund']){
-            foreach($data['incommingFund'] as $incommingFund){
-                if($this->hasValue($incommingFund)){
-                    $tran['activity_id'] = $activityId;
-                    $transactionId = $model->insertRowsToTable('iati_transaction' , $tran);
-                    //Insert transaction type
-                    $tranType['@code'] = 5;//@todo check
-                    $tranType['transaction_id'] = $transactionId;
-                    $model->insertRowsToTable('iati_transaction/transaction_type' , $tranType);
-                    //Insert transaction value
-                    $tranValue['@currency'] = $incommingFund['currency'];
-                    $tranValue['text'] = $incommingFund['amount'];
-                    $tranValue['@value_date'] = $incommingFund['start_date'];
-                    $tranValue['transaction_id'] = $transactionId;
-                    $model->insertRowsToTable('iati_transaction/value' , $tranValue);
-                }
+        foreach($data['incomming_fund_wrapper']['incommingFund'] as $incommingFund){
+            if($this->hasValue($incommingFund)){
+                $tran['activity_id'] = $activityId;
+                $transactionId = $model->insertRowsToTable('iati_transaction' , $tran);
+                //Insert transaction type
+                $tranType['@code'] = 5;//@todo check
+                $tranType['transaction_id'] = $transactionId;
+                $model->insertRowsToTable('iati_transaction/transaction_type' , $tranType);
+                //Insert transaction value
+                $tranValue['@currency'] = $incommingFund['currency'];
+                $tranValue['text'] = $incommingFund['amount'];
+                $tranValue['@value_date'] = $incommingFund['start_date'];
+                $tranValue['transaction_id'] = $transactionId;
+                $model->insertRowsToTable('iati_transaction/value' , $tranValue);
             }
         }
+        
         // Expenditure
-        if($data['expenditure']){
-            foreach($data['expenditure'] as $expenditure){
-                if($this->hasValue($expenditure)){
-                    $tran['activity_id'] = $activityId;
-                    $transactionId = $model->insertRowsToTable('iati_transaction' , $tran);
-                    //Insert transaction type
-                    $tranType['@code'] = 4;//@todo check
-                    $tranType['transaction_id'] = $transactionId;
-                    $model->insertRowsToTable('iati_transaction/transaction_type' , $tranType);
-                    //Insert transaction value
-                    $tranValue['@currency'] = $expenditure['currency'];
-                    $tranValue['text'] = $expenditure['amount'];
-                    $tranValue['@value_date'] = $expenditure['start_date'];
-                    $tranValue['transaction_id'] = $transactionId;
-                    $model->insertRowsToTable('iati_transaction/value' , $tranValue);
-    
-                }
+        foreach($data['expenditure_wrapper']['expenditure'] as $expenditure){
+            if($this->hasValue($expenditure)){
+                $tran['activity_id'] = $activityId;
+                $transactionId = $model->insertRowsToTable('iati_transaction' , $tran);
+                //Insert transaction type
+                $tranType['@code'] = 4;//@todo check
+                $tranType['transaction_id'] = $transactionId;
+                $model->insertRowsToTable('iati_transaction/transaction_type' , $tranType);
+                //Insert transaction value
+                $tranValue['@currency'] = $expenditure['currency'];
+                $tranValue['text'] = $expenditure['amount'];
+                $tranValue['@value_date'] = $expenditure['start_date'];
+                $tranValue['transaction_id'] = $transactionId;
+                $model->insertRowsToTable('iati_transaction/value' , $tranValue);
+
             }
         }
         
@@ -480,55 +474,54 @@ class Simplified_Model_Simplified
         }
 
         //Update Document
-        if($data['document']){
-            foreach($data['document'] as $documentData){
-                if($documentData['id']){
-                    $docUrl = array();
-                    $docUrl['@url'] = $documentData['url'];
-                    $docUrl['id'] = $documentData['id'];
-                    $documentId = $model->updateRowsToTable('iati_document_link' , $docUrl);
-        
-                    //update document link category
-                    if($documentData['category_id']){
-                        $docCat = array();
-                        $docCat['@code'] = $documentData['category_code'];
-                        $docCat['@xml_lang'] = $default['language']; 
-                        $docCat['id'] = $documentData['category_id'];
-                        $model->updateRowsToTable('iati_document_link/category' , $docCat);
-                    }
-        
-                    //update document link title
-                    if($documentData['title_id']){
-                        $docTitle = array();
-                        $docTitle['text'] = $documentData['title'];
-                        $docTitle['@xml_lang'] = $default['language']; 
-                        $docTitle['id'] = $documentData['title_id'];
-                        $model->updateRowsToTable('iati_document_link/title' , $docTitle);
-                    }
-                    
-                } elseif($this->hasValue($documentData)){
-                    $docUrl = array();
-                    $docUrl['@url'] = $documentData['url'];
-                    $docUrl['activity_id'] = $activityId;
-                    $documentId = $model->insertRowsToTable('iati_document_link' , $docUrl);
-                    
-                    //Insert document link category
+        foreach($data['document_wrapper']['document'] as $documentData){
+            if($documentData['id']){
+                $docUrl = array();
+                $docUrl['@url'] = $documentData['url'];
+                $docUrl['id'] = $documentData['id'];
+                $documentId = $model->updateRowsToTable('iati_document_link' , $docUrl);
+    
+                //update document link category
+                if($documentData['category_id']){
                     $docCat = array();
                     $docCat['@code'] = $documentData['category_code'];
-                    $docCat['text'] = '';
                     $docCat['@xml_lang'] = $default['language']; 
-                    $docCat['document_link_id'] = $documentId;
-                    $model->insertRowsToTable('iati_document_link/category' , $docCat);
-        
-                    //Insert document link title
+                    $docCat['id'] = $documentData['category_id'];
+                    $model->updateRowsToTable('iati_document_link/category' , $docCat);
+                }
+    
+                //update document link title
+                if($documentData['title_id']){
                     $docTitle = array();
                     $docTitle['text'] = $documentData['title'];
                     $docTitle['@xml_lang'] = $default['language']; 
-                    $docTitle['document_link_id'] = $documentId;
-                    $model->insertRowsToTable('iati_document_link/title' , $docTitle);
+                    $docTitle['id'] = $documentData['title_id'];
+                    $model->updateRowsToTable('iati_document_link/title' , $docTitle);
                 }
+                
+            } elseif($this->hasValue($documentData)){
+                $docUrl = array();
+                $docUrl['@url'] = $documentData['url'];
+                $docUrl['activity_id'] = $activityId;
+                $documentId = $model->insertRowsToTable('iati_document_link' , $docUrl);
+                
+                //Insert document link category
+                $docCat = array();
+                $docCat['@code'] = $documentData['category_code'];
+                $docCat['text'] = '';
+                $docCat['@xml_lang'] = $default['language']; 
+                $docCat['document_link_id'] = $documentId;
+                $model->insertRowsToTable('iati_document_link/category' , $docCat);
+    
+                //Insert document link title
+                $docTitle = array();
+                $docTitle['text'] = $documentData['title'];
+                $docTitle['@xml_lang'] = $default['language']; 
+                $docTitle['document_link_id'] = $documentId;
+                $model->insertRowsToTable('iati_document_link/title' , $docTitle);
             }
-        }    
+        }
+
         //Update Location
         if($data['location_id']){
             /*
@@ -543,154 +536,149 @@ class Simplified_Model_Simplified
         }
 
         //Update Budget
-        if($data['budget']){
-            foreach($data['budget'] as $budgetData){
-                if($budgetData['id']){
-                    //update Budget value
-                    if($budgetData['value_id']){
-                        $budValue = array();
-                        $budValue['text'] = $budgetData['amount'];
-                        $budValue['@value_date'] = $budgetData['signed_date'];
-                        $budValue['@currency'] = $budgetData['currency'];
-                        $budValue['id'] = $budgetData['value_id'];
-                        $model->updateRowsToTable('iati_budget/value' , $budValue);
-                    }
-                    
-                    //update Budget Start
-                    if($budgetData['start_id']){
-                        $budStart = array();
-                        $budStart['@iso_date'] = $budgetData['start_date'];
-                        $budStart['id'] = $budgetData['start_id'];
-                        $model->updateRowsToTable('iati_budget/period_start' , $budStart);
-                    }
-                    
-                    //update Budget End
-                    if($budgetData['end_id']){
-                        $budEnd = array();
-                        $budEnd['@iso_date'] = $budgetData['end_date'];
-                        $budEnd['id'] = $budgetData['end_id'];
-                        $model->updateRowsToTable('iati_budget/period_end' , $budEnd);
-                    }
-                } elseif($this->hasValue($budgetData)) {
-                    $budget = array();
-                    $budget['@type'] = '';
-                    $budget['activity_id'] = $activityId;
-                    $budgetId = $model->insertRowsToTable('iati_budget' , $budget);
-    
-                    //Insert Budget value
+        foreach($data['budget_wrapper']['budget'] as $budgetData){
+            if($budgetData['id']){
+                //update Budget value
+                if($budgetData['value_id']){
                     $budValue = array();
                     $budValue['text'] = $budgetData['amount'];
                     $budValue['@value_date'] = $budgetData['signed_date'];
                     $budValue['@currency'] = $budgetData['currency'];
-                    $budValue['budget_id'] = $budgetId;
-                    $model->insertRowsToTable('iati_budget/value' , $budValue);
-                    
-                    //Insert Budget Start
+                    $budValue['id'] = $budgetData['value_id'];
+                    $model->updateRowsToTable('iati_budget/value' , $budValue);
+                }
+                
+                //update Budget Start
+                if($budgetData['start_id']){
                     $budStart = array();
                     $budStart['@iso_date'] = $budgetData['start_date'];
-                    $budStart['budget_id'] = $budgetId;
-                    $model->insertRowsToTable('iati_budget/period_start' , $budStart);
-                    
-                    //Insert Budget End
+                    $budStart['id'] = $budgetData['start_id'];
+                    $model->updateRowsToTable('iati_budget/period_start' , $budStart);
+                }
+                
+                //update Budget End
+                if($budgetData['end_id']){
                     $budEnd = array();
                     $budEnd['@iso_date'] = $budgetData['end_date'];
-                    $budEnd['budget_id'] = $budgetId;
-                    $model->insertRowsToTable('iati_budget/period_end' , $budEnd);
+                    $budEnd['id'] = $budgetData['end_id'];
+                    $model->updateRowsToTable('iati_budget/period_end' , $budEnd);
                 }
+            } elseif($this->hasValue($budgetData)) {
+                $budget = array();
+                $budget['@type'] = '';
+                $budget['activity_id'] = $activityId;
+                $budgetId = $model->insertRowsToTable('iati_budget' , $budget);
+
+                //Insert Budget value
+                $budValue = array();
+                $budValue['text'] = $budgetData['amount'];
+                $budValue['@value_date'] = $budgetData['signed_date'];
+                $budValue['@currency'] = $budgetData['currency'];
+                $budValue['budget_id'] = $budgetId;
+                $model->insertRowsToTable('iati_budget/value' , $budValue);
+                
+                //Insert Budget Start
+                $budStart = array();
+                $budStart['@iso_date'] = $budgetData['start_date'];
+                $budStart['budget_id'] = $budgetId;
+                $model->insertRowsToTable('iati_budget/period_start' , $budStart);
+                
+                //Insert Budget End
+                $budEnd = array();
+                $budEnd['@iso_date'] = $budgetData['end_date'];
+                $budEnd['budget_id'] = $budgetId;
+                $model->insertRowsToTable('iati_budget/period_end' , $budEnd);
             }
         }
         
         //Update Transaction
         // Commitment
-        if($data['commitment']){
-            foreach($data['commitment'] as $commitment){
-                if($commitment['value_id']){
-                     //update transaction value
-                    $tranValue = array();
-                    $tranValue['@currency'] = $commitment['currency'];
-                    $tranValue['text'] = $commitment['amount'];
-                    $tranValue['@value_date'] = $commitment['start_date'];
-                    $tranValue['id'] = $commitment['value_id'];
-                    $model->updateRowsToTable('iati_transaction/value' , $tranValue);
-                } elseif($this->hasValue($commitment)) {
-                    $tran = array();
-                    $tran['activity_id'] = $activityId;
-                    $transactionId = $model->insertRowsToTable('iati_transaction' , $tran);
-                    //insert transaction type
-                    $tranType = array();
-                    $tranType['@code'] = 1;//@todo check
-                    $tranType['transaction_id'] = $transactionId;
-                    $model->insertRowsToTable('iati_transaction/transaction_type' , $tranType);
-                     //insert transaction value
-                    $tranValue= array();
-                    $tranValue['@currency'] = $commitment['currency'];
-                    $tranValue['text'] = $commitment['amount'];
-                    $tranValue['@value_date'] = $commitment['start_date'];
-                    $tranValue['transaction_id'] = $transactionId;
-                    $model->insertRowsToTable('iati_transaction/value' , $tranValue);
-                }
+        foreach($data['commitment_wrapper']['commitment'] as $commitment){
+            if($commitment['value_id']){
+                 //update transaction value
+                $tranValue = array();
+                $tranValue['@currency'] = $commitment['currency'];
+                $tranValue['text'] = $commitment['amount'];
+                $tranValue['@value_date'] = $commitment['start_date'];
+                $tranValue['id'] = $commitment['value_id'];
+                $model->updateRowsToTable('iati_transaction/value' , $tranValue);
+            } elseif($this->hasValue($commitment)) {
+                $tran = array();
+                $tran['activity_id'] = $activityId;
+                $transactionId = $model->insertRowsToTable('iati_transaction' , $tran);
+                //insert transaction type
+                $tranType = array();
+                $tranType['@code'] = 1;//@todo check
+                $tranType['transaction_id'] = $transactionId;
+                $model->insertRowsToTable('iati_transaction/transaction_type' , $tranType);
+                 //insert transaction value
+                $tranValue= array();
+                $tranValue['@currency'] = $commitment['currency'];
+                $tranValue['text'] = $commitment['amount'];
+                $tranValue['@value_date'] = $commitment['start_date'];
+                $tranValue['transaction_id'] = $transactionId;
+                $model->insertRowsToTable('iati_transaction/value' , $tranValue);
             }
-        }    
+        }
+ 
         //Update Incomming Fund
-        if($data['incommingFund']){
-            foreach($data['incommingFund'] as $incommingFund){
-                if($incommingFund['value_id']){
-                    //update transaction value
-                    $tranValue = array();
-                    $tranValue['@currency'] = $incommingFund['currency'];
-                    $tranValue['text'] = $incommingFund['amount'];
-                    $tranValue['@value_date'] = $incommingFund['start_date'];
-                    $tranValue['id'] = $incommingFund['value_id'];
-                    $model->updateRowsToTable('iati_transaction/value' , $tranValue);
-                } elseif($this->hasValue($incommingFund)) {
-                    $tran = array();
-                    $tran['activity_id'] = $activityId;
-                    $transactionId = $model->insertRowsToTable('iati_transaction' , $tran);
-                    //update transaction type
-                    $tranType = array();
-                    $tranType['@code'] = 5;
-                    $tranType['transaction_id'] = $transactionId;
-                    $model->insertRowsToTable('iati_transaction/transaction_type' , $tranType);
-                    //update transaction value
-                    $tranValue = array();
-                    $tranValue['@currency'] = $incommingFund['currency'];
-                    $tranValue['text'] = $incommingFund['amount'];
-                    $tranValue['@value_date'] = $incommingFund['start_date'];
-                    $tranValue['transaction_id'] = $transactionId;
-                    $model->insertRowsToTable('iati_transaction/value' , $tranValue);
-                }
+        foreach($data['incomming_fund_wrapper']['incommingFund'] as $incommingFund){
+            if($incommingFund['value_id']){
+                //update transaction value
+                $tranValue = array();
+                $tranValue['@currency'] = $incommingFund['currency'];
+                $tranValue['text'] = $incommingFund['amount'];
+                $tranValue['@value_date'] = $incommingFund['start_date'];
+                $tranValue['id'] = $incommingFund['value_id'];
+                $model->updateRowsToTable('iati_transaction/value' , $tranValue);
+            } elseif($this->hasValue($incommingFund)) {
+                $tran = array();
+                $tran['activity_id'] = $activityId;
+                $transactionId = $model->insertRowsToTable('iati_transaction' , $tran);
+                //update transaction type
+                $tranType = array();
+                $tranType['@code'] = 5;
+                $tranType['transaction_id'] = $transactionId;
+                $model->insertRowsToTable('iati_transaction/transaction_type' , $tranType);
+                //update transaction value
+                $tranValue = array();
+                $tranValue['@currency'] = $incommingFund['currency'];
+                $tranValue['text'] = $incommingFund['amount'];
+                $tranValue['@value_date'] = $incommingFund['start_date'];
+                $tranValue['transaction_id'] = $transactionId;
+                $model->insertRowsToTable('iati_transaction/value' , $tranValue);
             }
         }
+            
         //Update Expenditure
-        if($data['expenditure']){
-            foreach($data['expenditure'] as $expenditure){
-                if($expenditure['value_id']){
-                    $tranValue = array();
-                    $tranValue['@currency'] = $expenditure['currency'];
-                    $tranValue['text'] = $expenditure['amount'];
-                    $tranValue['@value_date'] = $expenditure['start_date'];
-                    $tranValue['id'] = $expenditure['value_id'];
-                    $model->updateRowsToTable('iati_transaction/value' , $tranValue);
-                } elseif($this->hasValue($expenditure)) {
-                    $tran = array();
-                    $tran['activity_id'] = $activityId;
-                    $transactionId = $model->insertRowsToTable('iati_transaction' , $tran);
-                    //update transaction type
-                    $tranType = array();
-                    $tranType['@code'] = 4;
-                    $tranType['transaction_id'] = $transactionId;
-                    $model->insertRowsToTable('iati_transaction/transaction_type' , $tranType);
-    
-                    //update transaction value
-                    $tranValue = array();
-                    $tranValue['@currency'] = $expenditure['currency'];
-                    $tranValue['text'] = $expenditure['amount'];
-                    $tranValue['@value_date'] = $expenditure['start_date'];
-                    $tranValue['transaction_id'] = $transactionId;
-                    $model->insertRowsToTable('iati_transaction/value' , $tranValue);
-                }
+        foreach($data['expenditure_wrapper']['expenditure'] as $expenditure){
+            if($expenditure['value_id']){
+                $tranValue = array();
+                $tranValue['@currency'] = $expenditure['currency'];
+                $tranValue['text'] = $expenditure['amount'];
+                $tranValue['@value_date'] = $expenditure['start_date'];
+                $tranValue['id'] = $expenditure['value_id'];
+                $model->updateRowsToTable('iati_transaction/value' , $tranValue);
+            } elseif($this->hasValue($expenditure)) {
+                $tran = array();
+                $tran['activity_id'] = $activityId;
+                $transactionId = $model->insertRowsToTable('iati_transaction' , $tran);
+                //update transaction type
+                $tranType = array();
+                $tranType['@code'] = 4;
+                $tranType['transaction_id'] = $transactionId;
+                $model->insertRowsToTable('iati_transaction/transaction_type' , $tranType);
+
+                //update transaction value
+                $tranValue = array();
+                $tranValue['@currency'] = $expenditure['currency'];
+                $tranValue['text'] = $expenditure['amount'];
+                $tranValue['@value_date'] = $expenditure['start_date'];
+                $tranValue['transaction_id'] = $transactionId;
+                $model->insertRowsToTable('iati_transaction/value' , $tranValue);
             }
         }
+            
         //Update Sector
         
         // First fetch all sectors for the activity.
@@ -736,7 +724,8 @@ class Simplified_Model_Simplified
     
     public function hasValue($data)
     {
-        foreach($data as $value){
+        foreach($data as $key=>$value){
+            if($key == 'remove' || $key == 'add') continue;
             if($value) return true;
         }
         return false;
