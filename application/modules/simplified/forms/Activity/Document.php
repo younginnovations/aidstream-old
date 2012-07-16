@@ -19,6 +19,7 @@ class Simplified_Form_Activity_Document extends Iati_SimplifiedForm
         $form['url'] = new Zend_Form_Element_Text('url');
         $form['url']->setLabel('Url')
             ->setRequired()
+            ->addValidator(new App_Validate_Url())
             ->setValue($this->data['url'])
             ->setAttrib('class', 'form-text');
             
