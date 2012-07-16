@@ -411,7 +411,7 @@ function initialize() {
 		dojo.query(b).style('display', 'none');
 	    }
 	},
-	".vocabulary_value" : {
+	"select.vocabulary_value" : {
 	    "found" : function (ele) {
                 var formWrapper = ele.parentNode.parentNode;
 		if(ele.value == '' || ele.value == 3){
