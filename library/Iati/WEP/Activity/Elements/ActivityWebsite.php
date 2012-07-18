@@ -7,7 +7,7 @@ class Iati_WEP_Activity_Elements_ActivityWebsite extends Iati_WEP_Activity_Eleme
     protected $id = 0;
     protected $options = array();
     protected $validators = array(
-                                'text' => array('NotEmpty',)
+                                'text' => array('NotEmpty', 'App_Validate_Url')
                             );
     protected $className = 'ActivityWebsite';
     protected $attributes_html = array(

@@ -156,7 +156,11 @@ class Iati_WEP_Activity_Elements_ElementBase
             {  continue; }
 
             foreach($this->validators[$key] as $validator){
-                $string = "Zend_Validate_". $validator;
+                if(preg_match('/Validate/', $validator)){
+                    $string = $validator;
+                } else {
+                    $string = "Zend_Validate_". $validator;
+                }
               $validator = new $string();
               $error = '';
               if(!$validator->isValid($eachData)){

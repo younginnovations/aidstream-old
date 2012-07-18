@@ -30,7 +30,7 @@ class Iati_WEP_Activity_Elements_DocumentLink extends Iati_WEP_Activity_Elements
     );
     protected $className = 'DocumentLink';
     
-    protected $validators = array('url' => array('NotEmpty'));
+    protected $validators = array('url' => array('NotEmpty' , 'App_Validate_Url'));
     protected static $count = 0;
     protected $objectId;
     protected $error = array(); 

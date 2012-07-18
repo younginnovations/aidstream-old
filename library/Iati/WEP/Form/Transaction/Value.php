@@ -18,6 +18,8 @@ class Iati_WEP_Form_Transaction_Value extends Iati_Form
         $form['text'] = new Zend_Form_Element_Textarea('text');
         $form['text']->setLabel('Amount')
             ->setRequired()
+            //->addFilter(new Iati_Filter_Currency())
+            ->addValidator(new App_Validate_Numeric())
             ->setAttribs(array('rows'=>'2' , 'cols'=> '20'))
             ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help transaction-value-text' , 'placement' => 'PREPEND'))));
 
