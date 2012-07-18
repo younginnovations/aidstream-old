@@ -807,7 +807,6 @@ function initialize() {
                 var wrapperNode = dojo.query(getTarget(evt)).parents(".element-wrapper").first();
                 var lastNode =wrapperNode.children('fieldset').last().query(".form-wrapper").last();
                 var input = lastNode.query('input').attr('id');
-                console.log(input);
                 var refEle = input[0];
                 refEle = refEle.replace(/-\w+$/,'');
                 // prepare input object for get parameter                
