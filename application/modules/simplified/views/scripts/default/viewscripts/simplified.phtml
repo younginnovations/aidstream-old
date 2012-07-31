@@ -28,15 +28,6 @@ $form = $this->element;
             <?php print $form->getElement('sector')?>
         </div>
     </div>
-    
-    <div class="form-elements-wrapper">
-        <div class="elements-group-title">
-            Document Information
-        </div>
-        <div class="elements-group">
-            <?php print $form->getSubForm('document_wrapper'); ?>
-        </div>
-    </div>
         
     <div class="form-elements-wrapper">
         <div class="elements-group-title">
@@ -49,7 +40,7 @@ $form = $this->element;
     
     <div class="form-elements-wrapper">
         <div class="elements-group-title">
-            Incomming Fund Information
+            Incoming Fund Information
         </div>
         <div class="elements-group">
             <?php print $form->getSubForm('incomming_fund_wrapper'); ?>
@@ -62,6 +53,15 @@ $form = $this->element;
         </div>
         <div class="elements-group">
             <?php print $form->getSubForm('expenditure_wrapper'); ?>
+        </div>
+    </div>
+    
+    <div class="form-elements-wrapper">
+        <div class="elements-group-title">
+            Document Information
+        </div>
+        <div class="elements-group">
+            <?php print $form->getSubForm('document_wrapper'); ?>
         </div>
     </div>
     

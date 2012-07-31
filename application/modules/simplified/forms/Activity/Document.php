@@ -15,12 +15,14 @@ class Simplified_Form_Activity_Document extends Iati_SimplifiedForm
         
         $form['id'] = new Zend_Form_Element_Hidden('id');
         $form['id']->setValue($this->data['id']);
+        
+        $form['title_id'] = new Zend_Form_Element_Hidden('title_id');
+        $form['title_id']->setValue($this->data['title_id']);
 
-        $form['url'] = new Zend_Form_Element_Text('url');
-        $form['url']->setLabel('Url')
+        $form['title'] = new Zend_Form_Element_Text('title');
+        $form['title']->setLabel('Title')
             ->setRequired()
-            ->addValidator(new App_Validate_Url())
-            ->setValue($this->data['url'])
+            ->setValue($this->data['title'])
             ->setAttrib('class', 'form-text');
             
         $form['category_id'] = new Zend_Form_Element_Hidden('category_id');
@@ -34,13 +36,11 @@ class Simplified_Form_Activity_Document extends Iati_SimplifiedForm
             ->setValue($this->data['category_code'])
             ->setAttrib('class', 'form-select');
             
-        $form['title_id'] = new Zend_Form_Element_Hidden('title_id');
-        $form['title_id']->setValue($this->data['title_id']);
-
-        $form['title'] = new Zend_Form_Element_Text('title');
-        $form['title']->setLabel('Title')
+        $form['url'] = new Zend_Form_Element_Text('url');
+        $form['url']->setLabel('Url')
             ->setRequired()
-            ->setValue($this->data['title'])
+            ->addValidator(new App_Validate_Url())
+            ->setValue($this->data['url'])
             ->setAttrib('class', 'form-text');
             
         $this->addElements($form);

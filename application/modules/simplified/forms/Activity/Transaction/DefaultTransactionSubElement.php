@@ -34,6 +34,13 @@ class Simplified_Form_Activity_Transaction_DefaultTransactionSubElement extends 
             ->setValue($this->data['amount'])
             ->addValidator(new App_Validate_Numeric())
             ->setAttrib('class', 'form-text');
+        
+        $currency = $model->getCodeArray('Currency' , '' , 1 , true);
+        $form['currency'] = new Zend_Form_Element_Select('currency');
+        $form['currency']->setLabel('Currency')
+            ->addMultiOptions($currency)
+            ->setValue($this->data['currency'])
+            ->setAttrib('class', 'form-select');
 
         $form['start_date'] = new Zend_Form_Element_Text('start_date');
         $form['start_date']->setLabel('Value Date')
@@ -46,12 +53,6 @@ class Simplified_Form_Activity_Transaction_DefaultTransactionSubElement extends 
             ->setValue($this->data['end_date'])
             ->setAttrib('class', 'form-text datepicker');
             
-        $currency = $model->getCodeArray('Currency' , '' , 1 , true);
-        $form['currency'] = new Zend_Form_Element_Select('currency');
-        $form['currency']->setLabel('Currency')
-            ->addMultiOptions($currency)
-            ->setValue($this->data['currency'])
-            ->setAttrib('class', 'form-select');
 
         foreach($form as $item_name=>$element)
         {

@@ -2,8 +2,8 @@
 class Simplified_Form_Activity_Default extends Iati_SimplifiedForm
 {
     protected $data;
-    public function init(){
-
+    public function init()
+    {
         $model = new Model_Wep();
         
         $this->setAttrib('id' , 'simplified-default-form')
@@ -77,32 +77,7 @@ class Simplified_Form_Activity_Default extends Iati_SimplifiedForm
             ->setRequired()
             ->setValue($this->data['end_date'])
             ->setAttrib('class', 'form-text datepicker');
-        
-        $this->addElements($form);
-
-            
-        // document
-        $documentForm = new App_Form();
-        $documentForm->removeDecorator('form');
-        if($this->data['document']){
-            foreach($this->data['document'] as $key=>$documentData){
-                $document = new Simplified_Form_Activity_Document(array('data' => $documentData , 'count' => $key));
-                $documentForm->addSubForm($document , 'document'.$key);
-                $document->removeDecorator('form');
-            }
-            
-        } else {
-            $document = new Simplified_Form_Activity_Document(array('data' => $documentData));
-            $documentForm->addSubForm($document , 'document');
-            $document->removeDecorator('form');
-        }
-        $add = new Iati_Form_Element_Note('add');
-        $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'simplified-add-more'));
-        $add->setValue("<a href='#' class='button' value='Document'> Add More</a>");
-        $documentForm->addElement($add);
-        $this->addSubForm($documentForm , 'document_wrapper');
-        
-        
+                
         $form['location_id'] = new Zend_Form_Element_Hidden('location_id');
         $form['location_id']->setValue($this->data['location_id']);
 
@@ -112,7 +87,20 @@ class Simplified_Form_Activity_Default extends Iati_SimplifiedForm
             ->setValue($this->data['location_name'])
             ->setAttrib('class', 'form-text');
             
-        
+        $sectorCodes = $model->getCodeArray('Sector' , '' , 1);
+        $sectors = $this->data['sector'];
+        if($sectors){
+            foreach($sectors as $sector){
+                $sectorData[] = $sector['sector'];
+            }
+        }
+        $form['sector'] = new Zend_Form_Element_Select('sector');
+        $form['sector']->setLabel('Sector')
+            ->addMultiOptions($sectorCodes)
+            ->setRegisterInArrayValidator(false)
+            ->setValue($sectorData)
+            ->setAttrib('multiple', 'true')
+            ->setAttrib('class', 'form-text');
         
         $this->addElements($form);
         
@@ -202,22 +190,27 @@ class Simplified_Form_Activity_Default extends Iati_SimplifiedForm
         $expForm->addElement($add);
         $this->addSubForm($expForm , 'expenditure_wrapper');
         
-        
-        $sectorCodes = $model->getCodeArray('Sector' , '' , 1);
-        $sectors = $this->data['sector'];
-        if($sectors){
-            foreach($sectors as $sector){
-                $sectorData[] = $sector['sector'];
+        // document
+        $documentForm = new App_Form();
+        $documentForm->removeDecorator('form');
+        if($this->data['document']){
+            foreach($this->data['document'] as $key=>$documentData){
+                $document = new Simplified_Form_Activity_Document(array('data' => $documentData , 'count' => $key));
+                $documentForm->addSubForm($document , 'document'.$key);
+                $document->removeDecorator('form');
             }
+            
+        } else {
+            $document = new Simplified_Form_Activity_Document(array('data' => $documentData));
+            $documentForm->addSubForm($document , 'document');
+            $document->removeDecorator('form');
         }
-        $form['sector'] = new Zend_Form_Element_Select('sector');
-        $form['sector']->setLabel('Sector')
-            ->addMultiOptions($sectorCodes)
-            ->setRegisterInArrayValidator(false)
-            ->setValue($sectorData)
-            ->setAttrib('multiple', 'true')
-            ->setAttrib('class', 'form-text');
-        $this->addElements($form);
+        $add = new Iati_Form_Element_Note('add');
+        $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'simplified-add-more'));
+        $add->setValue("<a href='#' class='button' value='Document'> Add More</a>");
+        $documentForm->addElement($add);
+        $this->addSubForm($documentForm , 'document_wrapper');
+        
         
         foreach($form as $item_name=>$element)
         {
@@ -236,7 +229,8 @@ class Simplified_Form_Activity_Default extends Iati_SimplifiedForm
         
         $this->addDecorators(array(
             array('ViewScript', array('viewScript' => 'default/viewscripts/simplified.phtml'))
-        ));    }
+        ));
+    }
     
     public function setData($data)
     {
