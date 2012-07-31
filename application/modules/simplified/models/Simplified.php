@@ -25,6 +25,12 @@ class Simplified_Model_Simplified
         $iatiIdentifier['activity_identifier'] = $data['identifier'];
         $iatiIdentifier['iati_identifier'] = $default['reporting_org_ref']."-".trim($data['identifier']);
         $activityId = $modelActivity->createActivity($identity->account_id , $default , $iatiIdentifier);
+        
+        //Create Recipient Organisation( this is set to nepal)
+        $recOrg = array();
+        $recOrg['@code'] = 156;
+        $recOrg['activity_id'] = $activityId;
+        $model->insertRowsToTable('iati_recipient_country' , $recOrg);
     
         //Create title
         $title['text'] = $data['title'];
