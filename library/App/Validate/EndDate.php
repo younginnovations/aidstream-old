@@ -37,7 +37,6 @@ class App_Validate_EndDate extends Zend_Validate_Abstract
         
         // If form element is passed for comparing during construct, compare with the elements value
         if($this->compareTo instanceof Zend_Form_Element){
-            var_dump($this->compareTo->getValue());
             if($this->compareTo->getValue() && (strtotime($this->compareTo->getValue()) < strtotime($value))){
                 return true;
             } else {
