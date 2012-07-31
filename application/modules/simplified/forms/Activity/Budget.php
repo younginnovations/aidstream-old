@@ -51,6 +51,7 @@ class Simplified_Form_Activity_Budget extends Iati_SimplifiedForm
         $form['end_date']->setLabel('End Date')
             ->setRequired()
             ->setValue($this->data['end_date'])
+            ->addValidator(new App_Validate_EndDate())
             ->setAttrib('class', 'form-text datepicker');
         
         $form['signed_date'] = new Zend_Form_Element_Text('signed_date');

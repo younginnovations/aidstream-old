@@ -76,6 +76,7 @@ class Simplified_Form_Activity_Default extends Iati_SimplifiedForm
         $form['end_date']->setLabel('Actual End Date')
             ->setRequired()
             ->setValue($this->data['end_date'])
+            ->addValidator(new App_Validate_EndDate($form['start_date']))
             ->setAttrib('class', 'form-text datepicker');
                 
         $form['location_id'] = new Zend_Form_Element_Hidden('location_id');

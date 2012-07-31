@@ -51,6 +51,7 @@ class Simplified_Form_Activity_Transaction_DefaultTransactionSubElement extends 
         $form['end_date'] = new Zend_Form_Element_Text('end_date');
         $form['end_date']->setLabel('End Date')
             ->setValue($this->data['end_date'])
+            ->addValidator(new App_Validate_EndDate())
             ->setAttrib('class', 'form-text datepicker');
             
 
