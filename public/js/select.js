@@ -1,6 +1,6 @@
 function loadSelect2()
 {
-    $("#sector").select2({
+    $("select#sector").select2({
         placeholder: "Select Anyone"
     });
     
