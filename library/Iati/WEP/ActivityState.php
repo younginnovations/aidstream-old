@@ -144,4 +144,22 @@ class Iati_WEP_ActivityState
         }
         return $next_state;
     }
+    
+    public static function getRemainingStates($state)
+    {
+         if($state == Iati_WEP_ActivityState::STATUS_EDITING) {
+            $remaining_state = array(Iati_WEP_ActivityState::STATUS_COMPLETED,Iati_WEP_ActivityState::STATUS_VERIFIED,Iati_WEP_ActivityState::STATUS_PUBLISHED);
+
+        } else if($state == Iati_WEP_ActivityState::STATUS_COMPLETED) {
+
+            $remaining_state = array(Iati_WEP_ActivityState::STATUS_VERIFIED,Iati_WEP_ActivityState::STATUS_PUBLISHED);
+
+        } else if($state == Iati_WEP_ActivityState::STATUS_VERIFIED) {
+
+            $remaining_state = array(Iati_WEP_ActivityState::STATUS_PUBLISHED);
+        } else {
+            $remaining_state = array();
+        }
+        return $remaining_state;
+    }
 }

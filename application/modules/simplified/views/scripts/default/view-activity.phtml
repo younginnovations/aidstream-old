@@ -9,12 +9,17 @@
 
     <div class= "activity-state">
         <div class="state-display">
-            <div class='label'>State: <span class="<?php print strtolower(str_replace(" ", "_", Iati_WEP_ActivityState::getStatus($this->state)))?>"><?php print(Iati_WEP_ActivityState::getStatus($this->state));?></div>
+            <ul>
+                <li class='label'>Activity State</li>
+                <?php foreach(Iati_WEP_ActivityState::getStatus() as $state_value => $state_name):?>
+                    <li <?php if($this->state == $state_value) {print "id='current-state'";}?> ><span class='<?php print (!in_array($state_value,Iati_WEP_ActivityState::getRemainingStates($this->state)))?'visited-state':'not-visited-state'; ?>'></span><?php print $state_name ?></li>
+                <?php endforeach; ?>
+            </ul>
         </div>
         <div class='change-state'>
-            <?php print($change_status_form)?>
+            <div class="change-state-info-section">This activity is in <span class="change-state-current-state"><?php print(Iati_WEP_ActivityState::getStatus($this->state));?></span> State. Mark it as <?php print($change_status_form)?></div>
+            <div class="change-state-help-section"><span class="change-stage-help"><a href="#">what's this</a></span></div>
         </div>
-        
     </div>
 
     <div class="title-edit-wrapper">

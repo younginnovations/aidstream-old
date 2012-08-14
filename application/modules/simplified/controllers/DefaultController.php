@@ -342,7 +342,7 @@ class Simplified_DefaultController extends Zend_Controller_Action
             $status_form->setAction($this->view->baseUrl()."/wep/update-status");
             $status_form->ids->setValue($activityId);
             $status_form->status->setValue($next_state);
-            $status_form->change_state->setLabel(Iati_WEP_ActivityState::getAction($next_state));
+            $status_form->change_state->setLabel(Iati_WEP_ActivityState::getStatus($next_state));
         } else {
             $status_form = null;
         }
