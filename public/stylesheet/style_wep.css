@@ -1783,15 +1783,92 @@ table.activity-list-table tr:hover {
 .activity-state dt {
 	margin: 10px 0 0 0;
 }
-.activity-state #change_state-element {
-	margin-top: 10px;
-}
+
 .activity-state .state-display {
 	font-size: 14px;
+	margin-bottom: 4px;
+    overflow: hidden;
 }
-.activity-state .state-display label {
-	margin-right: 20px;
+.activity-state .state-display ul {
+	background: url(../images/change-state.png) no-repeat 0 0;
+	overflow: hidden;
 }
+
+.activity-state .state-display ul.state-1 {
+	background-position: 0 -40px;
+}
+
+.activity-state .state-display ul.state-2{
+	background-position: 0 -80px;
+}
+.activity-state .state-display ul.state-3{
+	background-position: 0 -120px;
+}
+.activity-state .state-display ul.state-4{
+	background-position: 0 -160px;
+}
+
+.activity-state .state-display ul li {
+	float: left;
+	width: 120px;
+	line-height: 39px;
+	color: #cbcaca;
+	font-size: 12px;
+}
+
+.activity-state .state-display ul li:first-child {
+	font-family: ubuntu;
+	font-weight: bold;
+	color: #8d8d8d;
+	text-align: center;
+}
+
+.activity-state .state-display ul li span.visited-state ,.activity-state .state-display ul li span.not-visited-state{
+	background: url(../images/tick.png) no-repeat 20px 14px;
+	display: block;
+	padding-left: 42px;
+}
+
+.activity-state .state-display ul li span.not-visited-state {
+	background: url(../images/cross.png) no-repeat 20px 14px;
+
+}
+
+.activity-state .change-state {
+	clear: both;	
+	overflow: hidden;
+	background: #f3f4f4;
+	margin-bottom: 10px;
+	padding: 4px 8px 4px 16px;
+}
+
+.activity-state .change-state .change-state-info-section {
+	float: left;
+}
+
+.change-state-info-section form {
+	display: inline-block;	
+}
+
+.change-state input[type='submit'] {
+	background: none;
+	border: none;
+	padding: 0;
+	font-size: 12px;
+	font-weight: bold;
+	color: #00abe2;
+}
+
+.activity-state .change-state .change-state-help-section {
+	float: right;
+}
+
+.change-state-info-section .change-state-current-state {
+	font-style: italic;
+	font-weight: bold;
+	color: #606060;
+}
+
 .activity-detail-table .title {
     color: #000000;
     font-size: 16px;
