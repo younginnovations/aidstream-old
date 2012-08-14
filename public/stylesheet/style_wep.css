@@ -1802,7 +1802,7 @@ table.activity-list-table tr:hover {
 .activity-state .state-display ul.state-2{
 	background-position: 0 -80px;
 }
-.activity-state .state-display ul.state-2 li#current-state span,.activity-state .state-display ul.state-3 li#current-state span,.activity-state .state-display ul.state-4 li#current-state span,.activity-state .state-display ul.state-5 li#current-state span{
+li#current-state span{
 	color: #565656;
 	font-weight: bold;
 }
@@ -1833,6 +1833,10 @@ table.activity-list-table tr:hover {
 .change-stage-help a{
 	color: #949494;
 	text-decoration: underline;
+}
+
+.change-stage-help a:hover{
+	color: #FFF;
 }
 
 .activity-state .state-display ul li span.visited-state ,.activity-state .state-display ul li span.not-visited-state{
