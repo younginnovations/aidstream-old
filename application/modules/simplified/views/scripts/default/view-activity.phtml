@@ -6,7 +6,16 @@
 ?>
 
 <div id="simplified_activity">
+    <div class="title-edit-wrapper">
+        <div class = "edit-link"><?php echo $this->l('Edit this Activity', 'simplified/default/edit-activity/?activity_id='
+                                                                    . $this->activityInfo['id'])?>
+            </div>
+        <div class="activity-title"> <?php print ($activityData['title'])?$activityData['title']:'No Title' ?></div>
 
+        <div class="activity-identifier"> <span class="activity-identifier-title">Project Identifer: </span><span class="activity-identifier-value"><?php print $this->activityInfo['activity_identifier']?></span></div>
+        <div class="clear"></div>
+    </div>
+    
     <div class= "activity-state">
         <div class="state-display">
             <ul>
@@ -20,16 +29,6 @@
             <div class="change-state-info-section">This activity is in <span class="change-state-current-state"><?php print(Iati_WEP_ActivityState::getStatus($this->state));?></span> State. Mark it as <?php print($change_status_form)?></div>
             <div class="change-state-help-section"><span class="change-stage-help"><a href="#">what's this</a></span></div>
         </div>
-    </div>
-
-    <div class="title-edit-wrapper">
-        <div class = "edit-link"><?php echo $this->l('Edit this Activity', 'simplified/default/edit-activity/?activity_id='
-                                                                    . $this->activityInfo['id'])?>
-            </div>
-        <div class="activity-title"> <?php print ($activityData['title'])?$activityData['title']:'No Title' ?></div>
-
-        <div class="activity-identifier"> <span class="activity-identifier-title">Project Identifer: </span><span class="activity-identifier-value"><?php print $this->activityInfo['activity_identifier']?></span></div>
-        <div class="clear"></div>
     </div>
 
     <div class="activity-elements-view-wrapper">
