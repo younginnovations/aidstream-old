@@ -1830,12 +1830,12 @@ li#current-state span{
 	text-align: center;
 }
 
-.change-stage-help a{
+.change-state-help a{
 	color: #949494;
 	text-decoration: underline;
 }
 
-.change-stage-help a:hover{
+.change-state-help a:hover{
 	color: #FFF;
 }
 
