@@ -1835,6 +1835,42 @@ li#current-state span{
 	text-decoration: underline;
 }
 
+.state-help-title {
+	background: url(../images/notification.png) no-repeat scroll 0 0 transparent;
+    color: #272727;
+    font-size: 22px;
+    line-height: 26px;
+    padding-bottom: 6px;
+	margin-bottom: 12px;
+    padding-left: 38px;
+	border-bottom: 1px solid #e6e7e7;
+}
+
+.state-help-body p {
+	font-size: 13px;
+	color: #272727;
+}
+
+.state-help-body p.activity {
+	padding-bottom: 50px;
+}
+
+.state-help-body ul.states-list {	
+	background: #f2f3f4;
+	overflow: hidden;
+	padding: 0 56px;
+	margin-bottom: 14px;
+}
+
+.state-help-body ul.states-list li {
+	float: left;
+	line-height: 32px;
+	padding: 0 32px;
+
+	font-size: 13px;
+	color: #272727;
+}
+
 .change-state-help a:hover{
 	color: #FFF;
 }
@@ -2040,6 +2076,7 @@ table#list-org {
 }
 
 .element-item
+
 {
 	border: 1px solid #EEEEEE;
     border-radius: 4px 4px 4px 4px;
