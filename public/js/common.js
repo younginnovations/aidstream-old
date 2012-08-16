@@ -27,6 +27,70 @@ dojo.connect = function (source, event, object, method, once) {
 }
 */
 
+// Define a basic custom dropdown
+dojo.declare("my.dropDown", [dijit._Widget, dijit._Templated], {
+    // summary:
+    //      A button that shows a popup.
+    //      Supply label and popup as parameter when instantiating this widget.
+
+    label: null,
+    orient: {'BL': 'TL', 'BR': 'TR'}, // see http://api.dojotoolkit.org/jsdoc/1.3.2/dijit.popup.__OpenArgs (orient)
+    templateString: "<span class='enabled' dojoAttachEvent='onclick: openPopup' onClick='return false;' dojoAttachPoint='labelNode'></span>",
+    disabled: false,
+    attributeMap: {
+        label: {
+            node: "labelNode",
+            type: "innerHTML"
+        }
+    },
+    openPopup: function(){
+        if (this.disabled) return;
+        var self = this;
+
+        dijit.popup.open({
+            popup: this.popup,
+            parent: this,
+            around: this.domNode,
+            orient: this.orient,
+            onCancel: function(){
+                dijit.popup.close(self.popup);
+                self.open = false;
+            },
+            onExecute: function(){
+                dijit.popup.close(self.popup);
+                self.open = false;
+            }
+        });
+
+        this.open = true;
+    },
+
+    closePopup: function(){
+        if(this.open){
+            console.log(this.id + ": close popup due to blur");
+            dijit.popup.close(this.popup);
+            this.open = false;
+        }
+    },
+
+    toggleDisabled: function() {
+        this.disabled = !this.disabled
+        dojo.toggleClass(this.domNode, 'buttonDisabled');
+        dojo.toggleClass(this.domNode, 'enabled');
+        dojo.attr(this.domNode, 'disabled', this.disabled);
+    },
+
+    _onBlur: function(){
+        // summary:
+        //      This is called from focus manager and when we get the signal we
+        //      need to close the drop down
+        //      (note: I don't fully understand where this comes from
+        //      I couldn't find docs. Got the code from this example:
+        //      http://archive.dojotoolkit.org/nightly/dojotoolkit/dijit/tests/_base/test_popup.html
+        this.closePopup();
+    }
+});
+
 dojo.behavior._apply = dojo.behavior.apply;
 dojo.behavior.apply = function (){
     loadSelect2();
@@ -1040,25 +1104,32 @@ function initialize() {
         },
         
         ".change-state-help" : {
-            'click' : function (evt) {
+            'found' : function (ele){                
                 var msg;
                 msg = "<div class='state-help-popup-info-wrapper'>";// main wrapper
                 msg += "<div class='state-help-title'><span class='info-image'></span>Aidstream Activity States</div>"; // title
                 // message body
                 msg += "<div class= 'state-help-body'><p>Aidstream maintains a simple workflow to ensure that the activities are properly verified before it gets registered in IATI Registry for public view. The following states are maintained in the activities.</p>";
                 msg += "<ul class='states-list'><li>Edit</li><li>Completed</li><li>Verified</li><li>Published</li></ul>";
-                msg += "<p>When the activity is any one of the states, any further changes in the activity will return its state back to Editing. The entire flow has to be followed before the cnahges gets updated in the activty xml files and registred in IATI Resigtry. It is recommended that different users are given access to each of these roles for the workflow.</p>"
+                msg += "<p class='activity'>When the activity is any one of the states, any further changes in the activity will return its state back to Editing. The entire flow has to be followed before the cnahges gets updated in the activty xml files and registred in IATI Resigtry. It is recommended that different users are given access to each of these roles for the workflow.</p>"
                 msg += "</div></div>"; // closing body and main div
                 var stateHelpDialog = new dijit.TooltipDialog({
                     content: msg,
                     style : 'width:590px',
                     autofocus: false
                 });
-                dijit.popup.open({
-                    popup : stateHelpDialog,
-                    around : getTarget(evt).parentNode,
-                    orient : ['TR']
-                });
+                //get html of the element
+                var element = new dojo.NodeList(ele);
+                var temp = element.clone();
+                var tempWrapper  = dojo.create("div");
+                tempWrapper.appendChild(temp[0]);
+                var eleHtml = tempWrapper.innerHTML;
+                
+                var drop = new my.dropDown({
+                    label : eleHtml,
+                    popup: stateHelpDialog,
+                    orient: ['TR']
+                } , ele);
             }
         }
         
