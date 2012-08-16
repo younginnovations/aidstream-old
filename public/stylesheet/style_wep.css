@@ -1780,6 +1780,11 @@ table.activity-list-table tr:hover {
 	right: 0;
 	top: 3px;
 }
+
+.activity-state .override-link {
+	display: none;
+}
+
 .activity-state dt {
 	margin: 10px 0 0 0;
 }
@@ -1824,7 +1829,6 @@ li#current-state span{
 }
 
 .activity-state .state-display ul li:first-child {
-	font-family: ubuntu;
 	font-weight: bold;
 	color: #8d8d8d;
 	text-align: center;
@@ -1904,12 +1908,10 @@ li#current-state span{
 }
 
 .change-state input[type='submit'] {
-	background: none;
-	border: none;
-	padding: 0;
+	padding: 4px 8px;
 	font-size: 12px;
 	font-weight: bold;
-	color: #00abe2;
+	color: #fff;
 }
 
 .activity-state .change-state .change-state-help-section {

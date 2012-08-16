@@ -1139,7 +1139,7 @@ function initialize() {
                 // message body
                 msg += "<div class= 'state-help-body'><p>Aidstream maintains a simple workflow to ensure that the activities are properly verified before it gets registered in IATI Registry for public view. The following states are maintained in the activities.</p>";
                 msg += "<ul class='states-list'><li>Edit</li><li>Completed</li><li>Verified</li><li>Published</li></ul>";
-                msg += "<p class='activity'>When the activity is any one of the states, any further changes in the activity will return its state back to Editing. The entire flow has to be followed before the cnahges gets updated in the activty xml files and registred in IATI Resigtry. It is recommended that different users are given access to each of these roles for the workflow.</p>"
+                msg += "<p>When the activity is in any one of the states, any further changes in the activity will return its state back to Editing. The entire flow has to be followed before the changes get updated in the activty xml files and registred in IATI Resigtry. It is recommended that different users are given access to each of these roles for the workflow.</p>"
                 msg += "</div></div>"; // closing body and main div
                 var stateHelpDialog = new dijit.TooltipDialog({
                     content: msg,
