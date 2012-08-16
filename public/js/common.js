@@ -30,12 +30,11 @@ dojo.connect = function (source, event, object, method, once) {
 // Define a basic custom dropdown
 dojo.declare("my.dropDown", [dijit._Widget, dijit._Templated], {
     // summary:
-    //      A button that shows a popup.
     //      Supply label and popup as parameter when instantiating this widget.
 
     label: null,
     orient: {'BL': 'TL', 'BR': 'TR'}, // see http://api.dojotoolkit.org/jsdoc/1.3.2/dijit.popup.__OpenArgs (orient)
-    templateString: "<span class='enabled' dojoAttachEvent='onclick: openPopup' onClick='return false;' dojoAttachPoint='labelNode'></span>",
+    templateString: "<span class='enabled' dojoAttachEvent='onclick: openPopup,onkeyup:keyPress' onClick='return false;' dojoAttachPoint='labelNode'></span>",
     disabled: false,
     attributeMap: {
         label: {
@@ -43,20 +42,34 @@ dojo.declare("my.dropDown", [dijit._Widget, dijit._Templated], {
             type: "innerHTML"
         }
     },
+    keyPress: function (key) {
+        if(key.keyCode == dojo.keys.ESCAPE){
+            this.closePopup();
+        }
+    },
+    
     openPopup: function(){
         if (this.disabled) return;
         var self = this;
-
+        
+        // wrap the pop-up widget and position it offscreen so
+        // that it can be measured by the widget’s startup method
+        dijit.popup.moveOffScreen(this.popup);
+        
+        // if the pop-up has not been started yet, start it now
+        if(this.popup.startup && !this.popup._started){
+            this.popup.startup();
+        }
         dijit.popup.open({
             popup: this.popup,
             parent: this,
-            around: this.domNode,
+            around: this.domNode.children[0],
             orient: this.orient,
             onCancel: function(){
                 dijit.popup.close(self.popup);
                 self.open = false;
             },
-            onExecute: function(){
+            onClose: function(){
                 dijit.popup.close(self.popup);
                 self.open = false;
             }
@@ -67,7 +80,6 @@ dojo.declare("my.dropDown", [dijit._Widget, dijit._Templated], {
 
     closePopup: function(){
         if(this.open){
-            console.log(this.id + ": close popup due to blur");
             dijit.popup.close(this.popup);
             this.open = false;
         }
@@ -560,12 +572,27 @@ function initialize() {
         
         // Help tooltip display.
 	".help" : {
-	    "onclick" : function (evt) {
-		var node = getTarget(evt);
+	    "found" : function (ele) {
+		var node = ele;
 		var classname = dojo.attr(node,'class');
 		var classes = classname.split(' ');
 		var elementname = classes[1];
-
+                        helpdialog = new dijit.TooltipDialog({
+                            href: APP_BASEPATH + "/wep/get-help-message?element=" + elementname,
+			    style: "width: 320px",
+			    autofocus: false
+			});
+			 //get html of the element
+                        var element = new dojo.NodeList(node);
+                        var temp = element.clone();
+                        var tempWrapper  = dojo.create("div");
+                        tempWrapper.appendChild(temp[0]);
+                        var eleHtml = tempWrapper.innerHTML;
+			var drop = new my.dropDown({
+                            label : eleHtml,
+                            popup: helpdialog
+                        } , node);
+                        /*
 		//get message for the element
 		dojo.xhrPost({
                     url : APP_BASEPATH + "/wep/get-help-message",
@@ -578,15 +605,16 @@ function initialize() {
 			    style: "width: 320px",
 			    autofocus: false
 			});
-			dijit.popup.open({
-					 popup : helpdialog,
-					 around : node
-			});
+			 dijit.popup.open({
+                                        popup : helpdialog,
+                                        around : node
+                       });
                     },
                     error : function (err) {
                         console.log(err);
                     }
-                });		
+                });
+                        */
 	    }
 	},
 	

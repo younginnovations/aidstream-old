@@ -1351,7 +1351,8 @@ class WepController extends Zend_Controller_Action
         {
             $message['message'] = 'No help is provided for this item';
         }
-        $this->_helper->json($message['message']);
+        echo $message['message'];exit;
+        //$this->_helper->json($message['message']);
     }
 
     public function listPublishedFilesAction()
