@@ -1257,9 +1257,9 @@ class WepController extends Zend_Controller_Action
                 $modelRegistryInfo = new Model_RegistryInfo();
                 $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($account_id);
                 if(!$registryInfo){
-                    $this->_helper->FlashMessenger->addMessage(array('error' => "Publishing Information Not Found. Activities cannot be published."));
+                    $this->_helper->FlashMessenger->addMessage(array('error' => "Registry information not found. Please go to <a href='{$this->view->baseUrl()}/wep/edit-defaults'>change defaults</a> to add registry info."));
                 } else if(!$registryInfo->publisher_id){
-                    $this->_helper->FlashMessenger->addMessage(array('error' => "Publisher Id Not Found. Activities cannot be published."));
+                    $this->_helper->FlashMessenger->addMessage(array('error' => "Publisher Id not found. Xml files could not be created. Please go to  <a href='{$this->view->baseUrl()}/wep/edit-defaults'>change defaults</a> to add publisher id."));
                 } else {
                     $db->updateActivityStatus($activity_ids,(int)$state);
 
@@ -1268,7 +1268,7 @@ class WepController extends Zend_Controller_Action
 
                     if($registryInfo->update_registry){
                         if(!$registryInfo->api_key){
-                            $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key Not Found. Activities cannot be published in registry."));
+                            $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key not found. Activities could not be registered in IATI Registry. Please go to <a href='{$this->view->baseUrl()}/wep/edit-defaults'>change defaults</a> to add API key."));
                         } else {
                             $reg = new Iati_Registry($registryInfo->publisher_id , $registryInfo->api_key);
                             $modelPublished = new Model_Published();
@@ -1312,7 +1312,7 @@ class WepController extends Zend_Controller_Action
         $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($accountId);
 
         if(!$registryInfo->api_key){
-            $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key Not Found. Activities cannot be registered in IATI Registry."));
+            $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key not found. Activities could not be registered in IATI Registry. Please go to <a href='{$this->view->baseUrl()}/wep/edit-defaults'>change defaults</a> to add API key."));
         } else {
             $reg = new Iati_Registry($registryInfo->publisher_id , $registryInfo->api_key);
             $modelPublished = new Model_Published();
