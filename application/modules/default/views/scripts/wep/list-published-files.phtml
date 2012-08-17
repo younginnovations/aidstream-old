@@ -15,7 +15,8 @@
                 <? endif; ?>
                 <th>Filename</th>
                 <th>Published Date</th>
-                <th>Registered in IATI Regsitry</th>
+                <th class="registered-info"'>Registered in IATI Regsitry</th>
+                <th>Preview As</th>
                 <th></th>
             </thead>
             <?php foreach ($publishedFiles as $file): ?>
@@ -34,6 +35,7 @@
                 	No
                 <?php endif; ?>
                 </td>
+                <td><a href='http://tools.aidinfolabs.org/showmydata/index.php?url=http://<?php echo $_SERVER['SERVER_NAME'].$this->baseUrl().Zend_Registry::get('config')->xml_folder.$file['filename']?>' target='_blank'>IATI Data</a> | <a href='http://tools.aidinfolabs.org/csv/direct_from_registry/?xml=http://<?php echo $_SERVER['SERVER_NAME'].$this->baseUrl().Zend_Registry::get('config')->xml_folder.$file['filename']?>' target='_blank'>CSV</a></td>
                 <?php
                     $class = "delete-files";
                     if($file['pushed_to_registry']){

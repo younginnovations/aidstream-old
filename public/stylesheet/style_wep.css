@@ -1764,7 +1764,9 @@ table.activity-list-table tr:hover {
 	color: #6d6d6d;
 }
 
-
+table.activity-list-table.published-files-list-table .registered-info{
+        width: 100px;
+}
 
 /* View Activity */
 
