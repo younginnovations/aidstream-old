@@ -23,7 +23,7 @@ class Iati_WEP_XmlHandler
     public function prepareXmlWrapper()
     {
         $this->xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><iati-activities></iati-activities>');
-        $this->xml->addAttribute('generated-datetime',date('Y-m-d h:m:s'));
+        $this->xml->addAttribute('generated-datetime',gmdate('c'));
     }
 
      /**
@@ -159,7 +159,13 @@ class Iati_WEP_XmlHandler
                 if($attrib == "@xml_lang"){
                     $name = preg_replace('/_/',':',$name);
                     $element_xml->addAttribute($name,$value,'http://www.w3.org/XML/1998/namespace');
-                } else {
+                } elseif ($attrib == '@last_updated_datetime'){
+                    // Convert last updated date to UTC format
+                    $name = preg_replace('/_/','-',$name);
+                    $gmDateValue = gmdate('c' , strtotime($value));
+                    $element_xml->addAttribute($name,$gmDateValue);
+                }
+                else {
                     $name = preg_replace('/_/','-',$name);
                     $element_xml->addAttribute($name,$value);
                 }
