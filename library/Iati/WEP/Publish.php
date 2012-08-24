@@ -48,13 +48,14 @@ class Iati_WEP_Publish
                         $activityUpdatedDatetime = (strtotime($activity->getAttrib('@last_updated_datetime')) > strtotime($activityUpdatedDatetime))?$activity->getAttrib('@last_updated_datetime'):$activityUpdatedDatetime;
                     }
                 }
-                
+                /*
                 $country = '';
                 if(in_array($this->recipient , $this->country)){
                     $country = $this->recipient;
                 }
+                */
                 
-                $this->savePublishedInfo($filename , $country , sizeof($activities) , $activityUpdatedDatetime);
+                $this->savePublishedInfo($filename , $org , sizeof($activities) , $activityUpdatedDatetime);
                 
             }
             
@@ -103,7 +104,7 @@ class Iati_WEP_Publish
                 $countryAttribs = $countries[0]->getAttribs();
                 if(1 == sizeof($countries) && 0 != sizeof($countryAttribs)){
                     $segmented_activities[$countries[0]->getAttribValue('@code')][] = $activity;
-                    $this->country[] = $countries[0]->getAttribValue('@code');
+                    //$this->country[] = $countries[0]->getAttribValue('@code');
                 } else {
                     $regions = $activity->getElementsByType(Iati_Activity_Element::TYPE_RECIPIENT_REGION);
                     $regionAttribs = $regions[0]->getAttribs();
@@ -125,10 +126,10 @@ class Iati_WEP_Publish
                             }
                             if($maxPercentCountry){
                                 $segmented_activities[$maxPercentCountry][] = $activity;
-                                $this->country[] = $maxPercentCountry;
+                                //$this->country[] = $maxPercentCountry;
                             } else {
                                 $segmented_activities[$countries[0]->getAttribValue('@code')][] = $activity;
-                                $this->country[] = $countries[0]->getAttribValue('@code');
+                                //$this->country[] = $countries[0]->getAttribValue('@code');
                             }
                         }
                     }
