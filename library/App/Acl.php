@@ -17,6 +17,7 @@ class App_Acl extends Zend_Acl
                 ->add(new Zend_Acl_Resource('default:api'), 'default')
                 ->add(new Zend_Acl_Resource('default:activityviewer'), 'default')
                 ->add(new Zend_Acl_Resource('default:wep'), 'default')
+                ->add(new Zend_Acl_Resource('default:organisation'), 'default')
                 ->add(new Zend_Acl_Resource('default:admin'), 'default')
                 ->add(new Zend_Acl_Resource('default:iatixmlController'), 'default');
 
@@ -77,6 +78,7 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'default:wep', 'update-status');
         $this->allow('user', 'default:wep', 'get-help-message');
         $this->allow('user', 'default:wep', 'list-published-files');
+        $this->allow('user', 'default:organisation', 'add');
 
         $this->allow('admin', 'user');
         $this->allow('admin', 'default:code-list');
