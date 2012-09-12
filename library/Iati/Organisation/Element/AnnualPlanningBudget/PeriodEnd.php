@@ -8,9 +8,4 @@ class Iati_Organisation_Element_AnnualPlanningBudget_PeriodEnd extends Iati_Orga
     protected $displayName = 'Period End';
     protected $iatiAttribs = array('date' , 'text');
     protected $tableName = 'organisation/annual_planning_budget/period_end';
-   
-    public function __construct()
-    {
-        self::$count++;
-    }
 }

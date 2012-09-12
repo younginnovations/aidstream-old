@@ -4,7 +4,6 @@ class Iati_Organisation_Form_AnnualPlanningBudget extends Iati_Organisation_Form
 {  
     public function getFormDefination()
     {
-        parent::init();
         $this->setAttrib('class' , 'simplified-sub-element');
         
         $form['id'] = new Zend_Form_Element_Hidden('id');

@@ -37,12 +37,33 @@ class OrganisationController extends Zend_Controller_Action
         if(!$elementClass){
             echo "no class given";exit;
         }
+        
+        $tempdata = array(
+            'AnnualPlanningBudget' => 
+                array(
+                    array(
+                      'id' => 2,
+                      'PeriodStart' => array ( 'date' => '1' , 'text' => '2' , 'Test' => array(array('date' => '3' , 'text' => '4') , array('date' => '5' , 'text' => 7))),
+                      'PeriodEnd' => array ('date' => '0' , 'text' => '1'),
+                      ),
+                    array(
+                        'id' => 3,
+                        'PeriodStart' => array('date' => '1' , 'text' => '2'),
+                        'PeriodEnd' => array('date' => '8' , 'text' => '3'),
+                    )
+                )
+        ); // */
+        
         $elementName =  "Iati_Organisation_Element_".$elementClass;
         $element = new $elementName();
+        $element->setData($tempdata[$elementClass]);
+        
         if($data = $this->getRequest()->getPost()){
+            
+            echo "<pre>";print_r($data);exit;
             $element->setData($data[$elementClass]);
             $form = $element->getForm();
-            //echo "<pre>";print_r($form);exit;
+            echo "<pre>";print_r($form);exit;
             
         } else {
             $form = $element->getForm();            

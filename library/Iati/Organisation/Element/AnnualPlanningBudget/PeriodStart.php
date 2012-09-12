@@ -8,9 +8,4 @@ class Iati_Organisation_Element_AnnualPlanningBudget_PeriodStart extends Iati_Or
     protected $iatiAttribs = array('date' , 'text');
     protected $childElements = array('Test');
     protected $tableName = 'organisation/annual_planning_budget/period_start';
-    
-    public function __construct()
-    {
-        self::$count++;
-    }
 }
