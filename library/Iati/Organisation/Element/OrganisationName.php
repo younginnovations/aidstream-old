@@ -6,11 +6,7 @@ class Iati_Organisation_Element_OrganisationName extends Iati_Organisation_Eleme
     protected $isRequired = true;
     protected $className = 'OrganisationName';
     protected $displayName = 'Organisation Name';
-    protected $iatiAttribs = array('language' , 'name');
+    protected $attribs = array('id' , 'name' , 'language' );
+    protected $iatiAttribs = array('name' , 'language');
     protected $tableName = 'organisation/name';
-
-    public function __construct()
-    {
-        self::$count++;
-    }
 }

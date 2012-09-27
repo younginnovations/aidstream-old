@@ -15,39 +15,18 @@ class Iati_Organisation_Form_OrganisationName extends Iati_Organisation_Form_Bas
         $form['id']->setValue($this->data['id']);
         
 
-        $form['amount'] = new Zend_Form_Element_Text('amount');
-        $form['amount']->setLabel('Amount')
+        $form['name'] = new Zend_Form_Element_Text('name');
+        $form['name']->setLabel('Name')
             ->setRequired()
-            ->addFilter(new Iati_Filter_Currency())
-            ->setValue($this->data['amount'])
-            ->addValidator(new App_Validate_Numeric())
+            ->setValue($this->data['name'])
             ->setAttrib('class', 'form-text');
             
-        $currency = $model->getCodeArray('Currency' , '' , 1 , true);
-        $form['currency'] = new Zend_Form_Element_Select('currency');
-        $form['currency']->setLabel('Currency')
-            ->addMultiOptions($currency)
-            ->setValue($this->data['currency'])
+        $form['language'] = new Zend_Form_Element_Select('Language');
+        $form['language']->setLabel('language')
+            ->addMultiOptions($language)
+            ->setValue($this->data['language'])
             ->setAttrib('class', 'form-select');
 
-        $form['start_date'] = new Zend_Form_Element_Text('start_date');
-        $form['start_date']->setLabel('Start Date')
-            ->setRequired()
-            ->setValue($this->data['start_date'])
-            ->setAttrib('class', 'form-text datepicker');
-
-        $form['end_date'] = new Zend_Form_Element_Text('end_date');
-        $form['end_date']->setLabel('End Date')
-            ->setRequired()
-            ->setValue($this->data['end_date'])
-            ->addValidator(new App_Validate_EndDate())
-            ->setAttrib('class', 'form-text datepicker');
-        
-        $form['signed_date'] = new Zend_Form_Element_Text('signed_date');
-        $form['signed_date']->setLabel('Contract Signed  Date')
-            ->setRequired()
-            ->setValue($this->data['signed_date'])
-            ->setAttrib('class', 'form-text datepicker');
 
         $this->addElements($form);
         //$this->prepare();

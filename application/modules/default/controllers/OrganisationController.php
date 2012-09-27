@@ -35,40 +35,57 @@ class OrganisationController extends Zend_Controller_Action
     {
         $elementClass = $this->_getParam('classname');
         if(!$elementClass){
-            echo "no class given";exit;
+            $this->_helper->FlashMessenger->addMessage(array('error' => "Could not fetch element."));
+            $this->_redirect("/wep/dashboard");           
         }
-        
-        $tempdata = array(
-            'AnnualPlanningBudget' => 
-                array(
-                    array(
-                      'id' => 2,
-                      'PeriodStart' => array ( 'date' => '1' , 'text' => '2' , 'Test' => array(array('date' => '3' , 'text' => '4') , array('date' => '5' , 'text' => 7))),
-                      'PeriodEnd' => array ('date' => '0' , 'text' => '1'),
-                      ),
-                    array(
-                        'id' => 3,
-                        'PeriodStart' => array('date' => '1' , 'text' => '2'),
-                        'PeriodEnd' => array('date' => '8' , 'text' => '3'),
-                    )
-                )
-        ); // */
         
         $elementName =  "Iati_Organisation_Element_".$elementClass;
         $element = new $elementName();
-        $element->setData($tempdata[$elementClass]);
         
         if($data = $this->getRequest()->getPost()){
-            
-            echo "<pre>";print_r($data);exit;
             $element->setData($data[$elementClass]);
             $form = $element->getForm();
-            echo "<pre>";print_r($form);exit;
-            
+            $id = $element->save($data[$elementClass]);
+            $this->_helper->FlashMessenger->addMessage(array('message' => "Data has been sucessfully saved."));
+            $this->_redirect("/organisation/edit?classname={$elementClass}&id={$id}");
         } else {
             $form = $element->getForm();            
         }
         $form->addSubmitButton('Save');
         $this->view->form = $form;
+    }
+    
+    public function editAction()
+    {
+        $elementClass = $this->_getParam('classname');
+        $eleId = $this->_getParam('id');
+        
+        if(!$elementClass){
+            $this->_helper->FlashMessenger->addMessage(array('error' => "Could not fetch element."));
+            $this->_redirect("/wep/dashboard");           
+        }
+        
+        if(!$eleId){
+            $this->_helper->FlashMessenger->addMessage(array('error' => "No id provided."));
+            $this->_redirect("/wep/dashboard");  
+        }
+        
+        $elementName =  "Iati_Organisation_Element_".$elementClass;
+        $element = new $elementName();
+    
+        if($data = $this->getRequest()->getPost()){
+            $element->setData($data[$elementClass]);
+            $form = $element->getForm();
+            $element->save($data[$elementClass]);
+            $this->_helper->FlashMessenger->addMessage(array('message' => "Data updated been sucessfully saved."));
+        } else {
+            $data = $element->fetchData(array($eleId));
+            $element->setData($data[$elementClass]);
+            $form = $element->getForm();            
+        }
+        
+        $form->addSubmitButton('Save');
+        $this->view->form = $form;
+        
     }
 }

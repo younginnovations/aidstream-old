@@ -79,6 +79,7 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'default:wep', 'get-help-message');
         $this->allow('user', 'default:wep', 'list-published-files');
         $this->allow('user', 'default:organisation', 'add');
+        $this->allow('user', 'default:organisation', 'edit');
 
         $this->allow('admin', 'user');
         $this->allow('admin', 'default:code-list');

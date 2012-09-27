@@ -6,6 +6,7 @@ class Iati_Organisation_Element_AnnualPlanningBudget_PeriodEnd extends Iati_Orga
     protected $parent = 'AnnualPlanningBudget';
     protected $className = 'PeriodEnd';
     protected $displayName = 'Period End';
+    protected $attribs = array('id' , 'date' , 'text');
     protected $iatiAttribs = array('date' , 'text');
     protected $tableName = 'organisation/annual_planning_budget/period_end';
 }
