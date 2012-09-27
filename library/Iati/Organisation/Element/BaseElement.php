@@ -218,7 +218,7 @@ class Iati_Organisation_Element_BaseElement extends Zend_Db_Table_Abstract
     /**
      * Function to save the element's and its childrens data.
      * 
-     * This function saves the elements data into its table,
+     * This function saves the elements data into its table (inserts/updates the element's data),
      * creates child elements if present and calls save for the child elements
      * @param $data data of the element and its childrens
      * @param $parent array of parent column as key and its value as the array value. If the element is the
@@ -241,7 +241,10 @@ class Iati_Organisation_Element_BaseElement extends Zend_Db_Table_Abstract
                 } else {
                     $eleId = $elementsData['id'];
                     unset($elementsData['id']);
-                    $id[$this->convertCamelCaseToUnderScore($this->className)] = $this->update($elementsData , array('id = ?' => $eleId));                
+                    if($elementsData){
+                        $this->update($elementsData , array('id = ?' => $eleId));
+                    }
+                    $id[$this->convertCamelCaseToUnderScore($this->className)] = $eleId;
                 }
                 
                 // If children are present create children elements and call their save function.                
@@ -266,7 +269,8 @@ class Iati_Organisation_Element_BaseElement extends Zend_Db_Table_Abstract
             } else {
                 $eleId = $elementsData['id'];
                 unset($elementsData['id']);
-                $id[$this->convertCamelCaseToUnderScore($this->className)] = $this->update($elementsData , array('id = ?' => $eleId));                
+                $this->update($elementsData , array('id = ?' => $eleId));
+                $id[$this->convertCamelCaseToUnderScore($this->className)] = $eleId;
             }
             
             // If children are present create children elements and call their save function.
@@ -295,63 +299,129 @@ class Iati_Organisation_Element_BaseElement extends Zend_Db_Table_Abstract
     /**
      * Function to fetch the element and its childrens' data.
      * 
-     * @param $key array with columnname as key and its value as the value.
-     * If the element is child or should be fetched by parent id, the key is the parent_key coulumn else it is id column.
+     * @param $key array with columnname as array key and its value as the array value.
+     * If the element is child or should be fetched by parent id, the key is the parent classname
+     * else the key is not specified and id column is used.
+     * e.g array('myElementClass' => '2'), array(2)
      */    
     public function fetchData($key)
     {
         $parentName = array_pop(array_keys($key));
         $eleId = array_pop($key);
         if($this->isMultiple){
+            // If parentName is present use it to fetch using the parent column.
             if($parentName){
                 $parentColumn = $this->convertCamelCaseToUnderScore($parentName);
                 $parentColumn .= "_id";
-                $data[$this->className] = $this->fetchArray(array( $parentColumn => $eleId ));
-            } else {
-                $data[$this->className] = $this->fetchArray(array('id' => $eleId))->toArray();
+                $eleData = $this->fetchAll($this->getAdapter()->quoteInto("{$parentColumn} = ?" , $eleId ));
+            } else { // If parentName is not present the provided id is its own id so delete by own id.
+                $eleData = $this->fetchAll($this->getAdapter()->quoteInto("id = ?" , $eleId));
             }
-
+            if($eleData){
+                $data = $eleData->toArray();
+            }
+            // If children is present fetch their data.
             if(!empty($this->childElements)){
-                foreach($this->childElements as $childElementClass){
-                    $childElementName = get_class($this)."_$childElementClass";
-                    $childElement = new $childElementName();
-                    $data[$childElementClass] = $childElement->retrieve(array($this->className => $id));
+                foreach($data as $key=>$elementData){
+                    foreach($this->childElements as $childElementClass){
+                        $childElementName = get_class($this)."_$childElementClass";
+                        $childElement = new $childElementName();
+                        $data[$key][$childElementClass] = $childElement->fetchData(array($this->className => $elementData['id']));
+                    }
                 }
             }
         } else {
             if($parentName){
                 $parentColumn = $this->convertCamelCaseToUnderScore($parentName);
                 $parentColumn .= "_id";
-                $select = $this->select()->where("{$parentColumn} = ?" , $eleId);
+                $select = $this->select()->where($this->getAdapter()->quoteInto("{$parentColumn} = ?" , $eleId));
             } else {
-                $select = $this->select()->where("id = ?" , $eleId);
+                $select = $this->select()->where($this->getAdapter()->quoteInto("id = ?" , $eleId));
             }
             $row = $this->fetchRow($select);
             if($row){
-                $data[$this->className] = $row->toArray();
+                $data = $row->toArray();
             }
             if(!empty($this->childElements)){
                 foreach($this->childElements as $childElementClass){
                     $childElementName = get_class($this)."_$childElementClass";
                     $childElement = new $childElementName();
-                    $data[$childElementClass] = $childElement->retrieve(array($this->className => $id));
+                    $data[$childElementClass] = $childElement->fetchData(array($this->className => $data['id']));
                 }
             }
         }
-        return $data;
+        // For data consistency return data as element classname as key and element's data as value.
+        // Only needed if doesnot have parent, as classname as key is already used to insert to parent data.
+        if(!$parentName){
+            $returnData[$this->className] = $data;
+        } else {
+            $returnData = $data;
+        }
+        return $returnData;
     }
     
     /**
      * Function to delete the element and its childrens.
      * 
-     * @param $key array with columnname as key and its value as the value.
-     * If the element is child or should be deleted by parent, the key is the parent_key coulumn else it is id column.
+     * @param $key array with columnname as array key and its value as the array value.
+     * If the element is child or should be deleted by parent, the key is the parent_key coulumn
+     * else key is not specified and id column is used.
+     * e.g array('myClassName' => 2) , array(2)
      */
-    public function delete($key)
+    public function deleteElement($key)
     {
-        
+        $parentName = array_pop(array_keys($key));
+        $eleId = array_pop($key);
+        if($parentName){
+            $parentColumn = $this->convertCamelCaseToUnderScore($parentName);
+            $parentColumn .= "_id";
+            if($this->childElements){
+                // get the ids of the elements from the parent id so that the elements ids can be passed to the children.
+                $elementIds = $this->getElementIdsFromParent($parentColumn , $eleId);
+                // Foreach element delete their children.
+                foreach($elementIds as $elementId){
+                    foreach($this->childElements as $childElementClass){
+                        $childElementName = get_class($this)."_$childElementClass";
+                        $childElement = new $childElementName();
+                        $childElement->deleteElement(array($this->className => $elementId['id']));
+                    }
+                }
+            }
+            
+            $where = $this->getAdapter()->quoteInto("{$parentColumn} = ?", $eleId);
+            $this->delete($where);
+        } else {
+            // If children are present first delete the children.
+            if($this->childElements){
+                foreach($this->childElements as $childElementClass){
+                    $childElementName = get_class($this)."_$childElementClass";
+                    $childElement = new $childElementName();
+                    $childElement->deleteElement(array($this->className => $eleId));
+                }
+            }
+            $where = $this->getAdapter()->quoteInto("id = ?", $eleId);
+            $this->delete($where);
+        }
     }
     
+    /**
+     * Function to fetch id of the elements from the parent columns.
+     * Used by delete function to get elements' ids so that their children can be deleted from their id.
+     */
+    public function getElementIdsFromParent($parentColumn , $parentId)
+    {
+        $select = $this->select()->from($this , array('id'))->where("$parentColumn = ?" , $parentId);
+        $ids = $this->fetchAll($select);
+        if($ids){
+            return $ids->toArray();
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * Function to convert camel case classnames to names seperated by underscore.
+     */
     public function convertCamelCaseToUnderScore($className)
     {
         $underscore= strtolower(preg_replace('/([^A-Z_])([A-Z])/', '$1_$2', $className));

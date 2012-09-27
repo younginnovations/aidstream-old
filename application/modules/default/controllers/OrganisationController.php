@@ -80,6 +80,10 @@ class OrganisationController extends Zend_Controller_Action
             $this->_helper->FlashMessenger->addMessage(array('message' => "Data updated been sucessfully saved."));
         } else {
             $data = $element->fetchData(array($eleId));
+            if(empty($data[$elementClass])){
+                $this->_helper->FlashMessenger->addMessage(array('info' => "Data not found for the element. Please add new data"));
+                $this->_redirect("/organisation/add?classname=$elementClass");
+            }
             $element->setData($data[$elementClass]);
             $form = $element->getForm();            
         }
@@ -88,4 +92,27 @@ class OrganisationController extends Zend_Controller_Action
         $this->view->form = $form;
         
     }
+    
+    public function deleteAction()
+    {
+        $elementClass = $this->_getParam('classname');
+        $eleId = $this->_getParam('id');
+        if(!$elementClass){
+            $this->_helper->FlashMessenger->addMessage(array('error' => "Could not fetch element."));
+            $this->_redirect("/wep/dashboard");           
+        }
+        
+        if(!$eleId){
+            $this->_helper->FlashMessenger->addMessage(array('error' => "No id provided."));
+            $this->_redirect("/wep/dashboard");  
+        }
+        
+        $elementName =  "Iati_Organisation_Element_".$elementClass;
+        $element = new $elementName();
+        $element->deleteElement(array($eleId));
+        
+        $this->_helper->FlashMessenger->addMessage(array('message' => "Element Deleted sucessfully."));
+        $this->_redirect("/wep/dashboard"); 
+    }
+    
 }
