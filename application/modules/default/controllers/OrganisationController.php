@@ -43,9 +43,9 @@ class OrganisationController extends Zend_Controller_Action
         $element = new $elementName();
         
         if($data = $this->getRequest()->getPost()){
-            $element->setData($data[$elementClass]);
+            $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();
-            $id = $element->save($data[$elementClass]);
+            $id = $element->save($data[$element->getClassName()]);
             $this->_helper->FlashMessenger->addMessage(array('message' => "Data has been sucessfully saved."));
             $this->_redirect("/organisation/edit?classname={$elementClass}&id={$id}");
         } else {
@@ -74,17 +74,17 @@ class OrganisationController extends Zend_Controller_Action
         $element = new $elementName();
     
         if($data = $this->getRequest()->getPost()){
-            $element->setData($data[$elementClass]);
+            $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();
-            $element->save($data[$elementClass]);
+            $element->save($data[$element->getClassName()]);
             $this->_helper->FlashMessenger->addMessage(array('message' => "Data updated been sucessfully saved."));
         } else {
             $data = $element->fetchData(array($eleId));
-            if(empty($data[$elementClass])){
+            if(empty($data[$element->getClassName()])){
                 $this->_helper->FlashMessenger->addMessage(array('info' => "Data not found for the element. Please add new data"));
                 $this->_redirect("/organisation/add?classname=$elementClass");
             }
-            $element->setData($data[$elementClass]);
+            $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();            
         }
         
