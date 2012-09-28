@@ -119,20 +119,11 @@ class Iati_Organisation_BaseElement extends Zend_Db_Table_Abstract
                     $elementForm = $eleForm->getForm();
                     $childElements = $this->getChildElements();
                     if(!empty($childElements)){
-                        foreach($childElements as $childElementClass){
-                            $childElementName = get_class($this)."_$childElementClass";
-                            $childElement = new $childElementName();
-                            $childElement->setData($data[$childElementClass]);
-                            $childForm = $childElement->getForm();
-                            $childForm->removeDecorator('form');
-                            $elementForm->addSubForm($childForm , $childElementClass.$childForm->getCount($childElementClass));
-                        }
+                        $elementForm = $this->addChildForms($childElements , $elementForm , $data);
                     }
                     // add remove to form
-                    $remove = new Iati_Form_Element_Note('remove');
-                    $remove->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'simplified-remove-element'));
-                    $remove->setValue("<a href='#' class='button' value='{$this->getFullName()}'> Remove element</a>");
-                    $elementForm->addElement($remove);
+                    $elementForm = $this->addRemoveLink($elementForm);
+
                     $elementForm->removeDecorator('form');
                     $elementForm->prepare();
 
@@ -140,24 +131,14 @@ class Iati_Organisation_BaseElement extends Zend_Db_Table_Abstract
                 }
 
                 // add add button to wrapper form;
-                $add = new Iati_Form_Element_Note('add');
-                $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'simplified-add-more'));
-                $add->setValue("<a href='#' class='button' value='{$this->getFullName()}'> Add More</a>");
-                $form->addElement($add);
+                $form = $this->addAddLink($form);
                 
             } else {
                 $eleForm = new $formname(array('element' => $this));
                 $form = $eleForm->getForm();
                 $childElements = $this->getChildElements();
                 if(!empty($childElements)){
-                    foreach($childElements as $childElementClass){
-                        $childElementName = get_class($this)."_$childElementClass";
-                        $childElement = new $childElementName();
-                        $childElement->setData($this->data[$childElementClass]);
-                        $childForm = $childElement->getForm();
-                        $childForm->removeDecorator('form');
-                        $form->addSubForm($childForm , $childElementClass.$childForm->getCount($childElementClass));
-                    }      
+                    $form = $this->addChildForms($childElements , $form , $this->data);
                 }
                 $form->prepare();
             }
@@ -168,47 +149,86 @@ class Iati_Organisation_BaseElement extends Zend_Db_Table_Abstract
                 $elementForm = $eleForm->getForm();
                 $childElements = $this->getChildElements();
                 if(!empty($childElements)){
-                    foreach($childElements as $childElementClass){
-                        $childElementName = get_class($this)."_$childElementClass";
-                        $childElement = new $childElementName();
-                        $childForm = $childElement->getForm();
-                        $childForm->removeDecorator('form');
-                        $elementForm->addSubForm($childForm , $childElementClass.$childForm->getCount($childElementClass));
-                    }    
+                    $elementForm = $this->addChildForms($childElements , $elementForm);
                 }
                  // add remove to form
-                $remove = new Iati_Form_Element_Note('remove');
-                $remove->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'simplified-remove-element'));
-                $remove->setValue("<a href='#' class='button' value='{$this->getFullName()}'> Remove element</a>");
-                $elementForm->addElement($remove);
+                $elementForm = $this->addRemoveLink($elementForm);
+                
                 $elementForm->removeDecorator('form');
                 $elementForm->prepare();
                 
                 $form->addSubForm($elementForm , $this->getClassName());
                 
                 // add add button to wrapper form;
-                $add = new Iati_Form_Element_Note('add');
-                $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'simplified-add-more'));
-                $add->setValue("<a href='#' class='button' value='{$this->getFullName()}'> Add More</a>");
-                $form->addElement($add);
+                $form = $this->addAddLink($form);
                 
             } else {
                 $eleForm = new $formname(array('element' => $this));
                 $form = $eleForm->getFormDefination();
                 $childElements = $this->getChildElements();
                 if(!empty($childElements)){
-                    foreach($childElements as $childElementClass){
-                        $childElementName = get_class($this)."_$childElementClass";
-                        $childElement = new $childElementName();
-                        $childForm = $childElement->getForm();
-                        $childForm->removeDecorator('form');
-                        $form->addSubForm($childForm , $childElementClass.$childForm->getCount($childElementClass));
-                    }    
+                    $form = $this->addChildForms($childElements , $form);
                 }
                 $form->prepare();
             }
         }
         $this->_wrapForm($form);
+        return $form;
+    }
+    
+    /**
+     * Function to add child forms from child elements of an element.
+     *
+     * This function loops through all child elements, creates elements for each child, calls getForm for the child
+     * and adds the form returned by the child to its form.
+     * @param Array $childElements array of child classnames.
+     * @param Object Form object to which child are to be added.
+     * @param Array Data of the element and its children.
+     */
+    public function addChildForms($childElements , $form , $data = array())
+    {
+        foreach($childElements as $childElementClass){
+            $childElementName = get_class($this)."_$childElementClass";
+            $childElement = new $childElementName();
+            if(!empty($data)){
+                $childElement->setData($data[$childElementClass]);
+            }
+            $childForm = $childElement->getForm();
+            $childForm->removeDecorator('form');
+            $form->addSubForm($childForm , $childElementClass.$childForm->getCount($childElementClass));
+        }   
+        return $form;
+    }
+    
+    /**
+     * Function to add 'remove element' link to the form for element which can be multiple.
+     *
+     * @param Object Form object to which remove link is to be added.
+     * @return Object Form object of form with remove link added.
+     */
+    public function addRemoveLink($form)
+    {
+        $remove = new Iati_Form_Element_Note('remove');
+        $remove->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'simplified-remove-element'));
+        $remove->setValue("<a href='#' class='button' value='{$this->getFullName()}'> Remove element</a>");
+        $form->addElement($remove);
+        
+        return $form;
+    }
+    
+    /**
+     * Function to add 'add more' link to form for element which can be multiple.
+     *
+     * @param Object Form object to which add more link is to be added.
+     * @return Object Form object with add more link added.
+     */
+    public function addAddLink($form)
+    {
+        $add = new Iati_Form_Element_Note('add');
+        $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'simplified-add-more'));
+        $add->setValue("<a href='#' class='button' value='{$this->getFullName()}'> Add More</a>");
+        $form->addElement($add);
+        
         return $form;
     }
     
