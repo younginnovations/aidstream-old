@@ -1,11 +1,24 @@
 <?php
-
+/**
+ * Base class for Creating element forms, Extends Iati_SimplifiedForm
+ *
+ * This Class acts as the base for extending by the elements' forms. It provides basic functionalities
+ * like setting data, element, preparing the form etc.
+ * 
+ * To create form for any element only the getFormDefination should be overridden with the element's form defination.
+ * 
+ * @param Object $element Object of the element for which the form is defined.
+ * @param Array $data Data of the element for which the form is defined.
+ * @param boolen $isMultiple true if the multiple element is present else false.
+ *
+ * @author bhabishyat <bhabishyat@gmail.com>
+ */
 class Iati_Organisation_BaseForm extends Iati_SimplifiedForm
 {
     protected $element;
     protected $data;
-    public static $count = array();
     protected $isMultiple;
+    public static $count = array();
     
     public function getFormDefination(){}
 
@@ -40,6 +53,10 @@ class Iati_Organisation_BaseForm extends Iati_SimplifiedForm
         $this->isMultiple = $multiple;
     }
     
+    /**
+     * Function to set the element attribute of the class.
+     * It also sets the data and isMultiple attribute from the element's attributes
+     */
     public function setElement($element)
     {
         $this->element = $element;
@@ -47,6 +64,11 @@ class Iati_Organisation_BaseForm extends Iati_SimplifiedForm
         $this->setMultiple($element->getIsMultiple());
     }
     
+    /**
+     * Function to fetch the form for the element.
+     *
+     * This function fetches the element's form defination and updates the count of the element.
+     */
     public function getForm()
     {
         $form = $this->getFormDefination();
@@ -54,6 +76,9 @@ class Iati_Organisation_BaseForm extends Iati_SimplifiedForm
         return $form;
     }
     
+    /**
+     * Function to add element names to the form. Uses count and element name for creating array of element.
+     */
     public function prepare()
     {
         if($this->isMultiple) {
@@ -64,14 +89,21 @@ class Iati_Organisation_BaseForm extends Iati_SimplifiedForm
         }
     }
     
-    public function addSubmitButton($label)
+    /**
+     * Function to add submit buttons to the form.
+     *
+     * Removes any submit button if present before and adds 'save' and 'save and view' buttons
+     * @param String $label If the label of the save button should be different, an string should be passed.
+     * @param String $saveAndViewlabel If the label of the save and view should be different, an string should be passed.
+     */
+    public function addSubmitButton($label , $saveAndViewlabel = 'Save and View')
     {
         if($this->submit){
             $this->removeElement('sumbit');
         }
         $this->addElement('submit' , 'save_and_view',
             array(
-                'label' => 'Save and View',
+                'label' => $saveAndViewlabel,
                 'required' => false,
                 'ignore'   => false,
             )

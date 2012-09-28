@@ -1,10 +1,22 @@
 <?php
 /**
- * Base class for iati elements.
+ * Base class for iati elements , Extends Zend_Db_Table_Abstract
  * Coantains all the attributes of the element and the methods for functionalities that can be done
- * for the elements like creating form, saving, retrieving etc.
+ * for the elements like creating form, saving, retrieving, generating xml etc.
+ * Extends zend_db_table_abstract so that db functionalities can be directly done.
  *
- * @author bhabishyat
+ * @param boolen $isMultiple Should be true if the element can be multiple.
+ * @param boolen $isRequired Should be true if the element is a required element.
+ * @param String $className The name of the class of the element. Name with space should be used as camelCase without space
+ * @param String $displayName The name of the element for display in forms , if same as classname should be left empty.
+ * @param Array $data array of the elements data and its child element.
+ * @param Array $childElements array of classname of the child elements.If no child, an empty array is present.
+ * @param Array $attribs array of attributes names strored in database.
+ *      @todo use these in database activities.Currently attributes are directly used from form and fetched data.
+ * @param Array $iatiAttribs array of the element's iati attributes. these are used while creating xml
+ * @param String $tableName Name of the database table used to store the element's data.
+ *
+ * @author bhabishyat <bhabishyat@gmail.com>
  */
 class Iati_Organisation_BaseElement extends Zend_Db_Table_Abstract
 {
@@ -13,7 +25,6 @@ class Iati_Organisation_BaseElement extends Zend_Db_Table_Abstract
     protected $className;
     protected $displayName;
     protected $data;
-    protected $parentName;
     protected $childElements = array();
     protected $attribs = array();
     protected $iatiAttribs = array();
@@ -421,6 +432,9 @@ class Iati_Organisation_BaseElement extends Zend_Db_Table_Abstract
     
     /**
      * Function to convert camel case classnames to names seperated by underscore.
+     *
+     * @param String $className Camel cased classname string.
+     * @return String string with words in class name string joined by underscore.
      */
     public function convertCamelCaseToUnderScore($className)
     {
@@ -430,6 +444,15 @@ class Iati_Organisation_BaseElement extends Zend_Db_Table_Abstract
     
     /**
      * Function to get the xml of the element.
+     *
+     * The function checks for the parent. If the parent is not present, it creates a simpleXMlElement
+     * object with its name as the element name, adds attribute and calls to children's getXml if any.
+     * If parent is present, it adds a child with the elements name as the name to the parent, adds
+     * attribute and calls children's getXml if any.
+     * @param Array $key array with parent name as array key and id as array value.
+     *         If not called by parent, array key is empty.
+     * @param Object_SimpleXMLElement/null If called by parent, the parameter is the parent object else null.
+     * @return Object_SimpleXMLElement/null
      */
     public function getXml($key , $parent = null)
     {
