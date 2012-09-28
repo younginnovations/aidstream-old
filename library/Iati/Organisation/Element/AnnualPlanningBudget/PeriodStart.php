@@ -1,6 +1,6 @@
 <?php
 
-class Iati_Organisation_Element_AnnualPlanningBudget_PeriodStart extends Iati_Organisation_Element_BaseElement
+class Iati_Organisation_Element_AnnualPlanningBudget_PeriodStart extends Iati_Organisation_BaseElement
 {
     protected $isRequired = true;
     protected $className = 'PeriodStart';

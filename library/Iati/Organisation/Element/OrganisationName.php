@@ -1,6 +1,6 @@
 <?php
 
-class Iati_Organisation_Element_OrganisationName extends Iati_Organisation_Element_BaseElement
+class Iati_Organisation_Element_OrganisationName extends Iati_Organisation_BaseElement
 {
     //protected $isMultiple = true;
     protected $isRequired = true;

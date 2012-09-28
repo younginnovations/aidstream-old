@@ -1,6 +1,6 @@
 <?php
 
-class Iati_Organisation_Form_BaseForm extends Iati_SimplifiedForm
+class Iati_Organisation_BaseForm extends Iati_SimplifiedForm
 {
     protected $element;
     protected $data;

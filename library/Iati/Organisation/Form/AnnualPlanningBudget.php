@@ -1,6 +1,6 @@
 <?php
 
-class Iati_Organisation_Form_AnnualPlanningBudget extends Iati_Organisation_Form_BaseForm
+class Iati_Organisation_Form_AnnualPlanningBudget extends Iati_Organisation_BaseForm
 {  
     public function getFormDefination()
     {

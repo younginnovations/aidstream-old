@@ -1,6 +1,6 @@
 <?php
 
-class Iati_Organisation_Element_AnnualPlanningBudget_PeriodStart_Test_TestChild extends Iati_Organisation_Element_BaseElement
+class Iati_Organisation_Element_AnnualPlanningBudget_PeriodStart_Test_TestChild extends Iati_Organisation_BaseElement
 {
     protected $isMultiple = true;
     protected $isRequired = true;

@@ -1,6 +1,6 @@
 <?php
 
-class Iati_Organisation_Element_AnnualPlanningBudget extends Iati_Organisation_Element_BaseElement
+class Iati_Organisation_Element_AnnualPlanningBudget extends Iati_Organisation_BaseElement
 {
     protected $isMultiple = true;
     protected $className = 'AnnualPlanningBudget';
