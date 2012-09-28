@@ -81,6 +81,7 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'default:organisation', 'add');
         $this->allow('user', 'default:organisation', 'edit');
         $this->allow('user', 'default:organisation', 'delete');
+        $this->allow('user', 'default:organisation', 'generate-xml');
 
         $this->allow('admin', 'user');
         $this->allow('admin', 'default:code-list');

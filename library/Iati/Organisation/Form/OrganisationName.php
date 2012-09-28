@@ -21,10 +21,10 @@ class Iati_Organisation_Form_OrganisationName extends Iati_Organisation_BaseForm
             ->setValue($this->data['name'])
             ->setAttrib('class', 'form-text');
             
-        $form['language'] = new Zend_Form_Element_Select('Language');
-        $form['language']->setLabel('language')
+        $form['xml_lang'] = new Zend_Form_Element_Select('xml_lang');
+        $form['xml_lang']->setLabel('Language')
             ->addMultiOptions($language)
-            ->setValue($this->data['language'])
+            ->setValue($this->data['xml_lang'])
             ->setAttrib('class', 'form-select');
 
 

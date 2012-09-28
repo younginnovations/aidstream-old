@@ -427,4 +427,127 @@ class Iati_Organisation_BaseElement extends Zend_Db_Table_Abstract
         $underscore= strtolower(preg_replace('/([^A-Z_])([A-Z])/', '$1_$2', $className));
         return $underscore;
     }
+    
+    /**
+     * Function to get the xml of the element.
+     */
+    public function getXml($key , $parent = null)
+    {
+        $eleName = $this->getXmlName();        
+        
+        $parentName = array_pop(array_keys($key));
+        $eleId = array_pop($key);
+        if($this->isMultiple){
+            // If parentName is present use it to fetch using the parent column.
+            if($parentName){
+                $parentColumn = $this->convertCamelCaseToUnderScore($parentName);
+                $parentColumn .= "_id";
+                $eleData = $this->fetchAll($this->getAdapter()->quoteInto("{$parentColumn} = ?" , $eleId ));
+            } else { // If parentName is not present the provided id is its own id so delete by own id.
+                $eleData = $this->fetchAll($this->getAdapter()->quoteInto("id = ?" , $eleId));
+            }
+            if($eleData){
+                $data = $eleData->toArray();
+            }
+            foreach($data as $row){
+                if(!is_object($parent)){
+                    $xmlObj = new SimpleXMLElement("<$eleName>".$row['text']."</$eleName>");
+                } else {
+                    $xmlObj = $parent->addChild($eleName , $row['text']);
+                }
+                $xmlObj = $this->addElementsXmlAttribsFromData($xmlObj , $row);
+
+            }
+            // If children is present fetch their data.
+            if(!empty($this->childElements)){
+                foreach($data as $key=>$elementData){
+                    foreach($this->childElements as $childElementClass){
+                        $childElementName = get_class($this)."_$childElementClass";
+                        $childElement = new $childElementName();
+                        $childElement->getXml(array($this->className => $elementData['id']) , $xmlObj);
+                    }
+                }
+            }
+        } else {
+                       
+            if($parentName){
+                $parentColumn = $this->convertCamelCaseToUnderScore($parentName);
+                $parentColumn .= "_id";
+                $select = $this->select()->where($this->getAdapter()->quoteInto("{$parentColumn} = ?" , $eleId));
+            } else {
+                $select = $this->select()->where($this->getAdapter()->quoteInto("id = ?" , $eleId));
+            }
+            $row = $this->fetchRow($select);
+            if($row){
+                $data = $row->toArray();
+            }
+            if(!is_object($parent)){
+                $xmlObj = new SimpleXMLElement("<$eleName>".$data['text']."</$eleName>");
+            } else {
+                $xmlObj = $parent->addChild($eleName , $data['text']);
+            }
+            
+            $xmlObj = $this->addElementsXmlAttribsFromData($xmlObj , $data);
+            
+            if(!empty($this->childElements)){
+                foreach($this->childElements as $childElementClass){
+                    $childElementName = get_class($this)."_$childElementClass";
+                    $childElement = new $childElementName();
+                    $childElement->getXml(array($this->className => $data['id']) , $xmlObj);
+                }
+            }
+        }
+        
+        return $xmlObj;
+    }
+    
+    /**
+     * Function to fetch the xml name of the element.
+     * It can also be used to convert classnames or camelCased names to xml-names by passing the name as argument.
+     *
+     * @param $name className or camelCased names if present is converted to xml-names
+     * else the element's xmlname is fetched.
+     */
+    public function getXmlName($name = '')
+    {
+        if(!$name){
+            if($this->xmlName){
+                $name = $this->xmlName;
+            } else {
+                $name = $this->className;
+            }
+        }
+        $name = $this->convertCamelCaseToUnderScore($name);
+        $name = preg_replace('/_/' , '-' , $name);
+        return $name;
+    }
+    
+    /**
+     * Loops through the data and adds each attribute to the simpleXmlObject.
+     * @param $xmlObj SimpleXMLElement object to which attribute is to be added.
+     * @param $data array of attribs with attrib name as key.
+     */
+    public function addElementsXmlAttribsFromData($xmlObj , $data)
+    {
+        foreach($data as $name=>$value){  
+            if(in_array($name , $this->iatiAttribs) && $name != 'text')
+            {
+                if($name == "xml_lang"){
+                    $name = preg_replace('/_/',':',$name);
+                    $xmlObj->addAttribute($name , $value , "http://www.w3.org/XML/1998/namespace");
+                } elseif ($name == 'last_updated_datetime'){
+                    // Convert last updated date to UTC format
+                    $name = preg_replace('/_/','-',$name);
+                    $gmDateValue = gmdate('c' , strtotime($value));
+                    $xmlObj->addAttribute($name,$gmDateValue);
+                }
+                else {
+                    $name = preg_replace('/_/','-',$name);
+                    $xmlObj->addAttribute($name,$value);
+                }
+
+            }
+        }
+        return $xmlObj;
+    }
 }

@@ -115,4 +115,28 @@ class OrganisationController extends Zend_Controller_Action
         $this->_redirect("/wep/dashboard"); 
     }
     
+    public function generateXmlAction()
+    {
+        $elementClass = $this->_getParam('classname');
+        $eleId = $this->_getParam('id');
+        if(!$elementClass){
+            $this->_helper->FlashMessenger->addMessage(array('error' => "Could not fetch element."));
+            $this->_redirect("/wep/dashboard");           
+        }
+        
+        if(!$eleId){
+            $this->_helper->FlashMessenger->addMessage(array('error' => "No id provided."));
+            $this->_redirect("/wep/dashboard");  
+        }
+        
+        $elementName =  "Iati_Organisation_Element_".$elementClass;
+        $element = new $elementName();
+        $xmlObj = $element->getXml(array($eleId));
+        if($xmlObj){
+            echo ($xmlObj->asXml());exit;
+        } else {
+            echo "Sorry no data found";exit;
+        }
+    }
+    
 }
