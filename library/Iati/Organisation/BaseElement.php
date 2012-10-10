@@ -112,7 +112,7 @@ class Iati_Organisation_BaseElement extends Zend_Db_Table_Abstract
         $formname = preg_replace('/Element/' , 'Form' , get_class($this));
         if($this->data){
             if($this->isMultiple){
-                $form = new Iati_Organisation_BaseForm();
+                $form = new Iati_Organisation_WrapperForm();
                 foreach($this->data as $data){
                     $eleForm = new $formname(array('element' => $this));
                     $eleForm->setData($data);
@@ -144,7 +144,7 @@ class Iati_Organisation_BaseElement extends Zend_Db_Table_Abstract
             }
         } else {
             if($this->isMultiple){
-                $form = new Iati_Organisation_BaseForm();
+                $form = new Iati_Organisation_WrapperForm();
                 $eleForm = new $formname(array('element' => $this));
                 $elementForm = $eleForm->getForm();
                 $childElements = $this->getChildElements();

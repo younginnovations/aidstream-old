@@ -13,14 +13,14 @@
  *
  * @author bhabishyat <bhabishyat@gmail.com>
  */
-class Iati_Organisation_BaseForm extends Iati_SimplifiedForm
+abstract class Iati_Organisation_BaseForm extends Iati_SimplifiedForm
 {
     protected $element;
     protected $data;
     protected $isMultiple;
     public static $count = array();
     
-    public function getFormDefination(){}
+    abstract public function getFormDefination();
 
     public function setData($data)
     {
