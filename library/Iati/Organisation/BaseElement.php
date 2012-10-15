@@ -1,9 +1,8 @@
 <?php
 /**
- * Base class for iati elements , Extends Zend_Db_Table_Abstract
+ * Base class for iati elements 
  * Coantains all the attributes of the element and the methods for functionalities that can be done
  * for the elements like creating form, saving, retrieving, generating xml etc.
- * Extends zend_db_table_abstract so that db functionalities can be directly done.
  *
  * @param boolen $isMultiple Should be true if the element can be multiple.
  * @param boolen $isRequired Should be true if the element is a required element.
@@ -18,7 +17,7 @@
  *
  * @author bhabishyat <bhabishyat@gmail.com>
  */
-class Iati_Organisation_BaseElement extends Zend_Db_Table_Abstract
+class Iati_Organisation_BaseElement
 {
     protected $isMultiple = false;
     protected $isRequired = false;
@@ -29,11 +28,12 @@ class Iati_Organisation_BaseElement extends Zend_Db_Table_Abstract
     protected $attribs = array();
     protected $iatiAttribs = array();
     protected $tableName;
+    protected $db;
     public $count;
     
-    public function init()
+    public function __construct()
     {
-        $this->_name = $this->tableName;
+        $this->db = new Zend_Db_Table($this->tableName);
     }
     
     public function setCount($count)
@@ -268,12 +268,12 @@ class Iati_Organisation_BaseElement extends Zend_Db_Table_Abstract
                 // If no id is present, insert the data else update the data using the id.
                 if(!$elementsData['id']){
                     $elementsData['id'] = null;
-                    $id[$this->convertCamelCaseToUnderScore($this->className)] = $this->insert($elementsData);
+                    $id[$this->convertCamelCaseToUnderScore($this->className)] = $this->db->insert($elementsData);
                 } else {
                     $eleId = $elementsData['id'];
                     unset($elementsData['id']);
                     if($elementsData){
-                        $this->update($elementsData , array('id = ?' => $eleId));
+                        $this->db->update($elementsData , array('id = ?' => $eleId));
                     }
                     $id[$this->convertCamelCaseToUnderScore($this->className)] = $eleId;
                 }
@@ -296,11 +296,11 @@ class Iati_Organisation_BaseElement extends Zend_Db_Table_Abstract
             // If no id is present, insert the data else update the data using the id.
             if(!$elementsData['id']){
                 $elementsData['id'] = null;
-                $id[$this->convertCamelCaseToUnderScore($this->className)] = $this->insert($elementsData);
+                $id[$this->convertCamelCaseToUnderScore($this->className)] = $this->db->insert($elementsData);
             } else {
                 $eleId = $elementsData['id'];
                 unset($elementsData['id']);
-                $this->update($elementsData , array('id = ?' => $eleId));
+                $this->db->update($elementsData , array('id = ?' => $eleId));
                 $id[$this->convertCamelCaseToUnderScore($this->className)] = $eleId;
             }
             
@@ -344,9 +344,9 @@ class Iati_Organisation_BaseElement extends Zend_Db_Table_Abstract
             if($parentName){
                 $parentColumn = $this->convertCamelCaseToUnderScore($parentName);
                 $parentColumn .= "_id";
-                $eleData = $this->fetchAll($this->getAdapter()->quoteInto("{$parentColumn} = ?" , $eleId ));
+                $eleData = $this->db->fetchAll($this->db->getAdapter()->quoteInto("{$parentColumn} = ?" , $eleId ));
             } else { // If parentName is not present the provided id is its own id so delete by own id.
-                $eleData = $this->fetchAll($this->getAdapter()->quoteInto("id = ?" , $eleId));
+                $eleData = $this->db->fetchAll($this->db->getAdapter()->quoteInto("id = ?" , $eleId));
             }
             if($eleData){
                 $data = $eleData->toArray();
@@ -365,11 +365,11 @@ class Iati_Organisation_BaseElement extends Zend_Db_Table_Abstract
             if($parentName){
                 $parentColumn = $this->convertCamelCaseToUnderScore($parentName);
                 $parentColumn .= "_id";
-                $select = $this->select()->where($this->getAdapter()->quoteInto("{$parentColumn} = ?" , $eleId));
+                $select = $this->db->select()->where($this->db->getAdapter()->quoteInto("{$parentColumn} = ?" , $eleId));
             } else {
-                $select = $this->select()->where($this->getAdapter()->quoteInto("id = ?" , $eleId));
+                $select = $this->db->select()->where($this->db->getAdapter()->quoteInto("id = ?" , $eleId));
             }
-            $row = $this->fetchRow($select);
+            $row = $this->db->fetchRow($select);
             if($row){
                 $data = $row->toArray();
             }
@@ -419,8 +419,8 @@ class Iati_Organisation_BaseElement extends Zend_Db_Table_Abstract
                 }
             }
             
-            $where = $this->getAdapter()->quoteInto("{$parentColumn} = ?", $eleId);
-            $this->delete($where);
+            $where = $this->db->getAdapter()->quoteInto("{$parentColumn} = ?", $eleId);
+            $this->db->delete($where);
         } else {
             // If children are present first delete the children.
             if($this->childElements){
@@ -430,8 +430,8 @@ class Iati_Organisation_BaseElement extends Zend_Db_Table_Abstract
                     $childElement->deleteElement(array($this->className => $eleId));
                 }
             }
-            $where = $this->getAdapter()->quoteInto("id = ?", $eleId);
-            $this->delete($where);
+            $where = $this->db->getAdapter()->quoteInto("id = ?", $eleId);
+            $this->db->delete($where);
         }
     }
     
@@ -441,8 +441,8 @@ class Iati_Organisation_BaseElement extends Zend_Db_Table_Abstract
      */
     public function getElementIdsFromParent($parentColumn , $parentId)
     {
-        $select = $this->select()->from($this , array('id'))->where("$parentColumn = ?" , $parentId);
-        $ids = $this->fetchAll($select);
+        $select = $this->db->select()->from($this , array('id'))->where("$parentColumn = ?" , $parentId);
+        $ids = $this->db->fetchAll($select);
         if($ids){
             return $ids->toArray();
         } else {
@@ -485,9 +485,9 @@ class Iati_Organisation_BaseElement extends Zend_Db_Table_Abstract
             if($parentName){
                 $parentColumn = $this->convertCamelCaseToUnderScore($parentName);
                 $parentColumn .= "_id";
-                $eleData = $this->fetchAll($this->getAdapter()->quoteInto("{$parentColumn} = ?" , $eleId ));
+                $eleData = $this->db->fetchAll($this->db->getAdapter()->quoteInto("{$parentColumn} = ?" , $eleId ));
             } else { // If parentName is not present the provided id is its own id so delete by own id.
-                $eleData = $this->fetchAll($this->getAdapter()->quoteInto("id = ?" , $eleId));
+                $eleData = $this->db->fetchAll($this->db->getAdapter()->quoteInto("id = ?" , $eleId));
             }
             if($eleData){
                 $data = $eleData->toArray();
@@ -516,11 +516,11 @@ class Iati_Organisation_BaseElement extends Zend_Db_Table_Abstract
             if($parentName){
                 $parentColumn = $this->convertCamelCaseToUnderScore($parentName);
                 $parentColumn .= "_id";
-                $select = $this->select()->where($this->getAdapter()->quoteInto("{$parentColumn} = ?" , $eleId));
+                $select = $this->db->select()->where($this->db->getAdapter()->quoteInto("{$parentColumn} = ?" , $eleId));
             } else {
-                $select = $this->select()->where($this->getAdapter()->quoteInto("id = ?" , $eleId));
+                $select = $this->db->select()->where($this->db->getAdapter()->quoteInto("id = ?" , $eleId));
             }
-            $row = $this->fetchRow($select);
+            $row = $this->db->fetchRow($select);
             if($row){
                 $data = $row->toArray();
             }
