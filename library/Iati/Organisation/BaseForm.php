@@ -27,6 +27,11 @@ abstract class Iati_Organisation_BaseForm extends Iati_SimplifiedForm
         $this->data = $data;
     }
     
+    public function setCount($count)
+    {
+        self::$count[$this->element->getClassName()] = $count;
+    }
+    
     public function getIatiElement()
     {
         return $this->element;

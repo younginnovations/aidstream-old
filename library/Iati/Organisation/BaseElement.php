@@ -29,7 +29,7 @@ class Iati_Organisation_BaseElement
     protected $iatiAttribs = array();
     protected $tableName;
     protected $db;
-    public $count;
+    protected $count;
     
     public function __construct()
     {
@@ -146,7 +146,11 @@ class Iati_Organisation_BaseElement
             if($this->isMultiple){
                 $form = new Iati_Organisation_WrapperForm();
                 $eleForm = new $formname(array('element' => $this));
+                if($this->count){
+                    $eleForm->setCount($this->count);
+                }
                 $elementForm = $eleForm->getForm();
+                
                 $childElements = $this->getChildElements();
                 if(!empty($childElements)){
                     $elementForm = $this->addChildForms($childElements , $elementForm);
@@ -164,6 +168,9 @@ class Iati_Organisation_BaseElement
                 
             } else {
                 $eleForm = new $formname(array('element' => $this));
+                if($this->count){
+                    $eleForm->setCount($this->count);
+                }
                 $form = $eleForm->getFormDefination();
                 $childElements = $this->getChildElements();
                 if(!empty($childElements)){
