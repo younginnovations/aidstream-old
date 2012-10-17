@@ -105,9 +105,10 @@ class Iati_Organisation_BaseElement
      * creates child elements if present , calls getForm() of the child element and
      * adds the child form as the subform of the element's form
      *
+     * @param boolen $ajax True if the form fetch is done using ajax
      * @return form for the element with children's forms added as subform.
      */
-    public function getForm()
+    public function getForm($ajax = false)
     {
         $formname = preg_replace('/Element/' , 'Form' , get_class($this));
         if($this->data){
@@ -160,6 +161,11 @@ class Iati_Organisation_BaseElement
                 
                 $elementForm->removeDecorator('form');
                 $elementForm->prepare();
+                
+                // If the form build is called using ajax return the form without preparing it further.
+                if($ajax){
+                    return $elementForm;
+                }
                 
                 $form->addSubForm($elementForm , $this->getClassName());
                 
@@ -232,7 +238,7 @@ class Iati_Organisation_BaseElement
     public function addAddLink($form)
     {
         $add = new Iati_Form_Element_Note('add');
-        $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'simplified-add-more'));
+        $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'element-add-more'));
         $add->setValue("<a href='#' class='button' value='{$this->getFullName()}'> Add More</a>");
         $form->addElement($add);
         

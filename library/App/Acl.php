@@ -18,6 +18,7 @@ class App_Acl extends Zend_Acl
                 ->add(new Zend_Acl_Resource('default:activityviewer'), 'default')
                 ->add(new Zend_Acl_Resource('default:wep'), 'default')
                 ->add(new Zend_Acl_Resource('default:organisation'), 'default')
+                ->add(new Zend_Acl_Resource('default:ajax'), 'default')
                 ->add(new Zend_Acl_Resource('default:admin'), 'default')
                 ->add(new Zend_Acl_Resource('default:iatixmlController'), 'default');
 
@@ -82,6 +83,7 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'default:organisation', 'edit');
         $this->allow('user', 'default:organisation', 'delete');
         $this->allow('user', 'default:organisation', 'generate-xml');
+        $this->allow('user', 'default:ajax', 'get-form');
 
         $this->allow('admin', 'user');
         $this->allow('admin', 'default:code-list');

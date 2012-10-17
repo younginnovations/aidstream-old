@@ -1159,6 +1159,39 @@ function initialize() {
                     orient: ['TR']
                 } , ele);
             }
+        },
+        
+        ".element-add-more": {
+            "onclick" : function (evt) {
+                evt.preventDefault();
+                var node = new dojo.NodeList(getTarget(evt));
+
+                var value = node.attr('value')[0];
+		var url = APP_BASEPATH + "/ajax/get-form";
+                var wrapperNode = dojo.query(getTarget(evt).parentNode.parentNode);//dojo.query(getTarget(evt)).parentNode);
+                var lastNode = wrapperNode.query(">.form-wrapper").last();
+                var input = lastNode.query('input').attr('id');
+                var refEle = input[0];
+                refEle = refEle.replace(/-\w+$/,'');
+
+                // prepare input object for get parameter                
+                var data = new Object();
+                data['classname'] = value;
+                data['refele'] = refEle;
+
+                dojo.xhrGet({
+                    url : url,
+                    handleAs : 'text',
+                    content : data,
+                    load : function (data) {
+                        dojo.place(data, getTarget(evt).parentNode, "before");
+                        dojo.behavior.apply();
+                    },
+                    error : function (err) {
+                        console.log(err);
+                    }
+                });
+            }
         }
         
     });
