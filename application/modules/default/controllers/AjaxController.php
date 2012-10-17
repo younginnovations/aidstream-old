@@ -61,4 +61,15 @@ class AjaxController extends Zend_Controller_Action
         print $form;
         exit;
     }
+    
+    public function removeFormAction()
+    {
+        $elementClass = $this->_getParam('classname');
+        $id = $this->_getParam('id');
+        
+        $elementName =  "Iati_Organisation_Element_".$elementClass;
+        $element = new $elementName();
+        $element->deleteElement(array($id));
+        exit;
+    }
 }

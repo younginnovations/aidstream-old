@@ -222,7 +222,7 @@ class Iati_Organisation_BaseElement
     public function addRemoveLink($form)
     {
         $remove = new Iati_Form_Element_Note('remove');
-        $remove->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'simplified-remove-element'));
+        $remove->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'remove-element element-remove-this'));
         $remove->setValue("<a href='#' class='button' value='{$this->getFullName()}'> Remove element</a>");
         $form->addElement($remove);
         
@@ -238,7 +238,7 @@ class Iati_Organisation_BaseElement
     public function addAddLink($form)
     {
         $add = new Iati_Form_Element_Note('add');
-        $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'element-add-more'));
+        $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'add-more element-add-more'));
         $add->setValue("<a href='#' class='button' value='{$this->getFullName()}'> Add More</a>");
         $form->addElement($add);
         
@@ -358,7 +358,7 @@ class Iati_Organisation_BaseElement
                 $parentColumn = $this->convertCamelCaseToUnderScore($parentName);
                 $parentColumn .= "_id";
                 $eleData = $this->db->fetchAll($this->db->getAdapter()->quoteInto("{$parentColumn} = ?" , $eleId ));
-            } else { // If parentName is not present the provided id is its own id so delete by own id.
+            } else { // If parentName is not present the provided id is its own id so fetch by own id.
                 $eleData = $this->db->fetchAll($this->db->getAdapter()->quoteInto("id = ?" , $eleId));
             }
             if($eleData){

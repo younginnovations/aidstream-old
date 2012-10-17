@@ -1192,9 +1192,89 @@ function initialize() {
                     }
                 });
             }
+        },
+        
+        ".element-remove-this" : {
+            "onmouseover" : function(evt) {
+                var node = getTarget(evt).parentNode.parentNode;
+                dojo.addClass(node , 'remove-highlight');
+            },
+            
+            "onmouseout" : function(evt) {
+                var node = getTarget(evt).parentNode.parentNode;
+                dojo.removeClass(node , 'remove-highlight');
+            },
+            
+            "onclick" : function (evt) {
+                evt.preventDefault();
+                var removeNode = getTarget(evt).parentNode;
+                var removeUrl = APP_BASEPATH + "/ajax/remove-form";
+                var classname = dojo.attr(getTarget(evt) , 'value');
+
+                //var grandParent = new dojo.NodeList(getTarget(evt).parentNode.parentNode);
+                //var parentNode = new dojo.NodeList(getTarget(evt).parentNode);
+                var msg = '<div><p>Are you sure you want to delete this item?</p>';
+                msg += '<p>This will remove all the subitems(if any) as well.</p>';
+                msg += '<p style="margin-left:100px"><button dojoType="dijit.form.Button" type="button" id="cd-ok">OK</button>';
+                msg += '<button dojoType="dijit.form.Button" type="button" id="cd-cancel">Cancel</button></p>';
+                
+                // Destroy all dialog box before creating new. Used to remove dialog box remaining after clicking close.
+                dojo.query('.dijitDialog').forEach(dojo.destroy);
+                
+                var confirmDlg = new dijit.Dialog({
+                    title: "Are you Sure?",
+                    style: "width: 320px",
+                    parseOnLoad: true,
+                    content: msg
+                });
+                
+                dojo.connect(dojo.byId('cd-cancel'), 'onclick', function (e) {
+                    confirmDlg.destroyRecursive();
+                });
+                
+                dojo.connect(dojo.byId('cd-ok'), 'onclick', function (e) {
+                    confirmDlg.destroyRecursive();
+                    var grandParent = dojo.NodeList(removeNode.parentNode.parentNode);
+                    
+		    var parentNode = dojo.NodeList(removeNode.parentNode);
+		    var removeId = dojo.attr(parentNode.query('input[type="hidden"]')[0], 'value');
+		    if (parseInt(removeId)) {
+			dojo.xhrGet({
+			    url: removeUrl ,
+			    handleAs: 'text',
+			    content: {
+				"id": removeId,
+                                "classname" : classname
+			    },
+			    load: function (data) {
+				//console.log(data);
+                                if (grandParent.children('.form-wrapper').length > 1) {
+                                    dojo.destroy(parentNode[0]);
+                                } else {
+                                    window.location.reload();
+                                }
+			    },
+			    error: function (data) {
+				//console.log(data);
+				messageDialog("Error", "Something went wrong! Please try again");
+			    }
+			});
+		    }
+		    else {
+			if (grandParent.children('.form-wrapper').length > 1) {
+					dojo.destroy(parentNode[0]);
+				}
+		    }
+                    
+                });
+                
+                confirmDlg.show();
+                evt.preventDefault();
+            }
         }
         
     });
+    
     // End of dojo.behavior.add
     dojo.behavior.apply();
 }
