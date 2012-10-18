@@ -34,6 +34,8 @@ class OrganisationController extends Zend_Controller_Action
     public function addAction()
     {
         $elementClass = $this->_getParam('classname');
+        $parentId = $this->_getParam('parent_id');
+
         if(!$elementClass){
             $this->_helper->FlashMessenger->addMessage(array('error' => "Could not fetch element."));
             $this->_redirect("/wep/dashboard");           
@@ -46,9 +48,14 @@ class OrganisationController extends Zend_Controller_Action
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();
             if($form->validate()){
-                $id = $element->save($data[$element->getClassName()]);
+                $id = $element->save($data[$element->getClassName()] , $parentId);
                 $this->_helper->FlashMessenger->addMessage(array('message' => "Data has been sucessfully saved."));
-                $this->_redirect("/organisation/edit?classname={$elementClass}&id={$id}");
+                if($parentId){
+                    $idParam = "parent_id={$parentId}";
+                } else {
+                    $idParam = "id={$id}";
+                }
+                $this->_redirect("/organisation/edit?classname={$elementClass}&${idParam}");
             } else {
                 $form->populate($data);
                 $this->_helper->FlashMessenger->addMessage(array('error' => "You have some problem in your data. Please correct and save again"));
@@ -65,13 +72,14 @@ class OrganisationController extends Zend_Controller_Action
     {
         $elementClass = $this->_getParam('classname');
         $eleId = $this->_getParam('id');
+        $parentId = $this->_getParam('parent_id');
         
         if(!$elementClass){
             $this->_helper->FlashMessenger->addMessage(array('error' => "Could not fetch element."));
             $this->_redirect("/wep/dashboard");           
         }
         
-        if(!$eleId){
+        if(!$eleId && !$parentId){
             $this->_helper->FlashMessenger->addMessage(array('error' => "No id provided."));
             $this->_redirect("/wep/dashboard");  
         }
@@ -83,14 +91,18 @@ class OrganisationController extends Zend_Controller_Action
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();
             if($form->validate()){
-                $element->save($data[$element->getClassName()]);
+                $element->save($data[$element->getClassName()] , $parentId);
                 $this->_helper->FlashMessenger->addMessage(array('message' => "Data updated sucessfully."));
             } else {
                 $form->populate($data);
                 $this->_helper->FlashMessenger->addMessage(array('error' => "You have some problem in your data. Please correct and save again"));
             }
         } else {
-            $data = $element->fetchData(array($eleId));
+            if($parentId){
+                $data[$element->getClassName()] = $element->fetchData($parentId , true);
+            } else {
+                $data = $element->fetchData(array($eleId));
+            }
             if(empty($data[$element->getClassName()])){
                 $this->_helper->FlashMessenger->addMessage(array('info' => "Data not found for the element. Please add new data"));
                 $this->_redirect("/organisation/add?classname=$elementClass");
@@ -119,7 +131,7 @@ class OrganisationController extends Zend_Controller_Action
         
         $elementName =  "Iati_Organisation_Element_".$elementClass;
         $element = new $elementName();
-        $element->deleteElement(array($eleId));
+        $element->deleteElement($eleId);
         
         $this->_helper->FlashMessenger->addMessage(array('message' => "Element Deleted sucessfully."));
         $this->_redirect("/wep/dashboard"); 
@@ -141,7 +153,7 @@ class OrganisationController extends Zend_Controller_Action
         
         $elementName =  "Iati_Organisation_Element_".$elementClass;
         $element = new $elementName();
-        $xmlObj = $element->getXml(array($eleId));
+        $xmlObj = $element->getXml($eleId);
         if($xmlObj){
             echo ($xmlObj->asXml());exit;
         } else {

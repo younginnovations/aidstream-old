@@ -220,30 +220,30 @@ class Iati_Organisation_BaseElement
      * This function saves the elements data into its table (inserts/updates the element's data),
      * creates child elements if present and calls save for the child elements
      * @param $data data of the element and its childrens
-     * @param $parent array of parent column as key and its value as the array value. If the element is the
-     * topmost element i.e has no parent the parameter is an empty array.
+     * @param Integer $parentId Id of the parent of the element for fetching the data
      */
-    public function save($data , $parent = array())
+    public function save($data , $parentId = null)
     {        
-        $parentName = array_pop(array_keys($parent));
+        if($parentId){
+            $parentColumnName = $this->getParentCoulmn();
+        }
         if($this->isMultiple){
             foreach($data as $elementData){
                 $elementsData = $this->getElementsData($elementData);
-                if(!empty($parent)){
-                    $elementsData[$parentName."_id"] = $parent[$parentName];
+                if($parentId){
+                    $elementsData[$parentColumnName] = $parentId;
                 }
                 
                 // If no id is present, insert the data else update the data using the id.
                 if(!$elementsData['id']){
                     $elementsData['id'] = null;
-                    $id[$this->convertCamelCaseToUnderScore($this->className)] = $this->db->insert($elementsData);
+                    $eleId = $this->db->insert($elementsData);
                 } else {
                     $eleId = $elementsData['id'];
                     unset($elementsData['id']);
                     if($elementsData){
                         $this->db->update($elementsData , array('id = ?' => $eleId));
                     }
-                    $id[$this->convertCamelCaseToUnderScore($this->className)] = $eleId;
                 }
                 
                 // If children are present create children elements and call their save function.                
@@ -251,25 +251,24 @@ class Iati_Organisation_BaseElement
                     foreach($this->childElements as $childElementClass){
                         $childElementName = get_class($this)."_$childElementClass";
                         $childElement = new $childElementName();
-                        $childElement->save($elementData[$childElementClass] , $id);
+                        $childElement->save($elementData[$childElementClass] , $eleId);
                     }
                 }
             }
         } else {
             $elementsData = $this->getElementsData($data);
             if(!empty($parent)){
-                $elementsData[$parentName."_id"] = $parent[$parentName];
+                $elementsData[$parentColumnName] = $parentId;
             }
             
             // If no id is present, insert the data else update the data using the id.
             if(!$elementsData['id']){
                 $elementsData['id'] = null;
-                $id[$this->convertCamelCaseToUnderScore($this->className)] = $this->db->insert($elementsData);
+                $eleId = $this->db->insert($elementsData);
             } else {
                 $eleId = $elementsData['id'];
                 unset($elementsData['id']);
                 $this->db->update($elementsData , array('id = ?' => $eleId));
-                $id[$this->convertCamelCaseToUnderScore($this->className)] = $eleId;
             }
             
             // If children are present create children elements and call their save function.
@@ -277,7 +276,7 @@ class Iati_Organisation_BaseElement
                 foreach($this->childElements as $childElementClass){
                     $childElementName = get_class($this)."_$childElementClass";
                     $childElement = new $childElementName();
-                    $childElement->save($data[$childElementClass] , $id);
+                    $childElement->save($data[$childElementClass] , $elId);
                 }
             }
         }
@@ -298,20 +297,17 @@ class Iati_Organisation_BaseElement
     /**
      * Function to fetch the element and its childrens' data.
      * 
-     * @param $key array with columnname as array key and its value as the array value.
-     * If the element is child or should be fetched by parent id, the key is the parent classname
-     * else the key is not specified and id column is used.
-     * e.g array('myElementClass' => '2'), array(2)
+     * @param Integer $eleId Id of the element for fetching the data
+     * @param Boolen $parent true if the id belongs to the element's parent.
      */    
-    public function fetchData($key)
+    public function fetchData($eleId , $parent = false)
     {
-        $parentName = array_pop(array_keys($key));
-        $eleId = array_pop($key);
+        if($parent){
+            $parentColumn = $this->getParentCoulmn();
+        }
         if($this->isMultiple){
             // If parentName is present use it to fetch using the parent column.
-            if($parentName){
-                $parentColumn = $this->convertCamelCaseToUnderScore($parentName);
-                $parentColumn .= "_id";
+            if($parent){
                 $eleData = $this->db->fetchAll($this->db->getAdapter()->quoteInto("{$parentColumn} = ?" , $eleId ));
             } else { // If parentName is not present the provided id is its own id so fetch by own id.
                 $eleData = $this->db->fetchAll($this->db->getAdapter()->quoteInto("id = ?" , $eleId));
@@ -325,14 +321,12 @@ class Iati_Organisation_BaseElement
                     foreach($this->childElements as $childElementClass){
                         $childElementName = get_class($this)."_$childElementClass";
                         $childElement = new $childElementName();
-                        $data[$key][$childElementClass] = $childElement->fetchData(array($this->className => $elementData['id']));
+                        $data[$key][$childElementClass] = $childElement->fetchData($elementData['id'] , true);
                     }
                 }
             }
         } else {
-            if($parentName){
-                $parentColumn = $this->convertCamelCaseToUnderScore($parentName);
-                $parentColumn .= "_id";
+            if($parent){
                 $select = $this->db->select()->where($this->db->getAdapter()->quoteInto("{$parentColumn} = ?" , $eleId));
             } else {
                 $select = $this->db->select()->where($this->db->getAdapter()->quoteInto("id = ?" , $eleId));
@@ -345,13 +339,14 @@ class Iati_Organisation_BaseElement
                 foreach($this->childElements as $childElementClass){
                     $childElementName = get_class($this)."_$childElementClass";
                     $childElement = new $childElementName();
-                    $data[$childElementClass] = $childElement->fetchData(array($this->className => $data['id']));
+                    $data[$childElementClass] = $childElement->fetchData($data['id'] , true);
                 }
             }
         }
         // For data consistency return data as element classname as key and element's data as value.
         // Only needed if doesnot have parent, as classname as key is already used to insert to parent data.
-        if(!$parentName){
+        
+        if(!$parent){
             $returnData[$this->className] = $data;
         } else {
             $returnData = $data;
@@ -360,20 +355,28 @@ class Iati_Organisation_BaseElement
     }
     
     /**
+     * function to fetch parent id column name to fetch or insert using parent id.
+     */
+    public function getParentCoulmn()
+    {
+        $ancestors = explode('_' , $this->getFullName());
+        end($ancestors);
+        $parentName = prev($ancestors);
+        $parentColumn = $this->convertCamelCaseToUnderScore($parentName);
+        $parentColumn .= "_id";
+        return $parentColumn;
+    }
+    
+    /**
      * Function to delete the element and its childrens.
      * 
-     * @param $key array with columnname as array key and its value as the array value.
-     * If the element is child or should be deleted by parent, the key is the parent_key coulumn
-     * else key is not specified and id column is used.
-     * e.g array('myClassName' => 2) , array(2)
+     * @param Integer $eleId Id of the element for fetching the data
+     * @param Boolen $parent true if the id belongs to the element's parent
      */
-    public function deleteElement($key)
+    public function deleteElement($eleId , $parent)
     {
-        $parentName = array_pop(array_keys($key));
-        $eleId = array_pop($key);
-        if($parentName){
-            $parentColumn = $this->convertCamelCaseToUnderScore($parentName);
-            $parentColumn .= "_id";
+        if($parent){
+            $parentColumn = $this->getParentCoulmn();
             if($this->childElements){
                 // get the ids of the elements from the parent id so that the elements ids can be passed to the children.
                 $elementIds = $this->getElementIdsFromParent($parentColumn , $eleId);
@@ -437,22 +440,22 @@ class Iati_Organisation_BaseElement
      * object with its name as the element name, adds attribute and calls to children's getXml if any.
      * If parent is present, it adds a child with the elements name as the name to the parent, adds
      * attribute and calls children's getXml if any.
-     * @param Array $key array with parent name as array key and id as array value.
-     *         If not called by parent, array key is empty.
+     * 
+     * @param Integer $eleId Id of the element to fetch data (or the parents id)
+     * @param Boolen $isParentId true if the element id passed is the parents id.
      * @param Object_SimpleXMLElement/null If called by parent, the parameter is the parent object else null.
      * @return Object_SimpleXMLElement/null
      */
-    public function getXml($key , $parent = null)
+    public function getXml($eleId , $isParentId = false, $parent = null)
     {
-        $eleName = $this->getXmlName();        
+        $eleName = $this->getXmlName();
+        if($isParentId){
+            $parentColumn = $this->getParentCoulmn();
+        }
         
-        $parentName = array_pop(array_keys($key));
-        $eleId = array_pop($key);
         if($this->isMultiple){
             // If parentName is present use it to fetch using the parent column.
-            if($parentName){
-                $parentColumn = $this->convertCamelCaseToUnderScore($parentName);
-                $parentColumn .= "_id";
+            if($isParentId){
                 $eleData = $this->db->fetchAll($this->db->getAdapter()->quoteInto("{$parentColumn} = ?" , $eleId ));
             } else { // If parentName is not present the provided id is its own id so delete by own id.
                 $eleData = $this->db->fetchAll($this->db->getAdapter()->quoteInto("id = ?" , $eleId));
@@ -475,15 +478,12 @@ class Iati_Organisation_BaseElement
                     foreach($this->childElements as $childElementClass){
                         $childElementName = get_class($this)."_$childElementClass";
                         $childElement = new $childElementName();
-                        $childElement->getXml(array($this->className => $elementData['id']) , $xmlObj);
+                        $childElement->getXml($elementData['id'] , true , $xmlObj);
                     }
                 }
             }
-        } else {
-                       
-            if($parentName){
-                $parentColumn = $this->convertCamelCaseToUnderScore($parentName);
-                $parentColumn .= "_id";
+        } else {          
+            if($isParentId){
                 $select = $this->db->select()->where($this->db->getAdapter()->quoteInto("{$parentColumn} = ?" , $eleId));
             } else {
                 $select = $this->db->select()->where($this->db->getAdapter()->quoteInto("id = ?" , $eleId));
@@ -504,7 +504,7 @@ class Iati_Organisation_BaseElement
                 foreach($this->childElements as $childElementClass){
                     $childElementName = get_class($this)."_$childElementClass";
                     $childElement = new $childElementName();
-                    $childElement->getXml(array($this->className => $data['id']) , $xmlObj);
+                    $childElement->getXml($data['id'] , true , $xmlObj);
                 }
             }
         }
