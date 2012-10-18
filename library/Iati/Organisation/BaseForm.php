@@ -1,6 +1,6 @@
 <?php
 /**
- * Base class for Creating element forms, Extends Iati_SimplifiedForm
+ * Base class for Creating element forms, Extends Zend_Form
  *
  * This Class acts as the base for extending by the elements' forms. It provides basic functionalities
  * like setting data, element, preparing the form etc.
@@ -13,7 +13,7 @@
  *
  * @author bhabishyat <bhabishyat@gmail.com>
  */
-abstract class Iati_Organisation_BaseForm extends Iati_SimplifiedForm
+abstract class Iati_Organisation_BaseForm extends Zend_Form
 {
     protected $element;
     protected $data;
@@ -21,6 +21,72 @@ abstract class Iati_Organisation_BaseForm extends Iati_SimplifiedForm
     public static $count = array();
     
     abstract public function getFormDefination();
+    
+    /**
+     * Overriding default form decorators.
+     */
+    public function loadDefaultDecorators()
+    {
+        if ($this->loadDefaultDecoratorsIsDisabled()) {
+            return;
+        }
+
+        $decorators = $this->getDecorators();
+        if (empty($decorators)) {
+            $this->addDecorator('FormElements')
+                ->addDecorator('Form')
+                ->addDecorators( array(array(array( 'wrapper' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'form-wrapper'))));
+        }
+    }
+    
+    /**
+     * Overriding zend form render.
+     */
+    public function render()
+    {
+        $requiredSuffx = '<span title="This field is required." class="form-required">*</span>';
+
+        foreach ($this->getElements() as $element) {
+            $decorator = $element->getDecorator('Label');
+            if ($decorator) {
+                if ($element->getLabel()) { // need to check this, since label decorator can be blank
+                    $element->setLabel($element->getLabel() . "&nbsp;");
+                }
+                $decorator->setOption('requiredSuffix', $requiredSuffx);
+                $decorator->setOption('escape', false);
+            }
+            if ($element->getErrors()) {
+                $this->addElementClass($element, 'error');
+
+            }
+
+            // Add a wrapper div to all elements other than add and remove buttons.
+            if($element->getName() != 'add' && $element->getName() != 'remove'){
+
+                if($element->getName() == 'id' || ($element->getType() == 'Zend_Form_Element_Hidden' && preg_match('/_id/' , $element->getName()))){
+                    $element->addDecorators(array(
+	                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'form-item ele-id clearfix'))
+	                    )
+                    );
+                } else if($element->getName() == 'save_and_view' || $element->getName() == 'save'){
+                     $element->addDecorators(array(
+	                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'form-item ele-submit-buttons clearfix'))
+	                    )
+                    );
+                } else {
+	                $element->addDecorators(array(
+	                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'form-item clearfix'))
+	                    )
+	                );
+                }
+            } else {
+                $element->removeDecorator('label');
+            }
+        }
+
+        $output = parent::render();
+        return $output;
+    }
 
     public function setData($data)
     {
@@ -82,16 +148,66 @@ abstract class Iati_Organisation_BaseForm extends Iati_SimplifiedForm
     }
     
     /**
-     * Function to add element names to the form. Uses count and element name for creating array of element.
+     * Function to prepare the form ,add element names to the form.
+     * Uses count and element name for creating array of element.
      */
     public function prepare()
     {
         if($this->isMultiple) {
+            $this->addRemoveLink();
             $this->setIsArray(true);
             $this->setElementsBelongTo("{$this->element->getClassName()}[{$this->getCount($this->element->getClassName())}]");
         } else {
             $this->setElementsBelongTo("{$this->element->getClassName()}");
         }
+    }
+    
+    /**
+     * Function to add 'remove element' link to the form for element which can be multiple.
+     *
+     * @param String $className full name of the element for which remove link is added.
+     *      If not provided, the fullname is fetched from the form's element.
+     */
+    public function addRemoveLink($className = '')
+    {
+        if(!$className){
+            $className = $this->element->getFullName();
+        }
+        $remove = new Iati_Form_Element_Note('remove');
+        $remove->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'remove-element element-remove-this'));
+        $remove->setValue("<a href='#' class='button' value='{$className}'> Remove element</a>");
+        $this->addElement($remove);        
+    }
+    
+    /**
+     * Function to add 'add more' link to form for element which can be multiple.
+     *
+     * @param String $classname to which add more link is to be added.
+     */
+    public function addAddLink($className)
+    {
+        $add = new Iati_Form_Element_Note('add');
+        $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'add-more element-add-more'));
+        $add->setValue("<a href='#' class='button' value='{$className}'> Add More</a>");
+        $this->addElement($add);        
+    }
+    
+     /**
+     * Function to add fieldset and wrapper div to the form
+     * @param String $displayName The name of the element to be used for fieldset legend.
+     *  If not provided,fetched from the form's element
+     */
+    public function wrapForm($displayName = '')
+    {
+        if(!$displayName){
+            $displayName = $this->element->getDisplayName(); 
+        }
+        $this->addDecorators( array(
+                    array( 'wrapper' => 'HtmlTag' ),
+                    array( 'tag' => 'fieldset' , 'options' => array('legend' => $displayName))
+                )
+        );
+        $this->addDecorators( array(array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'element-wrapper'))));
     }
     
     /**

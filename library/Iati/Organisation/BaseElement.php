@@ -122,8 +122,6 @@ class Iati_Organisation_BaseElement
                     if(!empty($childElements)){
                         $elementForm = $this->addChildForms($childElements , $elementForm , $data);
                     }
-                    // add remove to form
-                    $elementForm = $this->addRemoveLink($elementForm);
 
                     $elementForm->removeDecorator('form');
                     $elementForm->prepare();
@@ -132,7 +130,7 @@ class Iati_Organisation_BaseElement
                 }
 
                 // add add button to wrapper form;
-                $form = $this->addAddLink($form);
+                $form->addAddLink($this->getFullName());
                 
             } else {
                 $eleForm = new $formname(array('element' => $this));
@@ -156,8 +154,6 @@ class Iati_Organisation_BaseElement
                 if(!empty($childElements)){
                     $elementForm = $this->addChildForms($childElements , $elementForm);
                 }
-                 // add remove to form
-                $elementForm = $this->addRemoveLink($elementForm);
                 
                 $elementForm->removeDecorator('form');
                 $elementForm->prepare();
@@ -170,7 +166,7 @@ class Iati_Organisation_BaseElement
                 $form->addSubForm($elementForm , $this->getClassName());
                 
                 // add add button to wrapper form;
-                $form = $this->addAddLink($form);
+                $form->addAddLink($this->getFullName());
                 
             } else {
                 $eleForm = new $formname(array('element' => $this));
@@ -185,7 +181,7 @@ class Iati_Organisation_BaseElement
                 $form->prepare();
             }
         }
-        $this->_wrapForm($form);
+        $form->wrapForm($this->getDisplayName());
         return $form;
     }
     
@@ -210,52 +206,6 @@ class Iati_Organisation_BaseElement
             $childForm->removeDecorator('form');
             $form->addSubForm($childForm , $childElementClass.$childForm->getCount($childElementClass));
         }   
-        return $form;
-    }
-    
-    /**
-     * Function to add 'remove element' link to the form for element which can be multiple.
-     *
-     * @param Object Form object to which remove link is to be added.
-     * @return Object Form object of form with remove link added.
-     */
-    public function addRemoveLink($form)
-    {
-        $remove = new Iati_Form_Element_Note('remove');
-        $remove->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'remove-element element-remove-this'));
-        $remove->setValue("<a href='#' class='button' value='{$this->getFullName()}'> Remove element</a>");
-        $form->addElement($remove);
-        
-        return $form;
-    }
-    
-    /**
-     * Function to add 'add more' link to form for element which can be multiple.
-     *
-     * @param Object Form object to which add more link is to be added.
-     * @return Object Form object with add more link added.
-     */
-    public function addAddLink($form)
-    {
-        $add = new Iati_Form_Element_Note('add');
-        $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'add-more element-add-more'));
-        $add->setValue("<a href='#' class='button' value='{$this->getFullName()}'> Add More</a>");
-        $form->addElement($add);
-        
-        return $form;
-    }
-    
-    /**
-     * Function to add fieldset and wrapper div to the form
-     */
-    protected function _wrapForm($form)
-    {        
-        $form->addDecorators( array(
-                    array( 'wrapper' => 'HtmlTag' ),
-                    array( 'tag' => 'fieldset' , 'options' => array('legend' => $this->getDisplayName()))
-                )
-        );
-        $form->addDecorators( array(array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'element-wrapper'))));
         return $form;
     }
     
