@@ -45,9 +45,15 @@ class OrganisationController extends Zend_Controller_Action
         if($data = $this->getRequest()->getPost()){
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();
-            $id = $element->save($data[$element->getClassName()]);
-            $this->_helper->FlashMessenger->addMessage(array('message' => "Data has been sucessfully saved."));
-            $this->_redirect("/organisation/edit?classname={$elementClass}&id={$id}");
+            if($form->validate()){
+                $id = $element->save($data[$element->getClassName()]);
+                $this->_helper->FlashMessenger->addMessage(array('message' => "Data has been sucessfully saved."));
+                $this->_redirect("/organisation/edit?classname={$elementClass}&id={$id}");
+            } else {
+                $form->populate($data);
+                $this->_helper->FlashMessenger->addMessage(array('error' => "You have some problem in your data. Please correct and save again"));
+            }
+            
         } else {
             $form = $element->getForm();            
         }
@@ -76,8 +82,13 @@ class OrganisationController extends Zend_Controller_Action
         if($data = $this->getRequest()->getPost()){
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();
-            $element->save($data[$element->getClassName()]);
-            $this->_helper->FlashMessenger->addMessage(array('message' => "Data updated been sucessfully saved."));
+            if($form->validate()){
+                $element->save($data[$element->getClassName()]);
+                $this->_helper->FlashMessenger->addMessage(array('message' => "Data updated sucessfully."));
+            } else {
+                $form->populate($data);
+                $this->_helper->FlashMessenger->addMessage(array('error' => "You have some problem in your data. Please correct and save again"));
+            }
         } else {
             $data = $element->fetchData(array($eleId));
             if(empty($data[$element->getClassName()])){
@@ -87,7 +98,6 @@ class OrganisationController extends Zend_Controller_Action
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();            
         }
-        
         $form->addSubmitButton('Save');
         $this->view->form = $form;
         

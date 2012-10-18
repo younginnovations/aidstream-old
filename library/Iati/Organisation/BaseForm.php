@@ -15,6 +15,7 @@
  */
 abstract class Iati_Organisation_BaseForm extends Zend_Form
 {
+    protected $_defaultDisplayGroupClass = 'Iati_Form_DisplayGroup';
     protected $element;
     protected $data;
     protected $isMultiple;
@@ -57,7 +58,6 @@ abstract class Iati_Organisation_BaseForm extends Zend_Form
             }
             if ($element->getErrors()) {
                 $this->addElementClass($element, 'error');
-
             }
 
             // Add a wrapper div to all elements other than add and remove buttons.
@@ -86,6 +86,26 @@ abstract class Iati_Organisation_BaseForm extends Zend_Form
 
         $output = parent::render();
         return $output;
+    }
+    
+    public function addElementClass(&$element, $className, $decorator = null)
+    {
+        if (!$element instanceof Zend_Form_Element) {
+            $element = $this->getElement($element);
+        }
+
+        if ($decorator) {
+            $decoratorObj = $element->getDecorator($decorator);
+            $origClass = $decoratorObj->getOption('class');
+            $newClass = $origClass . ' ' . $className;
+            $decoratorObj->setOption('class', $newClass);
+        } else {
+            $origClass = $element->getAttrib('class');
+            $newClass = $origClass . ' ' . $className;
+            $element->setAttrib('class', $newClass);
+        }
+
+        return $this;
     }
 
     public function setData($data)
@@ -195,12 +215,12 @@ abstract class Iati_Organisation_BaseForm extends Zend_Form
      /**
      * Function to add fieldset and wrapper div to the form
      * @param String $displayName The name of the element to be used for fieldset legend.
-     *  If not provided,fetched from the form's element
+     * @param Boolen $isRequired Ture if element is required false otherwise
      */
-    public function wrapForm($displayName = '')
+    public function wrapForm($displayName, $isRequired = false)
     {
-        if(!$displayName){
-            $displayName = $this->element->getDisplayName(); 
+        if($isRequired){
+            $displayName = $displayName . " *";
         }
         $this->addDecorators( array(
                     array( 'wrapper' => 'HtmlTag' ),
@@ -236,5 +256,53 @@ abstract class Iati_Organisation_BaseForm extends Zend_Form
                 'ignore'   => false,
             )
         );
+    }
+    
+    /**
+     * Custom validation
+     * 
+     * If form has no subform i.e lowest level form, check if form is empty if not then only validate the form
+     *  If form has subforms first validate each subform(Subform of each type is wrapped by a wrapper)
+     *  Then validate each element.
+     */
+    public function validate(){
+        $isValid = true;
+        if(!$this->getSubForms()){
+            if($this->element->getIsRequired()){
+                $values = $this->getValues();
+                return $this->isValid($values);
+            } else {
+                $values = $this->getValues();
+                $name = $this->getName();
+                $itemNumber = substr($name , -1);
+                $eleName = substr($name , 0 , -1) ;
+                $data = $values[$eleName][$itemNumber];
+                unset($data['remove']);
+                unset($data['add']);
+                $notEmpty = false;
+                foreach($data as $key=>$value){
+                    if($value && $key !== 'id'){
+                        $notEmpty = true;
+                    }
+                }
+                if($notEmpty){
+                    $values = $this->getValues();
+                    return $this->isValid($values);
+                }
+                return true;
+            }
+        }
+        foreach($this->getSubForms() as $subform){
+            if(!$subform->validate()){
+                $isValid = false;
+            }
+        }
+        
+        foreach($this->getElements() as $element){
+            if(!$element->isValid($element->getValue())){
+                $isValid = false;
+            }
+        }
+        return $isValid;
     }
 }

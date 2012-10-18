@@ -15,6 +15,8 @@ class Iati_Organisation_Form_AnnualPlanningBudget_PeriodStart_Test extends Iati_
         
         $form['text'] = new Zend_Form_Element_Textarea('text');
         $form['text']->setLabel('test Text')
+            ->setRequired()
+            ->addErrorMessage('Text cannot be empty')
             ->setAttrib('COLS', '40')
             ->setAttrib('ROWS', '4')
             ->setValue($this->data['text']);

@@ -41,6 +41,11 @@ class Iati_Organisation_BaseElement
         $this->count = $count;
     }
     
+    public function getIsRequired()
+    {
+        return $this->isRequired;
+    }
+    
     public function getCount()
     {
         return $this->count;
@@ -181,7 +186,7 @@ class Iati_Organisation_BaseElement
                 $form->prepare();
             }
         }
-        $form->wrapForm($this->getDisplayName());
+        $form->wrapForm($this->getDisplayName() , $this->getIsRequired());
         return $form;
     }
     
