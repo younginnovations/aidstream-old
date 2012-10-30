@@ -230,18 +230,17 @@ class Iati_Organisation_BaseElement
         if($this->isMultiple){
             foreach($data as $elementData){
                 $elementsData = $this->getElementsData($elementData);
-                if($parentId){
-                    $elementsData[$parentColumnName] = $parentId;
-                }
-                
-                // If no id is present, insert the data else update the data using the id.
-                if(!$elementsData['id']){
-                    $elementsData['id'] = null;
-                    $eleId = $this->db->insert($elementsData);
-                } else {
-                    $eleId = $elementsData['id'];
-                    unset($elementsData['id']);
-                    if($elementsData){
+                if($this->hasData($elementsData) || !empty($this->childElements)){
+                    if($parentId){
+                        $elementsData[$parentColumnName] = $parentId;
+                    }
+                    // If no id is present, insert the data else update the data using the id.
+                    if(!$elementsData['id']){
+                        $elementsData['id'] = null;
+                        $eleId = $this->db->insert($elementsData);
+                    } else {
+                        $eleId = $elementsData['id'];
+                        unset($elementsData['id']);
                         $this->db->update($elementsData , array('id = ?' => $eleId));
                     }
                 }
@@ -257,20 +256,21 @@ class Iati_Organisation_BaseElement
             }
         } else {
             $elementsData = $this->getElementsData($data);
-            if(!empty($parent)){
-                $elementsData[$parentColumnName] = $parentId;
+            if($this->hasData($elementsData) || !empty($this->childElements) ){
+                if(!empty($parent)){
+                    $elementsData[$parentColumnName] = $parentId;
+                }
+
+                // If no id is present, insert the data else update the data using the id.
+                if(!$elementsData['id']){
+                    $elementsData['id'] = null;
+                    $eleId = $this->db->insert($elementsData);
+                } else {
+                    $eleId = $elementsData['id'];
+                    unset($elementsData['id']);
+                    $this->db->update($elementsData , array('id = ?' => $eleId));
+                }
             }
-            
-            // If no id is present, insert the data else update the data using the id.
-            if(!$elementsData['id']){
-                $elementsData['id'] = null;
-                $eleId = $this->db->insert($elementsData);
-            } else {
-                $eleId = $elementsData['id'];
-                unset($elementsData['id']);
-                $this->db->update($elementsData , array('id = ?' => $eleId));
-            }
-            
             // If children are present create children elements and call their save function.
             if(!empty($this->childElements)){
                 foreach($this->childElements as $childElementClass){
@@ -280,7 +280,7 @@ class Iati_Organisation_BaseElement
                 }
             }
         }
-        return $id[$this->convertCamelCaseToUnderScore($this->className)];
+        return $eleId;
     }
 
     /**
@@ -294,6 +294,22 @@ class Iati_Organisation_BaseElement
         return $elementsData;
     }
     
+    /**
+     * Function to check if the supplied array has value for any row.
+     */
+    public function hasData($data)
+    {
+        if(!is_array($data)){
+            return false;
+        }
+        $values = array_values($data);
+        if(empty($value)){
+           return false;
+        } else {
+            return true;
+        }
+    }
+
     /**
      * Function to fetch the element and its childrens' data.
      * 
