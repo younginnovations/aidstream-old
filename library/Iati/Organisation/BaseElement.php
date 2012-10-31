@@ -228,7 +228,7 @@ class Iati_Organisation_BaseElement
      * @param Integer $parentId Id of the parent of the element for fetching the data
      */
     public function save($data , $parentId = null)
-    {        
+    {
         if($parentId){
             $parentColumnName = $this->getParentCoulmn();
         }
@@ -255,7 +255,7 @@ class Iati_Organisation_BaseElement
                     foreach($this->childElements as $childElementClass){
                         $childElementName = get_class($this)."_$childElementClass";
                         $childElement = new $childElementName();
-                        $childElement->save($elementData[$childElementClass] , $eleId);
+                        $childElement->save($elementData[$childElement->getClassName()] , $eleId);
                     }
                 }
             }
@@ -281,7 +281,7 @@ class Iati_Organisation_BaseElement
                 foreach($this->childElements as $childElementClass){
                     $childElementName = get_class($this)."_$childElementClass";
                     $childElement = new $childElementName();
-                    $childElement->save($data[$childElementClass] , $elId);
+                    $childElement->save($data[$childElement->getClassName()] , $eleId);
                 }
             }
         }
@@ -294,7 +294,8 @@ class Iati_Organisation_BaseElement
     public function getElementsData($data)
     {
         foreach($this->attribs as $attrib){
-            $elementsData[$attrib] = $data[$attrib];
+            // @todo remove the replace once the @ is removed from columnname.
+            $elementsData[$attrib] = $data[preg_replace('/^@/' , '' , $attrib)];
         }
         return $elementsData;
     }
@@ -307,12 +308,15 @@ class Iati_Organisation_BaseElement
         if(!is_array($data)){
             return false;
         }
-        $values = array_values($data);
-        if(empty($value)){
-           return false;
-        } else {
-            return true;
+        foreach($data as $values){            
+            if($values){
+                if(is_array($values)){
+                    return $this->hasData($values);
+                }
+                return true;
+            }
         }
+        return false;
     }
 
     /**
