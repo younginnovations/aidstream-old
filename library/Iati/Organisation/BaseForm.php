@@ -163,6 +163,7 @@ abstract class Iati_Organisation_BaseForm extends Zend_Form
     public function getForm()
     {
         $form = $this->getFormDefination();
+        $form->populate($this->data);
         $count = $this->count($this->element->getClassName());
         return $form;
     }

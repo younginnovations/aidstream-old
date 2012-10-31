@@ -210,7 +210,7 @@ class Iati_Organisation_BaseElement
             $childElementName = get_class($this)."_$childElementClass";
             $childElement = new $childElementName();
             if(!empty($data)){
-                $childElement->setData($data[$childElementClass]);
+                $childElement->setData($data[$childElement->getClassName()]);
             }
             $childForm = $childElement->getForm();
             $childForm->removeDecorator('form');
@@ -346,7 +346,7 @@ class Iati_Organisation_BaseElement
                     foreach($this->childElements as $childElementClass){
                         $childElementName = get_class($this)."_$childElementClass";
                         $childElement = new $childElementName();
-                        $data[$key][$childElementClass] = $childElement->fetchData($elementData['id'] , true);
+                        $data[$key][$childElement->getClassName()] = $childElement->fetchData($elementData['id'] , true);
                     }
                 }
             }
@@ -364,7 +364,7 @@ class Iati_Organisation_BaseElement
                 foreach($this->childElements as $childElementClass){
                     $childElementName = get_class($this)."_$childElementClass";
                     $childElement = new $childElementName();
-                    $data[$childElementClass] = $childElement->fetchData($data['id'] , true);
+                    $data[$childElement->getClassName()] = $childElement->fetchData($data['id'] , true);
                 }
             }
         }
