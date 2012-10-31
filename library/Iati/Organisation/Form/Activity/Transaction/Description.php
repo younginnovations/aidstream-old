@@ -22,6 +22,7 @@ class Iati_Organisation_Form_Activity_Transaction_Description extends Iati_Organ
         $lang = $model->getCodeArray('Language', null, '1' , true);
         $form['xml_lang'] = new Zend_Form_Element_Select('xml_lang');
         $form['xml_lang']->setLabel('Language')
+            ->setValue($this->data['@xml_lang'])
             ->setAttrib('class' , 'form-select')
             ->setMultioptions($lang)
             ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help transaction-description-xml_lang' , 'placement' => 'PREPEND'))));

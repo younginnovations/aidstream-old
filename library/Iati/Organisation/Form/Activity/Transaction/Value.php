@@ -17,6 +17,7 @@ class Iati_Organisation_Form_Activity_Transaction_Value extends Iati_Organisatio
 
         $form['text'] = new Zend_Form_Element_Text('text');
         $form['text']->setLabel('Amount')
+            ->setValue($this->data['text'])
             ->setRequired()
             ->setAttrib('class' , 'form-text')
             //->addFilter(new Iati_Filter_Currency())
@@ -27,12 +28,14 @@ class Iati_Organisation_Form_Activity_Transaction_Value extends Iati_Organisatio
         $currency = $model->getCodeArray('Currency', null, '1' , true);
         $form['currency'] = new Zend_Form_Element_Select('currency');
         $form['currency']->setLabel('Currency')
+            ->setValue($this->data['@currency'])
             ->setAttrib('class' , 'form-select')
             ->setMultioptions($currency)
             ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help transaction-value-currency' , 'placement' => 'PREPEND'))));
 
         $form['value_date'] = new Zend_Form_Element_Text('value_date');
         $form['value_date']->setLabel('Value Date')
+            ->setValue($this->data['@value_date'])
             ->setRequired()
             ->setAttrib('class' , 'datepicker' )
             ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help transaction-value-value_date' , 'placement' => 'PREPEND'))));

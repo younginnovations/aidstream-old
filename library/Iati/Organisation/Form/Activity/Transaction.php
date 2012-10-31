@@ -18,6 +18,7 @@ class Iati_Organisation_Form_Activity_Transaction extends Iati_Organisation_Base
         $form['ref']->setLabel('Reference')
             ->addfilters(array('StringTrim' , 'StringToLower'))
             ->setAttribs(array('class' => 'form-text'))
+            ->setValue($this->data['@ref'])
             ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help transaction-ref' , 'placement' => 'PREPEND'))));
 
         $this->addElements($form);
