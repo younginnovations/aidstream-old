@@ -1,0 +1,16 @@
+<table>
+    <tbody>
+<?php foreach($this->data as $element): ?>
+        <tr><td>trans</td>
+            <td><? echo $element['TransactionType']['@code'] ?></td>
+            <td><? echo $element['TransactionValue']['text'] ?></td>
+        </tr>
+        <tr>
+            <td colspan=3>
+                view |
+                <a href='<?php echo $this->baseUrl();?>/activity/edit-element?classname=<?php echo $this->elementClass;?>&id=<?php echo $element['id'];?>'>edit</a> |
+                <a href='<?php echo $this->baseUrl();?>/activity/delete-element?classname=<?php echo $this->elementClass;?>&id=<?php echo $element['id'];?>&activity_id=<?php echo $this->activityId;?>'>delete</a></td></tr>
+<?php endforeach; ?>
+    </tbody>
+</table>
+<div class="add-more-link"><a href="<?php echo $this->baseUrl();?>/activity/add-element?classname=<?php echo $this->elementClass;?>&activity_id=<?php echo $this->activityId;?>">Add More</a></div>

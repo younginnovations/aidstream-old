@@ -18,6 +18,7 @@ class App_Acl extends Zend_Acl
                 ->add(new Zend_Acl_Resource('default:activityviewer'), 'default')
                 ->add(new Zend_Acl_Resource('default:wep'), 'default')
                 ->add(new Zend_Acl_Resource('default:organisation'), 'default')
+                ->add(new Zend_Acl_Resource('default:activity'), 'default')
                 ->add(new Zend_Acl_Resource('default:ajax'), 'default')
                 ->add(new Zend_Acl_Resource('default:admin'), 'default')
                 ->add(new Zend_Acl_Resource('default:iatixmlController'), 'default');
@@ -58,6 +59,10 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'user:user', 'changepassword');
         $this->allow('user', 'user:user', 'myaccount');
         $this->allow('user', 'user:user', 'edit');
+        $this->allow('user', 'default:activity', 'add-element');
+        $this->allow('user', 'default:activity', 'list-elements');
+        $this->allow('user', 'default:activity', 'edit-element');
+        $this->allow('user', 'default:activity', 'delete-element');
         $this->allow('user', 'default:wep', 'list-activities');
         $this->allow('user', 'default:wep', 'view-activities');
         $this->allow('user', 'default:wep', 'view-activity');
