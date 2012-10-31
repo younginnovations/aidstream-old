@@ -398,7 +398,7 @@ class Iati_Organisation_BaseElement
      * @param Integer $eleId Id of the element for fetching the data
      * @param Boolen $parent true if the id belongs to the element's parent
      */
-    public function deleteElement($eleId , $parent)
+    public function deleteElement($eleId , $parent = false)
     {
         if($parent){
             $parentColumn = $this->getParentCoulmn();
@@ -410,7 +410,7 @@ class Iati_Organisation_BaseElement
                     foreach($this->childElements as $childElementClass){
                         $childElementName = get_class($this)."_$childElementClass";
                         $childElement = new $childElementName();
-                        $childElement->deleteElement(array($this->className => $elementId['id']));
+                        $childElement->deleteElement($elementId['id'] , true);
                     }
                 }
             }
@@ -423,7 +423,7 @@ class Iati_Organisation_BaseElement
                 foreach($this->childElements as $childElementClass){
                     $childElementName = get_class($this)."_$childElementClass";
                     $childElement = new $childElementName();
-                    $childElement->deleteElement(array($this->className => $eleId));
+                    $childElement->deleteElement($eleId , true);
                 }
             }
             $where = $this->db->getAdapter()->quoteInto("id = ?", $eleId);
