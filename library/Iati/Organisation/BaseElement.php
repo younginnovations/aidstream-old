@@ -51,6 +51,11 @@ class Iati_Organisation_BaseElement
         return $this->count;
     }
     
+    public function setIsMultiple($isMultiple)
+    {
+        $this->isMultiple = $isMultiple;
+    }
+    
     public function setData($data)
     {
         $this->data = $data;
@@ -257,7 +262,7 @@ class Iati_Organisation_BaseElement
         } else {
             $elementsData = $this->getElementsData($data);
             if($this->hasData($elementsData) || !empty($this->childElements) ){
-                if(!empty($parent)){
+                if($parentId){
                     $elementsData[$parentColumnName] = $parentId;
                 }
 
