@@ -13,6 +13,7 @@ class Iati_Organisation_Form_Activity_Transaction_DisbursementChannel extends Ia
         $form = array();
 
         $form['id'] = new Zend_Form_Element_Hidden('id');
+        $form['id']->setValue($this->data['id']);
 
         $codes = $model->getCodeArray('DisbursementChannel', null, '1' , true);
         $form['code'] = new Zend_Form_Element_Select('code');

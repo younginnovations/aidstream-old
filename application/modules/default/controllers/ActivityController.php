@@ -147,7 +147,7 @@ class ActivityController extends Zend_Controller_Action
         
         $elementName =  "Iati_Organisation_Element_".$elementClass;
         $element = new $elementName();
-        $element->deleteElement($eleId);
+        $element->deleteElement($eleId , false);
         
         $this->_helper->FlashMessenger->addMessage(array('message' => "Element Deleted sucessfully."));
         $this->_redirect("activity/list-elements?classname={$elementClass}&activity_id={$activityId}");

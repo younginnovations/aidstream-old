@@ -13,6 +13,7 @@ class Iati_Organisation_Form_Activity_Transaction_Description extends Iati_Organ
         $form = array();
 
         $form['id'] = new Zend_Form_Element_Hidden('id');
+        $form['id']->setValue($this->data['id']);
 
         $form['text'] = new Zend_Form_Element_Textarea('text');
         $form['text']->setLabel('Text')

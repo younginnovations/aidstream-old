@@ -4,9 +4,8 @@ class Iati_Organisation_Form_Activity_Transaction_Value extends Iati_Organisatio
 {
     public function getFormDefination()
     {
-        $element = new Iati_WEP_Activity_Elements_Transaction_Value();
         $model = new Model_Wep();
-
+        
         $this->setAttrib('class' , 'first-child')
             ->setMethod('post')
             ->setIsArray(true);
@@ -14,6 +13,7 @@ class Iati_Organisation_Form_Activity_Transaction_Value extends Iati_Organisatio
         $form = array();
 
         $form['id'] = new Zend_Form_Element_Hidden('id');
+        $form['id']->setValue($this->data['id']);
 
         $form['text'] = new Zend_Form_Element_Text('text');
         $form['text']->setLabel('Amount')

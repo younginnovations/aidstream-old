@@ -11,6 +11,7 @@ class Iati_Organisation_Form_Activity_Transaction_TransactionDate extends Iati_O
         $form = array();
 
         $form['id'] = new Zend_Form_Element_Hidden('id');
+        $form['id']->setValue($this->data['id']);
 
         $form['iso_date'] = new Zend_Form_Element_Text('iso_date');
         $form['iso_date']->setLabel('Date')
