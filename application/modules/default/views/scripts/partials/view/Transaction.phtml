@@ -1,0 +1,201 @@
+<table class="activity-detail-table">
+    <tr>
+        <td>
+            <?php $transaction = $this->data; ?>
+            <!-- Transaction Starts -->
+            <div class='element-item'><div class='element-title'>Transaction</div>
+            <div class='element-values'>
+            <table class='element-values-items'>
+            <tr class='element-value element-value-even'><td class='attrib-label'>Ref</td><td class='attrib-value'><?php echo $transaction['@ref'];?></td></tr>
+            <tr>
+            <td colspan=2>
+            
+            <div class='sub_element'><!-- Sub element Starts -->
+            
+            <!-- TransactionType Starts -->
+            <?php
+            $transactiontype=$transaction['TransactionType'];
+            if(!empty($transactiontype)): ?>
+            <div class='element-item'><div class='element-title'>Transaction Type</div>
+            <div class='element-values'>
+                <table class='element-values-items'>
+                <tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($transactiontype['text']) print ($transactiontype['text']);?></td></tr>
+                <tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($transactiontype['@code']) print ($transactiontype['@code']);?></td></tr>
+                </table>
+            </div>
+            </div>
+            <?php endif;?>
+            <!-- TransactionType Ends -->
+            
+            
+            <!-- ProviderOrg Starts -->
+            <?php
+            $providerorg=$transaction['ProviderOrganisation'];
+            if(!empty($providerorg)): ?>
+            <div class='element-item'><div class='element-title'>Provider Organisation</div>
+            <div class='element-values'>
+                <table class='element-values-items'>
+                <tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($providerorg['text']) print ($providerorg['text']);?></td></tr>
+                <tr class='element-value element-value-odd'><td class='attrib-label'>Ref</td><td class='attrib-value'> <?php if($providerorg['@ref']) print($providerorg['@ref']);?></td></tr>
+                <tr class='element-value element-value-even'><td class='attrib-label'>Provider_activity_id</td><td class='attrib-value'> <?php if($providerorg['@provider_activity_id']) print ($providerorg['@provider_activity_id']);?></td></tr>
+                </table>
+            </div>
+            </div>
+            <?php endif;?>
+            <!-- ProviderOrg Ends -->
+            
+            
+            <!-- ReceiverOrg Starts -->
+            <?php
+            $receiverorg=$transaction['ReceiverOrganisation'];
+            if(!empty($receiverorg)): ?>
+            <div class='element-item'><div class='element-title'>Receiver Organisation</div>
+            <div class='element-values'>
+                <table class='element-values-items'>
+                <tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($receiverorg['text']) print ($receiverorg['text']);?></td></tr>
+                <tr class='element-value element-value-odd'><td class='attrib-label'>Ref</td><td class='attrib-value'> <?php if($receiverorg['@ref']) print ($receiverorg['@ref']);?></td></tr>
+                <tr class='element-value element-value-even'><td class='attrib-label'>Receiver_activity_id</td><td class='attrib-value'> <?php if($receiverorg['@receiver_activity_id']) print ($receiverorg['@receiver_activity_id']);?></td></tr>
+                </table>
+            </div>
+            </div>
+            <?php endif;?>
+            <!-- ReceiverOrg Ends -->
+            
+            
+            <!-- Value Starts -->
+            <?php
+            $value=$transaction['TransactionValue'];
+            if(!empty($value)): ?>
+            <div class='element-item'><div class='element-title'>Value</div>
+            <div class='element-values'>
+                <table class='element-values-items'>
+                <tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($value['text']) print ($value['text']);?></td></tr>
+                <tr class='element-value element-value-odd'><td class='attrib-label'>Value_date</td><td class='attrib-value'> <?php if($value['@value_date']) print ($value['@value_date']);?></td></tr>
+                <tr class='element-value element-value-even'><td class='attrib-label'>Currency</td><td class='attrib-value'> <?php if($value['@currency']) print ($value['@currency']);?></td></tr>
+                </table>
+            </div>
+            </div>
+            <?php endif;?>
+            <!-- Value Ends -->
+            
+            
+            <!-- Description Starts -->
+            <?php
+            $description=$transaction['Description'];
+            if(!empty($description)): ?>
+            <div class='element-item'><div class='element-title'>Description</div>
+            <div class='element-values'>
+                <table class='element-values-items'>
+                <tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($description['text']) print ($description['text']);?><?php if($description['@xml_lang']) printf (" [%s]",($description['@xml_lang']));?></td></tr>
+                </table>
+            </div>
+            </div>
+            <?php endif;?>
+            <!-- Description Ends -->
+            
+            
+            <!-- TransactionDate Starts -->
+            <?php
+            $transactiondate=$transaction['TransactionDate'];
+            if(!empty($transactiondate)): ?>
+            <div class='element-item'><div class='element-title'>Transaction Date</div>
+            <div class='element-values'>
+                <table class='element-values-items'>
+                <tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($transactiondate['text']) print ($transactiondate['text']);?></td></tr>
+                <tr class='element-value element-value-odd'><td class='attrib-label'>Iso_date</td><td class='attrib-value'> <?php if($transactiondate['@iso_date']) print ($transactiondate['@iso_date']);?></td></tr>
+                </table>
+            </div>
+            </div>
+            <?php endif;?>
+            <!-- TransactionDate Ends -->
+            
+            
+            <!-- FlowType Starts -->
+            <?php
+            $flowtype=$transaction['FlowType'];
+            if(!empty($flowtype)): ?>
+            <div class='element-item'><div class='element-title'>Flow Type</div>
+            <div class='element-values'>
+                <table class='element-values-items'>
+                <tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($flowtype['text']) print ($flowtype['text']);?> <?php if($flowtype['@xml_lang']) printf (" [%s]",($flowtype['@xml_lang']));?></td></tr>
+                <tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($flowtype['@code']) print ($flowtype['@code']);?></td></tr>
+                </table>
+            </div>
+            </div>
+            <?php endif;?>
+            <!-- FlowType Ends -->
+            
+            
+            <!-- FinanceType Starts -->
+            <?php
+            $financetype=$transaction['FinanceType'];
+            if(!empty($financetype)): ?>
+            <div class='element-item'><div class='element-title'>Finance Type</div>
+            <div class='element-values'>
+                <table class='element-values-items'>
+                <tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($financetype['text']) print ($financetype['text']);?><?php if($financetype['@xml_lang']) printf (" [%s]",($financetype['@xml_lang']));?></td></tr>
+                <tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($financetype['@code']) print($financetype['@code']);?></td></tr>
+                </table>
+            </div>
+            </div>
+            <?php endif;?>
+            <!-- FinanceType Ends -->
+            
+            
+            <!-- AidType Starts -->
+            <?php
+            $aidtype=$transaction['AidType'];
+            if(!empty($aidtype)): ?>
+            <div class='element-item'><div class='element-title'>Aid Type</div>
+            <div class='element-values'>
+                <table class='element-values-items'>
+                <tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($aidtype['text']) print ($aidtype['text']);?> <?php if($aidtype['@xml_lang']) printf (" [%s]",($aidtype['@xml_lang']));?></td></tr>
+                <tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($aidtype['@code']) print($aidtype['@code']);?></td></tr>
+                </table>
+            </div>
+            </div>
+            <?php endif;?>
+            <!-- AidType Ends -->
+            
+            
+            <!-- DisbursementChannel Starts -->
+            <?php
+            $disbursementchannel=$transaction['DisbursementChannel'];
+            if(!empty($disbursementchannel)): ?>
+            <div class='element-item'><div class='element-title'>Disbursement Channel</div>
+            <div class='element-values'>
+                <table class='element-values-items'>
+                <tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($disbursementchannel['text']) print ($disbursementchannel['text']);?></td></tr>
+                <tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($disbursementchannel['@code']) print ($disbursementchannel['@code']);?></td></tr>
+                </table>
+            </div>
+            </div>
+            <?php endif;?>
+            <!-- DisbursementChannel Ends -->
+            
+            
+            <!-- TiedStatus Starts -->
+            <?php
+            $tiedstatus=$transaction['TiedStatus'];
+            if(!empty($tiedstatus)): ?>
+            <div class='element-item'><div class='element-title'>Tied Status</div>
+            <div class='element-values'>
+                <table class='element-values-items'>
+                <tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($tiedstatus['text']) print ($tiedstatus['text']);?> <?php if($tiedstatus['@xml_lang']) printf (" [%s]",($tiedstatus['@xml_lang']));?></td></tr>
+                <tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($tiedstatus['@code']) print ($tiedstatus['@code']);?></td></tr>
+                </table>
+            </div>
+            </div>
+            <?php endif;?>
+            <!-- TiedStatus Ends -->
+            
+            
+            </div><!-- Sub element Ends -->
+            
+            </td></tr></table>
+            </div>
+            </div>
+            <!-- Transaction Ends -->
+        </td>
+    </tr>
+</table>

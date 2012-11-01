@@ -1,0 +1,27 @@
+<?php $model = new Model_Wep(); ?>
+<?php $count = 1; ?>
+<table class="activity-list-table">
+    <thead>
+        <tr>
+            <th></th><th>S.N.</th><th>Transaction Type</th><th>Transaction Value</th><th>Transaction Date</th><th></th>
+        </tr>
+    </thead>
+    <tbody>
+<?php foreach($this->data as $element): ?>
+        <tr>
+            <td></td>
+            <td><? echo $count?></td>
+            <td><? echo $model->fetchValueById('TransactionType' , $element['TransactionType']['@code'] , 'Name' ) ?></td>
+            <td><? echo $element['TransactionValue']['text'] ?></td>
+            <td><? echo $element['TransactionDate']['@iso_date']?></td>
+            <td colspan=3>
+                <span value="<?php echo $this->baseUrl();?>/activity/view-element?classname=<?php echo $this->elementClass;?>&id=<?php echo $element['id'];?>" class="view-element-link">view</span> |
+                <a href='<?php echo $this->baseUrl();?>/activity/edit-element?classname=<?php echo $this->elementClass;?>&id=<?php echo $element['id'];?>'>edit</a> |
+                <a href='<?php echo $this->baseUrl();?>/activity/delete-element?classname=<?php echo $this->elementClass;?>&id=<?php echo $element['id'];?>&activity_id=<?php echo $this->activityId;?>'>delete</a>
+            </td>
+        </tr>
+        <?php $count++; ?>
+<?php endforeach; ?>
+    </tbody>
+</table>
+<div class="add-more-link"><a href="<?php echo $this->baseUrl();?>/activity/add-element?classname=<?php echo $this->elementClass;?>&activity_id=<?php echo $this->activityId;?>">Add More</a></div>

@@ -1271,6 +1271,29 @@ function initialize() {
                 confirmDlg.show();
                 evt.preventDefault();
             }
+        },
+        
+        ".view-element-link" : {
+            'found' : function (ele){
+                var node = ele;
+                var url = dojo.attr(node,'value');
+                var viewdialog = new dijit.TooltipDialog({
+                    href: url,
+                    style: "width: 600px",
+                    autofocus: false
+                });
+                 //get html of the element
+                var element = new dojo.NodeList(node);
+                var temp = element.clone();
+                var tempWrapper  = dojo.create("div");
+                tempWrapper.appendChild(temp[0]);
+                var eleHtml = tempWrapper.innerHTML;
+                var drop = new my.dropDown({
+                    label : eleHtml,
+                    popup: viewdialog,
+                    orient: ['TR']
+                } , node);
+            }
         }
         
     });

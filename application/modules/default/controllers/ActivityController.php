@@ -85,6 +85,9 @@ class ActivityController extends Zend_Controller_Action
         $this->view->data = $data;
         $this->view->activityId = $parentId;
         $this->view->elementClass = $elementClass;
+        $this->view->className = $element->getClassName();
+        
+        $this->view->placeholder('title')->set($element->getClassName());
     }
     
     public function editElementAction()
@@ -121,6 +124,7 @@ class ActivityController extends Zend_Controller_Action
                 $this->_helper->FlashMessenger->addMessage(array('info' => "Data not found for the element. Please add new data"));
                 $this->_redirect("/organisation/add?classname=$elementClass");
             }
+
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();
         }
@@ -151,5 +155,21 @@ class ActivityController extends Zend_Controller_Action
         
         $this->_helper->FlashMessenger->addMessage(array('message' => "Element Deleted sucessfully."));
         $this->_redirect("activity/list-elements?classname={$elementClass}&activity_id={$activityId}");
+    }
+    
+    public function viewElementAction()
+    {
+        $this->_helper->layout()->disableLayout(); 
+        
+        $elementClass = $this->_getParam('classname');
+        $eleId = $this->_getParam('id');
+        
+        $elementName =  "Iati_Organisation_Element_".$elementClass;
+        $element = new $elementName();
+        $element->setIsMultiple(false);
+
+        $data = $element->fetchData($eleId );
+        $this->view->data = $data[$element->getClassName()];
+        $this->view->className = $element->getClassName();        
     }
 }
