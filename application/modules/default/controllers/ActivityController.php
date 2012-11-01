@@ -64,8 +64,14 @@ class ActivityController extends Zend_Controller_Action
         } else {
             $form = $element->getForm();            
         }
-        $form->addSubmitButton('Save');
+        $form->addElement('submit' , 'save' , array('class'=>'form-submit' , 'label' => 'Save '.$element->getClassName()));
         $this->view->form = $form;
+        
+        $this->view->blockManager()->enable('partial/activitymenu.phtml');
+        $this->view->blockManager()->disable('partial/primarymenu.phtml');
+        $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
+        $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
+        $this->view->blockManager()->disable('partial/published-list.phtml');
     }
     
     public function listElementsAction()
@@ -88,12 +94,19 @@ class ActivityController extends Zend_Controller_Action
         $this->view->className = $element->getClassName();
         
         $this->view->placeholder('title')->set($element->getClassName());
+       
+        $this->view->blockManager()->enable('partial/activitymenu.phtml');
+        $this->view->blockManager()->disable('partial/primarymenu.phtml');
+        $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
+        $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
+        $this->view->blockManager()->disable('partial/published-list.phtml');
     }
     
     public function editElementAction()
     {
         $elementClass = $this->_getParam('classname');
         $id = $this->_getParam('id');
+        $activityId = $this->_getParam('activity_id');
         $parentId = $this->_getParam('parent_id');
 
         if(!$elementClass){
@@ -103,7 +116,9 @@ class ActivityController extends Zend_Controller_Action
         
         $elementName =  "Iati_Organisation_Element_".$elementClass;
         $element = new $elementName();
-        $element->setIsMultiple(false);
+        if(!$parentId){
+            $element->setIsMultiple(false);
+        }
         
         if($data = $this->getRequest()->getPost()){
             $element->setData($data[$element->getClassName()]);
@@ -129,8 +144,14 @@ class ActivityController extends Zend_Controller_Action
             $form = $element->getForm();
         }
         
-        $form->addSubmitButton('Save');
+        $form->addElement('submit' , 'save' , array('class'=>'form-submit' , 'label' => 'Update '.$element->getClassName()));
         $this->view->form = $form;
+        
+        $this->view->blockManager()->enable('partial/activitymenu.phtml');
+        $this->view->blockManager()->disable('partial/primarymenu.phtml');
+        $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
+        $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
+        $this->view->blockManager()->disable('partial/published-list.phtml');
     }
     
     public function deleteElementAction()
