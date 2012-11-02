@@ -126,6 +126,7 @@ class ActivityController extends Zend_Controller_Action
             if($form->validate()){
                 $element->save($data[$element->getClassName()] , $parentId);
                 $this->_helper->FlashMessenger->addMessage(array('message' => "Data updated sucessfully."));
+                $this->_redirect("activity/list-elements?classname={$elementClass}&activity_id={$activityId}");
             } else {
                 $this->_helper->FlashMessenger->addMessage(array('error' => "You have some problem in your data. Please correct and save again"));
             }
