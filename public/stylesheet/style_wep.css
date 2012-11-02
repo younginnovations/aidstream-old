@@ -3217,6 +3217,6 @@ td.activity_view_label {
 	background: #037BAC;
 }
 
-#dijit_TooltipDialog_27 table.activity-detail-table {
+.dijitPopup table.activity-detail-table {
 	width: 100%;
 }
