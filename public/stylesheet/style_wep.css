@@ -2094,7 +2094,7 @@ table#list-org {
     padding: 5px 10px;
 }
 
-.item-flow {
+/*.item-flow {
 	height: 246px;
 	overflow:auto;
 }

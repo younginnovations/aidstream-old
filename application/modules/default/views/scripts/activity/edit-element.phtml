@@ -1,1 +1,17 @@
+<?php
+    $activityInfo = $this->activityInfo;
+?>
+<? if($activityInfo): ?>
+<?
+    $title = "(" ;
+    $title .= ($activityInfo['iati_title'])?$this->activityInfo['iati_title']:'No Title' ;
+    $title .= ")";
+?>
+<? endif; ?>
+<div class="activity-title">
+    <span class="activity_identifier"> <?php print $activityInfo['iati_identifier']; ?> </span>
+    <span class="activity_title"> <?php print $title;?> </span>
+    <span class="viewer-link"><?php echo $this->l('View Activity', 'wep/view-activity/'. $activityInfo['id'])?></span>
+</div>
+
 <?php print $this->form; ?>

@@ -121,4 +121,36 @@ class Model_Activity
         }
         return $date;
     }
+    
+    public static function updateActivityUpdatedInfo($activityId)
+    {
+        $model = new Model_Wep();
+        $data['id'] = $activityId;
+        $data['@last_updated_datetime'] = date('Y-m-d H:i:s');
+        $model->updateRowsToTable('iati_activity', $data);
+        
+        //change state to editing
+        $db = new Model_ActivityStatus;
+        $db->updateActivityStatus($activityId,Iati_WEP_ActivityState::STATUS_EDITING);
+    }
+    
+    public static function getActivityInfo($activityId)
+    {
+        $model = new Model_Wep();
+        $activityInfo = $model->listAll('iati_activity', 'id', $activityId);
+        if (empty($activityInfo)) {
+            return false;
+        }
+        $activity = $activityInfo[0];
+        $activity['@xml_lang'] = $model->fetchValueById('Language', $activityInfo[0]['@xml_lang'], 'Code');
+        $activity['@default_currency'] = $model->fetchValueById('Currency', $activityInfo[0]['@default_currency'], 'Code');
+
+        $iati_identifier_row = $model->getRowById('iati_identifier', 'activity_id', $activityId);
+        $activity['iati_identifier'] = $iati_identifier_row['text'];
+        $activity['activity_identifier'] = $iati_identifier_row['activity_identifier'];
+        $title_row = $model->getRowById('iati_title', 'activity_id', $activityId);
+        $activity['iati_title'] = $title_row['text'];
+        
+        return $activity;
+    }
 }

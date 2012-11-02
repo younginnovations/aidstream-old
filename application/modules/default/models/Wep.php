@@ -155,7 +155,6 @@ class Model_Wep extends Zend_Db_Table_Abstract
 
     public function updateRowsToTable($tblName, $data){
         $this->_name = $tblName;
-        
         return parent::update($data,array('id= ?' => $data['id']));
     }
     
