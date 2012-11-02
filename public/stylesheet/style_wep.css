@@ -2094,6 +2094,11 @@ table#list-org {
     padding: 5px 10px;
 }
 
+.item-flow {
+	height: 246px;
+	overflow:auto;
+}
+
 /*.item-value {
 	margin-left: 124px;
 }*/
@@ -2121,10 +2126,12 @@ table#list-org {
 .view-element-link {
 	cursor: pointer;
 	color: #009ADA;
+	background: url(../images/arrow.png) no-repeat right 6px;
+	padding-right: 12px;
 }
 
 .view-element-link:hover {
-	background: #009ada;
+	background: #009ada url(../images/arrow-hover.png) no-repeat right 6px;
 	color:#fff;
 }
 
