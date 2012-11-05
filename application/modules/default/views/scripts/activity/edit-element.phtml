@@ -9,9 +9,10 @@
 ?>
 <? endif; ?>
 <div class="activity-title">
-    <span class="activity_identifier"> <?php print $activityInfo['iati_identifier']; ?> </span>
+    <span class="activity_identifier"> <?php print $activityInfo['activity_identifier']; ?> </span>
     <span class="activity_title"> <?php print $title;?> </span>
     <span class="viewer-link"><?php echo $this->l('View ' .strtolower ($this->elementClass).' list', 'activity/list-elements/?classname=Activity_'.$this->elementClass.'&activity_id='. $activityInfo['id'])?> | <?php echo $this->l('View Activity', 'wep/view-activity/'. $activityInfo['id'])?></span>
 </div>
+<div class="second-title">Editing <span><?php print $this->displayName ?>...</span></div>
 
 <?php print $this->form; ?>

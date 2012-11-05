@@ -71,6 +71,7 @@ class ActivityController extends Zend_Controller_Action
         $this->view->form = $form;
         $this->view->activityInfo = Model_Activity::getActivityInfo($parentId);
         $this->view->elementClass = $element->getClassName();
+        $this->view->displayName = $element->getDisplayName();
         
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
         $this->view->blockManager()->disable('partial/primarymenu.phtml');
@@ -97,9 +98,10 @@ class ActivityController extends Zend_Controller_Action
         $this->view->activityId = $parentId;
         $this->view->elementClass = $elementClass;
         $this->view->className = $element->getClassName();
+        $this->view->displayName = $element->getDisplayName();
         $this->view->activityInfo = Model_Activity::getActivityInfo($parentId);
 
-        $this->view->placeholder('title')->set($element->getClassName());
+        //$this->view->placeholder('title')->set($element->getClassName());
        
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
         $this->view->blockManager()->disable('partial/primarymenu.phtml');
@@ -166,6 +168,7 @@ class ActivityController extends Zend_Controller_Action
         $this->view->form = $form;
         $this->view->activityInfo = Model_Activity::getActivityInfo($activityId);
         $this->view->elementClass = $element->getClassName();
+        $this->view->displayName = $element->getDisplayName();
         
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
         $this->view->blockManager()->disable('partial/primarymenu.phtml');

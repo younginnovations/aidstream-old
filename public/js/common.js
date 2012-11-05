@@ -1294,6 +1294,39 @@ function initialize() {
                     orient: ['TR']
                 } , node);
             }
+        },
+        
+        ".delete-element-link" : {
+            'onclick' : function (evt) {
+                evt.preventDefault();
+		var msg = '<div><p>Are you sure you want to delete this element?</p>';
+                msg += '<p>This will remove all the sub elements(if any) as well.</p>';
+                
+		msg += '<p style="margin-left:100px"><button dojoType="dijit.form.Button" type="button" id="cd-ok">OK</button>';
+		msg += '<button dojoType="dijit.form.Button" type="button" id="cd-cancel">Cancel</button></p>';
+		// Destroy all dialog box before creating new. Used to remove dialog box remaining after clicking close.
+                dojo.query('.dijitDialog').forEach(dojo.destroy);
+                
+                var confirmDlg = new dijit.Dialog({
+                    title: "Are you Sure?",
+                    style: "width: 320px",
+                    parseOnLoad: true,
+                    content: msg
+                });
+                
+                dojo.connect(dojo.byId('cd-cancel'), 'onclick', function (e) {
+                    confirmDlg.destroyRecursive();
+                });
+                
+                dojo.connect(dojo.byId('cd-ok'), 'onclick', function (e) {
+                    confirmDlg.destroyRecursive();
+                    var url = dojo.query(getTarget(evt)).attr('href');
+                    window.location = url;
+                });
+                
+                confirmDlg.show();
+
+            }
         }
         
     });
