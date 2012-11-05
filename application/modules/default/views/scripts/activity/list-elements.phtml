@@ -14,6 +14,7 @@
     <span class="viewer-link"><?php echo $this->l('View Activity', 'wep/view-activity/'. $activityInfo['id'])?></span>
 </div>
 
+<?php if(!empty($this->data)):?>
 <?php echo $this->partial("partials/list/".$this->className.".phtml" , array(
                                                                                 'data' => $this->data ,
                                                                                 'elementClass' => $this->elementClass ,
@@ -22,3 +23,7 @@
                                                                             )
                           );
 ?>
+<? else : ?>
+There is no <?php echo $this->className; ?> 
+<? endif; ?>
+<div class="add-more-link"><a href="<?php echo $this->baseUrl();?>/activity/add-element?classname=<?php echo $this->elementClass;?>&activity_id=<?php echo $this->activityId;?>">Add More</a></div>
