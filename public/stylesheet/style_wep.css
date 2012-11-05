@@ -3227,3 +3227,20 @@ td.activity_view_label {
 .dijitPopup table.activity-detail-table {
 	width: 100%;
 }
+
+.element-list-title {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.element-edit-activity-info-wrapper {
+    float:left;
+    width: 400px;
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
+}
