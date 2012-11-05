@@ -817,7 +817,7 @@ if(!empty($value)): ?>
 $transactions=$activity->getElementsByType(Iati_Activity_Element::TYPE_TRANSACTION);
 $value = $transactions[0]->getAttribs();
 if(!empty($value)): ?>
-<div class='element-item'><div class='element-title'>Transaction<a class="edit-element" href= "<?php echo $this->baseUrl()?>/wep/edit-element/?activity_id=<?php echo $this->activityInfo['id']?>&class=Transaction"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
+<div class='element-item'><div class='element-title'>Transaction<a class="edit-element" href= "<?php echo $this->baseUrl()?>/activity/list-elements/?classname=Activity_Transaction&activity_id=<?php echo $this->activityInfo['id']?>"><img src='<?php echo $this->baseUrl()?>/images/edit.png' alt="edit" /></a></div>
 <div class='element-values'>
 <?php foreach($transactions as $transaction):?>
 <table class='element-values-items'>

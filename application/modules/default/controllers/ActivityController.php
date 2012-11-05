@@ -70,6 +70,7 @@ class ActivityController extends Zend_Controller_Action
         $form->addElement('submit' , 'save' , array('class'=>'form-submit' , 'label' => 'Save '.$element->getClassName()));
         $this->view->form = $form;
         $this->view->activityInfo = Model_Activity::getActivityInfo($parentId);
+        $this->view->elementClass = $element->getClassName();
         
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
         $this->view->blockManager()->disable('partial/primarymenu.phtml');
@@ -164,6 +165,7 @@ class ActivityController extends Zend_Controller_Action
         $form->addElement('submit' , 'save' , array('class'=>'form-submit' , 'label' => 'Update '.$element->getClassName()));
         $this->view->form = $form;
         $this->view->activityInfo = Model_Activity::getActivityInfo($activityId);
+        $this->view->elementClass = $element->getClassName();
         
         $this->view->blockManager()->enable('partial/activitymenu.phtml');
         $this->view->blockManager()->disable('partial/primarymenu.phtml');
