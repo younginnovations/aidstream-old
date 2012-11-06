@@ -281,9 +281,11 @@ abstract class Iati_Organisation_BaseForm extends Zend_Form
                 unset($data['remove']);
                 unset($data['add']);
                 $notEmpty = false;
-                foreach($data as $key=>$value){
-                    if($value && $key !== 'id'){
-                        $notEmpty = true;
+                if(!empty($data)){
+                    foreach($data as $key=>$value){
+                        if($value && $key !== 'id'){
+                            $notEmpty = true;
+                        }
                     }
                 }
                 if($notEmpty){
