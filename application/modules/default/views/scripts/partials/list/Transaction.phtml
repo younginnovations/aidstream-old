@@ -12,7 +12,7 @@
         <tr>
             <td></td>
             <td><? echo $count?></td>
-            <td><? echo Iati_Organisation_Codelist::getCodeByAttrib('TransactionType' , '@code' , $element['TransactionType']['@code'], 'Name') ?></td>
+            <td><? echo Iati_Core_Codelist::getCodeByAttrib('TransactionType' , '@code' , $element['TransactionType']['@code'], 'Name') ?></td>
             <td><? echo $element['TransactionValue']['text'] ?></td>
             <td><? echo $element['TransactionDate']['@iso_date']?></td>
             <td colspan=3>

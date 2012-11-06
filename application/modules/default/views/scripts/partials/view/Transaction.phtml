@@ -20,7 +20,7 @@
             <div class='element-values'>
                 <table class='element-values-items'>
                 <tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($transactiontype['text']) print ($transactiontype['text']);?></td></tr>
-                <tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($transactiontype['@code']) printf("%s [%s]", Iati_Organisation_Codelist::getCodeByAttrib('TransactionType' , '@code' , $transactiontype['@code'], 'Name') , Iati_Organisation_Codelist::getCodeByAttrib('TransactionType' , '@code' , $transactiontype['@code']));?></td></tr>
+                <tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($transactiontype['@code']) printf("%s [%s]", Iati_Core_Codelist::getCodeByAttrib('TransactionType' , '@code' , $transactiontype['@code'], 'Name') , Iati_Core_Codelist::getCodeByAttrib('TransactionType' , '@code' , $transactiontype['@code']));?></td></tr>
                 </table>
             </div>
             </div>
@@ -36,7 +36,7 @@
             <div class='element-values'>
                 <table class='element-values-items'>
                 <tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($providerorg['text']) print ($providerorg['text']);?></td></tr>
-                <tr class='element-value element-value-odd'><td class='attrib-label'>Ref</td><td class='attrib-value'> <?php if($providerorg['@ref']) (Iati_Organisation_Codelist::getCodeByAttrib('ProviderOrganisation' , '@ref' , $providerorg['@ref'], 'Name') == Iati_Organisation_Codelist::getCodeByAttrib('ProviderOrganisation' , '@ref' , $providerorg['@ref']))?print (Iati_Organisation_Codelist::getCodeByAttrib('ProviderOrganisation' , '@ref' , $providerorg['@ref'])): printf("%s [%s]", Iati_Organisation_Codelist::getCodeByAttrib('ProviderOrganisation' , '@ref' , $providerorg['@ref'], 'Name') , Iati_Organisation_Codelist::getCodeByAttrib('ProviderOrganisation' , '@ref' , $providerorg['@ref']));?></td></tr>
+                <tr class='element-value element-value-odd'><td class='attrib-label'>Ref</td><td class='attrib-value'> <?php if($providerorg['@ref']) (Iati_Core_Codelist::getCodeByAttrib('ProviderOrganisation' , '@ref' , $providerorg['@ref'], 'Name') == Iati_Core_Codelist::getCodeByAttrib('ProviderOrganisation' , '@ref' , $providerorg['@ref']))?print (Iati_Core_Codelist::getCodeByAttrib('ProviderOrganisation' , '@ref' , $providerorg['@ref'])): printf("%s [%s]", Iati_Core_Codelist::getCodeByAttrib('ProviderOrganisation' , '@ref' , $providerorg['@ref'], 'Name') , Iati_Core_Codelist::getCodeByAttrib('ProviderOrganisation' , '@ref' , $providerorg['@ref']));?></td></tr>
                 <tr class='element-value element-value-even'><td class='attrib-label'>Provider_activity_id</td><td class='attrib-value'> <?php if($providerorg['@provider_activity_id']) print ($providerorg['@provider_activity_id']);?></td></tr>
                 </table>
             </div>
@@ -53,7 +53,7 @@
             <div class='element-values'>
                 <table class='element-values-items'>
                 <tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($receiverorg['text']) print ($receiverorg['text']);?></td></tr>
-                <tr class='element-value element-value-odd'><td class='attrib-label'>Ref</td><td class='attrib-value'> <?php if($receiverorg['@ref']) (Iati_Organisation_Codelist::getCodeByAttrib('ReceiverOrganisation' , '@ref' , $receiverorg['@ref'], 'Name') == Iati_Organisation_Codelist::getCodeByAttrib('ProviderOrganisation' , '@ref' , $receiverorg['@ref']))?print (Iati_Organisation_Codelist::getCodeByAttrib('ReceiverOrganisation' , '@ref' , $receiverorg['@ref'])): printf("%s [%s]", Iati_Organisation_Codelist::getCodeByAttrib('ReceiverOrganisation' , '@ref' , $receiverorg['@ref'], 'Name') , Iati_Organisation_Codelist::getCodeByAttrib('ReceiverOrganisation' , '@ref' , $receiverorg['@ref']));?></td></tr>
+                <tr class='element-value element-value-odd'><td class='attrib-label'>Ref</td><td class='attrib-value'> <?php if($receiverorg['@ref']) (Iati_Core_Codelist::getCodeByAttrib('ReceiverOrganisation' , '@ref' , $receiverorg['@ref'], 'Name') == Iati_Core_Codelist::getCodeByAttrib('ProviderOrganisation' , '@ref' , $receiverorg['@ref']))?print (Iati_Core_Codelist::getCodeByAttrib('ReceiverOrganisation' , '@ref' , $receiverorg['@ref'])): printf("%s [%s]", Iati_Core_Codelist::getCodeByAttrib('ReceiverOrganisation' , '@ref' , $receiverorg['@ref'], 'Name') , Iati_Core_Codelist::getCodeByAttrib('ReceiverOrganisation' , '@ref' , $receiverorg['@ref']));?></td></tr>
                 <tr class='element-value element-value-even'><td class='attrib-label'>Receiver_activity_id</td><td class='attrib-value'> <?php if($receiverorg['@receiver_activity_id']) print ($receiverorg['@receiver_activity_id']);?></td></tr>
                 </table>
             </div>
@@ -71,7 +71,7 @@
                 <table class='element-values-items'>
                 <tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($value['text']) print ($value['text']);?></td></tr>
                 <tr class='element-value element-value-odd'><td class='attrib-label'>Value_date</td><td class='attrib-value'> <?php if($value['@value_date']) print ($value['@value_date']);?></td></tr>
-                <tr class='element-value element-value-even'><td class='attrib-label'>Currency</td><td class='attrib-value'> <?php if($value['@currency']) printf("%s [%s]", Iati_Organisation_Codelist::getCodeByAttrib('TransactionValue' , '@currency' , $value['@currency'], 'Name') , Iati_Organisation_Codelist::getCodeByAttrib('TransactionValue' , '@currency' , $value['@currency']));?></td></tr>
+                <tr class='element-value element-value-even'><td class='attrib-label'>Currency</td><td class='attrib-value'> <?php if($value['@currency']) printf("%s [%s]", Iati_Core_Codelist::getCodeByAttrib('TransactionValue' , '@currency' , $value['@currency'], 'Name') , Iati_Core_Codelist::getCodeByAttrib('TransactionValue' , '@currency' , $value['@currency']));?></td></tr>
                 </table>
             </div>
             </div>
@@ -86,7 +86,7 @@
             <div class='element-item'><div class='element-title'>Description</div>
             <div class='element-values'>
                 <table class='element-values-items'>
-                <tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($description['text']) print ($description['text']);?><?php if($description['@xml_lang']) printf (" [%s]",(Iati_Organisation_Codelist::getCodeByAttrib('Description' , '@xml_lang' , $description['@xml_lang'])));?></td></tr>
+                <tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($description['text']) print ($description['text']);?><?php if($description['@xml_lang']) printf (" [%s]",(Iati_Core_Codelist::getCodeByAttrib('Description' , '@xml_lang' , $description['@xml_lang'])));?></td></tr>
                 </table>
             </div>
             </div>
@@ -118,7 +118,7 @@
             <div class='element-values'>
                 <table class='element-values-items'>
                 <tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($flowtype['text']) print ($flowtype['text']);?> <?php if($flowtype['@xml_lang']) printf (" [%s]",($flowtype['@xml_lang']));?></td></tr>
-                <tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($flowtype['@code']) printf("%s [%s]", Iati_Organisation_Codelist::getCodeByAttrib('FlowType' , '@code' , $flowtype['@code'], 'Name') , Iati_Organisation_Codelist::getCodeByAttrib('FlowType' , '@code' , $flowtype['@code']));?></td></tr>
+                <tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($flowtype['@code']) printf("%s [%s]", Iati_Core_Codelist::getCodeByAttrib('FlowType' , '@code' , $flowtype['@code'], 'Name') , Iati_Core_Codelist::getCodeByAttrib('FlowType' , '@code' , $flowtype['@code']));?></td></tr>
                 </table>
             </div>
             </div>
@@ -134,7 +134,7 @@
             <div class='element-values'>
                 <table class='element-values-items'>
                 <tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($financetype['text']) print ($financetype['text']);?><?php if($financetype['@xml_lang']) printf (" [%s]",($financetype['@xml_lang']));?></td></tr>
-                <tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($financetype['@code']) printf("%s [%s]", Iati_Organisation_Codelist::getCodeByAttrib('FinanceType' , '@code' , $financetype['@code'], 'Name') , Iati_Organisation_Codelist::getCodeByAttrib('FinanceType' , '@code' , $financetype['@code']));?></td></tr>
+                <tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($financetype['@code']) printf("%s [%s]", Iati_Core_Codelist::getCodeByAttrib('FinanceType' , '@code' , $financetype['@code'], 'Name') , Iati_Core_Codelist::getCodeByAttrib('FinanceType' , '@code' , $financetype['@code']));?></td></tr>
                 </table>
             </div>
             </div>
@@ -150,7 +150,7 @@
             <div class='element-values'>
                 <table class='element-values-items'>
                 <tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($aidtype['text']) print ($aidtype['text']);?> <?php if($aidtype['@xml_lang']) printf (" [%s]",($aidtype['@xml_lang']));?></td></tr>
-                <tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($aidtype['@code']) printf("%s [%s]", Iati_Organisation_Codelist::getCodeByAttrib('AidType' , '@code' , $aidtype['@code'], 'Name') , Iati_Organisation_Codelist::getCodeByAttrib('AidType' , '@code' , $aidtype['@code']));?></td></tr>
+                <tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($aidtype['@code']) printf("%s [%s]", Iati_Core_Codelist::getCodeByAttrib('AidType' , '@code' , $aidtype['@code'], 'Name') , Iati_Core_Codelist::getCodeByAttrib('AidType' , '@code' , $aidtype['@code']));?></td></tr>
                 </table>
             </div>
             </div>
@@ -166,7 +166,7 @@
             <div class='element-values'>
                 <table class='element-values-items'>
                 <tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($disbursementchannel['text']) print ($disbursementchannel['text']);?></td></tr>
-                <tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($disbursementchannel['@code']) printf("%s [%s]", Iati_Organisation_Codelist::getCodeByAttrib('DisbursementChannel' , '@code' , $disbursementchannel['@code'], 'Name') , Iati_Organisation_Codelist::getCodeByAttrib('DisbursementChannel' , '@code' , $disbursementchannel['@code']));?></td></tr>
+                <tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($disbursementchannel['@code']) printf("%s [%s]", Iati_Core_Codelist::getCodeByAttrib('DisbursementChannel' , '@code' , $disbursementchannel['@code'], 'Name') , Iati_Core_Codelist::getCodeByAttrib('DisbursementChannel' , '@code' , $disbursementchannel['@code']));?></td></tr>
                 </table>
             </div>
             </div>
@@ -181,8 +181,8 @@
             <div class='element-item'><div class='element-title'>Tied Status</div>
             <div class='element-values'>
                 <table class='element-values-items'>
-                <tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($tiedstatus['text']) print ($tiedstatus['text']);?> <?php if($tiedstatus['@xml_lang']) printf (" [%s]",(Iati_Organisation_Codelist::getCodeByAttrib('TiedStatus' , '@xml_lang' , $tiedstatus['@xml_lang'])));?></td></tr>
-                <tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($tiedstatus['@code']) printf("%s [%s]", Iati_Organisation_Codelist::getCodeByAttrib('TiedStatus' , '@code' , $tiedstatus['@code'], 'Name') , Iati_Organisation_Codelist::getCodeByAttrib('TiedStatus' , '@code' , $tiedstatus['@code']));?></td></tr>                
+                <tr class='element-value element-value-even'><td class='attrib-label'>Text</td><td class='attrib-value'> <?php if($tiedstatus['text']) print ($tiedstatus['text']);?> <?php if($tiedstatus['@xml_lang']) printf (" [%s]",(Iati_Core_Codelist::getCodeByAttrib('TiedStatus' , '@xml_lang' , $tiedstatus['@xml_lang'])));?></td></tr>
+                <tr class='element-value element-value-odd'><td class='attrib-label'>Code</td><td class='attrib-value'> <?php if($tiedstatus['@code']) printf("%s [%s]", Iati_Core_Codelist::getCodeByAttrib('TiedStatus' , '@code' , $tiedstatus['@code'], 'Name') , Iati_Core_Codelist::getCodeByAttrib('TiedStatus' , '@code' , $tiedstatus['@code']));?></td></tr>                
                 </table>
             </div>
             </div>

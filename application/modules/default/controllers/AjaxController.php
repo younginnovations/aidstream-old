@@ -16,7 +16,7 @@ class AjaxController extends Zend_Controller_Action
         $elementClass = $this->_getParam('classname');
         $refItem = $this->_getParam('refele');
 
-        $elementName =  "Iati_Organisation_Element_".$elementClass;
+        $elementName =  "Iati_Aidstream_Element_".$elementClass;
         $element = new $elementName();
 
         preg_match( "/{$element->getClassName()}-\d+/" , $refItem ,  $matches );
@@ -67,7 +67,7 @@ class AjaxController extends Zend_Controller_Action
         $elementClass = $this->_getParam('classname');
         $id = $this->_getParam('id');
         
-        $elementName =  "Iati_Organisation_Element_".$elementClass;
+        $elementName =  "Iati_Aidstream_Element_".$elementClass;
         $element = new $elementName();
         $element->deleteElement(array($id));
         exit;

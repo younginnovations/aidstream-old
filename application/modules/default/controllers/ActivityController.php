@@ -41,7 +41,7 @@ class ActivityController extends Zend_Controller_Action
             $this->_redirect("/wep/dashboard");           
         }
         
-        $elementName =  "Iati_Organisation_Element_".$elementClass;
+        $elementName =  "Iati_Aidstream_Element_".$elementClass;
         $element = new $elementName();
         $element->setIsMultiple(false);
         
@@ -90,7 +90,7 @@ class ActivityController extends Zend_Controller_Action
             $this->_redirect("/wep/dashboard");           
         }
         
-        $elementName =  "Iati_Organisation_Element_".$elementClass;
+        $elementName =  "Iati_Aidstream_Element_".$elementClass;
         $element = new $elementName();
         $data = $element->fetchData($parentId , true);
         
@@ -122,7 +122,7 @@ class ActivityController extends Zend_Controller_Action
             $this->_redirect("/wep/dashboard");           
         }
         
-        $elementName =  "Iati_Organisation_Element_".$elementClass;
+        $elementName =  "Iati_Aidstream_Element_".$elementClass;
         $element = new $elementName();
         if(!$parentId){
             $element->setIsMultiple(false);
@@ -157,7 +157,7 @@ class ActivityController extends Zend_Controller_Action
             }
             if(empty($data[$element->getClassName()])){
                 $this->_helper->FlashMessenger->addMessage(array('info' => "Data not found for the element. Please add new data"));
-                $this->_redirect("/organisation/add?classname=$elementClass");
+                $this->_redirect("/activity/add-element?classname={$elementClass}&activity_id={$activityId}");
             }
 
             $element->setData($data[$element->getClassName()]);
@@ -193,7 +193,7 @@ class ActivityController extends Zend_Controller_Action
             $this->_redirect("/wep/dashboard");  
         }
         
-        $elementName =  "Iati_Organisation_Element_".$elementClass;
+        $elementName =  "Iati_Aidstream_Element_".$elementClass;
         $element = new $elementName();
         $element->deleteElement($eleId , false);
         
@@ -208,7 +208,7 @@ class ActivityController extends Zend_Controller_Action
         $elementClass = $this->_getParam('classname');
         $eleId = $this->_getParam('id');
         
-        $elementName =  "Iati_Organisation_Element_".$elementClass;
+        $elementName =  "Iati_Aidstream_Element_".$elementClass;
         $element = new $elementName();
         $element->setIsMultiple(false);
 
