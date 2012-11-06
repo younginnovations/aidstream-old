@@ -123,7 +123,7 @@ abstract class Iati_Organisation_BaseForm extends Zend_Form
         return $this->element;
     }
     
-    public function count($element)
+    public function countElement($element)
     {
         if(!self::$count[$element]){
             self::$count[$element] = 0;
@@ -164,7 +164,7 @@ abstract class Iati_Organisation_BaseForm extends Zend_Form
     {
         $form = $this->getFormDefination();
         $form->populate($this->data);
-        $count = $this->count($this->element->getClassName());
+        $count = $this->countElement($this->element->getClassName());
         return $form;
     }
     
