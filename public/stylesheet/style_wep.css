@@ -2094,9 +2094,13 @@ table#list-org {
     padding: 5px 10px;
 }
 
-/*.item-flow {
-	height: 246px;
+.item-flow {
+	height: 450px;
 	overflow:auto;
+}
+
+#popup-table {
+    width: 100%;
 }
 
 /*.item-value {
