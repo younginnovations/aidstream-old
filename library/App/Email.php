@@ -307,17 +307,18 @@ class App_Email
             $this->q_insert();
             return;
         }
-        // Use smtp transport for sending using smtp server.
-        
-        $mailConfig = array(
-                       'ssl' => 'ssl',
-                       'port' => $this->_config->email->port,
-                       'auth' => 'login',
-                       'username' => $this->_config->email->username,
-                       'password' => $this->_config->email->password
-                 );
-        $transport = new Zend_Mail_Transport_Smtp($this->_config->email->host,$mailConfig);
-        Zend_Mail::setDefaultTransport($transport);
+        if($this->_config->smtp->enabled){
+            // Use smtp transport for sending using smtp server.
+            $mailConfig = array(
+                           'ssl' => $this->_config->smtp->ssl,
+                           'port' => $this->_config->smtp->port,
+                           'auth' => $this->_config->smtp->auth,
+                           'username' => $this->_config->smtp->username,
+                           'password' => $this->_config->smtp->password
+                     );
+            $transport = new Zend_Mail_Transport_Smtp($this->_config->smtp->host,$mailConfig);
+            Zend_Mail::setDefaultTransport($transport);
+        }
         
         $mail = new Zend_Mail();
         $mail->setSubject($this->_subject)
