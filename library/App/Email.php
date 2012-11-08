@@ -308,10 +308,15 @@ class App_Email
             return;
         }
         // Use smtp transport for sending using smtp server.
-        $config = array(
-                        'port' => $this->_config->email->port,
-                  );
-        $transport = new Zend_Mail_Transport_Smtp($this->_config->email->host,$config);
+        
+        $mailConfig = array(
+                       'ssl' => 'ssl',
+                       'port' => $this->_config->email->port,
+                       'auth' => 'login',
+                       'username' => $this->_config->email->username,
+                       'password' => $this->_config->email->password
+                 );
+        $transport = new Zend_Mail_Transport_Smtp($this->_config->email->host,$mailConfig);
         Zend_Mail::setDefaultTransport($transport);
         
         $mail = new Zend_Mail();
