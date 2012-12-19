@@ -39,7 +39,12 @@ class IndexController extends Zend_Controller_Action
   				$this->_redirect('/');
   				            	
             } else {
-            	$this->_helper->FlashMessenger->addMessage(array('error' => 'Please provide valid data'));
+                $errormessage = 'Please provide valid data';
+                $captchaMessages = $form->captcha->getMessages();
+                if(!empty($captchaMessages)){
+                    $errormessage = array_pop($captchaMessages);
+                }
+            	$this->_helper->FlashMessenger->addMessage(array('error' => $errormessage));
             	$this->_redirect('#contact-us');
             }
         }    

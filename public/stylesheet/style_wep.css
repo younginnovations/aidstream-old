@@ -3248,3 +3248,7 @@ td.activity_view_label {
     -moz-hyphens: auto;
     hyphens: auto;
 }
+
+#contact-form #captcha-element {
+    margin-left : 93px;
+}
