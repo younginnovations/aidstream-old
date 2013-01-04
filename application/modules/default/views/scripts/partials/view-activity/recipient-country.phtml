@@ -1,0 +1,34 @@
+<li class="element-activity">
+
+    <div class="element-title element-current">
+        Recipient Country
+    </div> 
+
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=RecipientCountry">Edit</a></div>	
+
+    <?php foreach ($this->recipientcountrys as $recipientcountry): ?> 
+        <div class="current">
+            <ul class="style-2 arrow">
+                <li> <span class="down-arrow"><?php if ($recipientcountry->getAttrib('@code')) ($recipientcountry->getAttribValue('@code' , 'Name') != $recipientcountry->getAttribValue('@code')) ? ( printf("%s [%s]" , $recipientcountry->getAttribValue('@code' , 'Name') , $recipientcountry->getAttribValue('@code'))) : (print($recipientcountry->getAttribValue('@code'))); ?>
+                                              <?php if ($recipientcountry->getAttrib('@code') && $recipientcountry->getAttrib('@percentage')) print "; "; ?>
+                                              <?php if ($recipientcountry->getAttrib('@percentage')) print ($recipientcountry->getAttribValue('@percentage')); ?></span>
+                    <ul class="style-2-drop first">
+                        <li>
+                            <span class="name">Text:</span>
+                            <span class="infom"><?php if ($recipientcountry->getAttrib('text')) print ($recipientcountry->getAttribValue('text')); ?> <?php if ($recipientcountry->getAttrib('@xml_lang')) printf(" [%s]" , ($recipientcountry->getAttribValue('@xml_lang'))); ?></span>
+                        </li>
+                        <li>
+                            <span class="name">Percentage:</span>
+                            <span class="infom"><?php if ($recipientcountry->getAttrib('@percentage')) print ($recipientcountry->getAttribValue('@percentage')); ?></span>
+                        </li>
+                        <li>
+                            <span class="name">Code:</span>
+                            <span class="infom"><?php if ($recipientcountry->getAttrib('@code')) ($recipientcountry->getAttribValue('@code' , 'Name') != $recipientcountry->getAttribValue('@code')) ? ( printf("%s [%s]" , $recipientcountry->getAttribValue('@code' , 'Name') , $recipientcountry->getAttribValue('@code'))) : (print($recipientcountry->getAttribValue('@code'))); ?></span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    <?php endforeach; ?>
+</li><!-- end of element-activity -->
+

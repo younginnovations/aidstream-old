@@ -1,0 +1,46 @@
+<li class="element-activity">
+
+    <div class="element-title element-current">
+        Transaction
+    </div>
+
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/list-elements/?classname=Activity_Transaction&activity_id=<?php echo $this->activityInfo['id'] ?>">Edit</a></div>
+
+    <?php foreach ($this->transactions as $key=> $transaction): ?>
+        <div class="current">
+            <ul class="style-2 arrow">
+                <li>
+
+                    <span class="transaction-down-arrow transaction">  
+                        <div id="get-activityId" style="display:none"><?php echo $this->activityInfo['id'] ; ?></div>
+                        <div id="get-index" style="display:none"><?php echo $key ; ?></div>
+                        <?php
+                        $transactiontypes = $transaction->getElementsByType('TransactionType');
+                        $value = $transactiontypes[0]->getAttribs();
+                        if (!empty($value)):
+                        ?>
+                            <?php foreach ($transactiontypes as $transactiontype): ?>
+                                <?php if ($transactiontype->getAttrib('@code')) ($transactiontype->getAttribValue('@code' , 'Name') != $transactiontype->getAttribValue('@code')) ? ( printf("%s [%s]" , $transactiontype->getAttribValue('@code' , 'Name') , $transactiontype->getAttribValue('@code'))) : (print($transactiontype->getAttribValue('@code'))); ?> 
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                        <?php
+                        $values = $transaction->getElementsByType('Value');
+                        $value = $values[0]->getAttribs();
+                        if (!empty($value)):
+                            ?>    
+                            <?php foreach ($values as $value): ?>
+                                <?php if ($transactiontype->getAttrib('@code') && $value->getAttrib('text')) print "; "; ?>
+                                <?php if ($value->getAttrib('text')) print ($value->getAttribValue('text')); ?> 
+                                <?php break; ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </span>
+                    
+                    <!--Transaction content is loaded through ajax in div-->
+                    <div id="view-activity-transaction"style="display:none"></div>
+                   
+                </li>
+            </ul>
+        </div>
+    <?php endforeach; ?>
+</li><!-- end of element-activity -->

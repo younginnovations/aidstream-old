@@ -1,0 +1,34 @@
+<li class="element-activity">
+    <div class="element-title">
+        Default Finance Type
+
+        <?php foreach ($this->defaultfinancetypes as $defaultfinancetype): ?>    
+            <div class="element-info">
+                <div class="element-values">
+                    <span class="attrib-label">Code:</span>
+                    <span class="attrib-value"><?php if ($defaultfinancetype->getAttrib('@code')) ($defaultfinancetype->getAttribValue('@code' , 'Name') != $defaultfinancetype->getAttribValue('@code')) ? ( printf("%s [%s]" , $this->length()->adjustSingleLength($defaultfinancetype->getAttribValue('@code' , 'Name')) , $defaultfinancetype->getAttribValue('@code'))) : (print($defaultfinancetype->getAttribValue('@code'))); ?></span>
+                </div>
+            </div>
+            <?php break; ?>
+        <?php endforeach; ?> 
+
+    </div>
+
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=DefaultFinanceType">Edit</a></div>	
+
+    <?php foreach ($this->defaultfinancetypes as $defaultfinancetype): ?>
+        <div class="highlight">
+            <ul class="style-1">
+                <li>
+                    <span class="name">Code:</span>
+                    <span class="infom"><?php if ($defaultfinancetype->getAttrib('@code')) ($defaultfinancetype->getAttribValue('@code' , 'Name') != $defaultfinancetype->getAttribValue('@code')) ? ( printf("%s [%s]" , $defaultfinancetype->getAttribValue('@code' , 'Name') , $defaultfinancetype->getAttribValue('@code'))) : (print($defaultfinancetype->getAttribValue('@code'))); ?></span>
+                </li>
+                <li>
+                    <span class="name">Text:</span>
+                    <span class="infom"><?php if ($defaultfinancetype->getAttrib('text')) print ($defaultfinancetype->getAttribValue('text')); ?> <?php if ($defaultfinancetype->getAttrib('@xml_lang')) printf(" [%s]" , ($defaultfinancetype->getAttribValue('@xml_lang'))); ?></span>
+                </li>
+            </ul>
+        </div>        
+    <?php endforeach; ?>
+
+</li><!-- end of element-activity -->

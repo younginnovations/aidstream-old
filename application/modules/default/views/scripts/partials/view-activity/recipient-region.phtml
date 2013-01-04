@@ -1,0 +1,32 @@
+<li class="element-activity">
+
+    <div class="element-title element-current">
+        Recipient Region
+    </div>
+
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=RecipientRegion">Edit</a></div>	
+
+    <?php foreach ($this->recipientregions as $recipientregion): ?>
+        <div class="current">
+            <ul class="style-2 arrow">
+                <li> <span class="down-arrow"><?php if ($recipientregion->getAttrib('@code')) ($recipientregion->getAttribValue('@code' , 'Name') != $recipientregion->getAttribValue('@code')) ? ( printf("%s [%s]" , $recipientregion->getAttribValue('@code' , 'Name') , $recipientregion->getAttribValue('@code'))) : (print($recipientregion->getAttribValue('@code'))); ?>
+                                                <?php if ($recipientregion->getAttrib('@code') && $recipientregion->getAttrib('@percentage')) print "; "; ?>
+                                                <?php if ($recipientregion->getAttrib('@percentage')) print ($recipientregion->getAttribValue('@percentage')); ?></span>
+                    <ul class="style-2-drop first">
+                        <li>
+                            <span class="name">Text:</span>
+                            <span class="infom"><?php if ($recipientregion->getAttrib('text')) print ($recipientregion->getAttribValue('text')); ?> <?php if ($recipientregion->getAttrib('@xml_lang')) printf(" [%s]" , ($recipientregion->getAttribValue('@xml_lang'))); ?></span>
+                        </li>
+                        <li>
+                            <span class="name">Percentage:</span>
+                            <span class="infom"><?php if ($recipientregion->getAttrib('@percentage')) print ($recipientregion->getAttribValue('@percentage')); ?></span>
+                        </li>
+                        <li>
+                            <span class="name">Code:</span>
+                            <span class="infom"><?php if ($recipientregion->getAttrib('@code')) ($recipientregion->getAttribValue('@code' , 'Name') != $recipientregion->getAttribValue('@code')) ? ( printf("%s [%s]" , $recipientregion->getAttribValue('@code' , 'Name') , $recipientregion->getAttribValue('@code'))) : (print($recipientregion->getAttribValue('@code'))); ?></span>
+                        </li>
+                    </ul>
+                    </div>
+                <?php endforeach; ?>
+            </li><!-- end of element-activity -->
+

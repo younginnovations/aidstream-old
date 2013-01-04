@@ -1,0 +1,33 @@
+<li class="element-activity">
+
+    <div class="element-title element-current">
+        Related Activity
+    </div>
+
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=RelatedActivity">Edit</a></div>	
+
+    <?php foreach ($this->relatedactivitys as $relatedactivity): ?>
+
+        <div class="current">
+            <ul class="style-2 arrow">
+                <li> <span class="down-arrow"><?php if ($relatedactivity->getAttrib('@ref')) ($relatedactivity->getAttribValue('@ref' , 'Name') != $relatedactivity->getAttribValue('@ref')) ? ( printf("%s [%s]" , $relatedactivity->getAttribValue('@ref' , 'Name') , $relatedactivity->getAttribValue('@ref'))) : (print($relatedactivity->getAttribValue('@ref'))); ?></span>
+                    <ul class="style-2-drop first">
+                        <li>
+                            <span class="name">Text:</span>
+                            <span class="infom"><?php if ($relatedactivity->getAttrib('@xml_lang')) printf(" [%s]" , ($relatedactivity->getAttribValue('@xml_lang'))); ?></span>
+                        </li>
+                        <li>
+                            <span class="name">Ref:</span>
+                            <span class="infom"><?php if ($relatedactivity->getAttrib('@ref')) ($relatedactivity->getAttribValue('@ref' , 'Name') != $relatedactivity->getAttribValue('@ref')) ? ( printf("%s [%s]" , $relatedactivity->getAttribValue('@ref' , 'Name') , $relatedactivity->getAttribValue('@ref'))) : (print($relatedactivity->getAttribValue('@ref'))); ?></span>
+                        </li>
+                        <li>
+                            <span class="name">Text:</span>
+                            <span class="infom"><?php if ($relatedactivity->getAttrib('@type')) ($relatedactivity->getAttribValue('@type' , 'Name') != $relatedactivity->getAttribValue('@type')) ? ( printf("%s [%s]" , $relatedactivity->getAttribValue('@type' , 'Name') , $relatedactivity->getAttribValue('@type'))) : (print($relatedactivity->getAttribValue('@type'))); ?></span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    <?php endforeach; ?>
+    
+</li><!-- end of element-activity -->

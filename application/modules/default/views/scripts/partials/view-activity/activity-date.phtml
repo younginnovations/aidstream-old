@@ -1,0 +1,34 @@
+<li class="element-activity">
+    
+    <div class="element-title element-current">
+        Activity Date
+    </div>
+    
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=ActivityDate">Edit</a></div>	
+
+    <?php foreach ($this->activitydates as $activitydate): ?>
+        <div class="current">
+            <ul class="style-2 arrow">
+                <li> <span class="down-arrow"><?php if ($activitydate->getAttrib('@type')) ($activitydate->getAttribValue('@type' , 'Name') != $activitydate->getAttribValue('@type')) ? ( printf("%s [%s]" , $activitydate->getAttribValue('@type' , 'Name') , $activitydate->getAttribValue('@type'))) : (print($activitydate->getAttribValue('@type'))); ?>
+                                              <?php if ($activitydate->getAttrib('@type') && $activitydate->getAttrib('@iso_date')) print "; "; ?>
+                                              <?php if ($activitydate->getAttrib('@iso_date')) print ($activitydate->getAttribValue('@iso_date')); ?></span> 
+                    <ul class="style-2-drop first">
+                        <li>
+                            <span class="name">Text:</span>
+                            <span class="infom"><?php if ($activitydate->getAttrib('text')) print ($activitydate->getAttribValue('text')); ?><?php if ($activitydate->getAttrib('@xml_lang')) printf(" [%s]" , ($activitydate->getAttribValue('@xml_lang'))); ?></span>
+                        </li>
+                        <li>
+                            <span class="name">Type:</span>
+                            <span class="infom"><?php if ($activitydate->getAttrib('@type')) ($activitydate->getAttribValue('@type' , 'Name') != $activitydate->getAttribValue('@type')) ? ( printf("%s [%s]" , $activitydate->getAttribValue('@type' , 'Name') , $activitydate->getAttribValue('@type'))) : (print($activitydate->getAttribValue('@type'))); ?></span>
+                        </li>
+                        <li>
+                            <span class="name">Date:</span>
+                            <span class="infom"><?php if ($activitydate->getAttrib('@iso_date')) print ($activitydate->getAttribValue('@iso_date')); ?></span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    <?php endforeach; ?>
+</li><!-- end of element-activity -->
+

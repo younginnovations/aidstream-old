@@ -1,0 +1,113 @@
+<li class="element-activity drop">
+
+    <div class="element-title">
+        Contact Info
+    </div>
+
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=ContactInfo">Edit</a></div>	
+
+    <?php $i = 1; ?>
+    <?php foreach ($this->contactinfos as $contactinfo): ?>
+        <?php if ($i == '1'): ?>
+            <div class="highlight">
+            <?php else: ?>
+                <div class="highlight first">
+                <?php endif; ?>
+
+                <ul class="style-3">     
+                    <!-- Organisation Starts -->
+                    <?php
+                    $organisations = $contactinfo->getElementsByType('Organisation');
+                    $value = $organisations[0]->getAttribs();
+                    ?>
+                    <?php if (!empty($value)): ?>  
+                        <li>
+                            <span class="name">Organisation Name:</span>
+                            <?php foreach ($organisations as $organisation): ?>
+                                <span class="infom">
+                                    <?php if ($organisation->getAttrib('text')) print ($organisation->getAttribValue('text')); ?>
+                                </span>
+                            <?php endforeach; ?>
+                        </li>              
+                    <?php endif; ?>
+                    <!-- Organisation Ends -->
+
+
+                    <!-- PersonName Starts -->
+                    <?php
+                    $personnames = $contactinfo->getElementsByType('PersonName');
+                    $value = $personnames[0]->getAttribs();
+                    ?>
+                    <?php if (!empty($value)): ?>                        
+                        <li>
+                            <span class="name">Person Name: </span>
+                            <?php foreach ($personnames as $personname): ?>
+                                <span class="infom">
+                                    <?php if ($personname->getAttrib('text')) print ($personname->getAttribValue('text')); ?>
+                                </span>
+                            <?php endforeach; ?>
+                        </li>
+                    <?php endif; ?>
+                    <!-- PersonName Ends -->
+
+
+                    <!-- Telephone Starts -->
+                    <?php
+                    $telephones = $contactinfo->getElementsByType('Telephone');
+                    $value = $telephones[0]->getAttribs();
+                    ?>
+                    <?php if (!empty($value)): ?>                        
+                        <li>
+                            <span class="name">Telephone:</span>
+                            <?php foreach ($telephones as $telephone): ?>
+                                <span class="infom">
+                                    <?php if ($telephone->getAttrib('text')) print ($telephone->getAttribValue('text')); ?>
+
+                                </span>
+                            <?php endforeach; ?>
+                        </li>                       
+                    <?php endif; ?>
+                    <!-- Telephone Ends -->
+
+                    <!-- Email Starts -->
+                    <?php
+                    $emails = $contactinfo->getElementsByType('Email');
+                    $value = $emails[0]->getAttribs();
+                    ?>
+                    <?php if (!empty($value)): ?>                        
+                        <li>
+                            <span class="name">Email: </span>
+                            <?php foreach ($emails as $email): ?>
+                                <span class="infom">
+                                    <?php if ($email->getAttrib('text')) print ($email->getAttribValue('text')); ?>
+
+                                </span>
+                            <?php endforeach; ?>
+                        </li>                        
+                    <?php endif; ?>
+                    <!-- Email Ends -->
+
+                    <!-- MailingAddress Starts -->
+                    <?php
+                    $mailingaddresss = $contactinfo->getElementsByType('MailingAddress');
+                    $value = $mailingaddresss[0]->getAttribs();
+                    ?>
+                    <?php if (!empty($value)): ?>                       
+                        <li>
+                            <span class="name">Mailing Address:</span>
+                            <?php foreach ($mailingaddresss as $mailingaddress): ?>                                
+                                <span class="infom">
+                                    <?php if ($mailingaddress->getAttrib('text')) print ($mailingaddress->getAttribValue('text')); ?>
+
+                                </span>
+                            <?php endforeach; ?>
+                        </li>
+                    <?php endif; ?>
+                    <!-- MailingAddress Ends -->
+                </ul> <!-- End .style-1 style-4 -->
+            </div>
+            <?php $i = $i + 1; ?>
+        <?php endforeach; ?>
+
+</li><!-- end of element-activity -->
+

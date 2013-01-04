@@ -1,0 +1,36 @@
+<li class="element-activity">
+
+    <div class="element-title element-current">
+        Policy Marker
+    </div>
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=PolicyMarker">Edit</a></div>	
+
+    <?php foreach ($this->policymarkers as $policymarker): ?>
+        <div class="current">
+            <ul class="style-2 arrow">
+                <li> <span class="down-arrow"><?php if ($policymarker->getAttrib('@code')) ($policymarker->getAttribValue('@code' , 'Name') != $policymarker->getAttribValue('@code')) ? ( printf("%s [%s]" , $policymarker->getAttribValue('@code' , 'Name') , $policymarker->getAttribValue('@code'))) : (print($policymarker->getAttribValue('@code'))); ?></span>
+                    <ul class="style-2-drop first">
+                        <li>
+                            <span class="name">Text:</span>
+                            <span class="infom"><?php if ($policymarker->getAttrib('text')) print ($policymarker->getAttribValue('text')); ?><?php if ($policymarker->getAttrib('@xml_lang')) printf(" [%s]" , ($policymarker->getAttribValue('@xml_lang'))); ?></span>
+                        </li>
+                        <li>
+                            <span class="name">Significance:</span>
+                            <span class="infom"><?php if ($policymarker->getAttrib('@significance')) ($policymarker->getAttribValue('@significance' , 'Name') != $policymarker->getAttribValue('@significance')) ? ( printf("%s [%s]" , $policymarker->getAttribValue('@significance' , 'Name') , $policymarker->getAttribValue('@significance'))) : (print($policymarker->getAttribValue('@significance'))); ?></span>
+                        </li>
+                        <li>
+                            <span class="name">Code:</span>
+                            <span class="infom"><?php if ($policymarker->getAttrib('@code')) ($policymarker->getAttribValue('@code' , 'Name') != $policymarker->getAttribValue('@code')) ? ( printf("%s [%s]" , $policymarker->getAttribValue('@code' , 'Name') , $policymarker->getAttribValue('@code'))) : (print($policymarker->getAttribValue('@code'))); ?></span>
+                        </li>
+                        <li>
+                            <span class="name">Vocabulary:</span>
+                            <span class="infom"><?php if ($policymarker->getAttrib('@vocabulary')) ($policymarker->getAttribValue('@vocabulary' , 'Name') != $policymarker->getAttribValue('@vocabulary')) ? ( printf("%s [%s]" , $policymarker->getAttribValue('@vocabulary' , 'Name') , $policymarker->getAttribValue('@vocabulary'))) : (print($policymarker->getAttribValue('@vocabulary'))); ?></span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    <?php endforeach; ?>
+
+</li><!-- end of element-activity -->
+

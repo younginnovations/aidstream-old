@@ -1,0 +1,40 @@
+<li class="element-activity">
+
+    <div class="element-title element-current">
+        Participating Organisation
+    </div>
+
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=ParticipatingOrg">Edit</a></div>	
+
+    <?php foreach ($this->participatingorgs as $participatingorg): ?>
+        <div class="current">
+            <ul class="style-2 arrow">
+                <li> <span class="down-arrow"><?php if ($participatingorg->getAttrib('@role')) ($participatingorg->getAttribValue('@role' , 'Name') != $participatingorg->getAttribValue('@role')) ? ( printf("%s [%s]" , $participatingorg->getAttribValue('@role' , 'Name') , $participatingorg->getAttribValue('@role'))) : (print($participatingorg->getAttribValue('@role'))); ?>
+                                                <?php if ($participatingorg->getAttrib('@role') && $participatingorg->getAttrib('@ref')) print "; "; ?>
+                                                <?php if ($participatingorg->getAttrib('@ref')) ($participatingorg->getAttribValue('@ref' , 'Name') != $participatingorg->getAttribValue('@ref')) ? ( printf("%s [%s]" , $participatingorg->getAttribValue('@ref' , 'Name') , $participatingorg->getAttribValue('@ref'))) : (print($participatingorg->getAttribValue('@ref'))); ?></span>
+
+                    <ul class="style-2-drop first">
+                        <li>
+                            <span class="name">Text:</span>
+                            <span class="infom"><?php if ($participatingorg->getAttrib('@xml_lang')) printf(" [%s]" , ($participatingorg->getAttribValue('@xml_lang'))); ?></span>
+                        </li>
+                        <li>
+                            <span class="name">Ref:</span>
+                            <span class="infom"><?php if ($participatingorg->getAttrib('@ref')) ($participatingorg->getAttribValue('@ref' , 'Name') != $participatingorg->getAttribValue('@ref')) ? ( printf("%s [%s]" , $participatingorg->getAttribValue('@ref' , 'Name') , $participatingorg->getAttribValue('@ref'))) : (print($participatingorg->getAttribValue('@ref'))); ?></span>
+                        </li>
+                        <li>
+                            <span class="name">Type:</span>
+                            <span class="infom"><?php if ($participatingorg->getAttrib('@type')) ($participatingorg->getAttribValue('@type' , 'Name') != $participatingorg->getAttribValue('@type')) ? ( printf("%s [%s]" , $participatingorg->getAttribValue('@type' , 'Name') , $participatingorg->getAttribValue('@type'))) : (print($participatingorg->getAttribValue('@type'))); ?></span>
+                        </li>
+                        <li>
+                            <span class="name">Role:</span>
+                            <span class="infom"><?php if ($participatingorg->getAttrib('@role')) ($participatingorg->getAttribValue('@role' , 'Name') != $participatingorg->getAttribValue('@role')) ? ( printf("%s [%s]" , $participatingorg->getAttribValue('@role' , 'Name') , $participatingorg->getAttribValue('@role'))) : (print($participatingorg->getAttribValue('@role'))); ?></span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    <?php endforeach; ?>
+
+</li><!-- end of element-activity -->
+

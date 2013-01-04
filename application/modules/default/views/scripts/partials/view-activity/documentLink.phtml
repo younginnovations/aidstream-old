@@ -1,0 +1,93 @@
+<li class="element-activity">
+
+    <div class="element-title">
+        Document Link
+    </div>
+
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=DocumentLink">Edit</a></div>
+    
+    <?php $i=0; ?>
+    <?php foreach ($this->documentlinks as $documentlink): ?>
+         <?php if ($i == '0'): ?>
+            <div class="highlight first">
+            <?php else: ?>
+                <div class="highlight">
+                <?php endif; ?>
+            <ul class="style-4 first">
+                <li>
+                    <span class="name">Url:</span>
+                    <span class="infom sub-details"><?php if ($documentlink->getAttrib('@url')) ($documentlink->getAttribValue('@url' , 'Name') != $documentlink->getAttribValue('@url')) ? ( printf("%s [%s]" , $documentlink->getAttribValue('@url' , 'Name') , $documentlink->getAttribValue('@url'))) : (print($documentlink->getAttribValue('@url'))); ?></span>
+                </li>
+                <li>
+                    <span class="name">Format:</span>
+                    <span class="infom sub-details"><?php if ($documentlink->getAttrib('@format')) ($documentlink->getAttribValue('@format' , 'Name') != $documentlink->getAttribValue('@format')) ? ( printf("%s [%s]" , $documentlink->getAttribValue('@format' , 'Name') , $documentlink->getAttribValue('@format'))) : (print($documentlink->getAttribValue('@format'))); ?></span>
+                </li>
+            </ul>
+
+            <!-- Language Starts -->
+            <?php
+            $languages = $documentlink->getElementsByType('Language');
+            $value = $languages[0]->getAttribs();
+            ?>
+            <?php if (!empty($value)): ?>
+                <ul class="style-1 style-4">
+                    <h2>Language</h2>
+                    <?php foreach ($languages as $language): ?>
+                        <li>
+                            <span class="name">Text:</span>
+                            <span class="infom"><?php if ($language->getAttrib('text')) print ($language->getAttribValue('text')); ?></span>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+            <!-- Language Ends -->
+
+            <!-- Category Starts -->
+            <?php
+            $categorys = $documentlink->getElementsByType('Category');
+            $value = $categorys[0]->getAttribs();
+            ?>
+            <?php if (!empty($value)): ?>
+                <ul class="style-1 style-4">
+                    <h2>Category</h2>
+                    <?php foreach ($categorys as $category): ?>
+                        <li>
+                            <span class="name">Text:</span>
+                            <span class="infom"><?php if ($category->getAttrib('text')) print ($category->getAttribValue('text')); ?> <?php if ($category->getAttrib('@xml_lang')) printf(" [%s]" , ($category->getAttribValue('@xml_lang'))); ?></span>
+                        </li>
+                        <li>
+                            <span class="name">Code:</span>
+                            <span class="infom"><?php if ($category->getAttrib('@code')) ($category->getAttribValue('@code' , 'Name') != $category->getAttribValue('@code')) ? ( printf("%s [%s]" , $category->getAttribValue('@code' , 'Name') , $category->getAttribValue('@code'))) : (print($category->getAttribValue('@code'))); ?></span>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>     
+            <?php endif; ?>
+            <!-- Category Ends -->
+
+            <!-- Title Starts -->
+            <?php
+            $titles = $documentlink->getElementsByType('Title');
+            $value = $titles[0]->getAttribs();
+            ?>
+            <?php if (!empty($value)): ?>
+                <ul class="style-1 style-4">
+                    <h2>Title</h2>
+                    <?php foreach ($titles as $title): ?>
+                        <li>
+                            <span class="name">Text:</span>
+                            <span class="infom"><?php if ($title->getAttrib('text')) print ($title->getAttribValue('text')); ?> <?php if ($title->getAttrib('@xml_lang')) printf(" [%s]" , ($title->getAttribValue('@xml_lang'))); ?></span>
+                        </li>
+                        <li>
+                            <span class="name">Xml_lang:</span>
+                            <span class="infom"><?php if ($title->getAttrib('@xml_lang')) print ($title->getAttribValue('@xml_lang')); ?></span>
+                        </li>
+                    <?php endforeach; ?>
+                </ul> 
+            <?php endif; ?>
+            <!-- Title Ends -->
+
+        </div>
+      <?php $i= $i+1; ?>
+    <?php endforeach; ?>
+
+</li><!-- end of element-activity -->

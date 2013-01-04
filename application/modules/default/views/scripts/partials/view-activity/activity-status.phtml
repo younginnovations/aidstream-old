@@ -1,0 +1,35 @@
+<li class="element-activity">
+
+    <div class="element-title">
+        Activity Status
+
+        <?php foreach ($this->activitystatuss as $activitystatus): ?>
+            <div class="element-info">
+                <div class="element-values">
+                    <span class="attrib-label">Code:</span>
+                    <span class="attrib-value"><?php if ($activitystatus->getAttrib('@code')) ($activitystatus->getAttribValue('@code' , 'Name') != $activitystatus->getAttribValue('@code')) ? ( printf("%s [%s]" , $this->length()->adjustSingleLength($activitystatus->getAttribValue('@code' , 'Name')) , $activitystatus->getAttribValue('@code'))) : (print($activitystatus->getAttribValue('@code'))); ?></span>
+                </div>
+            </div>
+        <?php endforeach; ?> 
+
+    </div>    
+
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=ActivityStatus">Edit</a></div>	
+
+    <?php foreach ($this->activitystatuss as $activitystatus): ?>
+        <div class="highlight">
+            <ul class="style-1">
+                <li>
+                    <span class="name">Text:</span>
+                    <span class="infom"><?php if ($activitystatus->getAttrib('text')) print ($activitystatus->getAttribValue('text')); ?> <?php if ($activitystatus->getAttrib('@xml_lang')) printf(" [%s]" , ($activitystatus->getAttribValue('@xml_lang'))); ?></span>
+                </li>
+                <li>
+                    <span class="name">Code:</span>
+                    <span class="infom"><?php if ($activitystatus->getAttrib('@code')) ($activitystatus->getAttribValue('@code' , 'Name') != $activitystatus->getAttribValue('@code')) ? ( printf("%s [%s]" , $activitystatus->getAttribValue('@code' , 'Name') , $activitystatus->getAttribValue('@code'))) : (print($activitystatus->getAttribValue('@code'))); ?></span>
+                </li>
+            </ul>
+        </div>
+    <?php endforeach; ?>
+
+</li><!-- end of element-activity -->
+

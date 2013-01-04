@@ -1,0 +1,38 @@
+<li class="element-activity">
+    <div class="element-title">
+        Default Tied Status
+
+        <?php foreach ($this->defaulttiedstatuss as $defaulttiedstatus): ?>
+            <div class="element-info">
+                <div class="element-values">
+                    <span class="attrib-label">Code:</span>
+                    <span class="attrib-value"><?php if ($defaulttiedstatus->getAttrib('@code')) ($defaulttiedstatus->getAttribValue('@code' , 'Name') != $defaulttiedstatus->getAttribValue('@code')) ? ( printf("%s [%s]" , $this->length()->adjustDoubleLength($defaulttiedstatus->getAttribValue('@code' , 'Name')) , $defaulttiedstatus->getAttribValue('@code'))) : (print($defaulttiedstatus->getAttribValue('@code'))); ?></span>
+                </div>
+                <div class="element-values">
+                    <span class="attrib-label">Text:</span>
+                    <span class="attrib-value"><?php if ($defaulttiedstatus->getAttrib('text')) print $this->length()->adjustDoubleLength($defaulttiedstatus->getAttribValue('text')); ?> <?php if ($defaulttiedstatus->getAttrib('@xml_lang')) printf(" [%s]" , ($defaulttiedstatus->getAttribValue('@xml_lang'))); ?></span>
+                </div>
+            </div>
+            <?php break; ?>
+        <?php endforeach; ?> 
+
+    </div>
+
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=DefaultTiedStatus">Edit</a></div>	
+
+    <?php foreach ($this->defaulttiedstatuss as $defaulttiedstatus): ?>
+        <div class="highlight">
+            <ul class="style-1">
+                <li>
+                    <span class="name">Code:</span>
+                    <span class="infom"><?php if ($defaulttiedstatus->getAttrib('@code')) ($defaulttiedstatus->getAttribValue('@code' , 'Name') != $defaulttiedstatus->getAttribValue('@code')) ? ( printf("%s [%s]" , $defaulttiedstatus->getAttribValue('@code' , 'Name') , $defaulttiedstatus->getAttribValue('@code'))) : (print($defaulttiedstatus->getAttribValue('@code'))); ?></span>
+                </li>
+                <li>
+                    <span class="name">Text:</span>
+                    <span class="infom"><?php if ($defaulttiedstatus->getAttrib('text')) print ($defaulttiedstatus->getAttribValue('text')); ?> <?php if ($defaulttiedstatus->getAttrib('@xml_lang')) printf(" [%s]" , ($defaulttiedstatus->getAttribValue('@xml_lang'))); ?></span>
+                </li>
+            </ul>
+        </div>        
+    <?php endforeach; ?>
+
+</li><!-- end of element-activity -->

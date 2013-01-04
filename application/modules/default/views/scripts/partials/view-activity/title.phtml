@@ -1,0 +1,26 @@
+<li class="element-activity">
+    
+    <div class="element-title element-current">
+        Title
+    </div>
+
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=Title">Edit</a></div>
+
+    <?php foreach ($this->titles as $title): ?>
+
+        <div class="current">
+            <ul class="style-2 arrow">
+                <li> <span class="down-arrow"><?php if ($title->getAttrib('text')) print ($title->getAttribValue('text')); ?><?php if ($title->getAttrib('@xml_lang')) printf(" [%s]" , ($title->getAttribValue('@xml_lang'))); ?></span>
+                    <ul class="style-2-drop first">
+                        <li>
+                            <span class="name">Text:</span>
+                            <span class="infom"><?php if ($title->getAttrib('text')) print ($title->getAttribValue('text')); ?><?php if ($title->getAttrib('@xml_lang')) printf(" [%s]" , ($title->getAttribValue('@xml_lang'))); ?></span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    <?php endforeach; ?>
+    
+</li><!-- end of element-activity -->
+

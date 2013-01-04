@@ -1,0 +1,114 @@
+<?php $transaction = $this->transaction; ?>
+<ul class="style-4 none">
+    <li>
+        <span class="name">Ref:</span>
+        <span class="infom"><?php if ($transaction->getAttrib('@ref')) ($transaction->getAttribValue('@ref' , 'Name') != $transaction->getAttribValue('@ref')) ? ( printf("%s [%s]" , $transaction->getAttribValue('@ref' , 'Name') , $transaction->getAttribValue('@ref'))) : (print($transaction->getAttribValue('@ref'))); ?></span>
+    </li>
+
+</ul>
+
+<!-- TransactionType Starts -->
+<?php
+$transactiontypes = $transaction->getElementsByType('TransactionType');
+$value = $transactiontypes[0]->getAttribs();
+if (!empty($value)):
+    ?>
+    <ul class="style-1 style-4">
+        <h2>Transaction Type</h2>
+        <?php foreach ($transactiontypes as $transactiontype): ?>
+            <li>
+                <span class="name">Text:</span>
+                <span class="infom"><?php if ($transactiontype->getAttrib('text')) print ($transactiontype->getAttribValue('text')); ?></span>
+            </li>
+            <li>
+                <span class="name">Code:</span>
+                <span class="infom"><?php if ($transactiontype->getAttrib('@code')) ($transactiontype->getAttribValue('@code' , 'Name') != $transactiontype->getAttribValue('@code')) ? ( printf("%s [%s]" , $transactiontype->getAttribValue('@code' , 'Name') , $transactiontype->getAttribValue('@code'))) : (print($transactiontype->getAttribValue('@code'))); ?></span>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
+<!-- TransactionType Ends -->
+
+<!-- ProviderOrg Starts -->
+<?php
+$providerorgs = $transaction->getElementsByType('ProviderOrg');
+$value = $providerorgs[0]->getAttribs();
+if (!empty($value)):
+    ?>
+
+    <ul class="style-1 style-4">
+        <h2>Provider Organisation</h2>
+        <?php foreach ($providerorgs as $providerorg): ?>
+            <li>
+                <span class="name">Text:</span>
+                <span class="infom"><?php if ($providerorg->getAttrib('text')) print ($providerorg->getAttribValue('text')); ?></span>
+            </li>
+            <li>
+                <span class="name">Ref:</span>
+                <span class="infom"><?php if ($providerorg->getAttrib('@ref')) ($providerorg->getAttribValue('@ref' , 'Name') != $providerorg->getAttribValue('@ref')) ? ( printf("%s [%s]" , $providerorg->getAttribValue('@ref' , 'Name') , $providerorg->getAttribValue('@ref'))) : (print($providerorg->getAttribValue('@ref'))); ?></span>
+            </li>
+            <li>
+                <span class="name">Provider_activity_id:</span>
+                <span class="infom"><?php if ($providerorg->getAttrib('@provider_activity_id')) print ($providerorg->getAttribValue('@provider_activity_id')); ?></span>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+
+<?php endif; ?>
+<!-- ProviderOrg Ends -->
+
+
+<!-- ReceiverOrg Starts -->
+<?php
+$receiverorgs = $transaction->getElementsByType('ReceiverOrg');
+$value = $receiverorgs[0]->getAttribs();
+if (!empty($value)):
+    ?>
+
+    <ul class="style-1 style-4">
+        <h2>Receiver Organisation</h2>
+        <?php foreach ($receiverorgs as $receiverorg): ?>
+            <li>
+                <span class="name">Text:</span>
+                <span class="infom"><?php if ($receiverorg->getAttrib('text')) print ($receiverorg->getAttribValue('text')); ?></span>
+            </li>
+            <li>
+                <span class="name">Ref:</span>
+                <span class="infom"><?php if ($receiverorg->getAttrib('@ref')) ($receiverorg->getAttribValue('@ref' , 'Name') != $receiverorg->getAttribValue('@ref')) ? ( printf("%s [%s]" , $receiverorg->getAttribValue('@ref' , 'Name') , $receiverorg->getAttribValue('@ref'))) : (print($receiverorg->getAttribValue('@ref'))); ?></span>
+            </li>
+            <li>
+                <span class="name">Receiver_activity_id:</span>
+                <span class="infom"><?php if ($receiverorg->getAttrib('@receiver_activity_id')) print ($receiverorg->getAttribValue('@receiver_activity_id')); ?></span>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+
+<?php endif; ?>
+<!-- ReceiverOrg Ends -->
+
+<!-- Value Starts -->
+<?php
+$values = $transaction->getElementsByType('Value');
+$value = $values[0]->getAttribs();
+if (!empty($value)):
+    ?>
+    <ul class="style-1 style-4">
+        <h2>Value</h2>
+        <?php foreach ($values as $value): ?>
+            <li>
+                <span class="name">Text:</span>
+                <span class="infom"><?php if ($value->getAttrib('text')) print ($value->getAttribValue('text')); ?></span>
+            </li>
+            <li>
+                <span class="name">Value_date:</span>
+                <span class="infom"><?php if ($value->getAttrib('@value_date')) print ($value->getAttribValue('@value_date')); ?></span>
+            </li>
+            <li>
+                <span class="name">Currency:</span>
+                <span class="infom"><?php if ($value->getAttrib('@currency')) ($value->getAttribValue('@currency' , 'Name') != $value->getAttribValue('@currency')) ? ( printf("%s [%s]" , $value->getAttribValue('@currency' , 'Name') , $value->getAttribValue('@currency'))) : (print($value->getAttribValue('@currency'))); ?></span>
+            </li>
+        <?php endforeach; ?>
+
+    </ul>
+<?php endif; ?>
+<!-- Value Ends -->

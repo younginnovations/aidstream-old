@@ -1,0 +1,42 @@
+<li class="element-activity">
+
+    <div class="element-title element-current">
+        Activity Website
+    </div>
+
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=ActivityWebsite">Edit</a></div>	
+
+    <?php foreach ($this->activitywebsites as $activitywebsite): ?>
+        <div class="current">
+            <ul class="style-2 arrow">
+                <li> <span class="down-arrow"><?php if ($url = $activitywebsite->getAttrib('text')): ?>
+                            <a href="<?php echo $url; ?>" target="_blank">
+                                <?php if (strlen($url) > 40): ?>
+                                    <?php $out = str_split($url , 40); ?>
+                                    <?php echo implode('<br>' , $out); ?>
+                                <?php else: ?>
+                                    <?php print ($url); ?>
+                                <?php endif; ?>
+                            </a>
+                        <?php endif; ?>
+                    </span>
+                    <ul class="style-2-drop first">
+                        <li>
+                            <span class="name">Text:</span>
+                            <span class="infom"><?php if ($url = $activitywebsite->getAttrib('text')): ?>
+                                    <a href="<?php echo $url; ?>" target="_blank">
+                                        <?php if (strlen($url) > 40): ?>
+                                            <?php $out = str_split($url , 40); ?>
+                                            <?php echo implode('<br>' , $out); ?>
+                                        <?php else: ?>
+                                            <?php print ($url); ?>
+                                        <?php endif; ?>
+                                    </a>
+                                <?php endif; ?></span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    <?php endforeach; ?>
+</li><!-- end of element-activity -->

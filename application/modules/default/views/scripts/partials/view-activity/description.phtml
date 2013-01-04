@@ -1,0 +1,29 @@
+<li class="element-activity">
+    
+    <div class="element-title element-current">
+        Description
+    </div>
+    
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=Description">Edit</a></div>
+
+    <?php foreach ($this->descriptions as $description): ?>
+        <div class="current">
+            <ul class="style-2 arrow">
+                <li> <span class="down-arrow"><?php if ($description->getAttrib('text')) print ($description->getAttribValue('text')); ?><?php if ($description->getAttrib('@xml_lang')) printf(" [%s]" , ($description->getAttribValue('@xml_lang'))); ?></span>
+                    <ul class="style-2-drop first">
+                        <li>
+                            <span class="name">Text:</span>
+                            <span class="infom"> <?php if ($description->getAttrib('text')) print ($description->getAttribValue('text')); ?><?php if ($description->getAttrib('@xml_lang')) printf(" [%s]" , ($description->getAttribValue('@xml_lang'))); ?></span>
+                        </li>
+                        <li>
+                            <span class="name">Type:</span>
+                            <span class="infom"><?php if ($description->getAttrib('@type')) ($description->getAttribValue('@type' , 'Name') != $description->getAttribValue('@type')) ? ( printf("%s [%s]" , $description->getAttribValue('@type' , 'Name') , $description->getAttribValue('@type'))) : (print($description->getAttribValue('@type'))); ?></span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    <?php endforeach; ?>
+    
+</li><!-- end of element-activity -->
+

@@ -1,0 +1,46 @@
+<li class="element-activity">
+    
+    <div class="element-title">
+        Activity Default
+
+        <div class="element-info">
+            <div class="element-values">
+                <span class="attrib-label">Lang:</span>					
+                <span class="attrib-value"><?php print $this->length()->adjustTripleLength($this->activityInfo['@xml_lang']); ?></span>
+            </div>
+            <div class="element-values">
+                <span class="attrib-label"> Curr:</span>
+                <span class="attrib-value"><?php print $this->length()->adjustTripleLength($this->activityInfo['@default_currency']); ?></span>  
+            </div>
+            <div class="element-values">
+                <span class="attrib-label">Last updated time:</span>
+                <span class="attrib-value"><?php print $this->length()->adjustTripleLength($this->activityInfo['@last_updated_datetime']); ?></span>
+            </div>
+        </div> 
+        
+    </div>
+    
+    <div class="edit"><a href="<?php echo $this->baseUrl()?>/wep/edit-activity/?activity_id=<?php echo $this->activityInfo['id']?>">Edit</a></div>	
+    
+    <div class="highlight">
+        <ul class="style-1">
+            <li>
+                <span class="name">Language:</span>
+                <span class="infom"><?php print $this->activityInfo['@xml_lang']; ?></span>
+            </li>
+            <li>
+                <span class="name">Default Currency:</span>
+                <span class="infom"><?php print $this->activityInfo['@default_currency']; ?></span>
+            </li>
+            <li>
+                <span class="name">Hierarchy: </span>
+                <span class="infom"><?php print $this->activityInfo['@hierarchy']; ?></span>
+            </li>
+            <li>
+                <span class="name">Last Updated Date Time: </span>
+                <span class="infom"><?php print $this->activityInfo['@last_updated_datetime']; ?></span>
+            </li>
+        </ul>
+    </div>
+</li><!-- end of element-activity -->
+

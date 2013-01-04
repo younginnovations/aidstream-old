@@ -17,6 +17,10 @@ class WepController extends Zend_Controller_Action
         $this->view->blockManager()->enable('partial/primarymenu.phtml');
         $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
         $this->view->blockManager()->enable('partial/published-list.phtml');
+        
+        //Using Ajax for transaction element to load in view-activity page
+        $ajaxContext = $this->_helper->getHelper('AjaxContext');
+        $ajaxContext->addActionContext('transaction', 'html')->initContext('html');
 
         // for role user check if the user has permission to add, publish ,if not disable menu.
         if($identity->role == 'user'){
@@ -785,7 +789,7 @@ class WepController extends Zend_Controller_Action
     }
 
     public function viewActivityAction()
-    {
+    { 
         if(!$activity_id = $this->getRequest()->getParam('activity_id'))
         {
             $this->_redirect('/wep/view-activities');
@@ -797,6 +801,7 @@ class WepController extends Zend_Controller_Action
         $activity = $activity_info[0];
         $state = $activity['status_id'];
         $activity['@xml_lang'] = $model->fetchValueById('Language', $activity_info[0]['@xml_lang'], 'Code');
+        
         $activity['@default_currency'] = $model->fetchValueById('Currency', $activity_info[0]['@default_currency'], 'Code');
 
         $iati_identifier_row = $model->getRowById('iati_identifier', 'activity_id', $activity_id);
@@ -1530,5 +1535,28 @@ class WepController extends Zend_Controller_Action
         $this->_helper->FlashMessenger->addMessage(array($type => $message));
         
         exit;
+    }
+    
+    public function transactionAction()
+    {  
+        // Get activity id
+        $activity_id = $this->_request->getQuery('id');
+        // Get index of an array
+        $index = $this->_request->getQuery('index');
+        
+        $model = new Model_Wep();
+        $activity_info = $model->listAll('iati_activity', 'id', $activity_id);
+        $activity = $activity_info[0]; 
+        $this->view->activityInfo = $activity;        
+
+        $dbLayer = new Iati_WEP_DbLayer();
+        $activitys = $dbLayer->getRowSet('Activity', 'id', $activity_id, true, true);
+        
+        $transactions=$activitys->getElementsByType(Iati_Activity_Element::TYPE_TRANSACTION);
+        $value = $transactions[0]->getAttribs();
+        if(!empty($value))
+        {   
+            $this->view->transaction = $transactions[$index];
+        }
     }
 }

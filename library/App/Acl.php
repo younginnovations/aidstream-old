@@ -55,6 +55,7 @@ class App_Acl extends Zend_Acl
         $this->deny('user', 'user:user', 'register');
 
 //        this allows the role user to use user module's user controller's logout action
+        $this->allow('user', 'default:wep', 'transaction');
         $this->allow('user', 'user:user', 'logout');
         $this->allow('user', 'user:user', 'changepassword');
         $this->allow('user', 'user:user', 'myaccount');

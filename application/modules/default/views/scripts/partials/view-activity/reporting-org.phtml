@@ -1,0 +1,37 @@
+<li class="element-activity">
+
+    <div class="element-title ">
+        Reporting Organization
+    <?php foreach ($this->reportingorgs as $reportingorg): ?>
+
+            <div class="element-info">
+                <div class="element-values">
+                    <span class="attrib-label">Text:</span>					
+                    <span class="attrib-value"><?php if ($reportingorg->getAttrib('text')) print $this->length()->adjustDoubleLength(($reportingorg->getAttribValue('text'))); ?> <?php if ($reportingorg->getAttrib('@xml_lang')) printf(" [%s]" , ($reportingorg->getAttribValue('@xml_lang'))); ?></span>
+                </div>
+                <div class="element-values">
+                    <span class="attrib-label">Ref:</span>
+                    <span class="attrib-value"><?php if ($reportingorg->getAttrib('@ref')) ($reportingorg->getAttribValue('@ref' , 'Name') != $reportingorg->getAttribValue('@ref')) ? ( printf("%s [%s]" , $this->length()->adjustDoubleLength($reportingorg->getAttribValue('@ref' , 'Name')) , $reportingorg->getAttribValue('@ref'))) : (print($reportingorg->getAttribValue('@ref'))); ?></span>  
+                </div>
+            </div>
+        </div>
+
+        <div class="highlight">
+            <ul class="style-1">
+                <li>
+                    <span class="name">Text:</span>
+                    <span class="infom"><?php if ($reportingorg->getAttrib('text')) print ($reportingorg->getAttribValue('text')); ?> <?php if ($reportingorg->getAttrib('@xml_lang')) printf(" [%s]" , ($reportingorg->getAttribValue('@xml_lang'))); ?></span>
+                </li>
+                <li>
+                    <span class="name">Ref:</span>
+                    <span class="infom"><?php if ($reportingorg->getAttrib('@ref')) ($reportingorg->getAttribValue('@ref' , 'Name') != $reportingorg->getAttribValue('@ref')) ? ( printf("%s [%s]" , $reportingorg->getAttribValue('@ref' , 'Name') , $reportingorg->getAttribValue('@ref'))) : (print($reportingorg->getAttribValue('@ref'))); ?></span>
+                </li>
+                <li>
+                    <span class="name">Type:</span>
+                    <span class="infom"><?php if ($reportingorg->getAttrib('@type')) ($reportingorg->getAttribValue('@type' , 'Name') != $reportingorg->getAttribValue('@type')) ? ( printf("%s [%s]" , $reportingorg->getAttribValue('@type' , 'Name') , $reportingorg->getAttribValue('@type'))) : (print($reportingorg->getAttribValue('@type'))); ?></span>
+                </li>
+        </div>
+    <?php endforeach; ?>
+</ul>
+
+</li><!-- end of element-activity -->

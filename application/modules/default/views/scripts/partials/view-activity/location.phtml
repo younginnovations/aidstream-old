@@ -1,0 +1,115 @@
+<li class="element-activity">
+
+    <div class="element-title">
+        Location
+    </div>
+
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=Location">Edit</a></div>
+
+    <?php $i = 0; ?>
+    <?php foreach ($this->locations as $location): ?>
+       <?php if ($i == '1'): ?>
+            <div class="highlight">
+            <?php else: ?>
+                <div class="highlight first">
+                <?php endif; ?>
+                <ul class="style-4 first">
+                    <li>
+                        <span class="name">Percentage: </span>
+                        <span class="infom sub-details"><?php if ($location->getAttrib('@percentage')) print ($location->getAttribValue('@percentage')); ?></span>
+                    </li>
+
+                </ul>
+
+                <!-- LocationType Starts -->
+                <?php
+                $locationtypes = $location->getElementsByType('LocationType');
+                $value = $locationtypes[0]->getAttribs();
+                ?>
+                <?php if (!empty($value)): ?>
+                    <ul class="style-1 style-4">
+                        <h2>Location Type</h2>
+                        <?php foreach ($locationtypes as $locationtype): ?>
+                            <li>
+                                <span class="name">Text:</span>
+                                <span class="infom"><?php if ($locationtype->getAttrib('text')) print ($locationtype->getAttribValue('text')); ?> <?php if ($locationtype->getAttrib('@xml_lang')) printf(" [%s]" , ($locationtype->getAttribValue('@xml_lang'))); ?></span>
+                            </li>
+                            <li>
+                                <span class="name">Code:</span>
+                                <span class="infom"><?php if ($locationtype->getAttrib('@code')) ($locationtype->getAttribValue('@code' , 'Name') != $locationtype->getAttribValue('@code')) ? ( printf("%s [%s]" , $locationtype->getAttribValue('@code' , 'Name') , $locationtype->getAttribValue('@code'))) : (print($locationtype->getAttribValue('@code'))); ?></span>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+                <!-- LocationType Ends -->
+
+                <!-- Name Starts -->
+                <?php
+                $names = $location->getElementsByType('Name');
+                $value = $names[0]->getAttribs();
+                ?>
+                <?php if (!empty($value)): ?>
+                    <ul class="style-1 style-4">
+                        <h2>Name</h2>
+                        <?php foreach ($names as $name): ?>
+                            <li>
+                                <span class="name">Text:</span>
+                                <span class="infom"><?php if ($name->getAttrib('text')) print ($name->getAttribValue('text')); ?> <?php if ($name->getAttrib('@xml_lang')) printf(" [%s]" , ($name->getAttribValue('@xml_lang'))); ?></span>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+                <!-- Name Ends -->
+
+                <!-- Description Starts -->
+                <?php
+                $descriptions = $location->getElementsByType('Description');
+                $value = $descriptions[0]->getAttribs()
+                ?>
+                <?php if (!empty($value)): ?>
+                    <ul class="style-1 style-4">
+                        <h2>Description</h2>
+                        <?php foreach ($descriptions as $description): ?>
+                            <li>
+                                <span class="name">Text:</span>
+                                <span class="infom"><?php if ($description->getAttrib('text')) print ($description->getAttribValue('text')); ?> <?php if ($description->getAttrib('@xml_lang')) printf(" [%s]" , ($description->getAttribValue('@xml_lang'))); ?></span>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+                <!-- Description Ends -->
+
+                <!-- Administrative Starts -->
+                <?php
+                $administratives = $location->getElementsByType('Administrative');
+                $value = $administratives[0]->getAttribs();
+                ?>
+                <?php if (!empty($value)): ?>
+                    <ul class="style-1 style-4">
+                        <h2>Administrative</h2>
+                        <?php foreach ($administratives as $administrative): ?>
+                            <li>
+                                <span class="name">Text:</span>
+                                <span class="infom"><?php if ($administrative->getAttrib('text')) print ($administrative->getAttribValue('text')); ?> <?php if ($administrative->getAttrib('@xml_lang')) printf(" [%s]" , ($administrative->getAttribValue('@xml_lang'))); ?></span>
+                            </li>
+                            <li>
+                                <span class="name">Country:</span>
+                                <span class="infom"><?php if ($administrative->getAttrib('@country')) ($administrative->getAttribValue('@country' , 'Name') != $administrative->getAttribValue('@country')) ? ( printf("%s [%s]" , $administrative->getAttribValue('@country' , 'Name') , $administrative->getAttribValue('@country'))) : (print($administrative->getAttribValue('@country'))); ?></span>
+                            </li>
+                            <li>
+                                <span class="name">Adm-1:</span>
+                                <span class="infom"><?php if ($administrative->getAttrib('@adm1')) ($administrative->getAttribValue('@adm1' , 'Name') != $administrative->getAttribValue('@adm1')) ? ( printf("%s [%s]" , $administrative->getAttribValue('@adm1' , 'Name') , $administrative->getAttribValue('@adm1'))) : (print($administrative->getAttribValue('@adm1'))); ?></span>
+                            </li>
+                            <li>
+                                <span class="name">Adm-2:</span>
+                                <span class="infom"><?php if ($administrative->getAttrib('@adm2')) ($administrative->getAttribValue('@adm2' , 'Name') != $administrative->getAttribValue('@adm2')) ? ( printf("%s [%s]" , $administrative->getAttribValue('@adm2' , 'Name') , $administrative->getAttribValue('@adm2'))) : (print($administrative->getAttribValue('@adm2'))); ?></span>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+                <!-- Description Ends -->
+            </div>
+            <?php $i = $i + 1; ?>
+        <?php endforeach; ?>
+
+</li><!-- end of element-activity -->

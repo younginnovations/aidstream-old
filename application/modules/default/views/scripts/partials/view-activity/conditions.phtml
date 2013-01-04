@@ -1,0 +1,51 @@
+<li class="element-activity">
+
+    <div class="element-title">
+        Conditions
+    </div>
+
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=Conditions">Edit</a></div>
+
+    <?php foreach ($this->conditionss as $conditions): ?>
+            <div class="highlight">
+                <ul class="style-4">
+                    <li>
+                        <span class="name">Attached:</span>
+                        <span class="infom sub-details"><?php ($conditions->getAttrib('@attached')) ? print('Yes')  : print('No'); ?></span>
+                    </li>
+
+                </ul>
+
+                <!-- Condition Starts -->
+                <?php
+                $sub_conditions = $conditions->getElementsByType('Condition');
+                $value = $sub_conditions[0]->getAttribs();
+                if (!empty($value)):
+                    ?>                       
+                    <ul class="style-1 style-4">
+                        <h2>Description</h2>  
+                        <?php foreach ($sub_conditions as $condition): ?>
+                            <li>
+                                <span class="name">Text:</span>
+                                <span class="infom"><?php if ($condition->getAttrib('text')) print ($condition->getAttribValue('text')); ?> <?php if ($condition->getAttrib('@xml_lang')) printf(" [%s]" , ($condition->getAttribValue('@xml_lang'))); ?></span>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+
+                    <ul class="style-1 style-4">
+                        <h2>Condition Type</h2>
+                        <?php foreach ($sub_conditions as $condition): ?>
+                            <li>
+                                <span class="name">Type:</span>
+                                <span class="infom"><?php if ($condition->getAttrib('@type')) ($condition->getAttribValue('@type' , 'Name') != $condition->getAttribValue('@type')) ? ( printf("%s [%s]" , $condition->getAttribValue('@type' , 'Name') , $condition->getAttribValue('@type'))) : (print($condition->getAttribValue('@type'))); ?></span>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+                <!-- Condition Ends -->
+
+
+            </div>
+        <?php endforeach; ?>
+
+</li><!-- end of element-activity -->

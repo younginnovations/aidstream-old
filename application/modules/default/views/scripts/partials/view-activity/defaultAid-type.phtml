@@ -1,0 +1,39 @@
+<li class="element-activity">
+
+    <div class="element-title">
+        Default Aid Type
+
+        <?php foreach ($this->defaultaidtypes as $defaultaidtype): ?>    
+            <div class="element-info">
+                <div class="element-values">
+                    <span class="attrib-label">Code:</span>
+                    <span class="attrib-value"><?php if ($defaultaidtype->getAttrib('@code')) ($defaultaidtype->getAttribValue('@code' , 'Name') != $defaultaidtype->getAttribValue('@code')) ? ( printf("%s [%s]" , $this->length()->adjustDoubleLength($defaultaidtype->getAttribValue('@code' , 'Name')) , $defaultaidtype->getAttribValue('@code'))) : (print($defaultaidtype->getAttribValue('@code'))); ?></span>
+                </div>
+                <div class="element-values">
+                    <span class="attrib-label">Text:</span>
+                    <span class="attrib-value"><?php if ($defaultaidtype->getAttrib('text')) print $this->length()->adjustDoubleLength(($defaultaidtype->getAttribValue('text'))); ?> <?php if ($defaultaidtype->getAttrib('@xml_lang')) printf(" [%s]" , ($defaultaidtype->getAttribValue('@xml_lang'))); ?></span>
+                </div>
+            </div>
+            <?php break; ?>
+        <?php endforeach; ?> 
+
+    </div>
+
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=DefaultAidType">Edit</a></div>	
+
+    <?php foreach ($this->defaultaidtypes as $defaultaidtype): ?>
+        <div class="highlight">
+            <ul class="style-1">
+                <li>
+                    <span class="name">Code:</span>
+                    <span class="infom"><?php if ($defaultaidtype->getAttrib('@code')) ($defaultaidtype->getAttribValue('@code' , 'Name') != $defaultaidtype->getAttribValue('@code')) ? ( printf("%s [%s]" , $defaultaidtype->getAttribValue('@code' , 'Name') , $defaultaidtype->getAttribValue('@code'))) : (print($defaultaidtype->getAttribValue('@code'))); ?></span>
+                </li>
+                <li>
+                    <span class="name">Text:</span>
+                    <span class="infom"><?php if ($defaultaidtype->getAttrib('text')) print ($defaultaidtype->getAttribValue('text')); ?> <?php if ($defaultaidtype->getAttrib('@xml_lang')) printf(" [%s]" , ($defaultaidtype->getAttribValue('@xml_lang'))); ?></span>
+                </li>
+            </ul>
+        </div>        
+    <?php endforeach; ?>
+
+</li><!-- end of element-activity -->

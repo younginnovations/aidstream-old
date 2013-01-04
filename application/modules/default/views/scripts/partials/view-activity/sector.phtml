@@ -1,0 +1,50 @@
+<li class="element-activity">
+    
+    <div class="element-title element-current">
+        Sector
+     </div>
+    
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=Sector">Edit</a></div>	
+   
+    <?php foreach ($this->sectors as $sector): ?>
+        <div class="current">
+            <ul class="style-2 arrow">
+                <li> <span class="down-arrow"><?php if ($sector->getAttrib('@vocabulary')) ($sector->getAttribValue('@vocabulary' , 'Name') != $sector->getAttribValue('@vocabulary')) ? ( printf("%s [%s]" , $sector->getAttribValue('@vocabulary' , 'Name') , $sector->getAttribValue('@vocabulary'))) : (print($sector->getAttribValue('@vocabulary'))); ?>
+                         <?php if ( $sector->getAttrib('@vocabulary') && $sector->getAttrib('@code') ) print "; "; ?>
+                               <?php if ($sector->getAttrib('@code')): ?>
+                                    <?php if (!$sector->getAttrib('@vocabulary') || $sector->getAttrib('@vocabulary') == 3): ?>
+                                        <?php ($sector->getAttribValue('@code' , 'Name') != $sector->getAttribValue('@code')) ? ( printf("%s [%s]" , $sector->getAttribValue('@code' , 'Name') , $sector->getAttribValue('@code'))) : (print($sector->getAttribValue('@code'))); ?>
+                                    <?php else : ?>
+                                        <?php print ($sector->getAttrib('@code')); ?>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                    </span>
+                    <ul class="style-2-drop first">
+                        <li>
+                            <span class="name">Text:</span>
+                            <span class="infom"><?php if ($sector->getAttrib('text')) print ($sector->getAttribValue('text')); ?> <?php if ($sector->getAttrib('@xml_lang')) printf(" [%s]" , ($sector->getAttribValue('@xml_lang'))); ?></span>
+                        </li>
+                        <li>
+                            <span class="name">Vocabulary:</span>
+                            <span class="infom"><?php if ($sector->getAttrib('@vocabulary')) ($sector->getAttribValue('@vocabulary' , 'Name') != $sector->getAttribValue('@vocabulary')) ? ( printf("%s [%s]" , $sector->getAttribValue('@vocabulary' , 'Name') , $sector->getAttribValue('@vocabulary'))) : (print($sector->getAttribValue('@vocabulary'))); ?></span>
+                        </li>
+                        <li>
+                            <span class="name">Code:</span>
+                            <span class="infom">
+                                <?php if ($sector->getAttrib('@code')): ?>
+                                    <?php if (!$sector->getAttrib('@vocabulary') || $sector->getAttrib('@vocabulary') == 3): ?>
+                                        <?php ($sector->getAttribValue('@code' , 'Name') != $sector->getAttribValue('@code')) ? ( printf("%s [%s]" , $sector->getAttribValue('@code' , 'Name') , $sector->getAttribValue('@code'))) : (print($sector->getAttribValue('@code'))); ?>
+                                    <?php else : ?>
+                                        <?php print ($sector->getAttrib('@code')); ?>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            </span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    <?php endforeach; ?>
+    
+</li><!-- end of element-activity -->
+
