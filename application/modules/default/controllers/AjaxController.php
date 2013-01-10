@@ -23,13 +23,14 @@ class AjaxController extends Zend_Controller_Action
         $ele = $matches[0];
         $count = substr($ele , -1);
         $element->setCount($count);
-            
+        
         $form = $element->getForm(true);
+        $hasParents = (preg_replace("/{$ele}.*$/" , '' , $refItem ))?true:false;
         /**
          * If the element is a child form, we have to add the parent's name and count to the form elements.
          * @todo refractor the baseElement's code so that we dont need to do this here.
          */
-        if($element->getFullName() != $element->getClassName()){
+        if($hasParents){
             foreach(explode('_' , $elementClass) as $parent){
                 $eleform = $form;
                 if(preg_match("/^{$parent}-\d+/" , $refItem , $matches)){
