@@ -70,7 +70,7 @@ class AjaxController extends Zend_Controller_Action
         
         $elementName =  "Iati_Aidstream_Element_".$elementClass;
         $element = new $elementName();
-        $element->deleteElement(array($id));
+        $element->deleteElement($id);
         exit;
     }
 }
