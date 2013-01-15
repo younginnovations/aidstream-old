@@ -1,0 +1,97 @@
+<li class="element-activity">
+
+    <div class="element-title element-current">
+        <?php echo "Recipient Country Budget"; ?>
+    </div>    
+
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/organisation/edit-elements/?parent_id=<?php echo $this->parent_id ?>&classname=Organisation_RecipientCountryBudget">Edit</a></div>
+
+    <?php foreach ($this->elements as $element): ?>
+        <div class="current">
+            <ul class="style-2 arrow">
+                <li><span class="down-arrow"> <?php if (isset($element['Value'])): ?>
+                            <?php echo $element['Value']["text"]; ?>
+                            <?php if ($element['Value']["text"] && $element['Value']["@value_date"]) echo " ; " . $element['Value']["@value_date"]; ?>
+                        <?php endif; ?>
+                    </span>
+
+                    <!--Recipient Country Starts-->
+                    <?php if (isset($element['RecipientCountry'])): ?>
+                        <ul class="style-1 style-4">
+                            <h2>Recipient Country</h2> 
+                            <li>
+                                <span class="name">Ref:</span>
+                                <span class="infom"><?php echo $element['RecipientCountry']["@ref"]; ?></span>
+                            </li>
+                            <li>
+                                <span class="name">Text:</span>
+                                <span class="infom"><?php echo $element['RecipientCountry']["text"]; ?></span>
+                            </li>
+                            <li>
+                                <span class="name">Language:</span>
+                                <span class="infom"><?php echo Iati_Core_Codelist::getCodeByAttrib('RecipientCountryBudget_RecipientCountry' , '@xml_lang' , $element['RecipientCountry']["@xml_lang"]); ?></span>
+                            </li>
+                        </ul>            
+                    <?php endif; ?>
+                    <!--Recipient Country Ends-->
+
+                    <!--Value Starts-->
+                    <?php if (isset($element['Value'])): ?> 
+                        <ul class="style-1 style-4">
+                            <h2>Value</h2>
+                            <li>
+                                <span class="name">Text:</span>
+                                <span class="infom"><?php echo $element['Value']["text"]; ?></span>
+                            </li>
+                            <li>
+                                <span class="name">Value Date:</span>
+                                <span class="infom"><?php echo $element['Value']["@value_date"]; ?></span>
+                            </li>
+                            <li>
+                                <span class="name">Currency:</span>
+                                <span class="infom"><?php echo $element['Value']["@currency"]; ?></span>
+                            </li>
+                        </ul>            
+                    <?php endif; ?>
+                    <!--Value Ends-->
+
+
+                    <!--PeriodStart Starts-->
+                    <?php if (isset($element['PeriodStart'])): ?> 
+                        <ul class="style-1 style-4">
+                            <h2>PeriodStart</h2>
+                            <li>
+                                <span class="name">Text:</span>
+                                <span class="infom"><?php echo $element['PeriodStart']["text"]; ?></span>
+                            </li>
+                            <li>
+                                <span class="name">Iso Date:</span>
+                                <span class="infom"><?php echo $element['PeriodStart']["@iso_date"]; ?></span>
+                            </li>
+                        </ul>            
+                    <?php endif; ?>
+                    <!--PeriodStart Ends-->
+
+                    <!--PeriodStart Starts-->
+                    <?php if (isset($element['PeriodEnd'])): ?>
+                        <ul class="style-1 style-4">
+                            <h2>PeriodEnd</h2>
+                            <li>
+                                <span class="name">Text:</span>
+                                <span class="infom"><?php echo $element['PeriodEnd']["text"]; ?></span>
+                            </li>
+                            <li>
+                                <span class="name">Iso Date:</span>
+                                <span class="infom"><?php echo $element['PeriodEnd']["@iso_date"]; ?></span>
+                            </li>
+                        </ul>            
+                    <?php endif; ?>
+                    <!--PeriodStart Ends-->
+                </li>
+            </ul><!--Ends .style-2-->
+
+        </div><!--Ends .current-->
+    <?php endforeach; ?>
+
+
+</li><!-- end of element-activity -->

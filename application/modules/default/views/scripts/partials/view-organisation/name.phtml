@@ -1,0 +1,32 @@
+<li class="element-activity">
+
+    <div class="element-title ">
+        <?php echo "Name"; ?>
+    </div>
+
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/organisation/edit-elements/?parent_id=<?php echo $this->parent_id ?>&classname=Organisation_Name">Edit</a></div> 
+    
+    <?php $i = 1; ?>
+    <?php foreach ($this->elements as $element): ?>
+        <?php if ($i == '1'): ?>
+            <div class="highlight">
+            <?php else: ?>
+                <div class="highlight first">
+                <?php endif; ?>
+
+                <ul class="style-1 style-4">
+                    <li>
+                        <span class="name">Text:</span>
+                        <span class="infom"><?php echo $element['text']; ?></span>
+                    </li>
+                    <li>
+                        <span class="name">Lang:</span>
+                        <span class="infom"><?php echo Iati_Core_Codelist::getCodeByAttrib('Name' , '@xml_lang' , $element['@xml_lang']); ?></span>
+                    </li>
+                </ul>           
+            </div><!--Ends .highlight-->
+            <?php $i = $i + 1; ?>
+        <?php endforeach; ?>
+
+
+</li><!-- end of element-activity -->

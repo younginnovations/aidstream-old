@@ -1,0 +1,83 @@
+<li class="element-activity">
+
+    <div class="element-title ">
+        <?php echo "Document Link"; ?>
+    </div>    
+
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/organisation/edit-elements/?parent_id=<?php echo $this->parent_id ?>&classname=Organisation_DocumentLink">Edit</a></div>
+
+    <?php $i = 0; ?>
+    <?php foreach ($this->elements as $element): ?>
+        <?php if ($i == '0'): ?>
+            <div class="highlight first">
+            <?php else: ?>
+                <div class="highlight">
+                <?php endif; ?>
+
+                <ul class="style-4 first">
+                    <li>
+                        <span class="name">Url:</span>
+                        <span class="infom sub-details"><?php echo $element['@url']; ?></span>
+                    </li>
+                    <li>
+                        <span class="name">Format:</span>
+                        <span class="infom sub-details"><?php echo $element['@format']; ?></span>
+                    </li>
+
+                </ul>
+
+                <!--Language Starts-->
+                <?php if (isset($element['Language'])): ?> 
+                    <ul class="style-1 style-4">
+                        <h2>Language</h2>
+                        <li>
+                            <span class="name">Text:</span>
+                            <span class="infom"><?php echo Iati_Core_Codelist::getCodeByAttrib('DocumentLink_Language' , '@xml_lang' , $element['Language']["text"]); ?></span>
+                        </li>
+                    </ul>            
+                <?php endif; ?>
+                <!--Language Ends-->
+
+                <!--Category Starts-->
+                <?php if (isset($element['Category'])): ?> 
+                    <ul class="style-1 style-4">
+                        <h2>Category</h2>
+                        <li>
+                            <span class="name">Text:</span>
+                            <span class="infom"><?php echo $element['Category']["text"]; ?></span>
+                        </li>
+                        <li>
+                            <span class="name">Code:</span>
+                            <span class="infom"><?php echo $element['Category']["@code"]; ?></span>
+                        </li>
+                        <li>
+                            <span class="name">Language:</span>
+                            <span class="infom"><?php echo Iati_Core_Codelist::getCodeByAttrib('DocumentLink_Category' , '@xml_lang' , $element['Category']["@xml_lang"]); ?></span>
+                        </li>
+                    </ul>            
+                <?php endif; ?>
+                <!--Category Ends-->
+
+
+                <!--Title Starts-->
+                <?php if (isset($element['Title'])): ?> 
+                    <ul class="style-1 style-4">
+                        <h2>Title</h2>
+                        <li>
+                            <span class="name">Text:</span>
+                            <span class="infom"><?php echo $element['Title']["text"]; ?></span>
+                        </li>
+                        <li>
+                            <span class="name">Language:</span>
+                            <span class="infom"><?php echo Iati_Core_Codelist::getCodeByAttrib('DocumentLink_Title' , '@xml_lang' , $element['Title']["@xml_lang"]); ?></span>
+                        </li>
+                    </ul>            
+                <?php endif; ?>
+                <!--Title Ends-->
+            </div><!--Ends .highlight-->
+            <?php $i = $i + 1; ?>
+
+        <?php endforeach; ?>
+
+
+</li><!-- end of element-activity -->

@@ -1,0 +1,112 @@
+<?php 
+    $organisations = $this->organisations;
+    $change_status_form = $this->status_form;
+?>
+
+<!--Display Title Starts-->
+<div class="activity-title">
+    <span class="activity_title"> <?php print $this->title;?> </span>
+</div>
+<!--Display Title Ends-->
+
+<!--Organisation State Block Starts-->
+<div class= "activity-state">
+    <div class="state-display">
+        <ul class='state-<?php echo $this->state;?>'>
+            <li class='label'>Organisation State</li>
+            <?php foreach(Iati_WEP_ActivityState::getStatus() as $state_value => $state_name):?>
+                <li <?php if($this->state == $state_value) {print "id='current-state'";}?> ><span class='<?php print (!in_array($state_value,Iati_WEP_ActivityState::getRemainingStates($this->state)))?'visited-state':'not-visited-state'; ?>'><?php print $state_name ?></span></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+    <div class='change-state'>
+        <div class="change-state-info-section">This organisation is in <span class="change-state-current-state"><?php print(Iati_WEP_ActivityState::getStatus($this->state));?></span> State. <?php if($this->state != Iati_WEP_ActivityState::STATUS_PUBLISHED): ?>Mark it as <?php print($change_status_form)?><?php endif; ?></div>
+        <div class="change-state-help-section"><span class="change-state-help"><a href="#">what's this?</a></span></div>
+    </div>
+</div>
+<!--Organisation State Block Ends-->
+
+<!--Displaying Organisation's Elements Starts-->
+<div class="activity-container">
+   <?php foreach ($organisations as $organisation) : ?> 
+        
+        <!--Reporting Organisation Starts-->
+        <?php if(isset($organisation['ReportingOrg'])) : ?>
+              <?php echo $this->partial("partials/view-organisation/reporting-org.phtml" , array(
+                                                                                'parent_id' => $organisation['id'] ,  
+                                                                                'elements' => $organisation['ReportingOrg'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Reporting Organisation Ends-->
+        
+        <!--Identifer Starts-->
+        <?php if(isset($organisation['Identifier'])) : ?>
+              <?php echo $this->partial("partials/view-organisation/identifier.phtml" , array(
+                                                                                'parent_id' => $organisation['id'] ,  
+                                                                                'elements' => $organisation['Identifier'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Identifer Ends-->
+        
+        <!--Name Starts-->
+        <?php if(isset($organisation['Name'][0])) : ?>
+              <?php echo $this->partial("partials/view-organisation/name.phtml" , array(
+                                                                                'parent_id' => $organisation['id'] ,  
+                                                                                'elements' => $organisation['Name'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Name Ends-->
+        
+        <!--Total Budget Starts-->
+        <?php if(isset($organisation['TotalBudget'][0])) : ?>
+              <?php echo $this->partial("partials/view-organisation/total-budget.phtml" , array(
+                                                                                'parent_id' => $organisation['id'] , 
+                                                                                'elements' => $organisation['TotalBudget'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Total Budget Ends-->
+        
+        <!--Recipient Organisation Budget Starts-->
+        <?php if(isset($organisation['RecipientOrgBudget'][0])) : ?>
+              <?php echo $this->partial("partials/view-organisation/recipient-org-budget.phtml" , array(
+                                                                                'parent_id' => $organisation['id'] ,
+                                                                                'elements' => $organisation['RecipientOrgBudget'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Recipient Organisation Budget Ends-->
+        
+        <!--Recipient Country Budget Starts-->
+        <?php if(isset($organisation['RecipientCountryBudget'][0])) : ?>
+              <?php echo $this->partial("partials/view-organisation/recipient-country-budget.phtml" , array(
+                                                                                'parent_id' => $organisation['id'] ,  
+                                                                                'elements' => $organisation['RecipientCountryBudget'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Recipient Organisation Budget Ends-->
+        
+        <!--Document Link Starts-->
+        <?php if(isset($organisation['DocumentLink'][0])) : ?>
+              <?php echo $this->partial("partials/view-organisation/document-link.phtml" , array(
+                                                                                'parent_id' => $organisation['id'] ,  
+                                                                                'elements' => $organisation['DocumentLink'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Document Link Ends-->
+        
+   <?php endforeach; ?>
+</div><!-- Ends .activity-container-->
+<!--Displaying Organisation's Elements Ends-->

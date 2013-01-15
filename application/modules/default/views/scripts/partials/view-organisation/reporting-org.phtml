@@ -1,0 +1,49 @@
+<li class="element-activity">
+
+    <div class="element-title ">
+         <?php  echo "Reporting Organisation"; ?>
+        
+            <div class="element-info">
+                <div class="element-values">
+                    <span class="attrib-label">Text:</span>					
+                    <span class="attrib-value"><?php echo $this->length()->adjustDoubleLength($this->elements['text']); ?>
+                                               <?php if($this->elements['@xml_lang'])
+                                                     {
+                                                        printf(" [%s]" , Iati_Core_Codelist::getCodeByAttrib('ReportingOrg' , '@xml_lang' , $this->elements['@xml_lang']));
+                                                     }
+                                               ?>
+                    </span>
+                </div>
+                <div class="element-values">
+                    <span class="attrib-label">Ref:</span>
+                    <span class="attrib-value"><?php echo $this->length()->adjustDoubleLength($this->elements['@ref']); ?></span>  
+                </div>
+            </div>
+        </div> 
+    
+        <div class="highlight">
+            <ul class="style-1">
+                <li>
+                    <span class="name">Text:</span>
+                    <span class="infom"><?php echo $this->elements['text']; ?>
+                                        <?php if($this->elements['@xml_lang'])
+                                                {
+                                                    printf(" [%s]" , Iati_Core_Codelist::getCodeByAttrib('ReportingOrg' , '@xml_lang' , $this->elements['@xml_lang']));
+                                                }
+                                        ?> 
+                    </span>
+                </li>
+                <li>
+                    <span class="name">Ref:</span>
+                    <span class="infom"><?php echo $this->elements['@ref']; ?></span>
+                </li>
+                <li>
+                    <span class="name">Type:</span>
+                    <span class="infom"><?php echo $this->elements['@type']; ?></span>
+                </li>
+            </ul>
+        </div>
+   
+
+
+</li><!-- end of element-activity -->
