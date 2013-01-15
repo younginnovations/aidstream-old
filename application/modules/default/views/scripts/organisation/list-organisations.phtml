@@ -1,0 +1,66 @@
+<?php
+    $identity = $this->userInfo();
+    if($identity->role == 'user'){
+        $model = new Model_Wep();
+        $userPermission = $model->getUserPermission($identity->user_id);
+    }
+    
+?>
+
+<?php $i = 1;?>
+
+<?php if($this->organisation_array):?>
+<div class = "activity-list">
+    <table class ="activity-list-table">
+        <thead>
+            <tr>
+                <th></th><th>S.N.</th><th>Title</th><th>Organisation Identifier</th><th>Last Updated</th><th>State</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach($this->organisation_array as $eachOrganisation):?>
+            <tr class="activity-row1">
+               <td><input type="checkbox" name="activity_<?php echo $eachOrganisation['id']?>" value="<?php echo $eachOrganisation['id']?>"<?php ($eachOrganisation['state_id'] == Iati_WEP_ActivityState::STATUS_VERIFIED)? print("checked='checked'"): print("disabled='disabled'");?>" /></td>
+                <td class="sn"><?php print $i;?></td>
+                <td class="title"><div class='title-activity'><?php print $eachOrganisation['title'];?></div>
+                <?php if($userPermission):?>
+                    <div class = "list-action">
+                        <?php $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::EDIT_ACTIVITY_ELEMENTS);
+                        if($permission == '1'){
+                            print $this->l('View', 'organisation/view-elements/parent_id/'.$eachOrganisation['id']);
+                        }
+                        $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::DELETE_ACTIVITY);
+                        if($permission == '1'){
+                            print $this->l('Delete', 'organisation/delete-organisation/?classname=Organisation&id='.$eachOrganisation['id'],
+                           array('attributes' => array('onclick' => "javascript: return confirm('Do you really want to delete?')")));
+                        }
+                        ?>
+                        
+                    </div>
+                <?php endif;?>
+                
+                <?php if(!$userPermission):?>
+                <div class = "list-action">
+                <?php print $this->l('View', 'organisation/view-elements/parent_id/'.$eachOrganisation['id'])?>
+                <?php //print $this->l('Edit', 'wep/edit-activity/?activity_id='.$eachOrganisation['id'])?>
+                <?php print $this->l('Delete', 'organisation/delete-organisation/?classname=Organisation&id='.$eachOrganisation['id'],
+                                     array('attributes' => array('onclick' => "javascript: return confirm('Do you really want to delete?')")))?>
+                </div>
+                <?php endif; ?>
+                <div class='clearfix'></div>
+                </td>
+                <td class="iati-identifier"><?php print $eachOrganisation['identifier'];?></td>
+                <td class="last-updated"><?php print $eachOrganisation['last_updated_datetime'];?></td>
+                <td class="status <?php echo strtolower(str_replace(" ", "-",Iati_WEP_ActivityState::getStatus($eachOrganisation['state_id'])));?>">
+                <?php echo Iati_WEP_ActivityState::getStatus($eachOrganisation['state_id']);?></td>
+            </tr>            
+         <?php $i++;?>
+        <?php endforeach;?>
+        </tbody>
+    </table>
+</div>
+<?php print ($this->status_form);?>
+<?php else: ?>
+<div class="no-data">No Organisation has been created. Please click on <?php echo $this->l('Add New Organisation' , 'organisation/add-organisation');?> to create new organisation.</div>
+<?php endif;?>
+
