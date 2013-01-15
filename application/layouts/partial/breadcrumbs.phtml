@@ -111,6 +111,38 @@ switch($identity->role){
                         'action'     => 'edit-activity',
                     ),
                     array(
+                        'label' => 'List Organisations',
+                        'module'     => 'default',
+                        'controller' => 'organisation',
+                        'action'     => 'list-organisations',
+                        'pages' => array(
+                            array(
+                                'label' => 'View Elements',
+                                'module'     => 'default',
+                                'controller' => 'organisation',
+                                'action'     => 'view-elements',
+                            ),
+                            array(
+                                'label' => 'Add-Element',
+                                'module'     => 'default',
+                                'controller' => 'organisation',
+                                'action'     => 'add-elements',
+                            ),
+                            array(
+                                'label' => 'Edit-Element',
+                                'module'     => 'default',
+                                'controller' => 'organisation',
+                                'action'     => 'edit-elements',
+                            ),      
+                         )
+                    ),
+                    array(
+                        'label' => 'List Organisation Published Files',
+                        'module'     => 'default',
+                        'controller' => 'organisation',
+                        'action'     => 'list-published-files',
+                    ),
+                    array(
                         'label' => 'My Profile',
                         'module' => 'user',
                         'controller' => 'user',
