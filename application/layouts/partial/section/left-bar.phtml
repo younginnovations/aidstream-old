@@ -1,7 +1,15 @@
 <?php
+    // Activities block
     print $this->blockManager()->get('partial/activitymenu.phtml');
     print $this->blockManager()->get('partial/primarymenu.phtml');
     print $this->blockManager()->get('partial/add-activity-menu.phtml');
+    
+    // Organizations block
+    print $this->blockManager()->get('partial/organisation-menu.phtml');
+    print $this->blockManager()->get('partial/list-organisations.phtml');
+    print $this->blockManager()->get('partial/add-organisation.phtml'); 
+    print $this->blockManager()->get('partial/org-published-list.phtml');
+    
     print $this->blockManager()->get('partial/published-list.phtml');
     print $this->blockManager()->get('partial/usermgmtmenu.phtml');
     print $this->blockManager()->get('partial/superadmin-menu.phtml');
