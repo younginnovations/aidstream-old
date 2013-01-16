@@ -77,6 +77,7 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'default:wep', 'publish-in-registry' , new App_ActionAssertion('publish'));
         $this->allow('user', 'default:wep', 'delete-published-file' , new App_ActionAssertion('publish'));
         $this->allow('user', 'default:wep', 'delete', new App_ActionAssertion('delete'));
+        $this->allow('user', 'default:organisation','publish-in-registry');
         
         $this->allow('user', 'default:wep', 'delete-activity', new App_ActionAssertion('delete_activity'));
         $this->allow('user', 'default:wep', 'edit-activity');
@@ -86,9 +87,15 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'default:wep', 'update-status');
         $this->allow('user', 'default:wep', 'get-help-message');
         $this->allow('user', 'default:wep', 'list-published-files');
-        $this->allow('user', 'default:organisation', 'add');
-        $this->allow('user', 'default:organisation', 'edit');
-        $this->allow('user', 'default:organisation', 'delete');
+        $this->allow('user', 'default:organisation', 'add-elements');
+        $this->allow('user', 'default:organisation', 'edit-elements');
+        $this->allow('user', 'default:organisation', 'view-elements'); 
+        $this->allow('user', 'default:organisation', 'organisation-data');
+        $this->allow('user', 'default:organisation', 'add-organisation');        
+        $this->allow('user', 'default:organisation', 'list-organisations');
+        $this->allow('user', 'default:organisation', 'delete-organisation');
+        $this->allow('user', 'default:organisation', 'list-published-files');      
+        $this->allow('user', 'default:organisation', 'update-state');
         $this->allow('user', 'default:organisation', 'generate-xml');
         $this->allow('user', 'default:ajax', 'get-form');
         $this->allow('user', 'default:ajax', 'remove-form');
@@ -105,7 +112,7 @@ class App_Acl extends Zend_Acl
         $this->allow('admin', 'default:wep', 'update-reporting-org');
         $this->allow('admin', 'default:wep', 'publish-in-registry');
         $this->allow('admin', 'default:wep', 'delete-published-file');
-        $this->allow('admin', 'default:wep', 'edit-help-message');
+        $this->allow('admin', 'default:admin', 'edit-help-message');
         $this->allow('admin', 'default:admin', 'register-user');
         $this->allow('admin', 'default:wep', 'delete-activity');
         $this->allow('admin', 'default:admin', 'list-users');
