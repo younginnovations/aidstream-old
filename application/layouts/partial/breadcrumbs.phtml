@@ -28,20 +28,6 @@ switch($identity->role){
                         'action' => 'list-help',
                     ),
                     array(
-                        'label' => 'List Organisation',
-                        'module' => 'default',
-                        'controller' => 'admin',
-                        'action' => 'list-organisation',
-                        'pages' => array(
-                            array(
-                                'label' => 'Edit Organisation',
-                                'module' => 'default',
-                                'controller' => 'admin',
-                                'action' => 'edit-organisation',
-                            ),
-                            ),
-                    ),
-                    array(
                         'label' => 'Awaiting Request',
                         'module' => 'default',
                         'controller' => 'admin',
@@ -111,10 +97,10 @@ switch($identity->role){
                         'action'     => 'edit-activity',
                     ),
                     array(
-                        'label' => 'List Organisations',
+                        'label' => 'Organisations Data',
                         'module'     => 'default',
                         'controller' => 'organisation',
-                        'action'     => 'list-organisations',
+                        'action'     => 'organisation-data',
                         'pages' => array(
                             array(
                                 'label' => 'View Elements',
@@ -135,12 +121,6 @@ switch($identity->role){
                                 'action'     => 'edit-elements',
                             ),      
                          )
-                    ),
-                    array(
-                        'label' => 'List Organisation Published Files',
-                        'module'     => 'default',
-                        'controller' => 'organisation',
-                        'action'     => 'list-published-files',
                     ),
                     array(
                         'label' => 'My Profile',
