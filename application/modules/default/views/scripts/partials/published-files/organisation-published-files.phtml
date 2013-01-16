@@ -1,0 +1,55 @@
+<?
+    $publishedFilesOfOrganisation = $this->published_files_organisation;
+?>
+<div class="files">
+    <? if(empty($publishedFilesOfOrganisation)): ?>
+        <div class="no-data">You haven't published any files yet. Please go to
+        <? print $this->l('List Organisation' , 'organisation/list-organisations') ?>
+        to publish your completed organisation. </div>
+
+    <? else: ?>
+        <table class="activity-list-table published-files-of-organisation-list-table">
+            <thead>
+                <? if($this->publish_permission): ?>
+                <th></th>
+                <? endif; ?>
+                <th>Filename</th>
+                <th>Published Date</th>
+                <th class="registered-info"'>Registered in IATI Regsitry</th>
+                <th>Preview As</th>
+                <th></th>
+            </thead>
+            <?php foreach ($publishedFilesOfOrganisation as $fileOfOrganisation): ?>
+            <tr>
+                <? if($this->publish_permission): ?>
+                <td><? if(!$this->update_to_registry): ?><input type="checkbox" name="file_<?php echo $fileOfOrganisation['id']?>" value="<?php echo $fileOfOrganisation['id']?>"<?php ($fileOfOrganisation['status'])? print("checked='checked'") : print("disabled='disabled'"); ?>" /><? endif; ?></td>
+                <? endif; ?>
+
+                <td><a href="<?php echo $this->baseUrl().Zend_Registry::get('config')->xml_folder.$fileOfOrganisation['filename']?>" target="_blank"><?php echo $fileOfOrganisation['filename'] ?></a></td>
+                <td><?php echo $fileOfOrganisation['published_date'] ?></td>
+                <td>
+                <?php if( $fileOfOrganisation['pushed_to_registry']): ?>
+                	<?php $response = unserialize($fileOfOrganisation['response']);?>
+                	<a href='<?php echo $response->ckan_url?>' target='_blank' title="view file in IATI Registry">Yes</a>
+                <?php else:?>
+                	No
+                <?php endif; ?>
+                </td>
+                <td><a href='http://tools.aidinfolabs.org/showmydata/index.php?url=http://<?php echo $_SERVER['SERVER_NAME'].$this->baseUrl().Zend_Registry::get('config')->xml_folder.$fileOfOrganisation['filename']?>' target='_blank'>IATI Data</a> | <a href='http://tools.aidinfolabs.org/csv/direct_from_registry/?xml=http://<?php echo $_SERVER['SERVER_NAME'].$this->baseUrl().Zend_Registry::get('config')->xml_folder.$fileOfOrganisation['filename']?>' target='_blank'>CSV</a></td>
+                <?php
+                    $class = "delete-files";
+                    if($fileOfOrganisation['pushed_to_registry']){
+                        $class .= " published";
+                    } else {
+                        $class .= " unpublished";
+                    }
+                ?>
+                <td><?php (!$fileOfOrganisation['status'])? print $this->l('Delete' , 'organisation/delete-published-file?file_id='.$fileOfOrganisation['id'] , array('attributes'=>array('class'=>"$class" , 'title' => 'delete file'))):''; ?></td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+            <? if($this->publish_permission): ?>
+                <?php echo $this->formForOrganisation; ?>
+            <? endif; ?>
+    <? endif; ?>
+</div>
