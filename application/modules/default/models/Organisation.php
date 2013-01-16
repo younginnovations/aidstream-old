@@ -2,7 +2,7 @@
 class Model_Organisation extends Zend_Db_Table_Abstract
 {
 
-    protected $_name;
+    protected $_name = 'iati_organisation';
     
     public function createOrganisation($orgId , $default , $iatiIdentifier)
     {  
@@ -30,6 +30,19 @@ class Model_Organisation extends Zend_Db_Table_Abstract
         $iati_identifier_id = $wepModelObj->insertRowsToTable('iati_organisation/identifier', $iati_identifier);
 
         return (int) $organisationId;
+    }
+    
+    public function checkOrganisationPresent($account_id)
+    {
+        $rowSet = $this->select()->where("account_id = ?",$account_id);
+        $result = $this->fetchAll($rowSet);
+        if($result)
+        {   
+            $result = $result->toArray();
+            return $result['id'];
+        }
+        
+        return $result;
     }
 
 }
