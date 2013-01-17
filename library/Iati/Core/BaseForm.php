@@ -61,7 +61,7 @@ abstract class Iati_Core_BaseForm extends Zend_Form
             }
 
             // Add a wrapper div to all elements other than add and remove buttons.
-            if($element->getName() != 'add' && $element->getName() != 'remove'){
+            if($element->getName() != 'add' && $element->getName() != 'remove' && $element->getType() != 'Zend_Form_Element_Submit'){
 
                 if($element->getName() == 'id' || ($element->getType() == 'Zend_Form_Element_Hidden' && preg_match('/_id/' , $element->getName()))){
                     $element->addDecorators(array(
@@ -74,7 +74,11 @@ abstract class Iati_Core_BaseForm extends Zend_Form
 	                    )
                     );
                 } else {
-	                $element->addDecorators(array(
+                    // Add help element
+                     $uniqueElementName = $this->element->getFullName().'-'.$element->getName();
+                     $element->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help '.$uniqueElementName , 'placement' => 'PREPEND'))));
+	                
+                     $element->addDecorators(array(
 	                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'form-item clearfix'))
 	                    )
 	                );
@@ -195,7 +199,7 @@ abstract class Iati_Core_BaseForm extends Zend_Form
             $className = $this->element->getFullName();
         }
         $remove = new Iati_Form_Element_Note('remove');
-        $remove->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'remove-element element-remove-this'));
+        $remove->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'organisation-remove-element element-remove-this'));
         $remove->setValue("<a href='#' class='button' value='{$className}'> Remove element</a>");
         $this->addElement($remove);        
     }
