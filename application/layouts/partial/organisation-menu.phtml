@@ -1,114 +1,122 @@
 
 <?php
-    $url = Zend_Controller_Front::getInstance()->getRequest()->getParams();
-    $paramValue = str_replace("Organisation_" , "" , $url['classname']);
-    $titleArray = array('Budgets' , 'Documents');
-    $elements = array(
-                    array('RecipientOrgBudget' , 'RecipientCountryBudget' , 'TotalBudget') ,
-                    array('DocumentLink')
-                );
+$url = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+$paramValue = str_replace("Organisation_" , "" , $url['className']);
+$titleArray = array('Budgets' , 'Documents');
+$elements = array(
+    array('RecipientOrgBudget' , 'RecipientCountryBudget' , 'TotalBudget') ,
+    array('DocumentLink')
+);
 ?>
-
+<!--Starts Displaying elements menu of an organisation-->
 <div id="block-activity-menu" class="block">
     <div class="block-inner">
         <h2 class="title">Element Menu</h2>
         <div class="content">
             <ul>
-
+                
+                <!--Starts of identification block-->
                 <li>
                     <div class="menu-category-title">Identification</div>
-                    <ul class="menu-leaf">
+                    <ul class="menu-leaf">                        
                         <?php
-                            // Reporting Organisation Menu           
-                            $attributes = (getRowSet('ReportingOrg' , $url['parent_id'])) ? 'class = "active"' : '';
-                            $href1 = $this->baseUrl() . "/organisation/edit-elements/?parent_id=" . $url['parent_id'] . "&classname=Organisation_ReportingOrg";
-                            $class = '';
-                            if ($paramValue == 'ReportingOrg')
-                            {
-                                $class = "class = highlight";
-                            }
-                            print "<li $class><div class='help Organisation_ReportingOrg'></div><a $attributes href=$href1>Reporting Organisation</a></li>";
-
-                            // Identifier Menu
-                            $attributes = (getRowSet('Identifier' , $url['parent_id'])) ? 'class = "active"' : '';
-                            $href2 = $this->baseUrl() . "/organisation/edit-elements/?parent_id=" . $url['parent_id'] . "&classname=Organisation_Identifier";
-                            $class = '';
-                            if ($paramValue == 'Identifier')
-                            {
+                        // Reporting Organisation Element           
+                        $attributes = (getRowSet('ReportingOrg' , $url['parentId'])) ? 'class = "active"' : '';
+                        $href1 = $this->baseUrl() . "/organisation/edit-elements/?parentId=" . $url['parentId'] . "&className=Organisation_ReportingOrg";
+                        $class = '';
+                        if ($paramValue == 'ReportingOrg')
+                        {
                             $class = "class = highlight";
-                            }
-                            print "<li $class ><div class='help Organisation_Identifier'></div><a $attributes href=$href2>Identifier</a></li>";
+                        }
+                        print "<li $class><div class='help Organisation_ReportingOrg'></div><a $attributes href=$href1>Reporting Organisation</a></li>";
 
-                            // Name Menu
+                        // Identifier Element
+                        $attributes = (getRowSet('Identifier' , $url['parentId'])) ? 'class = "active"' : '';
+                        $href2 = $this->baseUrl() . "/organisation/edit-elements/?parentId=" . $url['parentId'] . "&className=Organisation_Identifier";
+                        $class = '';
+                        if ($paramValue == 'Identifier')
+                        {
+                            $class = "class = highlight";
+                        }
+                        print "<li $class ><div class='help Organisation_Identifier'></div><a $attributes href=$href2>Identifier</a></li>";
+
+                        // Name Element
+                        if (getRowSet('Name' , $url['parentId']))
+                        {
+                            $attributes = 'class = "active"';
+                            $href3 = $this->baseUrl() . "/organisation/edit-elements/?parentId=" . $url['parentId'] . "&className=Organisation_Name" . $element;
+                        } else
+                        {
                             $attributes = '';
-                            if (getRowSet('Name' , $url['parent_id']))
-                            {
-                                $attributes = 'class = "active"';
-                                $href3 = $this->baseUrl() . "/organisation/edit-elements/?parent_id=" . $url['parent_id'] . "&classname=Organisation_Name" . $element;
-                            }
-                            else
-                            {
-                                $href3 = $this->baseUrl() . "/organisation/add-elements/?parent_id=" . $url['parent_id'] . "&classname=Organisation_Name" . $element;
-                            }
-                            $class = '';
-                            if ($paramValue == 'Name')
-                            {
+                            $href3 = $this->baseUrl() . "/organisation/add-elements/?parentId=" . $url['parentId'] . "&className=Organisation_Name" . $element;
+                        }
+                        $class = '';
+                        if ($paramValue == 'Name')
+                        {
                             $class = "class = highlight";
-                            }
-                            print "<li $class ><div class='help Organisation_Name'></div><a $attributes href=$href3>Name</a></li>";
+                        }
+                        print "<li $class ><div class='help Organisation_Name'></div><a $attributes href=$href3>Name</a></li>";
                         ?>                
                     </ul><!--End .menu-leaf-->
                 </li>
+                <!--Ends of identification block-->
                 
-
+                <!--Starts displaying another block-->
                 <?php
-                    $i = '0';
-                    foreach ($elements as $value)
+                $i = '0';
+                foreach ($elements as $value)
+                {
+                    print "<li>";
+                    print '<div class="menu-category-title">' . $titleArray[$i] . '</div>';
+                    print '<ul class="menu-leaf">';
+                    foreach ($value as $element)
                     {
-                        print "<li>";
-                        print '<div class="menu-category-title">' . $titleArray[$i] . '</div>';
-                        print '<ul class="menu-leaf">';
-                        foreach ($value as $element)
+                        if (getRowSet($element , $url['parentId']))
+                        {
+                            $attributes = 'class = "active"';
+                            $href = $this->baseUrl() . "/organisation/edit-elements/?parentId=" . $url['parentId'] . "&className=Organisation_" . $element;
+                        } else
                         {
                             $attributes = '';
-                            if (getRowSet($element , $url['parent_id']))
-                            {
-                                $attributes = 'class = "active"';
-                                $href = $this->baseUrl() . "/organisation/edit-elements/?parent_id=" . $url['parent_id'] . "&classname=Organisation_" . $element;
-                            }
-                            else
-                            {
-                                $href = $this->baseUrl() . "/organisation/add-elements/?parent_id=" . $url['parent_id'] . "&classname=Organisation_" . $element;
-                            }
-                            $className = "Iati_Aidstream_Element_Organisation_" . $element;
-                            $classObj = new $className;                            
-                            $displayName = $classObj->getDisplayName();
-                            $key = $displayName;
-                            $class = '';
-                            if ($element == $paramValue)
-                            {
-                                $class = "class = highlight";
-                            }
-                            print "<li $class><div class='help Organisation_".$element . "'></div><a $attributes href='" . $href . "'>" . $displayName . "</a></li>";
+                            $href = $this->baseUrl() . "/organisation/add-elements/?parentId=" . $url['parentId'] . "&className=Organisation_" . $element;
                         }
-                        print "</ul>";
-                        print "</li>";
-                        $i++;
+                        $className = "Iati_Aidstream_Element_Organisation_" . $element;
+                        $classObj = new $className;
+                        $displayName = $classObj->getDisplayName();
+                        $key = $displayName;
+                        $class = '';
+                        if ($element == $paramValue)
+                        {
+                            $class = "class = highlight";
+                        }
+                        print "<li $class><div class='help Organisation_" . $element . "'></div><a $attributes href='" . $href . "'>" . $displayName . "</a></li>";
                     }
+                    print "</ul>";
+                    print "</li>";
+                    $i++;
+                }
                 ?>
+                <!--Ends displaying another block-->
+                
             </ul>
         </div><!-- End .content-->
     </div><!-- End .block-inner-->
 </div><!-- End #block-activity-menu-->
+<!--Endss Displaying elements menu of an organisation-->
 
 <?php
 
+/**
+ * Check If Value Exist For An Element Of An Organisation
+ * @param type $name, className
+ * @param type $id, parentId
+ * @return boolean 
+ */
 function getRowSet($name , $id)
 {
     $string = "Iati_Aidstream_Element_Organisation_" . $name;
     $obj = new $string;
     $rowSet = $obj->fetchData($id , true);
-
     if (!$rowSet)
         $rowSet = false;
     else
