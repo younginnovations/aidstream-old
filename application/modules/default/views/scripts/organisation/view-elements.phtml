@@ -33,7 +33,7 @@
         <!--Reporting Organisation Starts-->
         <?php if(isset($organisation['ReportingOrg'])) : ?>
               <?php echo $this->partial("partials/view-organisation/reporting-org.phtml" , array(
-                                                                                'parent_id' => $organisation['id'] ,  
+                                                                                'parentId' => $organisation['id'] ,  
                                                                                 'elements' => $organisation['ReportingOrg'] ,
                                                                             )
                           );
@@ -44,7 +44,7 @@
         <!--Identifer Starts-->
         <?php if(isset($organisation['Identifier'])) : ?>
               <?php echo $this->partial("partials/view-organisation/identifier.phtml" , array(
-                                                                                'parent_id' => $organisation['id'] ,  
+                                                                                'parentId' => $organisation['id'] ,  
                                                                                 'elements' => $organisation['Identifier'] ,
                                                                             )
                           );
@@ -55,7 +55,7 @@
         <!--Name Starts-->
         <?php if(isset($organisation['Name'][0])) : ?>
               <?php echo $this->partial("partials/view-organisation/name.phtml" , array(
-                                                                                'parent_id' => $organisation['id'] ,  
+                                                                                'parentId' => $organisation['id'] ,  
                                                                                 'elements' => $organisation['Name'] ,
                                                                             )
                           );
@@ -66,7 +66,7 @@
         <!--Total Budget Starts-->
         <?php if(isset($organisation['TotalBudget'][0])) : ?>
               <?php echo $this->partial("partials/view-organisation/total-budget.phtml" , array(
-                                                                                'parent_id' => $organisation['id'] , 
+                                                                                'parentId' => $organisation['id'] , 
                                                                                 'elements' => $organisation['TotalBudget'] ,
                                                                             )
                           );
@@ -77,7 +77,7 @@
         <!--Recipient Organisation Budget Starts-->
         <?php if(isset($organisation['RecipientOrgBudget'][0])) : ?>
               <?php echo $this->partial("partials/view-organisation/recipient-org-budget.phtml" , array(
-                                                                                'parent_id' => $organisation['id'] ,
+                                                                                'parentId' => $organisation['id'] ,
                                                                                 'elements' => $organisation['RecipientOrgBudget'] ,
                                                                             )
                           );
@@ -88,7 +88,7 @@
         <!--Recipient Country Budget Starts-->
         <?php if(isset($organisation['RecipientCountryBudget'][0])) : ?>
               <?php echo $this->partial("partials/view-organisation/recipient-country-budget.phtml" , array(
-                                                                                'parent_id' => $organisation['id'] ,  
+                                                                                'parentId' => $organisation['id'] ,  
                                                                                 'elements' => $organisation['RecipientCountryBudget'] ,
                                                                             )
                           );
@@ -99,7 +99,7 @@
         <!--Document Link Starts-->
         <?php if(isset($organisation['DocumentLink'][0])) : ?>
               <?php echo $this->partial("partials/view-organisation/document-link.phtml" , array(
-                                                                                'parent_id' => $organisation['id'] ,  
+                                                                                'parentId' => $organisation['id'] ,  
                                                                                 'elements' => $organisation['DocumentLink'] ,
                                                                             )
                           );
