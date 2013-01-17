@@ -19,6 +19,11 @@ class Iati_Registry
     protected $activity_count;
     protected $country;
     protected $error;
+    
+    // For Organisation
+    protected $organisation_updated_datetime;
+    protected $organisation_count;
+    
 
 
     public function __construct($publisherId , $apiKey)
@@ -180,5 +185,72 @@ class Iati_Registry
     public function getErrors()
     {
         return $this->error;
+    }
+    
+     /**
+     *
+     * Generate the data to be feed to the registry.
+     * @param Array $fileInfo, example
+     * array(
+     * 'file_id' => '1',
+     * 'filename' => 'test.xml' ,
+     * 'activity_count' => 1 ,
+     * 'data_updated_datetime' => '2011-01-01 01:01:01 ,
+     * 'pushed_to_registry' => 1
+     * )
+     */
+    public function prepareOrganisationRegistryData($fileInfo)
+    {
+        $this->file_id = $fileInfo['id'];
+        $this->file = $fileInfo['filename'];
+        $this->organisation_count = $fileInfo['count'];
+        $this->organisation_updated_datetime = $fileInfo['data_updated_datetime'];
+        $this->is_pushed_to_registry = $fileInfo['pushed_to_registry'];
+
+
+        //prepare file's url
+        $config = new Zend_Config_Ini(APPLICATION_PATH.'/configs/application.ini', APPLICATION_ENV);
+        $fc = Zend_Controller_Front::getInstance();
+        $baseUrl =  $fc->getBaseUrl();
+        $this->file_url = "http://".$_SERVER['SERVER_NAME']. $baseUrl . $config->xml_folder . $this->file;
+
+        $this->_prepareOrganisationRegistryInputJson();
+    }
+
+    /**
+     *
+     * Generate json input to feed to the registry.
+     */
+    protected function _prepareOrganisationRegistryInputJson()
+    {
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $filename =explode('.',$this->file);
+
+
+        $data = array(
+            "name"=>$filename[0],
+            "title"=>'Organisation File '.$filename[0],
+            "author_email"=>$identity->email,
+            "resources" => array(
+                                array(
+                                    "url"=>$this->file_url,
+                                    "format"=>"IATI-XML"
+                                    )
+                                ),
+            "extras"=>array(
+                    "filetype" => "activity",
+                    "country" => $this->country,
+                    "activity_period-from" => '',
+                    "activity_period-to" => '',
+                    "data_updated"=> date('Y-m-d',strtotime($this->organisation_updated_datetime)),
+                    "record_updated" => date('Y-m-d'),
+                    "activity_count" => $this->organisation_count,
+                    "verified" => "no",
+                    "language" => "en",
+                    ),
+            "groups" => array($this->publisher_id)
+        );
+        $jsonData =  json_encode($data);
+        $this->json_data = $jsonData;
     }
 }
