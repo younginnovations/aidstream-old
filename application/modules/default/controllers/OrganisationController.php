@@ -51,15 +51,15 @@ class OrganisationController extends Zend_Controller_Action
 
         $elementName = "Iati_Aidstream_Element_" . $elementClass;
         $element = new $elementName();
- 
+
         if ($data = $this->getRequest()->getPost())
-        { 
+        {
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();
             if ($form->validate())
             {
-                $id = $element->save($data[$element->getClassName()],$parentId);
-                  
+                $id = $element->save($data[$element->getClassName()] , $parentId);
+
                 //Update Activity Hash
                 $organisationHashModel = new Model_OrganisationHash();
                 $updated = $organisationHashModel->updateHash($parentId);
@@ -74,13 +74,13 @@ class OrganisationController extends Zend_Controller_Action
                     $organisationData = array();
                     $organisationData['@last_updated_datetime'] = date('Y-m-d h:i:s');
                     $organisationData['id'] = $parentId;
-                    $wepModel->updateRowsToTable('iati_organisation' ,$organisationData);
+                    $wepModel->updateRowsToTable('iati_organisation' , $organisationData);
 
                     //change state to editing
                     $db = new Model_OrganisationState;
                     $db->updateOrganisationState($parentId , Iati_WEP_ActivityState::STATUS_EDITING);
                     $type = 'message';
-                    $message = $element->getClassName()." successfully updated.";
+                    $message = $element->getClassName() . " successfully updated.";
                 }
                 $this->_helper->FlashMessenger
                         ->addMessage(array($type => $message));
@@ -169,13 +169,13 @@ class OrganisationController extends Zend_Controller_Action
                     $organisationData = array();
                     $organisationData['@last_updated_datetime'] = date('Y-m-d h:i:s');
                     $organisationData['id'] = $parentId;
-                    $wepModel->updateRowsToTable('iati_organisation' ,$organisationData);
+                    $wepModel->updateRowsToTable('iati_organisation' , $organisationData);
 
                     //change state to editing
                     $db = new Model_OrganisationState;
                     $db->updateOrganisationState($parentId , Iati_WEP_ActivityState::STATUS_EDITING);
                     $type = 'message';
-                    $message = $element->getClassName()." successfully updated.";
+                    $message = $element->getClassName() . " successfully updated.";
                 }
                 $this->_helper->FlashMessenger
                         ->addMessage(array($type => $message));
@@ -271,7 +271,7 @@ class OrganisationController extends Zend_Controller_Action
         {
             $this->_redirect('organisation/add-organisation');
         }
-        $this->_redirect('organisation/view-elements?parent_id=' . $organisation_id);
+        $this->_redirect('organisation/view-elements/?parent_id=' . $organisation_id);
 
     }
 
@@ -300,7 +300,7 @@ class OrganisationController extends Zend_Controller_Action
         $organisationHashModel = new Model_OrganisationHash();
         $updated = $organisationHashModel->updateHash($organisation_id);
 
-        $this->_redirect('organisation/view-elements?parent_id=' . $organisation_id);
+        $this->_redirect('organisation/view-elements/parent_id=' . $organisation_id);
 
     }
 
@@ -322,13 +322,15 @@ class OrganisationController extends Zend_Controller_Action
         // Get form for status change
         $state = $organisations['Organisation']['state_id'];
         $next_state = Iati_WEP_ActivityState::getNextStatus($state);
-        if($next_state && Iati_WEP_ActivityState::hasPermissionForState($next_state)){
+        if ($next_state && Iati_WEP_ActivityState::hasPermissionForState($next_state))
+        {
             $status_form = new Form_Wep_ActivityChangeState();
-            $status_form->setAction($this->view->baseUrl()."/organisation/update-state");
+            $status_form->setAction($this->view->baseUrl() . "/organisation/update-state");
             $status_form->ids->setValue($organisation_id);
             $status_form->status->setValue($next_state);
             $status_form->change_state->setLabel(Iati_WEP_ActivityState::getStatus($next_state));
-        } else {
+        } else
+        {
             $status_form = null;
         }
         $this->view->status_form = $status_form;
@@ -377,6 +379,13 @@ class OrganisationController extends Zend_Controller_Action
                     $obj = new Iati_Core_Xml();
                     $filename = $obj->generateXml('organisation' , $organisation_ids);
 
+                    $wepModel = new Model_Wep();
+                    $publishedData['publishing_org_id'] = $account_id;
+                    $publishedData['filename'] = $filename;
+                    $publishedData['organisation_count'] = count($organisation_ids);
+                    $publishedData['data_updated_datetime'] = date('Y-m-d H:i:s');
+                    $publishedData['standard'] = 'organisation';
+                    $wepModel->insertRowsToTable('published' , $publishedData);
 
                     if ($registryInfo->update_registry)
                     {
@@ -414,6 +423,68 @@ class OrganisationController extends Zend_Controller_Action
             }
         }
         $this->_redirect('organisation/view-elements');
+
+    }
+
+    public function deletePublishedFileAction()
+    {
+        $fileId = $this->_getParam('file_id');
+        $db = new Model_Published();
+        $publishedFiles = $db->deleteByFileId($fileId);
+
+        $this->_helper->FlashMessenger->addMessage(array('message' => "File Deleted Sucessfully."));
+        $this->_redirect('wep/list-published-files');
+
+    }
+
+    /**
+     * Update Default Element Value Of An Organisation
+     */
+    public function updateDefaultAction()
+    {
+        $elementName = $this->getRequest()->getParam('elementName');
+        $elementId = $_POST[$elementName]['id'];
+
+        if (!$elementName)
+        {
+            $this->_helper->FlashMessenger->addMessage(array('error' => "Could not fetch element Name."));
+            $this->_redirect("/wep/dashboard");
+        }
+
+        if (!$elementId)
+        {
+            $this->_helper->FlashMessenger->addMessage(array('error' => "No id provided."));
+            $this->_redirect("/wep/dashboard");
+        }
+
+        // Update Default Element Value And Fetch Organisation Id
+        $organisationDefaultElementModel = new Model_OrganisationDefaultElement();
+        $organisationId = $organisationDefaultElementModel->updateElementData($elementName , $elementId);
+
+        //Update Organisation Hash
+        $organisationHashModel = new Model_OrganisationHash();
+        $updated = $organisationHashModel->updateHash($organisationId);
+        if (!$updated)
+        {
+            $type = 'info';
+            $message = "Already up to date. To make changes please change values in 'Change Defaults' and then update.";
+        } else
+        {
+            //Update the organisation so that the last updated time is updated
+            $wepModel = new Model_Wep();
+            $organisationData = array();
+            $organisationData['@last_updated_datetime'] = date('Y-m-d h:i:s');
+            $organisationData['id'] = $organisationId;
+            $wepModel->updateRowsToTable('iati_organisation' , $organisationData);
+
+            //Change state to editing
+            $db = new Model_OrganisationState();
+            $db->updateOrganisationState($organisationId , Iati_WEP_ActivityState::STATUS_EDITING);
+            $type = 'message';
+            $message = "$elementName updated sucessfully";
+        }
+        $this->_helper->FlashMessenger->addMessage(array($type => $message));
+        $this->_redirect("/organisation/edit-elements/?parent_id=" . $organisationId . "&classname=Organisation_$elementName");
 
     }
 

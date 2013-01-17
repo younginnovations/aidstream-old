@@ -20,6 +20,7 @@ class Iati_Aidstream_Form_Organisation_Identifier extends Iati_Core_BaseForm
                 ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help Organisation_Identifier-text' , 'placement' => 'PREPEND'))));
 
         $this->addElements($form);
+        $this->setAction($baseurl.'/organisation/update-default/?elementName=Identifier');
         return $this;
 
     }
