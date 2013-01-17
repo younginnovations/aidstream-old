@@ -1307,7 +1307,7 @@ class WepController extends Zend_Controller_Action
     }
 
     public function publishInRegistryAction()
-    {
+    {   
         $fileIds = explode(',' , $this->_getParam('file_ids'));
         
         if(!$fileIds[0]){
@@ -1376,12 +1376,6 @@ class WepController extends Zend_Controller_Action
 
         $modelRegistryInfo = new Model_RegistryInfo();
         $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($orgId);
-
-        $form = new Form_Wep_PublishToRegistry();
-        $form->setAction($this->view->baseUrl().'/wep/publish-in-registry');
-        if($registryInfo->update_registry){
-            $form->push_to_registry->setAttrib('disabled', 'disabled');
-        }
         
         // Create Registry Form For Activities
         $formForActivities = new Form_Wep_PublishToRegistry();
@@ -1392,19 +1386,21 @@ class WepController extends Zend_Controller_Action
         $this->view->formForActivities = $formForActivities;
         
         // Create Registry Form For Organisation
-        $formForOrganisation = new Form_Wep_PublishToRegistryForOrganisation();
+        $formForOrganisation = new Form_Organisation_PublishToRegistry();
         $formForOrganisation->setAction($this->view->baseUrl().'/organisation/publish-in-registry');
         if($registryInfo->update_registry){
             $formForOrganisation->push_to_registry_for_organisation->setAttrib('disabled', 'disabled');
         }
         $this->view->formForOrganisation = $formForOrganisation;
 
-        $db = new Model_Published();
         // Fetch Publish Data For Activities
-        $publishedFilesOfActivities = $db->getAllOrganisationPublishedInfo($orgId,'activities');
+        $db = new Model_Published();
+        $publishedFilesOfActivities = $db->getAllPublishedInfo($orgId);
         $this->view->published_files_activities = $publishedFilesOfActivities;
+        
         // Fetch Publish Data For Organisation
-        $publishedFilesOfOrganisation = $db->getAllOrganisationPublishedInfo($orgId,'organisation');
+        $organisationpublishedModel = new Model_OrganisationPublished();
+        $publishedFilesOfOrganisation = $organisationpublishedModel->getAllPublishedInfo($orgId);
         $this->view->published_files_organisation = $publishedFilesOfOrganisation;
         
         $this->view->publish_permission = $publishPermission;
