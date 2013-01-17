@@ -278,9 +278,9 @@ class OrganisationController extends Zend_Controller_Action
         $organisationId = $organisationModelObj->checkOrganisationPresent($identity->account_id);
         if (!$organisationId)
         {
-            $this->_redirect('organisation/add-organisation');
+            $this->_redirect("organisation/add-organisation");
         }
-        $this->_redirect('organisation/view-elements/?parentId=' . $organisationId);
+        $this->_redirect("organisation/view-elements/?parentId=$organisationId");
 
     }
     
@@ -306,7 +306,7 @@ class OrganisationController extends Zend_Controller_Action
         $organisationHashModel = new Model_OrganisationHash();
         $updated = $organisationHashModel->updateHash($organisationId);
 
-        $this->_redirect('organisation/view-elements/parentId=' . $organisationId);
+        $this->_redirect('organisation/view-elements/?parentId=' . $organisationId);
 
     }
     
@@ -316,6 +316,15 @@ class OrganisationController extends Zend_Controller_Action
     public function viewElementsAction()
     {
         $organisationId = $this->getRequest()->getParam('parentId');
+        
+        // Fetch organisation id for a login user
+        // Mainly used for update-state action to redirect to view-elements page
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        if(!$organisationId)
+        {    
+             $organisationModelObj = new Model_Organisation();
+             $organisationId = $organisationModelObj->checkOrganisationPresent($identity->account_id);
+        }
 
         // Fetch organisation data
         $organisationClassObj = new Iati_Aidstream_Element_Organisation();
@@ -353,18 +362,21 @@ class OrganisationController extends Zend_Controller_Action
         $this->view->blockManager()->disable('partial/organisation-data.phtml');
 
     }
-
+    
+    /**
+     * Update State Of An Organisation 
+     */
     public function updateStateAction()
     {
         $ids = $this->getRequest()->getParam('ids');
         $state = $this->getRequest()->getParam('status');
-        $organisation_ids = explode(',' , $ids);
+        
+        $organisationIds = explode(',' , $ids);
         $db = new Model_OrganisationState;
         $not_valid = false;
-
         if ($not_valid)
         {
-            $this->_helper->FlashMessenger->addMessage(array('warning' => "The organisation cannot be changed to the state. Please check that a state to be changed is valid for all selected activities"));
+            $this->_helper->FlashMessenger->addMessage(array('warning' => "The organisation cannot be changed to the state. Please check that a state to be changed is valid for all selected organisations"));
         } else
         {
             if ($state == Iati_WEP_ActivityState::STATUS_PUBLISHED)
@@ -382,19 +394,20 @@ class OrganisationController extends Zend_Controller_Action
                     $this->_helper->FlashMessenger->addMessage(array('error' => "Publisher Id not found. Xml files could not be created. Please go to  <a href='{$this->view->baseUrl()}/wep/edit-defaults'>Change Defaults</a> to add publisher id."));
                 } else
                 {
-                    $db->updateOrganisationState($organisation_ids , (int) $state);
+                    $db->updateOrganisationState($organisationIds , (int) $state);
 
                     // Generate Xml
                     $obj = new Iati_Core_Xml();
-                    $filename = $obj->generateXml('organisation' , $organisation_ids);
-
-                    $wepModel = new Model_Wep();
+                    $fileName = $obj->generateFile('organisation' , $organisationIds);
+                    
+                    $organisationpublishedModel = new Model_OrganisationPublished();
                     $publishedData['publishing_org_id'] = $account_id;
-                    $publishedData['filename'] = $filename;
-                    $publishedData['organisation_count'] = count($organisation_ids);
+                    $publishedData['filename'] = $fileName;
+                    $publishedData['organisation_count'] = count($organisationIds);
                     $publishedData['data_updated_datetime'] = date('Y-m-d H:i:s');
-                    $publishedData['standard'] = 'organisation';
-                    $wepModel->insertRowsToTable('published' , $publishedData);
+                    $publishedData['published_date'] = date('Y-m-d H:i:s');
+                    $publishedData['status'] = 1;
+                    $organisationpublishedModel->savePublishedInfo($publishedData);
 
                     if ($registryInfo->update_registry)
                     {
@@ -404,8 +417,8 @@ class OrganisationController extends Zend_Controller_Action
                         } else
                         {
                             $reg = new Iati_Registry($registryInfo->publisher_id , $registryInfo->api_key);
-                            $modelPublished = new Model_Published();
-                            $files = $modelPublished->getPublishedInfo($account_id);
+                            $organisationpublishedModel = new Model_OrganisationPublished();
+                            $files = $organisationpublishedModel->getPublishedInfo($account_id);
 
                             foreach ($files as $file)
                             {
@@ -415,10 +428,10 @@ class OrganisationController extends Zend_Controller_Action
 
                             if ($reg->getErrors())
                             {
-                                $this->_helper->FlashMessenger->addMessage(array('info' => 'Activities xml files created. ' . $reg->getErrors()));
+                                $this->_helper->FlashMessenger->addMessage(array('info' => 'Organisation xml files created. ' . $reg->getErrors()));
                             } else
                             {
-                                $this->_helper->FlashMessenger->addMessage(array('message' => "Activities published to IATI registry."));
+                                $this->_helper->FlashMessenger->addMessage(array('message' => "Organisation published to IATI registry."));
                             }
                         }
                     } else
@@ -428,22 +441,63 @@ class OrganisationController extends Zend_Controller_Action
                 }
             } else
             {
-                $db->updateOrganisationState($organisation_ids , (int) $state);
+                $db->updateOrganisationState($organisationIds , (int) $state);
             }
         }
-        $this->_redirect('organisation/view-elements');
+        $this->_redirect("organisation/view-elements");
 
     }
-
+    
+    /**
+     * Delete Published Files As Selected 
+     */
     public function deletePublishedFileAction()
     {
         $fileId = $this->_getParam('file_id');
-        $db = new Model_Published();
-        $publishedFiles = $db->deleteByFileId($fileId);
+        $OrganisationPublishedModel = new Model_OrganisationPublished();
+        $publishedFiles = $OrganisationPublishedModel->deleteByFileId($fileId);
 
         $this->_helper->FlashMessenger->addMessage(array('message' => "File Deleted Sucessfully."));
         $this->_redirect('wep/list-published-files');
 
+    }
+    
+    /**
+     * Registered Published Files As Selected 
+     */
+    public function publishInRegistryAction()
+    {
+        $fileIds = explode(',' , $this->_getParam('file_ids'));
+        
+        if(!$fileIds[0]){
+            $this->_helper->FlashMessenger->addMessage(array('info' => "Please select a file to register in IATI Registry."));
+            $this->_redirect('wep/list-published-files');
+        }
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $accountId = $identity->account_id;
+        $modelRegistryInfo = new Model_RegistryInfo();
+        $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($accountId);
+
+        if(!$registryInfo->api_key){
+            $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key not found. Organisation could not be registered in IATI Registry. Please go to <a href='{$this->view->baseUrl()}/wep/edit-defaults'>Change Defaults</a> to add API key."));
+        } else {
+            $reg = new Iati_Registry($registryInfo->publisher_id , $registryInfo->api_key);
+            $organisationPublishedModel = new Model_OrganisationPublished();
+            $files = $organisationPublishedModel->getPublishedInfoByIds($fileIds);
+
+            foreach($files as $file){
+                $reg->prepareOrganisationRegistryData($file);
+                $reg->publishToRegistry();
+            }
+
+            if($reg->getErrors()){
+                $this->_helper->FlashMessenger->addMessage(array('error' => $reg->getErrors()));
+            } else {
+                $this->_helper->FlashMessenger->addMessage(array('message' => "Organisation registered to IATI registry."));
+            }
+        }
+
+        $this->_redirect('wep/list-published-files');
     }
 
     /**
