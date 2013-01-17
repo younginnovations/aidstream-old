@@ -17,11 +17,11 @@ class WepController extends Zend_Controller_Action
         $this->view->blockManager()->enable('partial/primarymenu.phtml');
         $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
         $this->view->blockManager()->enable('partial/published-list.phtml');
+        $this->view->blockManager()->enable('partial/organisation-data.phtml');
         
         //Using Ajax for transaction element to load in view-activity page
         $ajaxContext = $this->_helper->getHelper('AjaxContext');
-        $ajaxContext->addActionContext('transaction', 'html')->initContext('html');
-
+        $ajaxContext->addActionContext('transaction', 'html')->initContext('html'); 
         // for role user check if the user has permission to add, publish ,if not disable menu.
         if($identity->role == 'user'){
             $model = new Model_Wep();
@@ -90,7 +90,7 @@ class WepController extends Zend_Controller_Action
     }
 
     public function listActivitiesAction()
-    {
+    { 
         //@todo list only activities related to the user
         if ($_GET) {
             if ($this->getRequest()->getParam('type')) {
@@ -255,7 +255,7 @@ class WepController extends Zend_Controller_Action
             $activities = $wepModel->listAll('iati_activities', 'account_id', $identity->account_id);
             $activities_id = $activities[0]['id'];
         }
-
+        
         $model = new Model_Viewcode();
         $rowSet = $model->getRowsByFields('default_field_values' , 'account_id' , $identity->account_id);
 
@@ -510,6 +510,7 @@ class WepController extends Zend_Controller_Action
         $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
         $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
         $this->view->blockManager()->disable('partial/published-list.phtml');
+        $this->view->blockManager()->disable('partial/organisation-data.phtml');        
     }
 
     public function editActivityElementsAction()
@@ -641,6 +642,7 @@ class WepController extends Zend_Controller_Action
         $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
         $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
         $this->view->blockManager()->disable('partial/published-list.phtml');
+        $this->view->blockManager()->disable('partial/organisation-data.phtml');
 
         $this->view->form = $a;
     }
@@ -726,7 +728,7 @@ class WepController extends Zend_Controller_Action
     }
 
     public function viewActivitiesAction()
-    {
+    { 
         if(Simplified_Model_Simplified::isSimplified()){
             $this->_redirect('simplified/default/view-activities');
         }
@@ -836,6 +838,7 @@ class WepController extends Zend_Controller_Action
         $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
         $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
         $this->view->blockManager()->disable('partial/published-list.phtml');
+        $this->view->blockManager()->disable('partial/organisation-data.phtml');
     }
 
     public function editActivityAction()
@@ -843,7 +846,7 @@ class WepController extends Zend_Controller_Action
         $identity = Zend_Auth::getInstance()->getIdentity();
         if ($_GET) {
             $wepModel = new Model_Wep();
-            if(isset($_GET['activities_id'])){
+            if(isset($_GET['activities_id'])){ 
                 $exists = $wepModel->getRowById('iati_activities', 'id', $_GET['activities_id']);
                 if(!$exists){
                     $this->_helper->FlashMessenger->addMessage(array('message' => "Activities does not exist."));
@@ -1306,7 +1309,7 @@ class WepController extends Zend_Controller_Action
     public function publishInRegistryAction()
     {
         $fileIds = explode(',' , $this->_getParam('file_ids'));
-
+        
         if(!$fileIds[0]){
             $this->_helper->FlashMessenger->addMessage(array('info' => "Please select a file to register in IATI Registry."));
             $this->_redirect('wep/list-published-files');
@@ -1379,13 +1382,32 @@ class WepController extends Zend_Controller_Action
         if($registryInfo->update_registry){
             $form->push_to_registry->setAttrib('disabled', 'disabled');
         }
+        
+        // Create Registry Form For Activities
+        $formForActivities = new Form_Wep_PublishToRegistry();
+        $formForActivities->setAction($this->view->baseUrl().'/wep/publish-in-registry');
+        if($registryInfo->update_registry){
+            $formForActivities->push_to_registry->setAttrib('disabled', 'disabled');
+        }
+        $this->view->formForActivities = $formForActivities;
+        
+        // Create Registry Form For Organisation
+        $formForOrganisation = new Form_Wep_PublishToRegistryForOrganisation();
+        $formForOrganisation->setAction($this->view->baseUrl().'/organisation/publish-in-registry');
+        if($registryInfo->update_registry){
+            $formForOrganisation->push_to_registry_for_organisation->setAttrib('disabled', 'disabled');
+        }
+        $this->view->formForOrganisation = $formForOrganisation;
 
         $db = new Model_Published();
-        $publishedFiles = $db->getAllPublishedInfo($orgId);
-
-        $this->view->published_files = $publishedFiles;
+        // Fetch Publish Data For Activities
+        $publishedFilesOfActivities = $db->getAllOrganisationPublishedInfo($orgId,'activities');
+        $this->view->published_files_activities = $publishedFilesOfActivities;
+        // Fetch Publish Data For Organisation
+        $publishedFilesOfOrganisation = $db->getAllOrganisationPublishedInfo($orgId,'organisation');
+        $this->view->published_files_organisation = $publishedFilesOfOrganisation;
+        
         $this->view->publish_permission = $publishPermission;
-        $this->view->form = $form;
     }
 
     public function deletePublishedFileAction()
@@ -1505,6 +1527,7 @@ class WepController extends Zend_Controller_Action
         $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
         $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
         $this->view->blockManager()->disable('partial/published-list.phtml');
+        $this->view->blockManager()->enable('partial/organisation-data.phtml'); 
     }
     
     public function updateReportingOrgAction()
