@@ -35,7 +35,7 @@ class Model_Organisation extends Zend_Db_Table_Abstract
     public function checkOrganisationPresent($account_id)
     {
         $rowSet = $this->select()->where("account_id = ?",$account_id);
-        $result = $this->fetchAll($rowSet);
+        $result = $this->fetchRow($rowSet);
         if($result)
         {   
             $result = $result->toArray();
