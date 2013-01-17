@@ -40,8 +40,8 @@ class OrganisationController extends Zend_Controller_Action
 
     public function addElementsAction()
     {
-        $elementClass = $this->_getParam('classname');
-        $parentId = $this->_getParam('parent_id');
+        $elementClass = $this->_getParam('className');
+        $parentId = $this->_getParam('parentId');
 
         if (!$elementClass)
         {
@@ -57,7 +57,7 @@ class OrganisationController extends Zend_Controller_Action
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();
             if ($form->validate())
-            {
+            {   
                 $id = $element->save($data[$element->getClassName()] , $parentId);
 
                 //Update Activity Hash
@@ -82,8 +82,7 @@ class OrganisationController extends Zend_Controller_Action
                     $type = 'message';
                     $message = $element->getClassName() . " successfully updated.";
                 }
-                $this->_helper->FlashMessenger
-                        ->addMessage(array($type => $message));
+                $this->_helper->FlashMessenger->addMessage(array($type => $message));
                 if ($parentId)
                 {
                     $idParam = "parent_id={$parentId}";
@@ -95,7 +94,7 @@ class OrganisationController extends Zend_Controller_Action
                 {
                     $this->_redirect('organisation/view-elements?parent_id=' . $parentId);
                 }
-                $this->_redirect("/organisation/edit-elements?classname={$elementClass}&${idParam}");
+                $this->_redirect("/organisation/edit-elements?className={$elementClass}&${idParam}");
             } else
             {
                 $form->populate($data);
@@ -115,7 +114,7 @@ class OrganisationController extends Zend_Controller_Action
         $this->view->title = $title . " Organisation File";
 
         //Set organisation id to view 
-        $this->view->parent_id = $parentId;
+        $this->view->parentId = $parentId;
 
         $this->view->blockManager()->enable('partial/organisation-menu.phtml');
         $this->view->blockManager()->disable('partial/primarymenu.phtml');
@@ -125,12 +124,15 @@ class OrganisationController extends Zend_Controller_Action
         $this->view->blockManager()->disable('partial/organisation-data.phtml');
 
     }
-
+    
+    /**
+     * Edit Element Of An Organisation 
+     */
     public function editElementsAction()
     {
-        $elementClass = $this->_getParam('classname');
+        $elementClass = $this->_getParam('className');
         $eleId = $this->_getParam('id');
-        $parentId = $this->_getParam('parent_id');
+        $parentId = $this->_getParam('parentId');
 
         if (!$elementClass)
         {
@@ -152,7 +154,7 @@ class OrganisationController extends Zend_Controller_Action
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();
             if ($form->validate())
-            {
+            {  
                 $element->save($data[$element->getClassName()] , $parentId);
 
                 //Update Activity Hash
@@ -177,12 +179,11 @@ class OrganisationController extends Zend_Controller_Action
                     $type = 'message';
                     $message = $element->getClassName() . " successfully updated.";
                 }
-                $this->_helper->FlashMessenger
-                        ->addMessage(array($type => $message));
+                $this->_helper->FlashMessenger->addMessage(array($type => $message));
 
                 if ($_POST['save_and_view'])
                 {
-                    $this->_redirect('organisation/view-elements?parent_id=' . $parentId);
+                    $this->_redirect('organisation/view-elements/?parentId=' . $parentId);
                 }
             } else
             {
@@ -201,13 +202,13 @@ class OrganisationController extends Zend_Controller_Action
             if (empty($data[$element->getClassName()]))
             {
                 $this->_helper->FlashMessenger->addMessage(array('info' => "Data not found for the element. Please add new data"));
-                $this->_redirect('/organisation/add-elements?classname=' . $elementClass . '&parent_id=' . $parentId);
+                $this->_redirect("/organisation/add-elements/?className=$elementClass&parentId=$parentId");
             }
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();
         }
 
-        if ($element->getClassName() == 'ReportingOrg' || $element->getClassName() == Identifier)
+        if ($element->getClassName() == 'ReportingOrg' || $element->getClassName() == 'Identifier')
         {
             $form->addElement('submit' , 'Update');
         } else
@@ -217,14 +218,14 @@ class OrganisationController extends Zend_Controller_Action
 
         $this->view->form = $form;
 
-        // Fetch Title
+        // Fetch title
         $wepModel = new Model_Wep();
         $reportingOrg = $wepModel->getRowsByFields('iati_organisation/reporting_org' , 'organisation_id' , $parentId);
         $title = $reportingOrg[0]['text'];
         $this->view->title = $title . " Organisation File";
 
         //Set organisation id to view 
-        $this->view->parent_id = $parentId;
+        $this->view->parentId = $parentId;
 
         $this->view->blockManager()->enable('partial/organisation-menu.phtml');
         $this->view->blockManager()->disable('partial/primarymenu.phtml');
@@ -259,63 +260,68 @@ class OrganisationController extends Zend_Controller_Action
         $this->_redirect("/wep/dashboard");
 
     }
-
+    
+    /**
+     * Check Presence of an organisation for a login user 
+     * If present, redirect to view-elements of an organisation
+     * Else, redirect to add new organisation
+     */
     public function organisationDataAction()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
-        $account_id = $identity->account_id;
-
+        
+        // Check organisation is present or not for a login user
         $organisationModelObj = new Model_Organisation();
-        $organisation_id = $organisationModelObj->checkOrganisationPresent($account_id);
-        if (!$organisation_id)
+        $organisationId = $organisationModelObj->checkOrganisationPresent($identity->account_id);
+        if (!$organisationId)
         {
             $this->_redirect('organisation/add-organisation');
         }
-        $this->_redirect('organisation/view-elements/?parent_id=' . $organisation_id);
+        $this->_redirect('organisation/view-elements/?parentId=' . $organisationId);
 
     }
-
+    
+    /**
+     * Add New organisation
+     * Saved Default value 
+     */
     public function addOrganisationAction()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
-
+        
+        // Fetch default value for an organisation
         $model = new Model_Viewcode();
         $rowSet = $model->getRowsByFields('default_field_values' , 'account_id' , $identity->account_id);
-
         $defaultValues = unserialize($rowSet[0]['object']);
         $default = $defaultValues->getDefaultFields();
-        $wepModel = new Model_Wep();
-
-        $reporting_org_info['@reporting_org_name'] = $default['reporting_org'];
-        $reporting_org_info['@reporting_org_ref'] = $default['reporting_org_ref'];
-        $reporting_org_info['@reporting_org_type'] = $wepModel->fetchValueById('OrganisationType' , $default['reporting_org_type'] , 'Code');
-        $reporting_org_info['@reporting_org_lang'] = $wepModel->fetchValueById('Language' , $default['reporting_org_lang'] , 'Name');
-
-        $iatiIdentifier['organisation_identifier'] = $default['reporting_org_ref'];
-
+        
+        // Saved default value for an organisation
         $organisationModel = new Model_Organisation();
-        $organisation_id = $organisationModel->createOrganisation($identity->account_id , $default , $iatiIdentifier);
+        $organisationId = $organisationModel->createOrganisation($identity->account_id , $default);
 
         //Create Activity Hash
         $organisationHashModel = new Model_OrganisationHash();
-        $updated = $organisationHashModel->updateHash($organisation_id);
+        $updated = $organisationHashModel->updateHash($organisationId);
 
-        $this->_redirect('organisation/view-elements/parent_id=' . $organisation_id);
+        $this->_redirect('organisation/view-elements/parentId=' . $organisationId);
 
     }
-
+    
+    /**
+     * Fetch Elements of an organisation 
+     */
     public function viewElementsAction()
     {
-        $organisation_id = $this->getRequest()->getParam('parent_id');
+        $organisationId = $this->getRequest()->getParam('parentId');
 
-        // Fetch Organisation Data
+        // Fetch organisation data
         $organisationClassObj = new Iati_Aidstream_Element_Organisation();
-        $organisations = $organisationClassObj->fetchData($organisation_id , false);
+        $organisations = $organisationClassObj->fetchData($organisationId , false);
         $this->view->organisations = $organisations;
 
-        // Fetch Title
+        // Fetch title
         $wepModel = new Model_Wep();
-        $reportingOrg = $wepModel->getRowsByFields('iati_organisation/reporting_org' , 'organisation_id' , $organisation_id);
+        $reportingOrg = $wepModel->getRowsByFields('iati_organisation/reporting_org' , 'organisation_id' , $organisationId);
         $title = $reportingOrg[0]['text'];
         $this->view->title = $title . " Organisation File";
 
@@ -326,7 +332,7 @@ class OrganisationController extends Zend_Controller_Action
         {
             $status_form = new Form_Wep_ActivityChangeState();
             $status_form->setAction($this->view->baseUrl() . "/organisation/update-state");
-            $status_form->ids->setValue($organisation_id);
+            $status_form->ids->setValue($organisationId);
             $status_form->status->setValue($next_state);
             $status_form->change_state->setLabel(Iati_WEP_ActivityState::getStatus($next_state));
         } else
