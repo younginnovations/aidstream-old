@@ -30,7 +30,8 @@ class Iati_Core_BaseElement
     protected $tableName;
     protected $db;
     protected $count;
-    
+
+
     public function __construct()
     {
         $this->db = new Zend_Db_Table($this->tableName);
@@ -75,7 +76,10 @@ class Iati_Core_BaseElement
     {
         return $this->className;
     }
-    
+    public function getTableName()
+    {
+        return $this->tableName;
+    } 
     /**
      * Function to get the full name of the element i.e name with parent name
      * Fullname can be used to directly create the element.
@@ -228,12 +232,12 @@ class Iati_Core_BaseElement
      * @param Integer $parentId Id of the parent of the element for fetching the data
      */
     public function save($data , $parentId = null)
-    {
+    {  
         if($parentId){
             $parentColumnName = $this->getParentCoulmn();
         }
         if($this->isMultiple){
-            foreach($data as $elementData){
+            foreach($data as $elementData){ 
                 $elementsData = $this->getElementsData($elementData);
                 if($this->hasData($elementsData) || !empty($this->childElements)){
                     if($parentId){
@@ -437,7 +441,7 @@ class Iati_Core_BaseElement
      */
     public function getElementIdsFromParent($parentColumn , $parentId)
     {
-        $select = $this->db->select()->from($this , array('id'))->where("$parentColumn = ?" , $parentId);
+        $select = $this->db->select()->from($this->tableName , array('id'))->where("$parentColumn = ?" , $parentId);
         $ids = $this->db->fetchAll($select);
         if($ids){
             return $ids->toArray();
