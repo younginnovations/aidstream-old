@@ -475,8 +475,23 @@ function initialize() {
 		dojo.query('#file_ids').attr('value',ids.join(","));
 		
 		if(confirm("Are you sure you want to publish the files in IATI Registry?"))
-		{
+		{ 
 		    dojo.byId('publish-to-registry').submit();
+		}
+	    }
+	},
+        
+        "#push_to_registry_for_organisation" : {
+	    "onclick" : function (evt) {
+		var ids = new Array();
+	    	dojo.query('.published-files-of-organisation-list-table  input[type=checkbox]:checked').forEach(function(tag){
+			ids.push(tag.value);
+		    });
+		dojo.query('#file_ids').attr('value',ids.join(","));
+		
+		if(confirm("Are you sure you want to publish the files in IATI Registry?"))
+		{ 
+		    dojo.byId('publish-to-registry-organisation').submit();
 		}
 	    }
 	},
@@ -1238,7 +1253,7 @@ function initialize() {
                     
 		    var parentNode = dojo.NodeList(removeNode.parentNode);
 		    var removeId = dojo.attr(parentNode.query('input[type="hidden"]')[0], 'value');
-		    if (parseInt(removeId)) {
+		    if (parseInt(removeId)) { 
 			dojo.xhrGet({
 			    url: removeUrl ,
 			    handleAs: 'text',
