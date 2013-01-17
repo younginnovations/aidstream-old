@@ -23,18 +23,18 @@ class Model_Organisation extends Zend_Db_Table_Abstract
         $reporting_org['organisation_Id'] = $organisationId;
         $reporting_org_id = $wepModelObj->insertRowsToTable('iati_organisation/reporting_org', $reporting_org);
 
-        //Save Iati Identifier
-        $iati_identifier = array();
-        $iati_identifier['text'] = trim($iatiIdentifier['organisation_identifier']);
-        $iati_identifier['organisation_Id'] = $organisationId;
-        $iati_identifier_id = $wepModelObj->insertRowsToTable('iati_organisation/identifier', $iati_identifier);
+        //Save  Identifier
+        $identifier = array();
+        $identifier['text'] = trim($default['reporting_org_ref']);
+        $identifier['organisation_Id'] = $organisationId;
+        $identifier_id = $wepModelObj->insertRowsToTable('iati_organisation/identifier', $identifier);
 
         return (int) $organisationId;
     }
     
-    public function checkOrganisationPresent($account_id)
+    public function checkOrganisationPresent($accountId)
     {
-        $rowSet = $this->select()->where("account_id = ?",$account_id);
+        $rowSet = $this->select()->where("account_id = ?",$accountId);
         $result = $this->fetchRow($rowSet);
         if($result)
         {   
