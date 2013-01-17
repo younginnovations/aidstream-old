@@ -37,7 +37,10 @@ class OrganisationController extends Zend_Controller_Action
         $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
 
     }
-
+    
+    /**
+     * Add Element Of An Organisation  
+     */
     public function addElementsAction()
     {
         $elementClass = $this->_getParam('className');
@@ -60,7 +63,7 @@ class OrganisationController extends Zend_Controller_Action
             {   
                 $id = $element->save($data[$element->getClassName()] , $parentId);
 
-                //Update Activity Hash
+                //Update organisation hash
                 $organisationHashModel = new Model_OrganisationHash();
                 $updated = $organisationHashModel->updateHash($parentId);
                 if (!$updated)
@@ -85,16 +88,16 @@ class OrganisationController extends Zend_Controller_Action
                 $this->_helper->FlashMessenger->addMessage(array($type => $message));
                 if ($parentId)
                 {
-                    $idParam = "parent_id={$parentId}";
+                    $idParam = "parentId={$parentId}";
                 } else
                 {
                     $idParam = "id={$id}";
                 }
                 if ($_POST['save_and_view'])
                 {
-                    $this->_redirect('organisation/view-elements?parent_id=' . $parentId);
+                    $this->_redirect("organisation/view-elements/?parentId=$parentId");
                 }
-                $this->_redirect("/organisation/edit-elements?className={$elementClass}&${idParam}");
+                $this->_redirect("/organisation/edit-elements/?className={$elementClass}&${idParam}");
             } else
             {
                 $form->populate($data);
@@ -157,7 +160,7 @@ class OrganisationController extends Zend_Controller_Action
             {  
                 $element->save($data[$element->getClassName()] , $parentId);
 
-                //Update Activity Hash
+                //Update organisation hash
                 $organisationHashModel = new Model_OrganisationHash();
                 $updated = $organisationHashModel->updateHash($parentId);
                 if (!$updated)
