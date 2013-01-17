@@ -40,8 +40,16 @@
                             print "<li $class ><div class='help Organisation_Identifier'></div><a $attributes href=$href2>Identifier</a></li>";
 
                             // Name Menu
-                            $attributes = (getRowSet('Name' , $url['parent_id'])) ? 'class = "active"' : '';
-                            $href3 = $this->baseUrl() . "/organisation/edit-elements/?parent_id=" . $url['parent_id'] . "&classname=Organisation_Name";
+                            $attributes = '';
+                            if (getRowSet('Name' , $url['parent_id']))
+                            {
+                                $attributes = 'class = "active"';
+                                $href3 = $this->baseUrl() . "/organisation/edit-elements/?parent_id=" . $url['parent_id'] . "&classname=Organisation_Name" . $element;
+                            }
+                            else
+                            {
+                                $href3 = $this->baseUrl() . "/organisation/add-elements/?parent_id=" . $url['parent_id'] . "&classname=Organisation_Name" . $element;
+                            }
                             $class = '';
                             if ($paramValue == 'Name')
                             {
@@ -66,10 +74,14 @@
                             if (getRowSet($element , $url['parent_id']))
                             {
                                 $attributes = 'class = "active"';
+                                $href = $this->baseUrl() . "/organisation/edit-elements/?parent_id=" . $url['parent_id'] . "&classname=Organisation_" . $element;
+                            }
+                            else
+                            {
+                                $href = $this->baseUrl() . "/organisation/add-elements/?parent_id=" . $url['parent_id'] . "&classname=Organisation_" . $element;
                             }
                             $className = "Iati_Aidstream_Element_Organisation_" . $element;
-                            $classObj = new $className;
-                            $href = $this->baseUrl() . "/organisation/edit-elements/?parent_id=" . $url['parent_id'] . "&classname=Organisation_" . $element;
+                            $classObj = new $className;                            
                             $displayName = $classObj->getDisplayName();
                             $key = $displayName;
                             $class = '';
