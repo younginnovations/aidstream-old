@@ -467,8 +467,8 @@ class OrganisationController extends Zend_Controller_Action
      */
     public function publishInRegistryAction()
     {
-        $fileIds = explode(',' , $this->_getParam('file_ids'));
-        
+        $fileIds = explode(',' , $this->_getParam('organisation_file_ids'));
+       
         if(!$fileIds[0]){
             $this->_helper->FlashMessenger->addMessage(array('info' => "Please select a file to register in IATI Registry."));
             $this->_redirect('wep/list-published-files');
