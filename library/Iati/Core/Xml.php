@@ -11,9 +11,16 @@ class Iati_Core_Xml
     protected $xml;
     protected $xmlPath;
     protected $childrenIds;
-    
-    public function setXmlPath($path){
-        $this->xmlPath = $path;    
+
+
+    /**
+     * Set XmlPath 
+     */
+    public function __construct()
+    {
+        $config = new Zend_Config_Ini(APPLICATION_PATH.'/configs/application.ini', APPLICATION_ENV);       
+        $this->xmlPath = $config->public_folder.$config->xml_folder;
+        
     }
     
     public function setChildrenIds($childrenIds){
@@ -35,7 +42,34 @@ class Iati_Core_Xml
                 $childElement->getXml($childId , false ,  $this->xml);
             }
         }
-
-        echo $this->xml->asXML();exit;
+        return $this->xml->asXML();
     }
+    
+    public function generateFile($name , $ids = array())
+    {  
+        $filename = $this->generateFileName()."-org.xml"; 
+        $fp = fopen($this->xmlPath.$filename,'w');
+        fwrite($fp,$this->generateXml($name , $ids));
+        fclose($fp);
+        
+        return $filename;
+    }
+    
+    /**
+     * Generate the organisation file name 
+     * Used user'name from account table to generate file name
+     * @return type string
+     */
+    public function generateFileName()
+    {
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $account_id = $identity->account_id;
+                
+        // Get Publisher Name
+        $wepModelObj = new Model_Wep();
+        $accountInfo = $wepModelObj->getRowsByFields('account', 'id' , $account_id);
+        $publisherName = $accountInfo[0]['name'];
+        
+        return $publisherName;
+    }        
 }
