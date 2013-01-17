@@ -45,14 +45,20 @@ class Iati_Core_Xml
         return $this->xml->asXML();
     }
     
+    /**
+     * Write generate xml data to file 
+     * @param string $name,organisation
+     * @param array $ids,organisation ids
+     * @return string ,file name
+     */
     public function generateFile($name , $ids = array())
     {  
-        $filename = $this->generateFileName()."-org.xml"; 
-        $fp = fopen($this->xmlPath.$filename,'w');
+        $fileName = $this->generateFileName()."-org.xml"; 
+        $fp = fopen($this->xmlPath.$fileName,'w');
         fwrite($fp,$this->generateXml($name , $ids));
         fclose($fp);
         
-        return $filename;
+        return $fileName;
     }
     
     /**
@@ -63,11 +69,10 @@ class Iati_Core_Xml
     public function generateFileName()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
-        $account_id = $identity->account_id;
                 
         // Get Publisher Name
-        $wepModelObj = new Model_Wep();
-        $accountInfo = $wepModelObj->getRowsByFields('account', 'id' , $account_id);
+        $wepModel = new Model_Wep();
+        $accountInfo = $wepModel->getRowsByFields('account', 'id' , $identity->account_id);
         $publisherName = $accountInfo[0]['name'];
         
         return $publisherName;
