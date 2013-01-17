@@ -487,7 +487,7 @@ function initialize() {
 	    	dojo.query('.published-files-of-organisation-list-table  input[type=checkbox]:checked').forEach(function(tag){
 			ids.push(tag.value);
 		    });
-		dojo.query('#file_ids').attr('value',ids.join(","));
+		dojo.query('#organisation_file_ids').attr('value',ids.join(","));
 		
 		if(confirm("Are you sure you want to publish the files in IATI Registry?"))
 		{ 
