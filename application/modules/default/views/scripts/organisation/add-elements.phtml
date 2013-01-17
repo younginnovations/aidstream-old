@@ -7,7 +7,7 @@
     </div>
     
     <!--Display link for view elements of an organisation-->
-    <span class="viewer-link"><?php echo $this->l('View Elements', 'organisation/view-elements/parentId/'. $this->parentId)?></span>
+    <span class="viewer-link"><?php echo $this->l('View Elements', "organisation/view-elements/?parentId=$this->parentId"); ?></span>
     
     <div class="clear"></div>
     
