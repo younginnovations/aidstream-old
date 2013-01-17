@@ -189,7 +189,7 @@ class Iati_Registry
     
      /**
      *
-     * Generate the data to be feed to the registry.
+     * Generate the data to be feed to the registry for organisation.
      * @param Array $fileInfo, example
      * array(
      * 'file_id' => '1',
@@ -203,7 +203,7 @@ class Iati_Registry
     {
         $this->file_id = $fileInfo['id'];
         $this->file = $fileInfo['filename'];
-        $this->organisation_count = $fileInfo['count'];
+        $this->organisation_count = $fileInfo['organisation_count'];
         $this->organisation_updated_datetime = $fileInfo['data_updated_datetime'];
         $this->is_pushed_to_registry = $fileInfo['pushed_to_registry'];
 
@@ -219,7 +219,7 @@ class Iati_Registry
 
     /**
      *
-     * Generate json input to feed to the registry.
+     * Generate json input to feed to the registry for organisation.
      */
     protected function _prepareOrganisationRegistryInputJson()
     {
@@ -238,8 +238,8 @@ class Iati_Registry
                                     )
                                 ),
             "extras"=>array(
-                    "filetype" => "activity",
-                    "country" => $this->country,
+                    "filetype" => "organisation",
+                    "country" => '',
                     "activity_period-from" => '',
                     "activity_period-to" => '',
                     "data_updated"=> date('Y-m-d',strtotime($this->organisation_updated_datetime)),
