@@ -185,7 +185,8 @@ class Iati_WEP_Publish
                     'country_name' => $country,
                     'data_updated_datetime' => $dataLastUpdatedDate,
                     'published_date' => date('Y-m-d h:i:s'),
-                    'status' => 1
+                    'status' => 1,
+                    'standard'=>'activities'
                     );
         $db->savePublishedInfo($data);
     }
