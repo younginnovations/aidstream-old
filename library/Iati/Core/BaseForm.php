@@ -202,7 +202,7 @@ abstract class Iati_Core_BaseForm extends Zend_Form
         }
         $remove = new Iati_Form_Element_Note('remove');
         $remove->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'organisation-remove-element element-remove-this'));
-        $remove->setValue("<a href='#' class='button' value='{$className}'> Remove element</a>");
+        $remove->setValue("<a href='#' class='button' value='{$className}'> Remove this</a>");
         $this->addElement($remove);        
     }
     
