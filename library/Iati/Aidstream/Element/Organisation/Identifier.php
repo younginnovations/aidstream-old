@@ -6,4 +6,12 @@ class Iati_Aidstream_Element_Organisation_Identifier extends Iati_Core_BaseEleme
     protected $displayName = 'Identifier';
     protected $tableName = 'iati_organisation/identifier';
     protected $attribs = array('id' ,'text');
+    
+    public function getForm($ajax = false)
+    {
+        $formname = preg_replace('/Element/' , 'Form' , get_class($this));
+        $eleForm = new $formname(array('element' => $this));
+        $eleForm->wrapForm($this->getDisplayName() , $this->getIsRequired());
+        return $eleForm->getFormDefination();        
+    }
 }
