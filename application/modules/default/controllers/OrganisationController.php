@@ -210,14 +210,7 @@ class OrganisationController extends Zend_Controller_Action
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();
         }
-
-        if ($element->getClassName() == 'ReportingOrg' || $element->getClassName() == 'Identifier')
-        {
-            $form->addElement('submit' , 'Update');
-        } else
-        {
-            $form->addSubmitButton('Save');
-        }
+        $form->addSubmitButton('Save');
 
         $this->view->form = $form;
 
@@ -506,8 +499,8 @@ class OrganisationController extends Zend_Controller_Action
     public function updateDefaultAction()
     {
         $elementName = $this->getRequest()->getParam('elementName');
-        $elementId = $_POST[$elementName]['id'];
-
+        $elementId = $_POST['id'];
+        
         if (!$elementName)
         {
             $this->_helper->FlashMessenger->addMessage(array('error' => "Could not fetch element Name."));
@@ -547,7 +540,7 @@ class OrganisationController extends Zend_Controller_Action
             $message = "$elementName updated sucessfully";
         }
         $this->_helper->FlashMessenger->addMessage(array($type => $message));
-        $this->_redirect("/organisation/edit-elements/?parent_id=" . $organisationId . "&classname=Organisation_$elementName");
+        $this->_redirect("/organisation/edit-elements/?parentId=" . $organisationId . "&className=Organisation_$elementName");
 
     }
 
