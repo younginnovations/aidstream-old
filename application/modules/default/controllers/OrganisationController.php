@@ -83,7 +83,7 @@ class OrganisationController extends Zend_Controller_Action
                     $db = new Model_OrganisationState;
                     $db->updateOrganisationState($parentId , Iati_WEP_ActivityState::STATUS_EDITING);
                     $type = 'message';
-                    $message = $element->getDisplayName() . " Successfully Updated.";
+                    $message = $element->getDisplayName() . " Successfully Inserted..";
                 }
                 $this->_helper->FlashMessenger->addMessage(array($type => $message));
                 if ($parentId)
