@@ -1,6 +1,6 @@
 @charset "utf-8";
 /* CSS Document */
-*
+g*
 {
 	margin: 0;
 	padding: 0;
@@ -1348,9 +1348,13 @@ fieldset.remove-highlight , .remove-highlight
     color: #009ADA;
 }
 
-.addmore:hover
+.addmore:hover,.add-more:hover
 {
 	background-color:#dfdfdf;
+}
+
+.add-more a {
+	display: block;
 }
 
 #form-elements-wrapper div{
@@ -2803,13 +2807,15 @@ button#cd-cancel, button#cd-ok
 }
 
 .element-remove-this {
-	display: block;
-	padding: 0 0 10px 10px;
+	display: inline-block;
+	padding: 0 0 0 10px;
+	margin-bottom: 10px;
 }
 
 .element-add-more{
 	display: block;
 	padding: 0 10px;
+	
 }
 
 .element-remove-this .button:hover {
@@ -3279,7 +3285,7 @@ td.activity_view_label {
 
 
 .activity-title {
-	margin-bottom: 24px;
+	margin-bottom: 10px;
 }
 	
 .activity-title span {
@@ -3530,7 +3536,7 @@ ul.style-2 {
 
 
 .down-arrow,.transaction-down-arrow{
-	background: #fff url(../images/activity-arrow.png) no-repeat 28px 14px!important;
+	background: #fff url(../images/activity-arrow.png) no-repeat 28px 12px!important;
         display: block;
         width: 526px;
 }
@@ -3557,6 +3563,7 @@ ul.style-2 li span {
 	padding-left: 44px;
 /*        display: block;*/
         cursor: pointer;
+		line-height: 32px;
 }
 
 ul.style-2-drop {
@@ -3592,13 +3599,14 @@ ul.style-2-drop li span.name {
 }
 
 ul.style-2-drop li span.infom {
-    width: 296px;
+    width: 356px;
 }
 
 ul.style-2-drop li span.info {
 	color: #333;
 	display: inline-block;
 }
+
 
 /*end of style2*/
 
@@ -3747,7 +3755,7 @@ li.indicator ul.first li {
 }
 
 .dropdown-level{
-	background: url(../images/down-arrow.png) no-repeat 26px 16px!important;
+	background: url(../images/down-arrow.png) no-repeat 26px 13px!important;
         width: 526px;
 }
 
@@ -3787,6 +3795,8 @@ span.name {
 
 span.infom {
     color: #333!important;
+	display: inline-block;
+	line-height: 28px!important;
 }
 
 ul.style-4.inner li {
