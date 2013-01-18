@@ -97,30 +97,24 @@ switch($identity->role){
                         'action'     => 'edit-activity',
                     ),
                     array(
-                        'label' => 'Organisations Data',
-                        'module'     => 'default',
-                        'controller' => 'organisation',
-                        'action'     => 'organisation-data',
-                        'pages' => array(
-                            array(
-                                'label' => 'View Elements',
+                        'label' => 'View Organisation Elements',
                                 'module'     => 'default',
                                 'controller' => 'organisation',
                                 'action'     => 'view-elements',
-                            ),
-                            array(
-                                'label' => 'Add-Element',
-                                'module'     => 'default',
-                                'controller' => 'organisation',
-                                'action'     => 'add-elements',
-                            ),
-                            array(
-                                'label' => 'Edit-Element',
-                                'module'     => 'default',
-                                'controller' => 'organisation',
-                                'action'     => 'edit-elements',
-                            ),      
-                         )
+                                'pages' => array(
+                                        array(
+                                            'label' => 'Add-Element',
+                                            'module'     => 'default',
+                                            'controller' => 'organisation',
+                                            'action'     => 'add-elements',
+                                        ),
+                                        array(
+                                            'label' => 'Edit-Element',
+                                            'module'     => 'default',
+                                            'controller' => 'organisation',
+                                            'action'     => 'edit-elements',
+                                        ),      
+                                )
                     ),
                     array(
                         'label' => 'My Profile',
