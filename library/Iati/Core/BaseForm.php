@@ -167,7 +167,9 @@ abstract class Iati_Core_BaseForm extends Zend_Form
     public function getForm()
     {
         $form = $this->getFormDefination();
-        $form->populate($this->data);
+        if($this->data){
+            $form->populate($this->data);
+        }
         $count = $this->countElement($this->element->getClassName());
         return $form;
     }
