@@ -83,7 +83,7 @@ class OrganisationController extends Zend_Controller_Action
                     $db = new Model_OrganisationState;
                     $db->updateOrganisationState($parentId , Iati_WEP_ActivityState::STATUS_EDITING);
                     $type = 'message';
-                    $message = $element->getDisplayName() . " successfully updated.";
+                    $message = $element->getDisplayName() . " Successfully Updated.";
                 }
                 $this->_helper->FlashMessenger->addMessage(array($type => $message));
                 if ($parentId)
@@ -180,7 +180,7 @@ class OrganisationController extends Zend_Controller_Action
                     $db = new Model_OrganisationState;
                     $db->updateOrganisationState($parentId , Iati_WEP_ActivityState::STATUS_EDITING);
                     $type = 'message';
-                    $message = $element->getDisplayName() . " successfully updated.";
+                    $message = $element->getDisplayName() . " Successfully Updated.";
                 }
                 $this->_helper->FlashMessenger->addMessage(array($type => $message));
 
@@ -527,7 +527,12 @@ class OrganisationController extends Zend_Controller_Action
             $db = new Model_OrganisationState();
             $db->updateOrganisationState($organisationId , Iati_WEP_ActivityState::STATUS_EDITING);
             $type = 'message';
-            $message = "$elementName updated sucessfully";
+            // Get display name
+            $className = "Iati_Aidstream_Element_Organisation_$elementName";
+            $elementClassObj = new $className;
+            $displayName = $elementClassObj->getDisplayName();
+            
+            $message = "$displayName Updated Sucessfully";
         }
         $this->_helper->FlashMessenger->addMessage(array($type => $message));
         $this->_redirect("/organisation/edit-elements/?parentId=" . $organisationId . "&className=Organisation_$elementName");
