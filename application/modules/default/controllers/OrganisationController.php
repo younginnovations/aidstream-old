@@ -204,7 +204,6 @@ class OrganisationController extends Zend_Controller_Action
             }
             if (empty($data[$element->getClassName()]))
             {
-                $this->_helper->FlashMessenger->addMessage(array('info' => "Data not found for the element. Please add new data"));
                 $this->_redirect("/organisation/add-elements/?className=$elementClass&parentId=$parentId");
             }
             $element->setData($data[$element->getClassName()]);
