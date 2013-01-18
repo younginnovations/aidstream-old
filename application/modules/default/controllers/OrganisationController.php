@@ -308,15 +308,6 @@ class OrganisationController extends Zend_Controller_Action
     public function viewElementsAction()
     {
         $organisationId = $this->getRequest()->getParam('parentId');
-        
-        // Fetch organisation id for a login user
-        // Mainly used for update-state action to redirect to view-elements page
-        $identity = Zend_Auth::getInstance()->getIdentity();
-        if(!$organisationId)
-        {    
-             $organisationModelObj = new Model_Organisation();
-             $organisationId = $organisationModelObj->checkOrganisationPresent($identity->account_id);
-        }
 
         // Fetch organisation data
         $organisationClassObj = new Iati_Aidstream_Element_Organisation();
@@ -436,7 +427,7 @@ class OrganisationController extends Zend_Controller_Action
                 $db->updateOrganisationState($organisationIds , (int) $state);
             }
         }
-        $this->_redirect("organisation/view-elements");
+        $this->_redirect("organisation/view-elements/?parentId=$organisationIds[0]");
 
     }
     
