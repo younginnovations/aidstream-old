@@ -15,13 +15,11 @@ class Iati_Aidstream_Form_Organisation_RecipientOrgBudget_RecipientOrg extends I
         $form['id'] = new Zend_Form_Element_Hidden('id');
         $form['id']->setValue($this->data['id']);
         
-        $codes = $model->getCodeArray('OrganisationIdentifier', null, '1' , true);
-        $form['ref'] = new Zend_Form_Element_Select('code');
+        $form['ref'] = new Zend_Form_Element_Text('code');
         $form['ref']->setLabel('Ref')
             ->setValue($this->data['@ref'])
             ->setRequired()
-            ->setAttrib('class' , 'form-select')
-            ->setMultioptions($codes);
+            ->setAttrib('class' , 'form-text');
 
         $form['text'] = new Zend_Form_Element_Textarea('text');
         $form['text']->setLabel('Text')
