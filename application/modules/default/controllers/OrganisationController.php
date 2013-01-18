@@ -83,7 +83,7 @@ class OrganisationController extends Zend_Controller_Action
                     $db = new Model_OrganisationState;
                     $db->updateOrganisationState($parentId , Iati_WEP_ActivityState::STATUS_EDITING);
                     $type = 'message';
-                    $message = $element->getClassName() . " successfully updated.";
+                    $message = $element->getDisplayName() . " successfully updated.";
                 }
                 $this->_helper->FlashMessenger->addMessage(array($type => $message));
                 if ($parentId)
@@ -180,7 +180,7 @@ class OrganisationController extends Zend_Controller_Action
                     $db = new Model_OrganisationState;
                     $db->updateOrganisationState($parentId , Iati_WEP_ActivityState::STATUS_EDITING);
                     $type = 'message';
-                    $message = $element->getClassName() . " successfully updated.";
+                    $message = $element->getDisplayName() . " successfully updated.";
                 }
                 $this->_helper->FlashMessenger->addMessage(array($type => $message));
 
