@@ -215,7 +215,7 @@ abstract class Iati_Core_BaseForm extends Zend_Form
     {
         $add = new Iati_Form_Element_Note('add');
         $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'add-more element-add-more'));
-        $add->setValue("<a href='#' class='button' value='{$className}'> Add More</a>");
+        $add->setValue("<a href='#' class='button' value='{$className}'> Add more</a>");
         $this->addElement($add);        
     }
     
