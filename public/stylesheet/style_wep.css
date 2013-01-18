@@ -3850,7 +3850,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7db9e8', end
 	display: inline-block;
 }
 
-.zend_form dt {
+#organisation_file_ids-label,#push_to_registry_for_organisation-label,#update-label {
 	display: none;
 }
 
