@@ -345,7 +345,7 @@ class OrganisationController extends Zend_Controller_Action
             $status_form = null;
         }
         $this->view->status_form = $status_form;
-        $this->view->state = $organisations['Organisation']['state_id'];
+        $this->view->state = $state;
 
         $this->view->blockManager()->enable('partial/organisation-menu.phtml');
         $this->view->blockManager()->disable('partial/primarymenu.phtml');
