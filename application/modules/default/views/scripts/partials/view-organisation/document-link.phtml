@@ -27,14 +27,16 @@
                 </ul>
 
                 <!--Language Starts-->
-                <?php if (isset($element['Language'])): ?> 
-                    <ul class="style-1 style-4">
-                        <h2>Language</h2>
-                        <li>
-                            <span class="name">Text:</span>
-                            <span class="infom"><?php echo Iati_Core_Codelist::getCodeByAttrib('DocumentLink_Language' , '@xml_lang' , $element['Language']["text"]); ?></span>
-                        </li>
-                    </ul>            
+                <?php if (isset($element['Language'])): ?>
+                       <ul class="style-1 style-4">
+                            <h2>Language</h2>
+                            <?php foreach ($element['Language'] as $language): ?>
+                                <li>
+                                    <span class="name">Text:</span>
+                                    <span class="infom"><?php echo Iati_Core_Codelist::getCodeByAttrib('DocumentLink_Language' , '@xml_lang' , $language["text"]); ?></span>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul> 
                 <?php endif; ?>
                 <!--Language Ends-->
 
@@ -42,18 +44,20 @@
                 <?php if (isset($element['Category'])): ?> 
                     <ul class="style-1 style-4">
                         <h2>Category</h2>
-                        <li>
-                            <span class="name">Text:</span>
-                            <span class="infom"><?php echo $element['Category']["text"]; ?></span>
-                        </li>
-                        <li>
-                            <span class="name">Code:</span>
-                            <span class="infom"><?php echo $element['Category']["@code"]; ?></span>
-                        </li>
-                        <li>
-                            <span class="name">Language:</span>
-                            <span class="infom"><?php echo Iati_Core_Codelist::getCodeByAttrib('DocumentLink_Category' , '@xml_lang' , $element['Category']["@xml_lang"]); ?></span>
-                        </li>
+                        <?php foreach ($element['Category'] as $category): ?>
+                            <li> 
+                                <span class="name">Text:</span>
+                                <span class="infom"><?php echo $category["text"]; ?></span>
+                            </li>
+                            <li>
+                                <span class="name">Code:</span>
+                                <span class="infom"><?php echo $category["@code"]; ?></span>
+                            </li>
+                            <li>
+                                <span class="name">Language:</span>
+                                <span class="infom"><?php echo Iati_Core_Codelist::getCodeByAttrib('DocumentLink_Category' , '@xml_lang' , $category["@xml_lang"]); ?></span>
+                            </li>
+                        <?php endforeach; ?>
                     </ul>            
                 <?php endif; ?>
                 <!--Category Ends-->
