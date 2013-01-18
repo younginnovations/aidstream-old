@@ -24,5 +24,16 @@ class Iati_Aidstream_Form_Organisation_Identifier extends Iati_Core_BaseForm
         return $this;
 
     }
+    
+    public function addSubmitButton($label , $saveAndViewlabel = 'Save and View')
+    {
+        $this->addElement('submit' , 'update',
+            array(
+                'label'    => 'update',
+                'required' => false,
+                'ignore'   => false,
+            )
+        );
+    }
 
 }
