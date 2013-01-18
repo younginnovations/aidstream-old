@@ -63,7 +63,7 @@ class Iati_Core_Xml
     
     /**
      * Generate the organisation file name 
-     * Used user'name from account table to generate file name
+     * Used user'name from registry_info table to generate file name
      * @return type string
      */
     public function generateFileName()
@@ -72,8 +72,8 @@ class Iati_Core_Xml
                 
         // Get Publisher Name
         $wepModel = new Model_Wep();
-        $accountInfo = $wepModel->getRowsByFields('account', 'id' , $identity->account_id);
-        $publisherName = $accountInfo[0]['name'];
+        $registryInfo = $wepModel->getRowsByFields('registry_info', 'org_id' , $identity->account_id);
+        $publisherName = $registryInfo[0]['publisher_id'];
         
         return $publisherName;
     }        
