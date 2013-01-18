@@ -1176,6 +1176,36 @@ function initialize() {
             }
         },
         
+        ".change-organisation-state-help" : {
+            'found' : function (ele){                
+                var msg;
+                msg = "<div class='state-help-popup-info-wrapper'>";// main wrapper
+                msg += "<div class='state-help-title'><span class='info-image'></span>Aidstream Organisation States</div>"; // title
+                // message body
+                msg += "<div class= 'state-help-body'><p>Aidstream maintains a simple workflow to ensure that the organisation are properly verified before it gets registered in IATI Registry for public view. The following states are maintained in the organisation.</p>";
+                msg += "<ul class='states-list'><li>Edit</li><li>Completed</li><li>Verified</li><li>Published</li></ul>";
+                msg += "<p>When the organisation is in any one of the states, any further changes in the organisation will return its state back to Editing. The entire flow has to be followed before the changes get updated in the organisation xml files and registered in IATI Registry. It is recommended that different users are given access to each of these roles for the workflow.</p>"
+                msg += "</div></div>"; // closing body and main div
+                var stateHelpDialog = new dijit.TooltipDialog({
+                    content: msg,
+                    style : 'width:590px',
+                    autofocus: false
+                });
+                //get html of the element
+                var element = new dojo.NodeList(ele);
+                var temp = element.clone();
+                var tempWrapper  = dojo.create("div");
+                tempWrapper.appendChild(temp[0]);
+                var eleHtml = tempWrapper.innerHTML;
+                
+                var drop = new my.dropDown({
+                    label : eleHtml,
+                    popup: stateHelpDialog,
+                    orient: ['TR']
+                } , ele);
+            }
+        },
+        
         ".element-add-more": {
             "onclick" : function (evt) {
                 evt.preventDefault();
