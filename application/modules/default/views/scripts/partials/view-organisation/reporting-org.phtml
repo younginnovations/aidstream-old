@@ -39,7 +39,14 @@
                 </li>
                 <li>
                     <span class="name">Type:</span>
-                    <span class="infom"><?php echo $this->elements['@type']; ?></span>
+                    <span class="infom"><?php if($this->elements['@type'])
+                                                {   
+                                                     $wepModel = new Model_Wep();
+                                                     $types = $wepModel->getRowsByFields('OrganisationType','id', $this->elements['@type']);
+                                                     printf("%s [%s]",$types[0]['Name'],$types[0]['Code']);
+                                                }
+                                        ?> 
+                    </span>
                 </li>
             </ul>
         </div>
