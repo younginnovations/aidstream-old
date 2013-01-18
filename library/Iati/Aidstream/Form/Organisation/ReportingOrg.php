@@ -17,10 +17,12 @@ class Iati_Aidstream_Form_Organisation_ReportingOrg extends Iati_Core_BaseForm
                 ->setValue($this->data['@ref'])
                 ->setAttribs(array('disabled' => 'disabled'))
                 ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help Organisation_ReportingOrg-ref' , 'placement' => 'PREPEND'))));
-
-        $form['type'] = new Zend_Form_Element_Text('type');
+        
+        $reportingOrgType = $model->getRowsByFields('OrganisationType','id', $this->data['@type']);
+        $form['type'] = new Zend_Form_Element_Select('type');
         $form['type']->setLabel('Type')
-                ->setValue($this->data['text'])
+                ->setAttrib('class' , 'form-select')
+                ->addMultiOptions(array($this->data['@type']=>$reportingOrgType[0]['Name']))
                 ->setAttribs(array('disabled' => 'disabled'))
                 ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help Organisation_ReportingOrg-type' , 'placement' => 'PREPEND'))));
 
@@ -32,13 +34,12 @@ class Iati_Aidstream_Form_Organisation_ReportingOrg extends Iati_Core_BaseForm
                 ->setAttribs(array('disabled' => 'disabled'))
                 ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help Organisation_ReportingOrg-text' , 'placement' => 'PREPEND'))));
 
-        $lang = $model->getCodeArray('Language' , null , '1' , true);
-        $form['xml_lang'] = new Zend_Form_Element_Select('xml_lang');
+        $lang = $model->getRowsByFields('Language','id', $this->data['@xml_lang']);
+        $form['xml_lang'] = new Zend_Form_Element_Select('@xml_lang');
         $form['xml_lang']->setLabel('Language')
-                ->setValue($this->data['@xml_lang'])
                 ->setAttrib('class' , 'form-select')
                 ->setAttribs(array('disabled' => 'disabled'))
-                ->addMultioptions($lang)
+                ->addMultioptions(array($this->data['@xml_lang']=>$lang[0]['Code'].'-'.$lang[0]['Name']))
                 ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help Organisation_ReportingOrg-xml_lang' , 'placement' => 'PREPEND'))));
 
         $this->addElements($form);
