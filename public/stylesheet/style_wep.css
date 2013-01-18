@@ -1948,7 +1948,7 @@ li#current-state span{
 .innermost-wrapper .addmore
 {
 }
-.addmore, .add-element, .simplified-add-more{
+.addmore, .add-element, .simplified-add-more,.add-more{
 	background:#eeeeee;
 	display: block;
 	padding-left:10px;
@@ -2766,13 +2766,17 @@ button#cd-cancel, button#cd-ok
 	border-radius:4px;
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
+
 }
 
-.remove a.button, .addmore a.button, #block-activity-menu .content li a, .action-icon a, .default-info, .message, .info, .error, ul.error, .warning, .activity-state .override-link, .add-element a.button, #activity-state-info td.data-label, .simplified-remove-element a.button, .simplified-add-more .button, .simplified-add-more .button:hover
+.remove a.button, .addmore a.button, #block-activity-menu .content li a, .action-icon a, .default-info, .message, .info, .error, ul.error, .warning, .activity-state .override-link, .add-element a.button, #activity-state-info td.data-label, .simplified-remove-element a.button, .simplified-add-more .button, .simplified-add-more .button:hover,.element-remove-this .button,.element-remove-this .button:hover,.element-add-more .button,.element-add-more .button:hover
 {
 	background-image:url('images/inner-pages-icons.png');
 	background-repeat:no-repeat;
 	background-color:transparent;
+	color: #009ADA;
+	font-size: 12px;
+	border: 0;
 }
 
 .remove a.button:hover, .addmore a.button:hover, #block-activity-menu .content li a:hover
@@ -2785,17 +2789,39 @@ button#cd-cancel, button#cd-ok
 	background-position:0 5px;
 }
 
+.element-remove-this .button {	
+	padding: 0 0 0 22px;
+}
+
+.element-add-more .button {
+	padding-left: 22px;
+}
+
 .remove .button:hover, .simplified-remove-element a.button:hover
 {
 	background-position:0 -27px;
 }
 
-.addmore .button, .add-element .button, .simplified-add-more .button
+.element-remove-this {
+	display: block;
+	padding: 0 0 10px 10px;
+}
+
+.element-add-more{
+	display: block;
+	padding: 0 10px;
+}
+
+.element-remove-this .button:hover {
+	background-position:0 -32px;
+}
+
+.addmore .button, .add-element .button, .simplified-add-more .button,.element-add-more .button
 {
 	background-position:0 -58px;
 }
 
-.addmore a.button:hover, .add-element .button:hover, .simplified-add-more a.button:hover
+.addmore a.button:hover, .add-element .button:hover, .simplified-add-more a.button:hover,.element-add-more .button:hover
 {
 	background-color:transparent;
 	background-position:0 -90px;
@@ -3781,3 +3807,52 @@ ul.style-4.inner li.first{
 #contact-form #captcha-element {
     margin-left : 93px;
 }
+
+form.simplified-sub-element input[type='text']{
+	width: 300px;
+}
+
+#update-element input[type='submit'] {
+	background: rgb(125,185,232); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(125,185,232,1) 0%, rgba(0,119,169,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(125,185,232,1)), color-stop(100%,rgba(0,119,169,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(125,185,232,1) 0%,rgba(0,119,169,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(125,185,232,1) 0%,rgba(0,119,169,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(125,185,232,1) 0%,rgba(0,119,169,1) 100%); /* IE10+ */
+background: linear-gradient(top,  rgba(125,185,232,1) 0%,rgba(0,119,169,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7db9e8', endColorstr='#0077a9',GradientType=0 ); /* IE6-9 */
+
+    border: 1px solid #0186be;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px 4px 4px 4px;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    padding: 5px 20px;
+    text-decoration: none;
+}
+
+#update-element input[type='submit']:hover
+{
+	background: rgb(125,185,232); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(125,185,232,1) 0%, rgba(0,107,201,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(125,185,232,1)), color-stop(100%,rgba(0,107,201,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(125,185,232,1) 0%,rgba(0,107,201,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(125,185,232,1) 0%,rgba(0,107,201,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(125,185,232,1) 0%,rgba(0,107,201,1) 100%); /* IE10+ */
+background: linear-gradient(top,  rgba(125,185,232,1) 0%,rgba(0,107,201,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7db9e8', endColorstr='#006bc9',GradientType=0 );
+}
+
+#save_and_view-element,#save-element {
+	display: inline-block;
+}
+
+.zend_form dt {
+	display: none;
+}
+
+#push_to_registry_for_organisation-element {
+	padding-bottom: 16px;
