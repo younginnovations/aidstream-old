@@ -7,11 +7,7 @@
             <div class="element-info">
                 <div class="element-values">
                     <span class="attrib-label">Code:</span>
-                    <span class="attrib-value"><?php if ($defaultaidtype->getAttrib('@code')) ($defaultaidtype->getAttribValue('@code' , 'Name') != $defaultaidtype->getAttribValue('@code')) ? ( printf("%s [%s]" , $this->length()->adjustDoubleLength($defaultaidtype->getAttribValue('@code' , 'Name')) , $defaultaidtype->getAttribValue('@code'))) : (print($defaultaidtype->getAttribValue('@code'))); ?></span>
-                </div>
-                <div class="element-values">
-                    <span class="attrib-label">Text:</span>
-                    <span class="attrib-value"><?php if ($defaultaidtype->getAttrib('text')) print $this->length()->adjustDoubleLength(($defaultaidtype->getAttribValue('text'))); ?> <?php if ($defaultaidtype->getAttrib('@xml_lang')) printf(" [%s]" , ($defaultaidtype->getAttribValue('@xml_lang'))); ?></span>
+                    <span class="attrib-value"><?php if ($defaultaidtype->getAttrib('@code')) ($defaultaidtype->getAttribValue('@code' , 'Name') != $defaultaidtype->getAttribValue('@code')) ? ( printf("%s [%s]" , $this->length()->adjustSingleLength($defaultaidtype->getAttribValue('@code' , 'Name')) , $defaultaidtype->getAttribValue('@code'))) : (print($defaultaidtype->getAttribValue('@code'))); ?></span>
                 </div>
             </div>
             <?php break; ?>
