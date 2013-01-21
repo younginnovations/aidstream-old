@@ -19,7 +19,6 @@ class Iati_Aidstream_Form_Organisation_DocumentLink_Category extends Iati_Core_B
         $form['code'] = new Zend_Form_Element_Select('code');
         $form['code']->setLabel('Code')
             ->setValue($this->data['@code'])
-            ->setRequired()
             ->setAttrib('class' , 'form-select')
             ->setMultioptions($codes);
 
