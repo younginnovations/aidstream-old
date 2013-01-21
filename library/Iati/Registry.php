@@ -244,7 +244,7 @@ class Iati_Registry
                     "activity_period-to" => '',
                     "data_updated"=> date('Y-m-d',strtotime($this->organisation_updated_datetime)),
                     "record_updated" => date('Y-m-d'),
-                    "activity_count" => $this->organisation_count,
+                    "activity_count" => '',
                     "verified" => "no",
                     "language" => "en",
                     ),
