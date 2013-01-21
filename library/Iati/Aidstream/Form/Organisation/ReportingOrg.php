@@ -15,6 +15,7 @@ class Iati_Aidstream_Form_Organisation_ReportingOrg extends Iati_Core_BaseForm
         $form['@ref'] = new Zend_Form_Element_Text('@ref');
         $form['@ref']->setLabel('Ref')
                 ->setValue($this->data['@ref'])
+                ->setRequired()
                 ->setAttribs(array('disabled' => 'disabled'))
                 ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help Organisation_ReportingOrg-ref' , 'placement' => 'PREPEND'))));
         
