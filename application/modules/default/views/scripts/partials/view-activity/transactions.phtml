@@ -20,7 +20,7 @@
                         if (!empty($value)):
                         ?>
                             <?php foreach ($transactiontypes as $transactiontype): ?>
-                                <?php if ($transactiontype->getAttrib('@code')) ($transactiontype->getAttribValue('@code' , 'Name') != $transactiontype->getAttribValue('@code')) ? ( printf("%s [%s]" , $transactiontype->getAttribValue('@code' , 'Name') , $transactiontype->getAttribValue('@code'))) : (print($transactiontype->getAttribValue('@code'))); ?> 
+                                <?php if ($transactiontype->getAttrib('@code')) ($transactiontype->getAttribValue('@code' , 'Name') != $transactiontype->getAttribValue('@code')) ? ( printf("%s [%s]" ,$this->length()->adjustTripleTitleLength($transactiontype->getAttribValue('@code' , 'Name')) , $transactiontype->getAttribValue('@code'))) : (print($this->length()->adjustTripleTitleLength($transactiontype->getAttribValue('@code')))); ?> 
                             <?php endforeach; ?>
                         <?php endif; ?>
                         <?php
@@ -30,7 +30,7 @@
                             ?>    
                             <?php foreach ($values as $value): ?>
                                 <?php if ($transactiontype->getAttrib('@code') && $value->getAttrib('text')) print "; "; ?>
-                                <?php if ($value->getAttrib('text')) print ($value->getAttribValue('text')); ?> 
+                                <?php if ($value->getAttrib('text')) print ($this->length()->adjustTripleTitleLength($value->getAttribValue('text'))); ?> 
                                 <?php break; ?>
                             <?php endforeach; ?>
                         <?php endif; ?>

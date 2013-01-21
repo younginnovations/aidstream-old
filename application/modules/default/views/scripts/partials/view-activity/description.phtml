@@ -9,7 +9,7 @@
     <?php foreach ($this->descriptions as $description): ?>
         <div class="current">
             <ul class="style-2 arrow">
-                <li> <span class="down-arrow"><?php if ($description->getAttrib('text')) print ($this->length()->adjustTitleLength($description->getAttribValue('text'))); ?><?php if ($description->getAttrib('@xml_lang')) printf(" [%s]" , ($description->getAttribValue('@xml_lang'))); ?></span>
+                <li> <span class="down-arrow"><?php if ($description->getAttrib('text')) print ($this->length()->adjustSingleTitleLength($description->getAttribValue('text'))); ?><?php if ($description->getAttrib('@xml_lang')) printf(" [%s]" , ($description->getAttribValue('@xml_lang'))); ?></span>
                     <ul class="style-2-drop first">
                         <li>
                             <span class="name">Text:</span>

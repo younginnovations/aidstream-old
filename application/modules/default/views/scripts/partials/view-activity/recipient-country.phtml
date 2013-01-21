@@ -9,9 +9,9 @@
     <?php foreach ($this->recipientcountrys as $recipientcountry): ?> 
         <div class="current">
             <ul class="style-2 arrow">
-                <li> <span class="down-arrow"><?php if ($recipientcountry->getAttrib('@code')) ($recipientcountry->getAttribValue('@code' , 'Name') != $recipientcountry->getAttribValue('@code')) ? ( printf("%s [%s]" , $recipientcountry->getAttribValue('@code' , 'Name') , $recipientcountry->getAttribValue('@code'))) : (print($recipientcountry->getAttribValue('@code'))); ?>
+                <li> <span class="down-arrow"><?php if ($recipientcountry->getAttrib('@code')) ($recipientcountry->getAttribValue('@code' , 'Name') != $recipientcountry->getAttribValue('@code')) ? ( printf("%s [%s]" , $this->length()->adjustDoubleTitleLength($recipientcountry->getAttribValue('@code' , 'Name')) , $recipientcountry->getAttribValue('@code'))) : (print($recipientcountry->getAttribValue('@code'))); ?>
                                               <?php if ($recipientcountry->getAttrib('@code') && $recipientcountry->getAttrib('@percentage')) print "; "; ?>
-                                              <?php if ($recipientcountry->getAttrib('@percentage')) print ($recipientcountry->getAttribValue('@percentage')); ?></span>
+                                              <?php if ($recipientcountry->getAttrib('@percentage')) print ($this->length()->adjustDoubleTitleLength($recipientcountry->getAttribValue('@percentage'))); ?></span>
                     <ul class="style-2-drop first">
                         <li>
                             <span class="name">Text:</span>

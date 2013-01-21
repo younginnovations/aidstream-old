@@ -10,7 +10,7 @@
         <div class="current">
             <ul class="style-2 arrow">
                 <li>
-                    <span class="down-arrow"> <?php if ($result->getAttrib('@type')) ($result->getAttribValue('@type' , 'Name') != $result->getAttribValue('@type')) ? ( printf("%s [%s]" , $result->getAttribValue('@type' , 'Name') , $result->getAttribValue('@type'))) : (print($result->getAttribValue('@type'))); ?>
+                    <span class="down-arrow"> <?php if ($result->getAttrib('@type')) ($result->getAttribValue('@type' , 'Name') != $result->getAttribValue('@type')) ? ( printf("%s [%s]" , $this->length()->adjustDoubleTitleLength($result->getAttribValue('@type' , 'Name')) , $result->getAttribValue('@type'))) : (print($this->length()->adjustDoubleTitleLength($result->getAttribValue('@type')))); ?>
                         <?php
                         $titles = $result->getElementsByType('Title');
                         $value = $titles[0]->getAttribs();
@@ -18,7 +18,7 @@
                         <?php if (!empty($value)): ?>
                             <?php foreach ($titles as $title): ?>
                                  <?php if ($result->getAttrib('@type') && $title->getAttrib('text')) print "; "; ?>
-                                <?php if ($title->getAttrib('text')) print ($title->getAttribValue('text')); ?> <?php if ($title->getAttrib('@xml_lang')) printf(" [%s]" , ($condition->getAttribValue('@xml_lang'))); ?>
+                                <?php if ($title->getAttrib('text')) print ($this->length()->adjustDoubleTitleLength($title->getAttribValue('text'))); ?> <?php if ($title->getAttrib('@xml_lang')) printf(" [%s]" , ($condition->getAttribValue('@xml_lang'))); ?>
 
                                 <?php break; ?>
                             <?php endforeach; ?>

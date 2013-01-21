@@ -9,11 +9,11 @@
     <?php foreach ($this->sectors as $sector): ?>
         <div class="current">
             <ul class="style-2 arrow">
-                <li> <span class="down-arrow"><?php if ($sector->getAttrib('@vocabulary')) ($sector->getAttribValue('@vocabulary' , 'Name') != $sector->getAttribValue('@vocabulary')) ? ( printf("%s [%s]" , $sector->getAttribValue('@vocabulary' , 'Name') , $sector->getAttribValue('@vocabulary'))) : (print($sector->getAttribValue('@vocabulary'))); ?>
+                <li> <span class="down-arrow"><?php if ($sector->getAttrib('@vocabulary')) ($sector->getAttribValue('@vocabulary' , 'Name') != $sector->getAttribValue('@vocabulary')) ? ( printf("%s [%s]" , $this->length()->adjustDoubleTitleLength($sector->getAttribValue('@vocabulary' , 'Name')) , $sector->getAttribValue('@vocabulary'))) : (print($this->length()->adjustDoubleTitleLength($sector->getAttribValue('@vocabulary')))); ?>
                          <?php if ( $sector->getAttrib('@vocabulary') && $sector->getAttrib('@code') ) print "; "; ?>
                                <?php if ($sector->getAttrib('@code')): ?>
                                     <?php if (!$sector->getAttrib('@vocabulary') || $sector->getAttrib('@vocabulary') == 3): ?>
-                                        <?php ($sector->getAttribValue('@code' , 'Name') != $sector->getAttribValue('@code')) ? ( printf("%s [%s]" , $sector->getAttribValue('@code' , 'Name') , $sector->getAttribValue('@code'))) : (print($sector->getAttribValue('@code'))); ?>
+                                        <?php ($sector->getAttribValue('@code' , 'Name') != $sector->getAttribValue('@code')) ? ( printf("%s [%s]" , $this->length()->adjustDoubleTitleLength($sector->getAttribValue('@code' , 'Name')) , $sector->getAttribValue('@code'))) : (print($sector->getAttribValue('@code'))); ?>
                                     <?php else : ?>
                                         <?php print ($sector->getAttrib('@code')); ?>
                                     <?php endif; ?>

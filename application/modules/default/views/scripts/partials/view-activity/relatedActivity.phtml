@@ -10,7 +10,7 @@
 
         <div class="current">
             <ul class="style-2 arrow">
-                <li> <span class="down-arrow"><?php if ($relatedactivity->getAttrib('@ref')) ($relatedactivity->getAttribValue('@ref' , 'Name') != $relatedactivity->getAttribValue('@ref')) ? ( printf("%s [%s]" , $relatedactivity->getAttribValue('@ref' , 'Name') , $relatedactivity->getAttribValue('@ref'))) : (print($relatedactivity->getAttribValue('@ref'))); ?></span>
+                <li> <span class="down-arrow"><?php if ($relatedactivity->getAttrib('@ref')) ($relatedactivity->getAttribValue('@ref' , 'Name') != $relatedactivity->getAttribValue('@ref')) ? ( printf("%s [%s]" , $this->length()->adjustSingleTitleLength($relatedactivity->getAttribValue('@ref' , 'Name')) , $relatedactivity->getAttribValue('@ref'))) : (print($this->length()->adjustTripleTitleLength($relatedactivity->getAttribValue('@ref')))); ?></span>
                     <ul class="style-2-drop first">
                         <li>
                             <span class="name">Text:</span>

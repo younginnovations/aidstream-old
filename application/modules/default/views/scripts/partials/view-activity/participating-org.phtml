@@ -9,9 +9,9 @@
     <?php foreach ($this->participatingorgs as $participatingorg): ?>
         <div class="current">
             <ul class="style-2 arrow">
-                <li> <span class="down-arrow"><?php if ($participatingorg->getAttrib('@role')) ($participatingorg->getAttribValue('@role' , 'Name') != $participatingorg->getAttribValue('@role')) ? ( printf("%s [%s]" , $participatingorg->getAttribValue('@role' , 'Name') , $participatingorg->getAttribValue('@role'))) : (print($participatingorg->getAttribValue('@role'))); ?>
-                                                <?php if ($participatingorg->getAttrib('@role') && $participatingorg->getAttrib('@ref')) print "; "; ?>
-                                                <?php if ($participatingorg->getAttrib('@ref')) ($participatingorg->getAttribValue('@ref' , 'Name') != $participatingorg->getAttribValue('@ref')) ? ( printf("%s [%s]" , $participatingorg->getAttribValue('@ref' , 'Name') , $participatingorg->getAttribValue('@ref'))) : (print($participatingorg->getAttribValue('@ref'))); ?></span>
+                <li> <span class="down-arrow"><?php if ($participatingorg->getAttrib('@role')) ($participatingorg->getAttribValue('@role' , 'Name') != $participatingorg->getAttribValue('@role')) ? ( printf("%s [%s]" , $this->length()->adjustDoubleLength($participatingorg->getAttribValue('@role' , 'Name')) , $participatingorg->getAttribValue('@role'))) : (print($this->length()->adjustDoubleTitleLength($participatingorg->getAttribValue('@role')))); ?>
+                                                <?php if ($participatingorg->getAttrib('@role') && $participatingorg->getAttrib('@type')) print "; "; ?>
+                                                <?php if ($participatingorg->getAttrib('@type')) ($participatingorg->getAttribValue('@type' , 'Name') != $participatingorg->getAttribValue('@type')) ? ( printf("%s [%s]" , $this->length()->adjustDoubleLength($participatingorg->getAttribValue('@type' , 'Name')) , $participatingorg->getAttribValue('@type'))) : (print($this->length()->adjustDoubleTitleLength($participatingorg->getAttribValue('@type')))); ?></span>
 
                     <ul class="style-2-drop first">
                         <li>

@@ -9,7 +9,7 @@
     <?php foreach ($this->activitydates as $activitydate): ?>
         <div class="current">
             <ul class="style-2 arrow">
-                <li> <span class="down-arrow"><?php if ($activitydate->getAttrib('@type')) ($activitydate->getAttribValue('@type' , 'Name') != $activitydate->getAttribValue('@type')) ? ( printf("%s [%s]" , $activitydate->getAttribValue('@type' , 'Name') , $activitydate->getAttribValue('@type'))) : (print($activitydate->getAttribValue('@type'))); ?>
+                <li> <span class="down-arrow"><?php if ($activitydate->getAttrib('@type')) ($activitydate->getAttribValue('@type' , 'Name') != $activitydate->getAttribValue('@type')) ? ( printf("%s [%s]" , $this->length()->adjustDoubleTitleLength($activitydate->getAttribValue('@type' , 'Name')) , $activitydate->getAttribValue('@type'))) : (print($this->length()->adjustDoubleTitleLength($activitydate->getAttribValue('@type')))); ?>
                                               <?php if ($activitydate->getAttrib('@type') && $activitydate->getAttrib('@iso_date')) print "; "; ?>
                                               <?php if ($activitydate->getAttrib('@iso_date')) print ($activitydate->getAttribValue('@iso_date')); ?></span> 
                     <ul class="style-2-drop first">

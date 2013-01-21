@@ -8,7 +8,7 @@
     <?php foreach ($this->policymarkers as $policymarker): ?>
         <div class="current">
             <ul class="style-2 arrow">
-                <li> <span class="down-arrow"><?php if ($policymarker->getAttrib('@code')) ($policymarker->getAttribValue('@code' , 'Name') != $policymarker->getAttribValue('@code')) ? ( printf("%s [%s]" , $policymarker->getAttribValue('@code' , 'Name') , $policymarker->getAttribValue('@code'))) : (print($policymarker->getAttribValue('@code'))); ?></span>
+                <li> <span class="down-arrow"><?php if ($policymarker->getAttrib('@code')) ($policymarker->getAttribValue('@code' , 'Name') != $policymarker->getAttribValue('@code')) ? ( printf("%s [%s]" , $this->length()->adjustSingleTitleLength($policymarker->getAttribValue('@code' , 'Name')) , $policymarker->getAttribValue('@code'))) : (print($policymarker->getAttribValue('@code'))); ?></span>
                     <ul class="style-2-drop first">
                         <li>
                             <span class="name">Text:</span>

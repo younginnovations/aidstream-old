@@ -11,7 +11,7 @@
                 </div>
                 <div class="element-values">
                     <span class="attrib-label">Ref:</span>
-                    <span class="attrib-value"><?php if ($reportingorg->getAttrib('@ref')) ($reportingorg->getAttribValue('@ref' , 'Name') != $reportingorg->getAttribValue('@ref')) ? ( printf("%s [%s]" , $this->length()->adjustDoubleLength($reportingorg->getAttribValue('@ref' , 'Name')) , $reportingorg->getAttribValue('@ref'))) : (print($reportingorg->getAttribValue('@ref'))); ?></span>  
+                    <span class="attrib-value"><?php if ($reportingorg->getAttrib('@ref')) ($reportingorg->getAttribValue('@ref' , 'Name') != $reportingorg->getAttribValue('@ref')) ? ( printf("%s [%s]" , $this->length()->adjustDoubleLength($reportingorg->getAttribValue('@ref' , 'Name')) , $reportingorg->getAttribValue('@ref'))) : (print($this->length()->adjustDoubleLength($reportingorg->getAttribValue('@ref')))); ?></span>  
                 </div>
             </div>
         </div>
