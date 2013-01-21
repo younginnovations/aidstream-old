@@ -9,7 +9,7 @@
     <?php foreach ($this->otheridentifiers as $otheridentifier): ?>
         <div class="current">
             <ul class="style-2 arrow">
-                <li> <span class="down-arrow"><?php if ($otheridentifier->getAttrib('text')) print ($otheridentifier->getAttribValue('text')); ?></span>
+                <li> <span class="down-arrow"><?php if ($otheridentifier->getAttrib('text')) print ($this->length()->adjustTitleLength($otheridentifier->getAttribValue('text'))); ?></span>
                     <ul class="style-2-drop first">
                         <li>
                             <span class="name">Text:</span>

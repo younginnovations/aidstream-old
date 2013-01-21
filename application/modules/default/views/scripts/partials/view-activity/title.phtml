@@ -10,7 +10,7 @@
 
         <div class="current">
             <ul class="style-2 arrow">
-                <li> <span class="down-arrow"><?php if ($title->getAttrib('text')) print ($title->getAttribValue('text')); ?><?php if ($title->getAttrib('@xml_lang')) printf(" [%s]" , ($title->getAttribValue('@xml_lang'))); ?></span>
+                <li> <span class="down-arrow"><?php if ($title->getAttrib('text')) print ($this->length()->adjustTitleLength($title->getAttribValue('text'))); ?><?php if ($title->getAttrib('@xml_lang')) printf(" [%s]" , ($title->getAttribValue('@xml_lang'))); ?></span>
                     <ul class="style-2-drop first">
                         <li>
                             <span class="name">Text:</span>
