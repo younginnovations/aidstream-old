@@ -8,6 +8,19 @@ class Zend_View_Helper_Length extends Zend_View_Helper_Abstract
         return $this;
 
     }
+    
+    public function adjustTitleLength($text)
+    {
+
+        if (strlen($text) > 85)
+        {
+            return substr($text , 0 , 85) . '...';
+        } else
+        {
+            return $text;
+        }
+
+    }
 
     public function adjustSingleLength($text)
     {
