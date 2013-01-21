@@ -268,6 +268,48 @@ class OrganisationController extends Zend_Controller_Action
         // Check organisation is present or not for a login user
         $organisationModelObj = new Model_Organisation();
         $organisationId = $organisationModelObj->checkOrganisationPresent($identity->account_id);
+        
+        // Fetch default value for an organisation
+        $model = new Model_Viewcode();
+        $rowSet = $model->getRowsByFields('default_field_values' , 'account_id' , $identity->account_id);
+        
+        $defaultValues = unserialize($rowSet[0]['object']);
+        $default = $defaultValues->getDefaultFields();
+        
+        // Check default value exist or not
+        $wepModel = new Model_Wep();
+        $reporting_org_info['@reporting_org_name'] = $default['reporting_org'];
+        $reporting_org_info['@reporting_org_ref'] = $default['reporting_org_ref'];
+        $reporting_org_info['@reporting_org_type'] = $wepModel->fetchValueById('OrganisationType' , $default['reporting_org_type'] , 'Code');
+        $reporting_org_info['@reporting_org_lang'] = $wepModel->fetchValueById('Language' , $default['reporting_org_lang'] , 'Name');
+        $incomplete = false;
+        foreach($reporting_org_info as $key => $reportingOrgValue){
+            if(!$reportingOrgValue && $key != '@reporting_org_lang'){
+                $incomplete = true;
+                break;
+            }
+        }
+        if($incomplete){
+            //For admin user redirect to defaults page.
+            if($identity->role_id == 1){
+                $this->_helper->FlashMessenger->addMessage(array(
+                                                                 'info' => "Before you start entering organisation data
+                                                                 you need to add some default values that will
+                                                                 automatically be filled in for
+                                                                 each organisation you report."
+                                                                   )
+                                                           );
+                $this->_redirect('wep/edit-defaults');
+            } else { // For other user redirect to dashboard.
+                $this->_helper->FlashMessenger->addMessage(array(
+                                                                 'info' => "All information for Reporting Organisation
+                                                                    is not provided .Please contact you organisation admin"
+                                                                  )
+                                                           );
+                $this->_redirect('wep/dashborad');
+            }
+        }
+        
         if (!$organisationId)
         {
             $this->_redirect("organisation/add-organisation");
