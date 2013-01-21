@@ -18,12 +18,12 @@ class Iati_Aidstream_Form_Organisation_RecipientOrgBudget_RecipientOrg extends I
         $form['ref'] = new Zend_Form_Element_Text('ref');
         $form['ref']->setLabel('Ref')
             ->setValue($this->data['@ref'])
-            ->setRequired()
             ->setAttrib('class' , 'form-text');
 
         $form['text'] = new Zend_Form_Element_Textarea('text');
         $form['text']->setLabel('Text')
             ->setValue($this->data['text'])
+            ->setRequired()
             ->setAttribs(array('rows'=>'3' , 'cols'=> '20'));
             
         $lang = $model->getCodeArray('Language', null, '1' , true);
