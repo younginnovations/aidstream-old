@@ -425,11 +425,16 @@ class OrganisationController extends Zend_Controller_Action
                     $obj = new Iati_Core_Xml();
                     $fileName = $obj->generateFile('organisation' , $organisationIds, $registryInfo->publisher_id);
                     
+                    // Fetch last updated data's datetime
+                    $wepModel = new Model_Wep();
+                    $organsationInfo = $wepModel->getRowsByFields('iati_organisation' , 'id' , $organisationIds[0]);
+                    $lastUpdateDatetime = $organsationInfo[0]['@last_updated_datetime'];
+                    
                     $organisationpublishedModel = new Model_OrganisationPublished();
                     $publishedData['publishing_org_id'] = $account_id;
                     $publishedData['filename'] = $fileName;
                     $publishedData['organisation_count'] = count($organisationIds);
-                    $publishedData['data_updated_datetime'] = date('Y-m-d H:i:s');
+                    $publishedData['data_updated_datetime'] = $lastUpdateDatetime;
                     $publishedData['published_date'] = date('Y-m-d H:i:s');
                     $publishedData['status'] = 1;
                     $organisationpublishedModel->savePublishedInfo($publishedData);
