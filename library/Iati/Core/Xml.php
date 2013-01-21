@@ -49,32 +49,16 @@ class Iati_Core_Xml
      * Write generate xml data to file 
      * @param string $name,organisation
      * @param array $ids,organisation ids
+     * @param string $publisherId,publisher id
      * @return string ,file name
      */
-    public function generateFile($name , $ids = array())
+    public function generateFile($name , $ids = array(), $publisherId)
     {  
-        $fileName = $this->generateFileName()."-org.xml"; 
+        $fileName = $publisherId."-org.xml"; 
         $fp = fopen($this->xmlPath.$fileName,'w');
         fwrite($fp,$this->generateXml($name , $ids));
         fclose($fp);
         
         return $fileName;
-    }
-    
-    /**
-     * Generate the organisation file name 
-     * Used user'name from registry_info table to generate file name
-     * @return type string
-     */
-    public function generateFileName()
-    {
-        $identity = Zend_Auth::getInstance()->getIdentity();
-                
-        // Get Publisher Name
-        $wepModel = new Model_Wep();
-        $registryInfo = $wepModel->getRowsByFields('registry_info', 'org_id' , $identity->account_id);
-        $publisherName = $registryInfo[0]['publisher_id'];
-        
-        return $publisherName;
-    }        
+    }       
 }
