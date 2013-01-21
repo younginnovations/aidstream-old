@@ -486,7 +486,7 @@ class Iati_Core_BaseElement
             // If parentName is present use it to fetch using the parent column.
             if($isParentId){
                 $eleData = $this->db->fetchAll($this->db->getAdapter()->quoteInto("{$parentColumn} = ?" , $eleId ));
-            } else { // If parentName is not present the provided id is its own id so delete by own id.
+            } else { // If parentName is not present the provided id is its own id so fetch by own id.
                 $eleData = $this->db->fetchAll($this->db->getAdapter()->quoteInto("id = ?" , $eleId));
             }
             if($eleData){
@@ -499,15 +499,12 @@ class Iati_Core_BaseElement
                     $xmlObj = $parent->addChild($eleName , $row['text']);
                 }
                 $xmlObj = $this->addElementsXmlAttribsFromData($xmlObj , $row);
-
-            }
-            // If children is present fetch their data.
-            if(!empty($this->childElements)){
-                foreach($data as $key=>$elementData){
+                // If children is present fetch their data.
+                if(!empty($this->childElements)){
                     foreach($this->childElements as $childElementClass){
                         $childElementName = get_class($this)."_$childElementClass";
                         $childElement = new $childElementName();
-                        $childElement->getXml($elementData['id'] , true , $xmlObj);
+                        $childElement->getXml($row['id'] , true , $xmlObj);
                     }
                 }
             }
@@ -572,6 +569,7 @@ class Iati_Core_BaseElement
         foreach($data as $name=>$value){  
             if(in_array($name , $this->iatiAttribs) && $name != 'text')
             {
+                $name = preg_replace("/^@/" , '' , $name);
                 if($name == "xml_lang"){
                     $name = preg_replace('/_/',':',$name);
                     $xmlObj->addAttribute($name , $value , "http://www.w3.org/XML/1998/namespace");
