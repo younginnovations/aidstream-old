@@ -571,6 +571,7 @@ class Iati_Core_BaseElement
             {
                 $name = preg_replace("/^@/" , '' , $name);
                 if($name == "xml_lang"){
+                    $value = Iati_Core_Codelist::getCodeByAttrib($this->className, '@xml_lang' , $value);
                     $name = preg_replace('/_/',':',$name);
                     $xmlObj->addAttribute($name , $value , "http://www.w3.org/XML/1998/namespace");
                 } elseif ($name == 'last_updated_datetime'){
@@ -580,6 +581,7 @@ class Iati_Core_BaseElement
                     $xmlObj->addAttribute($name,$gmDateValue);
                 }
                 else {
+                    $value = Iati_Core_Codelist::getCodeByAttrib($this->className, $name , $value);
                     $name = preg_replace('/_/','-',$name);
                     $xmlObj->addAttribute($name,$value);
                 }
