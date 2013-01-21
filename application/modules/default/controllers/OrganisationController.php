@@ -423,7 +423,7 @@ class OrganisationController extends Zend_Controller_Action
 
                     // Generate Xml
                     $obj = new Iati_Core_Xml();
-                    $fileName = $obj->generateFile('organisation' , $organisationIds);
+                    $fileName = $obj->generateFile('organisation' , $organisationIds, $registryInfo->publisher_id);
                     
                     $organisationpublishedModel = new Model_OrganisationPublished();
                     $publishedData['publishing_org_id'] = $account_id;
