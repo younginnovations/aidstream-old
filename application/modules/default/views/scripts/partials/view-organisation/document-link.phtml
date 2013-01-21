@@ -27,7 +27,7 @@
                 </ul>
 
                 <!--Language Starts-->
-                <?php if (isset($element['Language'])): ?>
+                <?php if (!empty($element['Language'])): ?>
                        <ul class="style-1 style-4">
                             <h2>Language</h2>
                             <?php foreach ($element['Language'] as $language): ?>
@@ -41,7 +41,7 @@
                 <!--Language Ends-->
 
                 <!--Category Starts-->
-                <?php if (isset($element['Category'])): ?> 
+                <?php if (!empty($element['Category'])): ?> 
                     <ul class="style-1 style-4">
                         <h2>Category</h2>
                         <?php foreach ($element['Category'] as $category): ?>
