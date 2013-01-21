@@ -4,7 +4,8 @@ class Iati_Aidstream_Form_Organisation_Identifier extends Iati_Core_BaseForm
 {
 
     public function getFormDefination()
-    {
+    {   
+        $baseurl = Zend_Controller_Front::getInstance()->getBaseUrl();
         $model = new Model_Wep();
         $this->setAttrib('class' , 'simplified-sub-element');
 
@@ -14,6 +15,7 @@ class Iati_Aidstream_Form_Organisation_Identifier extends Iati_Core_BaseForm
         $form['text'] = new Zend_Form_Element_Textarea('text');
         $form['text']->setLabel('Text')
                 ->setValue($this->data['text'])
+                ->setRequired()
                 ->setAttrib('cols', '40')
                 ->setAttrib('rows', '2')
                 ->setAttribs(array('disabled' => 'disabled'))
