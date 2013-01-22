@@ -1,6 +1,17 @@
 <?php 
     $organisations = $this->organisations;
     $change_status_form = $this->status_form;
+    
+    $identity = Zend_Auth::getInstance()->getIdentity();
+    
+    // Fetch default value currency for an organisation
+    $model = new Model_Viewcode();
+    $rowSet = $model->getRowsByFields('default_field_values' , 'account_id' , $identity->account_id);
+        
+    $defaultValues = unserialize($rowSet[0]['object']);
+    $default = $defaultValues->getDefaultFields();
+    $defaultCurrency = $default['currency'];
+    
 ?>
 
 <!--Display Title Starts-->
@@ -68,6 +79,7 @@
               <?php echo $this->partial("partials/view-organisation/total-budget.phtml" , array(
                                                                                 'parentId' => $organisation['id'] , 
                                                                                 'elements' => $organisation['TotalBudget'] ,
+                                                                                'defaultCurrency'=> $defaultCurrency  
                                                                             )
                           );
                ?>
@@ -79,6 +91,7 @@
               <?php echo $this->partial("partials/view-organisation/recipient-org-budget.phtml" , array(
                                                                                 'parentId' => $organisation['id'] ,
                                                                                 'elements' => $organisation['RecipientOrgBudget'] ,
+                                                                                'defaultCurrency'=> $defaultCurrency 
                                                                             )
                           );
                ?>
@@ -90,6 +103,7 @@
               <?php echo $this->partial("partials/view-organisation/recipient-country-budget.phtml" , array(
                                                                                 'parentId' => $organisation['id'] ,  
                                                                                 'elements' => $organisation['RecipientCountryBudget'] ,
+                                                                                'defaultCurrency'=> $defaultCurrency 
                                                                             )
                           );
                ?>

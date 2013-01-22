@@ -14,6 +14,10 @@
                                     {
                                         printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('Activity_default' , '@currency' , $element['Value']["@currency"]));
                                     }
+                                    else
+                                    {
+                                         printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('Activity_default' , '@currency' , $this->defaultCurrency));
+                                    }
                             ?>
                             <?php echo $element['Value']["text"]; ?>
                             <?php if ($element['Value']["text"] && $element['Value']["@value_date"]) echo " ; " . $element['Value']["@value_date"]; ?>
@@ -60,7 +64,11 @@
                                                          if($element['Value']["@currency"]) 
                                                           {
                                                               printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('Activity_default' , '@currency' , $element['Value']["@currency"])); 
-                                                          } 
+                                                          }
+                                                          else
+                                                            {
+                                                                printf(" %s [%s]",Iati_Core_Codelist::getCodeByAttrib('Activity_default' , '@currency' , $this->defaultCurrency,"Name"),Iati_Core_Codelist::getCodeByAttrib('Activity_default' , '@currency' , $this->defaultCurrency));
+                                                            }
                                                      ?> 
                                     </span>
                                 </li>
