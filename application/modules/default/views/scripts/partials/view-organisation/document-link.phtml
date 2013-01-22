@@ -21,7 +21,13 @@
                     </li>
                     <li>
                         <span class="name">Format:</span>
-                        <span class="infom sub-details"><?php printf("%s [%s]",Iati_Core_Codelist::getCodeByAttrib('DocumentLink' , '@format' , $element['@format'],'Name'),Iati_Core_Codelist::getCodeByAttrib('DocumentLink' , '@format' , $element['@format']))?></span>
+                        <span class="infom sub-details"><?php echo Iati_Core_Codelist::getCodeByAttrib('DocumentLink' , '@format' , $element['@format'],'Name');
+                                                              if($element['@format'])
+                                                              {
+                                                                  printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('DocumentLink' , '@format' , $element['@format']));
+                                                              }    
+                                                         ?>
+                        </span>
                     </li>
 
                 </ul>
