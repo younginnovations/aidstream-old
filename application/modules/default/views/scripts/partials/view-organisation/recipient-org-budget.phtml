@@ -10,6 +10,11 @@
         <div class="current">
             <ul class="style-2 arrow">
                 <li><span class="down-arrow"> <?php if (isset($element['Value'])): ?>
+                            <?php if($element['Value']["@currency"])
+                                    {
+                                        printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('Activity_default' , '@currency' , $element['Value']["@currency"]));
+                                    }
+                            ?>
                             <?php echo $element['Value']["text"]; ?>
                             <?php if ($element['Value']["text"] && $element['Value']["@value_date"]) echo " ; " . $element['Value']["@value_date"]; ?>
                         <?php endif; ?>
@@ -25,11 +30,13 @@
                                 </li>
                                 <li>
                                     <span class="name">Text:</span>
-                                    <span class="infom"><?php echo $element['RecipientOrg']["text"]; ?></span>
-                                </li>
-                                <li>
-                                    <span class="name">Language:</span>
-                                    <span class="infom"><?php echo Iati_Core_Codelist::getCodeByAttrib('RecipientOrgBudget_RecipientOrg' , '@xml_lang' , $element['RecipientOrg']["@xml_lang"]); ?></span>
+                                    <span class="infom"><?php echo $element['RecipientOrg']["text"];
+                                                   if($element['RecipientOrg']["@xml_lang"])
+                                                   {
+                                                       printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('RecipientOrgBudget_RecipientOrg' , '@xml_lang' , $element['RecipientOrg']["@xml_lang"]));
+                                                   }
+                                                ?>
+                                    </span>
                                 </li>
                         </ul>            
                     <?php endif; ?>
@@ -49,7 +56,13 @@
                                 </li>
                                 <li>
                                     <span class="name">Currency:</span>
-                                    <span class="infom"><?php echo $element['Value']["@currency"]; ?></span>
+                                    <span class="infom"><?php echo Iati_Core_Codelist::getCodeByAttrib('Activity_default' , '@currency' , $element['Value']["@currency"],"Name");
+                                                         if($element['Value']["@currency"]) 
+                                                          {
+                                                              printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('Activity_default' , '@currency' , $element['Value']["@currency"])); 
+                                                          } 
+                                                     ?> 
+                                    </span>
                                 </li>
                         </ul>            
                     <?php endif; ?>
