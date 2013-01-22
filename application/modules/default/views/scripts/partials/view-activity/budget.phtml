@@ -17,7 +17,8 @@
                         <?php if (!empty($value)): ?>
                             <?php foreach ($values as $value): ?> 
                                 <?php if ($budget->getAttrib('@type') && $value->getAttrib('text')) print "; "; ?>
-                                <?php if ($value->getAttrib('text')) printf ("[%s] %s",$value->getAttribValue('@currency'),$this->length()->adjustTripleTitleLength($value->getAttribValue('text'))); ?>
+                                <?php if ($value->getAttrib('@currency')) (printf("[%s]",$value->getAttribValue('@currency'))); ?> 
+                                <?php if ($value->getAttrib('text')) print($this->length()->adjustTripleTitleLength($value->getAttribValue('text'))); ?>
                                 <?php if ($value->getAttrib('text') && $value->getAttrib('@value_date')) print "; "; ?>
                                 <?php if ($value->getAttrib('@value_date')) print ($this->length()->adjustTripleTitleLength($value->getAttribValue('@value_date'))); ?>
                                 <?php break; ?>
