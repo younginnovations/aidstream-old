@@ -141,6 +141,10 @@ class Iati_Core_Codelist
                 case DocumentLink_format :
                     $return = 'FileFormat';
                     break;
+                
+                 case DocumentLink_Category_code :
+                    $return = 'OrganisationIdentifier';
+                    break;
                     
                 case LocationType_code:
                     $return = 'LocationType';
