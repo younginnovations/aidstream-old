@@ -17,6 +17,7 @@
                         if (!empty($value)):
                             ?>
                             <?php foreach ($values as $value): ?>
+                                <?php if ($value->getAttrib('@currency')) (printf("[%s]",$value->getAttribValue('@currency'))); ?>
                                 <?php if ($value->getAttrib('text')) print ($this->length()->adjustDoubleTitleLength($value->getAttribValue('text'))); ?> 
                                 <?php if ($value->getAttrib('text') && $value->getAttrib('@value_date')) print "; "; ?>
                                 <?php if ($value->getAttrib('@value_date')) print ($this->length()->adjustDoubleTitleLength($value->getAttribValue('@value_date'))); ?>
