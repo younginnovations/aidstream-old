@@ -30,6 +30,7 @@
                             ?>    
                             <?php foreach ($values as $value): ?>
                                 <?php if ($transactiontype->getAttrib('@code') && $value->getAttrib('text')) print "; "; ?>
+                                <?php if ($value->getAttrib('@currency')) (printf("[%s]",$value->getAttribValue('@currency'))); ?>
                                 <?php if ($value->getAttrib('text')) print ($this->length()->adjustTripleTitleLength($value->getAttribValue('text'))); ?> 
                                 <?php break; ?>
                             <?php endforeach; ?>
