@@ -5,28 +5,28 @@
     </div>
 
     <div class="edit"><a href="<?php echo $this->baseUrl() ?>/organisation/edit-elements/?parentId=<?php echo $this->parentId ?>&className=Organisation_Name">Edit</a></div> 
-    
-    <?php $i = 1; ?>
-    <?php foreach ($this->elements as $element): ?>
-        <?php if ($i == '1'): ?>
-            <div class="highlight">
-            <?php else: ?>
-                <div class="highlight first">
-                <?php endif; ?>
 
-                <ul class="style-1">
+    <div class="highlight">
+        <ul class="style-1">
+            <?php if (!empty($this->elements)): ?>
+                <?php foreach ($this->elements as $element): ?>
                     <li>
                         <span class="name">Text:</span>
-                        <span class="infom"><?php echo $element['text']; ?></span>
+                        <span class="infom"><?php echo $element['text'];
+                                                if ($element['@xml_lang'])
+                                                {
+                                                    printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('Name' , '@xml_lang' , $element['@xml_lang']));
+                                                }
+                                            ?>                            
+                        </span>
                     </li>
-                    <li>
-                        <span class="name">Lang:</span>
-                        <span class="infom"><?php echo Iati_Core_Codelist::getCodeByAttrib('Name' , '@xml_lang' , $element['@xml_lang']); ?></span>
-                    </li>
-                </ul>           
-            </div><!--Ends .highlight-->
-            <?php $i = $i + 1; ?>
-        <?php endforeach; ?>
+                <?php endforeach; ?>
+              <?php endif; ?>
+        </ul>           
+    </div><!--Ends .highlight-->
+
+
+
 
 
 </li><!-- end of element-activity -->
