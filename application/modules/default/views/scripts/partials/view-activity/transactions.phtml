@@ -15,23 +15,42 @@
                         <div id="get-activityId" style="display:none"><?php echo $this->activityInfo['id'] ; ?></div>
                         <div id="get-index" style="display:none"><?php echo $key ; ?></div>
                         <?php
+                        $code =  Null;
                         $transactiontypes = $transaction->getElementsByType('TransactionType');
                         $value = $transactiontypes[0]->getAttribs();
                         if (!empty($value)):
                         ?>
                             <?php foreach ($transactiontypes as $transactiontype): ?>
-                                <?php if ($transactiontype->getAttrib('@code')) ($transactiontype->getAttribValue('@code' , 'Name') != $transactiontype->getAttribValue('@code')) ? ( printf("%s [%s]" ,$this->length()->adjustTripleTitleLength($transactiontype->getAttribValue('@code' , 'Name')) , $transactiontype->getAttribValue('@code'))) : (print($this->length()->adjustTripleTitleLength($transactiontype->getAttribValue('@code')))); ?> 
+                                <?php if ($transactiontype->getAttrib('@code')){ $code = $transactiontype->getAttrib('@code'); ($transactiontype->getAttribValue('@code' , 'Name') != $transactiontype->getAttribValue('@code')) ? ( printf("%s [%s]" ,$this->length()->adjustTripleTitleLength($transactiontype->getAttribValue('@code' , 'Name')) , $transactiontype->getAttribValue('@code'))) : (print($this->length()->adjustTripleTitleLength($transactiontype->getAttribValue('@code'))));} ?> 
                             <?php endforeach; ?>
                         <?php endif; ?>
                         <?php
+                        $text = Null;
                         $values = $transaction->getElementsByType('Value');
                         $value = $values[0]->getAttribs();
                         if (!empty($value)):
                             ?>    
                             <?php foreach ($values as $value): ?>
-                                <?php if ($transactiontype->getAttrib('@code') && $value->getAttrib('text')) print "; "; ?>
+                                <?php if ($code && $value->getAttrib('text')) print "; "; ?>
                                 <?php if ($value->getAttrib('@currency')) (printf("[%s]",$value->getAttribValue('@currency'))); ?>
-                                <?php if ($value->getAttrib('text')) print ($this->length()->adjustTripleTitleLength($value->getAttribValue('text'))); ?> 
+                                <?php if ($value->getAttrib('text')) 
+                                      {
+                                       $text = $value->getAttribValue('text');
+                                       print ($this->length()->adjustTripleTitleLength($value->getAttribValue('text'))); 
+                                      }
+                                ?> 
+                                <?php break; ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                        <!--Transaction Date -->
+                        <?php
+                        $values = $transaction->getElementsByType('TransactionDate');
+                        $value = $values[0]->getAttribs();
+                        if (!empty($value)):
+                            ?>    
+                            <?php foreach ($values as $value): ?>
+                                <?php if ($text && $value->getAttrib('@iso_date')) print "; "; ?>
+                                <?php if ($value->getAttrib('@iso_date')) print ($this->length()->adjustTripleTitleLength($value->getAttribValue('@iso_date'))); ?> 
                                 <?php break; ?>
                             <?php endforeach; ?>
                         <?php endif; ?>
