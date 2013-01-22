@@ -77,10 +77,6 @@
                             <span class="name">Text:</span>
                             <span class="infom"><?php if ($title->getAttrib('text')) print ($title->getAttribValue('text')); ?> <?php if ($title->getAttrib('@xml_lang')) printf(" [%s]" , ($title->getAttribValue('@xml_lang'))); ?></span>
                         </li>
-                        <li>
-                            <span class="name">xml_lang:</span>
-                            <span class="infom"><?php if ($title->getAttrib('@xml_lang')) print ($title->getAttribValue('@xml_lang')); ?></span>
-                        </li>
                     <?php endforeach; ?>
                 </ul> 
             <?php endif; ?>
