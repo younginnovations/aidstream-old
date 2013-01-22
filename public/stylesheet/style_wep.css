@@ -3797,6 +3797,8 @@ span.infom {
     color: #333!important;
 	display: inline-block;
 	line-height: 28px!important;
+	width: 360px;
+	vertical-align: top;
 }
 
 ul.style-4.inner li {
