@@ -47,8 +47,10 @@ class AjaxController extends Zend_Controller_Action
                     $parentCount = explode('-' , $parent);
                     $belongsTo = $belongsTo . "[{$parentCount[0]}][{$parentCount[1]}]";
                 }
-            }            
-            $belongsTo = $belongsTo . $form->getElementsBelongTo();
+            }
+            $formBelongsTo = $form->getElementsBelongTo();
+            $formBelongsTo = preg_replace('/(^\w+)/' , '[$1]' , $formBelongsTo) ;
+            $belongsTo = $belongsTo . $formBelongsTo;
             $form->setElementsBelongTo($belongsTo);
         }
         $partialPath = Zend_Registry::get('config')->resources->layout->layoutpath;
