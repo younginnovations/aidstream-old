@@ -25,33 +25,30 @@ class AjaxController extends Zend_Controller_Action
         $element->setCount($count);
         
         $form = $element->getForm(true);
-        $hasParents = (preg_replace("/{$ele}.*$/" , '' , $refItem ))?true:false;
+        
         /**
          * If the element is a child form, we have to add the parent's name and count to the form elements.
          * @todo refractor the baseElement's code so that we dont need to do this here.
          */
-        if($hasParents){
-            foreach(explode('_' , $elementClass) as $parent){
-                $eleform = $form;
-                if(preg_match("/^{$parent}-\d+/" , $refItem , $matches)){
-                    $parentCount = explode('-' , $matches[0]);
-                    $belongsTo = $belongsTo . "{$parentCount[0]}[{$parentCount[1]}]";
-                } else if (preg_match("/{$parent}-\d+$/" , $refItem , $matches)){
-                    $parentCount = explode('-' , $matches[0]);
-                    $count = ++$parentCount[1];
-                    $belongsTo = $belongsTo . "[{$parentCount[0]}][{$count}]";
-                         
-                } else if (preg_match("/{$parent}-\d+/" , $refItem , $matches)){
-                    $parentCount = explode('-' , $matches[0]);
-                    $belongsTo = $belongsTo . "[{$parentCount[0]}][{$parentCount[1]}]";
-                  
-                } else if(preg_match("/^{$parent}/" , $refItem)) {
-                    $belongsTo = $belongsTo . "$parent";
-                    
-                } else {
-                    $belongsTo = $belongsTo . "[$parent]";
-                }
+        $parents = preg_replace("/(-)?{$ele}.*$/" , '' , $refItem );
+        if($parents){
+            $belongsTo = "";
+            if(preg_match("/^\w+-\d+/" , $parents , $matches)){
+                $parentCount = explode('-' , $matches[0]);
+                $belongsTo = $belongsTo . "{$parentCount[0]}[{$parentCount[1]}]";
+                $parents = preg_replace("/^\w+-\d+/", '' , $parents);
+            } else if(preg_match("/^\w+/" , $parents)) {
+                $belongsTo = $belongsTo . "$parent";
+                $parents = preg_replace("/^\w+/" , '' , $parents);
             }
+            
+            if(preg_match("/\w+-\d+/" , $parents , $matches)){
+                foreach($matches as $parent){
+                    $parentCount = explode('-' , $parent);
+                    $belongsTo = $belongsTo . "[{$parentCount[0]}][{$parentCount[1]}]";
+                }
+            }            
+            $belongsTo = $belongsTo . $form->getElementsBelongTo();
             $form->setElementsBelongTo($belongsTo);
         }
         $partialPath = Zend_Registry::get('config')->resources->layout->layoutpath;
