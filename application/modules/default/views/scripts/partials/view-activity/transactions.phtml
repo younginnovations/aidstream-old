@@ -14,6 +14,7 @@
                     <span class="transaction-down-arrow transaction">  
                         <div id="get-activityId" style="display:none"><?php echo $this->activityInfo['id'] ; ?></div>
                         <div id="get-index" style="display:none"><?php echo $key ; ?></div>
+                        <!--Starts Transaction Type-->
                         <?php
                         $code =  Null;
                         $transactiontypes = $transaction->getElementsByType('TransactionType');
@@ -24,6 +25,8 @@
                                 <?php if ($transactiontype->getAttrib('@code')){ $code = $transactiontype->getAttrib('@code'); ($transactiontype->getAttribValue('@code' , 'Name') != $transactiontype->getAttribValue('@code')) ? ( printf("%s [%s]" ,$this->length()->adjustTripleTitleLength($transactiontype->getAttribValue('@code' , 'Name')) , $transactiontype->getAttribValue('@code'))) : (print($this->length()->adjustTripleTitleLength($transactiontype->getAttribValue('@code'))));} ?> 
                             <?php endforeach; ?>
                         <?php endif; ?>
+                        <!--Ends Transaction Type-->
+                        <!--Starts Transaction Value-->
                         <?php
                         $text = Null;
                         $values = $transaction->getElementsByType('Value');
@@ -42,7 +45,8 @@
                                 <?php break; ?>
                             <?php endforeach; ?>
                         <?php endif; ?>
-                        <!--Transaction Date -->
+                        <!--Ends Transaction Value-->
+                        <!--Starts Transaction Date-->
                         <?php
                         $values = $transaction->getElementsByType('TransactionDate');
                         $value = $values[0]->getAttribs();
@@ -54,6 +58,7 @@
                                 <?php break; ?>
                             <?php endforeach; ?>
                         <?php endif; ?>
+                        <!--Ends Transaction Date-->
                     </span>
                     
                     <!--Transaction content is loaded through ajax in div-->
