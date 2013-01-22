@@ -15,7 +15,7 @@ class Iati_Aidstream_Form_Organisation_DocumentLink_Category extends Iati_Core_B
         $form['id'] = new Zend_Form_Element_Hidden('id');
         $form['id']->setValue($this->data['id']);
         
-        $codes = $model->getCodeArray('OrganisationIdentifier', null, '1' , true);
+        $codes = $model->getCodeArray('DocumentCategory', null, '1' , true);
         $form['code'] = new Zend_Form_Element_Select('code');
         $form['code']->setLabel('Code')
             ->setValue($this->data['@code'])
