@@ -34,7 +34,7 @@ class Iati_WEP_Activity_Elements_Location_LocationType extends Iati_WEP_Activity
                 ),
                 'xml_lang' => array(
                     'name' => 'xml_lang',
-                    'label' => 'Language Code',
+                    'label' => 'Language',
                     'html' => '<select name="%(name)s" %(attrs)s>%(options)s</select><div class="help location-location_type-xml_lang"></div>',
                     'options' => '',
                     'attrs' => array('class' => array('form-select'))
