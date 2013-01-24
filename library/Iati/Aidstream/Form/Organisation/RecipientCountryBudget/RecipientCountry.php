@@ -24,7 +24,7 @@ class Iati_Aidstream_Form_Organisation_RecipientCountryBudget_RecipientCountry e
             ->setMultioptions($codes);
 
         $form['text'] = new Zend_Form_Element_Textarea('text');
-        $form['text']->setLabel('Text')
+        $form['text']->setLabel('Name')
             ->setValue($this->data['text'])
             ->setAttribs(array('rows'=>'3' , 'cols'=> '20'));
             
