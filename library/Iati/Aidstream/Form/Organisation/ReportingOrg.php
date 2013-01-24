@@ -13,7 +13,7 @@ class Iati_Aidstream_Form_Organisation_ReportingOrg extends Iati_Core_BaseForm
         $form['id']->setValue($this->data['id']);
 
         $form['@ref'] = new Zend_Form_Element_Text('@ref');
-        $form['@ref']->setLabel('Ref')
+        $form['@ref']->setLabel('Identifier')
                 ->setValue($this->data['@ref'])
                 ->setRequired()
                 ->setAttribs(array('disabled' => 'disabled'))
@@ -28,7 +28,7 @@ class Iati_Aidstream_Form_Organisation_ReportingOrg extends Iati_Core_BaseForm
                 ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help Organisation_ReportingOrg-type' , 'placement' => 'PREPEND'))));
 
         $form['text'] = new Zend_Form_Element_Textarea('text');
-        $form['text']->setLabel('Text')
+        $form['text']->setLabel('Name')
                 ->setValue($this->data['text'])
                 ->setAttrib('cols' , '40')
                 ->setAttrib('rows' , '2')
