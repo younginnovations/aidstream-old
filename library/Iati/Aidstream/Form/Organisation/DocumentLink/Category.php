@@ -23,7 +23,7 @@ class Iati_Aidstream_Form_Organisation_DocumentLink_Category extends Iati_Core_B
             ->setMultioptions($codes);
 
         $form['text'] = new Zend_Form_Element_Textarea('text');
-        $form['text']->setLabel('Text')
+        $form['text']->setLabel('Description')
             ->setValue($this->data['text'])
             ->setAttribs(array('rows'=>'3' , 'cols'=> '20'));
             
