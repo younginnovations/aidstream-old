@@ -17,7 +17,7 @@ class Iati_Aidstream_Form_Organisation_DocumentLink_Title extends Iati_Core_Base
         
 
         $form['text'] = new Zend_Form_Element_Textarea('text');
-        $form['text']->setLabel('Text')
+        $form['text']->setLabel('Title')
             ->setRequired()    
             ->setValue($this->data['text'])
             ->setAttribs(array('rows'=>'3' , 'cols'=> '20'));
