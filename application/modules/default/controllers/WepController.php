@@ -1523,7 +1523,7 @@ class WepController extends Zend_Controller_Action
         $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
         $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
         $this->view->blockManager()->disable('partial/published-list.phtml');
-        $this->view->blockManager()->enable('partial/organisation-data.phtml'); 
+        $this->view->blockManager()->disable('partial/organisation-data.phtml'); 
     }
     
     public function updateReportingOrgAction()
