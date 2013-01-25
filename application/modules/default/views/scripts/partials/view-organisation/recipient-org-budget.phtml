@@ -65,10 +65,6 @@
                                                           {
                                                               printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('Activity_default' , '@currency' , $element['Value']["@currency"])); 
                                                           }
-                                                          else
-                                                            {
-                                                                printf(" %s [%s]",Iati_Core_Codelist::getCodeByAttrib('Activity_default' , '@currency' , $this->defaultCurrency,"Name"),Iati_Core_Codelist::getCodeByAttrib('Activity_default' , '@currency' , $this->defaultCurrency));
-                                                            }
                                                      ?> 
                                     </span>
                                 </li>
