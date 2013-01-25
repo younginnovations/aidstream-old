@@ -35,7 +35,7 @@
                             ?>    
                             <?php foreach ($values as $value): ?>
                                 <?php if ($code && $value->getAttrib('text')) print "; "; ?>
-                                <?php if ($value->getAttrib('@currency')) (printf("[%s]",$value->getAttribValue('@currency'))); ?>
+                                <?php  ($value->getAttrib('@currency')) ? (printf("[%s]",$value->getAttribValue('@currency'))) : (printf("[%s]",$this->activityInfo['@default_currency'])); ?> 
                                 <?php if ($value->getAttrib('text')) 
                                       {
                                        $text = $value->getAttribValue('text');
