@@ -4,7 +4,7 @@
 <table class="activity-list-table">
     <thead>
         <tr>
-            <th></th><th>S.N.</th><th>Transaction Type</th><th>Transaction Value</th><th>Transaction Date</th><th></th>
+            <th></th><th>S.N.</th><th>Type</th><th></th>
         </tr>
     </thead>
     <tbody>
@@ -12,12 +12,11 @@
         <tr>
             <td></td>
             <td><? echo $count?></td>
-            <td><? echo Iati_Core_Codelist::getCodeByAttrib('TransactionType' , '@code' , $element['TransactionType']['@code'], 'Name') ?></td>
-            <td><? echo $element['TransactionValue']['text'] ?></td>
-            <td><? echo $element['TransactionDate']['@iso_date']?></td>
+            <td><? echo $element['@type'] ?></td>
+            
             <td colspan=3>
                 <span value="<?php echo $this->baseUrl();?>/activity/view-element?classname=<?php echo $this->elementClass;?>&id=<?php echo $element['id'];?>" class="view-element-link">View</span> |
-                <a href='<?php echo $this->baseUrl();?>/activity/edit-element?classname=<?php echo $this->elementClass;?>&id=<?php echo $element['id'];?>&activity_id=<?php echo $this->activityId; ?>&isMultiple=0'>Edit</a> |
+                <a href='<?php echo $this->baseUrl();?>/activity/edit-element?classname=<?php echo $this->elementClass;?>&id=<?php echo $element['id'];?>&activity_id=<?php echo $this->activityId; ?>&isMultiple=1'>Edit</a> |
                 <a href='<?php echo $this->baseUrl();?>/activity/delete-element?classname=<?php echo $this->elementClass;?>&id=<?php echo $element['id'];?>&activity_id=<?php echo $this->activityId;?>' class="delete-element-link">Delete</a>
             </td>
         </tr>
