@@ -37,13 +37,12 @@ class AjaxController extends Zend_Controller_Action
                 $parentCount = explode('-' , $matches[0]);
                 $belongsTo = $belongsTo . "{$parentCount[0]}[{$parentCount[1]}]";
                 $parents = preg_replace("/^\w+-\d+/", '' , $parents);
-            } else if(preg_match("/^\w+/" , $parents)) {
-                $belongsTo = $belongsTo . "$parent";
+            } else if(preg_match("/^\w+/" , $parents , $matches)) {
+                $belongsTo = $belongsTo . $matches[0];
                 $parents = preg_replace("/^\w+/" , '' , $parents);
             }
-            
-            if(preg_match("/\w+-\d+/" , $parents , $matches)){
-                foreach($matches as $parent){
+            if(preg_match_all("/\w+-\d+/" , $parents , $matches)){
+                foreach($matches[0] as $parent){
                     $parentCount = explode('-' , $parent);
                     $belongsTo = $belongsTo . "[{$parentCount[0]}][{$parentCount[1]}]";
                 }

@@ -10,16 +10,18 @@ class Iati_Aidstream_Form_Activity_Result extends Iati_Core_BaseForm
         $form['id'] = new Zend_Form_Element_Hidden('id');
         $form['id']->setValue($this->data['id']);
         
-        $form['type'] = new Zend_Form_Element_Text('type');
-        $form['type']->setLabel('Type')  
-            ->setAttribs(array('class' => 'form-text'))
-            ->setRequired()
-            ->setValue($this->data['@type']);
+        $type = $model->getCodeArray('ResultType', null, '1');
+        $form['type'] = new Zend_Form_Element_Select('type');
+        $form['type']->setLabel('Type')
+            ->setValue($this->data['@type'])
+            ->setAttrib('class' , 'form-select')
+            ->setRequired()    
+            ->setMultioptions($type);
 
-        $form['aggregation-status'] = new Zend_Form_Element_Select('aggregation-status');
-        $form['aggregation-status']->setLabel('Aggregation Status')    
-            ->setAttribs(array('class' => 'form-text'))    
-            ->setMultiOptions(array('true'=>'true','false'=>'false'))  
+        $form['aggregation_status'] = new Zend_Form_Element_Select('aggregation_status');
+        $form['aggregation_status']->setLabel('Aggregation Status')    
+            ->setAttribs(array('class' => 'form-select'))    
+            ->setMultiOptions(array(''=>'Select Anyone','True'=>'True','False'=>'False'))  
             ->setValue($this->data['@aggregation-status']);
 
         $this->addElements($form);

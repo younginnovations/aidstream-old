@@ -6,7 +6,7 @@ class Iati_Aidstream_Element_Activity_Result_Indicator_Period_PeriodEnd extends 
     protected $className = 'PeriodEnd';
     protected $displayName = 'PeriodEnd';
     protected $tableName = 'iati_result/indicator/period/period-end';
-    protected $attribs = array('id' , '@iso-date' ,'text');
-    protected $iatiAttribs = array('@iso-date' ,'text');
+    protected $attribs = array('id' , '@iso_date' ,'text');
+    protected $iatiAttribs = array('@iso_date' ,'text');
     
 }

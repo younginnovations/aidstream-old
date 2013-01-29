@@ -444,17 +444,14 @@ if(!empty($value)): ?>
 
 
 <!-- Result Starts -->
-<?php
-$results=$activity->getElementsByType(Iati_Activity_Element::TYPE_RESULT);
-$value = $results[0]->getAttribs();
-if(!empty($value)): ?>
-     <?php echo $this->partial("partials/view-activity/result.phtml" , array(
-                                                                                'activityInfo' => $this->activityInfo ,
-                                                                                'results' => $results ,
-                                                                            )
-                          );
+<?php if(!empty($this->activityData['Activity'][0]['Result'])):?>
+    <?php echo $this->partial("partials/view-activity/result.phtml" , array(
+                                                                                    'activityInfo' => $this->activityInfo ,
+                                                                                    'results' => $this->activityData['Activity'][0]['Result'] ,
+                                                                                )
+                            );
     ?>
-<?php endif;?>
+<?php endif; ?>
 <!-- Result Ends -->
 
 </div>

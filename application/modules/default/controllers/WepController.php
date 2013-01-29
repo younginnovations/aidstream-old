@@ -822,10 +822,17 @@ class WepController extends Zend_Controller_Action
         } else {
             $status_form = null;
         }
+        
+        // Fetch activity data
+        $activityClassObj = new Iati_Aidstream_Element_Activity();
+        $activityData = $activityClassObj->fetchData($activity_id , false);
 
         $dbLayer = new Iati_WEP_DbLayer();
         $activitys = $dbLayer->getRowSet('Activity', 'id', $activity_id, true, true);
         $output = '';
+        
+        $this->view->activityData = $activityData;
+        
         $this->view->activity = $activitys;
 
         $this->view->status_form = $status_form;
@@ -1523,7 +1530,7 @@ class WepController extends Zend_Controller_Action
         $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
         $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
         $this->view->blockManager()->disable('partial/published-list.phtml');
-        $this->view->blockManager()->enable('partial/organisation-data.phtml'); 
+        $this->view->blockManager()->disable('partial/organisation-data.phtml'); 
     }
     
     public function updateReportingOrgAction()
