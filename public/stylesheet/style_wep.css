@@ -3535,7 +3535,7 @@ ul.style-2 {
 }
 
 
-.down-arrow,.transaction-down-arrow{
+.down-arrow,.transaction-down-arrow,.ajaxElement-down-arrow{
 	background: #fff url(../images/activity-arrow.png) no-repeat 28px 12px!important;
         display: block;
         width: 526px;
@@ -3814,6 +3814,9 @@ ul.style-4.inner li.first{
     padding-left: 10px;
 }
 #view-activity-transaction ul{
+    display:block;
+}
+#view-activity-ajaxElement ul{
     display:block;
 }
 #contact-form #captcha-element {

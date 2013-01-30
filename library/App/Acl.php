@@ -100,6 +100,7 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'default:organisation', 'generate-xml');
         $this->allow('user', 'default:ajax', 'get-form');
         $this->allow('user', 'default:ajax', 'remove-form');
+        $this->allow('user', 'default:ajax', 'element');
 
         $this->allow('admin', 'user');
         $this->allow('admin', 'default:code-list');

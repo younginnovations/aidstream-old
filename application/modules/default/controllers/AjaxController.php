@@ -4,11 +4,15 @@
  * @author YIPL dev team
  */
 class AjaxController extends Zend_Controller_Action
-{
+{ 
     public function preDispatch()
     {
-        $this->_helper->layout()->disableLayout(); 
-        $this->_helper->viewRenderer->setNoRender(true);
+//        $this->_helper->layout()->disableLayout(); 
+//        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout()->setLayout('layout_wep');
+        //Using Ajax for element to load in view-activity page
+        $ajaxContext = $this->_helper->getHelper('AjaxContext');
+        $ajaxContext->addActionContext('element', 'html')->initContext('html'); 
     }
     
     public function getFormAction()
@@ -70,5 +74,21 @@ class AjaxController extends Zend_Controller_Action
         $element = new $elementName();
         $element->deleteElement($id);
         exit;
+    }
+    
+    public function elementAction()
+    {  
+        // Get element id
+        $element_id = $this->_request->getQuery('id');
+        // Get index of an array
+        $index = $this->_request->getQuery('index');
+        // Get class name
+        $elementClass = $this->_request->getQuery('className');        
+        // Fetch element data
+        $elementName =  "Iati_Aidstream_Element_Activity_".$elementClass;
+        $element = new $elementName();
+        $elementData = $element->fetchData($element_id);
+        $this->view->data = $elementData[$element->getClassName()][0];
+        $this->view->className = strtolower($element->getClassName());
     }
 }
