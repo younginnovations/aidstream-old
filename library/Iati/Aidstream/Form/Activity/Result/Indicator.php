@@ -18,10 +18,11 @@ class Iati_Aidstream_Form_Activity_Result_Indicator extends Iati_Core_BaseForm
             ->setRequired()
             ->setValue($this->data['@measure']);
 
-        $form['ascending'] = new Zend_Form_Element_Text('ascending');
+        $form['ascending'] = new Zend_Form_Element_Select('ascending');
         $form['ascending']->setLabel('Ascending')   
-            ->setAttribs(array('class' => 'form-text'))
-            ->setValue($this->data['@ascending']);
+            ->setAttribs(array('class' => 'form-select'))
+            ->setValue($this->data['@ascending'])
+            ->setMultiOptions(array(''=>'Select Anyone','True'=>'True','False'=>'False'));        
 
         $this->addElements($form);
         return $this;

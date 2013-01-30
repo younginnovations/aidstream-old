@@ -16,12 +16,14 @@ class Iati_Aidstream_Form_Activity_Result_Indicator_Baseline extends Iati_Core_B
         $form['year']->setLabel('Year')  
             ->setAttribs(array('class' => 'form-text'))
             ->setRequired()
+            ->addValidator('regex', false,array('/^[0-9]{4}/','messages'=>array('regexNotMatch'=>'Incorrect Year')))
             ->setValue($this->data['@year']);
 
         $form['value'] = new Zend_Form_Element_Text('value');
         $form['value']->setLabel('Value')   
             ->setAttribs(array('class' => 'form-text'))
             ->setRequired()
+            ->addFilter(new Iati_Filter_Currency())    
             ->setValue($this->data['@value']);
 
         $this->addElements($form);

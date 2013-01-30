@@ -12,7 +12,7 @@
         <tr>
             <td></td>
             <td><? echo $count?></td>
-            <td><? echo $element['@type'] ?></td>
+            <td><?php if (!empty($element["@type"])) printf ("%s [%s]",Iati_Core_Codelist::getCodeByAttrib('Result' , '@type' , $element["@type"],'Name'),Iati_Core_Codelist::getCodeByAttrib('Result' , '@type' , $element["@type"])); ?></td>
             
             <td colspan=3>
                 <span value="<?php echo $this->baseUrl();?>/activity/view-element?classname=<?php echo $this->elementClass;?>&id=<?php echo $element['id'];?>" class="view-element-link">View</span> |

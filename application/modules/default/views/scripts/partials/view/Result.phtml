@@ -1,0 +1,263 @@
+<table id="popup-table" class="activity-detail-table">
+    <tr>
+        <td>
+            <?php $result = $this->data; ?>
+            <!-- Transaction Starts -->
+            <div class='element-item item-flow'><div class='element-title'>Result</div>
+            <div class='element-values'>
+            <table class='element-values-items'>
+            <tr class='element-value element-value-even'><td class='attrib-label'>Type</td><td class='attrib-value'><?php if (!empty($result["@type"])) printf ("%s [%s]",Iati_Core_Codelist::getCodeByAttrib('Result' , '@type' , $result["@type"],'Name'),Iati_Core_Codelist::getCodeByAttrib('Result' , '@type' , $result["@type"])); ?></td></tr>
+            <tr class='element-value element-value-even'><td class='attrib-label'>Aggregation Status</td><td class='attrib-value'><?php if(!empty($result['@aggregation_status']))(print $result['@aggregation_status'])?></td></tr>
+            <tr>
+            <td colspan=2>
+            
+            <div class='sub_element'><!-- Sub element Starts -->
+            
+            <!--Title Starts -->
+            <?php if (!empty($result['Title'])): ?>
+            <div class='element-item'><div class='element-title'>Title</div>
+            <div class='element-values'>
+                <table class='element-values-items'>
+                <?php $classVariable = 'even'?>    
+                <?php foreach ($result['Title'] as $title): ?>    
+                    <tr class='element-value element-value-<?php echo $classVariable; ?>'><td class='attrib-label'>Text</td><td class='attrib-value'><?php if (!empty($title["text"])) print ($title["text"]); ?><?php if (!empty($title["@xml_lang"])) printf ("[%s]",Iati_Core_Codelist::getCodeByAttrib('Title' , '@xml_lang' , $title["@xml_lang"])); ?></td></tr>
+                    <?php $classVariable = 'odd'?> 
+               <?php endforeach; ?>
+                </table>
+            </div>
+            </div>
+            <?php endif;?>
+            <!-- Title Ends -->
+            
+            <!--  Description Starts -->
+            <?php if (!empty($result['Description'])): ?>
+            <div class='element-item'><div class='element-title'>Description</div>
+            <div class='element-values'>
+                <table class='element-values-items'>
+                <?php $classVariable = 'even'?>    
+                <?php foreach ($result['Description'] as $description): ?>   
+                    <tr class='element-value element-value-<?php echo $classVariable; ?>'><td class='attrib-label'>Text</td><td class='attrib-value'><?php if (!empty($description["text"])) print ($description["text"]); ?><?php if (!empty($description["@xml_lang"])) printf ("[%s]",Iati_Core_Codelist::getCodeByAttrib('Description' , '@xml_lang' , $description["@xml_lang"])); ?></td></tr>
+                    <tr class='element-value element-value-<?php echo $classVariable; ?>'><td class='attrib-label'>Type</td><td class='attrib-value'><?php if (!empty($description["@type"])) printf ("%s [%s]",Iati_Core_Codelist::getCodeByAttrib('Description' , '@type' , $description["@type"],'Name'),Iati_Core_Codelist::getCodeByAttrib('Result' , '@type' , $description["@type"])); ?></td></tr>
+                    <?php $classVariable = 'odd'?> 
+               <?php endforeach; ?>
+                </table>
+            </div>
+            </div>
+            <?php endif;?>
+            <!-- Description Ends -->
+            
+            <!--  Indicator Starts -->
+            <?php if (!empty($result['Indicator'])): ?>
+            <div class='element-item'><div class='element-title'>Indicator</div>
+            <div class='element-values'>
+                <table class='element-values-items'>
+                <?php $classVariable = 'even'?>    
+                <?php foreach ($result['Indicator'] as $indicator): ?>  
+                    <tr class='element-value element-value-<?php echo $classVariable; ?>'><td class='attrib-label'>Measure</td><td class='attrib-value'><?php if (!empty($indicator["@measure"])) print ($indicator["@measure"]); ?></td></tr>
+                    <tr class='element-value element-value-<?php echo $classVariable; ?>'><td class='attrib-label'>Ascending</td><td class='attrib-value'><<?php if (!empty($indicator["@ascending"])) print ($indicator["@ascending"]); ?></td></tr>
+                    
+                        <!--Indicator Title Starts -->
+                        <?php if (!empty($indicator['Title'])): ?> 
+                        <div class='element-item'><div class='element-title'>Title</div>
+                        <div class='element-values'>
+                            <table class='element-values-items'>
+                            <?php $classVariable = 'even'?>    
+                            <?php foreach ($indicator['Title']as $title): ?>    
+                                <tr class='element-value element-value-<?php echo $classVariable; ?>'><td class='attrib-label'>Text</td><td class='attrib-value'><?php if (!empty($title["text"])) print ($title["text"]); ?><?php if (!empty($title["@xml_lang"])) printf ("[%s]",Iati_Core_Codelist::getCodeByAttrib('Title' , '@xml_lang' , $title["@xml_lang"])); ?></td></tr>
+                                <?php $classVariable = 'odd'?> 
+                            <?php endforeach; ?>
+                            </table>
+                        </div>
+                        </div>
+                        <?php endif;?>
+                        <!--Indicator Title Ends -->
+                        
+                        <!--Indicator Description Starts -->
+                        <?php if (!empty($indicator['Title'])): ?> 
+                        <div class='element-item'><div class='element-title'>Description</div>
+                        <div class='element-values'>
+                            <table class='element-values-items'>
+                            <?php $classVariable = 'even'?>    
+                            <?php foreach ($indicator['Description'] as $description): ?>   
+                                <tr class='element-value element-value-<?php echo $classVariable; ?>'><td class='attrib-label'>Text</td><td class='attrib-value'><?php if (!empty($description["text"])) print ($description["text"]); ?><?php if (!empty($description["@xml_lang"])) printf ("[%s]",Iati_Core_Codelist::getCodeByAttrib('Description' , '@xml_lang' , $description["@xml_lang"])); ?></td></tr>
+                                <tr class='element-value element-value-<?php echo $classVariable; ?>'><td class='attrib-label'>Type</td><td class='attrib-value'><?php if (!empty($description["@type"])) printf ("%s [%s]",Iati_Core_Codelist::getCodeByAttrib('Description' , '@type' , $description["@type"],'Name'),Iati_Core_Codelist::getCodeByAttrib('Result' , '@type' , $description["@type"])); ?></td></tr>
+                                <?php $classVariable = 'odd'?> 
+                            <?php endforeach; ?>
+                            </table>
+                        </div>
+                        </div>
+                        <?php endif;?>
+                        <!--Indicator Description Ends -->
+                        
+                        <!--Indicator Baseline Starts -->
+                        <?php if (!empty($indicator['Baseline'])): ?>
+                        <div class='element-item'><div class='element-title'>Baseline</div>
+                        <div class='element-values'>
+                            <table class='element-values-items'>
+                            <?php $classVariable = 'even'?>    
+                            <?php foreach ($indicator['Baseline'] as $baseline): ?> 
+                                <tr class='element-value element-value-<?php echo $classVariable; ?>'><td class='attrib-label'>Year</td><td class='attrib-value'><?php if (!empty($baseline["@year"])) print ($baseline["@year"]); ?></td></tr>
+                                <tr class='element-value element-value-<?php echo $classVariable; ?>'><td class='attrib-label'>Value</td><td class='attrib-value'><?php if (!empty($baseline["@value"])) print ($baseline["@value"]); ?></td></tr>
+                                
+                                <!--Indicator Baseline Comment Starts -->
+                                <?php if (!empty($baseline['Comment'])): ?>
+                                <div class='element-item'><div class='element-title'>Comment</div>
+                                <div class='element-values'>
+                                    <table class='element-values-items'>
+                                    <?php $classVariable = 'even'?>    
+                                    <?php foreach ($baseline['Comment'] as $comment): ?>  
+                                        <tr class='element-value element-value-<?php echo $classVariable; ?>'><td class='attrib-label'>Text</td><td class='attrib-value'><?php if (!empty($comment["text"])) print ($comment["text"]); ?><?php if (!empty($comment["@xml_lang"])) printf ("[%s]",Iati_Core_Codelist::getCodeByAttrib('Comment' , '@xml_lang' , $comment["@xml_lang"])); ?></td></tr>
+                                        <?php $classVariable = 'odd'?> 
+                                    <?php endforeach; ?>
+                                    </table>
+                                </div>
+                                </div>
+                                <?php endif;?>
+                                <!--Indicator Baseline Comment Ends -->
+                                
+                                <?php $classVariable = 'odd'?> 
+                            <?php endforeach; ?><!--foreach of indicator baseline-->
+                            </table>
+                        </div>
+                        </div>
+                        <?php endif;?>
+                        <!--Indicator Baseline Ends -->
+                                
+                                <!--Indicator Period Starts -->
+                                <?php if (!empty($indicator['Period'])): ?>
+                                <div class='element-item'><div class='element-title'>Period</div>
+                                <div class='element-values'>
+                                    <table class='element-values-items'>
+                                    <?php $classVariable = 'even'?>    
+                                    <?php foreach($indicator['Period'] as $period):?>
+                                        
+                                        <!-- Indicator Period PeriodStart Starts -->
+                                        <?php if (!empty($period['PeriodStart'])): ?>
+                                        <div class='element-item'><div class='element-title'>PeriodStart</div>
+                                        <div class='element-values'>
+                                            <table class='element-values-items'>
+                                            <?php $classVariable = 'even'?>    
+                                            <?php foreach ($period['PeriodStart'] as $periodStart): ?>  
+                                                <tr class='element-value element-value-<?php echo $classVariable; ?>'><td class='attrib-label'>Text</td><td class='attrib-value'><?php if (!empty($periodStart["text"])) print ($periodStart["text"]); ?></td></tr>
+                                                <tr class='element-value element-value-<?php echo $classVariable; ?>'><td class='attrib-label'>Iso Date</td><td class='attrib-value'><?php if (!empty($periodStart["@iso_date"])) print ($periodStart["@iso_date"]); ?></td></tr>
+                                                <?php $classVariable = 'odd'?> 
+                                            <?php endforeach; ?>
+                                            </table>
+                                        </div>
+                                        </div>
+                                        <?php endif;?>
+                                        <!--Indicator Period PeriodStart Ends -->
+                                        
+                                        <!--Indicator Period PeriodEnd Starts -->
+                                        <?php if (!empty($period['PeriodEnd'])): ?>
+                                        <div class='element-item'><div class='element-title'>PeriodEnd</div>
+                                        <div class='element-values'>
+                                            <table class='element-values-items'>
+                                            <?php $classVariable = 'even'?>    
+                                            <?php foreach ($period['PeriodEnd'] as $periodEnd): ?>  
+                                                <tr class='element-value element-value-<?php echo $classVariable; ?>'><td class='attrib-label'>Text</td><td class='attrib-value'><?php if (!empty($periodEnd["text"])) print ($periodEnd["text"]); ?></td></tr>
+                                                <tr class='element-value element-value-<?php echo $classVariable; ?>'><td class='attrib-label'>Iso Date</td><td class='attrib-value'><?php if (!empty($periodEnd["@iso_date"])) print ($periodEnd["@iso_date"]); ?></td></tr>
+                                                <?php $classVariable = 'odd'?> 
+                                            <?php endforeach; ?>
+                                            </table>
+                                        </div>
+                                        </div>
+                                        <?php endif;?>
+                                        <!--Indicator Period PeriodEnd Ends -->
+                                        
+                                        <!--Indicator Period Target Starts-->
+                                        <?php if (!empty($period['Target'])): ?>
+                                        <div class='element-item'><div class='element-title'>Target</div>
+                                        <div class='element-values'>
+                                            <table class='element-values-items'>
+                                            <?php $classVariable = 'even'?>    
+                                            <?php foreach ($period['Target'] as $target): ?>
+                                                <tr class='element-value element-value-<?php echo $classVariable; ?>'><td class='attrib-label'>Value</td><td class='attrib-value'><?php if (!empty($target["@value"])) print ($target["@value"]); ?></td></tr>
+
+                                                <!--Indicator Period Target Comment Starts-->
+                                                <?php if (!empty($target['Comment'])): ?>
+                                                <div class='element-item'><div class='element-title'>Comment</div>
+                                                <div class='element-values'>
+                                                    <table class='element-values-items'>
+                                                    <?php $classVariable = 'even'?>    
+                                                    <?php foreach ($target['Comment'] as $comment): ?>
+                                                        <tr class='element-value element-value-<?php echo $classVariable; ?>'><td class='attrib-label'>Text</td><td class='attrib-value'><?php if (!empty($comment["text"])) print ($comment["text"]); ?><?php if (!empty($comment["@xml_lang"])) printf ("[%s]",Iati_Core_Codelist::getCodeByAttrib('Comment' , '@xml_lang' , $comment["@xml_lang"])); ?></td></tr>
+                                                        <?php $classVariable = 'odd'?> 
+                                                    <?php endforeach; ?>
+                                                    </table>
+                                                </div>
+                                                </div>
+                                                <?php endif;?>
+                                                <!--Indicator Period Target Comment Ends-->
+
+                                                <?php $classVariable = 'odd'?> 
+                                            <?php endforeach; ?><!--foreach of Indicator Period Target-->
+                                            </table>
+                                        </div>
+                                        </div>
+                                        <?php endif;?>
+                                        <!--Indicator Period Target Ends -->
+                                        
+                                        <!--Indicator Period Actual Starts-->
+                                        <?php if (!empty($period['Actual'])): ?>
+                                        <div class='element-item'><div class='element-title'>Actual</div>
+                                        <div class='element-values'>
+                                            <table class='element-values-items'>
+                                            <?php $classVariable = 'even'?>    
+                                            <?php foreach ($period['Actual'] as $actual): ?>
+                                                <tr class='element-value element-value-<?php echo $classVariable; ?>'><td class='attrib-label'>Value</td><td class='attrib-value'><?php if (!empty($actual["@value"])) print ($actual["@value"]); ?></td></tr>
+
+                                                <!--Period Actual Comment Starts-->
+                                                <?php if (!empty($actual['Comment'])): ?>
+                                                <div class='element-item'><div class='element-title'>Comment</div>
+                                                <div class='element-values'>
+                                                    <table class='element-values-items'>
+                                                    <?php $classVariable = 'even'?>    
+                                                    <?php foreach ($actual['Comment'] as $comment): ?>
+                                                        <tr class='element-value element-value-<?php echo $classVariable; ?>'><td class='attrib-label'>Text</td><td class='attrib-value'><?php if (!empty($comment["text"])) print ($comment["text"]); ?><?php if (!empty($comment["@xml_lang"])) printf ("[%s]",Iati_Core_Codelist::getCodeByAttrib('Comment' , '@xml_lang' , $comment["@xml_lang"])); ?></td></tr>
+                                                        <?php $classVariable = 'odd'?> 
+                                                    <?php endforeach; ?>
+                                                    </table>
+                                                </div>
+                                                </div>
+                                                <?php endif;?>
+                                                <!--Indicator Period Actual Comment Ends-->
+
+                                                <?php $classVariable = 'odd'?> 
+                                            <?php endforeach; ?><!--foreach of Indicator Period Actual-->
+                                            </table>
+                                        </div>
+                                        </div>
+                                        <?php endif;?>
+                                        <!--Indicator Period Actual Ends -->
+                                        
+                                        
+                                        <?php $classVariable = 'odd'?> 
+                                    <?php endforeach; ?><!--foreach of indicator period-->
+                                    </table>
+                                </div>
+                                </div>
+                                <?php endif;?>
+                                <!--Indicator Period Ends -->                      
+                                
+                        
+                    <?php $classVariable = 'odd'?> 
+               <?php endforeach; ?><!--foreach of indicator-->
+                </table>
+            </div>
+            </div>
+            <?php endif;?>
+            <!-- Indicator Ends -->
+            
+           
+            
+            
+            </div><!-- Sub element Ends -->
+            
+            </td></tr></table>
+            </div>
+            </div>
+            <!-- Transaction Ends -->
+        </td>
+    </tr>
+</table>

@@ -20,9 +20,9 @@ class Iati_Aidstream_Form_Activity_Result extends Iati_Core_BaseForm
 
         $form['aggregation_status'] = new Zend_Form_Element_Select('aggregation_status');
         $form['aggregation_status']->setLabel('Aggregation Status')    
-            ->setAttribs(array('class' => 'form-select'))    
-            ->setMultiOptions(array(''=>'Select Anyone','True'=>'True','False'=>'False'))  
-            ->setValue($this->data['@aggregation-status']);
+            ->setAttribs(array('class' => 'form-select')) 
+            ->setValue($this->data['@aggregation_status'])
+            ->setMultiOptions(array(''=>'Select Anyone','True'=>'True','False'=>'False'));             
 
         $this->addElements($form);
         return $this;

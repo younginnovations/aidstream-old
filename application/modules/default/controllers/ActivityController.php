@@ -53,6 +53,7 @@ class ActivityController extends Zend_Controller_Action
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();
             if($form->validate()){
+                $data = $this->getRequest()->getPost();
                 $id = $element->save($data[$element->getClassName()] , $parentId);
                 
                 Model_Activity::updateActivityUpdatedInfo($parentId);
@@ -149,6 +150,7 @@ class ActivityController extends Zend_Controller_Action
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm(); 
             if($form->validate()){
+                $data = $this->getRequest()->getPost();
                 $element->save($data[$element->getClassName()] , $parentId);
                 
                 $activityHashModel = new Model_ActivityHash();
@@ -245,6 +247,6 @@ class ActivityController extends Zend_Controller_Action
 
         $data = $element->fetchData($eleId );
         $this->view->data = $data[$element->getClassName()];
-        $this->view->className = $element->getClassName();        
+        $this->view->className = $element->getClassName(); 
     }
 }
