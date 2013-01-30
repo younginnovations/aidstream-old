@@ -54,7 +54,7 @@
                 <?php $classVariable = 'even'?>    
                 <?php foreach ($result['Indicator'] as $indicator): ?>  
                     <tr class='element-value element-value-<?php echo $classVariable; ?>'><td class='attrib-label'>Measure</td><td class='attrib-value'><?php if (!empty($indicator["@measure"])) print ($indicator["@measure"]); ?></td></tr>
-                    <tr class='element-value element-value-<?php echo $classVariable; ?>'><td class='attrib-label'>Ascending</td><td class='attrib-value'><<?php if (!empty($indicator["@ascending"])) print ($indicator["@ascending"]); ?></td></tr>
+                    <tr class='element-value element-value-<?php echo $classVariable; ?>'><td class='attrib-label'>Ascending</td><td class='attrib-value'><?php if (!empty($indicator["@ascending"])) print ($indicator["@ascending"]); ?></td></tr>
                     
                         <!--Indicator Title Starts -->
                         <?php if (!empty($indicator['Title'])): ?> 
@@ -73,7 +73,7 @@
                         <!--Indicator Title Ends -->
                         
                         <!--Indicator Description Starts -->
-                        <?php if (!empty($indicator['Title'])): ?> 
+                        <?php if (!empty($indicator['Description'])): ?> 
                         <div class='element-item'><div class='element-title'>Description</div>
                         <div class='element-values'>
                             <table class='element-values-items'>
@@ -120,7 +120,7 @@
                             </table>
                         </div>
                         </div>
-                        <?php endif;?>
+                        <?php endif;?><!--if of indicator baseline-->
                         <!--Indicator Baseline Ends -->
                                 
                                 <!--Indicator Period Starts -->
