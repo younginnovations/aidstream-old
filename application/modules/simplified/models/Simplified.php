@@ -106,15 +106,31 @@ class Simplified_Model_Simplified
         }
         
         //Create Location
-        if($data['location_name']){
-            $loc['activity_id'] = $activityId;
-            $locId = $model->insertRowsToTable('iati_location' , $loc);
+        $locationId = null;
+        foreach($data['location'] as $locationData){
+            if(!$locationId){
+                echo "inserted location \n actId $activityId";
+                //$locationId = $model->insertRowsToTable('iati_location' , array('activity_id' => $activityId));
+                $locationId = 2;
+            }
             
-            //Insert Location Name
+            // insert location name
+            $locName = array();
+            
+            //update Location Name
             $locName['@xml_lang'] = $default['language'];
-            $locName['text'] = $data['location_name'];
-            $locName['location_id'] = $locId;
-            $model->insertRowsToTable('iati_location/name' , $locName);
+            $locName['text'] = $locationData['location_name'];
+            $locName['location_id'] = $locationId;
+            echo "insert name"; var_dump($locName);
+            //$model->insertRowsToTable('iati_location/name' , $locName);
+            
+            //update Location Name
+            $locAdm['@xml_lang'] = $default['language'];
+            $locAdm['@adm2'] = $locationData['location_adm2'];
+            $locAdm['country'] = 'np';
+            $locAdm['location_id'] = $locationId;
+            echo "insert adm2"; var_dump($locAdm);
+            //$model->insertRowsToTable('iati_location/administrative' , $locAdm);
         }
         
         //Create Budget
@@ -529,17 +545,55 @@ class Simplified_Model_Simplified
         }
 
         //Update Location
-        if($data['location_id']){
-            /*
-            $loc['activity_id'] = $activityId;
-            $locId = $model->updateRowsToTable('iati_location' , $loc);
-            */
-            //update Location Name
-            $locName['@xml_lang'] = $default['language'];
-            $locName['text'] = $data['location_name'];
-            $locName['id'] = $data['location_id'];
-            $model->updateRowsToTable('iati_location/name' , $locName);
+        $locationId = null;
+        foreach($data['location'] as $locationData){
+            // check for location exists
+            if($locationData['location_id']){
+                $locationId = $locationData['location_id'];
+            } else {
+                if(!$locationId){
+                    echo "inserted location \n actId $activityId";
+                    //$locationId = $model->insertRowsToTable('iati_location' , array('activity_id' => $activityId));
+                    $locationId = 2;
+                }
+            }
+            // update location name
+            $locName = array();
+            if($locationData['location_name_id']){
+                $locName['@xml_lang'] = $default['language'];
+                $locName['text'] = $locationData['location_name'];
+                $locName['id'] = $locationData['location_name_id'];
+                //$model->updateRowsToTable('iati_location/name' , $locName);
+                echo "update name"; var_dump($locName);
+                
+            } else {
+                //update Location Name
+                $locName['@xml_lang'] = $default['language'];
+                $locName['text'] = $locationData['location_name'];
+                $locName['location_id'] = $locationId;
+                echo "insert name"; var_dump($locName);
+                //$model->insertRowsToTable('iati_location/name' , $locName);
+            }
+            // update location adm2
+            $locAdm = array();
+            if($locationData['location_adm2_id']){
+                $locAdm['@xml_lang'] = $default['language'];
+                $locAdm['text'] = $locationData['location_adm2'];
+                $locAdm['id'] = $locationData['location_adm2_id'];
+                echo "update adm2"; var_dump($locAdm);
+                //$model->updateRowsToTable('iati_location/administrative' , $locAdm);
+                
+            } else {
+                //update Location Name
+                $locAdm['@xml_lang'] = $default['language'];
+                $locAdm['@adm2'] = $locationData['location_adm2'];
+                $locAdm['country'] = 'np';
+                $locAdm['location_id'] = $locationId;
+                echo "insert adm2"; var_dump($locAdm);
+                //$model->insertRowsToTable('iati_location/administrative' , $locAdm);
+            }
         }
+        exit;
 
         //Update Budget
         foreach($data['budget_wrapper']['budget'] as $budgetData){

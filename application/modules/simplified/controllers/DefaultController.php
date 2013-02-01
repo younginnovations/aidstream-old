@@ -5,8 +5,6 @@
  */
 class Simplified_DefaultController extends Zend_Controller_Action
 {
-
-    //    protected $activity_id = '';
     public function init()
     {
         $identity  = Zend_Auth::getInstance()->getIdentity();
@@ -36,7 +34,7 @@ class Simplified_DefaultController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        //$this->view->blockManager()->disable('partial/dashboard.phtml');
+        $this->_redirect('simplified/default/dashboard');
     }
 
     public function dashboardAction()
@@ -428,9 +426,11 @@ class Simplified_DefaultController extends Zend_Controller_Action
             } else {
                 $fundingOrgData = $formData['funding_org'];
                 $sector = $formData['sector'];
+                $location = $formData['location'];
                 $formData = $form->getValues($formData);
                 $formData['funding_org'] = $fundingOrgData;
                 $formData['sector'] = $sector;
+                $formData['location'] = $location;
 
                 $activityId = $formData['activity_id'];
                 $model = new Simplified_Model_Simplified();

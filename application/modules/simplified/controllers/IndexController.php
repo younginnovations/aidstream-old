@@ -10,7 +10,7 @@ class Simplified_IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        echo "called";exit;
+        $this->_redirect('simplified/default/dashboard');
     }
 }
 
