@@ -45,9 +45,10 @@
 
                     <!--  Indicator Starts -->
                     <?php if (!empty($result['Indicator'])): ?>
+                    <ul class="style-1 style-4">
                         <h2>Indicator</h2>
                         <?php foreach ($result['Indicator'] as $indicator): ?>
-                        <ul class="style-4 first">
+                        <ul class="style-4">
                             <li>
                                 <span class="name">Measure: </span>
                                 <span class="infom"><?php if (!empty($indicator["@measure"])) print ($indicator["@measure"]); ?></span>
@@ -129,6 +130,7 @@
 
                             <!--Indicator Period Starts -->
                             <?php if (!empty($indicator['Period'])): ?>
+                            <ul class="style-1 style-4">
                             <h2>Period</h2>
                             
                             <?php foreach($indicator['Period'] as $period):?>
@@ -229,8 +231,10 @@
 
                             <?php endforeach; ?><!-- foreach of indicator period-->
                             <?php endif;?><!-- if of indicator period-->
+                            </ul>
                             <!--Indicator Period Ends-->
 
                     <?php endforeach; ?><!-- foreach of Indicator-->
+                    </ul>
                     <?php endif; ?><!-- if of Indicator-->
                     <!--  Indicator Ends -->

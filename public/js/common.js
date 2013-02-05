@@ -8,6 +8,7 @@ dojo.require('dijit.form.Select')
 dojo.require('dijit.form.DateTextBox');
 //dojo.require("dojo.date.locale");
 dojo.require('dijit.TooltipDialog');
+dojo.require('dojo.number');
 
 /**
  * @todo some comments on what is required for what
@@ -1374,3 +1375,17 @@ function initialize() {
 }
 
 dojo.addOnLoad(initialize);
+
+dojo.ready( function () {
+    dojo.query('.currency').forEach( function(node) {
+        var amount = dojo.query(node).val();
+        var num = dojo.number.format(amount, {places:2});
+        dojo.query(node).val(num);                 
+}); 
+    dojo.query('.html-currency').forEach( function(node) {
+            var amount = dojo.query(node).html();
+            var num = dojo.number.format(amount, {places:2});
+            dojo.query(node).html(num);                
+    });
+
+})

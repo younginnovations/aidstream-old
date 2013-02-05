@@ -14,9 +14,9 @@ class Iati_Aidstream_Form_Activity_Result_Indicator_Period_Actual extends Iati_C
         $form['id']->setValue($this->data['id']);
 
         $form['value'] = new Zend_Form_Element_Text('value');
-        $form['value']->setLabel('Value')
-               
+        $form['value']->setLabel('Value')               
             ->setAttribs(array('class' => 'form-text'))
+            ->setAttribs(array('class' => 'currency'))                 
             ->setRequired()
             ->addFilter(new Iati_Filter_Currency())
             ->setValue($this->data['@value']);

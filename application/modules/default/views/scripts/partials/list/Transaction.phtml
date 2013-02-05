@@ -13,7 +13,7 @@
             <td></td>
             <td><? echo $count?></td>
             <td><? echo Iati_Core_Codelist::getCodeByAttrib('TransactionType' , '@code' , $element['TransactionType']['@code'], 'Name') ?></td>
-            <td><? echo $element['TransactionValue']['text'] ?></td>
+            <td class="html-currency"><? echo $element['TransactionValue']['text'] ?></td>
             <td><? echo $element['TransactionDate']['@iso_date']?></td>
             <td colspan=3>
                 <span value="<?php echo $this->baseUrl();?>/activity/view-element?classname=<?php echo $this->elementClass;?>&id=<?php echo $element['id'];?>" class="view-element-link">View</span> |
