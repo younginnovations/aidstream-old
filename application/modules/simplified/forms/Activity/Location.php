@@ -16,10 +16,30 @@ class Simplified_Form_Activity_Location extends Iati_SimplifiedForm
         $form['location_id'] = new Zend_Form_Element_Hidden('location_id');
         $form['location_id']->setValue($this->data['location_id']);
         
-        $form['location_name_id'] = new Zend_Form_Element_Hidden('location_name_id');
-        $form['location_name_id']->setValue($this->data['location_name_id']);
+        $form['location_desc_id'] = new Zend_Form_Element_Hidden('location_desc_id');
+        $form['location_desc_id']->setValue($this->data['location_desc_id']);
         
-        $this->data['location_name'] = 'Morang';
+        $form['location_coord_id'] = new Zend_Form_Element_Hidden('location_coord_id');
+        $form['location_coord_id']->setValue($this->data['location_coord_id']);
+        
+        $form['location_coord_lat'] = new Zend_Form_Element_Hidden('location_coord_lat');
+        $form['location_coord_lat']->setValue($this->data['location_coord_lat']);
+        
+        $form['location_coord_long'] = new Zend_Form_Element_Hidden('location_coord_long');
+        $form['location_coord_long']->setValue($this->data['location_coord_long']);
+        
+        $form['location_adm_id'] = new Zend_Form_Element_Hidden('location_adm_id');
+        $form['location_adm_id']->setValue($this->data['location_adm_id']);
+        
+        $form['location_adm_adm1'] = new Zend_Form_Element_Hidden('location_adm_adm1');
+        $form['location_adm_adm1']->setValue($this->data['location_adm_adm1']);
+        
+        $form['location_adm_adm2'] = new Zend_Form_Element_Hidden('location_adm_adm2');
+        $form['location_adm_adm2']->setValue($this->data['location_adm_adm2']);
+        
+        $form['location_name_id'] = new Zend_Form_Element_Hidden('location_name_id');
+        $form['location_name_id']->setValue($this->data['location_name_id']);        
+        
         $nameData = $this->data['location_name'];
         $form['location_name'] = new Zend_Form_Element_Select('location_name');
         $form['location_name']->setLabel('District Name')
@@ -29,17 +49,16 @@ class Simplified_Form_Activity_Location extends Iati_SimplifiedForm
             ->setRegisterInArrayValidator(false)
             ->setAttrib('class' , 'location level-1 form-select')
             ->setAttrib('style' , 'width:300px');
-            
-        $form['location_adm2_id'] = new Zend_Form_Element_Hidden('location_adm2_id');
-        $form['location_adm2_id']->setValue($this->data['location_adm2_id']);
         
-        $this->data['location_adm2'] = array('Amahibariyati' , 'Babiyabirta');
-        $adm2Data = $this->data['location_adm2'];
+        //$this->data['location_vdcs'] = 'Amahibariyati , Babiyabirta';
+        $adm2Data = $this->data['location_vdcs'];
+        $adm2Data = explode(',' , $adm2Data);
+        $adm2Data = preg_replace('/ /' , '' , $adm2Data);
         foreach($adm2Data as $data){
             $options[$data] = $data;
         }
-        $form['location_adm2'] = new Zend_Form_Element_Select('location_adm2');
-        $form['location_adm2']->setLabel('VDC name')
+        $form['location_vdcs'] = new Zend_Form_Element_Select('location_vdcs');
+        $form['location_vdcs']->setLabel('VDC name')
             ->addMultiOptions($options)
             ->setValue($adm2Data)
             ->setRegisterInArrayValidator(false)

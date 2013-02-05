@@ -106,31 +106,50 @@ class Simplified_Model_Simplified
         }
         
         //Create Location
-        $locationId = null;
         foreach($data['location'] as $locationData){
-            if(!$locationId){
-                echo "inserted location \n actId $activityId";
-                //$locationId = $model->insertRowsToTable('iati_location' , array('activity_id' => $activityId));
-                $locationId = 2;
-            }
+            // Insert location
+            $locationId = $model->insertRowsToTable('iati_location' , array('activity_id' => $activityId));
+            $locationId = 2;
+            
+            // Insert location type code (default to PPL)
+            $locType = array();
+            $locType['@code'] = '';
+            $locType['location_id'] = $locationId;
+            $model->insertRowsToTable('iati_location/location_type' , $locType);
             
             // insert location name
             $locName = array();
-            
-            //update Location Name
-            $locName['@xml_lang'] = $default['language'];
             $locName['text'] = $locationData['location_name'];
             $locName['location_id'] = $locationId;
-            echo "insert name"; var_dump($locName);
-            //$model->insertRowsToTable('iati_location/name' , $locName);
+            $model->insertRowsToTable('iati_location/name' , $locName);
             
-            //update Location Name
-            $locAdm['@xml_lang'] = $default['language'];
-            $locAdm['@adm2'] = $locationData['location_adm2'];
-            $locAdm['country'] = 'np';
+            // Insert Location Description
+            $locDesc = array();
+            if(!empty($locationData['location_vdcs'])){
+                $text = implode(',' , $locationData['location_vdcs']);
+                $text .= " - vdc/s of ".$locationData['location_name'];
+            } else {
+                $text = 'District';
+            }
+            $locDesc['text'] = $text;
+            $locDesc['location_id'] = $locationId;
+            $model->insertRowsToTable('iati_location/description' , $locDesc);
+            
+            // Insert Location adm
+            $locAdm = array();
+            $locAdm['@adm1'] = $locationData['location_adm_adm1'];
+            $locAdm['@adm2'] = $locationData['location_adm_adm2'];
+            $locAdm['@country'] = 156; // Country code for nepal
             $locAdm['location_id'] = $locationId;
-            echo "insert adm2"; var_dump($locAdm);
-            //$model->insertRowsToTable('iati_location/administrative' , $locAdm);
+            $model->insertRowsToTable('iati_location/administrative' , $locAdm);
+            
+            // Insert Location coords..
+            $locCoord = array();
+            $locCoord['@latitude'] = $locationData['location_coord_lat'];
+            $locCoord['@longitude'] = $locationData['location_coord_long'];
+            $locCoord['@precision'] = 5; // Country code for nepal
+            $locCoord['location_id'] = $locationId;
+            $model->insertRowsToTable('iati_location/coordinates' , $locCoord);            
         }
         
         //Create Budget
@@ -302,16 +321,42 @@ class Simplified_Model_Simplified
             }
         }
         // Get location
-        $locationObj = $activity->getElementsByType(Iati_Activity_Element::TYPE_LOCATION);
-        $location = $locationObj[0]->getAttribs();
-        if($location['id']){
-            //get location name
-            $locationName =  $locationObj[0]->getElementsByType('Name');
-            $locationValue = $locationName[0]->getAttribs();
-            $data['location_id'] = $locationValue['id'];
-            $data['location_name'] = $locationValue['text'];
+        $locationObjs = $activity->getElementsByType(Iati_Activity_Element::TYPE_LOCATION);
+        $count = 0;
+        if(!empty($locationObjs)){
+            foreach($locationObjs as $locationObj){
+                $attrs = $locationObj->getAttribs();                
+                $data['location'][$count]['location_id'] = $attrs['id'];
+                
+                //get location name
+                $locationName =  $locationObj->getElementsByType('Name');
+                $locationNameVal= $locationName[0]->getAttribs();
+                $data['location'][$count]['location_name_id'] = $locationNameVal['id'];
+                $data['location'][$count]['location_name'] = $locationNameVal['text'];
+
+                //get location description
+                $locationDesc =  $locationObj->getElementsByType('Description');
+                $locationDescVal= $locationDesc[0]->getAttribs();
+                $data['location'][$count]['location_desc_id'] = $locationDescVal['id'];
+                $data['location'][$count]['location_vdcs'] = preg_replace('/ -.*$/', '' , $locationDescVal['text']);
+
+                //get location coordinates
+                $locationCoords =  $locationObj->getElementsByType('Coordinates');
+                $locationCoordsVal= $locationCoords[0]->getAttribs();
+                $data['location'][$count]['location_coord_id'] = $locationCoordsVal['id'];
+                $data['location'][$count]['location_coord_lat'] = $locationCoordsVal['@latitude'];
+                $data['location'][$count]['location_coord_long'] = $locationCoordsVal['@longitude'];
+
+                //get location administrative
+                $locationAdm =  $locationObj->getElementsByType('Administrative');
+                $locationAdmVal= $locationAdm[0]->getAttribs();
+                $data['location'][$count]['location_adm_id'] = $locationAdmVal['id'];
+                $data['location'][$count]['location_adm_adm1'] = $locationAdmVal['@adm1'];
+                $data['location'][$count]['location_adm_adm2'] = $locationAdmVal['@adm2'];
+                $count++;
+            }
         }
-        
+
          // Get budget
         $budgetObj = $activity->getElementsByType(Iati_Activity_Element::TYPE_BUDGET);
         $budgetData = $budgetObj[0]->getAttribs();
@@ -507,7 +552,6 @@ class Simplified_Model_Simplified
                 if($documentData['category_id']){
                     $docCat = array();
                     $docCat['@code'] = $documentData['category_code'];
-                    $docCat['@xml_lang'] = $default['language']; 
                     $docCat['id'] = $documentData['category_id'];
                     $model->updateRowsToTable('iati_document_link/category' , $docCat);
                 }
@@ -516,7 +560,6 @@ class Simplified_Model_Simplified
                 if($documentData['title_id']){
                     $docTitle = array();
                     $docTitle['text'] = $documentData['title'];
-                    $docTitle['@xml_lang'] = $default['language']; 
                     $docTitle['id'] = $documentData['title_id'];
                     $model->updateRowsToTable('iati_document_link/title' , $docTitle);
                 }
@@ -538,62 +581,95 @@ class Simplified_Model_Simplified
                 //Insert document link title
                 $docTitle = array();
                 $docTitle['text'] = $documentData['title'];
-                $docTitle['@xml_lang'] = $default['language']; 
                 $docTitle['document_link_id'] = $documentId;
                 $model->insertRowsToTable('iati_document_link/title' , $docTitle);
             }
         }
 
         //Update Location
-        $locationId = null;
         foreach($data['location'] as $locationData){
-            // check for location exists
-            if($locationData['location_id']){
-                $locationId = $locationData['location_id'];
-            } else {
-                if(!$locationId){
-                    echo "inserted location \n actId $activityId";
-                    //$locationId = $model->insertRowsToTable('iati_location' , array('activity_id' => $activityId));
-                    $locationId = 2;
-                }
-            }
-            // update location name
-            $locName = array();
-            if($locationData['location_name_id']){
-                $locName['@xml_lang'] = $default['language'];
-                $locName['text'] = $locationData['location_name'];
-                $locName['id'] = $locationData['location_name_id'];
-                //$model->updateRowsToTable('iati_location/name' , $locName);
-                echo "update name"; var_dump($locName);
+
+            $locationId = $locationData['location_id'];
+            if(!$locationId){     
+                // Insert location
+                $locationId = $model->insertRowsToTable('iati_location' , array('activity_id' => $activityId));
                 
-            } else {
-                //update Location Name
-                $locName['@xml_lang'] = $default['language'];
+                // Insert location type code (default to PPL)
+                $locType = array();
+                $locType['@code'] = 5;
+                $locType['location_id'] = $locationId;
+                $model->insertRowsToTable('iati_location/location_type' , $locType);
+                
+                // insert location name
+                $locName = array();
                 $locName['text'] = $locationData['location_name'];
                 $locName['location_id'] = $locationId;
-                echo "insert name"; var_dump($locName);
-                //$model->insertRowsToTable('iati_location/name' , $locName);
-            }
-            // update location adm2
-            $locAdm = array();
-            if($locationData['location_adm2_id']){
-                $locAdm['@xml_lang'] = $default['language'];
-                $locAdm['text'] = $locationData['location_adm2'];
-                $locAdm['id'] = $locationData['location_adm2_id'];
-                echo "update adm2"; var_dump($locAdm);
-                //$model->updateRowsToTable('iati_location/administrative' , $locAdm);
+                $model->insertRowsToTable('iati_location/name' , $locName);
+                
+                // Insert Location Description
+                $locDesc = array();
+                if(!empty($locationData['location_vdcs'])){
+                    $text = implode(',' , $locationData['location_vdcs']);
+                    $text .= " - vdcs of ".$locationData['location_name'];
+                } else {
+                    $text = 'District';
+                }
+                $locDesc['text'] = $text;
+                $locDesc['location_id'] = $locationId;
+                $model->insertRowsToTable('iati_location/description' , $locDesc);
+                
+                // Insert Location adm
+                $locAdm = array();
+                $locAdm['@adm1'] = $locationData['location_adm_adm1'];
+                $locAdm['@adm2'] = $locationData['location_adm_adm2'];
+                $locAdm['@country'] = 156; // Country code for nepal
+                $locAdm['location_id'] = $locationId;
+                $model->insertRowsToTable('iati_location/administrative' , $locAdm);
+                
+                // Insert Location coords..
+                $locCoord = array();
+                $locCoord['@latitude'] = 1;//$locationData['location_coord_lat'];
+                $locCoord['@longitude'] = 2;//$locationData['location_coord_long'];
+                $locCoord['@percision'] = 5; // Country code for nepal
+                $locCoord['location_id'] = $locationId;
+                $model->insertRowsToTable('iati_location/coordinates' , $locCoord);
                 
             } else {
-                //update Location Name
-                $locAdm['@xml_lang'] = $default['language'];
-                $locAdm['@adm2'] = $locationData['location_adm2'];
-                $locAdm['country'] = 'np';
-                $locAdm['location_id'] = $locationId;
-                echo "insert adm2"; var_dump($locAdm);
-                //$model->insertRowsToTable('iati_location/administrative' , $locAdm);
+                
+                // update location name
+                $locName = array();
+                $locName['text'] = $locationData['location_name'];
+                $locName['id'] = $locationData['location_name_id'];
+                $model->updateRowsToTable('iati_location/name' , $locName);
+                    
+                // Update Location Description
+                $locDesc = array();
+                if(!empty($locationData['location_vdcs'])){
+                    $text = implode(',' , $locationData['location_vdcs']);
+                    $text .= " - vdc/s of ".$locationData['location_name'];
+                } else {
+                    $text = 'District';
+                }
+                $locDesc['text'] = $text;
+                $locDesc['id'] = $locationData['location_desc_id'];
+                $model->updateRowsToTable('iati_location/description' , $locDesc);
+                
+                // Update Location adm
+                $locAdm = array();
+                $locAdm['@adm1'] = $locationData['location_adm_adm1'];
+                $locAdm['@adm2'] = $locationData['location_adm_adm2'];
+                $locAdm['@country'] = 156; // Country code for nepal
+                $locAdm['id'] = $locationData['location_adm_id'];
+                $model->updateRowsToTable('iati_location/administrative' , $locAdm);
+                
+                // Update Location coords..
+                $locCoord = array();
+                $locCoord['@latitude'] = $locationData['location_coord_lat'];
+                $locCoord['@longitude'] = $locationData['location_coord_long'];
+                $locCoord['id'] = $locationData['location_coord_id'];
+                $model->updateRowsToTable('iati_location/coordinates' , $locCoord);            
             }
         }
-        exit;
 
         //Update Budget
         foreach($data['budget_wrapper']['budget'] as $budgetData){
