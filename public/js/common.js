@@ -1379,13 +1379,30 @@ dojo.addOnLoad(initialize);
 dojo.ready( function () {
     dojo.query('.currency').forEach( function(node) {
         var amount = dojo.query(node).val();
-        var num = dojo.number.format(amount, {places:2});
-        dojo.query(node).val(num);                 
-}); 
+        if(amount){
+             var num = dojo.number.format(amount, {places:2});
+             dojo.query(node).val(num); 
+        }                     
+    }); 
     dojo.query('.html-currency').forEach( function(node) {
             var amount = dojo.query(node).html();
-            var num = dojo.number.format(amount, {places:2});
-            dojo.query(node).html(num);                
-    });
-
+            if(amount)
+            {  
+                var num = dojo.number.format(amount, {places:2});
+                dojo.query(node).html(num);
+            }                            
+    });    
+    dojo.query(".form-submit").connect( "click", function(evt){
+	dojo.query('.currency').forEach( function(node) {
+        var amount = dojo.query(node).val(); 
+        if(amount){
+             amount = amount.replace(/[^0-9]/g, '');
+             var num  = dojo.number.parse(amount,{pattern: '#.##'},{places:2});
+             dojo.query(node).val(num); 
+        }                     
+    }); 
+});
+             
+           
+   
 })

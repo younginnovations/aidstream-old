@@ -1,7 +1,8 @@
 <?php
 
 class Iati_Aidstream_Element_Activity_Result extends Iati_Core_BaseElement
-{
+{   
+    protected $isMultiple = true;
     protected $className = 'Result';
     protected $displayName = 'Result';
     protected $isRequired = true;

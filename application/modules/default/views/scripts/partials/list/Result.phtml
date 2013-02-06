@@ -1,6 +1,6 @@
 <?php $model = new Model_Wep(); ?>
 <?php $count = 1; ?>
-<?php $data = Iati_ElementSorter::sortElementsData($this->data , array('TransactionDate' =>'@iso_date') , array('TransactionValue' => '@value_date')); ?>
+<?php $data = $this->data; ?>
 <table class="activity-list-table">
     <thead>
         <tr>
