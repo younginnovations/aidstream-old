@@ -140,6 +140,7 @@ class Simplified_Model_Simplified
             $locAdm['@adm1'] = $locationData['location_adm_adm1'];
             $locAdm['@adm2'] = $locationData['location_adm_adm2'];
             $locAdm['@country'] = 156; // Country code for nepal
+            $locAdm['text'] = $locationData['location_adm_adm2']." , ".$locationData['location_adm_adm1'];
             $locAdm['location_id'] = $locationId;
             $model->insertRowsToTable('iati_location/administrative' , $locAdm);
             
@@ -349,6 +350,7 @@ class Simplified_Model_Simplified
 
                 //get location administrative
                 $locationAdm =  $locationObj->getElementsByType('Administrative');
+        
                 $locationAdmVal= $locationAdm[0]->getAttribs();
                 $data['location'][$count]['location_adm_id'] = $locationAdmVal['id'];
                 $data['location'][$count]['location_adm_adm1'] = $locationAdmVal['@adm1'];
@@ -658,6 +660,7 @@ class Simplified_Model_Simplified
                 $locAdm = array();
                 $locAdm['@adm1'] = $locationData['location_adm_adm1'];
                 $locAdm['@adm2'] = $locationData['location_adm_adm2'];
+                $locAdm['text'] = $locationData['location_adm_adm2']." , ".$locationData['location_adm_adm1'];
                 $locAdm['@country'] = 156; // Country code for nepal
                 $locAdm['id'] = $locationData['location_adm_id'];
                 $model->updateRowsToTable('iati_location/administrative' , $locAdm);

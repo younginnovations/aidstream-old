@@ -24,19 +24,23 @@ class Simplified_Form_Activity_Location extends Iati_SimplifiedForm
         
         $form['location_coord_lat'] = new Zend_Form_Element_Hidden('location_coord_lat');
         $form['location_coord_lat']->setValue($this->data['location_coord_lat']);
+        $form['location_coord_lat']->setAttrib('class' , 'latitude');
         
         $form['location_coord_long'] = new Zend_Form_Element_Hidden('location_coord_long');
         $form['location_coord_long']->setValue($this->data['location_coord_long']);
+        $form['location_coord_long']->setAttrib('class' , 'longitude');
         
         $form['location_adm_id'] = new Zend_Form_Element_Hidden('location_adm_id');
         $form['location_adm_id']->setValue($this->data['location_adm_id']);
         
         $form['location_adm_adm1'] = new Zend_Form_Element_Hidden('location_adm_adm1');
         $form['location_adm_adm1']->setValue($this->data['location_adm_adm1']);
+        $form['location_adm_adm1']->setAttrib('class' , 'adm1');
         
         $form['location_adm_adm2'] = new Zend_Form_Element_Hidden('location_adm_adm2');
         $form['location_adm_adm2']->setValue($this->data['location_adm_adm2']);
-        
+        $form['location_adm_adm2']->setAttrib('class' , 'adm2');
+
         $form['location_name_id'] = new Zend_Form_Element_Hidden('location_name_id');
         $form['location_name_id']->setValue($this->data['location_name_id']);        
         

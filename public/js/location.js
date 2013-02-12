@@ -1,5 +1,6 @@
 ( function($) {    
-    var divisions = '';    
+    var divisions = '';
+    var districtProperties = '';
     $.fn.location = function (params){
         var defaults = {
             'country' : 'np',
@@ -20,14 +21,9 @@
         function fetch_country_divisions(ele)
         {
             if(divisions == ''){
-                //ajax request
                 $.ajax({
-                    url: "http://www.developmentcheck.org/geotag/"+settings.country+"/divisions",
+                    url: "http://www.developmentcheck.org/geotag/"+settings.country+"/divisions/3",
                     dataType:'jsonp',
-                    //async:false,
-                    //jsonp:false,
-                    //jsonpCallback:'parse_divisions',
-                    //cache:true,
                     success: function(result) {
                         divisions = result;
                         populate_districts(ele);
@@ -64,6 +60,8 @@
             if(divisions.length > 0){
                 $.each(divisions , function(key , division) {                    
                     if(division.name == settings.district){
+                        populate_parents(ele);// populate adm1 and adm2
+                        populate_coordinates(ele);// populate coordinates
                         var locs = new Array();
                         ele.html('');
                         $.each(division.divisions.data , function(key , vdc) {
@@ -74,6 +72,40 @@
                 ele.val(elementValues);
             } else {
                 alert('sorry divisions not found');
+            }
+        }
+        
+        function populate_parents(ele)
+        {
+            if(settings.district != ''){
+                $.ajax({
+                    url: "http://www.developmentcheck.org/geotag/"+settings.country+"/divisions/3/"+settings.district,
+                    dataType:'jsonp',
+                    success: function(result) {
+                        district =  result;
+                        $.each(result.parents , function(key , parent) {
+                            if(parent.administrative_level == 1){
+                                $('input.adm1' , ele.parents('.form-wrapper').first()).val(parent.division_name)
+                            } else if (parent.administrative_level == 2){
+                                $('input.adm2' , ele.parents('.form-wrapper').first()).val(parent.division_name)
+                            }
+                        });
+                    }
+                });
+            }
+        }
+        
+        function populate_coordinates(ele)
+        {
+            if(settings.district != ''){
+                $.ajax({
+                    url: "http://www.developmentcheck.org/geotag/"+settings.country+"/latlong/"+settings.district,
+                    dataType:'jsonp',
+                    success: function(result) {
+                        $('input.latitude' , ele.parents('.form-wrapper').first()).val(result.lat);
+                        $('input.longitude' , ele.parents('.form-wrapper').first()).val(result.lng);
+                    }
+                });
             }
         }
     }
