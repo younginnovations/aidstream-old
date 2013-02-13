@@ -23,7 +23,8 @@ class Iati_Aidstream_Form_Activity_Result_Indicator_Baseline extends Iati_Core_B
         $form['value']->setLabel('Value')   
             ->setAttribs(array('class' => 'form-text'))
             ->setRequired()
-            ->addFilter(new Iati_Filter_Currency())    
+            ->addValidator(new App_Validate_NumericValue())
+            ->setAttribs(array('class' => 'currency'))  
             ->setValue($this->data['@value']);
 
         $this->addElements($form);
