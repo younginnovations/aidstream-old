@@ -1,4 +1,6 @@
 <?php
+DEFINE ('VDCS_DEFAULT_VALUE' , 'District');
+
 class Simplified_Model_Simplified
 {
     
@@ -129,7 +131,7 @@ class Simplified_Model_Simplified
                 $text = implode(',' , $locationData['location_vdcs']);
                 $text .= " - vdc/s of ".$locationData['location_name'];
             } else {
-                $text = 'District';
+                $text = VDCS_DEFAULT_VALUE;
             }
             $locDesc['text'] = $text;
             $locDesc['location_id'] = $locationId;
@@ -339,7 +341,9 @@ class Simplified_Model_Simplified
                 $locationDesc =  $locationObj->getElementsByType('Description');
                 $locationDescVal= $locationDesc[0]->getAttribs();
                 $data['location'][$count]['location_desc_id'] = $locationDescVal['id'];
-                $data['location'][$count]['location_vdcs'] = preg_replace('/ -.*$/', '' , $locationDescVal['text']);
+                $vdcs = preg_replace('/ -.*$/', '' , $locationDescVal['text']);
+                if($vdcs == VDCS_DEFAULT_VALUE){ $vdcs = '';}
+                $data['location'][$count]['location_vdcs'] = $vdcs;
 
                 //get location coordinates
                 $locationCoords =  $locationObj->getElementsByType('Coordinates');
@@ -614,7 +618,7 @@ class Simplified_Model_Simplified
                     $text = implode(',' , $locationData['location_vdcs']);
                     $text .= " - vdcs of ".$locationData['location_name'];
                 } else {
-                    $text = 'District';
+                    $text = VDCS_DEFAULT_VALUE;
                 }
                 $locDesc['text'] = $text;
                 $locDesc['location_id'] = $locationId;
