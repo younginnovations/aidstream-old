@@ -56,10 +56,13 @@ class Simplified_Form_Activity_Location extends Iati_SimplifiedForm
         
         //$this->data['location_vdcs'] = 'Amahibariyati , Babiyabirta';
         $adm2Data = $this->data['location_vdcs'];
-        $adm2Data = explode(',' , $adm2Data);
-        $adm2Data = preg_replace('/ /' , '' , $adm2Data);
-        foreach($adm2Data as $data){
-            $options[$data] = $data;
+        $options = array();
+        if($adm2Data){
+            $adm2Data = explode(',' , $adm2Data);
+            $adm2Data = preg_replace('/ /' , '' , $adm2Data);
+            foreach($adm2Data as $data){
+                $options[$data] = $data;
+            }
         }
         $form['location_vdcs'] = new Zend_Form_Element_Select('location_vdcs');
         $form['location_vdcs']->setLabel('VDC name')
