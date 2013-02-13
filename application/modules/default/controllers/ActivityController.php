@@ -63,11 +63,8 @@ class ActivityController extends Zend_Controller_Action
                 } else {
                     $idParam = "id={$id}";
                 }
-                // If transaction element is present edit then redirect to list-elements
-                if($element->getClassName() == 'Transaction')
-                {
-                    $this->_redirect("activity/list-elements?classname={$elementClass}&activity_id={$parentId}");
-                }
+                $this->_redirect("activity/list-elements?classname={$elementClass}&activity_id={$parentId}");
+                
                 if ($_POST['save_and_view'])
                 {
                     $this->_redirect("activity/edit-element?classname={$elementClass}&activity_id={$parentId}");
@@ -160,12 +157,9 @@ class ActivityController extends Zend_Controller_Action
                     $type = 'message';
                     $message = $element->getDisplayName() . " successfully updated.";
                 }
-                $this->_helper->FlashMessenger->addMessage(array($type => $message));
-                // If transaction element is present edit then redirect to list-elements
-                if($element->getClassName() == 'Transaction')
-                {
-                    $this->_redirect("activity/list-elements?classname={$elementClass}&activity_id={$activityId}");
-                }
+                $this->_helper->FlashMessenger->addMessage(array($type => $message)); 
+                $this->_redirect("activity/list-elements?classname={$elementClass}&activity_id={$activityId}");
+                
                 if ($_POST['save_and_view'])
                 {
                     $this->_redirect('wep/view-activity/' . $activityId);
