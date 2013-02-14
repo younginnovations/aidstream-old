@@ -35,6 +35,7 @@ class Iati_WEP_Activity_Elements_DocumentLink extends Iati_WEP_Activity_Elements
     protected $objectId;
     protected $error = array(); 
     protected $hasError = false;
+    protected $attributeRequired = true;
     
     public function __construct()
     {

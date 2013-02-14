@@ -12,6 +12,7 @@ class Iati_WEP_Activity_Elements_ElementBase
     protected $error = array();
     protected $hasError = false;
     protected $required = false;
+    protected $attributeRequired = false;
 
 	public function __construct()
 	{
@@ -144,8 +145,11 @@ class Iati_WEP_Activity_Elements_ElementBase
             }
         }
         if($empty){
-            if(!$this->required)
-            return;
+            if(!$this->attributeRequired)
+            {
+                if(!$this->required)
+                return;
+            }            
         }
         
         foreach($data as $key => $eachData){
