@@ -10,7 +10,7 @@ class Iati_Aidstream_Form_Activity_Result extends Iati_Core_BaseForm
         $form['id'] = new Zend_Form_Element_Hidden('id');
         $form['id']->setValue($this->data['id']);
         
-        $type = $model->getCodeArray('ResultType', null, '1');
+        $type = $model->getCodeArray('ResultType', null, '1',true);
         $form['type'] = new Zend_Form_Element_Select('type');
         $form['type']->setLabel('Type')
             ->setValue($this->data['@type'])
