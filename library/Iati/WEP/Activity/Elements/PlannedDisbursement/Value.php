@@ -12,7 +12,7 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement_Value
     
     protected $validators = array(
                                 'value_date' => array('NotEmpty', 'Date'),
-                                'text' => array('NotEmpty', 'Int'),
+                                'text' => array('NotEmpty', 'App_Validate_NumericValue'),
                             );
                             
     protected $attributes_html = array(
@@ -25,7 +25,7 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement_Value
                     'name' => 'text',
                     'label' => 'Text',
                     'html' => '<textarea rows="2" cols="20" name="%(name)s" %(attrs)s>%(value)s</textarea><div class="help planned_disbursement-value-text"></div>',
-                    'attrs' => array('class' => array('form-text'))
+                    'attrs' => array('class' => array('form-text','currency'))
                 ),
                 'currency' => array(
                     'name' => 'currency',
@@ -129,7 +129,11 @@ class Iati_WEP_Activity_Elements_PlannedDisbursement_Value
             }
             
             foreach($this->validators[$key] as $validator){
-                $string = "Zend_Validate_". $validator;
+                if(preg_match('/Validate/', $validator)){
+                    $string = $validator;
+                } else {
+                    $string = "Zend_Validate_". $validator;
+                }
               $validator = new $string();
               $error = '';
               if(!$validator->isValid($eachData)){

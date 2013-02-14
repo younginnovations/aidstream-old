@@ -106,7 +106,7 @@
                                     </li>
                                     <li>
                                         <span class="name">Value: </span>
-                                        <span class="infom"><?php if (!empty($baseline["@value"])) print ($baseline["@value"]); ?></span>
+                                        <span class="infom"><?php if (!empty($baseline["@value"])) print (Zend_Locale_Format::toNumber($baseline["@value"],array('number_format' => '##,##0.00'))); ?></span>
                                     </li> 
                                   </ul>
                              
@@ -178,7 +178,13 @@
                                        <ul class="style-4 first">
                                             <li>
                                                 <span class="name">Value: </span>
-                                                <span class="infom"><?php if (!empty($target["@value"])) print ($target["@value"]); ?></span>
+                                                <span class="infom html-currency">
+                                                    <?php if (!empty($target["@value"]))
+                                                          { 
+                                                                print Zend_Locale_Format::toNumber($target["@value"],array('number_format' => '##,##0.00'));                                                             
+                                                          }   
+                                                    ?>
+                                                </span>
                                             </li>
                                         </ul>  
 
@@ -207,7 +213,7 @@
                                        <ul class="style-4 first">
                                             <li>
                                                 <span class="name">Value: </span>
-                                                <span class="infom"><?php if (!empty($actual["@value"])) print ($actual["@value"]); ?></span>
+                                                <span class="infom"><?php if (!empty($actual["@value"])) print (Zend_Locale_Format::toNumber($actual["@value"],array('number_format' => '##,##0.00'))); ?></span>
                                             </li>
                                         </ul> 
                                       
