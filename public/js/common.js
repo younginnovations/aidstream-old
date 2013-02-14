@@ -1378,7 +1378,7 @@ dojo.addOnLoad(initialize);
 
 dojo.ready( function () {
     dojo.query('.currency').forEach( function(node) {
-        var amount = dojo.query(node).val();
+        var amount = dojo.query(node).val(); 
         if(amount){ 
              var num = dojo.number.format(amount, {places:2});
              if(num){
@@ -1398,8 +1398,9 @@ dojo.ready( function () {
     dojo.query(".form-submit").connect( "click", function(evt){
 	dojo.query('.currency').forEach( function(node) {
         var amount = dojo.query(node).val(); 
-        if(amount){
-             var num  = dojo.number.round(amount, 2);
+        if(amount){ 
+             amount = amount.replace(/\,/g, "");
+             var num  = dojo.number.round(amount, 2); 
              if(num){
                  dojo.query(node).val(num);
              }
