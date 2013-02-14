@@ -106,7 +106,7 @@
                                     </li>
                                     <li>
                                         <span class="name">Value: </span>
-                                        <span class="infom"><?php if (!empty($baseline["@value"])) print (Zend_Locale_Format::toNumber($baseline["@value"],array('number_format' => '##,##0.00'))); ?></span>
+                                        <span class="infom"><?php if (!empty($baseline["@value"])) print ($this->numberFormat()->localization($baseline["@value"])); ?></span>
                                     </li> 
                                   </ul>
                              
@@ -178,10 +178,10 @@
                                        <ul class="style-4 first">
                                             <li>
                                                 <span class="name">Value: </span>
-                                                <span class="infom html-currency">
+                                                <span class="infom">
                                                     <?php if (!empty($target["@value"]))
                                                           { 
-                                                                print Zend_Locale_Format::toNumber($target["@value"],array('number_format' => '##,##0.00'));                                                             
+                                                                print $this->numberFormat()->localization($target["@value"]);                                                             
                                                           }   
                                                     ?>
                                                 </span>
@@ -213,7 +213,7 @@
                                        <ul class="style-4 first">
                                             <li>
                                                 <span class="name">Value: </span>
-                                                <span class="infom"><?php if (!empty($actual["@value"])) print (Zend_Locale_Format::toNumber($actual["@value"],array('number_format' => '##,##0.00'))); ?></span>
+                                                <span class="infom"><?php if (!empty($actual["@value"])) print ($this->numberFormat()->localization($actual["@value"])); ?></span>
                                             </li>
                                         </ul> 
                                       

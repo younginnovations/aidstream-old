@@ -97,7 +97,7 @@ if (!empty($value)):
         <?php foreach ($values as $value): ?>
             <li>
                 <span class="name">Text:</span>
-                <span class="infom"><?php if ($value->getAttrib('text')) print ($value->getAttribValue('text')); ?></span>
+                <span class="infom"><?php if ($value->getAttrib('text')) print (Zend_Locale_Format::toNumber($value->getAttribValue('text'),array('number_format' => '##,##0.00'))); ?></span>
             </li>
             <li>
                 <span class="name">Value_date:</span>

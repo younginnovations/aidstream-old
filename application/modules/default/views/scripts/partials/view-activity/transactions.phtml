@@ -39,7 +39,7 @@
                                 <?php if ($value->getAttrib('text')) 
                                       {
                                        $text = $value->getAttribValue('text');
-                                       print ($this->length()->adjustTripleTitleLength($value->getAttribValue('text'))); 
+                                       print ($this->length()->adjustTripleTitleLength($this->numberFormat()->localization($value->getAttribValue('text')))); 
                                       }
                                 ?> 
                                 <?php break; ?>

@@ -1384,17 +1384,7 @@ dojo.ready( function () {
              if(num){
              dojo.query(node).val(num); }
         }                     
-    }); 
-    dojo.query('.html-currency').forEach( function(node) {
-            var amount = dojo.query(node).html();
-            if(amount)
-            {  
-                var num = dojo.number.format(amount, {places:2});
-                if(num){
-                    dojo.query(node).html(num);
-                }
-            }                            
-    });    
+    });     
     dojo.query(".form-submit").connect( "click", function(evt){
 	dojo.query('.currency').forEach( function(node) {
         var amount = dojo.query(node).val(); 
