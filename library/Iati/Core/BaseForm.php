@@ -275,43 +275,58 @@ abstract class Iati_Core_BaseForm extends Zend_Form
     public function validate(){
         $isValid = true;
         if(!$this->getSubForms()){
-            if($this->element->getIsRequired()){
-                $values = $this->getValues();
-                return $this->isValid($values);
-            } else {
-                $values = $this->getValues();
-                $name = $this->getName();
-                $itemNumber = substr($name , -1);
-                $eleName = substr($name , 0 , -1) ;
-                $data = $values[$eleName][$itemNumber];
-                unset($data['remove']);
-                unset($data['add']);
-                $notEmpty = false;
-                if(!empty($data)){
-                    foreach($data as $key=>$value){
-                        if($value && $key !== 'id'){
-                            $notEmpty = true;
-                        }
+           return $this->validateForm();
+        } else {      
+            foreach($this->getSubForms() as $subform){
+                if(!$subform->validate()){
+                    $isValid = false;
+                }
+                if (!($this instanceof Iati_Core_WrapperForm)){
+                    $valid = $this->validateForm();
+                    if(!$valid){
+                        $isValid = false;
                     }
                 }
-                if($notEmpty){
-                    $values = $this->getValues();
-                    return $this->isValid($values);
-                }
-                return true;
-            }
-        }
-        foreach($this->getSubForms() as $subform){
-            if(!$subform->validate()){
-                $isValid = false;
-            }
-        }
-        
-        foreach($this->getElements() as $element){
-            if(!$element->isValid($element->getValue())){
-                $isValid = false;
             }
         }
         return $isValid;
+    }
+    
+    public function validateForm()
+    {
+        $hasChildData = $this->element->hasData($this->element->getData());
+        if($hasChildData || $this->element->getIsRequired()){
+            $isValid = true;
+            foreach($this->getElements() as $element){
+                if(!$element->isValid($element->getValue())){
+                    $isValid = false;
+                }
+            }
+            return $isValid;
+        } else {
+            foreach ($this->getElements() as $element){
+                $data[$element->getName()] = $element->getValue();
+            }
+            unset($data['remove']);
+            unset($data['add']);
+            $empty = true;
+            if(!empty($data)){
+                foreach($data as $key=>$value){
+                    if($value && $key !== 'id'){
+                        $empty = false;
+                    }
+                }
+            }
+            if(!$empty){
+                $isValid = true;
+                foreach($this->getElements() as $element){
+                    if(!$element->isValid($element->getValue())){
+                        $isValid = false;
+                    }
+                }
+                return $isValid;
+            }
+        }
+        return true;
     }
 }

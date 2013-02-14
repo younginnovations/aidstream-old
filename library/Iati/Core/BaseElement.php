@@ -312,15 +312,17 @@ class Iati_Core_BaseElement
         if(!is_array($data)){
             return false;
         }
-        foreach($data as $values){            
+        foreach($data as $values){
             if($values){
                 if(is_array($values)){
-                    return $this->hasData($values);
+                    $hasData = $this->hasData($values);
+                    if($hasData) return true;
+                } else {
+                    return true;
                 }
-                return true;
             }
         }
-        return false;
+        return false; 
     }
 
     /**
