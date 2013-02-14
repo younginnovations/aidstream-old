@@ -254,6 +254,7 @@ abstract class Iati_Core_BaseForm extends Zend_Form
                 'label' => $saveAndViewlabel,
                 'required' => false,
                 'ignore'   => false,
+                'class'    =>'form-submit'
             )
         );
         $this->addElement('submit' , 'save',
@@ -261,6 +262,7 @@ abstract class Iati_Core_BaseForm extends Zend_Form
                 'label'    => $label,
                 'required' => false,
                 'ignore'   => false,
+                'class'    =>'form-submit'
             )
         );
     }
