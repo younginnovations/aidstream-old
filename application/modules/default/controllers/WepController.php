@@ -437,6 +437,7 @@ class WepController extends Zend_Controller_Action
                     if($factory->hasError()){
                         $formHelper = new Iati_WEP_FormHelper();
                         $a = $formHelper->getForm();
+                        $this->_helper->FlashMessenger->addMessage(array('error' => "You have some problem in your data. Please correct and save again"));
                     } else {
                         if(!$this->hasData($flatArray)){
                              $this->_helper->FlashMessenger->addMessage(array('info' => "You have not entered any data."));
@@ -572,6 +573,7 @@ class WepController extends Zend_Controller_Action
                 if($factory->hasError()){
                     $formHelper = new Iati_WEP_FormHelper();
                     $a = $formHelper->getForm();
+                    $this->_helper->FlashMessenger->addMessage(array('error' => "You have some problem in your data. Please correct and save again"));
                 }
                 else{
                     if(!$this->hasData($flatArray)){
