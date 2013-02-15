@@ -11,12 +11,31 @@ class App_Validate_NumericValue extends Zend_Validate_Abstract
     public function isValid($value)
     {
         $this->_setValue($value);
-        $value = str_replace(",","",$value);        
+        $incorrect = true;
+        // Check if mutliple commas exist together
+        $pos = strrpos($value, ",,");
+        if($pos)
+        {
+            $incorrect = false;
+        }    
+        // Replace single commas with sapce
+        $value = str_replace(",","",$value);  
+        // Check if multiple dot exist
         $count = substr_count($value, '.');
-        if (!is_numeric($value) || $count > 1) {
+        if($count > 1)
+        {
+            $incorrect = false;
+        }
+        // Check value is numeric or not
+        if (!is_numeric($value)) {
+            $incorrect = false;            
+        }
+        
+        if(!$incorrect)
+        {  
             $this->_error(self::NUMERIC);
             return false;
         }
-        return true;
+        return $incorrect;
     }
 }
