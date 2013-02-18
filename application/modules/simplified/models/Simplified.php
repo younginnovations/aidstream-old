@@ -1,5 +1,6 @@
 <?php
 DEFINE ('VDCS_DEFAULT_VALUE' , 'District');
+DEFINE ('LOCATION_API' , "http://www.developmentcheck.org/geotag/");
 
 class Simplified_Model_Simplified
 {
@@ -109,6 +110,7 @@ class Simplified_Model_Simplified
         
         //Create Location
         foreach($data['location'] as $locationData){
+            if(!$locationData['location_name']) continue;
             // Insert location
             $locationId = $model->insertRowsToTable('iati_location' , array('activity_id' => $activityId));
             $locationId = 2;
@@ -138,18 +140,20 @@ class Simplified_Model_Simplified
             $model->insertRowsToTable('iati_location/description' , $locDesc);
             
             // Insert Location adm
+            $adms = $this->getLocationAdms($locationData['location_name']);
             $locAdm = array();
-            $locAdm['@adm1'] = $locationData['location_adm_adm1'];
-            $locAdm['@adm2'] = $locationData['location_adm_adm2'];
+            $locAdm['@adm1'] = $adms['adm1'];
+            $locAdm['@adm2'] = $adms['adm2'];
             $locAdm['@country'] = 156; // Country code for nepal
-            $locAdm['text'] = $locationData['location_adm_adm2']." , ".$locationData['location_adm_adm1'];
+            $locAdm['text'] = $adms['adm2']." , ".$adms['adm1'];
             $locAdm['location_id'] = $locationId;
             $model->insertRowsToTable('iati_location/administrative' , $locAdm);
             
             // Insert Location coords..
+            $coords = $this->getCoordinates($locationData['location_name']);
             $locCoord = array();
-            $locCoord['@latitude'] = $locationData['location_coord_lat'];
-            $locCoord['@longitude'] = $locationData['location_coord_long'];
+            $locCoord['@latitude'] = $coords['lat'];
+            $locCoord['@longitude'] = $coords['lng'];
             $locCoord['@precision'] = 5; // Country code for nepal
             $locCoord['location_id'] = $locationId;
             $model->insertRowsToTable('iati_location/coordinates' , $locCoord);            
@@ -349,16 +353,13 @@ class Simplified_Model_Simplified
                 $locationCoords =  $locationObj->getElementsByType('Coordinates');
                 $locationCoordsVal= $locationCoords[0]->getAttribs();
                 $data['location'][$count]['location_coord_id'] = $locationCoordsVal['id'];
-                $data['location'][$count]['location_coord_lat'] = $locationCoordsVal['@latitude'];
-                $data['location'][$count]['location_coord_long'] = $locationCoordsVal['@longitude'];
 
                 //get location administrative
                 $locationAdm =  $locationObj->getElementsByType('Administrative');
-        
                 $locationAdmVal= $locationAdm[0]->getAttribs();
+                
                 $data['location'][$count]['location_adm_id'] = $locationAdmVal['id'];
-                $data['location'][$count]['location_adm_adm1'] = $locationAdmVal['@adm1'];
-                $data['location'][$count]['location_adm_adm2'] = $locationAdmVal['@adm2'];
+        
                 $count++;
             }
         }
@@ -596,7 +597,8 @@ class Simplified_Model_Simplified
         foreach($data['location'] as $locationData){
 
             $locationId = $locationData['location_id'];
-            if(!$locationId){     
+            if(!$locationId){
+                if(!$locationData['name']) continue;
                 // Insert location
                 $locationId = $model->insertRowsToTable('iati_location' , array('activity_id' => $activityId));
                 
@@ -625,18 +627,20 @@ class Simplified_Model_Simplified
                 $model->insertRowsToTable('iati_location/description' , $locDesc);
                 
                 // Insert Location adm
+                $adms = $this->getLocationAdms($locationData['location_name']);
                 $locAdm = array();
-                $locAdm['@adm1'] = $locationData['location_adm_adm1'];
-                $locAdm['@adm2'] = $locationData['location_adm_adm2'];
+                $locAdm['@adm1'] = $adms['adm1'];
+                $locAdm['@adm2'] = $adms['adm2'];
                 $locAdm['@country'] = 156; // Country code for nepal
                 $locAdm['location_id'] = $locationId;
                 $model->insertRowsToTable('iati_location/administrative' , $locAdm);
                 
                 // Insert Location coords..
+                $coords = $this->getCoordinates($locationData['location_name']);
                 $locCoord = array();
-                $locCoord['@latitude'] = 1;//$locationData['location_coord_lat'];
-                $locCoord['@longitude'] = 2;//$locationData['location_coord_long'];
-                $locCoord['@percision'] = 5; // Country code for nepal
+                $locCoord['@latitude'] = $coords['lat'];
+                $locCoord['@longitude'] = $coords['lng'];
+                $locCoord['@percision'] = 5; 
                 $locCoord['location_id'] = $locationId;
                 $model->insertRowsToTable('iati_location/coordinates' , $locCoord);
                 
@@ -661,18 +665,19 @@ class Simplified_Model_Simplified
                 $model->updateRowsToTable('iati_location/description' , $locDesc);
                 
                 // Update Location adm
+                $adms = $this->getLocationAdms($locationData['location_name']);
                 $locAdm = array();
-                $locAdm['@adm1'] = $locationData['location_adm_adm1'];
-                $locAdm['@adm2'] = $locationData['location_adm_adm2'];
-                $locAdm['text'] = $locationData['location_adm_adm2']." , ".$locationData['location_adm_adm1'];
-                $locAdm['@country'] = 156; // Country code for nepal
+                $locAdm['@adm1'] = $adms['adm1'];
+                $locAdm['@adm2'] = $adms['adm2'];
+                $locAdm['text'] = $adms['adm2']." , ".$adms['adm1'];
                 $locAdm['id'] = $locationData['location_adm_id'];
                 $model->updateRowsToTable('iati_location/administrative' , $locAdm);
                 
                 // Update Location coords..
+                $coords = $this->getCoordinates($locationData['location_name']);
                 $locCoord = array();
-                $locCoord['@latitude'] = $locationData['location_coord_lat'];
-                $locCoord['@longitude'] = $locationData['location_coord_long'];
+                $locCoord['@latitude'] = $coords['lat'];
+                $locCoord['@longitude'] = $coords['lng'];
                 $locCoord['id'] = $locationData['location_coord_id'];
                 $model->updateRowsToTable('iati_location/coordinates' , $locCoord);            
             }
@@ -876,5 +881,45 @@ class Simplified_Model_Simplified
             }
         }
         return false;
+    }
+    
+    public function getLocationAdms($district)
+    {
+        $ch = curl_init();
+        $url = LOCATION_API.'np'."/divisions/3/".$district;
+        curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_HEADER, 0);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER , 1);
+        $response = curl_exec($ch);
+        $out = array();
+        // Check if any error occured
+	if(!curl_errno($ch)){
+            $data = json_decode($response);
+            foreach($data->parents as $parents){
+                if($parents->administrative_level == 1){
+                    $out['adm1'] = $parents->division_name;
+                } else if($parents->administrative_level == 2){
+                    $out['adm2'] = $parents->division_name;
+                }
+            }
+	}
+        return $out;
+    }
+    
+    public function getCoordinates($district)
+    {
+        $ch = curl_init();
+        $url = LOCATION_API.'np'."/latlong/".$district;
+        curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_HEADER, 0);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER , 1);
+        $response = curl_exec($ch);
+        $out = array();
+        if(!curl_errno($ch)){
+            $data = json_decode($response);
+            $out['lat'] = $data->lat;
+            $out['lng'] = $data->lng;
+        }
+        return $out;
     }
 }
