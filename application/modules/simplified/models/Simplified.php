@@ -337,28 +337,35 @@ class Simplified_Model_Simplified
                 
                 //get location name
                 $locationName =  $locationObj->getElementsByType('Name');
-                $locationNameVal= $locationName[0]->getAttribs();
-                $data['location'][$count]['location_name_id'] = $locationNameVal['id'];
-                $data['location'][$count]['location_name'] = $locationNameVal['text'];
+                if(!empty($locationName)){
+                    $locationNameVal= $locationName[0]->getAttribs();
+                    $data['location'][$count]['location_name_id'] = $locationNameVal['id'];
+                    $data['location'][$count]['location_name'] = $locationNameVal['text'];
+                }
 
                 //get location description
                 $locationDesc =  $locationObj->getElementsByType('Description');
-                $locationDescVal= $locationDesc[0]->getAttribs();
-                $data['location'][$count]['location_desc_id'] = $locationDescVal['id'];
-                $vdcs = preg_replace('/ -.*$/', '' , $locationDescVal['text']);
-                if($vdcs == VDCS_DEFAULT_VALUE){ $vdcs = '';}
-                $data['location'][$count]['location_vdcs'] = $vdcs;
+                if(!empty($locationDesc)){
+                    $locationDescVal= $locationDesc[0]->getAttribs();
+                    $data['location'][$count]['location_desc_id'] = $locationDescVal['id'];
+                    $vdcs = preg_replace('/ -.*$/', '' , $locationDescVal['text']);
+                    if($vdcs == VDCS_DEFAULT_VALUE){ $vdcs = '';}
+                    $data['location'][$count]['location_vdcs'] = $vdcs;
+                }
 
                 //get location coordinates
                 $locationCoords =  $locationObj->getElementsByType('Coordinates');
-                $locationCoordsVal= $locationCoords[0]->getAttribs();
-                $data['location'][$count]['location_coord_id'] = $locationCoordsVal['id'];
+                if(!empty($locationCoords)){
+                    $locationCoordsVal= $locationCoords[0]->getAttribs();
+                    $data['location'][$count]['location_coord_id'] = $locationCoordsVal['id'];
+                }
 
                 //get location administrative
                 $locationAdm =  $locationObj->getElementsByType('Administrative');
-                $locationAdmVal= $locationAdm[0]->getAttribs();
-                
-                $data['location'][$count]['location_adm_id'] = $locationAdmVal['id'];
+                if(!empty($locationAdm)){
+                    $locationAdmVal= $locationAdm[0]->getAttribs();
+                    $data['location'][$count]['location_adm_id'] = $locationAdmVal['id'];
+                }
         
                 $count++;
             }
@@ -598,7 +605,7 @@ class Simplified_Model_Simplified
 
             $locationId = $locationData['location_id'];
             if(!$locationId){
-                if(!$locationData['name']) continue;
+                if(!$locationData['location_name']) continue;
                 // Insert location
                 $locationId = $model->insertRowsToTable('iati_location' , array('activity_id' => $activityId));
                 
@@ -661,25 +668,42 @@ class Simplified_Model_Simplified
                     $text = 'District';
                 }
                 $locDesc['text'] = $text;
-                $locDesc['id'] = $locationData['location_desc_id'];
-                $model->updateRowsToTable('iati_location/description' , $locDesc);
+                if($locationData['location_desc_id']){
+                    $locDesc['id'] = $locationData['location_desc_id'];
+                    $model->updateRowsToTable('iati_location/description' , $locDesc);
+                } else {
+                    $locDesc['location_id'] = $locationId;
+                    $model->insertRowsToTable('iati_location/description' , $locDesc);
+                }
                 
                 // Update Location adm
                 $adms = $this->getLocationAdms($locationData['location_name']);
                 $locAdm = array();
                 $locAdm['@adm1'] = $adms['adm1'];
                 $locAdm['@adm2'] = $adms['adm2'];
-                $locAdm['text'] = $adms['adm2']." , ".$adms['adm1'];
-                $locAdm['id'] = $locationData['location_adm_id'];
-                $model->updateRowsToTable('iati_location/administrative' , $locAdm);
+                if(!$locationData['location_adm_id']){
+                    $locAdm['@country'] = 156; // Country code for nepal
+                    $locAdm['location_id'] = $locationId;
+                    $model->insertRowsToTable('iati_location/administrative' , $locAdm);
+                } else {
+                    $locAdm['text'] = $adms['adm2']." , ".$adms['adm1'];
+                    $locAdm['id'] = $locationData['location_adm_id'];
+                    $model->updateRowsToTable('iati_location/administrative' , $locAdm);
+                }
                 
                 // Update Location coords..
                 $coords = $this->getCoordinates($locationData['location_name']);
                 $locCoord = array();
                 $locCoord['@latitude'] = $coords['lat'];
                 $locCoord['@longitude'] = $coords['lng'];
-                $locCoord['id'] = $locationData['location_coord_id'];
-                $model->updateRowsToTable('iati_location/coordinates' , $locCoord);            
+                if($locationData['location_coord_id']){
+                    $locCoord['id'] = $locationData['location_coord_id'];
+                    $model->updateRowsToTable('iati_location/coordinates' , $locCoord);
+                } else {
+                    $locCoord['@percision'] = 5; 
+                    $locCoord['location_id'] = $locationId;
+                    $model->insertRowsToTable('iati_location/coordinates' , $locCoord);
+                }
             }
         }
 
