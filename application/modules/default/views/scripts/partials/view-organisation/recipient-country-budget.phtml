@@ -29,15 +29,21 @@
                         <ul class="style-1 style-4">
                             <h2>Recipient Country</h2> 
                             <li>
-                                <span class="name">Ref:</span>
-                                <span class="infom"><?php echo $element['RecipientCountry']["@ref"]; ?></span>
+                                <span class="name">Code:</span>
+                                <span class="infom"><?php
+                                                    if($element['RecipientCountry']["@code"])
+                                                    {
+                                                        printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('RecipientCountry' , '@code' , $element['RecipientCountry']["@code"],'Name'),Iati_Core_Codelist::getCodeByAttrib('RecipientCountry' , '@code' , $element['RecipientCountry']["@code"]));
+                                                    }    
+                                                    ?>
+                                </span>
                             </li>
                             <li>
                                 <span class="name">Text:</span>
                                 <span class="infom"><?php echo $element['RecipientCountry']["text"]; 
                                                       if($element['RecipientCountry']["@xml_lang"])
                                                       {
-                                                        printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('RecipientCountryBudget_RecipientCountry' , '@xml_lang' , $element['RecipientCountry']["@xml_lang"]));
+                                                        printf(" [%s]",Iati_Core_Codelist::getCodeByAttrib('RecipientCountryBudget_RecipientCountry' , '@xml_lang' , $element['RecipientCountry']["@xml_lang"]));
                                                       }
                                                     ?>
                                 </span>
@@ -63,7 +69,7 @@
                                 <span class="infom"><?php echo Iati_Core_Codelist::getCodeByAttrib('Activity_default' , '@currency' , $element['Value']["@currency"],"Name");
                                                           if($element['Value']["@currency"]) 
                                                           {
-                                                              printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('Activity_default' , '@currency' , $element['Value']["@currency"])); 
+                                                              printf(" [%s]",Iati_Core_Codelist::getCodeByAttrib('Activity_default' , '@currency' , $element['Value']["@currency"])); 
                                                           }
                                                      ?>
                                 </span>
