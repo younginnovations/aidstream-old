@@ -1181,11 +1181,11 @@ function initialize() {
             'found' : function (ele){                
                 var msg;
                 msg = "<div class='state-help-popup-info-wrapper'>";// main wrapper
-                msg += "<div class='state-help-title'><span class='info-image'></span>Aidstream Organisation States</div>"; // title
+                msg += "<div class='state-help-title'><span class='info-image'></span>Aidstream Organisation File States</div>"; // title
                 // message body
-                msg += "<div class= 'state-help-body'><p>Aidstream maintains a simple workflow to ensure that the organisation are properly verified before it gets registered in IATI Registry for public view. The following states are maintained in the organisation.</p>";
+                msg += "<div class= 'state-help-body'><p>Aidstream maintains a simple workflow to ensure that the organisation files are properly verified before it gets registered in IATI Registry for public view. The following states are maintained in the organisation file.</p>";
                 msg += "<ul class='states-list'><li>Edit</li><li>Completed</li><li>Verified</li><li>Published</li></ul>";
-                msg += "<p>When the organisation is in any one of the states, any further changes in the organisation will return its state back to Editing. The entire flow has to be followed before the changes get updated in the organisation xml files and registered in IATI Registry. It is recommended that different users are given access to each of these roles for the workflow.</p>"
+                msg += "<p>When the organisation file is in any one of the states, any further changes in the organisation file will return its state back to Editing. The entire flow has to be followed before the changes get updated in the organisation xml files and registered in IATI Registry. It is recommended that different users are given access to each of these roles for the workflow.</p>"
                 msg += "</div></div>"; // closing body and main div
                 var stateHelpDialog = new dijit.TooltipDialog({
                     content: msg,
