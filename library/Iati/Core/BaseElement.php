@@ -498,6 +498,10 @@ class Iati_Core_BaseElement
                 if(!is_object($parent)){
                     $xmlObj = new SimpleXMLElement("<$eleName>".$row['text']."</$eleName>");
                 } else {
+                    if($eleName == "language")
+                    {
+                        $row['text'] = Iati_Core_Codelist::getCodeByAttrib($this->className, 'text' , $row['text']);
+                    }
                     $xmlObj = $parent->addChild($eleName , $row['text']);
                 }
                 $xmlObj = $this->addElementsXmlAttribsFromData($xmlObj , $row);
@@ -523,6 +527,10 @@ class Iati_Core_BaseElement
             if(!is_object($parent)){
                 $xmlObj = new SimpleXMLElement("<$eleName>".$data['text']."</$eleName>");
             } else {
+                if($eleName == "language")
+                {
+                    $row['text'] = Iati_Core_Codelist::getCodeByAttrib($this->className, 'text' , $row['text']);
+                }
                 $xmlObj = $parent->addChild($eleName , $data['text']);
             }
             
