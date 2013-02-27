@@ -16,7 +16,10 @@
                     <ul class="style-2-drop first">
                         <li>
                             <span class="name">Text:</span>
-                            <span class="infom"><?php if ($participatingorg->getAttrib('@xml_lang')) printf(" [%s]" , ($participatingorg->getAttribValue('@xml_lang'))); ?></span>
+                            <span class="infom"><?php print $participatingorg->getAttrib('text');
+                                                      if ($participatingorg->getAttrib('@xml_lang')) printf(" [%s]" , ($participatingorg->getAttribValue('@xml_lang')));
+                                                ?>
+                            </span>
                         </li>
                         <li>
                             <span class="name">Ref:</span>
