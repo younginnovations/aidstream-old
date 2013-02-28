@@ -25,9 +25,9 @@ class Zend_View_Helper_Length extends Zend_View_Helper_Abstract
     public function adjustDoubleTitleLength($text)
     {
 
-        if (strlen($text) > 20)
+        if (strlen($text) > 25)
         {
-            return substr($text , 0 , 20) . '...';
+            return substr($text , 0 , 25) . '...';
         } else
         {
             return $text;
@@ -37,9 +37,9 @@ class Zend_View_Helper_Length extends Zend_View_Helper_Abstract
     public function adjustTripleTitleLength($text)
     {
 
-        if (strlen($text) > 20)
+        if (strlen($text) > 10)
         {
-            return substr($text , 0 , 20) . '...';
+            return substr($text , 0 , 10) . '...';
         } else
         {
             return $text;
