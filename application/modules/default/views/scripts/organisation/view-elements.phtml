@@ -5,12 +5,9 @@
     $identity = Zend_Auth::getInstance()->getIdentity();
     
     // Fetch default value currency for an organisation
-    $model = new Model_Viewcode();
-    $rowSet = $model->getRowsByFields('default_field_values' , 'account_id' , $identity->account_id);
-        
-    $defaultValues = unserialize($rowSet[0]['object']);
-    $default = $defaultValues->getDefaultFields();
-    $defaultCurrency = $default['currency'];
+    $wepModel = new Model_Wep();
+    $organisationDefault = $wepModel->getRowsByFields('iati_organisation' , 'id' , $this->parentId);
+    $defaultCurrency = $organisationDefault[0]['@default_currency'];
     
 ?>
 
@@ -39,7 +36,16 @@
 
 <!--Displaying Organisation's Elements Starts-->
 <div class="activity-container">
-   <?php foreach ($organisations as $organisation) : ?> 
+   <?php foreach ($organisations as $organisation) : ?>
+        
+        <!--Organisation Default Starts-->
+        <?php echo $this->partial("partials/view-organisation/default.phtml" , array(
+                                                                                'parentId' => $organisation['id'] ,  
+                                                                                'elements' => $organisation ,
+                                                                            )
+                          );
+         ?>
+        <!--Organisation Default Ends-->
         
         <!--Reporting Organisation Starts-->
         <?php if(isset($organisation['ReportingOrg'])) : ?>
