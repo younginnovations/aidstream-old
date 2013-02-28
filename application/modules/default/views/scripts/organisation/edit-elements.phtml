@@ -14,17 +14,8 @@
 </div>
 <!--Ends Title block-->
 
-<!--Extracting display name of an element-->
-<?php
-    $url = Zend_Controller_Front::getInstance()->getRequest()->getParams();
-    $classNameArray = split("_",$url['className']);
-    $elementClass = "Iati_Aidstream_Element_Organisation_".$classNameArray[1];
-    $elementClassObj = new $elementClass;
-    $elementDisplayName = $elementClassObj->getDisplayName();
-?>
-
 <!--Show which element is editing-->
-<div class="second-title">Editing <span><?php print $elementDisplayName ?>...</span></div>
+<div class="second-title">Editing <span><?php print $this->displayName ?>...</span></div>
 
 <!--Display Form-->
 <?php print $this->form; ?>
