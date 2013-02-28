@@ -5,8 +5,10 @@
         <?php foreach ($this->defaultfinancetypes as $defaultfinancetype): ?>    
             <div class="element-info">
                 <div class="element-values">
+                    <?php if($defaultfinancetype->getAttrib('@code')): ?>
                     <span class="attrib-label">Code:</span>
                     <span class="attrib-value"><?php if ($defaultfinancetype->getAttrib('@code')) ($defaultfinancetype->getAttribValue('@code' , 'Name') != $defaultfinancetype->getAttribValue('@code')) ? ( printf("%s [%s]" , $this->length()->adjustSingleLength($defaultfinancetype->getAttribValue('@code' , 'Name')) , $defaultfinancetype->getAttribValue('@code'))) : (print($defaultfinancetype->getAttribValue('@code'))); ?></span>
+                    <?php endif; ?>
                 </div>
             </div>
             <?php break; ?>

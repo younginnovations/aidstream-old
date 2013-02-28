@@ -5,8 +5,10 @@
         <?php foreach ($this->defaulttiedstatuss as $defaulttiedstatus): ?>
             <div class="element-info">
                 <div class="element-values">
-                    <span class="attrib-label">Code:</span>
-                    <span class="attrib-value"><?php if ($defaulttiedstatus->getAttrib('@code')) ($defaulttiedstatus->getAttribValue('@code' , 'Name') != $defaulttiedstatus->getAttribValue('@code')) ? ( printf("%s [%s]" , $this->length()->adjustSingleLength($defaulttiedstatus->getAttribValue('@code' , 'Name')) , $defaulttiedstatus->getAttribValue('@code'))) : (print($defaulttiedstatus->getAttribValue('@code'))); ?></span>
+                    <?php if($defaulttiedstatus->getAttrib('@code')): ?>
+                        <span class="attrib-label">Code:</span>
+                        <span class="attrib-value"><?php if ($defaulttiedstatus->getAttrib('@code')) ($defaulttiedstatus->getAttribValue('@code' , 'Name') != $defaulttiedstatus->getAttribValue('@code')) ? ( printf("%s [%s]" , $this->length()->adjustSingleLength($defaulttiedstatus->getAttribValue('@code' , 'Name')) , $defaulttiedstatus->getAttribValue('@code'))) : (print($defaulttiedstatus->getAttribValue('@code'))); ?></span>
+                    <?php endif; ?>
                 </div>
             </div>
             <?php break; ?>

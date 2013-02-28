@@ -9,10 +9,17 @@
             <ul class="style-2 arrow">
                 <li>
                     <span class="ajaxElement-down-arrow">
-                    <div id="get-elementId" style="display:none"><?php echo $result['id'] ; ?></div>
-                    <div id="get-index" style="display:none"><?php echo $key ; ?></div>
-                    <div id="get-className" style="display:none"><?php echo "Result" ; ?></div>
-                    <?php if (!empty($result["@type"])) printf ("%s [%s]",Iati_Core_Codelist::getCodeByAttrib('Result' , '@type' , $result["@type"],'Name'),Iati_Core_Codelist::getCodeByAttrib('Result' , '@type' , $result["@type"])); ?></span>
+                        <div id="get-elementId" style="display:none"><?php echo $result['id'] ; ?></div>
+                        <div id="get-index" style="display:none"><?php echo $key ; ?></div>
+                        <div id="get-className" style="display:none"><?php echo "Result" ; ?></div>
+                        <?php if (!empty($result["@type"])) printf ("%s [%s]",Iati_Core_Codelist::getCodeByAttrib('Result' , '@type' , $result["@type"],'Name'),Iati_Core_Codelist::getCodeByAttrib('Result' , '@type' , $result["@type"])); ?>
+                        <?php if (!empty($result['Title'])): ?>
+                               <?php if(!empty($result["@type"])) print "; "; ?>
+                               <?php foreach ($result['Title'] as $title): ?> 
+                                    <?php print ($title["text"] ); ?>
+                               <?php endforeach; ?> 
+                        <?php endif; ?>
+                    </span>
                     <!--Transaction content is loaded through ajax in div-->
                     <div id="view-activity-ajaxElement"style="display:none"></div>
                 </li>

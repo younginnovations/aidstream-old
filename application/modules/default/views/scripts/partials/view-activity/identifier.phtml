@@ -6,8 +6,10 @@
         <?php foreach ($this->identifiers as $identifier): ?>    
             <div class="element-info">        
                 <div class="element-values">
-                    <span class="attrib-label">Text:</span>					
-                    <span class="attrib-value"><?php if ($identifier->getAttrib('text')) print $this->length()->adjustSingleLength($identifier->getAttrib('text')); ?></span>
+                    <?php if($identifier->getAttrib('text')): ?>
+                        <span class="attrib-label">Text:</span>					
+                        <span class="attrib-value"><?php if ($identifier->getAttrib('text')) print $this->length()->adjustSingleLength($identifier->getAttrib('text')); ?></span>
+                    <?php endif; ?>
                 </div>
             </div>
 

@@ -5,16 +5,22 @@
 
         <div class="element-info">
             <div class="element-values">
-                <span class="attrib-label">Lang:</span>					
-                <span class="attrib-value"><?php print $this->length()->adjustTripleLength($this->activityInfo['@xml_lang']); ?></span>
+                <?php if($this->activityInfo['@xml_lang']): ?>
+                    <span class="attrib-label">Lang:</span>					
+                    <span class="attrib-value"><?php print $this->length()->adjustTripleLength($this->activityInfo['@xml_lang']); ?></span>
+                <?php endif; ?>
             </div>
             <div class="element-values">
-                <span class="attrib-label"> Curr:</span>
-                <span class="attrib-value"><?php print $this->length()->adjustTripleLength($this->activityInfo['@default_currency']); ?></span>  
+                <?php if($this->activityInfo['@default_currency']): ?>
+                    <span class="attrib-label"> Curr:</span>
+                    <span class="attrib-value"><?php print $this->length()->adjustTripleLength($this->activityInfo['@default_currency']); ?></span>  
+                <?php endif; ?>
             </div>
             <div class="element-values">
-                <span class="attrib-label">Last updated time:</span>
-                <span class="attrib-value"><?php print $this->length()->adjustTripleLength($this->activityInfo['@last_updated_datetime']); ?></span>
+                <?php if($this->activityInfo['@last_updated_datetime']): ?>
+                    <span class="attrib-label">Last updated date time:</span>
+                    <span class="attrib-value"><?php print $this->length()->adjustTripleLength($this->activityInfo['@last_updated_datetime']); ?></span>
+                <?php endif; ?>
             </div>
         </div> 
         

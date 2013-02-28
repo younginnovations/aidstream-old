@@ -23,6 +23,7 @@
                         ?>
                             <?php foreach ($transactiontypes as $transactiontype): ?>
                                 <?php if ($transactiontype->getAttrib('@code')){ $code = $transactiontype->getAttrib('@code'); ($transactiontype->getAttribValue('@code' , 'Name') != $transactiontype->getAttribValue('@code')) ? ( printf("%s [%s]" ,$this->length()->adjustTripleTitleLength($transactiontype->getAttribValue('@code' , 'Name')) , $transactiontype->getAttribValue('@code'))) : (print($this->length()->adjustTripleTitleLength($transactiontype->getAttribValue('@code'))));} ?> 
+                                <?php break; ?>
                             <?php endforeach; ?>
                         <?php endif; ?>
                         <!--Ends Transaction Type-->

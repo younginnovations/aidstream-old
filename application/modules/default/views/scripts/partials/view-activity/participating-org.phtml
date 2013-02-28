@@ -10,8 +10,10 @@
         <div class="current">
             <ul class="style-2 arrow">
                 <li> <span class="down-arrow"><?php if ($participatingorg->getAttrib('@role')) ($participatingorg->getAttribValue('@role' , 'Name') != $participatingorg->getAttribValue('@role')) ? ( printf("%s [%s]" , $this->length()->adjustDoubleLength($participatingorg->getAttribValue('@role' , 'Name')) , $participatingorg->getAttribValue('@role'))) : (print($this->length()->adjustDoubleTitleLength($participatingorg->getAttribValue('@role')))); ?>
-                                                <?php if ($participatingorg->getAttrib('@role') && $participatingorg->getAttrib('@type')) print "; "; ?>
-                                                <?php if ($participatingorg->getAttrib('@type')) ($participatingorg->getAttribValue('@type' , 'Name') != $participatingorg->getAttribValue('@type')) ? ( printf("%s [%s]" , $this->length()->adjustDoubleLength($participatingorg->getAttribValue('@type' , 'Name')) , $participatingorg->getAttribValue('@type'))) : (print($this->length()->adjustDoubleTitleLength($participatingorg->getAttribValue('@type')))); ?></span>
+                                                <?php if ($participatingorg->getAttrib('@role') && $participatingorg->getAttrib('text')) print "; "; ?>
+                                                <?php if ($participatingorg->getAttrib('text')) (print $participatingorg->getAttrib('text'))?>
+                                                <?php if ($participatingorg->getAttrib('@xml_lang')) printf(" [%s]" , ($participatingorg->getAttribValue('@xml_lang'))); ?>   
+                    </span>
 
                     <ul class="style-2-drop first">
                         <li>

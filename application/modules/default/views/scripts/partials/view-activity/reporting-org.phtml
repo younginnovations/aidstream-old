@@ -6,12 +6,16 @@
 
             <div class="element-info">
                 <div class="element-values">
-                    <span class="attrib-label">Text:</span>					
-                    <span class="attrib-value"><?php if ($reportingorg->getAttrib('text')) print $this->length()->adjustDoubleLength(($reportingorg->getAttribValue('text'))); ?> <?php if ($reportingorg->getAttrib('@xml_lang')) printf(" [%s]" , ($reportingorg->getAttribValue('@xml_lang'))); ?></span>
+                    <?php if($reportingorg->getAttrib('text')): ?>
+                        <span class="attrib-label">Text:</span>					
+                        <span class="attrib-value"><?php if ($reportingorg->getAttrib('text')) print $this->length()->adjustDoubleLength(($reportingorg->getAttribValue('text'))); ?> <?php if ($reportingorg->getAttrib('@xml_lang')) printf(" [%s]" , ($reportingorg->getAttribValue('@xml_lang'))); ?></span>
+                    <?php endif; ?>
                 </div>
                 <div class="element-values">
-                    <span class="attrib-label">Ref:</span>
-                    <span class="attrib-value"><?php if ($reportingorg->getAttrib('@ref')) ($reportingorg->getAttribValue('@ref' , 'Name') != $reportingorg->getAttribValue('@ref')) ? ( printf("%s [%s]" , $this->length()->adjustDoubleLength($reportingorg->getAttribValue('@ref' , 'Name')) , $reportingorg->getAttribValue('@ref'))) : (print($this->length()->adjustDoubleLength($reportingorg->getAttribValue('@ref')))); ?></span>  
+                    <?php if($reportingorg->getAttrib('@ref')): ?>
+                        <span class="attrib-label">Ref:</span>
+                        <span class="attrib-value"><?php if ($reportingorg->getAttrib('@ref')) ($reportingorg->getAttribValue('@ref' , 'Name') != $reportingorg->getAttribValue('@ref')) ? ( printf("%s [%s]" , $this->length()->adjustDoubleLength($reportingorg->getAttribValue('@ref' , 'Name')) , $reportingorg->getAttribValue('@ref'))) : (print($this->length()->adjustDoubleLength($reportingorg->getAttribValue('@ref')))); ?></span>  
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
