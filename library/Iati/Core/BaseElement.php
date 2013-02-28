@@ -583,20 +583,24 @@ class Iati_Core_BaseElement
                 if($name == "xml_lang"){
                     $value = Iati_Core_Codelist::getCodeByAttrib($this->className, '@xml_lang' , $value);
                     $name = preg_replace('/_/',':',$name);
-                    $xmlObj->addAttribute($name , $value , "http://www.w3.org/XML/1998/namespace");
+                    if($value)
+                        $xmlObj->addAttribute($name , $value , "http://www.w3.org/XML/1998/namespace");
                 }elseif($name == "currency" || $name == "default_currency"){ 
                     $value = Iati_Core_Codelist::getCodeByAttrib("Activity_default", '@currency' , $value);
-                    $xmlObj->addAttribute($name,$value);
+                    if($value)
+                        $xmlObj->addAttribute($name,$value);
                 }elseif ($name == 'last_updated_datetime'){
                     // Convert last updated date to UTC format
                     $name = preg_replace('/_/','-',$name);
                     $gmDateValue = gmdate('c' , strtotime($value));
-                    $xmlObj->addAttribute($name,$gmDateValue);
+                    if($gmDateValue)
+                        $xmlObj->addAttribute($name,$gmDateValue);
                 }
                 else {
                     $value = Iati_Core_Codelist::getCodeByAttrib($this->className, $name , $value);
                     $name = preg_replace('/_/','-',$name);
-                    $xmlObj->addAttribute($name,$value);
+                    if($value)
+                        $xmlObj->addAttribute($name,$value);
                 }
 
             }
