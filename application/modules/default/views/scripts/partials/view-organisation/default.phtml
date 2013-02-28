@@ -4,28 +4,22 @@
         <?php echo "Organisation Default"; ?>
         <div class="element-info">
                 <div class="element-values">
-                    <span class="attrib-label">Lang:</span>					
-                    <span class="attrib-value"><?php 
-                                                    if($this->elements['@xml_lang'])
-                                                     {
-                                                        echo $this->length()->adjustTripleLength(Iati_Core_Codelist::getCodeByAttrib('Default' , '@xml_lang' , $this->elements['@xml_lang']));
-                                                     }
-                                               ?>
-                    </span>
+                    <?php if($this->elements['@xml_lang']): ?>
+                        <span class="attrib-label">Lang:</span>					
+                        <span class="attrib-value"><?php echo $this->length()->adjustTripleLength(Iati_Core_Codelist::getCodeByAttrib('Default' , '@xml_lang' , $this->elements['@xml_lang'])); ?></span>
+                    <?php endif; ?>
                 </div>
                 <div class="element-values">
-                    <span class="attrib-label">Curr:</span>
-                    <span class="attrib-value"><?php 
-                                                    if($this->elements["@default_currency"]) 
-                                                    {
-                                                        echo $this->length()->adjustTripleLength(Iati_Core_Codelist::getCodeByAttrib('Activity_default' , '@currency' , $this->elements["@default_currency"])); 
-                                                    }
-                                               ?>
-                    </span>  
+                    <?php if($this->elements['@xml_lang']): ?>
+                        <span class="attrib-label">Curr:</span>
+                        <span class="attrib-value"><?php  echo $this->length()->adjustTripleLength(Iati_Core_Codelist::getCodeByAttrib('Activity_default' , '@currency' , $this->elements["@default_currency"]));?></span>  
+                    <?php endif; ?>
                 </div>
                 <div class="element-values">
-                    <span class="attrib-label">Last updated date:</span>
-                    <span class="attrib-value"><?php echo $this->length()->adjustTripleLength($this->elements['@last_updated_datetime']); ?></span>  
+                    <?php if($this->elements['@xml_lang']): ?>
+                        <span class="attrib-label">Last updated date:</span>
+                        <span class="attrib-value"><?php echo $this->length()->adjustTripleLength($this->elements['@last_updated_datetime']); ?></span>  
+                    <?php endif; ?>
                 </div>
          </div>
     </div>
