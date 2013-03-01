@@ -1532,7 +1532,7 @@ fieldset dl
 	margin: 0;
 }
 
-fieldset.innermost + fieldset, fieldset.inner + fieldset
+fieldset.innermost + fieldset, fieldset.inner + fieldset, div.form-wrapper + div.form-wrapper
 {
 	border-top:1px dashed #c0c0c0;
 	padding-top: 8px;
