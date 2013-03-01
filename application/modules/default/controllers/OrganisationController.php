@@ -446,6 +446,10 @@ class OrganisationController extends Zend_Controller_Action
                     $organsationInfo = $wepModel->getRowsByFields('iati_organisation' , 'id' , $organisationIds[0]);
                     $lastUpdateDatetime = $organsationInfo[0]['@last_updated_datetime'];
                     
+                    //Set all status to 0
+                    $modelPublished = new Model_OrganisationPublished();
+                    $modelPublished->resetPublishedInfo($account_id);
+                   
                     $organisationpublishedModel = new Model_OrganisationPublished();
                     $publishedData['publishing_org_id'] = $account_id;
                     $publishedData['filename'] = $fileName;
