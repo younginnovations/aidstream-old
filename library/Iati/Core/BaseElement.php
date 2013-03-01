@@ -239,7 +239,7 @@ class Iati_Core_BaseElement
         if($this->isMultiple){
             foreach($data as $elementData){ 
                 $elementsData = $this->getElementsData($elementData);
-                if($this->hasData($elementsData) || !empty($this->childElements)){
+                if($this->hasData($elementData)){
                     if($parentId){
                         $elementsData[$parentColumnName] = $parentId;
                     }
@@ -265,7 +265,7 @@ class Iati_Core_BaseElement
             }
         } else {
             $elementsData = $this->getElementsData($data);
-            if($this->hasData($elementsData) || !empty($this->childElements) ){
+            if($this->hasData($elementsData)){
                 if($parentId){
                     $elementsData[$parentColumnName] = $parentId;
                 }
