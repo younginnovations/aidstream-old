@@ -856,7 +856,10 @@ h2.form-title {
 {
 	text-decoration:underline;
 }
-
+.no-data
+{
+    margin-bottom: 12px;
+}
 #contain table
 {
 	width:100%;
