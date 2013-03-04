@@ -12,9 +12,9 @@ class Zend_View_Helper_Length extends Zend_View_Helper_Abstract
     public function adjustSingleTitleLength($text)
     {
 
-        if (strlen($text) > 80)
+        if (strlen($text) > 76)
         {
-            return substr($text , 0 , 80) . '...';
+            return substr($text , 0 , 76) . '...';
         } else
         {
             return $text;
