@@ -252,6 +252,12 @@ class Iati_Core_BaseElement
                         unset($elementsData['id']);
                         $this->db->update($elementsData , array('id = ?' => $eleId));
                     }
+                } else {
+                    if($elementData['id']){
+                        $where = $this->db->getAdapter()->quoteInto('id = ?', $elementData['id']);
+                        $this->db->delete($where);
+                        return;
+                    }
                 }
                 
                 // If children are present create children elements and call their save function.                
@@ -278,6 +284,12 @@ class Iati_Core_BaseElement
                     $eleId = $elementsData['id'];
                     unset($elementsData['id']);
                     $this->db->update($elementsData , array('id = ?' => $eleId));
+                }
+            } else {
+                if($elementsData['id']){
+                    $where = $this->db->getAdapter()->quoteInto('id = ?', $elementData['id']);
+                    $this->db->delete($where);
+                    return;
                 }
             }
             // If children are present create children elements and call their save function.
@@ -312,7 +324,8 @@ class Iati_Core_BaseElement
         if(!is_array($data)){
             return false;
         }
-        foreach($data as $values){
+        foreach($data as $key=>$values){
+            if($key == 'id' || $key == 'add' || $key == 'remove') continue;// check for empty excluding these elements
             if($values){
                 if(is_array($values)){
                     $hasData = $this->hasData($values);
