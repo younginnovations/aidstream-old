@@ -45,10 +45,11 @@
 
                     <!--  Indicator Starts -->
                     <?php if (!empty($result['Indicator'])): ?>
-                    <ul class="style-1 style-4">
-                        <h2>Indicator</h2>
+                    <ul class="style-1 style-4 result-style">
                         <?php foreach ($result['Indicator'] as $indicator): ?>
-                        <ul class="style-4">
+                        <ul class="style-4 comment-style none-border">
+                           <h2>Indicator</h2>
+
                             <li>
                                 <span class="name">Measure: </span>
                                 <span class="infom"><?php if (!empty($indicator["@measure"])) print ($indicator["@measure"]); ?></span>
@@ -62,7 +63,7 @@
 
                             <!--Indicator Title Starts -->
                             <?php if (!empty($indicator['Title'])): ?> 
-                            <ul class="style-1 style-4">
+                            <ul class="style-1 style-4 res-style-1">
                                 <h2>Title</h2>
                                 <?php foreach ($indicator['Title']as $title): ?>
                                     <li>
@@ -94,11 +95,10 @@
                             <!--Indicator Description Ends -->
 
                             <!--Indicator Baseline Starts -->
-                            <?php if (!empty($indicator['Baseline'])): ?>
-                           
-                                <h2>Baseline</h2>
+                            <?php if (!empty($indicator['Baseline'])): ?> 
                                 <?php foreach ($indicator['Baseline'] as $baseline): ?>
-                                  <ul class="style-4 first">  
+                                  <ul class="style-4 first comment-style none-border">  
+                                      <h2>Baseline</h2>
                                      <li> 
                                         <span class="name">Year: </span>
                                         <span class="infom"><?php if (!empty($baseline["@year"])) print ($baseline["@year"]); ?></span>
@@ -112,7 +112,7 @@
                              
                                             <!--Indicator Baseline Comment Starts -->
                                             <?php if (!empty($baseline['Comment'])): ?>
-                                            <ul class="style-1 style-4">
+                                            <ul class="style-1 style-4 res-style-1">
                                                 <h2>Comment</h2>
                                                 <?php foreach ($baseline['Comment'] as $comment): ?>
                                                     <li>
@@ -132,7 +132,6 @@
                             <?php if (!empty($indicator['Period'])): ?>
                             <ul class="style-1 style-4">
                             <h2>Period</h2>
-                            
                             <?php foreach($indicator['Period'] as $period):?>
                         
                                     <!-- Indicator Period PeriodStart Starts -->
@@ -172,10 +171,10 @@
                                     <!--Indicator Period PeriodEnd Ends -->
 
                                     <!--Indicator Period Target Starts-->
-                                    <?php if (!empty($period['Target'])): ?>
-                                    <h2>Target</h2>
+                                    <?php if (!empty($period['Target'])): ?> 
                                     <?php foreach ($period['Target'] as $target): ?>
-                                       <ul class="style-4 first">
+                                       <ul class="style-4 first comment-style none-border">
+                                           <h2>Target</h2>
                                             <li>
                                                 <span class="name">Value: </span>
                                                 <span class="infom">
@@ -190,7 +189,7 @@
 
                                         <!--Period Target Comment Starts-->
                                         <?php if (!empty($target['Comment'])): ?>
-                                        <ul class="style-1 style-4">
+                                        <ul class="style-1 style-4 comment-style">
                                             <h2>Comment</h2>
                                             <?php foreach ($target['Comment'] as $comment): ?>
                                                 <li>
@@ -207,10 +206,10 @@
                                     <!--Indicator Period Target Ends-->
 
                                     <!--Indicator Period Actual Starts-->
-                                    <?php if (!empty($period['Actual'])): ?>
-                                    <h2>Actual</h2>
+                                    <?php if (!empty($period['Actual'])): ?>                                    
                                     <?php foreach ($period['Actual'] as $actual): ?>
-                                       <ul class="style-4 first">
+                                       <ul class="style-4 first comment-style none-border">
+                                           <h2>Actual</h2>
                                             <li>
                                                 <span class="name">Value: </span>
                                                 <span class="infom"><?php if (!empty($actual["@value"])) print ($this->numberFormat()->localization($actual["@value"])); ?></span>
@@ -219,7 +218,7 @@
                                       
                                         <!--Period Actual Comment Starts-->
                                         <?php if (!empty($actual['Comment'])): ?>
-                                        <ul class="style-1 style-4">
+                                        <ul class="style-1 style-4 none-comment">
                                             <h2>Comment</h2>
                                             <?php foreach ($actual['Comment'] as $comment): ?>
                                                 <li>

@@ -2746,6 +2746,8 @@ h1 .edit-this a:hover, h1 .change-password a:hover {
 {
 	border-top:none;
 	padding: 0 20px 8px;
+        height: 400px!important;
+        overflow-x: scroll;
 }
 
 .claro .dijitDialogPaneContent p
@@ -3663,7 +3665,7 @@ ul.style-4  {
 
 ul.style-4 li {
 	border-top: 0!important;
-	padding-left: 30px;
+	padding-left: 40px;
 }
 
 
@@ -3677,6 +3679,7 @@ ul.style-4 span {
 ul.style-4 span.name {
 	width: 160px;
 	display: inline-block;
+        vertical-align: top;
 }
 
 ul.style-4 span.info {
@@ -3876,3 +3879,37 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7db9e8', end
 
 #push_to_registry_for_organisation-element {
 	padding-bottom: 16px;
+}
+
+li.result .result-style { 
+    padding-bottom: 0;
+}
+
+li.result .result-style h2 { 
+    border-bottom: none; 
+}
+
+
+li.result .res-style-1 li {
+    border-top: 1px solid #EEEEEE !important;
+}
+
+.comment-style li:nth-child(2){
+    border-top: 1px solid #EEEEEE !important;
+}
+
+.border-heading {
+    border-top: 1px solid #EEEEEE;
+    margin: 0!important;
+    padding: 0 29px;
+}
+.none-border {
+    margin-bottom: 16px;
+}
+
+.none-comment {
+    padding-bottom: 0!important;
+}
+
+
+
