@@ -369,17 +369,14 @@ if(!empty($value)): ?>
 
 
 <!-- Transaction Starts -->
-<?php
-$transactions=$activity->getElementsByType(Iati_Activity_Element::TYPE_TRANSACTION);
-$value = $transactions[0]->getAttribs();
-if(!empty($value)): ?>
+<?php if(!empty($this->activityData['Activity'][0]['Transaction'])):?>
     <?php echo $this->partial("partials/view-activity/transactions.phtml" , array(
-                                                                                'activityInfo' => $this->activityInfo ,
-                                                                                'transactions' => $transactions ,
-                                                                            )
-                          );
+                                                                                    'activityInfo' => $this->activityInfo ,
+                                                                                    'transactions' => $this->activityData['Activity'][0]['Transaction'] ,
+                                                                                )
+                            );
     ?>
-<?php endif;?>
+<?php endif; ?>
 <!-- Transaction Ends -->
 
 
