@@ -1,72 +1,64 @@
-<li class="element-activity">
+<li class="element-activity result">
 
-    <div class="element-title element-current">
-        Transaction
-    </div>
+    <div class="element-title element-current ">Transaction</div>
 
     <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/list-elements/?classname=Activity_Transaction&activity_id=<?php echo $this->activityInfo['id'] ?>">Edit</a></div>
-
-    <?php foreach ($this->transactions as $key=> $transaction): ?>
-        <div class="current">
+   
+    <?php foreach ($this->transactions as $key=>$transaction): ?>
+    <div class="current">
             <ul class="style-2 arrow">
                 <li>
-
-                    <span class="transaction-down-arrow transaction">  
-                        <div id="get-activityId" style="display:none"><?php echo $this->activityInfo['id'] ; ?></div>
+                    <span class="ajaxElement-down-arrow">
+                        <div id="get-elementId" style="display:none"><?php echo $transaction['id'] ; ?></div>
                         <div id="get-index" style="display:none"><?php echo $key ; ?></div>
+                        <div id="get-className" style="display:none"><?php echo "Transaction" ; ?></div>
                         <!--Starts Transaction Type-->
                         <?php
                         $code =  Null;
-                        $transactiontypes = $transaction->getElementsByType('TransactionType');
-                        $value = $transactiontypes[0]->getAttribs();
-                        if (!empty($value)):
+                        if (!empty($transaction["TransactionType"])):
                         ?>
-                            <?php foreach ($transactiontypes as $transactiontype): ?>
-                                <?php if ($transactiontype->getAttrib('@code')){ $code = $transactiontype->getAttrib('@code'); ($transactiontype->getAttribValue('@code' , 'Name') != $transactiontype->getAttribValue('@code')) ? ( printf("%s [%s]" ,$this->length()->adjustTripleTitleLength($transactiontype->getAttribValue('@code' , 'Name')) , $transactiontype->getAttribValue('@code'))) : (print($this->length()->adjustTripleTitleLength($transactiontype->getAttribValue('@code'))));} ?> 
-                                <?php break; ?>
-                            <?php endforeach; ?>
+                           <?php 
+                                if($transaction["TransactionType"]["@code"])
+                                { 
+                                    printf(" %s [%s] ",$this->length()->adjustTripleTitleLength(Iati_Core_Codelist::getCodeByAttrib('TransactionType' , '@code' , $transaction["TransactionType"]["@code"],'Name')),Iati_Core_Codelist::getCodeByAttrib('TransactionType' , '@code' , $transaction["TransactionType"]["@code"]));
+                                    $code = $transaction["TransactionType"]["@code"];                                           
+                                }    
+                          ?>
                         <?php endif; ?>
                         <!--Ends Transaction Type-->
+                        
                         <!--Starts Transaction Value-->
                         <?php
                         $text = Null;
-                        $values = $transaction->getElementsByType('Value');
-                        $value = $values[0]->getAttribs();
-                        if (!empty($value)):
-                            ?>    
-                            <?php foreach ($values as $value): ?>
-                                <?php if ($code && $value->getAttrib('text')) print "; "; ?>
-                                <?php  ($value->getAttrib('@currency')) ? (printf("[%s]",$value->getAttribValue('@currency'))) : (printf("[%s]",$this->activityInfo['@default_currency'])); ?> 
-                                <?php if ($value->getAttrib('text')) 
+                        if (!empty($transaction["TransactionValue"])):
+                            ?>   
+                                <?php if ($code && $transaction["TransactionValue"]["text"]) print "; "; ?>
+                                <?php  ($transaction["TransactionValue"]["@currency"]) ? (printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('Activity_default' , '@currency' , $transaction["TransactionValue"]["@currency"]))) : (printf("[%s]",$this->activityInfo['@default_currency'])); ?> 
+                                <?php if ($transaction["TransactionValue"]["text"]) 
                                       {
-                                       $text = $value->getAttribValue('text');
-                                       print ($this->length()->adjustTripleTitleLength($this->numberFormat()->localization($value->getAttribValue('text')))); 
+                                       $text = $transaction["TransactionValue"]["text"];
+                                       print ($this->length()->adjustTripleTitleLength($this->numberFormat()->localization($transaction["TransactionValue"]["text"]))); 
                                       }
                                 ?> 
-                                <?php break; ?>
-                            <?php endforeach; ?>
                         <?php endif; ?>
                         <!--Ends Transaction Value-->
-                        <!--Starts Transaction Date-->
+                        
+                         <!--Starts Transaction Date-->
                         <?php
-                        $values = $transaction->getElementsByType('TransactionDate');
-                        $value = $values[0]->getAttribs();
-                        if (!empty($value)):
+                        if (!empty($transaction["TransactionDate"])):
                             ?>    
-                            <?php foreach ($values as $value): ?>
-                                <?php if ($text && $value->getAttrib('@iso_date')) print "; "; ?>
-                                <?php if ($value->getAttrib('@iso_date')) print ($this->length()->adjustTripleTitleLength($value->getAttribValue('@iso_date'))); ?> 
-                                <?php break; ?>
-                            <?php endforeach; ?>
+                                <?php if ($text && $transaction["TransactionDate"]["@iso_date"]) print "; "; ?>
+                                <?php if ($transaction["TransactionDate"]["@iso_date"]) print ($this->length()->adjustTripleTitleLength($transaction["TransactionDate"]["@iso_date"])); ?> 
+                           
                         <?php endif; ?>
                         <!--Ends Transaction Date-->
+                        
                     </span>
-                    
                     <!--Transaction content is loaded through ajax in div-->
-                    <div id="view-activity-transaction"style="display:none"></div>
-                   
+                    <div id="view-activity-ajaxElement"style="display:none"></div>
                 </li>
-            </ul>
-        </div>
+            </ul><!--Ends .style-2-->
+        </div><!--Ends .current-->
     <?php endforeach; ?>
-</li><!-- end of element-activity -->
+
+</li><!-- Ends .element-activity -->
