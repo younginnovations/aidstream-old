@@ -22,25 +22,7 @@ $(document).ready(function(){
         else {
             $(this).siblings('ul').hide();
         }		
-    });   
-    
-    $('.arrow li span.transaction-down-arrow ').click(function(){
-        $that = $(this);      
-        $(this).toggleClass('dropdown-level');
-        if ($that.siblings('#view-activity-transaction').css('display') == 'none') {
-            // Used to load transaction element through ajax    
-            // Get activity id
-            var id = $that.find('#get-activityId').html();
-            // Get index of an array
-            var index = $that.find('#get-index').html();
-            $that.siblings('#view-activity-transaction').load(APP_BASEPATH +'/wep/transaction?id=' + id + '&index=' + index);
-             
-            $that.siblings('#view-activity-transaction').css('display','');
-        }
-        else {
-            $(this).siblings('#view-activity-transaction').hide();
-        }		
-    });
+    });  
     
     $('.arrow li span.ajaxElement-down-arrow ').click(function(){
         $that = $(this);     
