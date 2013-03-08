@@ -1,1 +1,2 @@
-<?php echo $this->partial("partials/view/".$this->className.".phtml" , array('data' => $this->data)); ?>
+<?php $className = strtolower($this->className); ?>
+<?php echo $this->partial("partials/view-activity/".$className."-content.phtml" , array($className => $this->data)); ?>
