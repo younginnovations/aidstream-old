@@ -4,7 +4,7 @@ class Iati_Aidstream_Element_Activity_Transaction_DisbursementChannel extends Ia
 {
     protected $className = 'DisbursementChannel';
     protected $displayName = 'Disbursement Channel';
-    protected $attribs = array('id' , '@code' , 'text');
-    protected $iatiAttribs = array('@code' , 'text');
+    protected $attribs = array('id' , '@code' , 'text','@xml_lang');
+    protected $iatiAttribs = array('@code' , 'text','@xml_lang');
     protected $tableName = 'iati_transaction/disbursement_channel';
 }
