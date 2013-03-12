@@ -11,10 +11,9 @@
             <?php print $wrapperForm->getElement('add');?>
         </div>
         <?php foreach($wrapperForm->getSubForms() as $form): ?>
-        <?php $form->render();?>
             <ul class="level-<?php echo $this->eleLevel; ?> element-level">
                 <?php foreach($form->getElements() as $element): ?>
-                    
+                    <?php $element = $form->decorateElement($element);?>
                     <?php if($element->getType() === 'Zend_Form_Element_Hidden'): ?>
                     <?php echo $element; continue;?>
                     <?php endif;?>
