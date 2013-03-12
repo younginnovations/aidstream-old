@@ -8,5 +8,5 @@ class Iati_Aidstream_Element_Activity_Result_Description extends Iati_Core_BaseE
     protected $tableName = 'iati_result/description';
     protected $attribs = array('id' , '@xml_lang','@type','text');
     protected $iatiAttribs = array('@xml_lang' ,'@type','text');
-    
+    protected $viewScriptEnabled = true;
 }

@@ -9,5 +9,5 @@ class Iati_Aidstream_Element_Activity_Result_Indicator extends Iati_Core_BaseEle
     protected $attribs = array('id' , '@measure' , '@ascending');
     protected $iatiAttribs = array('@measure' , '@ascending');
     protected $childElements = array('Title' , 'Description' ,'Baseline', 'Period');
-    
+    protected $viewScriptEnabled = true;    
 }

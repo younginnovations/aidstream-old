@@ -1351,9 +1351,10 @@ fieldset.remove-highlight , .remove-highlight
     color: #009ADA;
 }
 
-.addmore:hover,.add-more:hover
+.addmore,.add-more,.addmore:hover,.add-more:hover
 {
-	background-color:#dfdfdf;
+	/*background-color:#dfdfdf;*/
+	background: none;
 }
 
 .add-more a {
@@ -1965,6 +1966,15 @@ li#current-state span{
 	padding-left:10px;
 }
 
+.result-activity-element .add-more,.element-remove-this{
+	background: none;
+	padding: 0!important;
+}
+
+.result-activity-element .element-remove-this a {
+	background: none!important;
+}
+
 .addmore .button, .add-element .button, .simplified-add-more .button
 {
 	background-color:transparent;
@@ -2095,7 +2105,6 @@ table#list-org {
     font-size: 13px;
     font-weight: bold;
     padding: 0 0 5px;
-    width: 526px;
     cursor: pointer;
 }
 
@@ -2792,6 +2801,9 @@ button#cd-cancel, button#cd-ok
 	border: 0;
 }
 
+.element-add-more .button,.element-add-more .button:hover {
+	background: none; 
+}
 .remove a.button:hover, .addmore a.button:hover, #block-activity-menu .content li a:hover
 {
 	background-color:transparent;
@@ -3765,8 +3777,8 @@ li.indicator ul.first li {
 }
 
 .dropdown-level{
-	background: url(../images/down-arrow.png) no-repeat 26px 13px!important;
-        width: 526px;
+	background: #fff url(../images/down-arrow.png) no-repeat 26px 13px!important;
+    width: 526px;
 }
 
 li.indicator h2 {
@@ -3881,6 +3893,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7db9e8', end
 	padding-bottom: 16px;
 }
 
+
 li.result .result-style { 
     padding-bottom: 0;
 }
@@ -3911,5 +3924,483 @@ li.result .res-style-1 li {
     padding-bottom: 0!important;
 }
 
+.activity-container {
+	-webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow:    0px 0px 4px rgba(0, 0, 0, 0.3);
+	box-shadow:         0px 0px 4px rgba(0, 0, 0, 0.3);
+	border-radius: 4px;	
+	background: #f7f8fa;	
+}
+
+.activity-element ul{
+	/*display: none;*/
+}
+
+.level-1,.element-level,.level-3,.level-4,.level-5 {
+	clear: both;
+	background: #fff;
+	/*display: none;*/
+}
+
+.element-activity {
+	border-bottom: 1px solid #dedfe1;
+	line-height: 36px;
+	box-shadow: inset 0 1px 0 #fff;
+	overflow: hidden;
+	background: #fff;
+}
+
+.element-title-wrapper {
+	background: #f7f8fa;
+	overflow: hidden;
+	border-top: 1px solid #eee;
+}
+
+.sub-element-wrapper {
+	background: #fff;
+}
+
+.redult-element-title {
+	color: #333; 
+	background: url(../images/activity-arrow.png) no-repeat 10px center!important;
+	padding: 0 16px;
+	float: left;
+	padding-left: 26px;
+}
+
+.dropdown {
+	background: url(../images/activity-downarrow.png) no-repeat 10px center!important;
+}
+
+
+.add-more {
+	float: right;
+	/*margin-right: 10px;*/
+}
+
+.edit a {
+	background: #eee url(../images/edit.png) no-repeat center;
+	text-indent: -9999px;
+	width: 32px;
+	text-align: center;
+	display: inline-block;
+	border-top-right-radius: 4px;
+	margin-top: 1px;
+}
+
+.edit a:hover {
+	background: #009ADA url(../images/edit-hover.png) no-repeat center;
+}
+
+.element-values {
+	display: inline-block;
+	margin-right: 10px;
+}
+
+.element-values span {
+	font-size: 13px;
+	color: #868686;
+}
+
+.element-values span.attrib-value {
+	font-weight: bold;
+	margin-right: 4px;
+}
+
+.drop {
+	border-bottom: 1px solid #e5e6e9;
+	box-shadow: none;
+}
+
+.drop ul {
+	background: #fff;
+	clear: both;
+}
+
+.drop ul li {
+	border-top: 1px solid #e5e6e9;
+	background: #fff;
+	padding-left: 14px;
+	overflow: hidden;
+	/*line-height: 32px;*/
+}
+
+.sub-element-title {
+	background: url(../images/down-arrow.png) no-repeat 8px 14px!important;
+}
+
+.drop ul li span.name {
+	color: #777;
+	width: 166px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.drop ul li span.info {
+	color: #333;
+	display: inline-block;
+}
+
+
+/*level1*/
+
+ul.level-1 {
+	background: #fff;
+	border-top: 1px solid #E5E6E9;
+	padding: 20px 0;
+}
+
+ul.level-1 li {
+	background: #f7f8fa!important;
+	width: 550px;
+	padding: 0 10px!important;
+	margin: 0 auto;
+	border: 1px solid #eee;
+	border-width: 0 1px 1px 1px;
+	line-height: 26px;
+}
+
+/*ul.level-1 li:first-child {
+	border-top: 1px solid #eee;
+}
+*/
+ul.level-1 .name {
+	display: inline-block;
+	width: 160px;
+}
+
+ul.level-1 .info {
+	color: #333!important;
+}
+
+/*end of level1*/
+
+/*level2*/
+
+ul.element-level {
+	border-top: 1px solid #eee!important;
+	padding: 14px 0;
+}
+
+.arrow li {
+	background: #fff url(../images/activity-arrow.png) no-repeat 28px 14px!important;
+}
+
+.arrow li ul li {
+	background: #F7F8FA!important;
+}
+
+
+ul.element-level li {
+	border-top: 1px solid #eee;
+	margin: 0 auto;
+	width: 576px;
+	background: #f7f8fa!important;
+	padding: 0;
+	border: 1px solid #eee;
+	border-width: 0 1px 1px 1px;
+	line-height: 26px;
+}
+
+.sub-level ul.element-level li {
+	width: 534px;
+}
+
+/*ul.element-level li:first-child {
+	border-top: 1px solid #eee;
+}*/
+
+ul.element-level li:nth-child(2) {
+	border-top: 1px solid #eee;
+}
+
+/*ul.element-level li span {
+	padding-left: 44px;
+}
+*/
+ul.element-level-drop {
+	background: white;
+	padding: 20px 0;
+	border-top: 1px solid #E6E5E9;
+}
+
+
+ul.element-level-drop.first {
+	border-bottom: 1px solid #E6E5E9;
+}
+
+ul.element-level-drop li {
+	background: #F7F8FA!important;
+	width: 550px;
+	padding: 0 10px!important;
+	margin: 0 auto;
+	border: 1px solid #EEE;
+	border-width: 0 1px 1px 1px;
+	line-height: 26px;
+}
+
+ul.element-level-drop li:first-child {
+	border-top: 1px solid #eee;
+}
+
+ul.element-level-drop li span.name {
+	color: #777;
+	width: 166px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+ul.element-level-drop li span.info {
+	color: #333;
+	display: inline-block;
+}
+
+/*end of level2*/
+
+
+/*level3*/
+
+ul.level-3.none {
+	padding: 0!important;
+}
+
+ul.level-3 li:first-child {
+	border-top: 0!important;
+}
+
+ul.level-3 {
+	border-top: 1px solid #A3D900;
+}
+
+ul.level-3.first {
+	border-top: 0!important;
+}
+
+
+ul.level-3.first li {
+	border-top: 1px solid #eee!important;
+}
+
+/*end of level3*/
+
+/*level 4,level 3-b*/
+
+ul.level-4  {
+	padding-top: 0;
+	border-top: 0;
+	border-top: 1px solid #E6E5E9;
+	background: #fff;
+}
+
+ul.level-4 li {
+	border-top: 0!important;
+	padding-left: 20px;
+}
+
+
+ul.level-4.none li:first-child {
+	border-top: 0!important;
+}
+ul.level-4 span {
+	color: #777;
+}
+
+ul.level-4 span.name {
+	width: 160px;
+	display: inline-block;
+}
+
+ul.level-4 span.info {
+	color: #333;
+}
+
+ul.level-4.sep {
+	border-top: 1px solid #A3D900;
+}
+
+ul.level-4 h2 {
+	font-size: 14px;
+	color: #333;
+	margin: 0 20px;
+	border-bottom: 1px solid #EEE;
+}
+
+ul.level-4 li.change {
+	margin-top: 20px!important;
+	border-top: 1px solid #eee!important;
+}
+
+ul.level-4.none,ul.level-4.none li {
+	background: #fff!important;
+}
+
+ul.level-4.none span {
+	padding-left: 8px;
+}
+
+/*end of level 4,level 3-b*/
+
+.arrow li.dropdown-level {
+	background: url(../images/activity-downarrow.png) no-repeat 26px 16px!important;
+}
+
+.info {
+	float: right;
+	width: 380px;
+}
+
+.element-remove-this {
+	float: right;
+	margin-right: 10px;
+}
+
+.result-element-title {
+	line-height: 30px;
+	padding-left: 20px!important;
+}
+
+.result-element-title.dropdown {
+	background: url(../images/down-arrow.png) no-repeat 6px center!important;
+}
+
+.result-activity-element li dt {
+	width: 160px;
+}
+
+.result-activity-element .form-item {
+	margin-top: 6px;
+}
+
+.result-form-container {
+	-webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+	box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+	border-radius: 4px;
+	background: #f7f8fa;
+}
+
+.result-form-container .element-title {
+	background: url(../images/down-arrow.png) no-repeat 6px center;
+	font-weight: normal!important;
+}
+
+.result-form-container #Result-save {
+	font-size: 12px;
+	margin: 8px;
+}
+
+.result-form-container ul li {
+	background: #fff;
+}
+
+.sub-element-activity {
+	background: #fff;
+}
+
+.sub-element-activity-level-2 .element-title-wrapper {
+	background: #fff;
+}
+
+.sub-element-activity .element-title {
+	margin-left: 6px;
+}
+
+.sub-level .element-title-wrapper {
+	padding: 0 10px;
+}
+
+.result-form-container .help {
+	margin-left: 12px;
+	margin-right: 0;
+}
+
+.result-form-container .element-remove-this {
+	margin-right: 28px;
+}
+
+.activity-element-level-2 .element-title-wrapper {
+	padding: 0 2px;
+}
+
+.activity-element-level-2  ul.element-level li {
+	width: 548px;
+}
+
+.activity-element-level-3 .element-title-wrapper {
+	padding: 0 14px;	
+}
+
+.activity-element-level-3  ul.element-level li {
+	width: 548px;
+	padding-left: 0;
+}
+
+.activity-element-level-3 ul.element-level {
+	border-top: 0!important;
+	padding-top: 3px;
+}
+
+.result-activity-element .element-add-more .button {
+	padding: 4px 26px;
+}
+
+.sub-element-activity-level-3 .activity-element-level-4 .element-title-wrapper {
+	border-top: 0;
+	background: #f7f8fa;
+	padding: 0;
+}
+
+.sub-element-activity-level-3 .activity-element-level-4 .activity-element {	
+	background: #F3F4F7;
+	border: 1px solid #ddd;
+	margin: 0 25px 20px;
+}
+
+.sub-element-activity-level-3 .activity-element-level-4 .element-level {
+	padding: 0;
+	border: 1px solid #eee!important;
+	background: #F3F4F7;
+	border-width: 1px 0 0 0!important;
+}
+
+.sub-element-activity-level-3 .activity-element-level-4 .element-level li {
+	border: 0;
+	background: #F3F4F7!important;
+	border-bottom: 1px solid #E5E6E9;
+}
+
+.sub-element-activity-level-3 .activity-element-level-4 .element-level li .form-item {
+	margin: 6px 20px;
+}
+
+.sub-element-activity-level-3 .activity-element-level-4 .element-level li dt {
+	width: 100px; 
+}
+
+.sub-element-activity-level-4 .activity-element-level-5 .activity-element {
+	border: 0;
+	padding: 0 16px 20px;
+	margin: 0;
+	border-bottom: 1px solid #eee;
+	background: #F3F4F7;
+}
+
+.sub-element-activity-level-4 .activity-element-level-5 .element-level {
+	border: 1px solid #E5E6E9!important;
+	border-width: 1px 1px 1px 1px!important;
+	margin: 0 8px;
+}
+
+.sub-element-activity-level-4 .activity-element-level-5 .element-level li {
+	border-bottom: 0;
+	width: 498px;
+}
+
+
+.sub-element-activity-level-4 .activity-element-level-5 .element-title-wrapper {
+	border-top: 0;
+	background: #f3f4f7;
+	padding: 0;
+}
 
 

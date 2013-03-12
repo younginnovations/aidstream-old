@@ -8,5 +8,5 @@ class Iati_Aidstream_Element_Activity_Result_Indicator_Period_Actual_Comment ext
     protected $tableName = 'iati_result/indicator/period/actual/comment';
     protected $attribs = array('id' ,'@xml_lang', 'text');
     protected $iatiAttribs = array('@xml_lang','text');
-    
+    protected $viewScriptEnabled = true;   
 }

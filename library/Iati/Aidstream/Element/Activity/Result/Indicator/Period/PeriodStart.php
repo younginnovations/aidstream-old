@@ -8,5 +8,5 @@ class Iati_Aidstream_Element_Activity_Result_Indicator_Period_PeriodStart extend
     protected $tableName = 'iati_result/indicator/period/period-start';
     protected $attribs = array('id' , '@iso_date' ,'text');
     protected $iatiAttribs = array('@iso_date' ,'text');
-    
+    protected $viewScriptEnabled = true;  
 }

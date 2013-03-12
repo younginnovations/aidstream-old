@@ -1,0 +1,44 @@
+<?php $wrapperForm = $this->element; ?>
+<?php if($this->eleLevel == 1):?>
+    <div class="result-form-container">
+    <form action="<?php echo $form->getAction(); ?>" method="<?php echo $form->getMethod(); ?>" >
+<?php endif; ?>
+<ul class="activity-element-level-<?php echo $this->eleLevel; ?>">
+    <li class="activity-element result-activity-element">
+        <div class="element-title-wrapper">
+            <div class="element-title result-element-title"><?php echo $this->display ?>
+            </div>
+            <?php print $wrapperForm->getElement('add');?>
+        </div>
+        <?php foreach($wrapperForm->getSubForms() as $form): ?>
+        <?php $form->render();?>
+            <ul class="level-<?php echo $this->eleLevel; ?> element-level">
+                <?php foreach($form->getElements() as $element): ?>
+                    
+                    <?php if($element->getType() === 'Zend_Form_Element_Hidden'): ?>
+                    <?php echo $element; continue;?>
+                    <?php endif;?>
+                    
+                    <?php if($element->getName() !== 'remove' & $element->getType() !== 'Zend_Form_Element_Submit'):?>
+                    <li><?php echo $element; ?></li>
+                    <?php endif;?>
+                <?php endforeach;?>
+            </ul>
+            <?php $subforms = $form->getSubForms();?>
+            <?php if(!empty($subforms)): ?>
+                <div class="sub-element-activity-level-<?php echo $this->eleLevel; ?>">
+                    <?php foreach($form->getSubForms() as $subForm):?>
+                    <?php print $subForm; ?>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif;?>
+            <?php $form->getElement('remove')->removeDecorator('Label');?>
+            <?php echo $form->getElement('remove');?>
+        <?php endforeach; ?>
+    </li>
+</ul>
+<?php if($this->eleLevel == 1):?>
+    <?php echo $form->getElement('save'); ?>
+    </form>
+    </div>
+<?php endif; ?>

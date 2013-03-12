@@ -30,6 +30,8 @@ class Iati_Core_BaseElement
     protected $tableName;
     protected $db;
     protected $count;
+    protected $viewScriptEnabled = false;
+    protected $viewScript;
 
 
     public function __construct()
@@ -194,6 +196,20 @@ class Iati_Core_BaseElement
                 }
                 $form->prepare();
             }
+        }
+        if($this->viewScriptEnabled){
+            $viewScriptFile = ($this->viewScript) ? $this->viewScript : (($this->isMultiple) ? 'default/multiple.phtml' : 'default/single.phtml');
+            $form->setDecorators(array(
+                                    array('ViewScript', array(
+                                                                'viewScript' => $viewScriptFile ,
+                                                                'display' => $this->getDisplayName() ,
+                                                                'eleLevel' => $this->getLevel() ,
+                                                                'ajax' => $ajax
+                                                            )
+                                        )
+                                    )
+                                 );
+            return $form;
         }
         $form->wrapForm($this->getDisplayName() , $this->getIsRequired());
         return $form;
@@ -619,5 +635,11 @@ class Iati_Core_BaseElement
             }
         }
         return $xmlObj;
+    }
+    
+    public function getLevel()
+    {
+        $names = explode('_' , $this->getFullName());
+        return array_search($this->getClassName() , $names);
     }
 }

@@ -9,5 +9,5 @@ class Iati_Aidstream_Element_Activity_Result_Indicator_Baseline extends Iati_Cor
     protected $attribs = array('id' , '@year' ,'@value');
     protected $iatiAttribs = array('@year' ,'@value');
     protected $childElements = array('Comment');
-    
+    protected $viewScriptEnabled = true;
 }

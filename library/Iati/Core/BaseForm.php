@@ -229,6 +229,7 @@ abstract class Iati_Core_BaseForm extends Zend_Form
         if($isRequired){
             $displayName = $displayName . " *";
         }
+        
         $this->addDecorators( array(
                     array( 'wrapper' => 'HtmlTag' ),
                     array( 'tag' => 'fieldset' , 'options' => array('legend' => $displayName))
@@ -330,5 +331,10 @@ abstract class Iati_Core_BaseForm extends Zend_Form
             }
         }
         return true;
+    }
+    
+    public function getActivityElement()
+    {
+        return $this->element;
     }
 }
