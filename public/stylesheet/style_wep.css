@@ -2938,9 +2938,9 @@ p.error, #contain p.error
 {
 	margin:5px 0;
 }
-.form-required
+.form-required 
 {
-	color:#F00;
+	color:#F00 !important;
 }
 
 #flash-messages ul {
