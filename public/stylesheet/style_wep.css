@@ -1316,12 +1316,11 @@ code
 	color:#999999;
 }
 
-.remove, .simplified-remove-element{
-    display: block;
+.remove, .simplified-remove-element,.element-remove-this {
     color: #009ADA;
-    display: block;
-    padding-left:10px;
-    margin-bottom:10px;
+    float: left;
+    padding-left:10px!important;
+    margin-bottom:10px!important;
 }
 
 .remove .button, .simplified-remove-element a.button
@@ -1353,8 +1352,7 @@ fieldset.remove-highlight , .remove-highlight
 
 .addmore,.add-more,.addmore:hover,.add-more:hover
 {
-	/*background-color:#dfdfdf;*/
-	background: none;
+	background-color:#dfdfdf;
 }
 
 .add-more a {
@@ -1969,6 +1967,7 @@ li#current-state span{
 .result-activity-element .add-more,.element-remove-this{
 	background: none;
 	padding: 0!important;
+        clear: none!important;
 }
 
 .result-activity-element .element-remove-this a {
@@ -2796,12 +2795,18 @@ button#cd-cancel, button#cd-ok
 	background-image:url('images/inner-pages-icons.png');
 	background-repeat:no-repeat;
 	background-color:transparent;
+        background-position: 0 5px;
 	color: #009ADA;
 	font-size: 12px;
 	border: 0;
 }
 
-.element-add-more .button,.element-add-more .button:hover {
+.addmore a {
+    background-position: 0px -58px;
+}
+
+
+.result-form-container .element-add-more .button {
 	background: none; 
 }
 .remove a.button:hover, .addmore a.button:hover, #block-activity-menu .content li a:hover
@@ -2814,7 +2819,7 @@ button#cd-cancel, button#cd-ok
 	background-position:0 5px;
 }
 
-.element-remove-this .button {	
+.result-activity-element .element-remove-this .button {	
 	padding: 0 0 0 22px;
 }
 
@@ -2828,30 +2833,31 @@ button#cd-cancel, button#cd-ok
 }
 
 .element-remove-this {
-	display: inline-block;
-	padding: 0 0 0 10px;
-	margin-bottom: 10px;
+	display: block;
+	padding: 0 0 0 10px!important;
+	margin-bottom: 10px!important;
+        float: none;
 }
 
 .element-add-more{
 	display: block;
 	padding: 0 10px;
-	
+	clear: both;
 }
 
 .element-remove-this .button:hover {
-	background-position:0 -32px;
+	background-position:0 -27px;
 }
 
 .addmore .button, .add-element .button, .simplified-add-more .button,.element-add-more .button
 {
-	background-position:0 -58px;
+	background-position:0 -58px!important;
 }
 
 .addmore a.button:hover, .add-element .button:hover, .simplified-add-more a.button:hover,.element-add-more .button:hover
 {
 	background-color:transparent;
-	background-position:0 -90px;
+	background-position:0 -90px!important;
 }
 
 #block-activity-menu .content li a
@@ -3973,7 +3979,7 @@ li.result .res-style-1 li {
 }
 
 
-.add-more {
+.result-form-container .add-more {
 	float: right;
 	/*margin-right: 10px;*/
 }
@@ -4249,8 +4255,8 @@ ul.level-4.none span {
 	width: 380px;
 }
 
-.element-remove-this {
-	float: right;
+.result-form-container .element-remove-this {
+	float: right!important;
 	margin-right: 10px;
 }
 
