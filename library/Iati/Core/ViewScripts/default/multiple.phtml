@@ -16,8 +16,8 @@
             </div>
 <?php endif;?>
 
+        <?php foreach($wrapperForm->getSubForms() as $form): ?>
             <div class="elements-wrapper clearfix">
-            <?php foreach($wrapperForm->getSubForms() as $form): ?>
                 <?php $formBelongsTo = $form->getElementsBelongTo();?>
                 <?php $formBelongsTo = preg_replace('/^(\w+)/' , '[$1]', $formBelongsTo);?>
                 <?php $form->setElementsBelongTo("{$wrapperForm->getElementsBelongTo()}{$formBelongsTo}");?>
@@ -48,8 +48,8 @@
                 <?php $removeClass = preg_replace('/v2-remove-element/' , 'v2-result-remove-element' , $removeClass);?>
                 <?php $form->getElement('remove')->getDecorator('HtmlTag')->setOption('class' , $removeClass);?> 
                 <?php echo $form->getElement('remove');?>
-            <?php endforeach; ?>
             </div>
+        <?php endforeach; ?>
             
 <?php if(!$this->ajax): ?>
         </li>

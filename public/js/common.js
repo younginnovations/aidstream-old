@@ -1454,17 +1454,13 @@ function initialize() {
                                 "classname" : classname
 			    },
 			    load: function (data) {
-                                alert('sucess');
-				//console.log(data);
                                 if (grandParent.children('.elements-wrapper').length > 1) {
-                                    alert('found');
                                     dojo.destroy(parentNode[0]);
                                 } else {
                                     window.location.reload();
                                 }
 			    },
 			    error: function (data) {
-                                alert('sorry some err');
 				//console.log(data);
 				messageDialog("Error", "Something went wrong! Please try again");
 			    }
@@ -1472,8 +1468,8 @@ function initialize() {
 		    }
 		    else {
 			if (grandParent.children('.elements-wrapper').length > 1) {
-					dojo.destroy(parentNode[0]);
-				}
+				dojo.destroy(parentNode[0]);
+			}
 		    }
                     
                 });
