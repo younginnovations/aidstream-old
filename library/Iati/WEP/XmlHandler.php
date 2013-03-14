@@ -42,6 +42,7 @@ class Iati_WEP_XmlHandler
      */
     public function generateActivityXml($activity)
     {
+        $activity_id = $activity->getAttrib('id');
         $activity_node = $this->_getXmlNode($activity,$this->xml);
 
         $this->getElementXml( $activity->getElementsByType(Iati_Activity_Element::TYPE_REPORTING_ORG) , $activity_node);
@@ -70,7 +71,12 @@ class Iati_WEP_XmlHandler
         $this->getElementXml( $activity->getElementsByType(Iati_Activity_Element::TYPE_ACTIVITY_WEBSITE) , $activity_node);
         $this->getElementXml( $activity->getElementsByType(Iati_Activity_Element::TYPE_RELATED_ACTIVITY) , $activity_node);
         $this->getElementXml( $activity->getElementsByType(Iati_Activity_Element::TYPE_CONDITIONS) , $activity_node);
-        $this->getElementXml( $activity->getElementsByType(Iati_Activity_Element::TYPE_RESULT) , $activity_node);
+        
+        $resultElement = new Iati_Aidstream_Element_Activity_Result();
+        $resultElement->getXml($activity_id , true , $activity_node);
+        
+        //$this->getElementXml( $activity->getElementsByType(Iati_Activity_Element::TYPE_RESULT) , $activity_node);
+        
     }
 
     /**
