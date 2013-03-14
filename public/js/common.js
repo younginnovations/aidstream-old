@@ -1207,7 +1207,7 @@ function initialize() {
             }
         },
         
-        ".element-add-more": {
+        ".v2-add-element": {
             "onclick" : function (evt) {
                 evt.preventDefault();
                 var node = new dojo.NodeList(getTarget(evt));
@@ -1240,7 +1240,7 @@ function initialize() {
             }
         },
         
-        ".element-remove-this" : {
+        ".v2-remove-element" : {
             "onmouseover" : function(evt) {
                 var node = getTarget(evt).parentNode.parentNode;
                 dojo.addClass(node , 'remove-highlight');
@@ -1366,8 +1366,122 @@ function initialize() {
                 confirmDlg.show();
 
             }
-        }
+        },
         
+         ".v2-result-add-element": {
+            "onclick" : function (evt) {
+                evt.preventDefault();
+                var node = new dojo.NodeList(getTarget(evt));
+
+                var value = node.attr('value')[0];
+		var url = APP_BASEPATH + "/ajax/get-form";
+                var wrapperNode = dojo.query(getTarget(evt).parentNode.parentNode.parentNode);
+                var lastNode = wrapperNode.query(">.elements-wrapper").last();
+                var input = lastNode.query('input').attr('id');
+                var refEle = input[0];
+                refEle = refEle.replace(/-\w+$/,'');
+
+                // prepare input object for get parameter                
+                var data = new Object();
+                data['classname'] = value;
+                data['refele'] = refEle;
+
+                dojo.xhrGet({
+                    url : url,
+                    handleAs : 'text',
+                    content : data,
+                    load : function (data) {
+                        wrapperNode.append(data);
+                        dojo.behavior.apply();
+                    },
+                    error : function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+        },
+        
+        ".v2-result-remove-element" : {
+            "onmouseover" : function(evt) {
+                var node = getTarget(evt).parentNode.parentNode;
+                dojo.addClass(node , 'remove-highlight');
+            },
+            
+            "onmouseout" : function(evt) {
+                var node = getTarget(evt).parentNode.parentNode;
+                dojo.removeClass(node , 'remove-highlight');
+            },
+            
+            "onclick" : function (evt) {
+                evt.preventDefault();
+                var removeNode = getTarget(evt).parentNode;
+                var removeUrl = APP_BASEPATH + "/ajax/remove-form";
+                var classname = dojo.attr(getTarget(evt) , 'value');
+
+                //var grandParent = new dojo.NodeList(getTarget(evt).parentNode.parentNode);
+                //var parentNode = new dojo.NodeList(getTarget(evt).parentNode);
+                var msg = '<div><p>Are you sure you want to delete this item?</p>';
+                msg += '<p>This will remove all the subitems(if any) as well.</p>';
+                msg += '<p style="margin-left:100px"><button dojoType="dijit.form.Button" type="button" id="cd-ok">OK</button>';
+                msg += '<button dojoType="dijit.form.Button" type="button" id="cd-cancel">Cancel</button></p>';
+                
+                // Destroy all dialog box before creating new. Used to remove dialog box remaining after clicking close.
+                dojo.query('.dijitDialog').forEach(dojo.destroy);
+                
+                var confirmDlg = new dijit.Dialog({
+                    title: "Are you Sure?",
+                    style: "width: 320px",
+                    parseOnLoad: true,
+                    content: msg
+                });
+                
+                dojo.connect(dojo.byId('cd-cancel'), 'onclick', function (e) {
+                    confirmDlg.destroyRecursive();
+                });
+                
+                dojo.connect(dojo.byId('cd-ok'), 'onclick', function (e) {
+                    confirmDlg.destroyRecursive();
+                    var grandParent = dojo.NodeList(removeNode.parentNode.parentNode);
+                    
+		    var parentNode = dojo.NodeList(removeNode.parentNode);
+		    var removeId = dojo.attr(parentNode.query('input[type="hidden"]')[0], 'value');
+		    if (parseInt(removeId)) { 
+			dojo.xhrGet({
+			    url: removeUrl ,
+			    handleAs: 'text',
+			    content: {
+				"id": removeId,
+                                "classname" : classname
+			    },
+			    load: function (data) {
+                                alert('sucess');
+				//console.log(data);
+                                if (grandParent.children('.elements-wrapper').length > 1) {
+                                    alert('found');
+                                    dojo.destroy(parentNode[0]);
+                                } else {
+                                    window.location.reload();
+                                }
+			    },
+			    error: function (data) {
+                                alert('sorry some err');
+				//console.log(data);
+				messageDialog("Error", "Something went wrong! Please try again");
+			    }
+			});
+		    }
+		    else {
+			if (grandParent.children('.elements-wrapper').length > 1) {
+					dojo.destroy(parentNode[0]);
+				}
+		    }
+                    
+                });
+                
+                confirmDlg.show();
+                evt.preventDefault();
+            }
+        }        
     });
     
     // End of dojo.behavior.add

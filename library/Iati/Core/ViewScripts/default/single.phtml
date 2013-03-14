@@ -1,5 +1,4 @@
 <?php $form = $this->element;?>
-
 <?php if($this->eleLevel == 1):?>
     <div class="result-form-container">
     <form action="<?php echo $form->getAction(); ?>" method="<?php echo $form->getMethod(); ?>" >
@@ -12,20 +11,23 @@
             <div class="element-title result-element-title"> <?php echo $this->display;?> </div>
         </div>
         <?php endif;?>
-        <ul class="element-level">
-            <?php foreach($form->getElements() as $element): ?>
-            <?php if($element->getType() !== 'Zend_Form_Element_Submit'): ?>
-            <li><?php echo $element; ?></li>
-            <?php endif;?>
-            <?php endforeach;?>
-        </ul>
-        <div class="sub-element-activity-level-<?php echo $this->eleLevel; ?>">
-            <?php $subforms = $form->getSubForms();?>
-            <?php if($subforms): ?>
-            <?php foreach($form->getSubForms() as $subform):?>
-                <?php echo $subform;?>
-            <?php endforeach; ?>
-            <?php endif;?>
+        <div class="elements-wrapper">
+            <ul class="element-level">
+                <?php foreach($form->getElements() as $element): ?>
+                <?php if($element->getType() !== 'Zend_Form_Element_Submit'): ?>
+                <li><?php echo $element; ?></li>
+                <?php endif;?>
+                <?php endforeach;?>
+            </ul>
+            <div class="sub-element-activity-level-<?php echo $this->eleLevel; ?>">
+                <?php $subforms = $form->getSubForms();?>
+                <?php if($subforms): ?>
+                <?php foreach($form->getSubForms() as $subform):?>
+                    <?php $subform->setElementsBelongTo($form->getElementsBelongTo());?>
+                    <?php echo $subform;?>
+                <?php endforeach; ?>
+                <?php endif;?>
+            </div>
         </div>
     </li>
 </ul>

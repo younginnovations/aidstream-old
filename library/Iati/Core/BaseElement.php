@@ -175,7 +175,7 @@ class Iati_Core_BaseElement
                 $elementForm->prepare();
                 
                 // If the form build is called using ajax return the form without preparing it further.
-                if($ajax){
+                if($ajax && !$this->viewScriptEnabled){
                     return $elementForm;
                 }
                 

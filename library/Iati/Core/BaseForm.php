@@ -164,7 +164,7 @@ abstract class Iati_Core_BaseForm extends Zend_Form
             $className = $this->element->getFullName();
         }
         $remove = new Iati_Form_Element_Note('remove');
-        $remove->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'organisation-remove-element element-remove-this'));
+        $remove->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'element-remove-this v2-remove-element'));
         $remove->setValue("<a href='#' class='button' value='{$className}'> Remove this</a>");
         $this->addElement($remove);        
     }
@@ -177,7 +177,7 @@ abstract class Iati_Core_BaseForm extends Zend_Form
     public function addAddLink($className)
     {
         $add = new Iati_Form_Element_Note('add');
-        $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'add-more element-add-more'));
+        $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'add-more element-add-more v2-add-element'));
         $add->setValue("<a href='#' class='button' value='{$className}'> Add more</a>");
         $this->addElement($add);        
     }
