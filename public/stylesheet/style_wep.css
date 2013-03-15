@@ -3130,19 +3130,19 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f4f4', end
 }
 
 #edit {
-	background-position:10px -1337px;
+	background-position:10px -1337px!important;
 }
 
 #completed {
-	background-position:10px -1376px;
+	background-position:10px -1376px!important;
 }
 
 #verified {
-	background-position:10px -1415px;
+	background-position:10px -1415px!important;
 }
 
 #published {
-	background-position:10px -1454px;
+	background-position:10px -1454px!important;
 }
 
 td.data-value {
@@ -4412,3 +4412,7 @@ ul.level-4.none span {
 .activity-list-table .view-element-link {
 	background: none;
 	padding-right: 0;
+}
+
+.activity-list-table .view-element-link:hover {
+	background: #009ada;
