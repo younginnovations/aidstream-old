@@ -2155,7 +2155,7 @@ table#list-org {
 	padding-right: 12px;
 }
 
-.view-element-link:hover {
+.activity-list-table .view-element-link:hover {
 	background: #009ada url(../images/arrow-hover.png) no-repeat right 6px;
 	color:#fff;
 }
@@ -3517,9 +3517,9 @@ ul li {
 	display: inline-block;
 }
 
-ul li {
+/*ul li {
     overflow: hidden;
-}
+}*/
 
 
 /*style1*/
@@ -4274,7 +4274,7 @@ ul.level-4.none span {
 }
 
 .result-activity-element .form-item {
-	margin-top: 6px;
+	padding-top: 6px;
 }
 
 .result-form-container {
@@ -4402,7 +4402,6 @@ ul.level-4.none span {
 	width: 498px;
 }
 
-
 .sub-element-activity-level-4 .activity-element-level-5 .element-title-wrapper {
 	border-top: 0;
 	background: #f3f4f7;
@@ -4410,3 +4409,6 @@ ul.level-4.none span {
 }
 
 
+.activity-list-table .view-element-link {
+	background: none;
+	padding-right: 0;

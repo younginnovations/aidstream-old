@@ -1242,13 +1242,13 @@ function initialize() {
         
         ".v2-remove-element" : {
             "onmouseover" : function(evt) {
-                var node = getTarget(evt).parentNode.parentNode;
-                dojo.addClass(node , 'remove-highlight');
+                var node = dojo.query(getTarget(evt)).parents(".form-wrapper").first();
+                dojo.addClass(node[0] , 'remove-highlight');
             },
             
             "onmouseout" : function(evt) {
-                var node = getTarget(evt).parentNode.parentNode;
-                dojo.removeClass(node , 'remove-highlight');
+                var node = dojo.query(getTarget(evt)).parents(".form-wrapper").first();
+                dojo.removeClass(node[0] , 'remove-highlight');
             },
             
             "onclick" : function (evt) {
@@ -1403,13 +1403,13 @@ function initialize() {
         
         ".v2-result-remove-element" : {
             "onmouseover" : function(evt) {
-                var node = getTarget(evt).parentNode.parentNode;
-                dojo.addClass(node , 'remove-highlight');
+                var node = dojo.query(getTarget(evt)).parents(".elements-wrapper").first();
+                dojo.addClass(node[0] , 'remove-highlight');
             },
             
             "onmouseout" : function(evt) {
-                var node = getTarget(evt).parentNode.parentNode;
-                dojo.removeClass(node , 'remove-highlight');
+                var node = dojo.query(getTarget(evt)).parents(".elements-wrapper").first();
+                dojo.removeClass(node[0] , 'remove-highlight');
             },
             
             "onclick" : function (evt) {
