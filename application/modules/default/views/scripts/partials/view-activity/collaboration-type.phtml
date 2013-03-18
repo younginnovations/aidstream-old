@@ -6,8 +6,10 @@
         <?php foreach ($this->collaborationtypes as $collaborationtype): ?>
             <div class="element-info">
                 <div class="element-values">
-                    <span class="attrib-label">Code:</span>
-                    <span class="attrib-value"><?php if ($collaborationtype->getAttrib('@code')) ($collaborationtype->getAttribValue('@code' , 'Name') != $collaborationtype->getAttribValue('@code')) ? ( printf("%s [%s]" , $this->length()->adjustSingleLength($collaborationtype->getAttribValue('@code' , 'Name')) , $collaborationtype->getAttribValue('@code'))) : (print($collaborationtype->getAttribValue('@code'))); ?></span>
+                    <?php if($collaborationtype->getAttrib('@code')): ?>
+                        <span class="attrib-label">Code:</span>
+                        <span class="attrib-value"><?php if ($collaborationtype->getAttrib('@code')) ($collaborationtype->getAttribValue('@code' , 'Name') != $collaborationtype->getAttribValue('@code')) ? ( printf("%s [%s]" , $this->length()->adjustSingleLength($collaborationtype->getAttribValue('@code' , 'Name')) , $collaborationtype->getAttribValue('@code'))) : (print($collaborationtype->getAttribValue('@code'))); ?></span>
+                    <?php endif; ?>
                 </div>
             </div>
             <?php break; ?>

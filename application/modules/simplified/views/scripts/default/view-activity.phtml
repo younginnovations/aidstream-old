@@ -40,10 +40,29 @@
             <tr><td class="activity_view_label">Funding Organisation</td><td><?php if($activityData['funding_org']) { foreach($activityData['funding_org'] as $fundingOrg) { echo $fundingOrg."<br>";}}?></td></tr>
             <tr><td class="activity_view_label">Actual Start Date</td><td><?php echo $activityData['start_date'];?></td></tr>
             <tr><td class="activity_view_label">Actual End Date</td><td><?php echo $activityData['end_date'];?></td></tr>
-            <tr><td class="activity_view_label">District/VDC Name</td><td><?php echo $activityData['location_name'];?></td></tr>
             <?php if($activityData['sector']): ?>
             <tr><td class="activity_view_label">Sector</td><td><?php foreach($activityData['sector'] as $sector) { echo $model->fetchValueById('Sector' , $sector, 'Name');echo "<br>";} ?></td></tr>
             <?php endif;?>
+        </table>
+    </div>
+    
+    
+    <div class="activity-elements-view-wrapper">
+        <div class="activity-elements-view-title">
+            Location Information
+        </div>
+        <table class="activity-elements-view" id="document-info-view">
+            <thead>
+                <tr class="table-header"><th>District</th><th>Vdcs</th></tr>
+            </thead>
+            <?php if ($activityData['location']): ?>
+            <?php foreach($activityData['location'] as $location):?>
+                <tr>
+                    <td class="table-width"><?php echo ($location['location_name'])?$location['location_name']:'-';?></td>
+                    <td><?php echo ($location['location_vdcs'])? ($location['location_vdcs']):'-';?></td></td>
+                </tr>
+            <?php endforeach;?>
+            <?php endif; ?>
         </table>
     </div>
 

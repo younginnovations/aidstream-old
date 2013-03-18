@@ -150,7 +150,7 @@ class OrganisationController extends Zend_Controller_Action
         }
 
         $elementName = "Iati_Aidstream_Element_" . $elementClass;
-        $element = new $elementName();
+        $element = new $elementName();         
 
         if ($data = $this->getRequest()->getPost())
         {
@@ -196,31 +196,46 @@ class OrganisationController extends Zend_Controller_Action
         } else
         {
             if ($parentId)
-            {
-                $data[$element->getClassName()] = $element->fetchData($parentId , true);
+            {   // Parent id is a id of an organisation
+                if($element->getDisplayName() == 'Organisation Default')
+                { 
+                    $data = $element->fetchData($parentId);   
+                } else
+                {    
+                    $data[$element->getClassName()] = $element->fetchData($parentId , true);
+                }
             } else
             {
-                $data = $element->fetchData(array($eleId));
+                if($eleId)
+                {   
+                     $data = $element->fetchData($eleId);  
+                }
+                else
+                {  
+                    $data[$element->getClassName()] = $element->fetchData($activityId,true);                    
+                }    
             }
             if (empty($data[$element->getClassName()]))
             {
                 $this->_redirect("/organisation/add-elements/?className=$elementClass&parentId=$parentId");
-            }
+            } 
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();
         }
         $form->addSubmitButton('Save');
 
         $this->view->form = $form;
-
+        
         // Fetch title
-        $wepModel = new Model_Wep();
+        $wepModel = new Model_Wep();   
         $reportingOrg = $wepModel->getRowsByFields('iati_organisation/reporting_org' , 'organisation_id' , $parentId);
         $title = $reportingOrg[0]['text'];
         $this->view->title = $title . " Organisation File";
-
+        
+        // Set display name
+        $this->view->displayName = $element->getDisplayName(); 
         //Set organisation id to view 
-        $this->view->parentId = $parentId;
+        $this->view->parentId = $parentId;          
 
         $this->view->blockManager()->enable('partial/organisation-menu.phtml');
         $this->view->blockManager()->disable('partial/primarymenu.phtml');
@@ -355,6 +370,7 @@ class OrganisationController extends Zend_Controller_Action
         $organisationClassObj = new Iati_Aidstream_Element_Organisation();
         $organisations = $organisationClassObj->fetchData($organisationId , false);
         $this->view->organisations = $organisations;
+        $this->view->parentId = $organisationId;
 
         // Fetch title
         $wepModel = new Model_Wep();
@@ -430,6 +446,10 @@ class OrganisationController extends Zend_Controller_Action
                     $organsationInfo = $wepModel->getRowsByFields('iati_organisation' , 'id' , $organisationIds[0]);
                     $lastUpdateDatetime = $organsationInfo[0]['@last_updated_datetime'];
                     
+                    //Set all status to 0
+                    $modelPublished = new Model_OrganisationPublished();
+                    $modelPublished->resetPublishedInfo($account_id);
+                   
                     $organisationpublishedModel = new Model_OrganisationPublished();
                     $publishedData['publishing_org_id'] = $account_id;
                     $publishedData['filename'] = $fileName;

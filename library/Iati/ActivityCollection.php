@@ -10,7 +10,8 @@ class Iati_ActivityCollection
         $dbLayer = new Iati_WEP_DbLayer();
         foreach($activities_id as $activity_id)
         {
-            $activity = $dbLayer->getRowSet('Activity', 'id', $activity_id['id'], true, true);    
+            $activity = $dbLayer->getRowSet('Activity', 'id', $activity_id['id'], true, true);
+            $activity->setAttrib('id' , $activity_id['id'] );
             $activities[] = $activity;
         }
         return $activities;

@@ -6,8 +6,10 @@
         <?php foreach ($this->defaultaidtypes as $defaultaidtype): ?>    
             <div class="element-info">
                 <div class="element-values">
-                    <span class="attrib-label">Code:</span>
-                    <span class="attrib-value"><?php if ($defaultaidtype->getAttrib('@code')) ($defaultaidtype->getAttribValue('@code' , 'Name') != $defaultaidtype->getAttribValue('@code')) ? ( printf("%s [%s]" , $this->length()->adjustSingleLength($defaultaidtype->getAttribValue('@code' , 'Name')) , $defaultaidtype->getAttribValue('@code'))) : (print($defaultaidtype->getAttribValue('@code'))); ?></span>
+                    <?php if($defaultaidtype->getAttrib('@code')): ?>
+                        <span class="attrib-label">Code:</span>
+                        <span class="attrib-value"><?php if ($defaultaidtype->getAttrib('@code')) ($defaultaidtype->getAttribValue('@code' , 'Name') != $defaultaidtype->getAttribValue('@code')) ? ( printf("%s [%s]" , $this->length()->adjustSingleLength($defaultaidtype->getAttribValue('@code' , 'Name')) , $defaultaidtype->getAttribValue('@code'))) : (print($defaultaidtype->getAttribValue('@code'))); ?></span>
+                    <?php endif ; ?>
                 </div>
             </div>
             <?php break; ?>

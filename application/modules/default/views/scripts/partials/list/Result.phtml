@@ -1,0 +1,26 @@
+<?php $model = new Model_Wep(); ?>
+<?php $count = 1; ?>
+<?php $data = $this->data; ?>
+<table class="activity-list-table">
+    <thead>
+        <tr>
+            <th></th><th>S.N.</th><th>Type</th><th></th>
+        </tr>
+    </thead>
+    <tbody>
+<?php foreach($data as $element): ?>
+        <tr>
+            <td></td>
+            <td><? echo $count?></td>
+            <td><?php if (!empty($element["@type"])) printf ("%s [%s]",Iati_Core_Codelist::getCodeByAttrib('Result' , '@type' , $element["@type"],'Name'),Iati_Core_Codelist::getCodeByAttrib('Result' , '@type' , $element["@type"])); ?></td>
+            
+            <td colspan=3>
+                <span value="<?php echo $this->baseUrl();?>/activity/view-element?classname=<?php echo $this->elementClass;?>&id=<?php echo $element['id'];?>" class="view-element-link">View</span> |
+                <a href='<?php echo $this->baseUrl();?>/activity/edit-element?classname=<?php echo $this->elementClass;?>&id=<?php echo $element['id'];?>&activity_id=<?php echo $this->activityId; ?>&isMultiple=0'>Edit</a> |
+                <a href='<?php echo $this->baseUrl();?>/activity/delete-element?classname=<?php echo $this->elementClass;?>&id=<?php echo $element['id'];?>&activity_id=<?php echo $this->activityId;?>' class="delete-element-link">Delete</a>
+            </td>
+        </tr>
+        <?php $count++; ?>
+<?php endforeach; ?>
+    </tbody>
+</table>

@@ -108,6 +108,55 @@
                     </ul>
                 <?php endif; ?>
                 <!-- Description Ends -->
+                
+                <!-- Coordinates Starts -->
+                <?php
+                $coordinatess=$location->getElementsByType('Coordinates');
+                $value = $coordinatess[0]->getAttribs();
+                ?>
+                <?php if (!empty($value)): ?>
+                    <ul class="style-1 style-4">
+                        <h2>Coordinates</h2>
+                        <?php foreach($coordinatess as $coordinates): ?>
+                            <li>
+                                <span class="name">Latitude:</span>
+                                <span class="infom"><?php if($coordinates->getAttrib('@latitude')) ($coordinates->getAttribValue('@latitude','Name')!=$coordinates->getAttribValue('@latitude')) ?( printf("%s [%s]",$coordinates->getAttribValue('@latitude','Name'),$coordinates->getAttribValue('@latitude'))):(print($coordinates->getAttribValue('@latitude')));?></span>
+                            </li>
+                            <li>
+                                <span class="name">Longitude:</span>
+                                <span class="infom"><?php if($coordinates->getAttrib('@longitude')) ($coordinates->getAttribValue('@longitude','Name')!=$coordinates->getAttribValue('@longitude')) ?( printf("%s [%s]",$coordinates->getAttribValue('@longitude','Name'),$coordinates->getAttribValue('@longitude'))):(print($coordinates->getAttribValue('@longitude')));?></span>
+                            </li>
+                            <li>
+                                <span class="name">Precision:</span>
+                                <span class="infom"> <?php if($coordinates->getAttrib('@percision')) ($coordinates->getAttribValue('@percision','Name')!=$coordinates->getAttribValue('@percision')) ?( printf("%s [%s]",$coordinates->getAttribValue('@percision','Name'),$coordinates->getAttribValue('@percision'))):(print($coordinates->getAttribValue('@percision')));?></span>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+                <!-- Coordinates Ends -->
+                
+                <!-- GazetteerEntry Starts -->
+                <?php
+                $gazetteerentrys=$location->getElementsByType('GazetteerEntry');
+                $value = $gazetteerentrys[0]->getAttribs();
+                ?>
+                <?php if (!empty($value)): ?>
+                    <ul class="style-1 style-4">
+                        <h2>Gazetteer Entry</h2>
+                        <?php foreach($gazetteerentrys as $gazetteerentry): ?>
+                            <li>
+                                <span class="name">Text:</span>
+                                <span class="infom"><?php if($gazetteerentry->getAttrib('text')) print ($gazetteerentry->getAttribValue('text'));?></span>
+                            </li>
+                            <li>
+                                <span class="name">Gazetteer_ref:</span>
+                                <span class="infom"><?php if($gazetteerentry->getAttrib('@gazetteer_ref')) ($gazetteerentry->getAttribValue('@gazetteer_ref','Name')!=$gazetteerentry->getAttribValue('@gazetteer_ref')) ?( printf("%s [%s]",$gazetteerentry->getAttribValue('@gazetteer_ref','Name'),$gazetteerentry->getAttribValue('@gazetteer_ref'))):(print($gazetteerentry->getAttribValue('@gazetteer_ref')));?></span>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+                <!-- GazetteerEntry Ends -->
+                
             </div>
             <?php $i = $i + 1; ?>
         <?php endforeach; ?>

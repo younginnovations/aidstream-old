@@ -30,6 +30,8 @@ class Iati_Core_BaseElement
     protected $tableName;
     protected $db;
     protected $count;
+    protected $viewScriptEnabled = false;
+    protected $viewScript;
 
 
     public function __construct()
@@ -173,7 +175,7 @@ class Iati_Core_BaseElement
                 $elementForm->prepare();
                 
                 // If the form build is called using ajax return the form without preparing it further.
-                if($ajax){
+                if($ajax && !$this->viewScriptEnabled){
                     return $elementForm;
                 }
                 
@@ -194,6 +196,20 @@ class Iati_Core_BaseElement
                 }
                 $form->prepare();
             }
+        }
+        if($this->viewScriptEnabled){
+            $viewScriptFile = ($this->viewScript) ? $this->viewScript : (($this->isMultiple) ? 'default/multiple.phtml' : 'default/single.phtml');
+            $form->setDecorators(array(
+                                    array('ViewScript', array(
+                                                                'viewScript' => $viewScriptFile ,
+                                                                'display' => $this->getDisplayName() ,
+                                                                'eleLevel' => $this->getLevel() ,
+                                                                'ajax' => $ajax
+                                                            )
+                                        )
+                                    )
+                                 );
+            return $form;
         }
         $form->wrapForm($this->getDisplayName() , $this->getIsRequired());
         return $form;
@@ -239,7 +255,7 @@ class Iati_Core_BaseElement
         if($this->isMultiple){
             foreach($data as $elementData){ 
                 $elementsData = $this->getElementsData($elementData);
-                if($this->hasData($elementsData) || !empty($this->childElements)){
+                if($this->hasData($elementData)){
                     if($parentId){
                         $elementsData[$parentColumnName] = $parentId;
                     }
@@ -251,6 +267,12 @@ class Iati_Core_BaseElement
                         $eleId = $elementsData['id'];
                         unset($elementsData['id']);
                         $this->db->update($elementsData , array('id = ?' => $eleId));
+                    }
+                } else {
+                    if($elementData['id']){
+                        $where = $this->db->getAdapter()->quoteInto('id = ?', $elementData['id']);
+                        $this->db->delete($where);
+                        return;
                     }
                 }
                 
@@ -265,7 +287,7 @@ class Iati_Core_BaseElement
             }
         } else {
             $elementsData = $this->getElementsData($data);
-            if($this->hasData($elementsData) || !empty($this->childElements) ){
+            if($this->hasData($elementsData)){
                 if($parentId){
                     $elementsData[$parentColumnName] = $parentId;
                 }
@@ -278,6 +300,12 @@ class Iati_Core_BaseElement
                     $eleId = $elementsData['id'];
                     unset($elementsData['id']);
                     $this->db->update($elementsData , array('id = ?' => $eleId));
+                }
+            } else {
+                if($elementsData['id']){
+                    $where = $this->db->getAdapter()->quoteInto('id = ?', $elementData['id']);
+                    $this->db->delete($where);
+                    return;
                 }
             }
             // If children are present create children elements and call their save function.
@@ -312,15 +340,18 @@ class Iati_Core_BaseElement
         if(!is_array($data)){
             return false;
         }
-        foreach($data as $values){            
+        foreach($data as $key=>$values){
+            if($key == 'id' || $key == 'add' || $key == 'remove') continue;// check for empty excluding these elements
             if($values){
                 if(is_array($values)){
-                    return $this->hasData($values);
+                    $hasData = $this->hasData($values);
+                    if($hasData) return true;
+                } else {
+                    return true;
                 }
-                return true;
             }
         }
-        return false;
+        return false; 
     }
 
     /**
@@ -496,6 +527,10 @@ class Iati_Core_BaseElement
                 if(!is_object($parent)){
                     $xmlObj = new SimpleXMLElement("<$eleName>".$row['text']."</$eleName>");
                 } else {
+                    if($eleName == "language")
+                    {
+                        $row['text'] = Iati_Core_Codelist::getCodeByAttrib($this->className, 'text' , $row['text']);
+                    }
                     $xmlObj = $parent->addChild($eleName , $row['text']);
                 }
                 $xmlObj = $this->addElementsXmlAttribsFromData($xmlObj , $row);
@@ -521,6 +556,10 @@ class Iati_Core_BaseElement
             if(!is_object($parent)){
                 $xmlObj = new SimpleXMLElement("<$eleName>".$data['text']."</$eleName>");
             } else {
+                if($eleName == "language")
+                {
+                    $row['text'] = Iati_Core_Codelist::getCodeByAttrib($this->className, 'text' , $row['text']);
+                }
                 $xmlObj = $parent->addChild($eleName , $data['text']);
             }
             
@@ -573,21 +612,34 @@ class Iati_Core_BaseElement
                 if($name == "xml_lang"){
                     $value = Iati_Core_Codelist::getCodeByAttrib($this->className, '@xml_lang' , $value);
                     $name = preg_replace('/_/',':',$name);
-                    $xmlObj->addAttribute($name , $value , "http://www.w3.org/XML/1998/namespace");
-                } elseif ($name == 'last_updated_datetime'){
+                    if($value)
+                        $xmlObj->addAttribute($name , $value , "http://www.w3.org/XML/1998/namespace");
+                }elseif($name == "currency" || $name == "default_currency"){ 
+                    $value = Iati_Core_Codelist::getCodeByAttrib("Activity_default", '@currency' , $value);
+                    if($value)
+                        $xmlObj->addAttribute($name,$value);
+                }elseif ($name == 'last_updated_datetime'){
                     // Convert last updated date to UTC format
                     $name = preg_replace('/_/','-',$name);
                     $gmDateValue = gmdate('c' , strtotime($value));
-                    $xmlObj->addAttribute($name,$gmDateValue);
+                    if($gmDateValue)
+                        $xmlObj->addAttribute($name,$gmDateValue);
                 }
                 else {
                     $value = Iati_Core_Codelist::getCodeByAttrib($this->className, $name , $value);
                     $name = preg_replace('/_/','-',$name);
-                    $xmlObj->addAttribute($name,$value);
+                    if($value)
+                        $xmlObj->addAttribute($name,$value);
                 }
 
             }
         }
         return $xmlObj;
+    }
+    
+    public function getLevel()
+    {
+        $names = explode('_' , $this->getFullName());
+        return array_search($this->getClassName() , $names);
     }
 }

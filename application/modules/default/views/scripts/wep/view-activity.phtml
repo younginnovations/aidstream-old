@@ -369,17 +369,14 @@ if(!empty($value)): ?>
 
 
 <!-- Transaction Starts -->
-<?php
-$transactions=$activity->getElementsByType(Iati_Activity_Element::TYPE_TRANSACTION);
-$value = $transactions[0]->getAttribs();
-if(!empty($value)): ?>
+<?php if(!empty($this->activityData['Activity'][0]['Transaction'])):?>
     <?php echo $this->partial("partials/view-activity/transactions.phtml" , array(
-                                                                                'activityInfo' => $this->activityInfo ,
-                                                                                'transactions' => $transactions ,
-                                                                            )
-                          );
+                                                                                    'activityInfo' => $this->activityInfo ,
+                                                                                    'transactions' => $this->activityData['Activity'][0]['Transaction'] ,
+                                                                                )
+                            );
     ?>
-<?php endif;?>
+<?php endif; ?>
 <!-- Transaction Ends -->
 
 
@@ -444,17 +441,14 @@ if(!empty($value)): ?>
 
 
 <!-- Result Starts -->
-<?php
-$results=$activity->getElementsByType(Iati_Activity_Element::TYPE_RESULT);
-$value = $results[0]->getAttribs();
-if(!empty($value)): ?>
-     <?php echo $this->partial("partials/view-activity/result.phtml" , array(
-                                                                                'activityInfo' => $this->activityInfo ,
-                                                                                'results' => $results ,
-                                                                            )
-                          );
+<?php if(!empty($this->activityData['Activity'][0]['Result'])):?>
+    <?php echo $this->partial("partials/view-activity/result.phtml" , array(
+                                                                                    'activityInfo' => $this->activityInfo ,
+                                                                                    'results' => $this->activityData['Activity'][0]['Result'] ,
+                                                                                )
+                            );
     ?>
-<?php endif;?>
+<?php endif; ?>
 <!-- Result Ends -->
 
 </div>

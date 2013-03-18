@@ -24,11 +24,19 @@ $form = $this->element;
             <?php print $form->getElement('funding_org')?>
             <?php print $form->getElement('start_date')?>
             <?php print $form->getElement('end_date')?>
-            <?php print $form->getElement('location_name')?>
             <?php print $form->getElement('sector')?>
         </div>
     </div>
         
+    <div class="form-elements-wrapper">
+    <div class="elements-group-title">
+        Location Information
+    </div>
+    <div class="elements-group">
+        <?php print $form->getSubForm('location_wrapper'); ?>
+    </div>
+    </div>
+    
     <div class="form-elements-wrapper">
         <div class="elements-group-title">
             Budget Information

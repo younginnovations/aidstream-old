@@ -78,15 +78,7 @@ class Simplified_Form_Activity_Default extends Iati_SimplifiedForm
             ->setValue($this->data['end_date'])
             ->addValidator(new App_Validate_EndDate($form['start_date']))
             ->setAttrib('class', 'form-text datepicker');
-                
-        $form['location_id'] = new Zend_Form_Element_Hidden('location_id');
-        $form['location_id']->setValue($this->data['location_id']);
 
-        $form['location_name'] = new Zend_Form_Element_Text('location_name');
-        $form['location_name']->setLabel('District/VDC Name')
-            ->setRequired()
-            ->setValue($this->data['location_name'])
-            ->setAttrib('class', 'form-text');
             
         $sectorCodes = $model->getCodeArray('Sector' , '' , 1);
         $sectors = $this->data['sector'];
@@ -104,6 +96,28 @@ class Simplified_Form_Activity_Default extends Iati_SimplifiedForm
             ->setAttrib('class', 'form-text');
         
         $this->addElements($form);
+        
+        // location
+        $locationForm = new App_Form();
+        $locationForm->removeDecorator('form');
+        if($this->data['location']){
+            foreach($this->data['location'] as $key=>$locationData){
+                $location = new Simplified_Form_Activity_Location(array('data' => $locationData , 'count' => $key));
+                $locationForm->addSubForm($location , 'location'.$key);
+                $location->removeDecorator('form');
+            }
+            
+        } else {
+            $location = new Simplified_Form_Activity_Location(array('data' => $locationData));
+            $locationForm->addSubForm($location , 'location');
+            $location->removeDecorator('form');
+        }
+        $add = new Iati_Form_Element_Note('add');
+        $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'simplified-add-more'));
+        $add->setValue("<a href='#' class='button' value='Location'> Add More</a>");
+        $locationForm->addElement($add);
+        $this->addSubForm($locationForm , 'location_wrapper');
+        
         
         // Budget
         $budgetForm = new App_Form();

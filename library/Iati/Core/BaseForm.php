@@ -48,44 +48,7 @@ abstract class Iati_Core_BaseForm extends Zend_Form
         $requiredSuffx = '<span title="This field is required." class="form-required">*</span>';
 
         foreach ($this->getElements() as $element) {
-            $decorator = $element->getDecorator('Label');
-            if ($decorator) {
-                if ($element->getLabel()) { // need to check this, since label decorator can be blank
-                    $element->setLabel($element->getLabel() . "&nbsp;");
-                }
-                $decorator->setOption('requiredSuffix', $requiredSuffx);
-                $decorator->setOption('escape', false);
-            }
-            if ($element->getErrors()) {
-                $this->addElementClass($element, 'error');
-            }
-
-            // Add a wrapper div to all elements other than add and remove buttons.
-            if($element->getName() != 'add' && $element->getName() != 'remove' && $element->getType() != 'Zend_Form_Element_Submit'){
-
-                if($element->getName() == 'id' || ($element->getType() == 'Zend_Form_Element_Hidden' && preg_match('/_id/' , $element->getName()))){
-                    $element->addDecorators(array(
-	                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'form-item ele-id clearfix'))
-	                    )
-                    );
-                } else if($element->getName() == 'save_and_view' || $element->getName() == 'save'){
-                     $element->addDecorators(array(
-	                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'form-item ele-submit-buttons clearfix'))
-	                    )
-                    );
-                } else {
-                    // Add help element
-                     $uniqueElementName = $this->element->getFullName().'-'.$element->getName();
-                     $element->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help '.$uniqueElementName , 'placement' => 'PREPEND'))));
-	                
-                     $element->addDecorators(array(
-	                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'form-item clearfix'))
-	                    )
-	                );
-                }
-            } else {
-                $element->removeDecorator('label');
-            }
+            $element = $this->decorateElement($element);
         }
 
         $output = parent::render();
@@ -201,7 +164,7 @@ abstract class Iati_Core_BaseForm extends Zend_Form
             $className = $this->element->getFullName();
         }
         $remove = new Iati_Form_Element_Note('remove');
-        $remove->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'organisation-remove-element element-remove-this'));
+        $remove->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'element-remove-this v2-remove-element'));
         $remove->setValue("<a href='#' class='button' value='{$className}'> Remove this</a>");
         $this->addElement($remove);        
     }
@@ -214,7 +177,7 @@ abstract class Iati_Core_BaseForm extends Zend_Form
     public function addAddLink($className)
     {
         $add = new Iati_Form_Element_Note('add');
-        $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'add-more element-add-more'));
+        $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'add-more element-add-more v2-add-element'));
         $add->setValue("<a href='#' class='button' value='{$className}'> Add more</a>");
         $this->addElement($add);        
     }
@@ -229,6 +192,7 @@ abstract class Iati_Core_BaseForm extends Zend_Form
         if($isRequired){
             $displayName = $displayName . " *";
         }
+        
         $this->addDecorators( array(
                     array( 'wrapper' => 'HtmlTag' ),
                     array( 'tag' => 'fieldset' , 'options' => array('legend' => $displayName))
@@ -254,6 +218,7 @@ abstract class Iati_Core_BaseForm extends Zend_Form
                 'label' => $saveAndViewlabel,
                 'required' => false,
                 'ignore'   => false,
+                'class'    =>'form-submit'
             )
         );
         $this->addElement('submit' , 'save',
@@ -261,6 +226,7 @@ abstract class Iati_Core_BaseForm extends Zend_Form
                 'label'    => $label,
                 'required' => false,
                 'ignore'   => false,
+                'class'    =>'form-submit'
             )
         );
     }
@@ -275,43 +241,108 @@ abstract class Iati_Core_BaseForm extends Zend_Form
     public function validate(){
         $isValid = true;
         if(!$this->getSubForms()){
-            if($this->element->getIsRequired()){
-                $values = $this->getValues();
-                return $this->isValid($values);
-            } else {
-                $values = $this->getValues();
-                $name = $this->getName();
-                $itemNumber = substr($name , -1);
-                $eleName = substr($name , 0 , -1) ;
-                $data = $values[$eleName][$itemNumber];
-                unset($data['remove']);
-                unset($data['add']);
-                $notEmpty = false;
-                if(!empty($data)){
-                    foreach($data as $key=>$value){
-                        if($value && $key !== 'id'){
-                            $notEmpty = true;
-                        }
+           return $this->validateForm();
+        } else {      
+            foreach($this->getSubForms() as $subform){
+                if(!$subform->validate()){
+                    $isValid = false;
+                }
+                if (!($this instanceof Iati_Core_WrapperForm)){
+                    $valid = $this->validateForm();
+                    if(!$valid){
+                        $isValid = false;
                     }
                 }
-                if($notEmpty){
-                    $values = $this->getValues();
-                    return $this->isValid($values);
-                }
-                return true;
-            }
-        }
-        foreach($this->getSubForms() as $subform){
-            if(!$subform->validate()){
-                $isValid = false;
-            }
-        }
-        
-        foreach($this->getElements() as $element){
-            if(!$element->isValid($element->getValue())){
-                $isValid = false;
             }
         }
         return $isValid;
+    }
+    
+    public function validateForm()
+    {
+        $hasChildData = $this->element->hasData($this->element->getData());
+        if($hasChildData || $this->element->getIsRequired()){
+            $isValid = true;
+            foreach($this->getElements() as $element){
+                if(!$element->isValid($element->getValue())){
+                    $isValid = false;
+                }
+            }
+            return $isValid;
+        } else {
+            foreach ($this->getElements() as $element){
+                $data[$element->getName()] = $element->getValue();
+            }
+            unset($data['remove']);
+            unset($data['add']);
+            $empty = true;
+            if(!empty($data)){
+                foreach($data as $key=>$value){
+                    if($value && $key !== 'id'){
+                        $empty = false;
+                    }
+                }
+            }
+            if(!$empty){
+                $isValid = true;
+                foreach($this->getElements() as $element){
+                    if(!$element->isValid($element->getValue())){
+                        $isValid = false;
+                    }
+                }
+                return $isValid;
+            }
+        }
+        return true;
+    }
+    
+    public function getActivityElement()
+    {
+        return $this->element;
+    }
+    
+    public function decorateElement($element)
+    {
+        $requiredSuffx = '<span title="This field is required." class="form-required">*</span>';
+
+        $decorator = $element->getDecorator('Label');
+        if ($decorator) {
+            if ($element->getLabel()) { // need to check this, since label decorator can be blank
+                $element->setLabel($element->getLabel() . "&nbsp;");
+            }
+            $decorator->setOption('requiredSuffix', $requiredSuffx);
+            $decorator->setOption('escape', false);
+        }
+        if ($element->getErrors()) {
+            $this->addElementClass($element, 'error');
+        }
+
+        // Add a wrapper div to all elements other than add and remove buttons.
+        if($element->getName() != 'add' && $element->getName() != 'remove' && $element->getType() != 'Zend_Form_Element_Submit'){
+
+            if($element->getName() == 'id' || ($element->getType() == 'Zend_Form_Element_Hidden' && preg_match('/_id/' , $element->getName()))){
+                $element->addDecorators(array(
+                            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'form-item ele-id clearfix'))
+                        )
+                );
+            } else if($element->getName() == 'save_and_view' || $element->getName() == 'save'){
+                 $element->addDecorators(array(
+                            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'form-item ele-submit-buttons clearfix'))
+                        )
+                );
+            } else {
+                // Add help element
+                 $uniqueElementName = $this->element->getFullName().'-'.$element->getName();
+                 $element->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help '.$uniqueElementName , 'placement' => 'PREPEND'))));
+                    
+                 $element->addDecorators(array(
+                            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'form-item clearfix'))
+                        )
+                    );
+            }
+        } else {
+            $element->removeDecorator('label');
+        }
+        return $element;
     }
 }

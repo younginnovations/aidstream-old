@@ -8,6 +8,7 @@ dojo.require('dijit.form.Select')
 dojo.require('dijit.form.DateTextBox');
 //dojo.require("dojo.date.locale");
 dojo.require('dijit.TooltipDialog');
+dojo.require('dojo.number');
 
 /**
  * @todo some comments on what is required for what
@@ -1180,11 +1181,11 @@ function initialize() {
             'found' : function (ele){                
                 var msg;
                 msg = "<div class='state-help-popup-info-wrapper'>";// main wrapper
-                msg += "<div class='state-help-title'><span class='info-image'></span>Aidstream Organisation States</div>"; // title
+                msg += "<div class='state-help-title'><span class='info-image'></span>Aidstream Organisation File States</div>"; // title
                 // message body
-                msg += "<div class= 'state-help-body'><p>Aidstream maintains a simple workflow to ensure that the organisation are properly verified before it gets registered in IATI Registry for public view. The following states are maintained in the organisation.</p>";
+                msg += "<div class= 'state-help-body'><p>Aidstream maintains a simple workflow to ensure that the organisation files are properly verified before it gets registered in IATI Registry for public view. The following states are maintained in the organisation file.</p>";
                 msg += "<ul class='states-list'><li>Edit</li><li>Completed</li><li>Verified</li><li>Published</li></ul>";
-                msg += "<p>When the organisation is in any one of the states, any further changes in the organisation will return its state back to Editing. The entire flow has to be followed before the changes get updated in the organisation xml files and registered in IATI Registry. It is recommended that different users are given access to each of these roles for the workflow.</p>"
+                msg += "<p>When the organisation file is in any one of the states, any further changes in the organisation file will return its state back to Editing. The entire flow has to be followed before the changes get updated in the organisation xml files and registered in IATI Registry. It is recommended that different users are given access to each of these roles for the workflow.</p>"
                 msg += "</div></div>"; // closing body and main div
                 var stateHelpDialog = new dijit.TooltipDialog({
                     content: msg,
@@ -1206,7 +1207,7 @@ function initialize() {
             }
         },
         
-        ".element-add-more": {
+        ".v2-add-element": {
             "onclick" : function (evt) {
                 evt.preventDefault();
                 var node = new dojo.NodeList(getTarget(evt));
@@ -1239,15 +1240,15 @@ function initialize() {
             }
         },
         
-        ".element-remove-this" : {
+        ".v2-remove-element" : {
             "onmouseover" : function(evt) {
-                var node = getTarget(evt).parentNode.parentNode;
-                dojo.addClass(node , 'remove-highlight');
+                var node = dojo.query(getTarget(evt)).parents(".form-wrapper").first();
+                dojo.addClass(node[0] , 'remove-highlight');
             },
             
             "onmouseout" : function(evt) {
-                var node = getTarget(evt).parentNode.parentNode;
-                dojo.removeClass(node , 'remove-highlight');
+                var node = dojo.query(getTarget(evt)).parents(".form-wrapper").first();
+                dojo.removeClass(node[0] , 'remove-highlight');
             },
             
             "onclick" : function (evt) {
@@ -1365,8 +1366,118 @@ function initialize() {
                 confirmDlg.show();
 
             }
-        }
+        },
         
+         ".v2-result-add-element": {
+            "onclick" : function (evt) {
+                evt.preventDefault();
+                var node = new dojo.NodeList(getTarget(evt));
+
+                var value = node.attr('value')[0];
+		var url = APP_BASEPATH + "/ajax/get-form";
+                var wrapperNode = dojo.query(getTarget(evt).parentNode.parentNode.parentNode);
+                var lastNode = wrapperNode.query(">.elements-wrapper").last();
+                var input = lastNode.query('input').attr('id');
+                var refEle = input[0];
+                refEle = refEle.replace(/-\w+$/,'');
+
+                // prepare input object for get parameter                
+                var data = new Object();
+                data['classname'] = value;
+                data['refele'] = refEle;
+
+                dojo.xhrGet({
+                    url : url,
+                    handleAs : 'text',
+                    content : data,
+                    load : function (data) {
+                        wrapperNode.append(data);
+                        dojo.behavior.apply();
+                    },
+                    error : function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+        },
+        
+        ".v2-result-remove-element" : {
+            "onmouseover" : function(evt) {
+                var node = dojo.query(getTarget(evt)).parents(".elements-wrapper").first();
+                dojo.addClass(node[0] , 'remove-highlight');
+            },
+            
+            "onmouseout" : function(evt) {
+                var node = dojo.query(getTarget(evt)).parents(".elements-wrapper").first();
+                dojo.removeClass(node[0] , 'remove-highlight');
+            },
+            
+            "onclick" : function (evt) {
+                evt.preventDefault();
+                var removeNode = getTarget(evt).parentNode;
+                var removeUrl = APP_BASEPATH + "/ajax/remove-form";
+                var classname = dojo.attr(getTarget(evt) , 'value');
+
+                //var grandParent = new dojo.NodeList(getTarget(evt).parentNode.parentNode);
+                //var parentNode = new dojo.NodeList(getTarget(evt).parentNode);
+                var msg = '<div><p>Are you sure you want to delete this item?</p>';
+                msg += '<p>This will remove all the subitems(if any) as well.</p>';
+                msg += '<p style="margin-left:100px"><button dojoType="dijit.form.Button" type="button" id="cd-ok">OK</button>';
+                msg += '<button dojoType="dijit.form.Button" type="button" id="cd-cancel">Cancel</button></p>';
+                
+                // Destroy all dialog box before creating new. Used to remove dialog box remaining after clicking close.
+                dojo.query('.dijitDialog').forEach(dojo.destroy);
+                
+                var confirmDlg = new dijit.Dialog({
+                    title: "Are you Sure?",
+                    style: "width: 320px",
+                    parseOnLoad: true,
+                    content: msg
+                });
+                
+                dojo.connect(dojo.byId('cd-cancel'), 'onclick', function (e) {
+                    confirmDlg.destroyRecursive();
+                });
+                
+                dojo.connect(dojo.byId('cd-ok'), 'onclick', function (e) {
+                    confirmDlg.destroyRecursive();
+                    var grandParent = dojo.NodeList(removeNode.parentNode.parentNode);
+                    
+		    var parentNode = dojo.NodeList(removeNode.parentNode);
+		    var removeId = dojo.attr(parentNode.query('input[type="hidden"]')[0], 'value');
+		    if (parseInt(removeId)) { 
+			dojo.xhrGet({
+			    url: removeUrl ,
+			    handleAs: 'text',
+			    content: {
+				"id": removeId,
+                                "classname" : classname
+			    },
+			    load: function (data) {
+                                if (grandParent.children('.elements-wrapper').length > 1) {
+                                    dojo.destroy(parentNode[0]);
+                                } else {
+                                    window.location.reload();
+                                }
+			    },
+			    error: function (data) {
+				//console.log(data);
+				messageDialog("Error", "Something went wrong! Please try again");
+			    }
+			});
+		    }
+		    else {
+			if (grandParent.children('.elements-wrapper').length > 1) {
+				dojo.destroy(parentNode[0]);
+			}
+		    }
+                    
+                });
+                
+                confirmDlg.show();
+                evt.preventDefault();
+            }
+        }        
     });
     
     // End of dojo.behavior.add
@@ -1374,3 +1485,34 @@ function initialize() {
 }
 
 dojo.addOnLoad(initialize);
+
+dojo.ready( function () {
+    dojo.query('.currency').forEach( function(node) {
+        var amount = dojo.query(node).val(); 
+        if(amount)
+        { 
+            var num = dojo.number.format(amount, {places:2});
+            if(num)
+            {
+                dojo.query(node).val(num); 
+            }
+        } 
+    });     
+    dojo.query(".form-submit").connect( "click", function(evt){
+	dojo.query('.currency').forEach( function(node) {
+        var amount = dojo.query(node).val(); 
+        if(amount){ 
+             match = amount.match(/,,,*/g); 
+             if(!match)
+             {
+                amount = amount.replace(/,/g, "");
+                var num  = dojo.number.round(amount, 2); 
+                if(num)
+                {
+                    dojo.query(node).val(num);
+                }
+             }
+       }                     
+    }); 
+});   
+});

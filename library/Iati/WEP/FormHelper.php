@@ -376,7 +376,7 @@ class Iati_WEP_FormHelper {
 
         if (!$this->ajaxCall) {
             $_mainEle = $this->registryTree->getChildNodes($this->registryTree->getRootNode());
-            if (sizeof($_mainEle) == 1 && $obj == $_mainEle[0]) {
+            if ($obj == $_mainEle[0]) {
                 $_cls .= ' inner';
             }
         }

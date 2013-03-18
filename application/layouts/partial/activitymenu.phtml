@@ -2,6 +2,10 @@
             $identity = $this->userInfo();
             $url = Zend_Controller_Front::getInstance()->getRequest()->getParams();
             $paramValue = $url['class'];
+            if($url['classname'])
+            {
+                $paramValue = $url['classname'];
+            }
             $model = new Model_Wep();
             
             $defaultField = $model->getDefaults('default_field_groups', 'account_id', $identity->account_id);
@@ -90,18 +94,27 @@
                         
                             $key = ucwords(str_replace("_"," ",$element));
                             $href = $this->baseUrl()."/wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=".str_replace(" ", "", $key);
-                            if($element == 'result'){
-                                $href = $this->baseUrl()."/wep/edit-element/?activity_id=". $url['activity_id'] ."&class=".str_replace(" ", "", $key);
-                            }
-                            
-                            if($element == 'transaction'){
-                                $href = $this->baseUrl()."/activity/list-elements?classname=Activity_Transaction&activity_id=".$url['activity_id'];
-                            }
-                            
                             $class = '';
                             if(str_replace(" ", "", $key) == $paramValue){
                                 $class = "class = highlight";
                             }
+                            
+                            if($element == 'result'){
+                                $paramValue = end(explode('_', $paramValue));
+                                if(str_replace(" ", "", $key) == $paramValue){
+                                $class = "class = highlight";
+                                }
+                                $href = $this->baseUrl()."/activity/list-elements/?classname=Activity_Result&activity_id=".$url['activity_id'];
+                            }
+                            
+                            if($element == 'transaction'){
+                                $paramValue = end(explode('_', $paramValue));
+                                if(str_replace(" ", "", $key) == $paramValue){
+                                $class = "class = highlight";
+                                }
+                                $href = $this->baseUrl()."/activity/list-elements?classname=Activity_Transaction&activity_id=".$url['activity_id'];
+                            }
+                            
                             if(Iati_WEP_ActivityConstants::hasDisplayName($element)){
                                 $key = Iati_WEP_ActivityConstants::getDisplayName($element);
                             }

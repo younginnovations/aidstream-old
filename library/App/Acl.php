@@ -78,6 +78,7 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'default:wep', 'delete-published-file' , new App_ActionAssertion('publish'));
         $this->allow('user', 'default:wep', 'delete', new App_ActionAssertion('delete'));
         $this->allow('user', 'default:organisation','publish-in-registry');
+        $this->allow('user', 'default:organisation','delete-published-file');
         
         $this->allow('user', 'default:wep', 'delete-activity', new App_ActionAssertion('delete_activity'));
         $this->allow('user', 'default:wep', 'edit-activity');
@@ -100,6 +101,7 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'default:organisation', 'generate-xml');
         $this->allow('user', 'default:ajax', 'get-form');
         $this->allow('user', 'default:ajax', 'remove-form');
+        $this->allow('user', 'default:ajax', 'element');
 
         $this->allow('admin', 'user');
         $this->allow('admin', 'default:code-list');

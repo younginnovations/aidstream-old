@@ -19,7 +19,7 @@
                                          printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('Activity_default' , '@currency' , $this->defaultCurrency));
                                     }
                             ?>
-                            <?php echo $element['Value']["text"]; ?>
+                            <?php echo $this->numberFormat()->localization($element['Value']["text"]); ?>
                             <?php if ($element['Value']["text"] && $element['Value']["@value_date"]) echo " ; " . $element['Value']["@value_date"]; ?>
                         <?php endif; ?>
                     </span>
@@ -52,7 +52,7 @@
                             <h2>Value</h2>
                                 <li>
                                     <span class="name">Text:</span>
-                                    <span class="infom"><?php echo $element['Value']["text"]; ?></span>
+                                    <span class="infom"><?php echo $this->numberFormat()->localization($element['Value']["text"]); ?></span>
                                 </li>
                                 <li>
                                     <span class="name">Value Date:</span>
@@ -71,12 +71,12 @@
                         </ul>            
                     <?php endif; ?>
                     <!--Value Ends-->
-
+                   
 
                     <!--PeriodStart Starts-->
                     <?php if (isset($element['PeriodStart'])): ?>
                         <ul class="style-1 style-4">
-                            <h2>PeriodStart</h2> 
+                            <h2>Period Start</h2> 
                                 <li>
                                     <span class="name">Text:</span>
                                     <span class="infom"><?php echo $element['PeriodStart']["text"]; ?></span>
@@ -92,7 +92,7 @@
                     <!--PeriodStart Starts-->
                     <?php if (isset($element['PeriodEnd'])): ?> 
                         <ul class="style-1 style-4">
-                            <h2>PeriodEnd</h2>
+                            <h2>Period End</h2>
                                 <li>
                                     <span class="name">Text:</span>
                                     <span class="infom"><?php echo $element['PeriodEnd']["text"]; ?></span>

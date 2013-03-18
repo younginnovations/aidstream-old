@@ -6,8 +6,10 @@
         <?php foreach ($this->activitystatuss as $activitystatus): ?>
             <div class="element-info">
                 <div class="element-values">
-                    <span class="attrib-label">Code:</span>
-                    <span class="attrib-value"><?php if ($activitystatus->getAttrib('@code')) ($activitystatus->getAttribValue('@code' , 'Name') != $activitystatus->getAttribValue('@code')) ? ( printf("%s [%s]" , $this->length()->adjustSingleLength($activitystatus->getAttribValue('@code' , 'Name')) , $activitystatus->getAttribValue('@code'))) : (print($activitystatus->getAttribValue('@code'))); ?></span>
+                    <?php if($activitystatus->getAttrib('@code')): ?>
+                        <span class="attrib-label">Code:</span>
+                        <span class="attrib-value"><?php if ($activitystatus->getAttrib('@code')) ($activitystatus->getAttribValue('@code' , 'Name') != $activitystatus->getAttribValue('@code')) ? ( printf("%s [%s]" , $this->length()->adjustSingleLength($activitystatus->getAttribValue('@code' , 'Name')) , $activitystatus->getAttribValue('@code'))) : (print($activitystatus->getAttribValue('@code'))); ?></span>
+                    <?php endif; ?>
                 </div>
             </div>
         <?php endforeach; ?> 

@@ -16,7 +16,7 @@
                         </li>
                         <li>
                             <span class="name">Significance:</span>
-                            <span class="infom"><?php if ($policymarker->getAttrib('@significance')) ($policymarker->getAttribValue('@significance' , 'Name') != $policymarker->getAttribValue('@significance')) ? ( printf("%s [%s]" , $policymarker->getAttribValue('@significance' , 'Name') , $policymarker->getAttribValue('@significance'))) : (print($policymarker->getAttribValue('@significance'))); ?></span>
+                            <span class="infom"><?php if ($policymarker->getAttrib('@significance')) ($policymarker->getAttribValue('@significance' , 'Name') !== $policymarker->getAttribValue('@significance')) ? ( printf("%s [%s]" , $policymarker->getAttribValue('@significance' , 'Name') , $policymarker->getAttribValue('@significance'))) : (print($policymarker->getAttribValue('@significance'))); ?></span>
                         </li>
                         <li>
                             <span class="name">Code:</span>

@@ -1,213 +1,30 @@
-<li class="element-activity">
+<li class="element-activity result">
 
-    <div class="element-title element-current ">
-        Result
-    </div>
+    <div class="element-title element-current ">Result</div>
 
-    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=Result">Edit</a></div>
-
-    <?php foreach ($this->results as $result): ?> 
-        <div class="current">
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/list-elements/?classname=Activity_Result&activity_id=<?php echo $this->activityInfo['id'] ?>">Edit</a></div>
+   
+    <?php foreach ($this->results as $key=>$result): ?>
+    <div class="current">
             <ul class="style-2 arrow">
                 <li>
-                    <span class="down-arrow"> <?php if ($result->getAttrib('@type')) ($result->getAttribValue('@type' , 'Name') != $result->getAttribValue('@type')) ? ( printf("%s [%s]" , $this->length()->adjustDoubleTitleLength($result->getAttribValue('@type' , 'Name')) , $result->getAttribValue('@type'))) : (print($this->length()->adjustDoubleTitleLength($result->getAttribValue('@type')))); ?>
-                        <?php
-                        $titles = $result->getElementsByType('Title');
-                        $value = $titles[0]->getAttribs();
-                        ?>
-                        <?php if (!empty($value)): ?>
-                            <?php foreach ($titles as $title): ?>
-                                 <?php if ($result->getAttrib('@type') && $title->getAttrib('text')) print "; "; ?>
-                                <?php if ($title->getAttrib('text')) print ($this->length()->adjustDoubleTitleLength($title->getAttribValue('text'))); ?> <?php if ($title->getAttrib('@xml_lang')) printf(" [%s]" , ($condition->getAttribValue('@xml_lang'))); ?>
-
-                                <?php break; ?>
-                            <?php endforeach; ?>
+                    <span class="ajaxElement-down-arrow">
+                        <div id="get-elementId" style="display:none"><?php echo $result['id'] ; ?></div>
+                        <div id="get-index" style="display:none"><?php echo $key ; ?></div>
+                        <div id="get-className" style="display:none"><?php echo "Result" ; ?></div>
+                        <?php if (!empty($result["@type"])) printf ("%s [%s]",Iati_Core_Codelist::getCodeByAttrib('Result' , '@type' , $result["@type"],'Name'),Iati_Core_Codelist::getCodeByAttrib('Result' , '@type' , $result["@type"])); ?>
+                        <?php if (!empty($result['Title'])): ?>
+                               <?php if(!empty($result["@type"])) print "; "; ?>
+                               <?php foreach ($result['Title'] as $title): ?> 
+                                    <?php print ($title["text"] ); ?>
+                               <?php endforeach; ?> 
                         <?php endif; ?>
                     </span>
-
-                    <ul class="style-4 none">
-                        <li>
-                            <span class="name">Text:</span>
-                            <span class="infom"><?php if ($result->getAttrib('@type')) ($result->getAttribValue('@type' , 'Name') != $result->getAttribValue('@type')) ? ( printf("%s [%s]" , $result->getAttribValue('@type' , 'Name') , $result->getAttribValue('@type'))) : (print($result->getAttribValue('@type'))); ?></span>
-                        </li>
-                    </ul>
-
-
-                    <!--  Title Starts -->
-                    <?php
-                    $titles = $result->getElementsByType('Title');
-                    $value = $titles[0]->getAttribs();
-                    ?>
-                    <?php if (!empty($value)): ?>
-                        <ul class="style-1 style-4"> 
-                            <h2>Title</h2>
-                            <?php foreach ($titles as $title): ?>
-                                <li>
-                                    <span class="name">Text:</span>
-                                    <span class="infom"><?php if ($title->getAttrib('text')) print ($title->getAttribValue('text')); ?> <?php if ($title->getAttrib('@xml_lang')) printf(" [%s]" , ($condition->getAttribValue('@xml_lang'))); ?></span>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>         
-                    <?php endif; ?>
-                    <!-- Title Ends -->
-
-                    <!--  Description Starts -->
-                    <?php
-                    $descriptions = $result->getElementsByType('Description');
-                    $value = $descriptions[0]->getAttribs();
-                    ?>
-                    <?php if (!empty($value)): ?>
-                        <ul class="style-1 style-4">
-                            <h2>Description</h2>
-                            <?php foreach ($descriptions as $description): ?>
-                                <li>
-                                    <span class="name">Text: </span>
-                                    <span class="infom"><?php if ($description->getAttrib('text')) print ($description->getAttribValue('text')); ?> <?php if ($description->getAttrib('@xml_lang')) printf(" [%s]" , ($condition->getAttribValue('@xml_lang'))); ?></span>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>         
-                    <?php endif; ?>
-                    <!-- Description Ends -->
-
-                    <!--  indicator Starts -->
-                    <?php
-                    $indicators = $result->getElementsByType('Indicator');
-                    $value = $indicators[0]->getAttribs();
-                    ?>
-                    <?php if (!empty($value)): ?>
-                        <ul class="style-1 style-4 arrow">
-                            <li class="indicator">
-                                <span class="indicate">Indicator</span>
-
-                                <?php foreach ($indicators as $indicator): ?>
-                                    <ul class="first inner">
-                                        <li>
-                                            <span class="name">Text:</span>
-                                            <span class="infom"><?php if ($indicator->getAttrib('text')) print ($indicator->getAttribValue('text')); ?> <?php if ($indicator->getAttrib('@xml_lang')) printf(" [%s]" , ($condition->getAttribValue('@xml_lang'))); ?></span>
-                                        </li>
-                                    </ul>
-                                    <!--  title Starts -->
-                                    <?php
-                                    $titles = $indicator->getElementsByType('Title');
-                                    $value = $titles[0]->getAttribs();
-                                    ?>
-                                    <?php if (!empty($value)): ?>
-                                        <ul class="style-1 style-4 inner">
-                                            <h2>Title</h2>
-                                            <?php foreach ($titles as $title): ?>
-                                                <li>
-                                                    <span class="name">Text:</span>
-                                                    <span class="infom"><?php if ($title->getAttrib('text')) print ($title->getAttribValue('text')); ?> <?php if ($title->getAttrib('@xml_lang')) printf(" [%s]" , ($title->getAttribValue('@xml_lang'))); ?></span>
-                                                </li>
-                                            <?php endforeach; ?>
-                                        </ul>        
-                                    <?php endif; ?>
-                                    <!-- Title Ends -->
-
-                                    <!--  Description Starts -->
-                                    <?php
-                                    $descriptions = $indicator->getElementsByType('Description');
-                                    $value = $descriptions[0]->getAttribs();
-                                    ?>
-                                    <?php if (!empty($value)): ?>
-                                        <ul class="style-1 style-4 inner">
-                                            <h2>Description</h2>
-                                            <?php foreach ($descriptions as $description): ?>
-                                                <li>
-                                                    <span class="name">Text: </span>
-                                                    <span class="infom"><?php if ($description->getAttrib('text')) print ($description->getAttribValue('text')); ?> <?php if ($description->getAttrib('@xml_lang')) printf(" [%s]" , ($description->getAttribValue('@xml_lang'))); ?></span>
-                                                </li>
-                                            <?php endforeach; ?>
-                                        </ul>        
-                                    <?php endif; ?>
-                                    <!-- Description Ends -->
-
-                                    <!--  baseline Starts -->
-                                    <?php
-                                    $baselines = $indicator->getElementsByType('Baseline');
-                                    $value = $baselines[0]->getAttribs();
-                                    ;
-                                    ?>
-                                    <?php if (!empty($value)): ?>
-                                        <ul class="style-1 style-4 inner">
-                                            <h2>Baseline</h2>
-                                            <?php foreach ($baselines as $baseline): ?>
-                                                <li>
-                                                    <span class="name">Text:</span>
-                                                    <span class="infom"><?php if ($baseline->getAttrib('text')) print ($baseline->getAttribValue('text')); ?> <?php if ($baseline->getAttrib('@xml_lang')) printf(" [%s]" , ($baseline->getAttribValue('@xml_lang'))); ?></span>
-                                                </li>
-                                                <li>
-                                                    <span class="name">Year:</span>
-                                                    <span class="infom"><?php if ($baseline->getAttrib('@year')) ($baseline->getAttribValue('@year' , 'Name') != $baseline->getAttribValue('@year')) ? ( printf("%s [%s]" , $baseline->getAttribValue('@year' , 'Name') , $baseline->getAttribValue('@year'))) : (print($baseline->getAttribValue('@year'))); ?></span>
-                                                </li>
-                                                <li>
-                                                    <span class="name">Value:</span>
-                                                    <span class="infom"><?php if ($baseline->getAttrib('@value')) ($baseline->getAttribValue('@value' , 'Name') != $baseline->getAttribValue('@value')) ? ( printf("%s [%s]" , $baseline->getAttribValue('@value' , 'Name') , $baseline->getAttribValue('@value'))) : (print($baseline->getAttribValue('@value'))); ?></span>
-                                                </li>
-                                            <?php endforeach; ?>
-                                        </ul>        
-                                    <?php endif; ?>
-                                    <!-- baseline Ends --> 
-
-                                    <!--  target Starts -->
-                                    <?php
-                                    $targets = $indicator->getElementsByType('Target');
-                                    $value = $targets[0]->getAttribs();
-                                    ?>
-                                    <?php if (!empty($value)): ?>
-                                        <ul class="style-1 style-4 inner">
-                                            <h2>Target</h2>
-                                            <?php foreach ($targets as $target): ?>
-                                                <li>
-                                                    <span class="name">Text:</span>
-                                                    <span class="infom"><?php if ($target->getAttrib('text')) print ($target->getAttribValue('text')); ?> <?php if ($target->getAttrib('@xml_lang')) printf(" [%s]" , ($target->getAttribValue('@xml_lang'))); ?></span>
-                                                </li>
-                                                <li>
-                                                    <span class="name">Year:</span>
-                                                    <span class="infom"><?php if ($target->getAttrib('@year')) ($target->getAttribValue('@year' , 'Name') != $target->getAttribValue('@year')) ? ( printf("%s [%s]" , $target->getAttribValue('@year' , 'Name') , $target->getAttribValue('@year'))) : (print($target->getAttribValue('@year'))); ?></span>
-                                                </li>
-                                                <li>
-                                                    <span class="name">Value:</span>
-                                                    <span class="infom"><?php if ($target->getAttrib('@value')) ($target->getAttribValue('@value' , 'Name') != $target->getAttribValue('@value')) ? ( printf("%s [%s]" , $target->getAttribValue('@value' , 'Name') , $target->getAttribValue('@value'))) : (print($target->getAttribValue('@value'))); ?></span>
-                                                </li>
-                                            <?php endforeach; ?>
-                                        </ul>        
-                                    <?php endif; ?>
-                                    <!-- target Ends -->
-
-                                    <!--  actual Starts -->
-                                    <?php
-                                    $actuals = $indicator->getElementsByType('Actual');
-                                    $value = $actuals[0]->getAttribs();
-                                    ?>
-                                    <?php if (!empty($value)): ?>
-                                        <ul class="style-1 style-4 inner">
-                                            <h2>Actual</h2>
-                                            <?php foreach ($actuals as $actual): ?>
-                                                <li class="first">
-                                                    <span class="name">Text:</span>
-                                                    <span class="infom"><?php if ($actual->getAttrib('text')) print ($actual->getAttribValue('text')); ?> <?php if ($actual->getAttrib('@xml_lang')) printf(" [%s]" , ($actual->getAttribValue('@xml_lang'))); ?></span>
-                                                </li>
-                                                <li>
-                                                    <span class="name">Year:</span>
-                                                    <span class="infom"><?php if ($actual->getAttrib('@year')) ($actual->getAttribValue('@year' , 'Name') != $actual->getAttribValue('@year')) ? ( printf("%s [%s]" , $actual->getAttribValue('@year' , 'Name') , $actual->getAttribValue('@year'))) : (print($actual->getAttribValue('@year'))); ?></span>
-                                                </li>
-                                                <li>
-                                                    <span class="name">Value:</span>
-                                                    <span class="infom"><?php if ($actual->getAttrib('@value')) ($actual->getAttribValue('@value' , 'Name') != $actual->getAttribValue('@value')) ? ( printf("%s [%s]" , $actual->getAttribValue('@value' , 'Name') , $actual->getAttribValue('@value'))) : (print($actual->getAttribValue('@value'))); ?></span>
-                                                </li>
-                                            <?php endforeach; ?>
-                                        </ul>       
-                                    <?php endif; ?>
-                                    <!-- actual Ends -->  
-                                <?php endforeach; ?>
-                            </li>
-                        </ul>
-                    <?php endif; ?>
-                    <!-- indicator Ends --> 
+                    <!--Transaction content is loaded through ajax in div-->
+                    <div id="view-activity-ajaxElement"style="display:none"></div>
                 </li>
-            </ul>
-        </div>
+            </ul><!--Ends .style-2-->
+        </div><!--Ends .current-->
     <?php endforeach; ?>
 
-</li><!-- end of element-activity -->
+</li><!-- Ends .element-activity -->

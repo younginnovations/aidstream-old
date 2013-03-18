@@ -1,0 +1,76 @@
+<li class="element-activity">
+
+    <div class="element-title ">
+        <?php echo "Organisation Default"; ?>
+        <div class="element-info">
+                <div class="element-values">
+                    <?php if($this->elements['@xml_lang']): ?>
+                        <span class="attrib-label">Lang:</span>					
+                        <span class="attrib-value"><?php echo $this->length()->adjustTripleLength(Iati_Core_Codelist::getCodeByAttrib('Default' , '@xml_lang' , $this->elements['@xml_lang'])); ?></span>
+                    <?php endif; ?>
+                </div>
+                <div class="element-values">
+                    <?php if($this->elements['@xml_lang']): ?>
+                        <span class="attrib-label">Curr:</span>
+                        <span class="attrib-value"><?php  echo $this->length()->adjustTripleLength(Iati_Core_Codelist::getCodeByAttrib('Activity_default' , '@currency' , $this->elements["@default_currency"]));?></span>  
+                    <?php endif; ?>
+                </div>
+                <div class="element-values">
+                    <?php if($this->elements['@xml_lang']): ?>
+                        <span class="attrib-label">Last updated date:</span>
+                        <span class="attrib-value"><?php echo $this->length()->adjustTripleLength($this->elements['@last_updated_datetime']); ?></span>  
+                    <?php endif; ?>
+                </div>
+         </div>
+    </div>
+
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/organisation/edit-elements/?parentId=<?php echo $this->parentId ?>&className=Organisation">Edit</a></div> 
+
+    <div class="highlight">
+        <ul class="style-1">
+            <?php if (!empty($this->elements)): ?>  
+            
+                    <!--Language Starts-->
+                    <?php if (($this->elements['@xml_lang'])): ?>
+                    <li>
+                        <span class="name">Language:</span>
+                        <span class="infom"><?php 
+                                                if ($this->elements['@xml_lang'])
+                                                {
+                                                    printf(" %s" , Iati_Core_Codelist::getCodeByAttrib('Default' , '@xml_lang' , $this->elements['@xml_lang']));
+                                                }
+                                            ?>                            
+                        </span>
+                    </li>
+                    <?php endif; ?>
+                    <!--Language Ends-->                    
+                    
+                    <!--Currency Starts-->
+                    <?php if (($this->elements["@default_currency"])): ?>
+                    <li>
+                        <span class="name">Currency:</span>
+                        <span class="infom"><?php
+                                                if($this->elements["@default_currency"]) 
+                                                {
+                                                    printf(" %s",Iati_Core_Codelist::getCodeByAttrib('Activity_default' , '@currency' , $this->elements["@default_currency"])); 
+                                                }
+                                            ?>                            
+                        </span>
+                    </li>
+                    <?php endif; ?>
+                    <!--Currency Ends-->
+                    
+                    <!--Last Updated Day Starts-->
+                    <?php if (($this->elements["@last_updated_datetime"])): ?>
+                    <li>
+                        <span class="name">Last Updated Date Time:</span>
+                        <span class="infom"><?php echo $this->elements["@last_updated_datetime"]; ?></span>
+                    </li>
+                    <?php endif; ?>
+                    <!--Last Updated Day Ends-->
+                    
+              <?php endif; ?>
+        </ul>           
+    </div><!--Ends .highlight-->
+
+</li><!-- end of element-activity -->

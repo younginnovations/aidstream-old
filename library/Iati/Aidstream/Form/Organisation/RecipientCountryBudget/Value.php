@@ -20,8 +20,8 @@ class Iati_Aidstream_Form_Organisation_RecipientCountryBudget_Value extends Iati
             ->setValue($this->data['text'])
             ->setRequired()
             ->setAttrib('class' , 'form-text')
-            //->addFilter(new Iati_Filter_Currency())
-            ->addValidator(new App_Validate_Numeric());
+            ->addValidator(new App_Validate_NumericValue())
+            ->setAttribs(array('class' => 'currency')); 
 
         $currency = $model->getCodeArray('Currency', null, '1' , true);
         $form['currency'] = new Zend_Form_Element_Select('currency');

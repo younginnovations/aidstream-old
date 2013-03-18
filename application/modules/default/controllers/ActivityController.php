@@ -43,23 +43,33 @@ class ActivityController extends Zend_Controller_Action
         
         $elementName =  "Iati_Aidstream_Element_".$elementClass;
         $element = new $elementName();
-        $element->setIsMultiple(false);
+        $element->setIsMultiple(false); 
+              
         
         if($data = $this->getRequest()->getPost()){
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();
             if($form->validate()){
+                $data = $this->getRequest()->getPost();
                 $id = $element->save($data[$element->getClassName()] , $parentId);
                 
                 Model_Activity::updateActivityUpdatedInfo($parentId);
+                $type = 'message';
+                $message = $element->getDisplayName() . " successfully inserted.";
+                $this->_helper->FlashMessenger->addMessage(array($type => $message));
                 
-                $this->_helper->FlashMessenger->addMessage(array('message' => "Data has been sucessfully saved."));
                 if($parentId){
                     $idParam = "parent_id={$parentId}";
                 } else {
                     $idParam = "id={$id}";
                 }
                 $this->_redirect("activity/list-elements?classname={$elementClass}&activity_id={$parentId}");
+                
+                if ($_POST['save_and_view'])
+                {
+                    $this->_redirect("activity/edit-element?classname={$elementClass}&activity_id={$parentId}");
+                } 
+                
             } else {
                 $this->_helper->FlashMessenger->addMessage(array('error' => "You have some problem in your data. Please correct and save again"));
             }
@@ -68,6 +78,8 @@ class ActivityController extends Zend_Controller_Action
             $form = $element->getForm();            
         }
         $form->addElement('submit' , 'save' , array('class'=>'form-submit' , 'label' => 'Save '.$element->getClassName()));
+        
+       
         $this->view->form = $form;
         $this->view->activityInfo = Model_Activity::getActivityInfo($parentId);
         $this->view->elementClass = $element->getClassName();
@@ -116,7 +128,8 @@ class ActivityController extends Zend_Controller_Action
         $id = $this->_getParam('id');
         $activityId = $this->_getParam('activity_id');
         $parentId = $this->_getParam('parent_id');
-
+        $isMultiple = $this->_getParam('isMultiple');
+        
         if(!$elementClass){
             $this->_helper->FlashMessenger->addMessage(array('error' => "Could not fetch element."));
             $this->_redirect("/wep/dashboard");           
@@ -124,47 +137,59 @@ class ActivityController extends Zend_Controller_Action
         
         $elementName =  "Iati_Aidstream_Element_".$elementClass;
         $element = new $elementName();
-        if(!$parentId){
+        if($isMultiple == '0'){
             $element->setIsMultiple(false);
         }
-        
         if($data = $this->getRequest()->getPost()){
             $element->setData($data[$element->getClassName()]);
-            $form = $element->getForm();
+            $form = $element->getForm(); 
             if($form->validate()){
+                $data = $this->getRequest()->getPost();
                 $element->save($data[$element->getClassName()] , $parentId);
                 
                 $activityHashModel = new Model_ActivityHash();
-                $updated = $activityHashModel->updateHash($activityId);
+                $updated = $activityHashModel->updateActivityHash($activityId);
                 if(!$updated){
                     $type = 'info';
                     $message = 'No Changes Made';
                 } else {
                     Model_Activity::updateActivityUpdatedInfo($activityId);                        
                     $type = 'message';
-                    $message = "Data Updated Sucessfully";
+                    $message = $element->getDisplayName() . " successfully updated.";
                 }
-                $this->_helper->FlashMessenger->addMessage(array($type => $message));                
+                $this->_helper->FlashMessenger->addMessage(array($type => $message)); 
                 $this->_redirect("activity/list-elements?classname={$elementClass}&activity_id={$activityId}");
+                
+                if ($_POST['save_and_view'])
+                {
+                    $this->_redirect('wep/view-activity/' . $activityId);
+                }                
             } else {
+                $form->populate($data);
                 $this->_helper->FlashMessenger->addMessage(array('error' => "You have some problem in your data. Please correct and save again"));
             }
         } else {
             if($parentId){
                 $data[$element->getClassName()] = $element->fetchData($parentId , true);
             } else {
-                $data = $element->fetchData($id);
+                if($id)
+                {
+                     $data = $element->fetchData($id);  
+                }
+                else
+                {  
+                    $data[$element->getClassName()] = $element->fetchData($activityId,true);                    
+                }    
             }
             if(empty($data[$element->getClassName()])){
-                $this->_helper->FlashMessenger->addMessage(array('info' => "Data not found for the element. Please add new data"));
                 $this->_redirect("/activity/add-element?classname={$elementClass}&activity_id={$activityId}");
             }
-
+           
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();
         }
+        $form->addElement('submit' , 'save' , array('class'=>'form-submit' , 'label' => 'Update '.$element->getClassName()));        
         
-        $form->addElement('submit' , 'save' , array('class'=>'form-submit' , 'label' => 'Update '.$element->getClassName()));
         $this->view->form = $form;
         $this->view->activityInfo = Model_Activity::getActivityInfo($activityId);
         $this->view->elementClass = $element->getClassName();
@@ -182,7 +207,6 @@ class ActivityController extends Zend_Controller_Action
         $elementClass = $this->_getParam('classname');
         $eleId = $this->_getParam('id');
         $activityId = $this->_getParam('activity_id');
-        
         if(!$elementClass){
             $this->_helper->FlashMessenger->addMessage(array('error' => "Could not fetch element."));
             $this->_redirect("/wep/dashboard");           
@@ -214,6 +238,6 @@ class ActivityController extends Zend_Controller_Action
 
         $data = $element->fetchData($eleId );
         $this->view->data = $data[$element->getClassName()];
-        $this->view->className = $element->getClassName();        
+        $this->view->className = $element->getClassName(); 
     }
 }

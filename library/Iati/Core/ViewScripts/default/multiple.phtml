@@ -1,0 +1,62 @@
+<?php $wrapperForm = $this->element; ?>
+<?php if(!$this->ajax):?>
+    <?php if($this->eleLevel == 1):?>
+        <div class="result-form-container">
+        <form action="<?php echo $form->getAction(); ?>" method="<?php echo $form->getMethod(); ?>" >
+    <?php endif; ?>
+    
+    <ul class="activity-element-level-<?php echo $this->eleLevel; ?>">
+        <li class="activity-element result-activity-element">
+            <div class="element-title-wrapper">
+                <div class="element-title result-element-title"><?php echo $this->display ?></div>
+                <?php $addClass = $wrapperForm->getElement('add')->getDecorator('HtmlTag')->getOption('class');?>
+                <?php $addClass = preg_replace('/v2-add-element/' , 'v2-result-add-element' , $addClass);?>
+                <?php $addClass = $wrapperForm->getElement('add')->getDecorator('HtmlTag')->setOption('class' , $addClass);?>            
+                <?php print $wrapperForm->getElement('add');?>
+            </div>
+<?php endif;?>
+
+        <?php foreach($wrapperForm->getSubForms() as $form): ?>
+            <div class="elements-wrapper clearfix">
+                <?php $formBelongsTo = $form->getElementsBelongTo();?>
+                <?php $formBelongsTo = preg_replace('/^(\w+)/' , '[$1]', $formBelongsTo);?>
+                <?php $form->setElementsBelongTo("{$wrapperForm->getElementsBelongTo()}{$formBelongsTo}");?>
+            
+                <ul class="level-<?php echo $this->eleLevel; ?> element-level">
+                    <?php foreach($form->getElements() as $element): ?>
+                        <?php $element = $form->decorateElement($element);?>
+                        <?php if($element->getType() === 'Zend_Form_Element_Hidden'): ?>
+                        <?php echo $element; continue;?>
+                        <?php endif;?>
+                        
+                        <?php if($element->getName() !== 'remove' & $element->getType() !== 'Zend_Form_Element_Submit'):?>
+                        <li><?php echo $element; ?></li>
+                        <?php endif;?>
+                    <?php endforeach;?>
+                </ul>
+                <?php $subforms = $form->getSubForms();?>
+                <?php if(!empty($subforms)): ?>
+                    <div class="sub-element-activity-level-<?php echo $this->eleLevel; ?>">
+                        <?php foreach($form->getSubForms() as $subForm):?>
+                        <?php $subForm->setElementsBelongTo($form->getElementsBelongTo());?>
+                        <?php print $subForm; ?>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif;?>
+                <?php $form->getElement('remove')->removeDecorator('Label');?>
+                <?php $removeClass = $form->getElement('remove')->getDecorator('HtmlTag')->getOption('class');?>
+                <?php $removeClass = preg_replace('/v2-remove-element/' , 'v2-result-remove-element' , $removeClass);?>
+                <?php $form->getElement('remove')->getDecorator('HtmlTag')->setOption('class' , $removeClass);?> 
+                <?php echo $form->getElement('remove');?>
+            </div>
+        <?php endforeach; ?>
+            
+<?php if(!$this->ajax): ?>
+        </li>
+    </ul>
+    <?php if($this->eleLevel == 1): ?>
+        <?php echo $form->getElement('save'); ?>
+        </form>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>

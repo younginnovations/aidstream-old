@@ -1,5 +1,16 @@
 function loadSelect2()
 {
+    $('select.location.level-1').location();
+    $('select.location.level-1').bind('change' , function(event){
+        var distEle = $(this);
+        var dist = distEle.val();
+        $('select.location.level-2' , $(this).parents('.form-wrapper').first()).location({
+            level : '2',
+            district: dist
+        });
+    });
+    
+
     $("select#sector").select2({
         placeholder: "Select Anyone"
     });

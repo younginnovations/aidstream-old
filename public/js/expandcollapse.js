@@ -22,23 +22,25 @@ $(document).ready(function(){
         else {
             $(this).siblings('ul').hide();
         }		
-    });   
+    });  
     
-    $('.arrow li span.transaction-down-arrow ').click(function(){
-        $that = $(this);      
+    $('.arrow li span.ajaxElement-down-arrow ').click(function(){
+        $that = $(this);     
         $(this).toggleClass('dropdown-level');
-        if ($that.siblings('#view-activity-transaction').css('display') == 'none') {
+        if ($that.siblings('#view-activity-ajaxElement').css('display') == 'none') {
             // Used to load transaction element through ajax    
             // Get activity id
-            var id = $that.find('#get-activityId').html();
+            var id = $that.find('#get-elementId').html();
             // Get index of an array
             var index = $that.find('#get-index').html();
-            $that.siblings('#view-activity-transaction').load(APP_BASEPATH +'/wep/transaction?id=' + id + '&index=' + index);
+            // Get class name 
+            var className = $that.find('#get-className').html();
+            $that.siblings('#view-activity-ajaxElement').load(APP_BASEPATH +'/ajax/element?id=' + id + '&index=' + index + '&className=' + className);
              
-            $that.siblings('#view-activity-transaction').css('display','');
+            $that.siblings('#view-activity-ajaxElement').css('display','');
         }
         else {
-            $(this).siblings('#view-activity-transaction').hide();
+            $(this).siblings('#view-activity-ajaxElement').hide();
         }		
-    });   
+    });
 });
