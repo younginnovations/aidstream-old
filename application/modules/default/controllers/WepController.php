@@ -282,7 +282,7 @@ class WepController extends Zend_Controller_Action
             //For admin user redirect to defaults page.
             if($identity->role_id == 1){
                 $this->_helper->FlashMessenger->addMessage(array(
-                                                                 'info' => "Before you start entering activity data
+                                                                 'message' => "Before you start entering activity data
                                                                  you need to add some default values that will
                                                                  automatically be filled in for
                                                                  each activity you report."
@@ -291,7 +291,7 @@ class WepController extends Zend_Controller_Action
                 $this->_redirect('wep/edit-defaults');
             } else { // For other user redirect to dashboard.
                 $this->_helper->FlashMessenger->addMessage(array(
-                                                                 'info' => "All information for Reporting Organisation
+                                                                 'message' => "All information for Reporting Organisation
                                                                     is not provided .Please contact you organisation admin"
                                                                   )
                                                            );
@@ -438,7 +438,7 @@ class WepController extends Zend_Controller_Action
                         $this->_helper->FlashMessenger->addMessage(array('error' => "You have some problem in your data. Please correct and save again"));
                     } else {
                         if(!$this->hasData($flatArray)){
-                             $this->_helper->FlashMessenger->addMessage(array('info' => "You have not entered any data."));
+                             $this->_helper->FlashMessenger->addMessage(array('message' => "You have not entered any data."));
                             $this->_redirect('wep/add-activity-elements/?activity_id='.$activity_id.'&class='.$class);
                         }
                         $elementClassName = 'Iati_Activity_Element_Activity';
