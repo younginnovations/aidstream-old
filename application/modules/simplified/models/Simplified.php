@@ -17,6 +17,8 @@ class Simplified_Model_Simplified
     }
     /**
      *Function to save activity
+     *
+     * @todo break this function to smaller functions.
      */
     public function addActivity($data , $default)
     {
@@ -454,6 +456,9 @@ class Simplified_Model_Simplified
         return $data;
     }
     
+    /**
+     * @todo break this function to smaller functions
+     */
     public function updateActivity($data , $default)
     {
        // var_dump($data);exit;
@@ -486,6 +491,11 @@ class Simplified_Model_Simplified
             $title['@xml_lang'] = $default['language'];
             $title['id'] = $data['title_id'];
             $model->updateRowsToTable('iati_title' , $title);
+        } else {
+            $title['text'] = $data['title'];
+            $title['@xml_lang'] = $default['language'];
+            $title['activity_id'] = $activityId;
+            $model->insertRowsToTable('iati_title' , $title);
         }
 
         //Update Description
@@ -494,6 +504,12 @@ class Simplified_Model_Simplified
             $description['text'] = $data['description'];
             $description['id'] = $data['description_id'];
             $model->updateRowsToTable('iati_description' , $description);
+        } else {
+            $description['@type'] = 1; //@todo check.
+            $description['@xml_lang'] = $default['language'];
+            $description['text'] = $data['description'];
+            $description['activity_id'] = $activityId;
+            $model->insertRowsToTable('iati_description' , $description);
         }
 
         //Update funding org
@@ -539,19 +555,37 @@ class Simplified_Model_Simplified
 
         //Update Start date
         if($data['start_date_id']){
+            $startData = array();
             $startDate['@iso_date'] = $data['start_date'];
             $startDate['@xml_lang'] = $default['language'];
             $startDate['id'] = $data['start_date_id'];
             $model->updateRowsToTable('iati_activity_date' , $startDate);
+        } else {
+            $startData = array();
+            $startDate['@iso_date'] = $data['start_date'];
+            $startDate['@type'] = 3;
+            $startDate['@xml_lang'] = $default['language'];
+            $startDate['text'] = '';
+            $startDate['activity_id'] = $activityId;
+            $model->insertRowsToTable('iati_activity_date' , $startDate); 
         }
 
         //Update End date
         if($data['end_date_id']){
+            $endDate = array();
             $endDate['@iso_date'] = $data['end_date'];
             $endDate['@xml_lang'] = $default['language'];
             $endDate['text'] = '';
             $endDate['id'] = $data['end_date_id'];
             $model->updateRowsToTable('iati_activity_date' , $endDate);
+        } else {
+            $endDate = array();
+            $endDate['@iso_date'] = $data['end_date'];
+            $endDate['@type'] = 4;
+            $endDate['@xml_lang'] = $default['language'];
+            $endDate['text'] = '';
+            $endDate['activity_id'] = $activityId;
+            $model->insertRowsToTable('iati_activity_date' , $endDate); 
         }
 
         //Update Document
