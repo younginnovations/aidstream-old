@@ -1988,6 +1988,7 @@ li#current-state span{
 
 .simplified-add-more {
 	border: 1px solid #e1e1e1;
+	clear: both;
 }
 
 .addmore .button span,
@@ -2753,9 +2754,13 @@ h1 .edit-this a:hover, h1 .change-password a:hover {
 .claro .dijitDialogPaneContent
 {
 	border-top:none;
-	padding: 0 20px 8px;
-        height: 400px!important;
-        overflow-x: scroll;
+	padding: 0 20px 8px;	
+}
+
+.view-element-dialogbox .dijitDialogPaneContent 
+{
+	height: 400px!important;
+	overflow-x: scroll;
 }
 
 .claro .dijitDialogPaneContent p
@@ -3172,6 +3177,7 @@ td.data-value {
 	background:#F4F4F4;
 	padding:10px 0;
 	padding-bottom:0;
+	overflow: hidden;
 }
 
 #simplified-default-form .zend_form .form-wrapper + .form-wrapper {
@@ -3420,6 +3426,10 @@ li#current-state span{
 	display: none;
 }*/
 
+.element-activity ul li {
+	overflow: hidden;
+}
+
 .style-1,.style-2,.style-3,.style-4,.style-5 {
 	background: #fff;
 }
@@ -3644,9 +3654,9 @@ ul.style-3.none {
 	padding: 0!important;
 }
 
- ul.style-3 {
+ul.style-3 {
 	border-top: 1px solid #eee;
- }
+}
 
 .highlight.first ul.style-3,.highlight .style-4.first {
 	border-top: 1px solid #A3D900;
@@ -4026,7 +4036,7 @@ li.result .res-style-1 li {
 .drop ul li {
 	border-top: 1px solid #e5e6e9;
 	background: #fff;
-	padding-left: 14px;
+	padding-left: 44px;
 	overflow: hidden;
 	/*line-height: 32px;*/
 }

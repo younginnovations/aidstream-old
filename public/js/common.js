@@ -1322,7 +1322,6 @@ function initialize() {
         ".view-element-link" : {
             'onclick' : function (evt){
                 var node = getTarget(evt);
-                console.log(node);
                 var url = dojo.attr(node,'value');
                 var dialog = dijit.Dialog({
                     title : "Element Detail",
@@ -1330,6 +1329,7 @@ function initialize() {
                     style: "width:650px;",
                     parseOnLoad: true
                 });
+                dialog.attr('class' , 'view-element-dialogbox');
                 
                 dialog.show();    
             }
