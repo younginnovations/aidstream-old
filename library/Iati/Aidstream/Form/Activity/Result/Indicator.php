@@ -16,7 +16,8 @@ class Iati_Aidstream_Form_Activity_Result_Indicator extends Iati_Core_BaseForm
         $form['measure'] = new Zend_Form_Element_Select('measure');
         $form['measure']->setLabel('Measure')
             ->setAttrib('class' , 'form-select')
-            ->setValue($this->data['@measure'])            
+            ->setValue($this->data['@measure']) 
+            ->setRequired()
             ->setMultioptions($indicatorMeasures);
 
         $form['ascending'] = new Zend_Form_Element_Select('ascending');
