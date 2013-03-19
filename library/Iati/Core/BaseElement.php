@@ -287,7 +287,7 @@ class Iati_Core_BaseElement
             }
         } else {
             $elementsData = $this->getElementsData($data);
-            if($this->hasData($elementsData)){
+            if($this->hasData($data)){
                 if($parentId){
                     $elementsData[$parentColumnName] = $parentId;
                 }
