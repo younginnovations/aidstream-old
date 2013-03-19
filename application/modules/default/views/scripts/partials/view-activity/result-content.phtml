@@ -52,8 +52,7 @@
 
                             <li>
                                 <span class="name">Measure: </span>
-                                <span class="infom"><?php if (!empty($indicator["@measure"])) print ($indicator["@measure"]); ?></span>
-
+                                <span class="infom"><?php if (!empty($indicator["@measure"])) printf ("%s [%s]",Iati_Core_Codelist::getCodeByAttrib('Indicator' , '@measure' , $indicator["@measure"],'Name'),Iati_Core_Codelist::getCodeByAttrib('Indicator' , '@measure' , $indicator["@measure"])); ?></span>
                             </li>
                             <li>
                                 <span class="name">Ascending: </span>

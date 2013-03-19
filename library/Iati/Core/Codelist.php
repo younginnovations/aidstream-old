@@ -13,7 +13,10 @@ class Iati_Core_Codelist
         } else {
             $switch = $elementName."_".preg_replace('/@/','',$attributeName);
             switch($switch)
-            {
+            {   
+                case Indicator_measure:
+                    $return = 'IndicatorMeasure';
+                    break;
                 case Activity_default_currency:
                     $return = 'Currency';
                     break;
