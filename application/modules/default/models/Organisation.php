@@ -4,7 +4,7 @@ class Model_Organisation extends Zend_Db_Table_Abstract
 
     protected $_name = 'iati_organisation';
     
-    public function createOrganisation($orgId , $default , $iatiIdentifier)
+    public function createOrganisation($orgId , $default)
     {  
         $wepModelObj = new Model_Wep();
         // Save Organization
