@@ -371,7 +371,7 @@ class AdminController extends Zend_Controller_Action
                     $form->populate($data);
                 }
                 else if (!empty($emailExists)) {
-                    $this->_helper->FlashMessenger->addMessage(array('error' => "User already exists."));
+                    $this->_helper->FlashMessenger->addMessage(array('error' => "User with the email address already exists."));
                     $form->populate($data);
                 }else {
                     $model = new Model_Wep();
