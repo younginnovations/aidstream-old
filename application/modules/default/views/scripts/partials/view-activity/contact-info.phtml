@@ -4,10 +4,10 @@
         Contact Info
     </div>
 
-    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=ContactInfo">Edit</a></div>	
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/edit-element/?activity_id=<?php echo $this->activity_id; ?>&className=Activity_ContactInfo">Edit</a></div>	
 
     <?php $i = 1; ?>
-    <?php foreach ($this->contactinfos as $contactinfo): ?>
+    <?php foreach ($this->elements as $element): ?>
         <?php if ($i == '1'): ?>
             <div class="highlight">
             <?php else: ?>
@@ -17,17 +17,14 @@
                 <ul class="style-3">     
                     <!-- Organisation Starts -->
                     <?php
-                    $organisations = $contactinfo->getElementsByType('Organisation');
-                    $value = $organisations[0]->getAttribs();
+                    $organisation = $element['Organisation'];
                     ?>
-                    <?php if (!empty($value)): ?>  
+                    <?php if (!empty($organisation)): ?>  
                         <li>
                             <span class="name">Organisation Name:</span>
-                            <?php foreach ($organisations as $organisation): ?>
                                 <span class="infom">
-                                    <?php if ($organisation->getAttrib('text')) print ($organisation->getAttribValue('text')); ?>
+                                    <?php if ($organisation['text']) print ($organisation['text']); ?>
                                 </span>
-                            <?php endforeach; ?>
                         </li>              
                     <?php endif; ?>
                     <!-- Organisation Ends -->
@@ -35,17 +32,14 @@
 
                     <!-- PersonName Starts -->
                     <?php
-                    $personnames = $contactinfo->getElementsByType('PersonName');
-                    $value = $personnames[0]->getAttribs();
+                    $personname = $element['PersonName'];
                     ?>
-                    <?php if (!empty($value)): ?>                        
+                    <?php if (!empty($personname)): ?>                        
                         <li>
                             <span class="name">Person Name: </span>
-                            <?php foreach ($personnames as $personname): ?>
                                 <span class="infom">
-                                    <?php if ($personname->getAttrib('text')) print ($personname->getAttribValue('text')); ?>
+                                    <?php if ($personname['text']) print ($personname['text']); ?>
                                 </span>
-                            <?php endforeach; ?>
                         </li>
                     <?php endif; ?>
                     <!-- PersonName Ends -->
@@ -53,15 +47,14 @@
 
                     <!-- Telephone Starts -->
                     <?php
-                    $telephones = $contactinfo->getElementsByType('Telephone');
-                    $value = $telephones[0]->getAttribs();
+                    $telephones = $element['Telephone']
                     ?>
-                    <?php if (!empty($value)): ?>                        
+                    <?php if (!empty($telephones)): ?>                        
                         <li>
                             <span class="name">Telephone:</span>
                             <?php foreach ($telephones as $telephone): ?>
                                 <span class="infom">
-                                    <?php if ($telephone->getAttrib('text')) print ($telephone->getAttribValue('text')); ?>
+                                    <?php if ($telephone['text']) print ($telephone['text']); ?>
 
                                 </span>
                             <?php endforeach; ?>
@@ -71,15 +64,14 @@
 
                     <!-- Email Starts -->
                     <?php
-                    $emails = $contactinfo->getElementsByType('Email');
-                    $value = $emails[0]->getAttribs();
+                    $emails = $element['Email']
                     ?>
-                    <?php if (!empty($value)): ?>                        
+                    <?php if (!empty($emails)): ?>                        
                         <li>
                             <span class="name">Email: </span>
                             <?php foreach ($emails as $email): ?>
                                 <span class="infom">
-                                    <?php if ($email->getAttrib('text')) print ($email->getAttribValue('text')); ?>
+                                    <?php if ($email['text']) print ($email['text']); ?>
 
                                 </span>
                             <?php endforeach; ?>
@@ -89,15 +81,14 @@
 
                     <!-- MailingAddress Starts -->
                     <?php
-                    $mailingaddresss = $contactinfo->getElementsByType('MailingAddress');
-                    $value = $mailingaddresss[0]->getAttribs();
+                    $mailingaddresss = $element['MailingAddress'];
                     ?>
-                    <?php if (!empty($value)): ?>                       
+                    <?php if (!empty($mailingaddresss)): ?>                       
                         <li>
                             <span class="name">Mailing Address:</span>
                             <?php foreach ($mailingaddresss as $mailingaddress): ?>                                
                                 <span class="infom">
-                                    <?php if ($mailingaddress->getAttrib('text')) print ($mailingaddress->getAttribValue('text')); ?>
+                                    <?php if ($mailingaddress['text']) print ($mailingaddress['text']); ?>
 
                                 </span>
                             <?php endforeach; ?>

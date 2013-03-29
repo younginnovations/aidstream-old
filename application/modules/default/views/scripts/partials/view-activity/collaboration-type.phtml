@@ -3,36 +3,37 @@
     <div class="element-title">
         Collaboration Type
 
-        <?php foreach ($this->collaborationtypes as $collaborationtype): ?>
             <div class="element-info">
                 <div class="element-values">
-                    <?php if($collaborationtype->getAttrib('@code')): ?>
+                    <?php if($this->elements['@code']): ?>
                         <span class="attrib-label">Code:</span>
-                        <span class="attrib-value"><?php if ($collaborationtype->getAttrib('@code')) ($collaborationtype->getAttribValue('@code' , 'Name') != $collaborationtype->getAttribValue('@code')) ? ( printf("%s [%s]" , $this->length()->adjustSingleLength($collaborationtype->getAttribValue('@code' , 'Name')) , $collaborationtype->getAttribValue('@code'))) : (print($collaborationtype->getAttribValue('@code'))); ?></span>
+                        <span class="attrib-value"><?php if ($this->elements['@code']) ( printf("%s [%s]" , $this->length()->adjustSingleLength(Iati_Core_Codelist::getCodeByAttrib('CollaborationType' , '@code' , $this->elements['@code'],'Name')) ,Iati_Core_Codelist::getCodeByAttrib('CollaborationType' , '@code' , $this->elements['@code']))) ?></span>
                     <?php endif; ?>
                 </div>
             </div>
-            <?php break; ?>
-        <?php endforeach; ?>
 
     </div>
 
-    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=CollaborationType">Edit</a></div>	
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/edit-element/?activity_id=<?php echo $this->activity_id; ?>&className=Activity_CollaborationType">Edit</a></div>
 
-    <?php foreach ($this->collaborationtypes as $collaborationtype): ?>
         <div class="highlight">
             <ul class="style-1">
                 <li>
                     <span class="name">Code:</span>
-                    <span class="infom"><?php if ($collaborationtype->getAttrib('@code')) ($collaborationtype->getAttribValue('@code' , 'Name') != $collaborationtype->getAttribValue('@code')) ? ( printf("%s [%s]" , $collaborationtype->getAttribValue('@code' , 'Name') , $collaborationtype->getAttribValue('@code'))) : (print($collaborationtype->getAttribValue('@code'))); ?></span>
+                    <span class="infom"><?php if ($this->elements['@code']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('CollaborationType' , '@code' , $this->elements['@code'],'Name'),Iati_Core_Codelist::getCodeByAttrib('CollaborationType' , '@code' , $this->elements['@code']))) ?></span>
                 </li>
                 <li>
                     <span class="name">Text:</span>
-                    <span class="infom"><?php if ($collaborationtype->getAttrib('text')) print ($collaborationtype->getAttribValue('text')); ?><?php if ($collaborationtype->getAttrib('@xml_lang')) printf(" [%s]" , ($collaborationtype->getAttribValue('@xml_lang'))); ?></span>
+                    <span class="infom"><?php if ($this->elements['text']) print ($this->elements['text']); ?>
+                                        <?php if ($this->elements['@xml_lang'])
+                                                {
+                                                    printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('CollaborationType' , '@xml_lang' , $this->elements['@xml_lang']));
+                                                }
+                                        ?>
+                    </span>
                 </li>
             </ul>
         </div>
-    <?php endforeach; ?>
 
 </li><!-- end of element-activity -->
 

@@ -4,30 +4,35 @@
         Conditions
     </div>
 
-    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=Conditions">Edit</a></div>
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/edit-element/?activity_id=<?php echo $this->activity_id; ?>&className=Activity_Conditions">Edit</a></div>
 
-    <?php foreach ($this->conditionss as $conditions): ?>
+    <?php foreach ($this->elements as $element): ?>
             <div class="highlight">
                 <ul class="style-4">
                     <li>
                         <span class="name">Attached:</span>
-                        <span class="infom sub-details"><?php ($conditions->getAttrib('@attached')) ? print('Yes')  : print('No'); ?></span>
+                        <span class="infom sub-details"><?php ($element['@attached']) ? print('Yes')  : print('No'); ?></span>
                     </li>
 
                 </ul>
 
                 <!-- Condition Starts -->
                 <?php
-                $sub_conditions = $conditions->getElementsByType('Condition');
-                $value = $sub_conditions[0]->getAttribs();
-                if (!empty($value)):
+                $sub_conditions = $element['Condition'];
+                if (!empty($sub_conditions)):
                     ?>                       
                     <ul class="style-1 style-4">
                         <h2>Description</h2>  
                         <?php foreach ($sub_conditions as $condition): ?>
                             <li>
                                 <span class="name">Text:</span>
-                                <span class="infom"><?php if ($condition->getAttrib('text')) print ($condition->getAttribValue('text')); ?> <?php if ($condition->getAttrib('@xml_lang')) printf(" [%s]" , ($condition->getAttribValue('@xml_lang'))); ?></span>
+                                <span class="infom"><?php if ($condition['text']) print ($condition['text']); ?>
+                                                    <?php if ($condition['@xml_lang'])
+                                                            {
+                                                                printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('Condition' , '@xml_lang' , $condition['@xml_lang']));
+                                                            }
+                                                    ?> 
+                                </span>
                             </li>
                         <?php endforeach; ?>
                     </ul>
@@ -37,7 +42,7 @@
                         <?php foreach ($sub_conditions as $condition): ?>
                             <li>
                                 <span class="name">Type:</span>
-                                <span class="infom"><?php if ($condition->getAttrib('@type')) ($condition->getAttribValue('@type' , 'Name') != $condition->getAttribValue('@type')) ? ( printf("%s [%s]" , $condition->getAttribValue('@type' , 'Name') , $condition->getAttribValue('@type'))) : (print($condition->getAttribValue('@type'))); ?></span>
+                                <span class="infom"><?php if ($condition['@type'])(printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('Condition' , '@type' , $condition['@type'],'Name'),Iati_Core_Codelist::getCodeByAttrib('Condition' , '@type' , $condition['@type']))) ?></span>
                             </li>
                         <?php endforeach; ?>
                     </ul>

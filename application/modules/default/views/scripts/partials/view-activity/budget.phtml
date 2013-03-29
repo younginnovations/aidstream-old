@@ -4,98 +4,86 @@
         Budget
     </div>
 
-    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=Budget">Edit</a></div>
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/edit-element/?activity_id=<?php echo $this->activity_id; ?>&className=Activity_Budget">Edit</a></div>
 
-    <?php foreach ($this->budgets as $budget): ?>
+    <?php foreach ($this->elements as $element): ?>
         <div class="current">
             <ul class="style-2 arrow">
-                <li><span class="down-arrow"><?php if ($budget->getAttrib('@type')) ($budget->getAttribValue('@type' , 'Name') != $budget->getAttribValue('@type')) ? ( printf("%s [%s]" , $this->length()->adjustTripleTitleLength($budget->getAttribValue('@type' , 'Name')) , $budget->getAttribValue('@type'))) : (print($this->length()->adjustTripleTitleLength($budget->getAttribValue('@type')))); ?>
+                <li><span class="down-arrow"><?php if ($element['@type']) ( printf("%s [%s]" , $this->length()->adjustTripleTitleLength(Iati_Core_Codelist::getCodeByAttrib('Budget' , '@type' , $element['@type'],'Name')),Iati_Core_Codelist::getCodeByAttrib('Budget' , '@type' , $element['@type']))) ?>
                        <?php
-                        $values = $budget->getElementsByType('Value');
-                        $value = $values[0]->getAttribs()
+                        $value = $element['Value'];
                         ?>
-                        <?php if (!empty($value)): ?>
-                            <?php foreach ($values as $value): ?> 
-                                <?php if ($budget->getAttrib('@type') && $value->getAttrib('text')) print "; "; ?>
-                                <?php  ($value->getAttrib('@currency')) ? (printf("[%s]",$value->getAttribValue('@currency'))) : (printf("[%s]",$this->activityInfo['@default_currency'])); ?> 
-                                <?php if ($value->getAttrib('text')) print($this->length()->adjustTripleTitleLength($this->numberFormat()->localization($value->getAttribValue('text')))); ?>
-                                <?php if ($value->getAttrib('text') && $value->getAttrib('@value_date')) print "; "; ?>
-                                <?php if ($value->getAttrib('@value_date')) print ($this->length()->adjustTripleTitleLength($value->getAttribValue('@value_date'))); ?>
-                                <?php break; ?>
-                            <?php endforeach; ?>
+                        <?php if (!empty($value)): ?> 
+                                <?php if ($element['@type'] && $value['text']) print "; "; ?>
+                                <?php  ($value['@currency']) ? (printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('Activity' , '@default_currency' , $element['@currency']))) : (printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('Activity' , '@default_currency', $this->activityInfo['@default_currency']))); ?> 
+                                <?php if ($value['text']) print($this->length()->adjustTripleTitleLength($this->numberFormat()->localization($value['text']))); ?>
+                                <?php if ($value['text'] && $value['@value_date']) print "; "; ?>
+                                <?php if ($value['@value_date']) print ($this->length()->adjustTripleTitleLength($value['@value_date'])); ?>
                         <?php endif; ?>
                     </span>
                     <ul class="style-4 none">
                         <li><span class="name">Text:</span>
-                            <span class="infom"><?php if ($budget->getAttrib('@type')) ($budget->getAttribValue('@type' , 'Name') != $budget->getAttribValue('@type')) ? ( printf("%s [%s]" , $budget->getAttribValue('@type' , 'Name') , $budget->getAttribValue('@type'))) : (print($budget->getAttribValue('@type'))); ?></span>
+                            <span class="infom"><?php if ($element['@type']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('Budget' , '@type' , $element['@type'],'Name'),Iati_Core_Codelist::getCodeByAttrib('Budget' , '@type' , $element['@type']))) ?></span>
                         </li></ul>
 
                     <!-- PeriodEnd Starts -->
                     <?php
-                    $periodends = $budget->getElementsByType('PeriodEnd');
-                    $value = $periodends[0]->getAttribs();
-                    ?>
-                    <?php if (!empty($value)): ?>
+                    $periodend = $element['PeriodEnd'];
+                    if (!empty($periodend)):
+                        ?>
                         <ul class="style-1 style-4">
                             <h2>Period End</h2>
-                            <?php foreach ($periodends as $periodend): ?>
                                 <li>
                                     <span class="name">Text:</span>
-                                    <span class="infom"><?php if ($periodend->getAttrib('text')) print ($periodend->getAttribValue('text')); ?></span>
+                                    <span class="infom"><?php if ($periodend['text']) print ($periodend['text']); ?></span>
                                 </li>
                                 <li>
                                     <span class="name">Iso_date:</span>
-                                    <span class="infom"><?php if ($periodend->getAttrib('@iso_date')) print ($periodend->getAttribValue('@iso_date')); ?></span>
+                                    <span class="infom"><?php if ($periodend['@iso_date']) print ($periodend['@iso_date']); ?></span>
                                 </li>
-                            <?php endforeach; ?>
                         </ul>
                     <?php endif; ?>
                     <!-- PeriodEnd Ends -->
 
                     <!-- PeriodStart Starts -->
                     <?php
-                    $periodstarts = $budget->getElementsByType('PeriodStart');
-                    $value = $periodstarts[0]->getAttribs();
-                    ?>
-                    <?php if (!empty($value)): ?>
+                    $periodstart = $element['PeriodStart'];
+                    if (!empty($periodstart)):
+                        ?>
+
                         <ul class="style-1 style-4">
-                            <h2>Period Start</h2>
-                            <?php foreach ($periodstarts as $periodstart): ?>
+                            <h2>Period End</h2>
                                 <li>
                                     <span class="name">Text:</span>
-                                    <span class="infom"><?php if ($periodstart->getAttrib('text')) print ($periodstart->getAttribValue('text')); ?></span>
+                                    <span class="infom"><?php if ($periodstart['text']) print ($periodstart['text']); ?></span>
                                 </li>
                                 <li>
                                     <span class="name">Iso_date:</span>
-                                    <span class="infom"><?php if ($periodstart->getAttrib('@iso_date')) print ($periodstart->getAttribValue('@iso_date')); ?></span>
+                                    <span class="infom"><?php if ($periodstart['@iso_date']) print ($periodstart['@iso_date']); ?></span>
                                 </li>
-                            <?php endforeach; ?>
                         </ul>
                     <?php endif; ?>
                     <!-- PeriodStart Ends -->
 
                     <!-- Value Starts -->
                     <?php
-                    $values = $budget->getElementsByType('Value');
-                    $value = $values[0]->getAttribs()
+                    $value = $element['Value'];
                     ?>
                     <?php if (!empty($value)): ?>
                         <ul class="style-1 style-4">
                             <h2>Value</h2>
-                            <?php foreach ($values as $value): ?>
                                 <li>
                                     <span class="name">Text:</span>
-                                    <span class="infom"><?php if ($value->getAttrib('text')) print ($this->numberFormat()->localization($value->getAttribValue('text'))); ?></span>
+                                    <span class="infom"><?php if ($value['text']) print ($this->numberFormat()->localization($value['text'])); ?></span>
                                 </li>
                                 <li>
                                     <span class="name">Value_date:</span>
-                                    <span class="infom"><?php if ($value->getAttrib('@value_date')) print ($value->getAttribValue('@value_date')); ?></span>
+                                    <span class="infom"><?php if ($value['@value_date']) print ($value['@value_date']); ?></span>
                                 </li>
                                 <li>
                                     <span class="name">Currency:</span>
-                                    <span class="infom"><?php if ($value->getAttrib('@currency')) ($value->getAttribValue('@currency' , 'Name') != $value->getAttribValue('@currency')) ? ( printf("%s [%s]" , $value->getAttribValue('@currency' , 'Name') , $value->getAttribValue('@currency'))) : (print($value->getAttribValue('@currency'))); ?></span>
+                                    <span class="infom"><?php if ($value['@currency']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('Activity' , '@default_currency', $element['@currency'],'Name'),Iati_Core_Codelist::getCodeByAttrib('Activity' , '@default_currency', $element['@currency']))) ?></span>
                                 </li>
-                            <?php endforeach; ?> 
                         </ul>
                     <?php endif; ?>
                     <!-- Value Ends -->

@@ -1,105 +1,103 @@
-<?php
-            $identity = $this->userInfo();
-            $url = Zend_Controller_Front::getInstance()->getRequest()->getParams();
-            $paramValue = $url['class'];
-            if($url['classname'])
-            {
-                $paramValue = $url['classname'];
-            }
-            $model = new Model_Wep();
-            
-            $defaultField = $model->getDefaults('default_field_groups', 'account_id', $identity->account_id);
-            
-            $class = '';
-            $allowed_elements = $defaultField->getProperties();
-            $titleArray = array('Basic Activity Information','Participating Organisations','Geopolitical Information','Classifications','Financial','Related Documents','Relations','Performance');            
-            $elements = array(
-                                array('title','description','activity_status','activity_date','contact_info'),
-                                array ('participating_org'),
-                                array('recipient_country','recipient_region','location'),
-                                array('sector','policy_marker','collaboration_type','default_flow_type','default_finance_type','default_aid_type','default_tied_status'),
-                                array ('budget','planned_disbursement','transaction'),
-                                array ('document_link','activity_website'),
-                                array ('related_activity'),
-                                array ('conditions','result'),
-                            );
+
+<?php 
+$url = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+$paramValue = str_replace("activity_" , "" , $url['className']);
+ $titleArray = array('Basic Activity Information','Participating Organisations','Geopolitical Information','Classifications','Financial','Related Documents','Relations','Performance');
+$elements = array(
+                 array('Title','Description','ActivityStatus','ActivityDate','ContactInfo'),
+                 array ('ParticipatingOrg'),
+                 array('RecipientCountry','RecipientRegion','Location'),
+                 array('Sector','PolicyMarker','CollaborationType','DefaultFlowType','DefaultFinanceType','DefaultAidType','DefaultTiedStatus'),
+                 array ('Budget','PlannedDisbursement','Transaction'),
+                 array ('DocumentLink','ActivityWebsite'),
+                 array ('RelatedActivity'),
+                 array ('Conditions','Result'),
+               );
 ?>
+<!--Starts Displaying elements menu of an activity-->
 <div id="block-activity-menu" class="block">
     <div class="block-inner">
-        <h2 class="title">Activity Menu</h2>
+        <h2 class="title">Element Menu</h2>
         <div class="content">
             <ul>
+                
+                <!--Starts of identification block-->
                 <li>
                     <div class="menu-category-title">Identification</div>
-                    <ul class="menu-leaf">
-            <?        
-            $href2 = $this->baseUrl(). "/wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=ReportingOrg";
-            $attributes = (getRowSet('ReportingOrg', $url['activity_id']))?'class = "active"':'';
-            if($paramValue == 'ReportingOrg'){
-                $class = "class = highlight";
-            }
-            print "<li $class><div class='help reporting_org'></div><a $attributes href=$href2>Reporting Organisation</a></li>";
-            
-            $attributes = (getRowSet('Identifier', $url['activity_id']))?'class = "active"':'';
-            $href1 = $this->baseUrl() . "/wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=Identifier";
-            $class = '';
-            if($paramValue == 'Identifier'){
-                $class = "class = highlight";
-            }
-            print "<li $class ><div class='help identifier'></div><a $attributes href=$href1>IATI Identifier</a></li>";
-           
-            
-            // Other activity identifier is seperated from other elements to group it with reporting organisation and
-            // iati identifier.
-            $element = 'other_activity_identifier';
-            if($allowed_elements[$element]){
-                $attributes = '';
-                if(getRowSet($element, $url['activity_id'])){
-                    $attributes = 'class = "active"';
-                }
-            
-                $key = ucwords(str_replace("_"," ",$element));
-                $href = $this->baseUrl()."/wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=".str_replace(" ", "", $key);
-                $class = '';
-                if(str_replace(" ", "", $key) == $paramValue){
-                    $class = "class = highlight";
-                }
-                if(Iati_WEP_ActivityConstants::hasDisplayName($element)){
-                    $key = Iati_WEP_ActivityConstants::getDisplayName($element);
-                }
-                print "<li $class><div class='help ".$element."'></div><a $attributes href='". $href ."'>" .$key ."</a></li>";
-            }
-            ?>                
-                    </ul>
-                </li>
-            <?
-            $i= '0';
-            foreach($elements as $value)
-            {
-                $elementExist = false;
-                foreach($value as $element ){
-                    if($allowed_elements[$element]) $elementExist = true;    
-                } 
-                if($elementExist) {
-                    print "<li>";
-                    print '<div class="menu-category-title">'.$titleArray[$i].'</div>';              
-                    print '<ul class="menu-leaf">';
-                    foreach($value as $element ){    
-                        if($allowed_elements[$element])
-                        {  
+                    <ul class="menu-leaf">                        
+                        <?php
+                        // Reporting activity Element           
+                        $attributes = (getRowSet('ReportingOrg' , $url['activity_id'])) ? 'class = "active"' : '';
+                        $href1 = $this->baseUrl() . "/activity/edit-element/?activity_id=" . $url['activity_id'] . "&className=Activity_ReportingOrg";
+                        $class = '';
+                        if ($paramValue == 'ReportingOrg')
+                        {
+                            $class = "class = highlight";
+                        }
+                        print "<li $class><div class='help Activity_ReportingOrg'></div><a $attributes href=$href1>Reporting Organisation</a></li>";
+
+                        //Iati Identifier Element
+                        $attributes = (getRowSet('IatiIdentifier' , $url['activity_id'])) ? 'class = "active"' : '';
+                        $href2 = $this->baseUrl() . "/activity/edit-element/?activity_id=" . $url['activity_id'] . "&className=Activity_IatiIdentifier";
+                        $class = '';
+                        if ($paramValue == 'IatiIdentifier')
+                        {
+                            $class = "class = highlight";
+                        }
+                        print "<li $class ><div class='help Activity_Identifier'></div><a $attributes href=$href2>IatiIdentifier</a></li>";
+
+                        // OtherActivityIdentifier Element
+                        if (getRowSet('OtherActivityIdentifier' , $url['activity_id']))
+                        {
+                            $attributes = 'class = "active"';
+                            $href3 = $this->baseUrl() . "/activity/edit-element/?activity_id=" . $url['activity_id'] . "&className=Activity_OtherActivityIdentifier" . $element;
+                        } else
+                        {
                             $attributes = '';
-                            if(getRowSet($element, $url['activity_id'])){
-                                $attributes = 'class = "active"';
-                            }
+                            $href3 = $this->baseUrl() . "/activity/add-element/?activity_id=" . $url['activity_id'] . "&className=Activity_OtherActivityIdentifier" . $element;
+                        }
+                        $class = '';
+                        if ($paramValue == 'OtherActivityIdentifier')
+                        {
+                            $class = "class = highlight";
+                        }
+                        print "<li $class ><div class='help Activity_OtherActivityIdentifier'></div><a $attributes href=$href3>OtherActivityIdentifier</a></li>";
+                        ?>                
+                    </ul><!--End .menu-leaf-->
+                </li>
+                <!--Ends of identification block-->
+                
+                <!--Starts displaying another block-->
+                <?php
+                $i = '0';
+                foreach ($elements as $value)
+                {
+                    print "<li>";
+                    print '<div class="menu-category-title">' . $titleArray[$i] . '</div>';
+                    print '<ul class="menu-leaf">';
+                    foreach ($value as $element)
+                    {
+                        if (getRowSet($element , $url['activity_id']))
+                        {
+                            $attributes = 'class = "active"';
+                            $href = $this->baseUrl() . "/activity/edit-element/?activity_id=" . $url['activity_id'] . "&className=Activity_" . $element;
+                        } else
+                        {
+                            $attributes = '';
+                            $href = $this->baseUrl() . "/activity/add-element/?activity_id=" . $url['activity_id'] . "&className=Activity_" . $element;
+                        }
+                        $className = "Iati_Aidstream_Element_activity_" . $element;
+                        $classObj = new $className;
+                        $displayName = $classObj->getDisplayName();
+                        $key = $displayName;
+                        $class = '';
+                        if ($element == $paramValue)
+                        {
+                            $class = "class = highlight";
+                        }
                         
-                            $key = ucwords(str_replace("_"," ",$element));
-                            $href = $this->baseUrl()."/wep/edit-activity-elements/?activity_id=". $url['activity_id'] ."&class=".str_replace(" ", "", $key);
-                            $class = '';
-                            if(str_replace(" ", "", $key) == $paramValue){
-                                $class = "class = highlight";
-                            }
-                            
-                            if($element == 'result'){
+                        // For Transaction and Result
+                        if($element == 'Result'){
                                 $paramValue = end(explode('_', $paramValue));
                                 if(str_replace(" ", "", $key) == $paramValue){
                                 $class = "class = highlight";
@@ -107,7 +105,7 @@
                                 $href = $this->baseUrl()."/activity/list-elements/?classname=Activity_Result&activity_id=".$url['activity_id'];
                             }
                             
-                            if($element == 'transaction'){
+                            if($element == 'Transaction'){
                                 $paramValue = end(explode('_', $paramValue));
                                 if(str_replace(" ", "", $key) == $paramValue){
                                 $class = "class = highlight";
@@ -115,38 +113,39 @@
                                 $href = $this->baseUrl()."/activity/list-elements?classname=Activity_Transaction&activity_id=".$url['activity_id'];
                             }
                             
-                            if(Iati_WEP_ActivityConstants::hasDisplayName($element)){
-                                $key = Iati_WEP_ActivityConstants::getDisplayName($element);
-                            }
-                            print "<li $class><div class='help ".$element."'></div><a $attributes href='". $href ."'>" .$key ."</a></li>";
-                        }                   
+                        print "<li $class><div class='help Activity_" . $element . "'></div><a $attributes href='" . $href . "'>" . $displayName . "</a></li>";
                     }
                     print "</ul>";
                     print "</li>";
+                    $i++;
                 }
-                $i++;
-            }       
-            ?>
-            
+                ?>
+                <!--Ends displaying another block-->
+                
             </ul>
-        </div>
-</div>
-</div>
+        </div><!-- End .content-->
+    </div><!-- End .block-inner-->
+</div><!-- End #block-activity-menu-->
+<!--Endss Displaying elements menu of an activity-->
 
-<?php 
-function getRowSet($name, $id)
+<?php
+
+/**
+ * Check If Value Exist For An Element Of An Activity
+ * @param type $name, className
+ * @param type $id, parentId
+ * @return boolean 
+ */
+function getRowSet($name , $id)
 {
-    $tableName = "";
-    $tableMapper = new Iati_WEP_TableClassMapper();
-    $string = "Iati_Activity_Element_". $tableMapper->convertUnderscoreToCamelCase($name);
-    $obj = new $string ();
-    $name = $obj->getType();
-    unset($obj);
-    $tableName = $tableMapper->getTableName($name);
-    $wepModel = new Model_Wep();
-    $rowSet = $wepModel->getRowsByFields($tableName, 'activity_id', $id);
-    if($rowSet)
+    $string = "Iati_Aidstream_Element_Activity_" . $name;
+    $obj = new $string;
+    $rowSet = $obj->fetchData($id , true);
+    if (!$rowSet)
+        $rowSet = false;
+    else
         $rowSet = true;
     return $rowSet;
+
 }
 ?>

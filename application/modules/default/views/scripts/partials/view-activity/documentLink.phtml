@@ -4,10 +4,10 @@
         Document Link
     </div>
 
-    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=DocumentLink">Edit</a></div>
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/edit-element/?activity_id=<?php echo $this->activity_id; ?>&className=Activity_DocumentLink">Edit</a></div>
     
     <?php $i=0; ?>
-    <?php foreach ($this->documentlinks as $documentlink): ?>
+    <?php foreach ($this->elements as $element): ?>
          <?php if ($i == '0'): ?>
             <div class="highlight first">
             <?php else: ?>
@@ -16,26 +16,30 @@
             <ul class="style-4 first">
                 <li>
                     <span class="name">Url:</span>
-                    <span class="infom sub-details"><?php if ($documentlink->getAttrib('@url')) ($documentlink->getAttribValue('@url' , 'Name') != $documentlink->getAttribValue('@url')) ? ( printf("%s [%s]" , $documentlink->getAttribValue('@url' , 'Name') , $documentlink->getAttribValue('@url'))) : (print($documentlink->getAttribValue('@url'))); ?></span>
+                    <span class="infom sub-details"><?php if ($element['@url']) (print $element['@url'] )?></span>
                 </li>
                 <li>
                     <span class="name">Format:</span>
-                    <span class="infom sub-details"><?php if ($documentlink->getAttrib('@format')) ($documentlink->getAttribValue('@format' , 'Name') != $documentlink->getAttribValue('@format')) ? ( printf("%s [%s]" , $documentlink->getAttribValue('@format' , 'Name') , $documentlink->getAttribValue('@format'))) : (print($documentlink->getAttribValue('@format'))); ?></span>
+                    <span class="infom sub-details"><?php if ($element['@format'])(printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('DocumentLink' , '@format' , $element['@format'],'Name'),Iati_Core_Codelist::getCodeByAttrib('DocumentLink' , '@format' , $element['@format']))) ?></span>
                 </li>
             </ul>
 
             <!-- Language Starts -->
             <?php
-            $languages = $documentlink->getElementsByType('Language');
-            $value = $languages[0]->getAttribs();
+            $languages = $element['Language'];
             ?>
-            <?php if (!empty($value)): ?>
+            <?php if (!empty($languages)): ?>
                 <ul class="style-1 style-4">
                     <h2>Language</h2>
                     <?php foreach ($languages as $language): ?>
                         <li>
                             <span class="name">Text:</span>
-                            <span class="infom"><?php if ($language->getAttrib('text')) print ($language->getAttribValue('text')); ?></span>
+                            <span class="infom"><?php if ($language['text'])
+                                                        {
+                                                            printf("%s [%s]" ,Iati_Core_Codelist::getCodeByAttrib('Language' , '@xml_lang' , $language['text'],'Name'), Iati_Core_Codelist::getCodeByAttrib('Language' , '@xml_lang' , $language['text']));
+                                                        }
+                                                ?> 
+                            </span>
                         </li>
                     <?php endforeach; ?>
                 </ul>
@@ -44,8 +48,7 @@
 
             <!-- Category Starts -->
             <?php
-            $categorys = $documentlink->getElementsByType('Category');
-            $value = $categorys[0]->getAttribs();
+            $categorys = $element['Category'];
             ?>
             <?php if (!empty($value)): ?>
                 <ul class="style-1 style-4">
@@ -53,11 +56,17 @@
                     <?php foreach ($categorys as $category): ?>
                         <li>
                             <span class="name">Text:</span>
-                            <span class="infom"><?php if ($category->getAttrib('text')) print ($category->getAttribValue('text')); ?> <?php if ($category->getAttrib('@xml_lang')) printf(" [%s]" , ($category->getAttribValue('@xml_lang'))); ?></span>
+                            <span class="infom"><?php if ($category['text']) print ($category['text']); ?>
+                                                <?php if ($category['@xml_lang'])
+                                                    {
+                                                        printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('Category' , '@xml_lang' , $category['@xml_lang']));
+                                                    }
+                                                ?> 
+                            </span>
                         </li>
                         <li>
                             <span class="name">Code:</span>
-                            <span class="infom"><?php if ($category->getAttrib('@code')) ($category->getAttribValue('@code' , 'Name') != $category->getAttribValue('@code')) ? ( printf("%s [%s]" , $category->getAttribValue('@code' , 'Name') , $category->getAttribValue('@code'))) : (print($category->getAttribValue('@code'))); ?></span>
+                            <span class="infom"><?php if ($category['@code']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('Category' , '@code' , $category['@code'],'Name'),Iati_Core_Codelist::getCodeByAttrib('Category' , '@code' , $category['@code']))) ?></span>
                         </li>
                     <?php endforeach; ?>
                 </ul>     
@@ -66,16 +75,21 @@
 
             <!-- Title Starts -->
             <?php
-            $titles = $documentlink->getElementsByType('Title');
-            $value = $titles[0]->getAttribs();
+            $titles = $element['Title']
             ?>
-            <?php if (!empty($value)): ?>
+            <?php if (!empty($titles)): ?>
                 <ul class="style-1 style-4">
                     <h2>Title</h2>
                     <?php foreach ($titles as $title): ?>
                         <li>
                             <span class="name">Text:</span>
-                            <span class="infom"><?php if ($title->getAttrib('text')) print ($title->getAttribValue('text')); ?> <?php if ($title->getAttrib('@xml_lang')) printf(" [%s]" , ($title->getAttribValue('@xml_lang'))); ?></span>
+                            <span class="infom"><?php if ($title['text']) print ($title['text']); ?>
+                                                <?php if ($title['@xml_lang'])
+                                                    {
+                                                        printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('Title' , '@xml_lang' , $title['@xml_lang']));
+                                                    }
+                                                ?> 
+                            </span>
                         </li>
                     <?php endforeach; ?>
                 </ul> 

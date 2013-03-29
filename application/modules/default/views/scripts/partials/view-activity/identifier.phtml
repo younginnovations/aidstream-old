@@ -3,28 +3,26 @@
     <div class="element-title ">
         Identifier
 
-        <?php foreach ($this->identifiers as $identifier): ?>    
             <div class="element-info">        
                 <div class="element-values">
-                    <?php if($identifier->getAttrib('text')): ?>
+                    <?php if($this->elements['text']): ?>
                         <span class="attrib-label">Text:</span>					
-                        <span class="attrib-value"><?php if ($identifier->getAttrib('text')) print $this->length()->adjustSingleLength($identifier->getAttrib('text')); ?></span>
+                        <span class="attrib-value"><?php if ($this->elements['text']) print $this->length()->adjustSingleLength($this->elements['text']); ?></span>
                     <?php endif; ?>
                 </div>
             </div>
 
         </div>   
 
-        <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=Identifier">Edit</a></div>	
+        <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/edit-element/?activity_id=<?php echo $this->activity_id ?>&className=Activity_IatiIdentifier">Edit</a></div>	
 
         <div class="highlight">
             <ul class="style-1">
                 <li>
                     <span class="name">Text:</span>
-                    <span class="infom"><?php if ($identifier->getAttrib('text')) print ($identifier->getAttribValue('text')); ?></span>
+                    <span class="infom"><?php if ($this->elements['text']) print ($this->elements['text']); ?></span>
                 </li>        
             </ul>
         </div>
-
-    <?php endforeach; ?>
+        
 </li><!-- end of element-activity -->

@@ -3,35 +3,37 @@
     <div class="element-title">
         Default Aid Type
 
-        <?php foreach ($this->defaultaidtypes as $defaultaidtype): ?>    
             <div class="element-info">
                 <div class="element-values">
-                    <?php if($defaultaidtype->getAttrib('@code')): ?>
+                    <?php if($this->elements['@code']): ?>
                         <span class="attrib-label">Code:</span>
-                        <span class="attrib-value"><?php if ($defaultaidtype->getAttrib('@code')) ($defaultaidtype->getAttribValue('@code' , 'Name') != $defaultaidtype->getAttribValue('@code')) ? ( printf("%s [%s]" , $this->length()->adjustSingleLength($defaultaidtype->getAttribValue('@code' , 'Name')) , $defaultaidtype->getAttribValue('@code'))) : (print($defaultaidtype->getAttribValue('@code'))); ?></span>
-                    <?php endif ; ?>
+                        <span class="attrib-value"><?php if ($this->elements['@code']) ( printf("%s [%s]" , $this->length()->adjustSingleLength(Iati_Core_Codelist::getCodeByAttrib('DefaultAidType' , '@code' , $this->elements['@code'],'Name')) ,Iati_Core_Codelist::getCodeByAttrib('DefaultAidType' , '@code' , $this->elements['@code']))) ?></span>
+                    <?php endif; ?>
                 </div>
             </div>
-            <?php break; ?>
-        <?php endforeach; ?> 
 
     </div>
 
-    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=DefaultAidType">Edit</a></div>	
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/edit-element/?activity_id=<?php echo $this->activity_id; ?>&className=Activity_DefaultAidType">Edit</a></div>
 
-    <?php foreach ($this->defaultaidtypes as $defaultaidtype): ?>
         <div class="highlight">
             <ul class="style-1">
                 <li>
                     <span class="name">Code:</span>
-                    <span class="infom"><?php if ($defaultaidtype->getAttrib('@code')) ($defaultaidtype->getAttribValue('@code' , 'Name') != $defaultaidtype->getAttribValue('@code')) ? ( printf("%s [%s]" , $defaultaidtype->getAttribValue('@code' , 'Name') , $defaultaidtype->getAttribValue('@code'))) : (print($defaultaidtype->getAttribValue('@code'))); ?></span>
+                    <span class="infom"><?php if ($this->elements['@code']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('DefaultAidType' , '@code' , $this->elements['@code'],'Name'),Iati_Core_Codelist::getCodeByAttrib('DefaultAidType' , '@code' , $this->elements['@code']))) ?></span>
                 </li>
                 <li>
                     <span class="name">Text:</span>
-                    <span class="infom"><?php if ($defaultaidtype->getAttrib('text')) print ($defaultaidtype->getAttribValue('text')); ?> <?php if ($defaultaidtype->getAttrib('@xml_lang')) printf(" [%s]" , ($defaultaidtype->getAttribValue('@xml_lang'))); ?></span>
+                    <span class="infom"><?php if ($this->elements['text']) print ($this->elements['text']); ?>
+                                        <?php if ($this->elements['@xml_lang'])
+                                                {
+                                                    printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('DefaultAidType' , '@xml_lang' , $this->elements['@xml_lang']));
+                                                }
+                                        ?>
+                    </span>
                 </li>
             </ul>
-        </div>        
-    <?php endforeach; ?>
+        </div>
 
 </li><!-- end of element-activity -->
+

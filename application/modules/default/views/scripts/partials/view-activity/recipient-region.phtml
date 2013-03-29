@@ -2,31 +2,40 @@
 
     <div class="element-title element-current">
         Recipient Region
-    </div>
+    </div> 
 
-    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=RecipientRegion">Edit</a></div>	
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/edit-element/?activity_id=<?php echo $this->activity_id; ?>&className=Activity_RecipientRegion">Edit</a></div>
 
-    <?php foreach ($this->recipientregions as $recipientregion): ?>
+    <?php foreach ($this->elements as $element): ?> 
         <div class="current">
             <ul class="style-2 arrow">
-                <li> <span class="down-arrow"><?php if ($recipientregion->getAttrib('@code')) ($recipientregion->getAttribValue('@code' , 'Name') != $recipientregion->getAttribValue('@code')) ? ( printf("%s [%s]" , $this->length()->adjustDoubleTitleLength($recipientregion->getAttribValue('@code' , 'Name')) , $recipientregion->getAttribValue('@code'))) : (print($recipientregion->getAttribValue('@code'))); ?>
-                                                <?php if ($recipientregion->getAttrib('@code') && $recipientregion->getAttrib('@percentage')) print "; "; ?>
-                                                <?php if ($recipientregion->getAttrib('@percentage')) print ($this->length()->adjustDoubleTitleLength($recipientregion->getAttribValue('@percentage'))); ?></span>
+                <li> <span class="down-arrow"><?php if ($element['@code']) ( printf("%s [%s]" , $this->length()->adjustDoubleTitleLength(Iati_Core_Codelist::getCodeByAttrib('RecipientRegion' , '@code' , $element['@code'],'Name')),Iati_Core_Codelist::getCodeByAttrib('RecipientRegion' , '@code' , $element['@code']))) ?>
+                                              <?php if ($element['@code'] && $element['@percentage']) print "; "; ?>
+                                              <?php if ($element['@percentage']) print ($this->length()->adjustDoubleTitleLength($element['@percentage'])); ?></span>
                     <ul class="style-2-drop first">
                         <li>
                             <span class="name">Text:</span>
-                            <span class="infom"><?php if ($recipientregion->getAttrib('text')) print ($recipientregion->getAttribValue('text')); ?> <?php if ($recipientregion->getAttrib('@xml_lang')) printf(" [%s]" , ($recipientregion->getAttribValue('@xml_lang'))); ?></span>
+                            <span class="infom"><?php if ($element['text']) print ($element['text']); ?>
+                                <?php
+                                                if ($element['@xml_lang'])
+                                                {
+                                                    printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('RecipientRegion' , '@xml_lang' , $element['@xml_lang']));
+                                                }
+                                            ?> 
+                            </span>
                         </li>
                         <li>
                             <span class="name">Percentage:</span>
-                            <span class="infom"><?php if ($recipientregion->getAttrib('@percentage')) print ($recipientregion->getAttribValue('@percentage')); ?></span>
+                            <span class="infom"><?php if ($element['@percentage']) print ($element['@percentage']); ?></span>
                         </li>
                         <li>
                             <span class="name">Code:</span>
-                            <span class="infom"><?php if ($recipientregion->getAttrib('@code')) ($recipientregion->getAttribValue('@code' , 'Name') != $recipientregion->getAttribValue('@code')) ? ( printf("%s [%s]" , $recipientregion->getAttribValue('@code' , 'Name') , $recipientregion->getAttribValue('@code'))) : (print($recipientregion->getAttribValue('@code'))); ?></span>
+                            <span class="infom"><?php if ($element['@code']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('RecipientRegion' , '@code' , $element['@code'],'Name'),Iati_Core_Codelist::getCodeByAttrib('RecipientRegion' , '@code' , $element['@code']))) ?></span>
                         </li>
                     </ul>
-                    </div>
-                <?php endforeach; ?>
-            </li><!-- end of element-activity -->
+                </li>
+            </ul>
+        </div>
+    <?php endforeach; ?>
+</li><!-- end of element-activity -->
 

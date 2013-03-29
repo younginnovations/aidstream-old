@@ -4,17 +4,24 @@
         Title
     </div>
 
-    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=Title">Edit</a></div>
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/edit-element/?activity_id=<?php echo $this->activity_id; ?>&className=Activity_Title">Edit</a></div>
 
-    <?php foreach ($this->titles as $title): ?>
+    <?php foreach ($this->elements as $element): ?>
 
         <div class="current">
             <ul class="style-2 arrow">
-                <li> <span class="down-arrow"><?php if ($title->getAttrib('text')) print ($this->length()->adjustSingleTitleLength($title->getAttribValue('text'))); ?><?php if ($title->getAttrib('@xml_lang')) printf(" [%s]" , ($title->getAttribValue('@xml_lang'))); ?></span>
+                <li> <span class="down-arrow"><?php if ($element['text']) print ($this->length()->adjustSingleTitleLength($element['text'])); ?><?php if ($element['@xml_lang']) printf(" [%s]" , Iati_Core_Codelist::getCodeByAttrib('Title' , '@xml_lang' , $element['@xml_lang'])); ?></span>
                     <ul class="style-2-drop first">
                         <li>
                             <span class="name">Text:</span>
-                            <span class="infom"><?php if ($title->getAttrib('text')) print ($title->getAttribValue('text')); ?><?php if ($title->getAttrib('@xml_lang')) printf(" [%s]" , ($title->getAttribValue('@xml_lang'))); ?></span>
+                            <span class="infom"><?php if ($element['text']) print ($element['text']); ?>
+                                                <?php echo $element['text'];
+                                                if ($element['@xml_lang'])
+                                                {
+                                                    printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('Title' , '@xml_lang' , $element['@xml_lang']));
+                                                }
+                                            ?>  
+                            </span>
                         </li>
                     </ul>
                 </li>

@@ -7,13 +7,13 @@
             <div class="element-values">
                 <?php if($this->activityInfo['@xml_lang']): ?>
                     <span class="attrib-label">Lang:</span>					
-                    <span class="attrib-value"><?php print $this->length()->adjustTripleLength($this->activityInfo['@xml_lang']); ?></span>
+                    <span class="attrib-value"><?php print $this->length()->adjustTripleLength(Iati_Core_Codelist::getCodeByAttrib('Activity' , '@xml_lang' , $this->activityInfo['@xml_lang'])); ?></span>
                 <?php endif; ?>
             </div>
             <div class="element-values">
                 <?php if($this->activityInfo['@default_currency']): ?>
                     <span class="attrib-label"> Curr:</span>
-                    <span class="attrib-value"><?php print $this->length()->adjustTripleLength($this->activityInfo['@default_currency']); ?></span>  
+                    <span class="attrib-value"><?php print $this->length()->adjustTripleLength(Iati_Core_Codelist::getCodeByAttrib('Activity' , '@default_currency' , $this->activityInfo['@default_currency'])); ?></span>  
                 <?php endif; ?>
             </div>
             <div class="element-values">
@@ -26,17 +26,23 @@
         
     </div>
     
-    <div class="edit"><a href="<?php echo $this->baseUrl()?>/wep/edit-activity/?activity_id=<?php echo $this->activityInfo['id']?>">Edit</a></div>	
+    <div class="edit"><a href="<?php echo $this->baseUrl()?>/activity/edit-element/?activity_id=<?php echo $this->activityInfo['id']?>&className=Activity">Edit</a></div>	
     
     <div class="highlight">
         <ul class="style-1">
             <li>
                 <span class="name">Language:</span>
-                <span class="infom"><?php print $this->activityInfo['@xml_lang']; ?></span>
+                <span class="infom"><?php 
+                                                if ($this->activityInfo['@xml_lang'])
+                                                {
+                                                    printf("%s [%s]" ,Iati_Core_Codelist::getCodeByAttrib('ActivityDefault' , '@xml_lang' , $this->activityInfo['@xml_lang'],'Name'), Iati_Core_Codelist::getCodeByAttrib('Activity' , '@xml_lang' , $this->activityInfo['@xml_lang']));
+                                                }
+                                            ?> 
+                </span>
             </li>
             <li>
                 <span class="name">Default Currency:</span>
-                <span class="infom"><?php print $this->activityInfo['@default_currency']; ?></span>
+                <span class="infom"><?php if($this->activityInfo['@default_currency']) (printf("%s [%s]",Iati_Core_Codelist::getCodeByAttrib('Activity' , '@default_currency' , $this->activityInfo['@default_currency'],'Name'),Iati_Core_Codelist::getCodeByAttrib('Activity' , '@default_currency' , $this->activityInfo['@default_currency']))) ?></span>
             </li>
             <li>
                 <span class="name">Hierarchy: </span>

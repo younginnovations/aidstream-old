@@ -65,6 +65,7 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'default:activity', 'edit-element');
         $this->allow('user', 'default:activity', 'delete-element');
         $this->allow('user', 'default:activity', 'view-element');
+        $this->allow('user', 'default:activity', 'view-activity-info');
         $this->allow('user', 'default:wep', 'list-activities');
         $this->allow('user', 'default:wep', 'view-activities');
         $this->allow('user', 'default:wep', 'view-activity');

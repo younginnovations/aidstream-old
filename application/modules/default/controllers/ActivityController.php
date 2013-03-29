@@ -33,7 +33,7 @@ class ActivityController extends Zend_Controller_Action
         
     public function addElementAction()
     {
-        $elementClass = $this->_getParam('classname');
+        $elementClass = $this->_getParam('className');
         $parentId = $this->_getParam('activity_id');
 
         if(!$elementClass){
@@ -63,8 +63,10 @@ class ActivityController extends Zend_Controller_Action
                 } else {
                     $idParam = "id={$id}";
                 }
-                $this->_redirect("activity/list-elements?classname={$elementClass}&activity_id={$parentId}");
-                
+                if($element->getClassName() == "Transaction" || $element->getClassName() == "Result")
+                {
+                    $this->_redirect("activity/list-elements?classname={$elementClass}&activity_id={$parentId}");
+                }
                 if ($_POST['save_and_view'])
                 {
                     $this->_redirect("activity/edit-element?classname={$elementClass}&activity_id={$parentId}");
@@ -77,8 +79,7 @@ class ActivityController extends Zend_Controller_Action
         } else {
             $form = $element->getForm();            
         }
-        $form->addElement('submit' , 'save' , array('class'=>'form-submit' , 'label' => 'Save '.$element->getClassName()));
-        
+        $form->addSubmitButton('Save');
        
         $this->view->form = $form;
         $this->view->activityInfo = Model_Activity::getActivityInfo($parentId);
@@ -124,7 +125,7 @@ class ActivityController extends Zend_Controller_Action
     
     public function editElementAction()
     {
-        $elementClass = $this->_getParam('classname');
+        $elementClass = $this->_getParam('className');
         $id = $this->_getParam('id');
         $activityId = $this->_getParam('activity_id');
         $parentId = $this->_getParam('parent_id');
@@ -158,8 +159,10 @@ class ActivityController extends Zend_Controller_Action
                     $message = $element->getDisplayName() . " successfully updated.";
                 }
                 $this->_helper->FlashMessenger->addMessage(array($type => $message)); 
-                $this->_redirect("activity/list-elements?classname={$elementClass}&activity_id={$activityId}");
-                
+                if($element->getClassName() == "Transaction" || $element->getClassName() == "Result")
+                {
+                    $this->_redirect("activity/list-elements?classname={$elementClass}&activity_id={$activityId}");
+                }
                 if ($_POST['save_and_view'])
                 {
                     $this->_redirect('wep/view-activity/' . $activityId);
@@ -178,17 +181,23 @@ class ActivityController extends Zend_Controller_Action
                 }
                 else
                 {  
-                    $data[$element->getClassName()] = $element->fetchData($activityId,true);                    
+                    if($element->getDisplayName() == 'Activity Default')
+                    { 
+                        $data[$element->getClassName()] = $element->fetchData($activityId);  
+                    } else
+                    {    
+                        $data[$element->getClassName()] = $element->fetchData($activityId,true);
+                    }                  
                 }    
             }
             if(empty($data[$element->getClassName()])){
-                $this->_redirect("/activity/add-element?classname={$elementClass}&activity_id={$activityId}");
+                $this->_redirect("/activity/add-element?className={$elementClass}&activity_id={$activityId}");
             }
            
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();
         }
-        $form->addElement('submit' , 'save' , array('class'=>'form-submit' , 'label' => 'Update '.$element->getClassName()));        
+        $form->addSubmitButton('Save');
         
         $this->view->form = $form;
         $this->view->activityInfo = Model_Activity::getActivityInfo($activityId);
@@ -240,4 +249,45 @@ class ActivityController extends Zend_Controller_Action
         $this->view->data = $data[$element->getClassName()];
         $this->view->className = $element->getClassName(); 
     }
+    
+    public function viewActivityInfoAction()
+    {
+        $activityId = $this->getRequest()->getParam('activity_id');
+
+        // Fetch activity data
+        $activityClassObj = new Iati_Aidstream_Element_Activity();
+        $activities = $activityClassObj->fetchData($activityId , false);
+        $this->view->activities = $activities;
+        $this->view->parentId = $activityId;
+
+        // Fetch title
+        $wepModel = new Model_Wep();
+        $title_row = $wepModel->getRowById('iati_title', 'activity_id', $activityId);
+        $title = $title_row['text'];
+        $this->view->title = $title;
+       
+        // Get form for status change
+        $state = $activities['Activity']['status_id'];
+        $next_state = Iati_WEP_ActivityState::getNextStatus($state);
+        if ($next_state && Iati_WEP_ActivityState::hasPermissionForState($next_state))
+        {
+            $status_form = new Form_Wep_ActivityChangeState();
+            $status_form->setAction($this->view->baseUrl() . "/wep/update-status");
+            $status_form->ids->setValue($activityId);
+            $status_form->status->setValue($next_state);
+            $status_form->change_state->setLabel(Iati_WEP_ActivityState::getStatus($next_state));
+        } else
+        {
+            $status_form = null;
+        }
+        $this->view->status_form = $status_form;
+        $this->view->state = $state;
+
+        $this->view->blockManager()->enable('partial/activitymenu.phtml');
+        $this->view->blockManager()->disable('partial/primarymenu.phtml');
+        $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
+        $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
+        $this->view->blockManager()->disable('partial/published-list.phtml');
+
+    }        
 }

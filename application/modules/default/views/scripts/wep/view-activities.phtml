@@ -40,7 +40,7 @@
                     <div class = "list-action">
                         <?php $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::EDIT_ACTIVITY_ELEMENTS);
                         if($permission == '1'){
-                            print $this->l('View', 'wep/view-activity/'.$eachActivity['id']);
+                            print $this->l('View', 'activity/view-activity-info/?activity_id='.$eachActivity['id']);
                         }
                         $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::DELETE_ACTIVITY);
                         if($permission == '1'){
@@ -54,7 +54,7 @@
                 
                 <?php if(!$userPermission):?>
                 <div class = "list-action">
-                <?php print $this->l('View', 'wep/view-activity/'.$eachActivity['id'])?>
+                <?php print $this->l('View', 'activity/view-activity-info/?activity_id='.$eachActivity['id'])?>
                 <?php //print $this->l('Edit', 'wep/edit-activity/?activity_id='.$eachActivity['id'])?>
                 <?php print $this->l('Delete', 'wep/delete-activity/?classname=Activity&activity_id='.$eachActivity['id'],
                                      array('attributes' => array('onclick' => "javascript: return confirm('Do you really want to delete?')")))?>

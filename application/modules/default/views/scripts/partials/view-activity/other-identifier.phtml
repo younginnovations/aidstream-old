@@ -4,24 +4,24 @@
         Other Activity Identifier     
     </div>     
 
-    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=OtherActivityIdentifier">Edit</a></div>	
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/edit-element/?activity_id=<?php echo $this->activity_id ?>&className=Acitivty_OtherActivityIdentifier">Edit</a></div>	
 
-    <?php foreach ($this->otheridentifiers as $otheridentifier): ?>
+    <?php foreach ($this->elements as $element): ?>
         <div class="current">
             <ul class="style-2 arrow">
-                <li> <span class="down-arrow"><?php if ($otheridentifier->getAttrib('text')) print ($this->length()->adjustSingleTitleLength($otheridentifier->getAttribValue('text'))); ?></span>
+                <li> <span class="down-arrow"><?php if ($element['text']) print ($this->length()->adjustSingleTitleLength($element['text'])); ?></span>
                     <ul class="style-2-drop first">
                         <li>
                             <span class="name">Text:</span>
-                            <span class="infom"><?php if ($otheridentifier->getAttrib('text')) print ($otheridentifier->getAttribValue('text')); ?></span>
+                            <span class="infom"><?php if ($element['text']) print ($element['text']); ?></span>
                         </li>
                         <li>
                             <span class="name">Owner_ref:</span>
-                            <span class="infom"><?php if ($otheridentifier->getAttrib('@owner_ref')) ($otheridentifier->getAttribValue('@owner_ref' , 'Name') != $otheridentifier->getAttribValue('@owner_ref')) ? ( printf("%s [%s]" , $otheridentifier->getAttribValue('@owner_ref' , 'Name') , $otheridentifier->getAttribValue('@owner_ref'))) : (print($otheridentifier->getAttribValue('@owner_ref'))); ?></span>
+                            <span class="infom"><?php if ($element['@owner_ref']) (print $element['@owner_ref']) ?></span>
                         </li>
                         <li>
                             <span class="name">Owner_name:</span>
-                            <span class="infom"><?php if ($otheridentifier->getAttrib('@owner_name')) ($otheridentifier->getAttribValue('@owner_name' , 'Name') != $otheridentifier->getAttribValue('@owner_name')) ? ( printf("%s [%s]" , $otheridentifier->getAttribValue('@owner_name' , 'Name') , $otheridentifier->getAttribValue('@owner_name'))) : (print($otheridentifier->getAttribValue('@owner_name'))); ?></span>
+                            <span class="infom"><?php if ($element['@owner_name']) (print $element['@owner_name'])   ?></span>
                         </li>
                     </ul>
                 </li>

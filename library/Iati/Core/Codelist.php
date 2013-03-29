@@ -54,7 +54,7 @@ class Iati_Core_Codelist
                     break;
                 
                 case Condition_type:
-                    $retufn = 'ConditionType';
+                    $return = 'ConditionType';
                     break;
                 
                 case Category_code:

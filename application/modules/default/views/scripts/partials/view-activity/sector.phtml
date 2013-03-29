@@ -4,38 +4,45 @@
         Sector
      </div>
     
-    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=Sector">Edit</a></div>	
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/edit-element/?activity_id=<?php echo $this->activity_id; ?>&className=Activity_Sector">Edit</a></div>
    
-    <?php foreach ($this->sectors as $sector): ?>
+    <?php foreach ($this->elements as $element): ?>
         <div class="current">
             <ul class="style-2 arrow">
-                <li> <span class="down-arrow"><?php if ($sector->getAttrib('@vocabulary')) ($sector->getAttribValue('@vocabulary' , 'Name') != $sector->getAttribValue('@vocabulary')) ? ( printf("%s [%s]" , $this->length()->adjustDoubleTitleLength($sector->getAttribValue('@vocabulary' , 'Name')) , $sector->getAttribValue('@vocabulary'))) : (print($this->length()->adjustDoubleTitleLength($sector->getAttribValue('@vocabulary')))); ?>
-                         <?php if ( $sector->getAttrib('@vocabulary') && $sector->getAttrib('@code') ) print "; "; ?>
-                               <?php if ($sector->getAttrib('@code')): ?>
-                                    <?php if (!$sector->getAttrib('@vocabulary') || $sector->getAttrib('@vocabulary') == 3): ?>
-                                        <?php ($sector->getAttribValue('@code' , 'Name') != $sector->getAttribValue('@code')) ? ( printf("%s [%s]" , $this->length()->adjustDoubleTitleLength($sector->getAttribValue('@code' , 'Name')) , $sector->getAttribValue('@code'))) : (print($sector->getAttribValue('@code'))); ?>
+                <li> <span class="down-arrow"><?php if ($element['@vocabulary']) ( printf("%s [%s]" , $this->length()->adjustDoubleTitleLength(Iati_Core_Codelist::getCodeByAttrib('Sector' , '@vocabulary' , $element['@vocabulary'],'Name')),Iati_Core_Codelist::getCodeByAttrib('Sector' , '@vocabulary' , $element['@vocabulary'])))?>
+                         <?php if ( $element['@vocabulary'] && $element['@code'] ) print "; "; ?>
+                               <?php if ($element['@code']): ?>
+                                    <?php if (!$element['@vocabulary'] || $element['@vocabulary'] == 3): ?>
+                                        <?php  ( printf("%s [%s]" , $this->length()->adjustDoubleTitleLength(Iati_Core_Codelist::getCodeByAttrib('Sector' , '@code' , $element['@code'],'Name')) , Iati_Core_Codelist::getCodeByAttrib('Sector' , '@code' , $element['@code'])))  ?>
                                     <?php else : ?>
-                                        <?php print ($sector->getAttrib('@code')); ?>
+                                        <?php print ($element['@code']); ?>
                                     <?php endif; ?>
                                 <?php endif; ?>
                     </span>
                     <ul class="style-2-drop first">
                         <li>
                             <span class="name">Text:</span>
-                            <span class="infom"><?php if ($sector->getAttrib('text')) print ($sector->getAttribValue('text')); ?> <?php if ($sector->getAttrib('@xml_lang')) printf(" [%s]" , ($sector->getAttribValue('@xml_lang'))); ?></span>
+                            <span class="infom"><?php if ($element['text']) print ($element['text']); ?>
+                                <?php
+                                                if ($element['@xml_lang'])
+                                                {
+                                                    printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('Sector' , '@xml_lang' , $element['@xml_lang']));
+                                                }
+                                            ?> 
+                            </span>
                         </li>
                         <li>
                             <span class="name">Vocabulary:</span>
-                            <span class="infom"><?php if ($sector->getAttrib('@vocabulary')) ($sector->getAttribValue('@vocabulary' , 'Name') != $sector->getAttribValue('@vocabulary')) ? ( printf("%s [%s]" , $sector->getAttribValue('@vocabulary' , 'Name') , $sector->getAttribValue('@vocabulary'))) : (print($sector->getAttribValue('@vocabulary'))); ?></span>
+                            <span class="infom"><?php if ($element['@vocabulary']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('Sector' , '@vocabulary' , $element['@vocabulary'],'Name'),Iati_Core_Codelist::getCodeByAttrib('Sector' , '@vocabulary' , $element['@vocabulary']))) ?></span>
                         </li>
                         <li>
                             <span class="name">Code:</span>
                             <span class="infom">
-                                <?php if ($sector->getAttrib('@code')): ?>
-                                    <?php if (!$sector->getAttrib('@vocabulary') || $sector->getAttrib('@vocabulary') == 3): ?>
-                                        <?php ($sector->getAttribValue('@code' , 'Name') != $sector->getAttribValue('@code')) ? ( printf("%s [%s]" , $sector->getAttribValue('@code' , 'Name') , $sector->getAttribValue('@code'))) : (print($sector->getAttribValue('@code'))); ?>
+                                <?php if ($element['@code']): ?>
+                                    <?php if (!$element['@vocabulary'] || $element['@vocabulary'] == 3): ?>
+                                        <?php (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('Sector' , '@code' , $element['@code'],'Name'),Iati_Core_Codelist::getCodeByAttrib('Sector' , '@code' , $element['@code']))) ?>
                                     <?php else : ?>
-                                        <?php print ($sector->getAttrib('@code')); ?>
+                                        <?php print ($element['@code']); ?>
                                     <?php endif; ?>
                                 <?php endif; ?>
                             </span>

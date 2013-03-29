@@ -33,7 +33,7 @@
                         if (!empty($transaction["TransactionValue"])):
                             ?>   
                                 <?php if ($code && $transaction["TransactionValue"]["text"]) print "; "; ?>
-                                <?php  ($transaction["TransactionValue"]["@currency"]) ? (printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('Activity_default' , '@currency' , $transaction["TransactionValue"]["@currency"]))) : (printf("[%s]",$this->activityInfo['@default_currency'])); ?> 
+                                <?php  ($transaction["TransactionValue"]["@currency"]) ? (printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('Activity' , '@default_currency' , $transaction["TransactionValue"]["@currency"]))) : (printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('Activity' , '@default_currency' , $this->activityInfo['@default_currency']))) ?> 
                                 <?php if ($transaction["TransactionValue"]["text"]) 
                                       {
                                        $text = $transaction["TransactionValue"]["text"];

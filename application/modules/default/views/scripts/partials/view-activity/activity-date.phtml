@@ -4,26 +4,32 @@
         Activity Date
     </div>
     
-    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=ActivityDate">Edit</a></div>	
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/edit-element/?activity_id=<?php echo $this->activity_id ?>&className=Activity_ActivityDate">Edit</a></div>	
 
-    <?php foreach ($this->activitydates as $activitydate): ?>
+    <?php foreach ($this->elements as $element): ?>
         <div class="current">
             <ul class="style-2 arrow">
-                <li> <span class="down-arrow"><?php if ($activitydate->getAttrib('@type')) ($activitydate->getAttribValue('@type' , 'Name') != $activitydate->getAttribValue('@type')) ? ( printf("%s [%s]" , $this->length()->adjustDoubleTitleLength($activitydate->getAttribValue('@type' , 'Name')) , $activitydate->getAttribValue('@type'))) : (print($this->length()->adjustDoubleTitleLength($activitydate->getAttribValue('@type')))); ?>
-                                              <?php if ($activitydate->getAttrib('@type') && $activitydate->getAttrib('@iso_date')) print "; "; ?>
-                                              <?php if ($activitydate->getAttrib('@iso_date')) print ($activitydate->getAttribValue('@iso_date')); ?></span> 
+                <li> <span class="down-arrow"><?php if ($element['@type']) (printf("%s [%s]" , $this->length()->adjustDoubleTitleLength(Iati_Core_Codelist::getCodeByAttrib('ActivityDate' , '@type' , $element['@type'],'Name')) , Iati_Core_Codelist::getCodeByAttrib('ActivityDate' , '@type' , $element['@type']))) ?>
+                                              <?php if ($element['@type'] && $element['@iso_date']) print "; "; ?>
+                                              <?php if ($element['@iso_date']) print ($element['@iso_date']); ?></span> 
                     <ul class="style-2-drop first">
                         <li>
                             <span class="name">Text:</span>
-                            <span class="infom"><?php if ($activitydate->getAttrib('text')) print ($activitydate->getAttribValue('text')); ?><?php if ($activitydate->getAttrib('@xml_lang')) printf(" [%s]" , ($activitydate->getAttribValue('@xml_lang'))); ?></span>
+                            <span class="infom"><?php if ($element['text']) print ($element['text']); ?>
+                                                <?php if($element['@xml_lang'])
+                                                      {
+                                                            printf(" [%s]" , Iati_Core_Codelist::getCodeByAttrib('ActivityDate' , '@xml_lang' , $element['@xml_lang']));
+                                                      }
+                                                ?>
+                            </span>
                         </li>
                         <li>
                             <span class="name">Type:</span>
-                            <span class="infom"><?php if ($activitydate->getAttrib('@type')) ($activitydate->getAttribValue('@type' , 'Name') != $activitydate->getAttribValue('@type')) ? ( printf("%s [%s]" , $activitydate->getAttribValue('@type' , 'Name') , $activitydate->getAttribValue('@type'))) : (print($activitydate->getAttribValue('@type'))); ?></span>
+                            <span class="infom"><?php if ($element['@type']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('ActivityDate' , '@type' , $element['@type'],'Name'),Iati_Core_Codelist::getCodeByAttrib('ActivityDate' , '@type' , $element['@type']))); ?></span>
                         </li>
                         <li>
                             <span class="name">Date:</span>
-                            <span class="infom"><?php if ($activitydate->getAttrib('@iso_date')) print ($activitydate->getAttribValue('@iso_date')); ?></span>
+                            <span class="infom"><?php if ($element['@iso_date']) print ($element['@iso_date']); ?></span>
                         </li>
                     </ul>
                 </li>

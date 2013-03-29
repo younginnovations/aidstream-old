@@ -4,25 +4,30 @@
         Related Activity
     </div>
 
-    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/wep/edit-activity-elements/?activity_id=<?php echo $this->activityInfo['id'] ?>&class=RelatedActivity">Edit</a></div>	
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/edit-element/?activity_id=<?php echo $this->activity_id; ?>&className=Activity_RelatedActivity">Edit</a></div>
 
-    <?php foreach ($this->relatedactivitys as $relatedactivity): ?>
-
+    <?php foreach($this->elements as $element):?>
         <div class="current">
             <ul class="style-2 arrow">
-                <li> <span class="down-arrow"><?php if ($relatedactivity->getAttrib('@ref')) ($relatedactivity->getAttribValue('@ref' , 'Name') != $relatedactivity->getAttribValue('@ref')) ? ( printf("%s [%s]" , $this->length()->adjustSingleTitleLength($relatedactivity->getAttribValue('@ref' , 'Name')) , $relatedactivity->getAttribValue('@ref'))) : (print($this->length()->adjustTripleTitleLength($relatedactivity->getAttribValue('@ref')))); ?></span>
+                <li> <span class="down-arrow"><?php if ($element['@ref']) ( print $this->length()->adjustSingleTitleLength($element['@ref'])) ?></span>
                     <ul class="style-2-drop first">
                         <li>
                             <span class="name">Text:</span>
-                            <span class="infom"><?php if ($relatedactivity->getAttrib('@xml_lang')) printf(" [%s]" , ($relatedactivity->getAttribValue('@xml_lang'))); ?></span>
+                            <span class="infom"><?php if ($element['text']) (print $element['text']) ?>
+                                                <?php if ($element['@xml_lang'])
+                                                        {
+                                                            printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('RelatedActivity' , '@xml_lang' , $element['@xml_lang']));
+                                                        }
+                                                    ?> 
+                            </span>
                         </li>
                         <li>
                             <span class="name">Ref:</span>
-                            <span class="infom"><?php if ($relatedactivity->getAttrib('@ref')) ($relatedactivity->getAttribValue('@ref' , 'Name') != $relatedactivity->getAttribValue('@ref')) ? ( printf("%s [%s]" , $relatedactivity->getAttribValue('@ref' , 'Name') , $relatedactivity->getAttribValue('@ref'))) : (print($relatedactivity->getAttribValue('@ref'))); ?></span>
+                            <span class="infom"><?php if ($element['@ref']) (print $element['@ref']) ?></span>
                         </li>
                         <li>
-                            <span class="name">Text:</span>
-                            <span class="infom"><?php if ($relatedactivity->getAttrib('@type')) ($relatedactivity->getAttribValue('@type' , 'Name') != $relatedactivity->getAttribValue('@type')) ? ( printf("%s [%s]" , $relatedactivity->getAttribValue('@type' , 'Name') , $relatedactivity->getAttribValue('@type'))) : (print($relatedactivity->getAttribValue('@type'))); ?></span>
+                            <span class="name">Type:</span>
+                            <span class="infom"><?php if ($element['@type']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('RelatedActivity' , '@type' , $element['@type'],'Name'),Iati_Core_Codelist::getCodeByAttrib('RelatedActivity' , '@type' , $element['@type']))) ?></span>
                         </li>
                     </ul>
                 </li>

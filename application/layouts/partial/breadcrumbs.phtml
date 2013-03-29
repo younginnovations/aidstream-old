@@ -87,14 +87,14 @@ switch($identity->role){
                     array(
                         'label' => 'Add Activity',
                         'module'     => 'default',
-                        'controller' => 'wep',
-                        'action'     => 'add-activity',
+                        'controller' => 'activity',
+                        'action'     => 'add-element',
                     ),
                     array(
                         'label' => 'Edit Activity',
                         'module'     => 'default',
-                        'controller' => 'wep',
-                        'action'     => 'edit-activity',
+                        'controller' => 'activity',
+                        'action'     => 'edit-element',
                     ),
                     array(
                         'label' => 'View Organisation Data',
@@ -143,26 +143,8 @@ switch($identity->role){
                             array(
                                 'label' => 'View Activity',
                                 'module'     => 'default',
-                                'controller' => 'wep',
-                                'action'     => 'view-activity',
-                            ),
-                            array(
-                                'label' => 'Add',
-                                'module'     => 'default',
-                                'controller' => 'wep',
-                                'action'     => 'add-activity-elements',
-                            ),
-                            array(
-                                'label' => 'Edit',
-                                'module'     => 'default',
-                                'controller' => 'wep',
-                                'action'     => 'edit-activity-elements',
-                            ),
-                            array(
-                                'label' => 'Edit',
-                                'module'     => 'default',
-                                'controller' => 'wep',
-                                'action'     => 'edit-element',
+                                'controller' => 'activity',
+                                'action'     => 'view-activity-info',
                             ),
                             array(
                                 'label' => 'Add',

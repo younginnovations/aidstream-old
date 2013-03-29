@@ -1,0 +1,357 @@
+<?php 
+    $activities = $this->activities;
+    $activity = $this->activity;
+   // $activity_id = $activity->getAttrib('id');
+    $change_status_form = $this->status_form;
+    $model_wep = new Model_Wep();
+?>
+
+<div class= "activity-state">
+    <?php if($userPermission && $permission == '1'):?>
+    <span class = "override-link"><?php echo $this->l('Override Activity Default', 'wep/edit-activity/?activity_id='
+                                                            . $this->activityInfo['id'])?></span>
+
+<?php endif; ?>
+<?php if(!$userPermission): ?>
+<span class = "override-link"><?php echo $this->l('Override Activity Default', 'wep/edit-activity/?activity_id='
+                                                            . $this->activityInfo['id'])?></span>
+
+<?php endif; ?>
+</div>
+<?php
+    $title = "(" ;
+    $title .= ($this->title)?$this->title:'No Title' ;
+    $title .= ")";
+?>
+
+<div class="activity-title">
+    <span class="activity_identifier"> <?php print $this->activityInfo['activity_identifier']; ?> </span>
+    <span class="activity_title"> <?php print $title;?> </span>
+</div>
+<div class= "activity-state">
+    <div class="state-display">
+        <ul class='state-<?php echo $this->state;?>'>
+            <li class='label'>Activity State</li>
+            <?php foreach(Iati_WEP_ActivityState::getStatus() as $state_value => $state_name):?>
+                <li <?php if($this->state == $state_value) {print "id='current-state'";}?> ><span class='<?php print (!in_array($state_value,Iati_WEP_ActivityState::getRemainingStates($this->state)))?'visited-state':'not-visited-state'; ?>'><?php print $state_name ?></span></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+    <div class='change-state'>
+        <div class="change-state-info-section">This activity is in <span class="change-state-current-state"><?php print(Iati_WEP_ActivityState::getStatus($this->state));?></span> State. <?php if($this->state != Iati_WEP_ActivityState::STATUS_PUBLISHED): ?>Mark it as <?php print($change_status_form)?><?php endif; ?></div>
+        <div class="change-state-help-section"><span class="change-state-help"><a href="#">what's this?</a></span></div>
+    </div>
+</div>
+
+<div class="activity-container">
+    <?php foreach ($activities as $activity) : ?>
+
+        <!--Activity Default Start-->
+        <?php echo $this->partial("partials/view-activity/activity-default.phtml" , array(
+                                                                                        'activityInfo' => $activity ,
+                                                                                    )
+                                );
+        ?>
+        <!--Activity Default End-->
+        
+        <!--Reporting Activity Starts-->
+        <?php if(!empty($activity['ReportingOrg'])) : ?> 
+              <?php echo $this->partial("partials/view-activity/reporting-org.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,  
+                                                                                'elements' => $activity['ReportingOrg'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Reporting Activity Ends-->
+        
+        <!--Iati Identifier Starts-->
+        <?php if(isset($activity['IatiIdentifier'])) : ?>
+              <?php echo $this->partial("partials/view-activity/identifier.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,  
+                                                                                'elements' => $activity['IatiIdentifier'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Iati Identifer Ends-->
+     
+        <!--Other Activity Identifer Starts-->
+        <?php if(isset($activity['OtherActivityIdentifier'])) : ?>
+              <?php echo $this->partial("partials/view-activity/other-identifier.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,  
+                                                                                'elements' => $activity['OtherActivityIdentifier'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Other Activity Identifer Ends-->
+        
+        <!--Title Starts-->
+        <?php if(isset($activity['Title'])) : ?>
+              <?php echo $this->partial("partials/view-activity/title.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,  
+                                                                                'elements' => $activity['Title'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Title Ends-->
+        
+        <!--Description Starts-->
+        <?php if(isset($activity['Description'])) : ?>
+              <?php echo $this->partial("partials/view-activity/description.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,  
+                                                                                'elements' => $activity['Description'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Description Ends-->
+        
+        <!--Activity Status Starts-->
+        <?php if(isset($activity['ActivityStatus'])) : ?>
+              <?php echo $this->partial("partials/view-activity/activity-status.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,  
+                                                                                'elements' => $activity['ActivityStatus'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Activity Status Ends-->
+        
+        <!--Activity Date Starts-->
+        <?php if(isset($activity['ActivityDate'])) : ?>
+              <?php echo $this->partial("partials/view-activity/activity-date.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,  
+                                                                                'elements' => $activity['ActivityDate'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Activity Date Ends-->
+        
+        <!--ContactInfo Starts-->
+        <?php if(isset($activity['ContactInfo'])) : ?>
+              <?php echo $this->partial("partials/view-activity/contact-info.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,  
+                                                                                'elements' => $activity['ContactInfo'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--ContactInfo Ends-->
+        
+        <!--Participating Org Starts-->
+        <?php if(isset($activity['ParticipatingOrg'])) : ?>
+              <?php echo $this->partial("partials/view-activity/participating-org.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,  
+                                                                                'elements' => $activity['ParticipatingOrg'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Participating Org Ends-->
+        
+        <!--Recipient Country Starts-->
+        <?php if(isset($activity['RecipientCountry'])) : ?>
+              <?php echo $this->partial("partials/view-activity/recipient-country.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,  
+                                                                                'elements' => $activity['RecipientCountry'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Recipient Country Ends-->
+        
+        <!--Recipient Region Starts-->
+        <?php if(isset($activity['RecipientRegion'])) : ?>
+              <?php echo $this->partial("partials/view-activity/recipient-region.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,  
+                                                                                'elements' => $activity['RecipientRegion'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Recipient Region Ends-->
+        
+        <!--Location Starts-->
+        <?php if(isset($activity['Location'])) : ?>
+              <?php echo $this->partial("partials/view-activity/location.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,  
+                                                                                'elements' => $activity['Location'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Location Ends-->
+        
+        <!--Sector Starts-->
+        <?php if(isset($activity['Sector'])) : ?>
+              <?php echo $this->partial("partials/view-activity/sector.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,  
+                                                                                'elements' => $activity['Sector'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Sector Ends-->
+        
+        <!--PolicyMarker Starts-->
+        <?php if(isset($activity['PolicyMarker'])) : ?>
+              <?php echo $this->partial("partials/view-activity/policy-marker.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,  
+                                                                                'elements' => $activity['PolicyMarker'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--PolicyMarker Ends-->
+        
+        <!--Collaboration Type Starts-->
+        <?php if(isset($activity['CollaborationType'])) : ?>
+              <?php echo $this->partial("partials/view-activity/collaboration-type.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,  
+                                                                                'elements' => $activity['CollaborationType'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Collaboration Type Ends-->
+        
+        <!--Default Flow Type Starts-->
+        <?php if(isset($activity['DefaultFlowType'])) : ?>
+              <?php echo $this->partial("partials/view-activity/defaultFlow-type.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,  
+                                                                                'elements' => $activity['DefaultFlowType'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Default Flow Type Ends-->
+        
+         <!--Default Finance Type Starts-->
+        <?php if(isset($activity['DefaultFinanceType'])) : ?>
+              <?php echo $this->partial("partials/view-activity/defaultFinance-type.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,  
+                                                                                'elements' => $activity['DefaultFinanceType'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Default Finance Type Ends-->
+        
+        <!--Default Aid  Type Starts-->
+        <?php if(isset($activity['DefaultAidType'])) : ?>
+              <?php echo $this->partial("partials/view-activity/defaultAid-type.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,  
+                                                                                'elements' => $activity['DefaultAidType'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Default Aid  Type Ends-->
+        
+        <!--Default Tied Status Starts-->
+        <?php if(isset($activity['DefaultTiedStatus'])) : ?>
+              <?php echo $this->partial("partials/view-activity/defaultTiedStatus.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,  
+                                                                                'elements' => $activity['DefaultTiedStatus'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Default Tied Status Ends-->
+        
+        <!--Budget Starts-->
+        <?php if(isset($activity['Budget'])) : ?>
+              <?php echo $this->partial("partials/view-activity/budget.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,
+                                                                                'activityInfo' => $activity ,
+                                                                                'elements' => $activity['Budget'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Budget Ends-->
+        
+        <!--PlannedDisbursements Starts-->
+        <?php if(isset($activity['PlannedDisbursement'])) : ?>
+              <?php echo $this->partial("partials/view-activity/plannedDisbursements.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,
+                                                                                'activityInfo' => $activity ,
+                                                                                'elements' => $activity['PlannedDisbursement'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--PlannedDisbursements Ends-->
+        
+        <!-- Transaction Starts -->
+        <?php if(isset($activity['Transaction'])):?>
+            <?php echo $this->partial("partials/view-activity/transactions.phtml" , array(
+                                                                                            'activityInfo' => $activity ,
+                                                                                            'transactions' => $activity['Transaction'] ,
+                                                                                        )
+                                    );
+            ?>
+        <?php endif; ?>
+        <!-- Transaction Ends -->
+        
+        <!--Document Link Starts-->
+        <?php if(isset($activity['DocumentLink'])) : ?>
+              <?php echo $this->partial("partials/view-activity/documentLink.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,  
+                                                                                'elements' => $activity['DocumentLink'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Document Link Ends-->
+        
+        <!--Activity Website Starts-->
+        <?php if(isset($activity['ActivityWebsite'])) : ?>
+              <?php echo $this->partial("partials/view-activity/activityWebsite.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,  
+                                                                                'elements' => $activity['ActivityWebsite'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Activity Website Ends-->
+        
+        <!--Related Activity Starts-->
+        <?php if(isset($activity['RelatedActivity'])) : ?>
+              <?php echo $this->partial("partials/view-activity/relatedActivity.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,  
+                                                                                'elements' => $activity['RelatedActivity'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Related Activity Ends-->
+        
+         <!--Conditions Starts-->
+        <?php if(isset($activity['Conditions'])) : ?>
+              <?php echo $this->partial("partials/view-activity/conditions.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,  
+                                                                                'elements' => $activity['Conditions'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Conditions Ends-->
+        
+        <!-- Result Starts -->
+        <?php if(isset($activity['Result'])):?>
+            <?php echo $this->partial("partials/view-activity/result.phtml" , array(
+                                                                                            'activityInfo' => $this->activityInfo ,
+                                                                                            'results' => $activity['Result'] ,
+                                                                                        )
+                                    );
+            ?>        
+        <?php endif; ?>
+        <!-- Result Ends -->
+        
+    <?php endforeach; ?>
+</div>

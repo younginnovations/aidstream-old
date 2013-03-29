@@ -13,7 +13,11 @@
         <span class="activity_identifier"> <?php print $activityInfo['activity_identifier']; ?> </span>
         <span class="activity_title"> <?php print $title;?> </span>
     </div>
-    <span class="viewer-link"><?php echo $this->l('View ' .strtolower ($this->elementClass).' list', 'activity/list-elements/?classname=Activity_'.$this->elementClass.'&activity_id='. $activityInfo['id'])?> | <?php echo $this->l('View Activity', 'wep/view-activity/'. $activityInfo['id'])?></span>
+    <?php if($this->elementClass == "Transaction" || $this->elementClass == "Result"): ?>
+        <span class="viewer-link"><?php echo $this->l('View ' .strtolower ($this->elementClass).' list', 'activity/list-elements/?classname=Activity_'.$this->elementClass.'&activity_id='. $activityInfo['id'])?> | <?php echo $this->l('View Activity', 'activity/view-activity-info/?activity_id='. $activityInfo['id'])?></span>
+    <?php else: ?>
+        <span class="viewer-link"><?php echo $this->l('View Activity', 'activity/view-activity-info/?activity_id='. $activityInfo['id'])?></span>
+    <?php endif; ?>
     <div class="clear"></div>
 </div>
 <div class="second-title">Editing <span><?php print $this->displayName ?>...</span></div>
