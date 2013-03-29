@@ -1277,8 +1277,8 @@ class WepController extends Zend_Controller_Action
                     $this->_helper->FlashMessenger->addMessage(array('error' => "Publisher Id not found. Xml files could not be created. Please go to  <a href='{$this->view->baseUrl()}/wep/edit-defaults'>Change Defaults</a> to add publisher id."));
                 } else {
                     $db->updateActivityStatus($activity_ids,(int)$state);
-
-                    $pub = new Iati_WEP_Publish($account_id, $registryInfo->publisher_id , $registryInfo->publishing_type);
+                    
+                    $pub = new Iati_WEP_Publish($account_id, $registryInfo->publisher_id , $registryInfo->publishing_type,$activity_ids);
                     $pub->publish();
 
                     if($registryInfo->update_registry){
@@ -1536,6 +1536,7 @@ class WepController extends Zend_Controller_Action
     public function updateReportingOrgAction()
     {
         $reportingOrgId = $this->_getParam('id');
+        $activityId = $this->_getParam('activity_id');
 
         $model = new Model_ReportingOrg();
         $model->updateReportingOrg($reportingOrgId);
@@ -1559,7 +1560,7 @@ class WepController extends Zend_Controller_Action
             $message = "Updated Reporting Organisation sucessfully";
         }
         $this->_helper->FlashMessenger->addMessage(array($type => $message));
-        
-        exit;
+        $this->_redirect("/activity/edit-element/?activity_id=" . $activityId . "&className=Activity_ReportingOrg");
+       
     }
 }
