@@ -527,10 +527,6 @@ class Iati_Core_BaseElement
                 if(!is_object($parent)){
                     $xmlObj = new SimpleXMLElement("<$eleName>".$row['text']."</$eleName>");
                 } else {
-                    if($eleName == "language")
-                    {
-                        $row['text'] = Iati_Core_Codelist::getCodeByAttrib($this->className, 'text' , $row['text']);
-                    }
                     $xmlObj = $parent->addChild($eleName , $row['text']);
                 }
                 $xmlObj = $this->addElementsXmlAttribsFromData($xmlObj , $row);
@@ -556,10 +552,6 @@ class Iati_Core_BaseElement
             if(!is_object($parent)){
                 $xmlObj = new SimpleXMLElement("<$eleName>".$data['text']."</$eleName>");
             } else {
-                if($eleName == "language")
-                {
-                    $row['text'] = Iati_Core_Codelist::getCodeByAttrib($this->className, 'text' , $row['text']);
-                }
                 $xmlObj = $parent->addChild($eleName , $data['text']);
             }
             
@@ -608,28 +600,27 @@ class Iati_Core_BaseElement
         foreach($data as $name=>$value){  
             if(in_array($name , $this->iatiAttribs) && $name != 'text')
             {
+                if(!$value) continue;
                 $name = preg_replace("/^@/" , '' , $name);
                 if($name == "xml_lang"){
                     $value = Iati_Core_Codelist::getCodeByAttrib($this->className, '@xml_lang' , $value);
                     $name = preg_replace('/_/',':',$name);
-                    if($value)
-                        $xmlObj->addAttribute($name , $value , "http://www.w3.org/XML/1998/namespace");
+                    $xmlObj->addAttribute($name , $value , "http://www.w3.org/XML/1998/namespace");
+                    
                 }elseif($name == "currency" || $name == "default_currency"){ 
                     $value = Iati_Core_Codelist::getCodeByAttrib("Activity_default", '@currency' , $value);
-                    if($value)
-                        $xmlObj->addAttribute($name,$value);
+                    $xmlObj->addAttribute($name,$value);
+                    
                 }elseif ($name == 'last_updated_datetime'){
                     // Convert last updated date to UTC format
                     $name = preg_replace('/_/','-',$name);
                     $gmDateValue = gmdate('c' , strtotime($value));
-                    if($gmDateValue)
-                        $xmlObj->addAttribute($name,$gmDateValue);
+                    if($gmDateValue)    $xmlObj->addAttribute($name,$gmDateValue);
                 }
                 else {
                     $value = Iati_Core_Codelist::getCodeByAttrib($this->className, $name , $value);
                     $name = preg_replace('/_/','-',$name);
-                    if($value)
-                        $xmlObj->addAttribute($name,$value);
+                    $xmlObj->addAttribute($name,$value);
                 }
 
             }
