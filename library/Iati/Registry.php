@@ -23,13 +23,15 @@ class Iati_Registry
     // For Organisation
     protected $organisation_updated_datetime;
     protected $organisation_count;
+    protected $organisation;
     
 
 
-    public function __construct($publisherId , $apiKey)
+    public function __construct($publisherId , $apiKey , $organisation=false)
     {
         $this->publisher_id = $publisherId;
         $this->api_key = $apiKey;
+        $this->organisation = $organisation;
     }
 
     /**
@@ -145,12 +147,26 @@ class Iati_Registry
      * 							if false it is saved as an update.
      */
     public function saveRegistryPublishInfo($response ,$update = false)
-    {
-        $model = new Model_RegistryPublishedData();
-        if($update){
-            $model->updateRegistryPublishInfo($this->file_id , $response);
-        } else {
-            $model->saveRegistryPublishInfo($this->file_id , $response);
+    {   
+        //Activity
+        if(!$this->organisation)
+        {
+            $model = new Model_RegistryPublishedData();
+            if($update){
+                $model->updateRegistryPublishInfo($this->file_id , $response);
+            } else {
+                $model->saveRegistryPublishInfo($this->file_id , $response);
+            }
+        }
+        // Organisation
+        else
+        {
+            $organisationRegistryModel = new Model_OrganisationRegistryPublishedData();
+            if($update){
+                $organisationRegistryModel->updateRegistryPublishInfo($this->file_id , $response);
+            } else {
+                $organisationRegistryModel->saveRegistryPublishInfo($this->file_id , $response);
+            }
         }
     }
 
