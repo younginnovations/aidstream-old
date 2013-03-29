@@ -29,20 +29,7 @@ class Iati_Aidstream_Form_Activity_IatiIdentifier extends Iati_Core_BaseForm
                 
         
         $this->addElements($form);
-        $this->setAction($baseurl.'/organisation/update-default/?elementName=Identifier');
         return $this;
 
     }
-    
-    public function addSubmitButton($label , $saveAndViewlabel = 'Save and View')
-    {
-        $this->addElement('submit' , 'update',
-            array(
-                'label'    => 'update',
-                'required' => false,
-                'ignore'   => false,
-            )
-        );
-    }
-
 }
