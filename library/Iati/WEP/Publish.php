@@ -14,12 +14,14 @@ class Iati_WEP_Publish
     protected $segmented;
     protected $country;
     protected $error;
+    protected $activity_ids;
     
-    public function __construct($publisher_org_id , $publisher_id , $segmented = false)
+    public function __construct($publisher_org_id , $publisher_id , $segmented = false,$activity_ids)
     {
         $this->publisher_org_id = $publisher_org_id;
         $this->publisher_id = $publisher_id;
         $this->segmented = $segmented;
+        $this->activity_ids = $activity_ids;
         
         $config = new Zend_Config_Ini(APPLICATION_PATH.'/configs/application.ini', APPLICATION_ENV);
         $this->file_path = $config->public_folder.$config->xml_folder;
@@ -160,8 +162,9 @@ class Iati_WEP_Publish
         $file = preg_replace('/,/','',$file);
         $filename = $file.".xml";
         
+        $obj = new Iati_Core_Xml();
         $fp = fopen($this->file_path.$filename,'w');
-        fwrite($fp,$oXmlHandler->getXmlOutput());
+        fwrite($fp,$obj->generateXml('activity' , $this->activity_ids));
         fclose($fp);
         
         return $filename;
