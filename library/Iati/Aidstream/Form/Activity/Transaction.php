@@ -24,4 +24,15 @@ class Iati_Aidstream_Form_Activity_Transaction extends Iati_Core_BaseForm
         $this->addElements($form);
         return $this;
     }
+    
+    public function addSubmitButton($label , $saveAndViewlabel = 'Save and View')
+    {
+        $this->addElement('submit' , 'update',
+            array(
+                'label'    => 'update',
+                'required' => false,
+                'ignore'   => false,
+            )
+        );
+    }
 }
