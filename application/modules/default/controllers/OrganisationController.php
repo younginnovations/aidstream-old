@@ -531,7 +531,7 @@ class OrganisationController extends Zend_Controller_Action
         if(!$registryInfo->api_key){
             $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key not found. Organisation could not be registered in IATI Registry. Please go to <a href='{$this->view->baseUrl()}/wep/edit-defaults'>Change Defaults</a> to add API key."));
         } else {
-            $reg = new Iati_Registry($registryInfo->publisher_id , $registryInfo->api_key);
+            $reg = new Iati_Registry($registryInfo->publisher_id , $registryInfo->api_key ,true);
             $organisationPublishedModel = new Model_OrganisationPublished();
             $files = $organisationPublishedModel->getPublishedInfoByIds($fileIds);
 
