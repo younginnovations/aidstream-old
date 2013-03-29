@@ -13,7 +13,7 @@
                 <div class="element-values">
                     <?php if($this->elements['@ref']): ?>
                         <span class="attrib-label">Ref:</span>
-                        <span class="attrib-value"><?php if ($this->elements['@ref']) (printf("%s [%s]" , $this->length()->adjustDoubleLength(Iati_Core_Codelist::getCodeByAttrib('ReportingOrg' , '@ref' , $this->elements['@ref'],'Name')),Iati_Core_Codelist::getCodeByAttrib('ReportingOrg' , '@ref' , $this->elements['@ref']))) ?></span>  
+                        <span class="attrib-value"><?php if ($this->elements['@ref']) (printf("%s" , $this->length()->adjustDoubleLength(Iati_Core_Codelist::getCodeByAttrib('ReportingOrg' , '@ref' , $this->elements['@ref'],'Name')))) ?></span>  
                     <?php endif; ?>
                 </div>
             </div>
