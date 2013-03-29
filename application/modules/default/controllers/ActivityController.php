@@ -163,10 +163,22 @@ class ActivityController extends Zend_Controller_Action
                 {
                     $this->_redirect("activity/list-elements?classname={$elementClass}&activity_id={$activityId}");
                 }
-                if ($_POST['save_and_view'])
+                
+                // Check if save and view button was clicked
+                $button = false;
+                if($element->getIsMultiple())
                 {
-                    $this->_redirect('wep/view-activity/' . $activityId);
-                }                
+                    $button = $data['save_and_view'];
+                }
+                else
+                {
+                    $button = $data[$element->getClassName()]['save_and_view'];
+                }
+                if ($button)
+                {
+                    $this->_redirect('activity/view-activity-info/?activity_id=' . $activityId);
+                }
+                
             } else {
                 $form->populate($data);
                 $this->_helper->FlashMessenger->addMessage(array('error' => "You have some problem in your data. Please correct and save again"));
