@@ -35,6 +35,7 @@ class ActivityController extends Zend_Controller_Action
     {
         $elementClass = $this->_getParam('className');
         $parentId = $this->_getParam('activity_id');
+        $isMultiple = $this->_getParam('isMultiple');
 
         if(!$elementClass){
             $this->_helper->FlashMessenger->addMessage(array('error' => "Could not fetch element."));
@@ -43,8 +44,9 @@ class ActivityController extends Zend_Controller_Action
         
         $elementName =  "Iati_Aidstream_Element_".$elementClass;
         $element = new $elementName();
-        $element->setIsMultiple(false); 
-              
+        if($isMultiple == '0'){
+            $element->setIsMultiple(false); 
+        }      
         
         if($data = $this->getRequest()->getPost()){
             $element->setData($data[$element->getClassName()]);
