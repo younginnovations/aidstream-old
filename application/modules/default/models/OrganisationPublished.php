@@ -43,7 +43,7 @@ class Model_OrganisationPublished extends Zend_Db_Table_Abstract
     {
         $rowSet = $this->select()->setIntegrityCheck(false)
             ->from("$this->_name as pub" , 'pub.*')
-            ->joinLeft('registry_published_data as rpd', 'pub.id = rpd.file_id' ,  'rpd.response')
+            ->joinLeft('organisation_registry_published_data as rpd', 'pub.id = rpd.file_id' ,  'rpd.response')
             ->where("pub.publishing_org_id = ?",$accountId)
             ->order('pub.published_date DESC');
         $result = $this->fetchAll($rowSet)->toArray();
