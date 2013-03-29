@@ -17,7 +17,7 @@
             <td><? echo $element['TransactionDate']['@iso_date']?></td>
             <td colspan=3>
                 <span value="<?php echo $this->baseUrl();?>/activity/view-element?classname=<?php echo $this->elementClass;?>&id=<?php echo $element['id'];?>" class="view-element-link">View</span> |
-                <a href='<?php echo $this->baseUrl();?>/activity/edit-element?classname=<?php echo $this->elementClass;?>&id=<?php echo $element['id'];?>&activity_id=<?php echo $this->activityId; ?>&isMultiple=0'>Edit</a> |
+                <a href='<?php echo $this->baseUrl();?>/activity/edit-element?className=<?php echo $this->elementClass;?>&id=<?php echo $element['id'];?>&activity_id=<?php echo $this->activityId; ?>&isMultiple=0'>Edit</a> |
                 <a href='<?php echo $this->baseUrl();?>/activity/delete-element?classname=<?php echo $this->elementClass;?>&id=<?php echo $element['id'];?>&activity_id=<?php echo $this->activityId;?>' class="delete-element-link">Delete</a>
             </td>
         </tr>
