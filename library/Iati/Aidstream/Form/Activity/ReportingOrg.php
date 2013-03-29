@@ -41,7 +41,7 @@ class Iati_Aidstream_Form_Activity_ReportingOrg extends Iati_Core_BaseForm
                 ->addMultioptions(array($this->data['@xml_lang']=>$lang[0]['Code'].'-'.$lang[0]['Name']));
 
         $this->addElements($form);
-        $this->setAction($baseurl . '/organisation/update-default/?elementName=ReportingOrg');
+        $this->setAction($baseurl . '/wep/update-reporting-org/?id='.$this->data['id'].'&activity_id='.$this->data['activity_id']);
         return $this;
 
     }
