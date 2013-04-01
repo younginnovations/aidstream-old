@@ -160,12 +160,12 @@ class ActivityController extends Zend_Controller_Action
             $form = $element->getForm(); 
             if($form->validate()){
                 $data = $this->getRequest()->getPost();
-                $element->save($data[$element->getClassName()] , $parentId);
+                $element->save($data[$element->getClassName()] , $activityId);
                 
                 $activityHashModel = new Model_ActivityHash();
                 $updated = $activityHashModel->updateActivityHash($activityId);
                 if(!$updated){
-                    $type = 'info';
+                    $type = 'message';
                     $message = 'No Changes Made';
                 } else {
                     Model_Activity::updateActivityUpdatedInfo($activityId);                        
@@ -291,6 +291,9 @@ class ActivityController extends Zend_Controller_Action
         $title_row = $wepModel->getRowById('iati_title', 'activity_id', $activityId);
         $title = $title_row['text'];
         $this->view->title = $title;
+        $activity_identifier_row = $wepModel->getRowById('iati_identifier', 'activity_id', $activityId);
+        $activity_identifier = $activity_identifier_row['activity_identifier'];
+        $this->view->activityIdentifier = $activity_identifier;
        
         // Get form for status change
         $state = $activities['Activity']['status_id'];
