@@ -9,13 +9,13 @@ class Iati_Aidstream_Form_Activity_Location_LocationType extends Iati_Core_BaseF
         $form['id'] = new Zend_Form_Element_Hidden('id');
         $form['id']->setValue($this->data['id']);
             
-        $countryCode = $model->getCodeArray('Country', null, '1' , true);
+        $locationType = $model->getCodeArray('LocationType', null, '1' , true);
         $form['code'] = new Zend_Form_Element_Select('code');
         $form['code']->setLabel('Location Type Code')  
             ->setValue($this->data['@code'])
             ->setRequired()    
             ->setAttrib('class' , 'form-select')
-            ->setMultioptions($countryCode);
+            ->setMultioptions($locationType);
         
         $form['text'] = new Zend_Form_Element_Textarea('text');
         $form['text']->setLabel('Text')  

@@ -3,11 +3,7 @@
 class Iati_Aidstream_Form_Activity_ContactInfo_Organisation extends Iati_Core_BaseForm
 {
     public function getFormDefination()
-    {
-        $this->setAttrib('class' , 'first-child')
-            ->setMethod('post')
-            ->setIsArray(true);
-        
+    {        
         $form = array();
 
         $form['id'] = new Zend_Form_Element_Hidden('id');

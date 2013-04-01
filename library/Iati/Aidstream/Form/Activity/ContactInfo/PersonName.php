@@ -1,13 +1,9 @@
 <?php
 
-class Iati_Aidstream_Form_Activity_ContactInfo_Personname extends Iati_Core_BaseForm
+class Iati_Aidstream_Form_Activity_ContactInfo_PersonName extends Iati_Core_BaseForm
 {
     public function getFormDefination()
     {
-        $this->setAttrib('class' , 'first-child')
-            ->setMethod('post')
-            ->setIsArray(true);
-        
         $form = array();
 
         $form['id'] = new Zend_Form_Element_Hidden('id');

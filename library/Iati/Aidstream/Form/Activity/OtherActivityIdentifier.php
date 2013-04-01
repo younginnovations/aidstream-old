@@ -25,7 +25,7 @@ class Iati_Aidstream_Form_Activity_OtherActivityIdentifier extends Iati_Core_Bas
                 ->setAttrib('class' , 'form-text');
         
         $form['owner_ref'] = new Zend_Form_Element_Text('owner_ref');
-        $form['owner_ref']->setLabel('Organisation Identfier')
+        $form['owner_ref']->setLabel('Organisation Identifier')
                 ->setValue($this->data['@owner_ref'])
                 ->setAttrib('class' , 'form-text');
                 

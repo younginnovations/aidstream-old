@@ -18,19 +18,18 @@ class Iati_Aidstream_Form_Activity extends Iati_Core_BaseForm
             ->setRequired()    
             ->addMultioptions($lang);
         
-        $form['hierarchy'] = new Zend_Form_Element_Text('hierarchy');
-        $form['hierarchy']->setLabel('Hierarchy')
-            ->setRequired()    
-            ->setValue($this->data['@hierarchy'])
-            ->setAttrib('class' , 'form-text');    
-        
         $currency = $model->getCodeArray('Currency', null, '1' , true);
         $form['default_currency'] = new Zend_Form_Element_Select('default_currency');
-        $form['default_currency']->setLabel('Currency')
+        $form['default_currency']->setLabel('Default Currency')
             ->setValue($this->data['@default_currency'])
             ->setRequired()    
             ->setAttrib('class' , 'form-select')
             ->setMultioptions($currency);
+        
+        $form['hierarchy'] = new Zend_Form_Element_Text('hierarchy');
+        $form['hierarchy']->setLabel('Hierarchy')    
+            ->setValue($this->data['@hierarchy'])
+            ->setAttrib('class' , 'form-text'); 
 
         $this->addElements($form);
         return $this;
@@ -38,8 +37,8 @@ class Iati_Aidstream_Form_Activity extends Iati_Core_BaseForm
     
     public function addSubmitButton($label , $saveAndViewlabel = 'Save and View')
     {
-        $this->addElement('submit' , 'update' , array(
-            'label' => 'update' ,
+        $this->addElement('submit' , 'Save' , array(
+            'label' => 'Save' ,
             'required' => false ,
             'ignore' => false ,
                 )

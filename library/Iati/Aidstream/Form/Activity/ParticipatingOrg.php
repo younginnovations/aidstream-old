@@ -18,7 +18,7 @@ class Iati_Aidstream_Form_Activity_ParticipatingOrg extends Iati_Core_BaseForm
         
         $organisationRole = $model->getCodeArray('OrganisationRole', null, '1' , true);
         $form['role'] = new Zend_Form_Element_Select('role');
-        $form['role']->setLabel('$organisation Role')  
+        $form['role']->setLabel('Organisation Role')  
             ->setValue($this->data['@role'])
             ->setRequired()    
             ->setAttrib('class' , 'form-select')
