@@ -14,14 +14,12 @@ class Iati_WEP_Publish
     protected $segmented;
     protected $country;
     protected $error;
-    protected $activity_ids;
     
-    public function __construct($publisher_org_id , $publisher_id , $segmented = false,$activity_ids)
+    public function __construct($publisher_org_id , $publisher_id , $segmented = false)
     {
         $this->publisher_org_id = $publisher_org_id;
         $this->publisher_id = $publisher_id;
         $this->segmented = $segmented;
-        $this->activity_ids = $activity_ids;
         
         $config = new Zend_Config_Ini(APPLICATION_PATH.'/configs/application.ini', APPLICATION_ENV);
         $this->file_path = $config->public_folder.$config->xml_folder;
@@ -35,19 +33,21 @@ class Iati_WEP_Publish
     public function publish()
     {
         $activitiesCollection = $this->getDataToPublish();
-        if($this->segmented){
+        if($this->segmented){ 
             // reset existing published info
             $this->resetPublishedInfo();
             
             //print each segments activities xml and save published info
-            foreach ($activitiesCollection as $org=>$activities)
+            foreach ($activitiesCollection as $org=>$activitiesId)
             {
                 $this->recipient = $org;
-                $filename = $this->saveActivityXml($activities);
+                $fileName = $this->saveActivityXml($activitiesId);
                 
-                if(is_array($activities)){
-                    foreach ($activities as $activity){
-                        $activityUpdatedDatetime = (strtotime($activity->getAttrib('@last_updated_datetime')) > strtotime($activityUpdatedDatetime))?$activity->getAttrib('@last_updated_datetime'):$activityUpdatedDatetime;
+                if(is_array($activitiesId)){
+                    $wepModel = new Model_Wep();
+                    foreach ($activitiesId as $activityId){
+                        $activityRow = $wepModel->getRowById('iati_activity', 'id', $activityId['id']);
+                        $activityUpdatedDatetime = (strtotime($activityRow['@last_updated_datetime']) > strtotime($activityUpdatedDatetime))?$activityRow['@last_updated_datetime']:$activityUpdatedDatetime;
                     }
                 }
                 /*
@@ -57,7 +57,7 @@ class Iati_WEP_Publish
                 }
                 */
                 
-                $this->savePublishedInfo($filename , $org , sizeof($activities) , $activityUpdatedDatetime);
+                $this->savePublishedInfo($fileName , $org , sizeof($activities) , $activityUpdatedDatetime);
                 
             }
             
@@ -65,15 +65,17 @@ class Iati_WEP_Publish
             // remove existing published info
             $this->resetPublishedInfo();
 
-            $filename = $this->saveActivityXml($activitiesCollection);
+            $fileName = $this->saveActivityXml($activitiesCollection);
             
             if(is_array($activitiesCollection)){
-                foreach ($activitiesCollection as $activity){
-                    $activityUpdatedDatetime = (strtotime($activity->getAttrib('@last_updated_datetime')) > strtotime($activityUpdatedDatetime))?$activity->getAttrib('@last_updated_datetime'):$activityUpdatedDatetime;
+                $wepModel = new Model_Wep();
+                foreach ($activitiesCollection as $activityId){ 
+                    $activityRow = $wepModel->getRowById('iati_activity', 'id', $activityId['id']);
+                    $activityUpdatedDatetime = (strtotime($activityRow['@last_updated_datetime']) > strtotime($activityUpdatedDatetime))?$activityRow['@last_updated_datetime']:$activityUpdatedDatetime;
                 }
             }
             
-            $this->savePublishedInfo($filename , '' , sizeof($activitiesCollection) , $activityUpdatedDatetime);
+            $this->savePublishedInfo($fileName , '' , sizeof($activitiesCollection) , $activityUpdatedDatetime);
             
         }
     }
@@ -84,8 +86,8 @@ class Iati_WEP_Publish
      */
     public function getDataToPublish()
     {
-        $oActivitycollection = new Iati_ActivityCollection();
-        $activities = $oActivitycollection->getPublishedActivityCollection($this->publisher_org_id);
+        $activityCollection = new Iati_ActivityCollection();
+        $activitiesId = $activityCollection->getPublishedActivityCollection($this->publisher_org_id);
         if($this->segmented) {
             /**
              *Seperate activities by country or region
@@ -99,48 +101,58 @@ class Iati_WEP_Publish
              *      if number of countries is 0, use 998
              *      else use the country with max percentage, if no percentage use first inserted.
             **/
-            $segmented_activities = array();
-            foreach($activities as $activity)
-            {
-                $countries = $activity->getElementsByType(Iati_Activity_Element::TYPE_RECIPIENT_COUNTRY);
-                $countryAttribs = $countries[0]->getAttribs();
-                if(1 == sizeof($countries) && 0 != sizeof($countryAttribs)){
-                    $segmented_activities[$countries[0]->getAttribValue('@code')][] = $activity;
-                    //$this->country[] = $countries[0]->getAttribValue('@code');
-                } else {
-                    $regions = $activity->getElementsByType(Iati_Activity_Element::TYPE_RECIPIENT_REGION);
-                    $regionAttribs = $regions[0]->getAttribs();
-                    if(1 == sizeof($regions) && 0 != sizeof($regionAttribs)){
-                        $segmented_activities[$regions[0]->getAttribValue('@code')][] = $activity;
-                    } else if(sizeof($regions) > 1) {
-                        $segmented_activities[998][] = $activity;
-                    } else {
-                        if(1 == sizeof($countries)){
-                            $segmented_activities[998][] = $activity;
-                        } else {
+            $segmentedActivities = array();
+            foreach($activitiesId as $activityId)
+            {   
+                $activityClassObj = new Iati_Aidstream_Element_Activity();
+                $activity = $activityClassObj->fetchData($activityId , false);
+                $countries = $activity['Activity']['RecipientCountry'];
+                $regions = $activity['Activity']['RecipientRegion'];
+               
+                if(count($countries) == 1)
+                { 
+                    $segmentedActivities[$countries['0']['@code']] = $activitiesId;
+                }
+                else
+                {
+                    if(count($regions) == 1)
+                    {
+                        $segmentedActivities[$regions['0']['@code']] = $activitiesId;
+                    }
+                    elseif(count($regions) > 1)
+                    {
+                        $segmentedActivities[998] = $activitiesId;
+                    }
+                    else
+                    {  
+                        if(count($countries) == 0)
+                        {   
+                            $segmentedActivities[998] = $activitiesId;
+                        }
+                        else
+                        {   
                             $maxPercent = '';
-                            foreach($countries as $country){
-                                $percent = $country->getAttrib('@percentage');
+                            foreach ($countries as $country)
+                            {   
+                                $percent = $country['@percentage'];
                                 if($percent > $maxPercent){
                                     $maxPercent = $percent;
-                                    $maxPercentCountry = $country->getAttribValue('@code');
+                                    $maxPercentCountry = $country['@code'];
                                 }
                             }
                             if($maxPercentCountry){
-                                $segmented_activities[$maxPercentCountry][] = $activity;
-                                //$this->country[] = $maxPercentCountry;
+                                $segmentedActivities[$maxPercentCountry] = $activitiesId;
                             } else {
-                                $segmented_activities[$countries[0]->getAttribValue('@code')][] = $activity;
-                                //$this->country[] = $countries[0]->getAttribValue('@code');
+                                $segmentedActivities[$countries[0]['@code']] = $activitiesId;
                             }
-                        }
+                        }    
                     }
-                }                
+                }                   
             }
-            return $segmented_activities;
+            return $segmentedActivities;
             
         } else {
-            return $activities;
+            return $activitiesId;
         }
     }
     
@@ -149,9 +161,8 @@ class Iati_WEP_Publish
      * Creates xml file using Iati_WEP_Xmlhandler and saves them to local directory.
      * @param Array $activities	Array of activities to be published.
      */
-    public function saveActivityXml($activities)
+    public function saveActivityXml($activitiesIdArray)
     {
-        $oXmlHandler = new Iati_WEP_XmlHandler($activities);
         $file = strtolower($this->publisher_id);
         if($this->segmented){
             $file .= "-".strtolower($this->recipient);
@@ -160,30 +171,30 @@ class Iati_WEP_Publish
         }
         $file = preg_replace('/ /','_',$file);
         $file = preg_replace('/,/','',$file);
-        $filename = $file.".xml";
+        $fileName = $file.".xml";
         
         $obj = new Iati_Core_Xml();
-        $fp = fopen($this->file_path.$filename,'w');
-        fwrite($fp,$obj->generateXml('activity' , $this->activity_ids));
+        $fp = fopen($this->file_path.$fileName,'w');
+        fwrite($fp,$obj->generateXml('activity' ,$activitiesIdArray));
         fclose($fp);
         
-        return $filename;
+        return $fileName;
     }
     
     /**
      * 
      * Save publish data to local database.
-     * @param String $filename
+     * @param String $fileName
      * @param String $country
      * @param Integer $activityCount
      * @param Datetime $dataLastUpdatedDate
      */
-    public function savePublishedInfo($filename , $country , $activityCount , $dataLastUpdatedDate)
+    public function savePublishedInfo($fileName , $country , $activityCount , $dataLastUpdatedDate)
     {
         $db = new Model_Published();
         $data = array(
                     'publishing_org_id' => $this->publisher_org_id,
-                    'filename' => $filename,
+                    'filename' => $fileName,
                     'activity_count' => $activityCount,
                     'country_name' => $country,
                     'data_updated_datetime' => $dataLastUpdatedDate,
