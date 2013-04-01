@@ -1278,7 +1278,7 @@ class WepController extends Zend_Controller_Action
                 } else {
                     $db->updateActivityStatus($activity_ids,(int)$state);
                     
-                    $pub = new Iati_WEP_Publish($account_id, $registryInfo->publisher_id , $registryInfo->publishing_type,$activity_ids);
+                    $pub = new Iati_WEP_Publish($account_id, $registryInfo->publisher_id , $registryInfo->publishing_type);
                     $pub->publish();
 
                     if($registryInfo->update_registry){
