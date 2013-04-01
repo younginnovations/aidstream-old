@@ -7,7 +7,7 @@
                 <div class="element-values">
                     <?php if($this->elements['text']): ?>
                         <span class="attrib-label">Text:</span>					
-                        <span class="attrib-value"><?php if ($this->elements['text']) print $this->length()->adjustDoubleLength(Iati_Core_Codelist::getCodeByAttrib('ActivityDefault' , '@xml_lang' , $this->elements['@xml_lang'])); ?></span>
+                        <span class="attrib-value"><?php if ($this->elements['text']) printf("%s [%s]", $this->length()->adjustDoubleLength($this->elements['text']),Iati_Core_Codelist::getCodeByAttrib('ActivityDefault' , '@xml_lang' , $this->elements['@xml_lang'])); ?></span>
                     <?php endif; ?>
                 </div>
                 <div class="element-values">
@@ -33,7 +33,7 @@
                 </li>
                 <li>
                     <span class="name">Ref:</span>
-                    <span class="infom"><?php if ($this->elements['@ref']) (printf("%s [%s]",Iati_Core_Codelist::getCodeByAttrib('ReportingOrg' , '@ref' , $this->elements['@ref'],'Name'),Iati_Core_Codelist::getCodeByAttrib('ReportingOrg' , '@ref' , $this->elements["@ref"]))) ?></span>
+                    <span class="infom"><?php if ($this->elements['@ref']) (printf("%s ",Iati_Core_Codelist::getCodeByAttrib('ReportingOrg' , '@ref' , $this->elements['@ref'],'Name'))) ?></span>
                 </li>
                 <li>
                     <span class="name">Type:</span>

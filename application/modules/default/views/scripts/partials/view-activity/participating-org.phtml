@@ -4,12 +4,12 @@
         Participating Organisation
     </div>
 
-    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/edit-element/?activity_id=<?php echo $this->activity_id; ?>&className=Activity_ParticipatingOrganisation">Edit</a></div>
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/edit-element/?activity_id=<?php echo $this->activity_id; ?>&className=Activity_ParticipatingOrg">Edit</a></div>
 
     <?php foreach ($this->elements as $element): ?>
         <div class="current">
             <ul class="style-2 arrow">
-                <li> <span class="down-arrow"><?php if ($element['@role']) ( printf("%s [%s]" , $this->length()->adjustDoubleLength(Iati_Core_Codelist::getCodeByAttrib('ParticipatingOrganisation' , '@role' , $element['@role'],'Name')) ,Iati_Core_Codelist::getCodeByAttrib('ParticipatingOrganisation' , '@role' , $element['@role']) ))?>
+                <li> <span class="down-arrow"><?php if ($element['@role']) ( printf("%s " , $this->length()->adjustDoubleLength(Iati_Core_Codelist::getCodeByAttrib('ParticipatingOrganisation' , '@role' , $element['@role'],'Name'))))?>
                                                 <?php if ($element['@role'] && $element['text']) print "; "; ?>
                                                 <?php if ($element['text']) (print $element['text'])?>
                                                 <?php if ($element['@xml_lang']) printf(" [%s]" , Iati_Core_Codelist::getCodeByAttrib('Participating' , '@xml_lang' , $element['@xml_lang'])); ?>   
@@ -37,7 +37,7 @@
                         </li>
                         <li>
                             <span class="name">Role:</span>
-                            <span class="infom"><?php if ($element['@role']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('ParticipatingOrganisation' , '@role' , $element['@role'],'Name'),Iati_Core_Codelist::getCodeByAttrib('ParticipatingOrganisation' , '@role' , $element['@role']))) ?></span>
+                            <span class="infom"><?php if ($element['@role']) (printf(" %s ",Iati_Core_Codelist::getCodeByAttrib('ParticipatingOrganisation' , '@role' , $element['@role'],'Name'))) ?></span>
                         </li>
                     </ul>
                 </li>
