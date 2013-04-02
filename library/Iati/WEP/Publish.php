@@ -7,22 +7,22 @@
  */
 class Iati_WEP_Publish
 {
-    protected $publisher_org_id;
-    protected $publisher_id;
+    protected $publisherOrgId;
+    protected $publisherId;
     protected $recipient;
-    protected $file_path;
+    protected $filePath;
     protected $segmented;
     protected $country;
     protected $error;
     
-    public function __construct($publisher_org_id , $publisher_id , $segmented = false)
+    public function __construct($publisherOrgId , $publisherId , $segmented = false)
     {
-        $this->publisher_org_id = $publisher_org_id;
-        $this->publisher_id = $publisher_id;
+        $this->publisherOrgId = $publisherOrgId;
+        $this->publisherId = $publisherId;
         $this->segmented = $segmented;
         
         $config = new Zend_Config_Ini(APPLICATION_PATH.'/configs/application.ini', APPLICATION_ENV);
-        $this->file_path = $config->public_folder.$config->xml_folder;
+        $this->filePath = $config->public_folder.$config->xml_folder;
     }
     
     /**
@@ -87,7 +87,7 @@ class Iati_WEP_Publish
     public function getDataToPublish()
     {
         $activityCollection = new Iati_ActivityCollection();
-        $activitiesId = $activityCollection->getPublishedActivityCollection($this->publisher_org_id);
+        $activitiesId = $activityCollection->getPublishedActivityCollection($this->publisherOrgId);
         if($this->segmented) {
             /**
              *Seperate activities by country or region
@@ -163,7 +163,7 @@ class Iati_WEP_Publish
      */
     public function saveActivityXml($activitiesIdArray)
     {
-        $file = strtolower($this->publisher_id);
+        $file = strtolower($this->publisherId);
         if($this->segmented){
             $file .= "-".strtolower($this->recipient);
         } else {
@@ -174,7 +174,7 @@ class Iati_WEP_Publish
         $fileName = $file.".xml";
         
         $obj = new Iati_Core_Xml();
-        $fp = fopen($this->file_path.$fileName,'w');
+        $fp = fopen($this->filePath.$fileName,'w');
         fwrite($fp,$obj->generateXml('activity' ,$activitiesIdArray));
         fclose($fp);
         
@@ -193,7 +193,7 @@ class Iati_WEP_Publish
     {
         $db = new Model_Published();
         $data = array(
-                    'publishing_org_id' => $this->publisher_org_id,
+                    'publishing_org_id' => $this->publisherOrgId,
                     'filename' => $fileName,
                     'activity_count' => $activityCount,
                     'country_name' => $country,
@@ -211,7 +211,7 @@ class Iati_WEP_Publish
     public function resetPublishedInfo()
     {
         $modelPublished = new Model_Published();
-        $modelPublished->resetPublishedInfo($this->publisher_org_id);
+        $modelPublished->resetPublishedInfo($this->publisherOrgId);
     }
     
     /**
