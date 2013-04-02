@@ -1,6 +1,6 @@
 <?php
 
-class Iati_Aidstream_Form_Activity_Transaction_ProviderOrganisation extends Iati_Core_BaseForm
+class Iati_Aidstream_Form_Activity_Transaction_ProviderOrg extends Iati_Core_BaseForm
 {
     public function getFormDefination()
     {

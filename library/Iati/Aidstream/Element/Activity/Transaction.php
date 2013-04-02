@@ -9,8 +9,8 @@ class Iati_Aidstream_Element_Activity_Transaction extends Iati_Core_BaseElement
     protected $iatiAttribs = array('@ref');
     protected $childElements = array(
                                         'TransactionType',
-                                        'ProviderOrganisation' ,
-                                        'ReceiverOrganisation' ,
+                                        'ProviderOrg' ,
+                                        'ReceiverOrg' ,
                                         'Value',
                                         'Description' ,
                                         'TransactionDate',

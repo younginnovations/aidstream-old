@@ -34,12 +34,12 @@ if (!empty($transaction["TransactionType"])):
 
 <!-- ProviderOrg Starts -->
 <?php
-if (!empty($transaction["ProviderOrganisation"])):
+if (!empty($transaction["ProviderOrg"])):
     ?>
 
     <ul class="style-1 style-4">
         <h2>Provider Organisation</h2>
-        <?php $providerorg = $transaction["ProviderOrganisation"];  ?>
+        <?php $providerorg = $transaction["ProviderOrg"];  ?>
             <li>
                 <span class="name">Text:</span>
                 <span class="infom"><?php if ($providerorg['text']) print ($providerorg['text']); ?></span>
@@ -60,12 +60,12 @@ if (!empty($transaction["ProviderOrganisation"])):
 
 <!-- ReceiverOrg Starts -->
 <?php
-if (!empty($transaction["ReceiverOrganisation"])):
+if (!empty($transaction["ReceiverOrg"])):
     ?>
 
     <ul class="style-1 style-4">
         <h2>Receiver Organisation</h2>
-        <?php $receiverorg = $transaction["ReceiverOrganisation"]; ?>
+        <?php $receiverorg = $transaction["ReceiverOrg"]; ?>
             <li>
                 <span class="name">Text:</span>
                 <span class="infom"><?php if ($receiverorg['text']) print ($receiverorg['text']); ?></span>
