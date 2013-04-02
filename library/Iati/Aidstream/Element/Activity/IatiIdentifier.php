@@ -7,5 +7,5 @@ class Iati_Aidstream_Element_Activity_IatiIdentifier extends Iati_Core_BaseEleme
     protected $isRequired = true;
     protected $tableName = 'iati_identifier';
     protected $attribs = array('id','text','activity_identifier');
-    protected $iatiAttribs = array('text','activity_identifier');
+    protected $iatiAttribs = array('text');
 }
