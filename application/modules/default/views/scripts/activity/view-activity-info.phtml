@@ -66,7 +66,7 @@
         <!--Reporting Activity Ends-->
         
         <!--Iati Identifier Starts-->
-        <?php if(isset($activity['IatiIdentifier'])) : ?>
+        <?php if(count($activity['IatiIdentifier'])) : ?>
               <?php echo $this->partial("partials/view-activity/identifier.phtml" , array(
                                                                                 'activity_id' => $activity['id'] ,  
                                                                                 'elements' => $activity['IatiIdentifier'] ,
@@ -77,7 +77,7 @@
         <!--Iati Identifer Ends-->
      
         <!--Other Activity Identifer Starts-->
-        <?php if(isset($activity['OtherActivityIdentifier'])) : ?>
+        <?php if(count($activity['OtherActivityIdentifier'])) : ?>
               <?php echo $this->partial("partials/view-activity/other-identifier.phtml" , array(
                                                                                 'activity_id' => $activity['id'] ,  
                                                                                 'elements' => $activity['OtherActivityIdentifier'] ,
@@ -88,7 +88,7 @@
         <!--Other Activity Identifer Ends-->
         
         <!--Title Starts-->
-        <?php if(isset($activity['Title'])) : ?>
+        <?php if(count($activity['Title'])) : ?>
               <?php echo $this->partial("partials/view-activity/title.phtml" , array(
                                                                                 'activity_id' => $activity['id'] ,  
                                                                                 'elements' => $activity['Title'] ,
@@ -99,7 +99,7 @@
         <!--Title Ends-->
         
         <!--Description Starts-->
-        <?php if(isset($activity['Description'])) : ?>
+        <?php if(count($activity['Description'])) : ?>
               <?php echo $this->partial("partials/view-activity/description.phtml" , array(
                                                                                 'activity_id' => $activity['id'] ,  
                                                                                 'elements' => $activity['Description'] ,
@@ -110,7 +110,7 @@
         <!--Description Ends-->
         
         <!--Activity Status Starts-->
-        <?php if(isset($activity['ActivityStatus'])) : ?>
+        <?php if(count($activity['ActivityStatus'])) : ?>
               <?php echo $this->partial("partials/view-activity/activity-status.phtml" , array(
                                                                                 'activity_id' => $activity['id'] ,  
                                                                                 'elements' => $activity['ActivityStatus'] ,
@@ -121,7 +121,7 @@
         <!--Activity Status Ends-->
         
         <!--Activity Date Starts-->
-        <?php if(isset($activity['ActivityDate'])) : ?>
+        <?php if(count($activity['ActivityDate'])) : ?>
               <?php echo $this->partial("partials/view-activity/activity-date.phtml" , array(
                                                                                 'activity_id' => $activity['id'] ,  
                                                                                 'elements' => $activity['ActivityDate'] ,
@@ -132,7 +132,7 @@
         <!--Activity Date Ends-->
         
         <!--ContactInfo Starts-->
-        <?php if(isset($activity['ContactInfo'])) : ?>
+        <?php if(count($activity['ContactInfo'])) : ?>
               <?php echo $this->partial("partials/view-activity/contact-info.phtml" , array(
                                                                                 'activity_id' => $activity['id'] ,  
                                                                                 'elements' => $activity['ContactInfo'] ,
@@ -143,7 +143,7 @@
         <!--ContactInfo Ends-->
         
         <!--Participating Org Starts-->
-        <?php if(isset($activity['ParticipatingOrg'])) : ?>
+        <?php if(count($activity['ParticipatingOrg'])) : ?>
               <?php echo $this->partial("partials/view-activity/participating-org.phtml" , array(
                                                                                 'activity_id' => $activity['id'] ,  
                                                                                 'elements' => $activity['ParticipatingOrg'] ,
@@ -154,7 +154,7 @@
         <!--Participating Org Ends-->
         
         <!--Recipient Country Starts-->
-        <?php if(isset($activity['RecipientCountry'])) : ?>
+        <?php if(count($activity['RecipientCountry'])) : ?>
               <?php echo $this->partial("partials/view-activity/recipient-country.phtml" , array(
                                                                                 'activity_id' => $activity['id'] ,  
                                                                                 'elements' => $activity['RecipientCountry'] ,
@@ -165,7 +165,7 @@
         <!--Recipient Country Ends-->
         
         <!--Recipient Region Starts-->
-        <?php if(isset($activity['RecipientRegion'])) : ?>
+        <?php if(count($activity['RecipientRegion'])) : ?>
               <?php echo $this->partial("partials/view-activity/recipient-region.phtml" , array(
                                                                                 'activity_id' => $activity['id'] ,  
                                                                                 'elements' => $activity['RecipientRegion'] ,
@@ -176,7 +176,7 @@
         <!--Recipient Region Ends-->
         
         <!--Location Starts-->
-        <?php if(isset($activity['Location'])) : ?>
+        <?php if(count($activity['Location'])) : ?>
               <?php echo $this->partial("partials/view-activity/location.phtml" , array(
                                                                                 'activity_id' => $activity['id'] ,  
                                                                                 'elements' => $activity['Location'] ,
@@ -187,7 +187,7 @@
         <!--Location Ends-->
         
         <!--Sector Starts-->
-        <?php if(isset($activity['Sector'])) : ?>
+        <?php if(count($activity['Sector'])) : ?>
               <?php echo $this->partial("partials/view-activity/sector.phtml" , array(
                                                                                 'activity_id' => $activity['id'] ,  
                                                                                 'elements' => $activity['Sector'] ,
@@ -198,7 +198,7 @@
         <!--Sector Ends-->
         
         <!--PolicyMarker Starts-->
-        <?php if(isset($activity['PolicyMarker'])) : ?>
+        <?php if(count($activity['PolicyMarker'])) : ?>
               <?php echo $this->partial("partials/view-activity/policy-marker.phtml" , array(
                                                                                 'activity_id' => $activity['id'] ,  
                                                                                 'elements' => $activity['PolicyMarker'] ,
@@ -220,7 +220,7 @@
         <!--Collaboration Type Ends-->
         
         <!--Default Flow Type Starts-->
-        <?php if(isset($activity['DefaultFlowType'])) : ?>
+        <?php if(count($activity['DefaultFlowType'])) : ?>
               <?php echo $this->partial("partials/view-activity/defaultFlow-type.phtml" , array(
                                                                                 'activity_id' => $activity['id'] ,  
                                                                                 'elements' => $activity['DefaultFlowType'] ,
@@ -231,7 +231,7 @@
         <!--Default Flow Type Ends-->
         
          <!--Default Finance Type Starts-->
-        <?php if(isset($activity['DefaultFinanceType'])) : ?>
+        <?php if(count($activity['DefaultFinanceType'])) : ?>
               <?php echo $this->partial("partials/view-activity/defaultFinance-type.phtml" , array(
                                                                                 'activity_id' => $activity['id'] ,  
                                                                                 'elements' => $activity['DefaultFinanceType'] ,
@@ -242,7 +242,7 @@
         <!--Default Finance Type Ends-->
         
         <!--Default Aid  Type Starts-->
-        <?php if(isset($activity['DefaultAidType'])) : ?>
+        <?php if(count($activity['DefaultAidType'])) : ?>
               <?php echo $this->partial("partials/view-activity/defaultAid-type.phtml" , array(
                                                                                 'activity_id' => $activity['id'] ,  
                                                                                 'elements' => $activity['DefaultAidType'] ,
@@ -253,7 +253,7 @@
         <!--Default Aid  Type Ends-->
         
         <!--Default Tied Status Starts-->
-        <?php if(isset($activity['DefaultTiedStatus'])) : ?>
+        <?php if(count($activity['DefaultTiedStatus'])) : ?>
               <?php echo $this->partial("partials/view-activity/defaultTiedStatus.phtml" , array(
                                                                                 'activity_id' => $activity['id'] ,  
                                                                                 'elements' => $activity['DefaultTiedStatus'] ,
@@ -264,7 +264,7 @@
         <!--Default Tied Status Ends-->
         
         <!--Budget Starts-->
-        <?php if(isset($activity['Budget'])) : ?>
+        <?php if(count($activity['Budget'])) : ?>
               <?php echo $this->partial("partials/view-activity/budget.phtml" , array(
                                                                                 'activity_id' => $activity['id'] ,
                                                                                 'activityInfo' => $activity ,
@@ -276,7 +276,7 @@
         <!--Budget Ends-->
         
         <!--PlannedDisbursements Starts-->
-        <?php if(isset($activity['PlannedDisbursement'])) : ?>
+        <?php if(count($activity['PlannedDisbursement'])) : ?>
               <?php echo $this->partial("partials/view-activity/plannedDisbursements.phtml" , array(
                                                                                 'activity_id' => $activity['id'] ,
                                                                                 'activityInfo' => $activity ,
@@ -288,7 +288,7 @@
         <!--PlannedDisbursements Ends-->
         
         <!-- Transaction Starts -->
-        <?php if(isset($activity['Transaction'])):?>
+        <?php if(count($activity['Transaction'])):?>
             <?php echo $this->partial("partials/view-activity/transactions.phtml" , array(
                                                                                             'activityInfo' => $activity ,
                                                                                             'transactions' => $activity['Transaction'] ,
@@ -299,7 +299,7 @@
         <!-- Transaction Ends -->
         
         <!--Document Link Starts-->
-        <?php if(isset($activity['DocumentLink'])) : ?>
+        <?php if(count($activity['DocumentLink'])) : ?>
               <?php echo $this->partial("partials/view-activity/documentLink.phtml" , array(
                                                                                 'activity_id' => $activity['id'] ,  
                                                                                 'elements' => $activity['DocumentLink'] ,
@@ -310,7 +310,7 @@
         <!--Document Link Ends-->
         
         <!--Activity Website Starts-->
-        <?php if(isset($activity['ActivityWebsite'])) : ?>
+        <?php if(count($activity['ActivityWebsite'])) : ?>
               <?php echo $this->partial("partials/view-activity/activityWebsite.phtml" , array(
                                                                                 'activity_id' => $activity['id'] ,  
                                                                                 'elements' => $activity['ActivityWebsite'] ,
@@ -321,7 +321,7 @@
         <!--Activity Website Ends-->
         
         <!--Related Activity Starts-->
-        <?php if(isset($activity['RelatedActivity'])) : ?>
+        <?php if(count($activity['RelatedActivity'])) : ?>
               <?php echo $this->partial("partials/view-activity/relatedActivity.phtml" , array(
                                                                                 'activity_id' => $activity['id'] ,  
                                                                                 'elements' => $activity['RelatedActivity'] ,
@@ -332,7 +332,7 @@
         <!--Related Activity Ends-->
         
          <!--Conditions Starts-->
-        <?php if(isset($activity['Conditions'])) : ?>
+        <?php if(count($activity['Conditions'])) : ?>
               <?php echo $this->partial("partials/view-activity/conditions.phtml" , array(
                                                                                 'activity_id' => $activity['id'] ,  
                                                                                 'elements' => $activity['Conditions'] ,
@@ -343,7 +343,7 @@
         <!--Conditions Ends-->
         
         <!-- Result Starts -->
-        <?php if(isset($activity['Result'])):?>
+        <?php if(count($activity['Result'])):?>
             <?php echo $this->partial("partials/view-activity/result.phtml" , array(
                                                                                             'activityInfo' => $this->activityInfo ,
                                                                                             'results' => $activity['Result'] ,

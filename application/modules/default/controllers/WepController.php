@@ -327,7 +327,7 @@ class WepController extends Zend_Controller_Action
                     $updated = $activityHashModel->updateHash($activity_id);
 
                     $this->_helper->FlashMessenger->addMessage(array('message' => "Activity Sucessfully Created."));
-                    $this->_redirect('wep/view-activity/' . $activity_id);
+                    $this->_redirect('activity/view-activity-info/?activity_id=' . $activity_id);
                 }
             } catch (Exception $e) {
                 print $e;
