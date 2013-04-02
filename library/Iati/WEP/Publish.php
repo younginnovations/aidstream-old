@@ -175,7 +175,7 @@ class Iati_WEP_Publish
         
         $obj = new Iati_Core_Xml();
         $fp = fopen($this->filePath.$fileName,'w');
-        fwrite($fp,$obj->generateXml('activity' ,$activitiesIdArray));
+        fwrite($fp,$obj->generateXml('Activity' ,$activitiesIdArray));
         fclose($fp);
         
         return $fileName;

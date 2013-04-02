@@ -28,10 +28,16 @@ class Iati_Core_Xml
     }
     
     public function generateXml($name , $ids = array())
-    {
+    {   
         $this->setChildrenIds($ids);
-        
-        $this->xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><'.strtolower($name).'s></'.strtolower($name).'s>');
+        if($name == "Activity")
+        {
+            $this->xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><iati-activities></iati-activities>');
+        }
+        else
+        {
+            $this->xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><'.strtolower($name).'s></'.strtolower($name).'s>');
+        }
         $this->xml->addAttribute('generated-datetime',gmdate('c'));
         $this->xml->addAttribute('version',self::SCHEMA_VERSION);
         

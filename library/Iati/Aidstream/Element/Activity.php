@@ -6,6 +6,7 @@ class Iati_Aidstream_Element_Activity extends Iati_Core_BaseElement
     protected $isMultiple = false;
     protected $className = 'Activity';
     protected $displayName = 'Activity Default';
+    protected $xmlName = 'iati-activity';
     protected $tableName = 'iati_activity';
     protected $childElements = array('ReportingOrg' , 'IatiIdentifier' , 'OtherActivityIdentifier' , 'Title' , 'Description' , 'ActivityStatus' , 'ActivityDate' , 'ContactInfo' , 'ParticipatingOrg' , 'RecipientCountry' , 'RecipientRegion' , 'Location' , 'Sector' , 'PolicyMarker' , 'CollaborationType' , 'DefaultFlowType' , 'DefaultFinanceType' , 'DefaultAidType' , 'DefaultTiedStatus' , 'Budget' , 'PlannedDisbursement' , 'Transaction' , 'DocumentLink' , 'ActivityWebsite' , 'RelatedActivity' , 'Conditions' , 'Result');
     protected $attribs = array('id' , '@xml_lang' , '@default_currency' , '@hierarchy','@last_updated_datetime','activities_id','status_id');
