@@ -32,6 +32,7 @@ class Iati_Aidstream_Form_Activity_Transaction extends Iati_Core_BaseForm
                 'label'    => 'update',
                 'required' => false,
                 'ignore'   => false,
+                'class'    =>'form-submit'
             )
         );
     }
