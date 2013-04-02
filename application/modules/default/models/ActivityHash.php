@@ -45,7 +45,7 @@ class Model_ActivityHash extends Zend_Db_Table_Abstract
     {
         $activityClassobj = new Iati_Aidstream_Element_Activity();
         $activityData = $activityClassobj->fetchData($activity_id , false);
-        unset($activityData['Activity'][0]['@last_updated_datetime']);   
+        unset($activityData['Activity']['@last_updated_datetime']);   
         $new_hash = sha1(serialize($activityData));
         
         $data['activity_id'] = $activity_id;
