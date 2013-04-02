@@ -38,8 +38,7 @@ class Iati_Aidstream_Element_Activity extends Iati_Core_BaseElement
     { 
        
             $elementsData = $this->getElementsData($data);
-            $identity = Zend_Auth::getInstance()->getIdentity();
-            $elementsData['account_id'] = $identity->account_id;
+            $elementsData['@last_updated_datetime'] = date('Y-m-d H:i:s');
             
             if($this->hasData($elementsData) ){
                 // If no id is present, insert the data else update the data using the id.

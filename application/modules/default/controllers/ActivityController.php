@@ -207,9 +207,9 @@ class ActivityController extends Zend_Controller_Action
                 }
                 else
                 {  
-                    if($element->getDisplayName() == 'Activity Default')
-                    { 
-                        $data[$element->getClassName()] = $element->fetchData($activityId);  
+                    if($element->getClassName() == 'Activity')
+                    {   
+                        $data = $element->fetchData($activityId);  
                     } else
                     {    
                         $data[$element->getClassName()] = $element->fetchData($activityId,true);
