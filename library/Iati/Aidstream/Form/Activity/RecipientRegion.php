@@ -26,7 +26,7 @@ class Iati_Aidstream_Form_Activity_RecipientRegion extends Iati_Core_BaseForm
         $form['percentage'] = new Zend_Form_Element_Text('percentage');
         $form['percentage']->setLabel('Percentage')  
             ->setValue($this->data['@percentage'])
-            ->addValidator(new Zend_Validate_Float())
+            ->addValidator(new Zend_Validate_Int())
             ->setAttrib('class' , 'form-text');
         
         $lang = $model->getCodeArray('Language', null, '1' , true);
