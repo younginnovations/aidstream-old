@@ -609,6 +609,7 @@ class Iati_Core_BaseElement
                     
                 }elseif($name == "currency" || $name == "default_currency"){ 
                     $value = Iati_Core_Codelist::getCodeByAttrib("Activity_default", '@currency' , $value);
+                    $name = preg_replace('/_/','-',$name);
                     $xmlObj->addAttribute($name,$value);
                     
                 }elseif ($name == 'last_updated_datetime'){
