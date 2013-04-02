@@ -77,11 +77,11 @@ class Iati_Core_Codelist
                     $return = 'ActivityDateType';
                     break;
                 
-                case ParticipatingOrganisation_type :
+                case ParticipatingOrg_type :
                     $return = 'OrganisationType';
                     break;
                 
-                case ParticipatingOrganisation_role :
+                case ParticipatingOrg_role :
                     $return = 'OrganisationRole';
                     break;
                 
