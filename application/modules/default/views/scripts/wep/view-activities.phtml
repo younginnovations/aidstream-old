@@ -44,7 +44,7 @@
                         }
                         $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::DELETE_ACTIVITY);
                         if($permission == '1'){
-                            print $this->l('Delete', 'wep/delete-activity/?classname=Activity&activity_id='.$eachActivity['id'],
+                            print $this->l('Delete', 'activity/delete-activity/?className=Activity&activityId='.$eachActivity['id'],
                            array('attributes' => array('onclick' => "javascript: return confirm('Do you really want to delete?')")));
                         }
                         ?>
@@ -56,7 +56,7 @@
                 <div class = "list-action">
                 <?php print $this->l('View', 'activity/view-activity-info/?activity_id='.$eachActivity['id'])?>
                 <?php //print $this->l('Edit', 'wep/edit-activity/?activity_id='.$eachActivity['id'])?>
-                <?php print $this->l('Delete', 'wep/delete-activity/?classname=Activity&activity_id='.$eachActivity['id'],
+                <?php print $this->l('Delete', 'activity/delete-activity/?className=Activity&activityId='.$eachActivity['id'],
                                      array('attributes' => array('onclick' => "javascript: return confirm('Do you really want to delete?')")))?>
                 </div>
                 <?php endif; ?>

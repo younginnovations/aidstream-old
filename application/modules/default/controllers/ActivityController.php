@@ -318,5 +318,30 @@ class ActivityController extends Zend_Controller_Action
         $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
         $this->view->blockManager()->disable('partial/published-list.phtml');
 
-    }        
+    }
+    
+    public function deleteActivityAction()
+    {
+        $elementClass = $this->_getParam('className');
+        $activityId = $this->_getParam('activityId');
+        if (!$elementClass)
+        {
+            $this->_helper->FlashMessenger->addMessage(array('error' => "Could not fetch element."));
+            $this->_redirect("/wep/dashboard");
+        }
+
+        if (!$activityId)
+        {
+            $this->_helper->FlashMessenger->addMessage(array('error' => "No id provided."));
+            $this->_redirect("/wep/dashboard");
+        }
+
+        $elementName = "Iati_Aidstream_Element_" . $elementClass;
+        $element = new $elementName();
+        $element->deleteElement($activityId);
+
+        $this->_helper->FlashMessenger->addMessage(array('message' => "Element Deleted sucessfully."));
+        $this->_redirect("/wep/view-activities");
+
+    }
 }
