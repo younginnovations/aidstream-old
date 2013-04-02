@@ -12,6 +12,7 @@ class Iati_Aidstream_Form_Activity_ActivityWebsite extends Iati_Core_BaseForm
         $form['text'] = new Zend_Form_Element_Textarea('text');
         $form['text']->setLabel('Text')  
             ->setValue($this->data['text'])
+            ->addValidator(new App_Validate_Url())
             ->setRequired()    
             ->setAttribs(array('rows'=>'2' , 'cols'=> '20'));
 
