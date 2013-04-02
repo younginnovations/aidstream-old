@@ -39,7 +39,7 @@ class Iati_WEP_Publish
             
             //print each segments activities xml and save published info
             foreach ($activitiesCollection as $org=>$activitiesId)
-            {
+            {   
                 $this->recipient = $org;
                 $fileName = $this->saveActivityXml($activitiesId);
                 
@@ -104,30 +104,40 @@ class Iati_WEP_Publish
             $segmentedActivities = array();
             foreach($activitiesId as $activityId)
             {   
-                $activityClassObj = new Iati_Aidstream_Element_Activity();
-                $activity = $activityClassObj->fetchData($activityId , false);
-                $countries = $activity['Activity']['RecipientCountry'];
-                $regions = $activity['Activity']['RecipientRegion'];
-               
+                $recipientCountryObj = new Iati_Aidstream_Element_Activity_RecipientCountry();
+                $countries = $recipientCountryObj->fetchData($activityId ,true);
+                $recipientRegionObj = new Iati_Aidstream_Element_Activity_RecipientRegion();
+                $regions = $recipientRegionObj->fetchData($activityId ,true);
+                
+                if($countries[0]['@code'])
+                {
+                    $countryCode = Iati_Core_Codelist::getCodeByAttrib('RecipientCountry' , '@code' , $countries[0]['@code']);
+                }
+                if($regions[0]['@code'])
+                {
+                    $regionCode = Iati_Core_Codelist::getCodeByAttrib('RecipientRegion' , '@code' , $regions[0]['@code']);
+                }
+                
+                
                 if(count($countries) == 1)
                 { 
-                    $segmentedActivities[$countries['0']['@code']] = $activitiesId;
+                    $segmentedActivities[$countryCode][] = $activityId;
                 }
                 else
                 {
                     if(count($regions) == 1)
                     {
-                        $segmentedActivities[$regions['0']['@code']] = $activitiesId;
+                        $segmentedActivities[$regionCode][] = $activityId;
                     }
                     elseif(count($regions) > 1)
                     {
-                        $segmentedActivities[998] = $activitiesId;
+                        $segmentedActivities[998][] = $activityId;
                     }
                     else
                     {  
                         if(count($countries) == 0)
                         {   
-                            $segmentedActivities[998] = $activitiesId;
+                            $segmentedActivities[998][] = $activityId;
                         }
                         else
                         {   
@@ -137,13 +147,13 @@ class Iati_WEP_Publish
                                 $percent = $country['@percentage'];
                                 if($percent > $maxPercent){
                                     $maxPercent = $percent;
-                                    $maxPercentCountry = $country['@code'];
+                                    $maxPercentCountry = Iati_Core_Codelist::getCodeByAttrib('RecipientCountry' , '@code' , $country['@code'],'Name');
                                 }
                             }
                             if($maxPercentCountry){
-                                $segmentedActivities[$maxPercentCountry] = $activitiesId;
+                                $segmentedActivities[$maxPercentCountry][] = $activityId;
                             } else {
-                                $segmentedActivities[$countries[0]['@code']] = $activitiesId;
+                                $segmentedActivities[$countryCode][] = $activityId;
                             }
                         }    
                     }
