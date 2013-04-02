@@ -15,7 +15,7 @@
                         $value = $element['Value'];
                         if (!empty($value)):
                             ?>
-                                <?php  ($value['@currency']) ? (printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('Activity' , '@default_currency' , $element['@currency']))) : (printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('Activity' , '@default_currency' , $this->activityInfo['@default_currency']))) ?> 
+                                <?php  ($value['@currency']) ? (printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('Activity' , '@default_currency' , $value['@currency']))) : (printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('Activity' , '@default_currency' , $this->activityInfo['@default_currency']))) ?> 
                                 <?php if ($value['text']) print ($this->length()->adjustDoubleTitleLength($this->numberFormat()->localization($value['text']))); ?> 
                                 <?php if ($value['text'] && $value['@value_date']) print "; "; ?>
                                 <?php if ($value['@value_date']) print ($this->length()->adjustDoubleTitleLength($value['@value_date'])); ?>
@@ -85,7 +85,7 @@
                                 </li>
                                 <li>
                                     <span class="name">Currency:</span>
-                                    <span class="infom"><?php if ($value['@currency'])(printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('Activity' , '@default_currency', $element['@currency'],'Name'),Iati_Core_Codelist::getCodeByAttrib('Activity' , '@default_currency', $element['@currency']))) ?></span>
+                                    <span class="infom"><?php if ($value['@currency'])(printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('Activity' , '@default_currency', $value['@currency'],'Name'),Iati_Core_Codelist::getCodeByAttrib('Activity' , '@default_currency', $value['@currency']))) ?></span>
                                 </li>
                         </ul>
                     <?php endif; ?>
