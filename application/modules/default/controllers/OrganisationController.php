@@ -373,9 +373,9 @@ class OrganisationController extends Zend_Controller_Action
         $this->view->parentId = $organisationId;
 
         // Fetch title
-        $wepModel = new Model_Wep();
-        $reportingOrg = $wepModel->getRowsByFields('iati_organisation/reporting_org' , 'organisation_id' , $organisationId);
-        $title = $reportingOrg[0]['text'];
+        $reportingOrgObj = new Iati_Aidstream_Element_Organisation_ReportingOrg();
+        $reportingOrgs = $reportingOrgObj->fetchData($organisationId,true);
+        $title = $reportingOrgs['text'];
         $this->view->title = $title . " Organisation File";
 
         // Get form for status change
