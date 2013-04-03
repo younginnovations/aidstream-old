@@ -287,12 +287,14 @@ class ActivityController extends Zend_Controller_Action
         $this->view->parentId = $activityId;
 
         // Fetch title
-        $wepModel = new Model_Wep();
-        $title_row = $wepModel->getRowById('iati_title', 'activity_id', $activityId);
-        $title = $title_row['text'];
+        $titleObj = new Iati_Aidstream_Element_Activity_Title();
+        $titles = $titleObj->fetchData($activityId,true);
+        $title = $titles['0']['text'];
         $this->view->title = $title;
-        $activity_identifier_row = $wepModel->getRowById('iati_identifier', 'activity_id', $activityId);
-        $activity_identifier = $activity_identifier_row['activity_identifier'];
+        
+        $identifierObj = new Iati_Aidstream_Element_Activity_IatiIdentifier();
+        $identifiers = $identifierObj->fetchData($activityId,true);
+        $activity_identifier = $identifiers['activity_identifier'];
         $this->view->activityIdentifier = $activity_identifier;
        
         // Get form for status change
