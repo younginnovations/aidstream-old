@@ -68,7 +68,7 @@ class OrganisationController extends Zend_Controller_Action
                 $updated = $organisationHashModel->updateHash($parentId);
                 if (!$updated)
                 {
-                    $type = 'info';
+                    $type = 'message';
                     $message = 'No Changes Made';
                 } else
                 {
@@ -165,7 +165,7 @@ class OrganisationController extends Zend_Controller_Action
                 $updated = $organisationHashModel->updateHash($parentId);
                 if (!$updated)
                 {
-                    $type = 'info';
+                    $type = 'message';
                     $message = 'No Changes Made';
                 } else
                 {
@@ -308,7 +308,7 @@ class OrganisationController extends Zend_Controller_Action
             //For admin user redirect to defaults page.
             if($identity->role_id == 1){
                 $this->_helper->FlashMessenger->addMessage(array(
-                                                                 'info' => "Before you start entering organisation data
+                                                                 'message' => "Before you start entering organisation data
                                                                  you need to add some default values that will
                                                                  automatically be filled in for
                                                                  each organisation you report."
@@ -317,7 +317,7 @@ class OrganisationController extends Zend_Controller_Action
                 $this->_redirect('wep/edit-defaults');
             } else { // For other user redirect to dashboard.
                 $this->_helper->FlashMessenger->addMessage(array(
-                                                                 'info' => "All information for Reporting Organisation
+                                                                 'message' => "All information for Reporting Organisation
                                                                     is not provided .Please contact you organisation admin"
                                                                   )
                                                            );
@@ -478,7 +478,7 @@ class OrganisationController extends Zend_Controller_Action
 
                             if ($reg->getErrors())
                             {
-                                $this->_helper->FlashMessenger->addMessage(array('info' => 'Organisation xml files created. ' . $reg->getErrors()));
+                                $this->_helper->FlashMessenger->addMessage(array('message' => 'Organisation xml files created. ' . $reg->getErrors()));
                             } else
                             {
                                 $this->_helper->FlashMessenger->addMessage(array('message' => "Organisation published to IATI registry."));
@@ -520,7 +520,7 @@ class OrganisationController extends Zend_Controller_Action
         $fileIds = explode(',' , $this->_getParam('organisation_file_ids'));
        
         if(!$fileIds[0]){
-            $this->_helper->FlashMessenger->addMessage(array('info' => "Please select a file to register in IATI Registry."));
+            $this->_helper->FlashMessenger->addMessage(array('message' => "Please select a file to register in IATI Registry."));
             $this->_redirect('wep/list-published-files');
         }
         $identity = Zend_Auth::getInstance()->getIdentity();
@@ -579,7 +579,7 @@ class OrganisationController extends Zend_Controller_Action
         $updated = $organisationHashModel->updateHash($organisationId);
         if (!$updated)
         {
-            $type = 'info';
+            $type = 'message';
             $message = "Already up to date. To make changes please change values in 'Change Defaults' and then update.";
         } else
         {
