@@ -924,7 +924,7 @@ class WepController extends Zend_Controller_Action
                         $updated = $activityHashModel->updateHash($activityId);
 
                         $this->_helper->FlashMessenger->addMessage(array('message' => "Activity Sucessfully Created."));
-                        $this->_redirect('wep/view-activity/' . $activityId);
+                        $this->_redirect('wep/view-activity-info/' . $activityId);
                     }
 
                     if(isset($_GET['activity_id'])){
@@ -950,7 +950,7 @@ class WepController extends Zend_Controller_Action
                         $this->_helper->FlashMessenger
                                 ->addMessage(array($type => $message));
                     }
-                    $this->_redirect('wep/view-activity/' . $activity_id);
+                    $this->_redirect('wep/view-activity-info/' . $activity_id);
                 }//end of inner if
             } else {
 
