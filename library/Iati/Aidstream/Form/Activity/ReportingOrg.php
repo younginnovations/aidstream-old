@@ -49,7 +49,7 @@ class Iati_Aidstream_Form_Activity_ReportingOrg extends Iati_Core_BaseForm
     public function addSubmitButton($label , $saveAndViewlabel = 'Save and View')
     {
         $this->addElement('submit' , 'update' , array(
-            'label' => 'update' ,
+            'label' => 'Update' ,
             'required' => false ,
             'ignore' => false ,
                 )
