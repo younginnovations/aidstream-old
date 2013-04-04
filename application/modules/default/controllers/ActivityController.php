@@ -49,16 +49,16 @@ class ActivityController extends Zend_Controller_Action
         }      
         
         if($data = $this->getRequest()->getPost()){
-            $hasData = $element->hasData($data[$element->getClassName()]);
-            if(!$hasData)
-            {
-                $this->_helper->FlashMessenger->addMessage(array('message' => "You have not entered any data."));
-                $this->_redirect("/activity/add-element?className={$elementClass}&activity_id={$parentId}");    
-            } 
+            $hasData = $element->hasData($data[$element->getClassName()]); 
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();
             if($form->validate()){
                 $data = $this->getRequest()->getPost();
+                if(!$hasData)
+                {
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "You have not entered any data."));
+                    $this->_redirect("/activity/add-element?className={$elementClass}&activity_id={$parentId}");    
+                }
                 $id = $element->save($data[$element->getClassName()] , $parentId);
                 
                 Model_Activity::updateActivityUpdatedInfo($parentId);
@@ -170,15 +170,15 @@ class ActivityController extends Zend_Controller_Action
         }
         
         if($data = $this->getRequest()->getPost()){
-            $hasData = $element->hasData($data[$element->getClassName()]);
-            if(!$hasData)
-            {
-                $this->_helper->FlashMessenger->addMessage(array('message' => "You have not entered any data."));
-                $this->_redirect("/activity/add-element?className={$elementClass}&activity_id={$activityId}");    
-            }    
+            $hasData = $element->hasData($data[$element->getClassName()]);                
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm(); 
             if($form->validate()){
+                if(!$hasData)
+                {
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "You have not entered any data."));
+                    $this->_redirect("/activity/add-element?className={$elementClass}&activity_id={$activityId}");    
+                }
                 $data = $this->getRequest()->getPost();
                 $element->save($data[$element->getClassName()] , $activityId);
                 
