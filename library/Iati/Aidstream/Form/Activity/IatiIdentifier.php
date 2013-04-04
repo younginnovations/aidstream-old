@@ -17,10 +17,11 @@ class Iati_Aidstream_Form_Activity_IatiIdentifier extends Iati_Core_BaseForm
         $form['reporting_org'] = new Zend_Form_Element_Hidden('reporting_org');
         $form['reporting_org']->setValue($reportingOrgText);
         
-        $form['activity_identifier'] = new Zend_Form_Element_Textarea('activity_identifier');
+        $form['activity_identifier'] = new Zend_Form_Element_Text('activity_identifier');
         $form['activity_identifier']->setLabel('Activity Identifier')
                 ->setValue($this->data['activity_identifier'])
                 ->setRequired()
+                ->setAttribs(array('class' => 'form-text'))
                 ->setAttrib('cols', '40')
                 ->setAttrib('rows', '2');
         
