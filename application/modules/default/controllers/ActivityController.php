@@ -49,6 +49,12 @@ class ActivityController extends Zend_Controller_Action
         }      
         
         if($data = $this->getRequest()->getPost()){
+            $hasData = $element->hasData($data[$element->getClassName()]);
+            if(!$hasData)
+            {
+                $this->_helper->FlashMessenger->addMessage(array('message' => "You have not entered any data."));
+                $this->_redirect("/activity/add-element?className={$elementClass}&activity_id={$parentId}");    
+            } 
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();
             if($form->validate()){
@@ -155,7 +161,14 @@ class ActivityController extends Zend_Controller_Action
         if($isMultiple == '0'){
             $element->setIsMultiple(false);
         }
+        
         if($data = $this->getRequest()->getPost()){
+            $hasData = $element->hasData($data[$element->getClassName()]);
+            if(!$hasData)
+            {
+                $this->_helper->FlashMessenger->addMessage(array('message' => "You have not entered any data."));
+                $this->_redirect("/activity/add-element?className={$elementClass}&activity_id={$activityId}");    
+            }    
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm(); 
             if($form->validate()){
@@ -279,6 +292,10 @@ class ActivityController extends Zend_Controller_Action
     public function viewActivityInfoAction()
     {
         $activityId = $this->getRequest()->getParam('activity_id');
+        if(!$activityId){
+            $this->_helper->FlashMessenger->addMessage(array('error' => "No id provided."));
+            $this->_redirect("/wep/dashboard");  
+        }
 
         // Fetch activity data
         $activityClassObj = new Iati_Aidstream_Element_Activity();
