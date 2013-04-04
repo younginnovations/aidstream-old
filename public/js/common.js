@@ -776,12 +776,12 @@ function initialize() {
 	},
 	
 	//generate iati identifier from reporting org and activity identifier
-	"#activity_identifier" : {
+	"#IatiIdentifier-activity_identifier" : {
 	    "onkeyup" : function (evt) {
 		var selected = getTarget(evt);
 		var identifier = selected.value.replace(/ /g,'');
-		var repOrg = dojo.query('#reporting_org').attr('value');
-		dojo.query('#iati_identifier_text').attr('value', repOrg+'-'+identifier);
+		var repOrg = dojo.query('#IatiIdentifier-reporting_org').attr('value');
+		dojo.query('#IatiIdentifier-text').attr('value', repOrg+'-'+identifier);
 	    }
 	},
 	
