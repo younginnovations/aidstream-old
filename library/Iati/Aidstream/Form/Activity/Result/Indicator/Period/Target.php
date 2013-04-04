@@ -15,8 +15,7 @@ class Iati_Aidstream_Form_Activity_Result_Indicator_Period_Target extends Iati_C
 
         $form['value'] = new Zend_Form_Element_Text('value');
         $form['value']->setLabel('Value')            
-            ->addValidator(new App_Validate_NumericValue())
-            ->setAttribs(array('class' => 'currency form-text')) 
+            ->setAttribs(array('class' => 'form-text')) 
             ->setRequired()
             ->setValue($this->data['@value']);
 

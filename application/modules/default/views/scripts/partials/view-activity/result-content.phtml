@@ -105,7 +105,7 @@
                                     </li>
                                     <li>
                                         <span class="name">Value: </span>
-                                        <span class="infom"><?php if (!empty($baseline["@value"])) print ($this->numberFormat()->localization($baseline["@value"])); ?></span>
+                                        <span class="infom"><?php if (!empty($baseline["@value"])) print ($baseline["@value"]); ?></span>
                                     </li> 
                                   </ul>
                              
@@ -179,7 +179,7 @@
                                                 <span class="infom">
                                                     <?php if (!empty($target["@value"]))
                                                           { 
-                                                                print $this->numberFormat()->localization($target["@value"]);                                                             
+                                                                print $target["@value"];                                                             
                                                           }   
                                                     ?>
                                                 </span>
@@ -211,7 +211,7 @@
                                            <h2>Actual</h2>
                                             <li>
                                                 <span class="name">Value: </span>
-                                                <span class="infom"><?php if (!empty($actual["@value"])) print ($this->numberFormat()->localization($actual["@value"])); ?></span>
+                                                <span class="infom"><?php if (!empty($actual["@value"])) print ($actual["@value"]); ?></span>
                                             </li>
                                         </ul> 
                                       
