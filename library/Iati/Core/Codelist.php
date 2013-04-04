@@ -153,7 +153,7 @@ class Iati_Core_Codelist
                     $return = 'Country';
                     break;
                     
-                case Coordinates_percision :
+                case Coordinates_precision :
                     $return = 'PercisionCode';
                     break;
                 
