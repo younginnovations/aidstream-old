@@ -341,7 +341,7 @@ class Iati_Core_BaseElement
             return false;
         }
         foreach($data as $key=>$values){
-            if($key == 'id' || $key == 'add' || $key == 'remove' || $key == 'save') continue;// check for empty excluding these elements
+            if($key == 'id' || $key == 'add' || $key == 'remove' || $key == 'save' || $key == 'save_and_view') continue;// check for empty excluding these elements
             if($values){
                 if(is_array($values)){
                     $hasData = $this->hasData($values);
