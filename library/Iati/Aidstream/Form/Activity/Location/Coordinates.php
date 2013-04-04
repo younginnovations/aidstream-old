@@ -23,7 +23,7 @@ class Iati_Aidstream_Form_Activity_Location_Coordinates extends Iati_Core_BaseFo
         
         $percisionCode = $model->getCodeArray('PercisionCode', null, '1' , true);
         $form['percision'] = new Zend_Form_Element_Select('percision');
-        $form['percision']->setLabel('Percision')  
+        $form['percision']->setLabel('Precision')  
             ->setValue($this->data['@percision'])
             ->setAttrib('class' , 'form-select')
             ->setMultioptions($percisionCode);
