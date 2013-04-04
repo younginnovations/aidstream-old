@@ -56,11 +56,17 @@ class OrganisationController extends Zend_Controller_Action
         $element = new $elementName();
 
         if ($data = $this->getRequest()->getPost())
-        {
+        {   
+            $hasData = $element->hasData($data[$element->getClassName()]);
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();
             if ($form->validate())
             {   
+                if(!$hasData)
+                {
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "You have not entered any data."));
+                    $this->_redirect("/organisation/add-elements/?className=$elementClass&parentId=$parentId");
+                }
                 $id = $element->save($data[$element->getClassName()] , $parentId);
 
                 //Update organisation hash
@@ -153,11 +159,17 @@ class OrganisationController extends Zend_Controller_Action
         $element = new $elementName();         
 
         if ($data = $this->getRequest()->getPost())
-        {
+        {   
+            $hasData = $element->hasData($data[$element->getClassName()]); 
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();
             if ($form->validate())
             {  
+                if(!$hasData)
+                {
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "You have not entered any data."));
+                    $this->_redirect("/organisation/add-elements/?className=$elementClass&parentId=$parentId");
+                }
                 $element->save($data[$element->getClassName()] , $parentId);
 
                 //Update organisation hash
