@@ -99,7 +99,14 @@ class ActivityController extends Zend_Controller_Action
         } else {
             $form = $element->getForm();            
         }
-        $form->addSubmitButton('Save');
+        if($element->getClassName() == "Transaction" || $element->getClassName() == "Result")
+        {
+            $form->addElement('submit' , 'save' , array('class'=>'form-submit' , 'label' => 'Save '.$element->getClassName()));
+        }
+        else
+        {
+            $form->addSubmitButton('Save');
+        }
        
         $this->view->form = $form;
         $this->view->activityInfo = Model_Activity::getActivityInfo($parentId);
@@ -236,7 +243,14 @@ class ActivityController extends Zend_Controller_Action
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();
         }
-        $form->addSubmitButton('Save');
+        if($element->getClassName() == "Transaction" || $element->getClassName() == "Result")
+        {
+            $form->addElement('submit' , 'save' , array('class'=>'form-submit' , 'label' => 'Update '.$element->getClassName())); 
+        }
+        else
+        {
+            $form->addSubmitButton('Save');
+        }
         
         $this->view->form = $form;
         $this->view->activityInfo = Model_Activity::getActivityInfo($activityId);
