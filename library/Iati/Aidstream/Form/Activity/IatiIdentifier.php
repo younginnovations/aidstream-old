@@ -15,7 +15,8 @@ class Iati_Aidstream_Form_Activity_IatiIdentifier extends Iati_Core_BaseForm
         $form['id']->setValue($this->data['id']);
         
         $form['reporting_org'] = new Zend_Form_Element_Hidden('reporting_org');
-        $form['reporting_org']->setValue($reportingOrgText);
+        $form['reporting_org']->setValue($reportingOrgText)
+                ->setAttribs(array('class' => 'hidden-field'));
         
         $form['activity_identifier'] = new Zend_Form_Element_Text('activity_identifier');
         $form['activity_identifier']->setLabel('Activity Identifier')

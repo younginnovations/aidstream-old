@@ -446,6 +446,11 @@ function initialize() {
         
         	
         },
+        ".hidden-field" : {
+            "found" : function (ele){
+                dojo.query(ele).parent().style("display",'none');
+            }
+        },
 	".datepicker" : {
 	    "found" : function (ele) {
 		
