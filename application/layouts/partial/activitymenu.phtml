@@ -1,7 +1,7 @@
 
 <?php 
 $url = Zend_Controller_Front::getInstance()->getRequest()->getParams();
-$paramValue = str_replace("activity_" , "" , $url['className']);
+$paramValue = str_replace("Activity_" , "" , $url['className']);
  $titleArray = array('Basic Activity Information','Participating Organisations','Geopolitical Information','Classifications','Financial','Related Documents','Relations','Performance');
 $elements = array(
                  array('Title','Description','ActivityStatus','ActivityDate','ContactInfo'),
