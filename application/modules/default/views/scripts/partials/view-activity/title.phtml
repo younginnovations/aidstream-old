@@ -15,11 +15,10 @@
                         <li>
                             <span class="name">Text:</span>
                             <span class="infom"><?php if ($element['text']) print ($element['text']); ?>
-                                                <?php echo $element['text'];
-                                                if ($element['@xml_lang'])
-                                                {
-                                                    printf(" [%s]" , Iati_Core_Codelist::getCodeByAttrib('Title' , '@xml_lang' , $element['@xml_lang']));
-                                                }
+                                                <?php if ($element['@xml_lang'])
+                                                    {
+                                                        printf(" [%s]" , Iati_Core_Codelist::getCodeByAttrib('Title' , '@xml_lang' , $element['@xml_lang']));
+                                                    }
                                             ?>  
                             </span>
                         </li>
