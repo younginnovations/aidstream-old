@@ -19,9 +19,8 @@ class Iati_Aidstream_Form_Organisation_RecipientOrgBudget_Value extends Iati_Cor
         $form['text']->setLabel('Amount')
             ->setValue($this->data['text'])
             ->setRequired()
-            ->setAttrib('class' , 'form-text')
             ->addValidator(new App_Validate_NumericValue())
-            ->setAttribs(array('class' => 'currency')) ;
+            ->setAttribs(array('class' => 'currency form-text')) ;
 
         $currency = $model->getCodeArray('Currency', null, '1' , true);
         $form['currency'] = new Zend_Form_Element_Select('currency');
