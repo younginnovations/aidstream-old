@@ -17,6 +17,7 @@ class Iati_Aidstream_Form_Activity_ReportingOrg extends Iati_Core_BaseForm
         $form['@ref']->setLabel('Organisation Identifier')
                 ->setValue($this->data['@ref'])
                 ->setRequired()
+                ->setAttrib('class' , 'form-text')
                 ->setAttribs(array('disabled' => 'disabled'));
         
         $reportingOrgType = $model->getRowsByFields('OrganisationType','id', $this->data['@type']);
