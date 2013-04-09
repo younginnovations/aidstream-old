@@ -1422,6 +1422,11 @@ fieldset:hover legend
 	background-color:#bbbbbb;
 }
 
+.element-wrapper fieldset:hover legend
+{
+	background-color:#E0DDDD;
+}
+
 fieldset dl
 {
 	overflow: hidden;
@@ -3952,6 +3957,15 @@ li.result .res-style-1 li {
 	/*display: none;*/
 }
 
+.activity-element ul.errors {
+	margin-left: 170px;
+}
+
+.activity-element ul.errors li {
+	width: auto!important;
+	border: 0!important;
+}
+
 .level-1,.element-level,.level-3,.level-4,.level-5 {
 	clear: both;
 	background: #fff;
@@ -4389,10 +4403,10 @@ ul.level-4.none span {
 	margin: 6px 20px;
 }
 
-.sub-element-activity-level-3 .activity-element-level-4 .element-level li dt {
+/*.sub-element-activity-level-3 .activity-element-level-4 .element-level li dt {
 	width: 100px; 
 }
-
+*/
 .sub-element-activity-level-4 .activity-element-level-5 .activity-element {
 	border: 0;
 	padding: 0 16px 20px;
@@ -4426,3 +4440,10 @@ ul.level-4.none span {
 
 .activity-list-table .view-element-link:hover {
 	background: #009ada;
+}
+
+.sub-element-activity-level-4 .activity-element-level-5 ul.level-5 textarea,
+.sub-element-activity-level-4 .activity-element-level-5 ul.level-5 .select2-container {
+	width: 250px!important;
+}
+
