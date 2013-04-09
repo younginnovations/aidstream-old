@@ -35,7 +35,7 @@ class ActivityController extends Zend_Controller_Action
     {
         $elementClass = $this->_getParam('className');
         $parentId = $this->_getParam('activity_id');
-        $isMultiple = $this->_getParam('isMultiple');
+        $isMultiple = $this->_getParam('isMultiple' , 1);
 
         if(!$elementClass){
             $this->_helper->FlashMessenger->addMessage(array('error' => "Could not fetch element."));
@@ -49,15 +49,13 @@ class ActivityController extends Zend_Controller_Action
         }      
         
         if($data = $this->getRequest()->getPost()){
-            $hasData = $element->hasData($data[$element->getClassName()]); 
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();
             if($form->validate()){
-                $data = $this->getRequest()->getPost();
-                if(!$hasData)
-                {
+                $hasData = $element->hasData($data[$element->getClassName()]); 
+                if(!$hasData){
                     $this->_helper->FlashMessenger->addMessage(array('message' => "You have not entered any data."));
-                    $this->_redirect("/activity/add-element?className={$elementClass}&activity_id={$parentId}");    
+                    $this->_redirect("/activity/add-element?className={$elementClass}&activity_id={$parentId}&isMultiple={$isMultiple}");    
                 }
                 $id = $element->save($data[$element->getClassName()] , $parentId);
                 
@@ -71,26 +69,16 @@ class ActivityController extends Zend_Controller_Action
                 } else {
                     $idParam = "id={$id}";
                 }
-                if($element->getClassName() == "Transaction" || $element->getClassName() == "Result")
-                {
+                
+                if($element->getClassName() == "Transaction" || $element->getClassName() == "Result"){
                     $this->_redirect("activity/list-elements?classname={$elementClass}&activity_id={$parentId}");
                 }
                 
                 // Check if save and view button was clicked
-                $button = false;
-                if($element->getIsMultiple())
-                {
-                    $button = $data['save_and_view'];
-                }
-                else
-                {
-                    $button = $data[$element->getClassName()]['save_and_view'];
-                }
-                if ($button)
-                {
+                if ($data['save_and_view'] || $data[$element->getClassName()]['save_and_view']){
                     $this->_redirect('activity/view-activity-info/?activity_id=' .$parentId);
                 }
-                $this->_redirect("activity/edit-element?className={$elementClass}&activity_id={$parentId}");
+                $this->_redirect("activity/edit-element?className={$elementClass}&activity_id={$parentId}&isMultiple={$isMultiple}");
                 
             } else {
                 $this->_helper->FlashMessenger->addMessage(array('error' => "You have some problem in your data. Please correct and save again"));
@@ -156,7 +144,7 @@ class ActivityController extends Zend_Controller_Action
         $id = $this->_getParam('id');
         $activityId = $this->_getParam('activity_id');
         $parentId = $this->_getParam('parent_id');
-        $isMultiple = $this->_getParam('isMultiple');
+        $isMultiple = $this->_getParam('isMultiple' , 1);
         
         if(!$elementClass){
             $this->_helper->FlashMessenger->addMessage(array('error' => "Could not fetch element."));
@@ -170,16 +158,14 @@ class ActivityController extends Zend_Controller_Action
         }
         
         if($data = $this->getRequest()->getPost()){
-            $hasData = $element->hasData($data[$element->getClassName()]);                
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm(); 
             if($form->validate()){
-                if(!$hasData)
-                {
+                $hasData = $element->hasData($data[$element->getClassName()]);              
+                if(!$hasData) {
                     $this->_helper->FlashMessenger->addMessage(array('message' => "You have not entered any data."));
-                    $this->_redirect("/activity/add-element?className={$elementClass}&activity_id={$activityId}");    
+                    $this->_redirect("/activity/add-element?className={$elementClass}&activity_id={$activityId}&isMultiple={$isMultiple}");    
                 }
-                $data = $this->getRequest()->getPost();
                 $element->save($data[$element->getClassName()] , $activityId);
                 
                 $activityHashModel = new Model_ActivityHash();
@@ -193,23 +179,12 @@ class ActivityController extends Zend_Controller_Action
                     $message = $element->getDisplayName() . " successfully updated.";
                 }
                 $this->_helper->FlashMessenger->addMessage(array($type => $message)); 
-                if($element->getClassName() == "Transaction" || $element->getClassName() == "Result")
-                {
+                if($element->getClassName() == "Transaction" || $element->getClassName() == "Result"){
                     $this->_redirect("activity/list-elements?classname={$elementClass}&activity_id={$activityId}");
                 }
                 
-                // Check if save and view button was clicked
-                $button = false;
-                if($element->getIsMultiple())
-                {
-                    $button = $data['save_and_view'];
-                }
-                else
-                {
-                    $button = $data[$element->getClassName()]['save_and_view'];
-                }
-                if ($button)
-                {
+                // Check if save and view button was clicked                
+                if ($data['save_and_view'] || $data[$element->getClassName()]['save_and_view']){
                     $this->_redirect('activity/view-activity-info/?activity_id=' . $activityId);
                 }
                 
@@ -221,17 +196,12 @@ class ActivityController extends Zend_Controller_Action
             if($parentId){
                 $data[$element->getClassName()] = $element->fetchData($parentId , true);
             } else {
-                if($id)
-                {
+                if($id){
                      $data = $element->fetchData($id);  
-                }
-                else
-                {  
-                    if($element->getClassName() == 'Activity')
-                    {   
+                } else {  
+                    if($element->getClassName() == 'Activity'){   
                         $data = $element->fetchData($activityId);  
-                    } else
-                    {    
+                    } else {    
                         $data[$element->getClassName()] = $element->fetchData($activityId,true);
                     }                  
                 }    
