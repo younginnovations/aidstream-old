@@ -25,7 +25,7 @@ class Iati_WEP_XmlHandler
     {
         $this->xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><iati-activities></iati-activities>');
         $this->xml->addAttribute('generated-datetime',gmdate('c'));
-        $this->xml->addAttribute('iati-version',self::SCHEMA_VERSION);
+        $this->xml->addAttribute('version',self::SCHEMA_VERSION);
     }
 
      /**

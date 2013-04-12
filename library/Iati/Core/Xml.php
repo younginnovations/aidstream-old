@@ -33,7 +33,7 @@ class Iati_Core_Xml
         
         $this->xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><'.strtolower($name).'s></'.strtolower($name).'s>');
         $this->xml->addAttribute('generated-datetime',gmdate('c'));
-        $this->xml->addAttribute('iati-version',self::SCHEMA_VERSION);
+        $this->xml->addAttribute('version',self::SCHEMA_VERSION);
         
         if(!empty($this->childrenIds)){
             foreach($this->childrenIds as $childId){
