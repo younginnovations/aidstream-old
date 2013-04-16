@@ -25,9 +25,7 @@
             </ul>
 
             <!-- Language Starts -->
-            <?php
-            $languages = $element['Language'];
-            ?>
+            <?php $languages = $element['Language']; ?>
             <?php if (!empty($languages)): ?>
                 <ul class="style-1 style-4">
                     <h2>Language</h2>
@@ -47,10 +45,8 @@
             <!-- Language Ends -->
 
             <!-- Category Starts -->
-            <?php
-            $categorys = $element['Category'];
-            ?>
-            <?php if (!empty($value)): ?>
+            <?php $categorys = $element['Category']; ?>
+            <?php if (!empty($categorys)): ?>
                 <ul class="style-1 style-4">
                     <h2>Category</h2>
                     <?php foreach ($categorys as $category): ?>
@@ -74,9 +70,7 @@
             <!-- Category Ends -->
 
             <!-- Title Starts -->
-            <?php
-            $titles = $element['Title']
-            ?>
+            <?php $titles = $element['Title']; ?>
             <?php if (!empty($titles)): ?>
                 <ul class="style-1 style-4">
                     <h2>Title</h2>
