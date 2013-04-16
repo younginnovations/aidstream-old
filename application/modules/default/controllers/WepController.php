@@ -1547,7 +1547,7 @@ class WepController extends Zend_Controller_Action
         $activityHashModel = new Model_ActivityHash();
         $updated = $activityHashModel->updateHash($activityId);
         if(!$updated){
-            $type = 'info';
+            $type = 'message';
             $message = "Already up to date. To make changes please change values in 'Change Defaults' and then update.";
         } else {
             //update the activity so that the last updated time is updated
