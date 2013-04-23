@@ -779,7 +779,18 @@ function initialize() {
 			}
 		}
 	},
-	
+	//Add new activity
+        //generate iati identifier from reporting org and activity identifier
+	"#activity_identifier" : {
+	    "onkeyup" : function (evt) {
+		var selected = getTarget(evt);
+		var identifier = selected.value.replace(/ /g,'');
+		var repOrg = dojo.query('#reporting_org').attr('value');
+		dojo.query('#iati_identifier_text').attr('value', repOrg+'-'+identifier);
+	    }
+	},
+        
+        //Edit activity
 	//generate iati identifier from reporting org and activity identifier
 	"#IatiIdentifier-activity_identifier" : {
 	    "onkeyup" : function (evt) {
