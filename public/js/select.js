@@ -22,7 +22,7 @@ function loadSelect2()
     $(".vocabulary_value").bind('change' , function (event) {
         var vocabulary = $(this);
         var vocab = vocabulary.val();
-        var wrapperEle = vocabulary.parents('fieldset').first();
+        var wrapperEle = vocabulary.parents('.form-wrapper').first();
         if(vocab == '' || vocab == 3){
             $('.non_dac_code' , wrapperEle).val('');
             $('select.sector_value' , wrapperEle).parent().css('display' , 'block');
