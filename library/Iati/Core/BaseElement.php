@@ -550,9 +550,9 @@ class Iati_Core_BaseElement
                 $data = $row->toArray();
             }
             if(!is_object($parent)){
-                $xmlObj = new SimpleXMLElement("<$eleName>".$data['text']."</$eleName>");
+                $xmlObj = new SimpleXMLElement("<$eleName>".preg_replace('/&(?!\w+;)/' , '&amp;' ,$data['text'])."</$eleName>");
             } else {
-                $xmlObj = $parent->addChild($eleName , $data['text']);
+                $xmlObj = $parent->addChild($eleName , preg_replace('/&(?!\w+;)/' , '&amp;' ,$data['text']));
             }
             
             $xmlObj = $this->addElementsXmlAttribsFromData($xmlObj , $data);
