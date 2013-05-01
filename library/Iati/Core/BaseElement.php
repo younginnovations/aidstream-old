@@ -525,9 +525,9 @@ class Iati_Core_BaseElement
             }
             foreach($data as $row){
                 if(!is_object($parent)){
-                    $xmlObj = new SimpleXMLElement("<$eleName>".$row['text']."</$eleName>");
+                    $xmlObj = new SimpleXMLElement("<$eleName>".preg_replace('/&(?!\w+;)/' , '&amp;' , $row['text'])."</$eleName>");
                 } else {
-                    $xmlObj = $parent->addChild($eleName , $row['text']);
+                    $xmlObj = $parent->addChild($eleName , preg_replace('/&(?!\w+;)/' , '&amp;' , $row['text']));
                 }
                 $xmlObj = $this->addElementsXmlAttribsFromData($xmlObj , $row);
                 // If children is present fetch their data.
