@@ -1,0 +1,29 @@
+<?php $images = $this->images;?>
+<?php $number_of_images = sizeof($images);?>
+<?php $start = rand($min, $number_of_images-1);?>
+<div id="organisation-total">
+    <div class="org-count">
+        <span><?php echo $this->count;?> Organisations</span>
+        have published data using aidstream.
+    </div>
+    <div class="learn-how">
+        Aidstream makes it easy to publish data in IATI format without getting into complexities
+        <?php echo $this->l('Learn How'  , 'how-to');?>
+    </div>
+</div>
+
+<div id="organisation-logos">
+	<ul>
+	<?php foreach($images as $image):?>
+		<li>
+		<?php if($image['url']):?>
+		<a href='<?php echo $image['url']?>' target="_blank"><img src="<?php echo $this->baseUrl().'/uploads/image/'.$image['file_name']; ?>"
+			alt="<?php echo $image['file_name']; ?>"></a>
+		<?php else :?>
+		<img src="<?php echo $this->baseUrl().'/uploads/image/'.$image['file_name']; ?>"
+			alt="<?php echo $image['file_name']; ?>" >
+		<?php endif;?>
+		</li>
+	<?php endforeach; ?>
+	</ul>
+</div>

@@ -33,7 +33,6 @@ class User_Model_DbTable_Account extends Zend_Db_Table_Abstract {
         $value = $this->fetchRow($select);
         return $value;
     }
-
     public function getFileNamesForFooter()
     {
         $select = $this->select()
@@ -41,5 +40,12 @@ class User_Model_DbTable_Account extends Zend_Db_Table_Abstract {
             ->where('file_name <> ""')
             ->where('display_in_footer = ?' , 1);
         return $this->fetchAll($select)->toArray();
+    }
+    
+    public function getAccountCount()
+    {
+        $select = $this->select()
+            ->from($this , array('total' =>'count(*)'));
+        return $this->fetchRow($select)->toArray();
     }
 }
