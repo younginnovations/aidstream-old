@@ -520,9 +520,13 @@ class Iati_Core_BaseElement
             } else { // If parentName is not present the provided id is its own id so fetch by own id.
                 $eleData = $this->db->fetchAll($this->db->getAdapter()->quoteInto("id = ?" , $eleId));
             }
+
             if($eleData){
                 $data = $eleData->toArray();
+            } else {
+                return; // xml should not be added if data is not present.
             }
+            
             foreach($data as $row){
                 if(!is_object($parent)){
                     $xmlObj = new SimpleXMLElement("<$eleName>".preg_replace('/&(?!\w+;)/' , '&amp;' , $row['text'])."</$eleName>");
@@ -546,9 +550,13 @@ class Iati_Core_BaseElement
                 $select = $this->db->select()->where($this->db->getAdapter()->quoteInto("id = ?" , $eleId));
             }
             $row = $this->db->fetchRow($select);
+            
             if($row){
                 $data = $row->toArray();
+            } else { 
+                return; // xml should not be added if data is not present.
             }
+            
             if(!is_object($parent)){
                 $xmlObj = new SimpleXMLElement("<$eleName>".preg_replace('/&(?!\w+;)/' , '&amp;' ,$data['text'])."</$eleName>");
             } else {
