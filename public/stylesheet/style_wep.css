@@ -3153,6 +3153,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f4f4', end
 
 #contain #activity-state-info table.block-data-list td.data-label {
 	padding-left:35px;
+	font-size: 14px;
+	color: #333;
 }
 
 #edit {
@@ -4532,7 +4534,7 @@ a:hover {
 	padding: 0;
 }
 
-.nav ul li a:hover {
+.nav ul li a:hover,.nav ul li.active-menu a {
 	background: url(../images/nav-hover.png) no-repeat bottom;
 	color: #858585;
 }
