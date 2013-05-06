@@ -160,10 +160,10 @@ class User_UserController extends Zend_Controller_Action
                 }
                 else
                     $this->_helper->FlashMessenger->addMessage(array('error' => 'Invalid username or password.'));
-                    $this->_redirect('/');
+                    //$this->_redirect('/');
             } else {
                 $this->_helper->FlashMessenger->addMessage(array('error' => 'Invalid data provided'));
-                $this->_redirect('/');
+                //$this->_redirect('/');
             }
         }
         $this->view->form = $form;

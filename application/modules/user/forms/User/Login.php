@@ -13,11 +13,13 @@ class User_Form_User_Login extends App_Form
         $username = new Zend_Form_Element_Text('username');
         $username->setLabel('Username')
             ->setRequired()
+	    ->setAttrib('placeholder' , 'Username')
             ->setAttrib('class','input_box username form-text');
 
         $password = new Zend_Form_Element_Password('password');
         $password->setLabel('Password')
             ->setRequired()
+	    ->setAttrib('placeholder' , 'Password')
             ->setAttrib('class','input_box password form-text');
 
         $login = new Zend_Form_Element_Submit('login');

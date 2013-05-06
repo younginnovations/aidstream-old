@@ -41,6 +41,7 @@
 	    $this->headScript()->appendFile($this->baseUrl() . '/js/jcarousellite.js', $type = 'text/javascript');
 	    $this->headScript()->appendFile($this->baseUrl() . '/js/scroll-content.js', $type = 'text/javascript');
 	    $this->headScript()->appendFile($this->baseUrl() . '/js/home.js', $type = 'text/javascript');
+	    $this->headScript()->appendFile($this->baseUrl() . '/js/common-jquery.js', $type = 'text/javascript');
 	    $this->headScript()->appendFile($this->baseUrl() . '/js/bjqs-1.3.js', $type = 'text/javascript');
 	    $this->headScript()->appendFile($this->baseUrl() . '/js/jquery.secret-source.min.js', $type = 'text/javascript');
 
@@ -49,7 +50,28 @@
 </head>
 
 <body id="aidstream-homepage">
+  
+    
     <div id="wrapper">
+    <div class="login-wrapper">
+      <div id="login-form-wrapper" style="display:none">
+	<? $form = new User_Form_User_Login(); ?>
+	<form method="<? echo $form->getMethod() ?>" action="<? echo $form->getAction()?>" id="<? echo $form->getId() ?>" >
+	    <table>
+		<tr>
+		    <td><? echo $form->username->renderViewHelper();?><span id='username-error' class="error" ></span></td>
+		</tr>
+		<tr>
+		    <td><? echo $form->password->renderViewHelper();?><span id='password-error' class="error" ></span></td>
+		</tr>
+		<tr>
+		    <td><? echo $this->formSubmit('login','Secure Login'); ?> </td>
+		</tr>
+		<tr> <td><div class="login-register">Not registered yet? <?php echo $this->l('Register now', 'user/user/register');?> </div><div class='forgot-password'><?php echo $this->l('Forgot Password?', 'user/user/forgotpassword');?></div></td></tr>
+	    </table>
+	</form>
+    </div><!--Close login-form-container-->
+    </div>
 	<div id="hidden-overlay"></div>
 	<div id="login-hidden-overlay"></div>
 
@@ -85,17 +107,18 @@
 			<div class="logo">
 				<a href="<?php print($this->baseUrl()) ?>/"><img alt="logo" src="<?php print($this->baseUrl());?>/images/logo.png" width="240" height="39" alt="Aidstream"></a>
 			</div>
+			<?php $url = $_SERVER['REQUEST_URI'];?>
 			<div class="nav">
 				<ul>
-					<li><?php echo $this->l(' About', 'default/index/about');?></li>
+					<li class="<?php echo ($url === '/about')? 'active-menu':'';?>"><?php echo $this->l(' About', 'about');?></li>
 					<li><?php echo $this->l("How to Use", 'how-to');?></li>
-					<li><?php echo $this->l("Who's using", 'default/index/users');?></li>
+					<li class="<?php echo ($url === '/users')? 'active-menu':'';?>"><?php echo $this->l("Who's using", 'users');?></li>
 					<li><?php echo $this->l('Snapshot', 'snapshot');?></li>
 					<li><?php echo $this->l('Blog', 'blog', array('attributes' => array('target' => '__blank')));?></li>
 				</ul>
 				<?php if(!$auth->hasIdentity()):?>
-				<div class="login">
-					<a href="#">Login</a> / <a href="#">Register</a>
+				<div class="login" id="login-register-popup">
+					<?php echo $this->l('Login / Register', 'user/user/login');?>
 				</div>
 				<?php endif;?>
 			</div>

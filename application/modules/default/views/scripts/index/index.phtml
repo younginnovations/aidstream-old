@@ -2,12 +2,12 @@
 	<div class="banner">
 		<div class="banner-content">
 			<div class="tagline">
-			A better and easy way to publish <a href="#">Aid Data</a> in <a href="#">IATI Format</a>. 
+			A better and easy way to publish <a href="http://iatiregistry.org" target="__blank">Aid Data</a> in <a href="http://iatistandard.org" target="__blank">IATI Format</a>.
 			</div>
 			<p>
 			AidStream is an online platform for organisations that wish to publish aid data in the International Aid Transparency Initiative(IATI) format without getting into complexities of IATI.
 			</p>
-			<?php echo $this->l('Learn More about Aidstream'  , 'default/index/about' , array('attributes' => array('class' => 'learn-more')) );?>
+			<?php echo $this->l('Learn More about Aidstream'  , 'about' , array('attributes' => array('class' => 'learn-more')) );?>
 		</div>	
 		<div class="banner-slideshow">	
 		
@@ -22,7 +22,7 @@
         <div class="carousel">
       <ul>
            <li><div class="organization-wrapper">
-			<a href="<?php echo $this->baseUrl();?>/default/index/users"><div class="organization-start"><div class="count"><span><?php echo $this->orgCount;?></span></div>
+			<a href="<?php echo $this->baseUrl();?>/users"><div class="organization-start"><div class="count"><span><?php echo $this->orgCount;?></span></div>
 				<p><span class="organization">Organizations</span>have already started using it.</p></div>
 		  <img src="<?php echo $this->baseUrl();?>/images/slider1.png" title=""></a></div></li>
            <li><a href="#"><img src="<?php echo $this->baseUrl();?>/images/slider2.png" title=""></a></li>
