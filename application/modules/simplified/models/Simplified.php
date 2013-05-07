@@ -26,10 +26,13 @@ class Simplified_Model_Simplified
         //var_dump($data);exit;
         $model = new Model_Wep();
         $modelActivity =  new Model_Activity();
+        
+        $activitiesId = $model->getIdByField('iati_activities', 'account_id', $identity->account_id);
+        
         //Create activity and its defaults
         $iatiIdentifier['activity_identifier'] = $data['identifier'];
         $iatiIdentifier['iati_identifier'] = $default['reporting_org_ref']."-".trim($data['identifier']);
-        $activityId = $modelActivity->createActivity($identity->account_id , $default , $iatiIdentifier);
+        $activityId = $modelActivity->createActivity($activitiesId, $default , $iatiIdentifier);
         
         //Create Recipient Organisation( this is set to nepal)
         $recOrg = array();
