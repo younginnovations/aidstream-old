@@ -19,6 +19,7 @@ class Model_Activity
         $activityInfo['@xml_lang'] = $default['language'];
         $activityInfo['@default_currency'] = $default['currency'];
         $activityInfo['@hierarchy'] = $default['hierarchy'];
+        $activityInfo['@linked_data_uri'] = $default['linked_data_default'];
         $activityInfo['@last_updated_datetime'] = date('Y-m-d H:i:s');
         $activityInfo['activities_id'] = $orgId;
         $activityId = $wepModel->insertRowsToTable('iati_activity', $activityInfo);

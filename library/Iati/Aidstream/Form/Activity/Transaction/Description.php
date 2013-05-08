@@ -17,6 +17,7 @@ class Iati_Aidstream_Form_Activity_Transaction_Description extends Iati_Core_Bas
 
         $form['text'] = new Zend_Form_Element_Textarea('text');
         $form['text']->setLabel('Text')
+            ->setRequired()
             ->setAttribs(array('rows'=>'3' , 'cols'=> '20'))
             ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help transaction-description-text' , 'placement' => 'PREPEND'))));
 

@@ -16,7 +16,7 @@
                         array ('budget','planned_disbursement','transaction'),
                         array ('document_link','activity_website'),
                         array ('related_activity'),
-                        array ('conditions','result'),
+                        array ('conditions','result','legacy_data'),
                     );
     $i = 0;
     foreach($elements as $key){            

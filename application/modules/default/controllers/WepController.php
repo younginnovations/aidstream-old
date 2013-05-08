@@ -163,6 +163,7 @@ class WepController extends Zend_Controller_Action
                     $defaultFieldsValuesObj->setCurrency($data['default_currency']);
                     $defaultFieldsValuesObj->setReportingOrg($data['default_reporting_org']);
                     $defaultFieldsValuesObj->setHierarchy($data['hierarchy']);
+                    $defaultFieldsValuesObj->setLinkedDataDefault($data['linked_data_default']);
                     $defaultFieldsValuesObj->setReportingOrgRef($data['reporting_org_ref']);
                     $defaultFieldsValuesObj->setReportingOrgType($data['reporting_org_type']);
                     $defaultFieldsValuesObj->setReportingOrgLang($data['reporting_org_lang']);
@@ -264,6 +265,7 @@ class WepController extends Zend_Controller_Action
         $activity_info['@xml_lang'] = $wepModel->fetchValueById('Language' , $default['language'] , 'Code');
         $activity_info['@default_currency'] = $wepModel->fetchValueById('Currency' , $default['currency'] , 'Code');
         $activity_info['@hierarchy'] = $default['hierarchy'];
+        $activity_info['@linked_data_uri'] = $default['linked_data_default'];
         $activity_info['@last_updated_datetime'] = date('Y-m-d H:i:s');
         $activity_info['activities_id'] = $activities_id;
 
@@ -868,6 +870,7 @@ class WepController extends Zend_Controller_Action
                 $activity['xml_lang'] = $default['language'];
                 $activity['default_currency'] = $default['currency'];
                 $activity['hierarchy'] = $default['hierarchy'];
+                $activity['linked_data_uri'] = $default['linked_data_default'];
                 $form = new Form_Wep_IatiActivity();
                 $form->add('add', $identity->account_id);
                 $form->populate(array('reporting_org'=>$default['reporting_org_ref']));
@@ -886,6 +889,7 @@ class WepController extends Zend_Controller_Action
                 $activity['default_currency'] = $rowSet[0]['@default_currency'];
                 $activity['hierarchy'] = $rowSet[0]['@hierarchy'];
                 $activity['activities_id'] = $rowSet[0]['activities_id'];
+                $activity['linked_data_uri'] = $rowSet[0]['@linked_data_uri'];
                 $form = new Form_Wep_EditIatiActivity();
                 $form->edit($identity->account_id);
 
@@ -911,6 +915,7 @@ class WepController extends Zend_Controller_Action
                         $default['language'] = $formData['xml_lang'];
                         $default['currency'] = $formData['default_currency'];
                         $default['hierarchy'] = $formData['hierarchy'];
+                        $default['linked_data_default'] = $formData['linked_data_uri'];
 
                         $iatiIdentifier = array();
                         $iatiIdentifier['iati_identifier'] = $formData['iati_identifier_text'];
@@ -933,6 +938,7 @@ class WepController extends Zend_Controller_Action
                         $data['@xml_lang'] = $formData['xml_lang'];
                         $data['@default_currency'] = $formData['default_currency'];
                         $data['@hierarchy'] = $formData['hierarchy'];
+                        $data['@linked_data_uri'] = $formData['linked_data_uri'];
                         $result = $wepModel->updateRowsToTable('iati_activity', $data);
                         $wepModel = new Model_Wep();
                         $activityHashModel = new Model_ActivityHash();

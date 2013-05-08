@@ -43,6 +43,14 @@ class Form_Wep_IatiActivity extends App_Form
 
         $form['hierarchy'] = new Zend_Form_Element_Text('hierarchy');
         $form['hierarchy']->setAttrib('class', 'form-text')->setLabel('Hierarchy');
+        
+        $form['linked_data_uri'] = new Zend_Form_Element_text('linked_data_uri');
+        $form['linked_data_uri']->setLabel('Linked Data Uri')
+            ->addValidator(new App_Validate_Url)    
+            ->setAttrib('class', 'form-text');
+         if($status != 'edit'){
+            $form['linked_data_uri']->setValue($default['linked_data_default']);
+        }
 
         //This code is used to append a <div> with help class for all form elements, used for displaying help
         foreach($form as $item_name=>$element)
@@ -63,7 +71,7 @@ class Form_Wep_IatiActivity extends App_Form
         }
         $this->addElements($form);
 
-        $this->addDisplayGroup(array('xml_lang', 'default_currency', 'hierarchy'), 
+        $this->addDisplayGroup(array('xml_lang', 'default_currency', 'hierarchy' , 'linked_data_uri'), 
                                     'field1',array('legend'=>'Activity'));
         $activity = $this->getDisplayGroup('field1');
         $activity->addDecorators( array(

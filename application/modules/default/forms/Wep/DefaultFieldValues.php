@@ -32,6 +32,12 @@ class Form_Wep_DefaultFieldValues extends App_Form
         $form['hierarchy']->setLabel('Default Hierarchy')
             ->setAttrib('class' , 'form-text')
             ->setValue($defaults['field_values']['hierarchy']);
+            
+        $form['linked_data_default'] = new Zend_Form_Element_Text('linked_data_default');
+        $form['linked_data_default']->setLabel('Linked Data Default')
+            ->addValidator(new App_Validate_Url)    
+            ->setAttrib('class' , 'form-text')
+            ->setValue($defaults['field_values']['linked_data_default']);
                                     
         $form['default_collaboration_type'] = new Zend_Form_Element_Select('default_collaboration_type');
         $form['default_collaboration_type']->setLabel('Default Collaboration Type')
@@ -85,7 +91,7 @@ class Form_Wep_DefaultFieldValues extends App_Form
         
         $this->addElements($form);
         
-        $this->addDisplayGroup(array('default_currency', 'default_language', 'hierarchy', 'default_collaboration_type' , 'default_flow_type', 'default_finance_type' , 'default_aid_type', 'default_tied_status'),
+        $this->addDisplayGroup(array('default_currency', 'default_language', 'hierarchy', 'linked_data_default' , 'default_collaboration_type' , 'default_flow_type', 'default_finance_type' , 'default_aid_type', 'default_tied_status'),
                                'default_field_values',
                                array('legend'=>'Default Field Values')
                             );

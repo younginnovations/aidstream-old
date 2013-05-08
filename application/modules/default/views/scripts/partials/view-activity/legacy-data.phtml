@@ -1,0 +1,37 @@
+<li class="element-activity">
+    
+    <div class="element-title element-current">
+        Legacy Data
+    </div>
+    
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/edit-element/?activity_id=<?php echo $this->activity_id ?>&className=Activity_LegacyData">Edit</a></div>	
+
+    <?php foreach ($this->elements as $element): ?>
+        <div class="current">
+            <ul class="style-2 arrow">
+                <li>
+                    <span class="down-arrow">
+                    <?php if ($element['@name']) print $element['@name']; ?>
+                    <?php if ($element['@name'] && $element['@value']) print ";";?>
+                    <?php if ($element['@value']) print $element['@value']; ?>
+                    </span> 
+                    <ul class="style-2-drop first">
+                        <li>
+                            <span class="name">Name:</span>
+                            <span class="infom"><?php if ($element['@name']) print $element['@name']; ?></span>
+                        </li>
+                        <li>
+                            <span class="name">Value:</span>
+                            <span class="infom"><?php if ($element['@value']) print $element['@value']; ?></span>
+                        </li>
+                        <li>
+                            <span class="name">Iati Equivalent:</span>
+                            <span class="infom"><?php if ($element['@iati_equivalent']) print $element['@iati_equivalent']; ?></span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    <?php endforeach; ?>
+</li><!-- end of element-activity -->
+

@@ -29,6 +29,12 @@ class Iati_Aidstream_Form_Activity extends Iati_Core_BaseForm
         $form['hierarchy'] = new Zend_Form_Element_Text('hierarchy');
         $form['hierarchy']->setLabel('Hierarchy')    
             ->setValue($this->data['@hierarchy'])
+            ->setAttrib('class' , 'form-text');
+            
+        $form['linked_data_uri'] = new Zend_Form_Element_Text('linked_data_uri');
+        $form['linked_data_uri']->setLabel('Linked Data Uri')    
+            ->setValue($this->data['@linked_data_uri'])
+            ->addValidator(new App_Validate_Url)    
             ->setAttrib('class' , 'form-text'); 
 
         $this->addElements($form);

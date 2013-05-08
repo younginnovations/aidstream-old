@@ -16,24 +16,27 @@ class Iati_Aidstream_Form_Activity_Conditions_Condition extends Iati_Core_BaseFo
         $form['id']->setValue($this->data['id']);
         
         $form['text'] = new Zend_Form_Element_Textarea('text');
-        $form['text']->setLabel('Description')  
+        $form['text']->setLabel('Description')
+            ->setRequired()
             ->setValue($this->data['text'])
             ->setAttribs(array('rows'=>'2' , 'cols'=> '20'));
         
         $conditionType= $model->getCodeArray('ConditionType', null, '1' , true);
         $form['type'] = new Zend_Form_Element_Select('type');
         $form['type']->setLabel('Condition Type')
+            ->setRequired()
             ->setValue($this->data['@type'])
             ->setAttrib('class' , 'form-select')
             ->setMultioptions($conditionType);
-        
+        /*
         $lang = $model->getCodeArray('Language', null, '1' , true);
         $form['xml_lang'] = new Zend_Form_Element_Select('xml_lang');
         $form['xml_lang']->setLabel('Language')
             ->setValue($this->data['@xml_lang'])
             ->setAttrib('class' , 'form-select')
             ->setMultioptions($lang);
-
+        */
+        
         $this->addElements($form);
         return $this;
     }

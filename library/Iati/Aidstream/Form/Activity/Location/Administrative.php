@@ -10,7 +10,8 @@ class Iati_Aidstream_Form_Activity_Location_Administrative extends Iati_Core_Bas
         $form['id']->setValue($this->data['id']);
             
         $form['text'] = new Zend_Form_Element_Textarea('text');
-        $form['text']->setLabel('Text')  
+        $form['text']->setLabel('Text')
+            ->setRequired()
             ->setValue($this->data['text'])
             ->setAttribs(array('rows'=>'2' , 'cols'=> '20'));
         

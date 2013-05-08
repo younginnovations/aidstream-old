@@ -351,5 +351,17 @@
         <?php endif; ?>
         <!-- Result Ends -->
         
+        <!-- Legacy Data Starts -->
+        <?php if(count($activity['LegacyData'])):?>
+            <?php echo $this->partial("partials/view-activity/legacy-data.phtml" , array(
+                                                                                            'activity_id' => $activity['id'] ,  
+                                                                                            'activityInfo' => $this->activityInfo ,
+                                                                                            'elements' => $activity['LegacyData'] ,
+                                                                                        )
+                                    );
+            ?>        
+        <?php endif; ?>
+        <!-- Legacy Data Ends -->
+        
     <?php endforeach; ?>
 </div>
