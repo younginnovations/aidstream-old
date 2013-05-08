@@ -46,7 +46,6 @@ class Form_Wep_IatiActivity extends App_Form
         
         $form['linked_data_uri'] = new Zend_Form_Element_text('linked_data_uri');
         $form['linked_data_uri']->setLabel('Linked Data Uri')
-            ->addValidator(new App_Validate_Url)    
             ->setAttrib('class', 'form-text');
          if($status != 'edit'){
             $form['linked_data_uri']->setValue($default['linked_data_default']);

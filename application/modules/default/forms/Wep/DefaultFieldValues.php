@@ -35,7 +35,6 @@ class Form_Wep_DefaultFieldValues extends App_Form
             
         $form['linked_data_default'] = new Zend_Form_Element_Text('linked_data_default');
         $form['linked_data_default']->setLabel('Linked Data Default')
-            ->addValidator(new App_Validate_Url)    
             ->setAttrib('class' , 'form-text')
             ->setValue($defaults['field_values']['linked_data_default']);
                                     
