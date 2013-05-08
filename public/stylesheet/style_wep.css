@@ -1137,12 +1137,17 @@ dt#save_and_view-label {
 }
 #new-user, #forget-password
 {
-	margin-left:100px;
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:12px;
 	padding-bottom:5px;
 	color:#887272;
+	float:right;
 }
+
+#new-user {
+	margin-right: 10px;
+}
+
 #CategoryCode
 {
 	margin-top:10px;
@@ -1244,6 +1249,7 @@ dt#save_and_view-label {
 {
 	color: #696969;
 	font-style:italic;
+	width:100%;
 }
 
 #contain .form-item:hover p.description
@@ -3039,7 +3045,7 @@ span#username-error.error, span#password-error.error
 }
 
 fieldset ul.errors, fieldset p.error {
-	margin-left: 210px;
+	margin-left: 220px;
 }
 
 .message, .info, .error, ul.error, .warning
@@ -5110,4 +5116,27 @@ button.next:hover {
 	-webkit-box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.65);
 	-moz-box-shadow:    0px 3px 6px rgba(0, 0, 0, 0.65);
 	box-shadow:         0px 3px 6px rgba(0, 0, 0, 0.65);
+}
+
+#user-login dl.zend_form {
+	margin-bottom: 6px;
+	border:1px solid #e0dddd;
+	overflow:hidden;
+	padding:0;
+}
+
+#user-login .default-activity-list {
+	margin-bottom: 0;
+	border:0;
+	overflow:hidden;
+	padding:0;
+}
+
+#user-login #login-element input[type="submit"] {
+	margin-left: 240px;
+	margin-bottom: 20px;
+}
+
+fieldset#fieldset-organisation_info {
+	width: 100%;
 }
