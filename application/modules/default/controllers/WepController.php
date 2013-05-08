@@ -143,6 +143,7 @@ class WepController extends Zend_Controller_Action
             try {
                 $data = $this->getRequest()->getPost();
                 if (!$form->isValid($data)) {
+                    $this->_helper->FlashMessenger->addMessage(array('error' => "You have some error in your data"));                  
                     $form->populate($data);
                 } else {
 
