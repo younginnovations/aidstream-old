@@ -33,6 +33,13 @@ class Iati_Core_Xml
         if($name == "Activity")
         {
             $this->xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><iati-activities></iati-activities>');
+            
+            $identity = Zend_Auth::getInstance()->getIdentity();
+            $model = new Model_DefaultFieldValues();
+            $linkedDataDefault = $model->getByOrganisationId($identity->account_id , 'linked_data_default');
+            if($linkedDataDefault) {
+                $this->xml->addAttribute('linked_data_default' , $linkedDataDefault);
+            }
         }
         else
         {
