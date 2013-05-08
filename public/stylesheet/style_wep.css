@@ -1250,6 +1250,7 @@ dt#save_and_view-label {
 	color: #696969;
 	font-style:italic;
 	width:100%;
+	text-align: left;
 }
 
 #contain .form-item:hover p.description
