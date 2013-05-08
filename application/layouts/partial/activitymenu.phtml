@@ -1,82 +1,53 @@
-
-<?php 
+<?php
+$identity = Zend_Auth::getInstance()->getIdentity();
 $url = Zend_Controller_Front::getInstance()->getRequest()->getParams();
 $paramValue = str_replace("Activity_" , "" , $url['className']);
- $titleArray = array('Basic Activity Information','Participating Organisations','Geopolitical Information','Classifications','Financial','Related Documents','Relations','Performance');
+$titleArray = array('Identification' , 'Basic Activity Information','Participating Organisations','Geopolitical Information','Classifications','Financial','Related Documents','Relations','Performance');
 $elements = array(
-                 array('Title','Description','ActivityStatus','ActivityDate','ContactInfo'),
-                 array ('ParticipatingOrg'),
-                 array('RecipientCountry','RecipientRegion','Location'),
-                 array('Sector','PolicyMarker','CollaborationType','DefaultFlowType','DefaultFinanceType','DefaultAidType','DefaultTiedStatus'),
-                 array ('Budget','PlannedDisbursement','Transaction'),
-                 array ('DocumentLink','ActivityWebsite'),
-                 array ('RelatedActivity'),
-                 array ('Conditions','Result','LegacyData'),
-               );
+                array('ReportingOrg' , 'IatiIdentifier' , 'OtherActivityIdentifier' ),
+                array('Title','Description','ActivityStatus','ActivityDate','ContactInfo'),
+                array ('ParticipatingOrg'),
+                array('RecipientCountry','RecipientRegion','Location'),
+                array('Sector','PolicyMarker','CollaborationType','DefaultFlowType','DefaultFinanceType','DefaultAidType','DefaultTiedStatus'),
+                array ('Budget','PlannedDisbursement','Transaction'),
+                array ('DocumentLink','ActivityWebsite'),
+                array ('RelatedActivity'),
+                array ('Conditions','Result','LegacyData'),
+            );
+
+$model = new Model_Wep();
+$fieldGroupsData = $model->getRowById('default_field_groups' , 'account_id' , $identity->account_id);
+$fieldGroups = unserialize($fieldGroupsData['object']);
+$fieldGroup = $fieldGroups->getProperties();
 ?>
 <!--Starts Displaying elements menu of an activity-->
 <div id="block-activity-menu" class="block">
     <div class="block-inner">
         <h2 class="title">Element Menu</h2>
         <div class="content">
-            <ul>
-                
-                <!--Starts of identification block-->
-                <li>
-                    <div class="menu-category-title">Identification</div>
-                    <ul class="menu-leaf">                        
-                        <?php
-                        // Reporting activity Element           
-                        $attributes = (getRowSet('ReportingOrg' , $url['activity_id'])) ? 'class = "active"' : '';
-                        $href1 = $this->baseUrl() . "/activity/edit-element/?activity_id=" . $url['activity_id'] . "&className=Activity_ReportingOrg";
-                        $class = '';
-                        if ($paramValue == 'ReportingOrg')
-                        {
-                            $class = "class = highlight";
-                        }
-                        print "<li $class><div class='help Activity_ReportingOrg'></div><a $attributes href=$href1>Reporting Organisation</a></li>";
-
-                        //Iati Identifier Element
-                        $attributes = (getRowSet('IatiIdentifier' , $url['activity_id'])) ? 'class = "active"' : '';
-                        $href2 = $this->baseUrl() . "/activity/edit-element/?activity_id=" . $url['activity_id'] . "&className=Activity_IatiIdentifier";
-                        $class = '';
-                        if ($paramValue == 'IatiIdentifier')
-                        {
-                            $class = "class = highlight";
-                        }
-                        print "<li $class ><div class='help Activity_Identifier'></div><a $attributes href=$href2>Iati Identifier</a></li>";
-
-                        // OtherActivityIdentifier Element
-                        if (getRowSet('OtherActivityIdentifier' , $url['activity_id']))
-                        {
-                            $attributes = 'class = "active"';
-                            $href3 = $this->baseUrl() . "/activity/edit-element/?activity_id=" . $url['activity_id'] . "&className=Activity_OtherActivityIdentifier" . $element;
-                        } else
-                        {
-                            $attributes = '';
-                            $href3 = $this->baseUrl() . "/activity/add-element/?activity_id=" . $url['activity_id'] . "&className=Activity_OtherActivityIdentifier" . $element;
-                        }
-                        $class = '';
-                        if ($paramValue == 'OtherActivityIdentifier')
-                        {
-                            $class = "class = highlight";
-                        }
-                        print "<li $class ><div class='help Activity_OtherActivityIdentifier'></div><a $attributes href=$href3>Other Activity Identifier</a></li>";
-                        ?>                
-                    </ul><!--End .menu-leaf-->
-                </li>
-                <!--Ends of identification block-->
-                
-                <!--Starts displaying another block-->
+            <ul>                
                 <?php
                 $i = '0';
                 foreach ($elements as $value)
                 {
+                    // show groups only if any of the elements should be shown as per field group
+                    $empty = true;
+                    foreach($value as $element){
+                        $name = strtolower(preg_replace('/([^A-Z_])([A-Z])/', '$1_$2', $element));
+                        if($fieldGroup[$name] || $element == 'ReportingOrg' || $element == 'IatiIdentifier'){
+                            $empty = false;
+                            break;
+                        }
+                    }
+                    if($empty) continue;
+                    
                     print "<li>";
                     print '<div class="menu-category-title">' . $titleArray[$i] . '</div>';
                     print '<ul class="menu-leaf">';
                     foreach ($value as $element)
                     {
+                        $name = strtolower(preg_replace('/([^A-Z_])([A-Z])/', '$1_$2', $element));
+                        if(!$fieldGroup[$name] && $element != 'ReportingOrg' && $element != 'IatiIdentifier') continue;
                         if (getRowSet($element , $url['activity_id']))
                         {
                             $attributes = 'class = "active"';
@@ -119,9 +90,7 @@ $elements = array(
                     print "</li>";
                     $i++;
                 }
-                ?>
-                <!--Ends displaying another block-->
-                
+                ?>                
             </ul>
         </div><!-- End .content-->
     </div><!-- End .block-inner-->
