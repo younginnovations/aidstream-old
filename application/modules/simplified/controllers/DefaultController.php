@@ -13,6 +13,7 @@ class Simplified_DefaultController extends Zend_Controller_Action
         $this->view->blockManager()->enable('partial/primarymenu.phtml');
         $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
         $this->view->blockManager()->enable('partial/published-list.phtml');
+        $this->view->blockManager()->enable('partial/simplified-info.phtml');
 
         // for role user check if the user has permission to add, publish ,if not disable menu.
         if($identity->role == 'user'){

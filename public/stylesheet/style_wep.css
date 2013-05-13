@@ -5141,3 +5141,14 @@ button.next:hover {
 fieldset#fieldset-organisation_info {
 	width: 100%;
 }
+
+#sidebar-right .block-info-menu,#sidebar-right .block-info-menu:hover {
+	color: #555;
+	background: #F8FCF3;
+	border: 1px solid #93cc56;
+}
+
+#sidebar-right .block-info-menu .simplified-info {
+	background: url(../images/info-icon.png) no-repeat 0 3px;
+	padding-left: 40px;
+}
