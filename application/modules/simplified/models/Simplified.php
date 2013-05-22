@@ -684,7 +684,7 @@ class Simplified_Model_Simplified
                 $locCoord = array();
                 $locCoord['@latitude'] = $coords['lat'];
                 $locCoord['@longitude'] = $coords['lng'];
-                $locCoord['@percision'] = 5; 
+                $locCoord['@precision'] = 5; 
                 $locCoord['location_id'] = $locationId;
                 $model->insertRowsToTable('iati_location/coordinates' , $locCoord);
                 
@@ -737,7 +737,7 @@ class Simplified_Model_Simplified
                     $locCoord['id'] = $locationData['location_coord_id'];
                     $model->updateRowsToTable('iati_location/coordinates' , $locCoord);
                 } else {
-                    $locCoord['@percision'] = 5; 
+                    $locCoord['@precision'] = 5; 
                     $locCoord['location_id'] = $locationId;
                     $model->insertRowsToTable('iati_location/coordinates' , $locCoord);
                 }

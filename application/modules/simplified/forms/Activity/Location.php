@@ -57,6 +57,9 @@ class Simplified_Form_Activity_Location extends Iati_SimplifiedForm
         
         //$this->data['location_vdcs'] = 'Amahibariyati , Babiyabirta';
         $adm2Data = $this->data['location_vdcs'];
+        if(is_array($adm2Data)){
+            $adm2Data = implode(',' , $adm2Data);
+        }
         $options = array();
         if($adm2Data){
             $adm2Data = explode(',' , $adm2Data);
