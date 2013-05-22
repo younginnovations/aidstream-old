@@ -247,7 +247,11 @@ class User_UserController extends Zend_Controller_Action
         $profileModel = new User_Model_DbTable_Profile();
         $row1 = $profileModel->getProfileByUserId($user_id);
         $accountObj = new User_Model_DbTable_Account();
-        $userName = strtok($row['user_name'], '_');
+        //$userName = strtok($row['user_name'], '_');
+        $names = explode('_' , $row['user_name']);
+        $last  = array_pop($names);
+        $userName = implode('_' , $names);
+
         $account = $accountObj->getAccountRowByUserName('account', 'username', $userName);
 
         $form = new User_Form_User_Edit();

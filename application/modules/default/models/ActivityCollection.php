@@ -71,6 +71,7 @@ class Model_ActivityCollection extends Zend_Db_Table_Abstract
             if($sectorData){
                 foreach($sectorData as $sectorValue){
                     if(!$sectorValue['@vocabulary'] || $sectorValue['@vocabulary'] == 3){
+			if(!$sectorValue['@code']) continue;
                         $sectorName = $model->fetchValueById('Sector', $sectorValue['@code'] , 'Name');
                         if(strlen($sectorName) > 35){
                             $sectorName = substr($sectorName, 0 , 32)."...";
