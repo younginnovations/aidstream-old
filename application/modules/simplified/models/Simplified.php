@@ -4,6 +4,14 @@ DEFINE ('LOCATION_API' , "http://www.developmentcheck.org/geotag/");
 
 class Simplified_Model_Simplified
 {
+    public $activityId;
+    public $model;
+    public $defaults;
+    
+    public function __construct()
+    {
+        $this->model = new Model_Wep();
+    }
     
     public static function isSimplified()
     {
@@ -22,9 +30,10 @@ class Simplified_Model_Simplified
      */
     public function addActivity($data , $default)
     {
+        $this->defaults = $default;
         $identity = Zend_Auth::getInstance()->getIdentity();
         //var_dump($data);exit;
-        $model = new Model_Wep();
+        $model = $this->model;
         $modelActivity =  new Model_Activity();
         
         $activitiesId = $model->getIdByField('iati_activities', 'account_id', $identity->account_id);
@@ -33,6 +42,7 @@ class Simplified_Model_Simplified
         $iatiIdentifier['activity_identifier'] = $data['identifier'];
         $iatiIdentifier['iati_identifier'] = $default['reporting_org_ref']."-".trim($data['identifier']);
         $activityId = $modelActivity->createActivity($activitiesId, $default , $iatiIdentifier);
+        $this->activityId = $activityId;
         
         //Create Recipient Organisation( this is set to nepal)
         $recOrg = array();
@@ -85,176 +95,8 @@ class Simplified_Model_Simplified
             $endDate['activity_id'] = $activityId;
             $model->insertRowsToTable('iati_activity_date' , $endDate);            
         }
-        //Create Document
-        foreach($data['document_wrapper']['document'] as $document){
-            if($this->hasValue($document)){
-                if($document['url']){
-                    $docUrl['@url'] = $document['url'];
-                    $docUrl['activity_id'] = $activityId;
-                    $documentId = $model->insertRowsToTable('iati_document_link' , $docUrl);
-                    
-                    //Insert document link category
-                    if($document['category_code']){
-                        $docCat['@code'] = $document['category_code'];
-                        $docCat['text'] = '';
-                        $docCat['@xml_lang'] = $default['language']; 
-                        $docCat['document_link_id'] = $documentId;
-                        $model->insertRowsToTable('iati_document_link/category' , $docCat);
-                    }
         
-                     //Insert document link title
-                    if($document['title']){
-                        $docTitle['text'] = $document['title'];
-                        $docTitle['@xml_lang'] = $default['language']; 
-                        $docTitle['document_link_id'] = $documentId;
-                        $model->insertRowsToTable('iati_document_link/title' , $docTitle);
-                    }          
-                }
-            }
-        }
-        
-        //Create Location
-        foreach($data['location'] as $locationData){
-            if(!$locationData['location_name']) continue;
-            // Insert location
-            $locationId = $model->insertRowsToTable('iati_location' , array('activity_id' => $activityId));
-            $locationId = 2;
-            
-            // Insert location type code (default to PPL)
-            $locType = array();
-            $locType['@code'] = '';
-            $locType['location_id'] = $locationId;
-            $model->insertRowsToTable('iati_location/location_type' , $locType);
-            
-            // insert location name
-            $locName = array();
-            $locName['text'] = $locationData['location_name'];
-            $locName['location_id'] = $locationId;
-            $model->insertRowsToTable('iati_location/name' , $locName);
-            
-            // Insert Location Description
-            $locDesc = array();
-            if(!empty($locationData['location_vdcs'])){
-                $text = implode(',' , $locationData['location_vdcs']);
-                $text .= " - vdc/s of ".$locationData['location_name'];
-            } else {
-                $text = VDCS_DEFAULT_VALUE;
-            }
-            $locDesc['text'] = $text;
-            $locDesc['location_id'] = $locationId;
-            $model->insertRowsToTable('iati_location/description' , $locDesc);
-            
-            // Insert Location adm
-            $adms = $this->getLocationAdms($locationData['location_name']);
-            $locAdm = array();
-            $locAdm['@adm1'] = $adms['adm1'];
-            $locAdm['@adm2'] = $adms['adm2'];
-            $locAdm['@country'] = 156; // Country code for nepal
-            $locAdm['text'] = $adms['adm2']." , ".$adms['adm1'];
-            $locAdm['location_id'] = $locationId;
-            $model->insertRowsToTable('iati_location/administrative' , $locAdm);
-            
-            // Insert Location coords..
-            $coords = $this->getCoordinates($locationData['location_name']);
-            $locCoord = array();
-            $locCoord['@latitude'] = $coords['lat'];
-            $locCoord['@longitude'] = $coords['lng'];
-            $locCoord['@precision'] = 5; // Country code for nepal
-            $locCoord['location_id'] = $locationId;
-            $model->insertRowsToTable('iati_location/coordinates' , $locCoord);            
-        }
-        
-        //Create Budget
-        foreach($data['budget_wrapper']['budget'] as $budgetData){
-            if($this->hasValue($budgetData)){
-                $budget['@type'] = '';
-                $budget['activity_id'] = $activityId;
-                $budgetId = $model->insertRowsToTable('iati_budget' , $budget);
-                
-                //Insert Budget value
-                if($budgetData['amount']){
-                    $budValue['text'] = $budgetData['amount'];
-                    $budValue['@value_date'] = $budgetData['signed_date'];
-                    $budValue['@currency'] = $budgetData['currency'];
-                    $budValue['budget_id'] = $budgetId;
-                    $model->insertRowsToTable('iati_budget/value' , $budValue);
-                }
-                
-                //Insert Budget Start
-                if($budgetData['start_date']){
-                    $budStart['@iso_date'] = $budgetData['start_date'];
-                    $budStart['budget_id'] = $budgetId;
-                    $model->insertRowsToTable('iati_budget/period_start' , $budStart);
-                }
-                
-                //Insert Budget End
-                if($budgetData['end_date']){
-                    $budEnd['@iso_date'] = $budgetData['end_date'];
-                    $budEnd['budget_id'] = $budgetId;
-                    $model->insertRowsToTable('iati_budget/period_end' , $budEnd);
-                }
-            }
-        }
-        
-        //Create Transaction
-        // Commitment
-        /* removed.
-        foreach($data['commitment_wrapper']['commitment'] as $commitment){
-            if($this->hasValue($commitment)){
-                $tran['activity_id'] = $activityId;
-                $transactionId = $model->insertRowsToTable('iati_transaction' , $tran);
-                //Insert transaction type
-                $tranType['@code'] = 1;//@todo check
-                $tranType['transaction_id'] = $transactionId;
-                $model->insertRowsToTable('iati_transaction/transaction_type' , $tranType);
-                 //Insert transaction value
-                $tranValue['@currency'] = $commitment['currency'];
-                $tranValue['text'] = $commitment['amount'];
-                $tranValue['@value_date'] = $commitment['start_date'];
-                $tranValue['transaction_id'] = $transactionId;
-                $model->insertRowsToTable('iati_transaction/value' , $tranValue);
-            }
-        }
-        */
-
-        //Incomming Fund
-        foreach($data['incomming_fund_wrapper']['incommingFund'] as $incommingFund){
-            if($this->hasValue($incommingFund)){
-                $tran['activity_id'] = $activityId;
-                $transactionId = $model->insertRowsToTable('iati_transaction' , $tran);
-                //Insert transaction type
-                $tranType['@code'] = 5;//@todo check
-                $tranType['transaction_id'] = $transactionId;
-                $model->insertRowsToTable('iati_transaction/transaction_type' , $tranType);
-                //Insert transaction value
-                $tranValue['@currency'] = $incommingFund['currency'];
-                $tranValue['text'] = $incommingFund['amount'];
-                $tranValue['@value_date'] = $incommingFund['start_date'];
-                $tranValue['transaction_id'] = $transactionId;
-                $model->insertRowsToTable('iati_transaction/value' , $tranValue);
-            }
-        }
-        
-        // Expenditure
-        foreach($data['expenditure_wrapper']['expenditure'] as $expenditure){
-            if($this->hasValue($expenditure)){
-                $tran['activity_id'] = $activityId;
-                $transactionId = $model->insertRowsToTable('iati_transaction' , $tran);
-                //Insert transaction type
-                $tranType['@code'] = 4;//@todo check
-                $tranType['transaction_id'] = $transactionId;
-                $model->insertRowsToTable('iati_transaction/transaction_type' , $tranType);
-                //Insert transaction value
-                $tranValue['@currency'] = $expenditure['currency'];
-                $tranValue['text'] = $expenditure['amount'];
-                $tranValue['@value_date'] = $expenditure['start_date'];
-                $tranValue['transaction_id'] = $transactionId;
-                $model->insertRowsToTable('iati_transaction/value' , $tranValue);
-
-            }
-        }
-        
-        //Create Sector
+         //Create Sector
         if($this->hasValue($data['sector'])){
             foreach($data['sector'] as $sectorData){
                 $sector['@code'] = $sectorData;
@@ -263,6 +105,24 @@ class Simplified_Model_Simplified
                 $model->insertRowsToTable('iati_sector' , $sector);
             }
         }
+        
+        //Create Document
+        $this->addDocument($data['document_wrapper']['document']);
+
+        //Create Location
+        $this->addLocation($data['location_wrapper']['location']);
+        
+        //Create Budget
+        $this->addBudget($data['budget_wrapper']['budget']);
+        
+        //Incomming Fund
+        $this->addIncommingFund($data['incomming_fund_wrapper']['incommingFund']);
+        
+        //Expenditure
+        $this->addExpenditure($data['expenditure_wrapper']['expenditure']);
+        
+        //Result
+        //$this->addResult($data['result_wrapper']['result']);
         
         return $activityId;
         
@@ -465,8 +325,10 @@ class Simplified_Model_Simplified
     public function updateActivity($data , $default)
     {
        // var_dump($data);exit;
-        $model = new Model_Wep();
+        $model = $this->model;
         $activityId = $data['activity_id'];
+        $this->activityId = $activityId;
+        $this->defaults = $default;
         
         //Update Reporting Organisation
         $repOrg = $model->getRowsByFields('iati_reporting_org' , 'activity_id' , $activityId);
@@ -592,304 +454,20 @@ class Simplified_Model_Simplified
         }
 
         //Update Document
-        foreach($data['document_wrapper']['document'] as $documentData){
-            if($documentData['id']){
-                $docUrl = array();
-                $docUrl['@url'] = $documentData['url'];
-                $docUrl['id'] = $documentData['id'];
-                $documentId = $model->updateRowsToTable('iati_document_link' , $docUrl);
-    
-                //update document link category
-                if($documentData['category_id']){
-                    $docCat = array();
-                    $docCat['@code'] = $documentData['category_code'];
-                    $docCat['id'] = $documentData['category_id'];
-                    $model->updateRowsToTable('iati_document_link/category' , $docCat);
-                }
-    
-                //update document link title
-                if($documentData['title_id']){
-                    $docTitle = array();
-                    $docTitle['text'] = $documentData['title'];
-                    $docTitle['id'] = $documentData['title_id'];
-                    $model->updateRowsToTable('iati_document_link/title' , $docTitle);
-                }
-                
-            } elseif($this->hasValue($documentData)){
-                $docUrl = array();
-                $docUrl['@url'] = $documentData['url'];
-                $docUrl['activity_id'] = $activityId;
-                $documentId = $model->insertRowsToTable('iati_document_link' , $docUrl);
-                
-                //Insert document link category
-                $docCat = array();
-                $docCat['@code'] = $documentData['category_code'];
-                $docCat['text'] = '';
-                $docCat['@xml_lang'] = $default['language']; 
-                $docCat['document_link_id'] = $documentId;
-                $model->insertRowsToTable('iati_document_link/category' , $docCat);
-    
-                //Insert document link title
-                $docTitle = array();
-                $docTitle['text'] = $documentData['title'];
-                $docTitle['document_link_id'] = $documentId;
-                $model->insertRowsToTable('iati_document_link/title' , $docTitle);
-            }
-        }
+        $this->updateDocument($data['document_wrapper']['document']);
 
         //Update Location
-        foreach($data['location'] as $locationData){
-
-            $locationId = $locationData['location_id'];
-            if(!$locationId){
-                if(!$locationData['location_name']) continue;
-                // Insert location
-                $locationId = $model->insertRowsToTable('iati_location' , array('activity_id' => $activityId));
-                
-                // Insert location type code (default to PPL)
-                $locType = array();
-                $locType['@code'] = 5;
-                $locType['location_id'] = $locationId;
-                $model->insertRowsToTable('iati_location/location_type' , $locType);
-                
-                // insert location name
-                $locName = array();
-                $locName['text'] = $locationData['location_name'];
-                $locName['location_id'] = $locationId;
-                $model->insertRowsToTable('iati_location/name' , $locName);
-                
-                // Insert Location Description
-                $locDesc = array();
-                if(!empty($locationData['location_vdcs'])){
-                    $text = implode(',' , $locationData['location_vdcs']);
-                    $text .= " - vdcs of ".$locationData['location_name'];
-                } else {
-                    $text = VDCS_DEFAULT_VALUE;
-                }
-                $locDesc['text'] = $text;
-                $locDesc['location_id'] = $locationId;
-                $model->insertRowsToTable('iati_location/description' , $locDesc);
-                
-                // Insert Location adm
-                $adms = $this->getLocationAdms($locationData['location_name']);
-                $locAdm = array();
-                $locAdm['@adm1'] = $adms['adm1'];
-                $locAdm['@adm2'] = $adms['adm2'];
-                $locAdm['@country'] = 156; // Country code for nepal
-                $locAdm['location_id'] = $locationId;
-                $model->insertRowsToTable('iati_location/administrative' , $locAdm);
-                
-                // Insert Location coords..
-                $coords = $this->getCoordinates($locationData['location_name']);
-                $locCoord = array();
-                $locCoord['@latitude'] = $coords['lat'];
-                $locCoord['@longitude'] = $coords['lng'];
-                $locCoord['@precision'] = 5; 
-                $locCoord['location_id'] = $locationId;
-                $model->insertRowsToTable('iati_location/coordinates' , $locCoord);
-                
-            } else {
-                
-                // update location name
-                $locName = array();
-                $locName['text'] = $locationData['location_name'];
-                $locName['id'] = $locationData['location_name_id'];
-                $model->updateRowsToTable('iati_location/name' , $locName);
-                    
-                // Update Location Description
-                $locDesc = array();
-                if(!empty($locationData['location_vdcs'])){
-                    $text = implode(',' , $locationData['location_vdcs']);
-                    $text .= " - vdc/s of ".$locationData['location_name'];
-                } else {
-                    $text = 'District';
-                }
-                $locDesc['text'] = $text;
-                if($locationData['location_desc_id']){
-                    $locDesc['id'] = $locationData['location_desc_id'];
-                    $model->updateRowsToTable('iati_location/description' , $locDesc);
-                } else {
-                    $locDesc['location_id'] = $locationId;
-                    $model->insertRowsToTable('iati_location/description' , $locDesc);
-                }
-                
-                // Update Location adm
-                $adms = $this->getLocationAdms($locationData['location_name']);
-                $locAdm = array();
-                $locAdm['@adm1'] = $adms['adm1'];
-                $locAdm['@adm2'] = $adms['adm2'];
-                if(!$locationData['location_adm_id']){
-                    $locAdm['@country'] = 156; // Country code for nepal
-                    $locAdm['location_id'] = $locationId;
-                    $model->insertRowsToTable('iati_location/administrative' , $locAdm);
-                } else {
-                    $locAdm['text'] = $adms['adm2']." , ".$adms['adm1'];
-                    $locAdm['id'] = $locationData['location_adm_id'];
-                    $model->updateRowsToTable('iati_location/administrative' , $locAdm);
-                }
-                
-                // Update Location coords..
-                $coords = $this->getCoordinates($locationData['location_name']);
-                $locCoord = array();
-                $locCoord['@latitude'] = $coords['lat'];
-                $locCoord['@longitude'] = $coords['lng'];
-                if($locationData['location_coord_id']){
-                    $locCoord['id'] = $locationData['location_coord_id'];
-                    $model->updateRowsToTable('iati_location/coordinates' , $locCoord);
-                } else {
-                    $locCoord['@precision'] = 5; 
-                    $locCoord['location_id'] = $locationId;
-                    $model->insertRowsToTable('iati_location/coordinates' , $locCoord);
-                }
-            }
-        }
+        $this->updateLocation($data['location']);
 
         //Update Budget
-        foreach($data['budget_wrapper']['budget'] as $budgetData){
-            if($budgetData['id']){
-                //update Budget value
-                if($budgetData['value_id']){
-                    $budValue = array();
-                    $budValue['text'] = $budgetData['amount'];
-                    $budValue['@value_date'] = $budgetData['signed_date'];
-                    $budValue['@currency'] = $budgetData['currency'];
-                    $budValue['id'] = $budgetData['value_id'];
-                    $model->updateRowsToTable('iati_budget/value' , $budValue);
-                }
-                
-                //update Budget Start
-                if($budgetData['start_id']){
-                    $budStart = array();
-                    $budStart['@iso_date'] = $budgetData['start_date'];
-                    $budStart['id'] = $budgetData['start_id'];
-                    $model->updateRowsToTable('iati_budget/period_start' , $budStart);
-                }
-                
-                //update Budget End
-                if($budgetData['end_id']){
-                    $budEnd = array();
-                    $budEnd['@iso_date'] = $budgetData['end_date'];
-                    $budEnd['id'] = $budgetData['end_id'];
-                    $model->updateRowsToTable('iati_budget/period_end' , $budEnd);
-                }
-            } elseif($this->hasValue($budgetData)) {
-                $budget = array();
-                $budget['@type'] = '';
-                $budget['activity_id'] = $activityId;
-                $budgetId = $model->insertRowsToTable('iati_budget' , $budget);
-
-                //Insert Budget value
-                $budValue = array();
-                $budValue['text'] = $budgetData['amount'];
-                $budValue['@value_date'] = $budgetData['signed_date'];
-                $budValue['@currency'] = $budgetData['currency'];
-                $budValue['budget_id'] = $budgetId;
-                $model->insertRowsToTable('iati_budget/value' , $budValue);
-                
-                //Insert Budget Start
-                $budStart = array();
-                $budStart['@iso_date'] = $budgetData['start_date'];
-                $budStart['budget_id'] = $budgetId;
-                $model->insertRowsToTable('iati_budget/period_start' , $budStart);
-                
-                //Insert Budget End
-                $budEnd = array();
-                $budEnd['@iso_date'] = $budgetData['end_date'];
-                $budEnd['budget_id'] = $budgetId;
-                $model->insertRowsToTable('iati_budget/period_end' , $budEnd);
-            }
-        }
-        
-        //Update Transaction
-        // Commitment
-        /* Removed
-        foreach($data['commitment_wrapper']['commitment'] as $commitment){
-            if($commitment['value_id']){
-                 //update transaction value
-                $tranValue = array();
-                $tranValue['@currency'] = $commitment['currency'];
-                $tranValue['text'] = $commitment['amount'];
-                $tranValue['@value_date'] = $commitment['start_date'];
-                $tranValue['id'] = $commitment['value_id'];
-                $model->updateRowsToTable('iati_transaction/value' , $tranValue);
-            } elseif($this->hasValue($commitment)) {
-                $tran = array();
-                $tran['activity_id'] = $activityId;
-                $transactionId = $model->insertRowsToTable('iati_transaction' , $tran);
-                //insert transaction type
-                $tranType = array();
-                $tranType['@code'] = 1;//@todo check
-                $tranType['transaction_id'] = $transactionId;
-                $model->insertRowsToTable('iati_transaction/transaction_type' , $tranType);
-                 //insert transaction value
-                $tranValue= array();
-                $tranValue['@currency'] = $commitment['currency'];
-                $tranValue['text'] = $commitment['amount'];
-                $tranValue['@value_date'] = $commitment['start_date'];
-                $tranValue['transaction_id'] = $transactionId;
-                $model->insertRowsToTable('iati_transaction/value' , $tranValue);
-            }
-        }
-        */
+        $this->updateBudget($data['budget_wrapper']['budget'] );
  
         //Update Incomming Fund
-        foreach($data['incomming_fund_wrapper']['incommingFund'] as $incommingFund){
-            if($incommingFund['value_id']){
-                //update transaction value
-                $tranValue = array();
-                $tranValue['@currency'] = $incommingFund['currency'];
-                $tranValue['text'] = $incommingFund['amount'];
-                $tranValue['@value_date'] = $incommingFund['start_date'];
-                $tranValue['id'] = $incommingFund['value_id'];
-                $model->updateRowsToTable('iati_transaction/value' , $tranValue);
-            } elseif($this->hasValue($incommingFund)) {
-                $tran = array();
-                $tran['activity_id'] = $activityId;
-                $transactionId = $model->insertRowsToTable('iati_transaction' , $tran);
-                //update transaction type
-                $tranType = array();
-                $tranType['@code'] = 5;
-                $tranType['transaction_id'] = $transactionId;
-                $model->insertRowsToTable('iati_transaction/transaction_type' , $tranType);
-                //update transaction value
-                $tranValue = array();
-                $tranValue['@currency'] = $incommingFund['currency'];
-                $tranValue['text'] = $incommingFund['amount'];
-                $tranValue['@value_date'] = $incommingFund['start_date'];
-                $tranValue['transaction_id'] = $transactionId;
-                $model->insertRowsToTable('iati_transaction/value' , $tranValue);
-            }
-        }
-            
+        $this->updateIncommingFund($data['incomming_fund_wrapper']['incommingFund']);
+        
         //Update Expenditure
-        foreach($data['expenditure_wrapper']['expenditure'] as $expenditure){
-            if($expenditure['value_id']){
-                $tranValue = array();
-                $tranValue['@currency'] = $expenditure['currency'];
-                $tranValue['text'] = $expenditure['amount'];
-                $tranValue['@value_date'] = $expenditure['start_date'];
-                $tranValue['id'] = $expenditure['value_id'];
-                $model->updateRowsToTable('iati_transaction/value' , $tranValue);
-            } elseif($this->hasValue($expenditure)) {
-                $tran = array();
-                $tran['activity_id'] = $activityId;
-                $transactionId = $model->insertRowsToTable('iati_transaction' , $tran);
-                //update transaction type
-                $tranType = array();
-                $tranType['@code'] = 4;
-                $tranType['transaction_id'] = $transactionId;
-                $model->insertRowsToTable('iati_transaction/transaction_type' , $tranType);
-
-                //update transaction value
-                $tranValue = array();
-                $tranValue['@currency'] = $expenditure['currency'];
-                $tranValue['text'] = $expenditure['amount'];
-                $tranValue['@value_date'] = $expenditure['start_date'];
-                $tranValue['transaction_id'] = $transactionId;
-                $model->insertRowsToTable('iati_transaction/value' , $tranValue);
-            }
-        }
-            
+        $this->updateExpenditure($data['expenditure_wrapper']['expenditure']);
+        
         //Update Sector
         
         // First fetch all sectors for the activity.
@@ -965,6 +543,451 @@ class Simplified_Model_Simplified
             }
 	}
         return $out;
+    }
+    
+    public function addDocument($data)
+    {
+        foreach($data as $document){
+            if($this->hasValue($document)){
+                if($document['url']){
+                    $docUrl['@url'] = $document['url'];
+                    $docUrl['activity_id'] = $this->activityId;
+                    $documentId = $this->model->insertRowsToTable('iati_document_link' , $docUrl);
+                    
+                    //Insert document link category
+                    if($document['category_code']){
+                        $docCat['@code'] = $document['category_code'];
+                        $docCat['text'] = '';
+                        $docCat['@xml_lang'] = $this->defaults['language']; 
+                        $docCat['document_link_id'] = $documentId;
+                        $this->model->insertRowsToTable('iati_document_link/category' , $docCat);
+                    }
+        
+                     //Insert document link title
+                    if($document['title']){
+                        $docTitle['text'] = $document['title'];
+                        $docTitle['@xml_lang'] = $this->defaults['language']; 
+                        $docTitle['document_link_id'] = $documentId;
+                        $this->model->insertRowsToTable('iati_document_link/title' , $docTitle);
+                    }          
+                }
+            }
+        }
+    }
+    
+    public function addLocation($data)
+    {
+        //Create Location
+        foreach($data as $locationData){
+            if(!$locationData['location_name']) continue;
+            // Insert location
+            $locationId = $this->model->insertRowsToTable('iati_location' , array('activity_id' => $this->activityId));
+            
+            // Insert location type code (default to PPL)
+            $locType = array();
+            $locType['@code'] = '';
+            $locType['location_id'] = $locationId;
+            $this->model->insertRowsToTable('iati_location/location_type' , $locType);
+            
+            // insert location name
+            $locName = array();
+            $locName['text'] = $locationData['location_name'];
+            $locName['location_id'] = $locationId;
+            $this->model->insertRowsToTable('iati_location/name' , $locName);
+            
+            // Insert Location Description
+            $locDesc = array();
+            if(!empty($locationData['location_vdcs'])){
+                $text = implode(',' , $locationData['location_vdcs']);
+                $text .= " - vdc/s of ".$locationData['location_name'];
+            } else {
+                $text = VDCS_DEFAULT_VALUE;
+            }
+            $locDesc['text'] = $text;
+            $locDesc['location_id'] = $locationId;
+            $this->model->insertRowsToTable('iati_location/description' , $locDesc);
+            
+            // Insert Location adm
+            $adms = $this->getLocationAdms($locationData['location_name']);
+            $locAdm = array();
+            $locAdm['@adm1'] = $adms['adm1'];
+            $locAdm['@adm2'] = $adms['adm2'];
+            $locAdm['@country'] = 156; // Country code for nepal
+            $locAdm['text'] = $adms['adm2']." , ".$adms['adm1'];
+            $locAdm['location_id'] = $locationId;
+            $this->model->insertRowsToTable('iati_location/administrative' , $locAdm);
+            
+            // Insert Location coords..
+            $coords = $this->getCoordinates($locationData['location_name']);
+            $locCoord = array();
+            $locCoord['@latitude'] = $coords['lat'];
+            $locCoord['@longitude'] = $coords['lng'];
+            $locCoord['@precision'] = 5; // Country code for nepal
+            $locCoord['location_id'] = $locationId;
+            $this->model->insertRowsToTable('iati_location/coordinates' , $locCoord);            
+        }
+    }
+    
+    public function addBudget($data)
+    {
+         //Create Budget
+        foreach($data as $budgetData){
+            if($this->hasValue($budgetData)){
+                $budget['@type'] = '';
+                $budget['activity_id'] = $this->activityId;
+                $budgetId = $this->model->insertRowsToTable('iati_budget' , $budget);
+                
+                //Insert Budget value
+                if($budgetData['amount']){
+                    $budValue['text'] = $budgetData['amount'];
+                    $budValue['@value_date'] = $budgetData['signed_date'];
+                    $budValue['@currency'] = $budgetData['currency'];
+                    $budValue['budget_id'] = $budgetId;
+                    $this->model->insertRowsToTable('iati_budget/value' , $budValue);
+                }
+                
+                //Insert Budget Start
+                if($budgetData['start_date']){
+                    $budStart['@iso_date'] = $budgetData['start_date'];
+                    $budStart['budget_id'] = $budgetId;
+                    $this->model->insertRowsToTable('iati_budget/period_start' , $budStart);
+                }
+                
+                //Insert Budget End
+                if($budgetData['end_date']){
+                    $budEnd['@iso_date'] = $budgetData['end_date'];
+                    $budEnd['budget_id'] = $budgetId;
+                    $this->model->insertRowsToTable('iati_budget/period_end' , $budEnd);
+                }
+            }
+        }
+    }
+    
+    public function addIncommingFund($data)
+    {
+        foreach($data as $incommingFund){
+            if($this->hasValue($incommingFund)){
+                $tran['activity_id'] = $this->activityId;
+                $transactionId = $this->model->insertRowsToTable('iati_transaction' , $tran);
+                //Insert transaction type
+                $tranType['@code'] = 5;//@todo check
+                $tranType['transaction_id'] = $transactionId;
+                $this->model->insertRowsToTable('iati_transaction/transaction_type' , $tranType);
+                //Insert transaction value
+                $tranValue['@currency'] = $incommingFund['currency'];
+                $tranValue['text'] = $incommingFund['amount'];
+                $tranValue['@value_date'] = $incommingFund['start_date'];
+                $tranValue['transaction_id'] = $transactionId;
+                $this->model->insertRowsToTable('iati_transaction/value' , $tranValue);
+            }
+        }
+    }
+    
+    public function addExpenditure($data)
+    {
+        foreach($data as $expenditure){
+            if($this->hasValue($expenditure)){
+                $tran['activity_id'] = $this->activityId;
+                $transactionId = $this->model->insertRowsToTable('iati_transaction' , $tran);
+                //Insert transaction type
+                $tranType['@code'] = 4;//@todo check
+                $tranType['transaction_id'] = $transactionId;
+                $this->model->insertRowsToTable('iati_transaction/transaction_type' , $tranType);
+                //Insert transaction value
+                $tranValue['@currency'] = $expenditure['currency'];
+                $tranValue['text'] = $expenditure['amount'];
+                $tranValue['@value_date'] = $expenditure['start_date'];
+                $tranValue['transaction_id'] = $transactionId;
+                $this->model->insertRowsToTable('iati_transaction/value' , $tranValue);
+
+            }
+        }
+    }
+    
+    public function addResult($data)
+    {
+        
+    }
+    
+    public function updateDocument($data)
+    {
+        foreach($data as $documentData){
+            if($documentData['id']){
+                $docUrl = array();
+                $docUrl['@url'] = $documentData['url'];
+                $docUrl['id'] = $documentData['id'];
+                $documentId = $this->model->updateRowsToTable('iati_document_link' , $docUrl);
+    
+                //update document link category
+                if($documentData['category_id']){
+                    $docCat = array();
+                    $docCat['@code'] = $documentData['category_code'];
+                    $docCat['id'] = $documentData['category_id'];
+                    $this->model->updateRowsToTable('iati_document_link/category' , $docCat);
+                }
+    
+                //update document link title
+                if($documentData['title_id']){
+                    $docTitle = array();
+                    $docTitle['text'] = $documentData['title'];
+                    $docTitle['id'] = $documentData['title_id'];
+                    $this->model->updateRowsToTable('iati_document_link/title' , $docTitle);
+                }
+                
+            } elseif($this->hasValue($documentData)){
+                $docUrl = array();
+                $docUrl['@url'] = $documentData['url'];
+                $docUrl['activity_id'] = $this->activityId;
+                $documentId = $this->model->insertRowsToTable('iati_document_link' , $docUrl);
+                
+                //Insert document link category
+                $docCat = array();
+                $docCat['@code'] = $documentData['category_code'];
+                $docCat['text'] = '';
+                $docCat['@xml_lang'] = $this->defaults['language']; 
+                $docCat['document_link_id'] = $documentId;
+                $this->model->insertRowsToTable('iati_document_link/category' , $docCat);
+    
+                //Insert document link title
+                $docTitle = array();
+                $docTitle['text'] = $documentData['title'];
+                $docTitle['document_link_id'] = $documentId;
+                $this->model->insertRowsToTable('iati_document_link/title' , $docTitle);
+            }
+        }
+    }
+    
+    public function updateLocation($data)
+    {
+        foreach($data as $locationData){
+            $locationId = $locationData['location_id'];
+            if(!$locationId){
+                if(!$locationData['location_name']) continue;
+                // Insert location
+                $locationId = $this->model->insertRowsToTable('iati_location' , array('activity_id' => $this->activityId));
+                
+                // Insert location type code (default to PPL)
+                $locType = array();
+                $locType['@code'] = 5;
+                $locType['location_id'] = $locationId;
+                $this->model->insertRowsToTable('iati_location/location_type' , $locType);
+                
+                // insert location name
+                $locName = array();
+                $locName['text'] = $locationData['location_name'];
+                $locName['location_id'] = $locationId;
+                $this->model->insertRowsToTable('iati_location/name' , $locName);
+                
+                // Insert Location Description
+                $locDesc = array();
+                if(!empty($locationData['location_vdcs'])){
+                    $text = implode(',' , $locationData['location_vdcs']);
+                    $text .= " - vdcs of ".$locationData['location_name'];
+                } else {
+                    $text = VDCS_DEFAULT_VALUE;
+                }
+                $locDesc['text'] = $text;
+                $locDesc['location_id'] = $locationId;
+                $this->model->insertRowsToTable('iati_location/description' , $locDesc);
+                
+                // Insert Location adm
+                $adms = $this->getLocationAdms($locationData['location_name']);
+                $locAdm = array();
+                $locAdm['@adm1'] = $adms['adm1'];
+                $locAdm['@adm2'] = $adms['adm2'];
+                $locAdm['@country'] = 156; // Country code for nepal
+                $locAdm['location_id'] = $locationId;
+                $this->model->insertRowsToTable('iati_location/administrative' , $locAdm);
+                
+                // Insert Location coords..
+                $coords = $this->getCoordinates($locationData['location_name']);
+                $locCoord = array();
+                $locCoord['@latitude'] = $coords['lat'];
+                $locCoord['@longitude'] = $coords['lng'];
+                $locCoord['@precision'] = 5; 
+                $locCoord['location_id'] = $locationId;
+                $this->model->insertRowsToTable('iati_location/coordinates' , $locCoord);
+                
+            } else {
+                
+                // update location name
+                $locName = array();
+                $locName['text'] = $locationData['location_name'];
+                $locName['id'] = $locationData['location_name_id'];
+                $this->model->updateRowsToTable('iati_location/name' , $locName);
+                    
+                // Update Location Description
+                $locDesc = array();
+                if(!empty($locationData['location_vdcs'])){
+                    $text = implode(',' , $locationData['location_vdcs']);
+                    $text .= " - vdc/s of ".$locationData['location_name'];
+                } else {
+                    $text = 'District';
+                }
+                $locDesc['text'] = $text;
+                if($locationData['location_desc_id']){
+                    $locDesc['id'] = $locationData['location_desc_id'];
+                    $this->model->updateRowsToTable('iati_location/description' , $locDesc);
+                } else {
+                    $locDesc['location_id'] = $locationId;
+                    $this->model->insertRowsToTable('iati_location/description' , $locDesc);
+                }
+                
+                // Update Location adm
+                $adms = $this->getLocationAdms($locationData['location_name']);
+                $locAdm = array();
+                $locAdm['@adm1'] = $adms['adm1'];
+                $locAdm['@adm2'] = $adms['adm2'];
+                if(!$locationData['location_adm_id']){
+                    $locAdm['@country'] = 156; // Country code for nepal
+                    $locAdm['location_id'] = $locationId;
+                    $this->model->insertRowsToTable('iati_location/administrative' , $locAdm);
+                } else {
+                    $locAdm['text'] = $adms['adm2']." , ".$adms['adm1'];
+                    $locAdm['id'] = $locationData['location_adm_id'];
+                    $this->model->updateRowsToTable('iati_location/administrative' , $locAdm);
+                }
+                
+                // Update Location coords..
+                $coords = $this->getCoordinates($locationData['location_name']);
+                $locCoord = array();
+                $locCoord['@latitude'] = $coords['lat'];
+                $locCoord['@longitude'] = $coords['lng'];
+                if($locationData['location_coord_id']){
+                    $locCoord['id'] = $locationData['location_coord_id'];
+                    $this->model->updateRowsToTable('iati_location/coordinates' , $locCoord);
+                } else {
+                    $locCoord['@precision'] = 5; 
+                    $locCoord['location_id'] = $locationId;
+                    $this->model->insertRowsToTable('iati_location/coordinates' , $locCoord);
+                }
+            }
+        }
+    }
+    
+    public function updateIncommingFund($data)
+    {
+        foreach($data as $incommingFund){
+            if($incommingFund['value_id']){
+                //update transaction value
+                $tranValue = array();
+                $tranValue['@currency'] = $incommingFund['currency'];
+                $tranValue['text'] = $incommingFund['amount'];
+                $tranValue['@value_date'] = $incommingFund['start_date'];
+                $tranValue['id'] = $incommingFund['value_id'];
+                $this->model->updateRowsToTable('iati_transaction/value' , $tranValue);
+            } elseif($this->hasValue($incommingFund)) {
+                $tran = array();
+                $tran['activity_id'] = $this->activityId;
+                $transactionId = $this->model->insertRowsToTable('iati_transaction' , $tran);
+                //update transaction type
+                $tranType = array();
+                $tranType['@code'] = 5;
+                $tranType['transaction_id'] = $transactionId;
+                $this->model->insertRowsToTable('iati_transaction/transaction_type' , $tranType);
+                //update transaction value
+                $tranValue = array();
+                $tranValue['@currency'] = $incommingFund['currency'];
+                $tranValue['text'] = $incommingFund['amount'];
+                $tranValue['@value_date'] = $incommingFund['start_date'];
+                $tranValue['transaction_id'] = $transactionId;
+                $this->model->insertRowsToTable('iati_transaction/value' , $tranValue);
+            }
+        }
+    }
+    
+    public function updateBudget($data)
+    {
+       foreach($data as $budgetData){
+            if($budgetData['id']){
+                //update Budget value
+                if($budgetData['value_id']){
+                    $budValue = array();
+                    $budValue['text'] = $budgetData['amount'];
+                    $budValue['@value_date'] = $budgetData['signed_date'];
+                    $budValue['@currency'] = $budgetData['currency'];
+                    $budValue['id'] = $budgetData['value_id'];
+                    $this->model->updateRowsToTable('iati_budget/value' , $budValue);
+                }
+                
+                //update Budget Start
+                if($budgetData['start_id']){
+                    $budStart = array();
+                    $budStart['@iso_date'] = $budgetData['start_date'];
+                    $budStart['id'] = $budgetData['start_id'];
+                    $this->model->updateRowsToTable('iati_budget/period_start' , $budStart);
+                }
+                
+                //update Budget End
+                if($budgetData['end_id']){
+                    $budEnd = array();
+                    $budEnd['@iso_date'] = $budgetData['end_date'];
+                    $budEnd['id'] = $budgetData['end_id'];
+                    $this->model->updateRowsToTable('iati_budget/period_end' , $budEnd);
+                }
+            } elseif($this->hasValue($budgetData)) {
+                $budget = array();
+                $budget['@type'] = '';
+                $budget['activity_id'] = $this->activityId;
+                $budgetId = $this->model->insertRowsToTable('iati_budget' , $budget);
+
+                //Insert Budget value
+                $budValue = array();
+                $budValue['text'] = $budgetData['amount'];
+                $budValue['@value_date'] = $budgetData['signed_date'];
+                $budValue['@currency'] = $budgetData['currency'];
+                $budValue['budget_id'] = $budgetId;
+                $this->model->insertRowsToTable('iati_budget/value' , $budValue);
+                
+                //Insert Budget Start
+                $budStart = array();
+                $budStart['@iso_date'] = $budgetData['start_date'];
+                $budStart['budget_id'] = $budgetId;
+                $this->model->insertRowsToTable('iati_budget/period_start' , $budStart);
+                
+                //Insert Budget End
+                $budEnd = array();
+                $budEnd['@iso_date'] = $budgetData['end_date'];
+                $budEnd['budget_id'] = $budgetId;
+                $this->model->insertRowsToTable('iati_budget/period_end' , $budEnd);
+            }
+        } 
+    }
+    
+    public function updateExpenditure($data)
+    {
+        foreach($data as $expenditure){
+            if($expenditure['value_id']){
+                $tranValue = array();
+                $tranValue['@currency'] = $expenditure['currency'];
+                $tranValue['text'] = $expenditure['amount'];
+                $tranValue['@value_date'] = $expenditure['start_date'];
+                $tranValue['id'] = $expenditure['value_id'];
+                $this->model->updateRowsToTable('iati_transaction/value' , $tranValue);
+            } elseif($this->hasValue($expenditure)) {
+                $tran = array();
+                $tran['activity_id'] = $this->activityId;
+                $transactionId = $this->model->insertRowsToTable('iati_transaction' , $tran);
+                //update transaction type
+                $tranType = array();
+                $tranType['@code'] = 4;
+                $tranType['transaction_id'] = $transactionId;
+                $this->model->insertRowsToTable('iati_transaction/transaction_type' , $tranType);
+
+                //update transaction value
+                $tranValue = array();
+                $tranValue['@currency'] = $expenditure['currency'];
+                $tranValue['text'] = $expenditure['amount'];
+                $tranValue['@value_date'] = $expenditure['start_date'];
+                $tranValue['transaction_id'] = $transactionId;
+                $this->model->insertRowsToTable('iati_transaction/value' , $tranValue);
+            }
+        }
+    }
+    
+    public function updateResult($data)
+    {
+        
     }
     
     public function getCoordinates($district)
