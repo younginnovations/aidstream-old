@@ -122,44 +122,45 @@ class Simplified_Model_Simplified
         $this->addExpenditure($data['expenditure_wrapper']['expenditure']);
         
         //Result
-        //$this->addResult($data['result_wrapper']['result']);
+        $this->addResult($data['result_wrapper']['result']);
         
         return $activityId;
         
     }
     
     /**
-     * Function to convert Rowset data to data used to populate form
+     * Function to fetch data used to populate form and display view page.
      */
-    public function getDataForForm($activity)
+    public function getDataForForm($activityId)
     {
         $data = array();
         // Get title
-        $titleObj = $activity->getElementsByType(Iati_Activity_Element::TYPE_TITLE);
-        $titleValue = $titleObj[0]->getAttribs();
-        $data['title_id'] = $titleValue['id'];
-        $data['title'] = $titleValue['text'];
+        $titleEle = new Iati_Aidstream_Element_Activity_Title();
+        $titleValue = $titleEle->fetchData($activityId , true);
+        $data['title_id'] = $titleValue[0]['id'];
+        $data['title'] = $titleValue[0]['text'];
         
         // Get description
-        $descriptionObj = $activity->getElementsByType(Iati_Activity_Element::TYPE_DESCRIPTION);
-        $descriptionValue = $descriptionObj[0]->getAttribs();
-        $data['description_id'] = $descriptionValue['id'];
-        $data['description'] = $descriptionValue['text'];
+        $descriptionEle = new Iati_Aidstream_Element_Activity_Description();
+        $descriptionValue = $descriptionEle->fetchData($activityId , true);
+        $data['description_id'] = $descriptionValue[0]['id'];
+        $data['description'] = $descriptionValue[0]['text'];
         
         // Get participating org
-        $participatingOrgObj = $activity->getElementsByType(Iati_Activity_Element::TYPE_PARTICIPATING_ORG);
-        if(!empty($participatingOrgObj)){
+        $participatingOrgEle = new Iati_Aidstream_Element_Activity_ParticipatingOrg();
+        $participatingOrgValue = $participatingOrgEle->fetchData($activityId , true);
+        if(!empty($participatingOrgValue)){
             $count = 0;
-            foreach($participatingOrgObj as $participatingOrg){
-                $data['funding_org'][$count] = $participatingOrg->getAttrib('text');
+            foreach($participatingOrgValue as $participatingOrg){
+                $data['funding_org'][$count] = $participatingOrg['text'];
                 $count++;
             }
         }
         
         // Get Activity date (start data and end date)
-        $activityDateObj = $activity->getElementsByType(Iati_Activity_Element::TYPE_ACTIVITY_DATE);
-        foreach($activityDateObj as $activityDate){
-            $activityDateValue = $activityDate->getAttribs();
+        $activityDateEle = new Iati_Aidstream_Element_Activity_ActivityDate();
+        $activityDateValues = $activityDateEle->fetchData($activityId , true);
+        foreach($activityDateValues as $activityDateValue){
             if($activityDateValue['@type'] == 3){
                 $data['start_date_id'] = $activityDateValue['id'];
                 $data['start_date'] = $activityDateValue['@iso_date'];       
@@ -169,118 +170,114 @@ class Simplified_Model_Simplified
             }
         }
         
-        // Get Document 
-        $docObj = $activity->getElementsByType(Iati_Activity_Element::TYPE_DOCUMENT_LINK);
-        $docdata = $docObj[0]->getattribs();
+        // Get Document
+        $documentEle = new Iati_Aidstream_Element_Activity_DocumentLink();
+        $documentValue = $documentEle->fetchData($activityId , true);
         $count = 0;
-        if($docdata['id']){
-            foreach($docObj as $document){
-                $data['document'][$count]['id'] = $document->getAttrib('id');
-                $data['document'][$count]['url'] = $document->getAttrib('@url');
+        if(!empty($documentValue)){
+            foreach($documentValue as $document){
+                $data['document'][$count]['id'] = $document['id'];
+                $data['document'][$count]['url'] = $document['@url'];
+                
                 // get document category
-                $docCat = $document->getElementsByType('Category');
+                $docCat = $document['Category'];
                 if(!empty($docCat)){
-                    $data['document'][$count]['category_id'] = $docCat[0]->getAttrib('id');
-                    $data['document'][$count]['category_code'] = $docCat[0]->getAttrib('@code');
+                    $data['document'][$count]['category_id'] = $docCat[0]['id'];
+                    $data['document'][$count]['category_code'] = $docCat[0]['@code'];
                 }
                 // get document title
-                $docTitle = $document->getElementsByType('Title');
+                $docTitle = $document['Title'];
                 if(!empty($docTitle)){
-                    $data['document'][$count]['title_id'] = $docTitle[0]->getAttrib('id');
-                    $data['document'][$count]['title'] = $docTitle[0]->getAttrib('text');
+                    $data['document'][$count]['title_id'] = $docTitle[0]['id'];
+                    $data['document'][$count]['title'] = $docTitle[0]['text'];
                 }
                 $count++;
             }
         }
+        
         // Get location
-        $locationObjs = $activity->getElementsByType(Iati_Activity_Element::TYPE_LOCATION);
+        $locationEle = new Iati_Aidstream_Element_Activity_Location();
+        $locationValues = $locationEle->fetchData($activityId , true);
         $count = 0;
-        if(!empty($locationObjs)){
-            foreach($locationObjs as $locationObj){
-                $attrs = $locationObj->getAttribs();                
-                $data['location'][$count]['location_id'] = $attrs['id'];
+        if(!empty($locationValues)){
+            foreach($locationValues as $locationValue){
+                $data['location'][$count]['location_id'] = $locationValue['id'];
                 
                 //get location name
-                $locationName =  $locationObj->getElementsByType('Name');
+                $locationName =  $locationValue['Name'];
                 if(!empty($locationName)){
-                    $locationNameVal= $locationName[0]->getAttribs();
-                    $data['location'][$count]['location_name_id'] = $locationNameVal['id'];
-                    $data['location'][$count]['location_name'] = $locationNameVal['text'];
+                    $data['location'][$count]['location_name_id'] = $locationName[0]['id'];
+                    $data['location'][$count]['location_name'] = $locationName[0]['text'];
                 }
-
                 //get location description
-                $locationDesc =  $locationObj->getElementsByType('Description');
+                $locationDesc =  $locationValue['Description'];
                 if(!empty($locationDesc)){
-                    $locationDescVal= $locationDesc[0]->getAttribs();
-                    $data['location'][$count]['location_desc_id'] = $locationDescVal['id'];
-                    $vdcs = preg_replace('/ -.*$/', '' , $locationDescVal['text']);
+                    $data['location'][$count]['location_desc_id'] = $locationDesc[0]['id'];
+                    $vdcs = preg_replace('/ -.*$/', '' , $locationDesc[0]['text']);
                     if($vdcs == VDCS_DEFAULT_VALUE){ $vdcs = '';}
                     $data['location'][$count]['location_vdcs'] = $vdcs;
                 }
 
                 //get location coordinates
-                $locationCoords =  $locationObj->getElementsByType('Coordinates');
+                $locationCoords =  $locationValue['Coordinates'];
                 if(!empty($locationCoords)){
-                    $locationCoordsVal= $locationCoords[0]->getAttribs();
-                    $data['location'][$count]['location_coord_id'] = $locationCoordsVal['id'];
+                    $data['location'][$count]['location_coord_id'] = $locationCoords['id'];
                 }
 
                 //get location administrative
-                $locationAdm =  $locationObj->getElementsByType('Administrative');
+                $locationAdm =  $locationValue['Administrative'];
                 if(!empty($locationAdm)){
-                    $locationAdmVal= $locationAdm[0]->getAttribs();
-                    $data['location'][$count]['location_adm_id'] = $locationAdmVal['id'];
+                    $data['location'][$count]['location_adm_id'] = $locationAdm['id'];
                 }
-        
                 $count++;
             }
         }
 
          // Get budget
-        $budgetObj = $activity->getElementsByType(Iati_Activity_Element::TYPE_BUDGET);
-        $budgetData = $budgetObj[0]->getAttribs();
+        $budgetEle = new Iati_Aidstream_Element_Activity_Budget();
+        $budgetValues = $budgetEle->fetchData($activityId , true);
         $count = 0;
-        if($budgetData['id']){
-            foreach($budgetObj as $budget){
-                $data['budget'][$count]['id'] = $budget->getAttrib('id');
+        if(!empty($budgetValues)){
+            foreach($budgetValues as $budget){
+                $data['budget'][$count]['id'] = $budget['id'];
                 //get budget value
-                $budgetVal =  $budget->getElementsByType('Value');
+                $budgetVal =  $budget['Value'];
                 if(!empty($budgetVal)){
-                    $data['budget'][$count]['value_id'] = $budgetVal[0]->getAttrib('id');
-                    $data['budget'][$count]['currency'] = $budgetVal[0]->getAttrib('@currency');
-                    $data['budget'][$count]['amount'] = $budgetVal[0]->getAttrib('text');
-                    $data['budget'][$count]['signed_date'] = $budgetVal[0]->getAttrib('@value_date');
+                    $data['budget'][$count]['value_id'] = $budgetVal['id'];
+                    $data['budget'][$count]['currency'] = $budgetVal['@currency'];
+                    $data['budget'][$count]['amount'] = $budgetVal['text'];
+                    $data['budget'][$count]['signed_date'] = $budgetVal['@value_date'];
                 }
                 
                 //get budget start date
-                $budgetStart =  $budget->getElementsByType('PeriodStart');
+                $budgetStart =  $budget['PeriodStart'];
                 if(!empty($budgetStart)){
-                    $data['budget'][$count]['start_id'] = $budgetStart[0]->getAttrib('id');
-                    $data['budget'][$count]['start_date'] = $budgetStart[0]->getAttrib('@iso_date');
+                    $data['budget'][$count]['start_id'] = $budgetStart['id'];
+                    $data['budget'][$count]['start_date'] = $budgetStart['@iso_date'];
                 }
                 
                 //get budget end date
-                $budgetEnd =  $budget->getElementsByType('PeriodEnd');
+                $budgetEnd =  $budget['PeriodEnd'];
                 if(!empty($budgetEnd)){
-                    $data['budget'][$count]['end_id'] = $budgetEnd[0]->getAttrib('id');
-                    $data['budget'][$count]['end_date'] = $budgetEnd[0]->getAttrib('@iso_date');
+                    $data['budget'][$count]['end_id'] = $budgetEnd['id'];
+                    $data['budget'][$count]['end_date'] = $budgetEnd['@iso_date'];
                 }
             $count++;
             }
         }
         
         // Get transaction
-        $transactionObj = $activity->getElementsByType(Iati_Activity_Element::TYPE_TRANSACTION);
-        $transaction = $transactionObj[0]->getAttribs();
+        $transactionEle = new Iati_Aidstream_Element_Activity_Transaction();
+        $transactionValues = $transactionEle->fetchData($activityId , true);
         $expCount = 0;
         $incomCount = 0;
         $commCount = 0;
-        if(!empty($transaction)){
-            foreach($transactionObj as $transaction){
+        if(!empty($transactionValues)){
+            foreach($transactionValues as $transaction){
                 //get transaction start date
-                $transactionType =  $transaction->getElementsByType('TransactionType');
+                $transactionType =  $transaction['TransactionType'];
                 if(!empty($transactionType)){
-                    $code = $transactionType[0]->getAttrib('@code');
+                    $code = $transactionType['@code'];
                     if($code == 4){
                         $type = 'expenditure';
                         $count = $expCount;
@@ -289,32 +286,46 @@ class Simplified_Model_Simplified
                         $type = 'incommingFund';
                         $count = $incomCount;
                         $incomCount++;
-                    } elseif($code == 1) {
-                        $type = 'commitment';
-                        $count = $commCount;
-                        $commCount++;
                     }
                 }
                 //get transaction value
-                $transactionVal =  $transaction->getElementsByType('Value');
+                $transactionVal =  $transaction['TransactionValue'];
                 if(!empty($transactionVal)){
-                    $data[$type][$count]['id'] = $transaction->getAttrib('id');
-                    $data[$type][$count]['value_id'] = $transactionVal[0]->getAttrib('id');
-                    $data[$type][$count]['currency'] = $transactionVal[0]->getAttrib('@currency');
-                    $data[$type][$count]['start_date'] = $transactionVal[0]->getAttrib('@value_date');
-                    $data[$type][$count]['amount'] = $transactionVal[0]->getAttrib('text');
+                    $data[$type][$count]['id'] = $transaction['id'];
+                    $data[$type][$count]['value_id'] = $transactionVal['id'];
+                    $data[$type][$count]['currency'] = $transactionVal['@currency'];
+                    $data[$type][$count]['start_date'] = $transactionVal['@value_date'];
+                    $data[$type][$count]['amount'] = $transactionVal['text'];
                 }
             }
         }
         
         // Get sector
-        $sectorObj = $activity->getElementsByType(Iati_Activity_Element::TYPE_SECTOR);
-        if(!empty($sectorObj)){
+        $sectorEle = new Iati_Aidstream_Element_Activity_Sector();
+        $sectors = $sectorEle->fetchData($activityId , true);
+        if(!empty($sectors)){
             $count = 0;
-            foreach($sectorObj as $sector){
-                $data['sector'][$count]['sector'] = $sector->getAttrib('@code');
+            foreach($sectors as $sector){
+                $data['sector'][$count]['sector'] = $sector['@code'];
                 $count++;
             }
+        }
+        
+        $count = 0;
+        $resultEle = new Iati_Aidstream_Element_Activity_Result();
+        $results = $resultEle->fetchData($activityId , true);
+        foreach($results as $result){
+            $data['result'][$count]['id'] = $result['id'];
+            $data['result'][$count]['result_type']= $result['@type'];
+            $data['result'][$count]['title_id'] = $result['Title'][0]['id'];
+            $data['result'][$count]['title'] = $result['Title'][0]['text'];
+            $data['result'][$count]['title_id'] = $result['Description'][0]['id'];
+            $data['result'][$count]['description'] = $result['Description'][0]['text'];
+            $data['result'][$count]['title_id'] = $result['Indicator'][0]['id'];
+            $data['result'][$count]['indicator'] = $result['Indicator'][0]['Title'][0]['text'];
+            $data['result'][$count]['achievement'] = $result['Indicator'][0]['Period'][0]['Actual'][0]['@value'];
+            $data['result'][$count]['end_date'] = $result['Indicator'][0]['Period'][0]['PeriodEnd'][0]['@iso_date'];
+            $count++;
         }
         return $data;
     }
@@ -478,7 +489,6 @@ class Simplified_Model_Simplified
                 $sectorIds[$sectorValues['id']] = $sectorValues['@code'];
             }
         }
-        
         if($this->hasValue($data['sector'])){          
             // Check already present sectors in the input data. unset existing data from input data and remove ids.
             foreach($data['sector'] as $key=>$sectorData){
@@ -492,7 +502,6 @@ class Simplified_Model_Simplified
                 }
             }
         }
-            
         // Insert remaining input data to table if any
         if(!empty($data['sector'])){
             foreach($data['sector'] as $sectorData){
@@ -509,6 +518,7 @@ class Simplified_Model_Simplified
             $secModel = new Simplified_Model_DbTable_Sector();
             $secModel->deleteSectorsByIds(array_keys($sectorIds));
         }
+        //$this->updateResult($data['result_wrapper']['result']);
     }
     
     public function hasValue($data)
@@ -987,7 +997,7 @@ class Simplified_Model_Simplified
     
     public function updateResult($data)
     {
-        
+        //var_dump($data);exit;
     }
     
     public function getCoordinates($district)

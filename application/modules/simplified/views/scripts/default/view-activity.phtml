@@ -129,4 +129,27 @@
             <?php endif; ?>
         </table>
     </div>
+    
+    <div class="activity-elements-view-wrapper">
+        <div class="activity-elements-view-title">
+            Results Information
+        </div>
+        <table class="activity-elements-view" id="expenditure-info-view">
+            <thead>
+                <tr class="table-header"><th>Result Type</th><th>Title</th><th>Description</th><th>Indicator</th><th>Acheivement</th><th>End Date</th></tr>
+            </thead>
+            <?php if ($activityData['result']): ?>
+            <?php foreach($activityData['result'] as $result):?>
+                <tr>
+                    <td><?php echo ($result['result_type'])?$result['result_type']:'-';?></td>
+                    <td><?php echo ($result['title'])?$result['title']:'-';?></td>
+                    <td><?php echo ($result['description'])?$result['description']:'-';?></td>
+                    <td><?php echo ($result['indicator'])?$result['indicator']:'-';?></td>
+                    <td><?php echo ($result['achievement'])?$result['achievement']:'-';?></td>
+                    <td><?php echo ($result['end_date'])?$result['end_date']:'-';?></td>
+                </tr>
+            <?php endforeach;?>
+            <?php endif; ?>
+        </table>
+    </div>
 </div>

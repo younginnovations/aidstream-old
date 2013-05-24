@@ -73,6 +73,15 @@ $form = $this->element;
         </div>
     </div>
     
+    <div class="form-elements-wrapper">
+        <div class="elements-group-title">
+            Result Information
+        </div>
+        <div class="elements-group">
+            <?php print $form->getSubForm('result_wrapper'); ?>
+        </div>
+    </div>
+    
     <?php print $form->getElement('save')?>
     </form>
 </div>

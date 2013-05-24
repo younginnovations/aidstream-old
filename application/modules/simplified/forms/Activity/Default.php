@@ -227,6 +227,28 @@ class Simplified_Form_Activity_Default extends Iati_SimplifiedForm
         $this->addSubForm($documentForm , 'document_wrapper');
         
         
+        // Result
+        $resultForm = new App_Form();
+        $resultForm->removeDecorator('form');
+        if($this->data['result']){
+            foreach($this->data['result'] as $key=>$resultData){
+                $result = new Simplified_Form_Activity_Result(array('data' => $resultData , 'count' => $key));
+                $resultForm->addSubForm($result , 'result'.$key);
+                $result->removeDecorator('form');
+            }
+            
+        } else {
+            $result = new Simplified_Form_Activity_Result(array('data' => $resultData));
+            $resultForm->addSubForm($result , 'result');
+            $result->removeDecorator('form');
+        }
+        $add = new Iati_Form_Element_Note('add');
+        $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'simplified-add-more'));
+        $add->setValue("<a href='#' class='button' value='Result'> Add More</a>");
+        $resultForm->addElement($add);
+        $this->addSubForm($resultForm , 'result_wrapper');
+        
+        
         foreach($form as $item_name=>$element)
         {
             $form[$item_name]->addDecorators( array(

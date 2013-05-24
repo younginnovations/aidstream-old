@@ -346,10 +346,8 @@ class Simplified_DefaultController extends Zend_Controller_Action
             $status_form = null;
         }
 
-        $dbLayer = new Iati_WEP_DbLayer();
-        $activityData = $dbLayer->getRowSet('Activity', 'id', $activityId, true, true);
         $model = new Simplified_Model_Simplified();
-        $data = $model->getDataForForm($activityData);
+        $data = $model->getDataForForm($activityId);
         
         $this->view->activityData = $data;
         $this->view->status_form = $status_form;
@@ -462,11 +460,9 @@ class Simplified_DefaultController extends Zend_Controller_Action
                     $this->_redirect('/simplified/default/dashboard');
                 }
             
-                $dbLayer = new Iati_WEP_DbLayer();
-                $activityData = $dbLayer->getRowSet('Activity', 'id', $activityId, true, true);
 
                 $model = new Simplified_Model_Simplified();
-                $data = $model->getDataForForm($activityData);
+                $data = $model->getDataForForm($activityId);
                 $data['activity_id'] = $activity['id'];
                 // Get identifier
                 $identifier = $wepModel->getRowById('iati_identifier', 'activity_id', $activityId);
