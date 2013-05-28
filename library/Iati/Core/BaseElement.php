@@ -253,6 +253,7 @@ class Iati_Core_BaseElement
             $parentColumnName = $this->getParentCoulmn();
         }
         if($this->isMultiple){
+            if(!$data) return;
             foreach($data as $elementData){ 
                 $elementsData = $this->getElementsData($elementData);
                 if($this->hasData($elementData)){
@@ -337,11 +338,11 @@ class Iati_Core_BaseElement
      */
     public function hasData($data)
     {
-        if(!is_array($data)){
+        if(!$data || !is_array($data)){
             return false;
         }
         foreach($data as $key=>$values){
-            if($key == 'id' || $key == 'add' || $key == 'remove' || $key == 'save' || $key == 'save_and_view') continue;// check for empty excluding these elements
+            if($key && ($key == 'id' || $key == 'add' || $key == 'remove' || $key == 'save' || $key == 'save_and_view')) {continue;}// check for empty excluding these elements
             if($values){
                 if(is_array($values)){
                     $hasData = $this->hasData($values);
