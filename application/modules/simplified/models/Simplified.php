@@ -314,7 +314,7 @@ class Simplified_Model_Simplified
         $count = 0;
         $resultEle = new Iati_Aidstream_Element_Activity_Result();
         $results = $resultEle->fetchData($activityId , true);
-        //echo "<pre>";var_dump($results);exit;
+
         foreach($results as $result){
             $data['result'][$count]['id'] = $result['id'];
             $data['result'][$count]['result_type']= $result['@type'];
@@ -997,6 +997,8 @@ class Simplified_Model_Simplified
     
     public function saveResult($data)
     {
+        $resultEle = new Iati_Aidstream_Element_Activity_Result();
+        if(!$resultEle->hasData($data)) return;
         $resultData = array();
         $count = 0;
         foreach($data as $result){            
@@ -1024,8 +1026,8 @@ class Simplified_Model_Simplified
             $resultData[$count]['Indicator'][0]['Period'][0]['PeriodEnd'][0]['id']  = $result['period_end_id'];
             $resultData[$count]['Indicator'][0]['Period'][0]['PeriodEnd'][0]['iso_date'] = $result['end_date'];
         }
-        $result = new Iati_Aidstream_Element_Activity_Result();
-        $result->save($resultData , $this->activityId);
+
+        $resultEle->save($resultData , $this->activityId);
     }
     
     public function getCoordinates($district)
