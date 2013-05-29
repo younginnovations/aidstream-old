@@ -206,7 +206,7 @@ class Simplified_DefaultController extends Zend_Controller_Action
                 
                 //Create Activity Hash
                 $activityHashModel = new Model_ActivityHash();
-                $updated = $activityHashModel->updateHash($activityId);
+                $updated = $activityHashModel->updateActivityHash($activityId);
                 
                 $this->_helper->FlashMessenger->addMessage(array('message' => 'Activity created sucessfully'));
                 $this->_redirect('/simplified/default/view-activity/'.$activityId);
@@ -338,7 +338,7 @@ class Simplified_DefaultController extends Zend_Controller_Action
         $next_state = Iati_WEP_ActivityState::getNextStatus($state);
         if($next_state && Iati_WEP_ActivityState::hasPermissionForState($next_state)){
             $status_form = new Form_Wep_ActivityChangeState();
-            $status_form->setAction($this->view->baseUrl()."/wep/update-status");
+            $status_form->setAction($this->view->baseUrl()."/wep/update-status?redirect=".urlencode($this->getRequest()->getRequestUri()));
             $status_form->ids->setValue($activityId);
             $status_form->status->setValue($next_state);
             $status_form->change_state->setLabel(Iati_WEP_ActivityState::getStatus($next_state));
@@ -436,14 +436,14 @@ class Simplified_DefaultController extends Zend_Controller_Action
                 $model->updateActivity($formData , $default);
                 
                 $activityHashModel = new Model_ActivityHash();
-                $updated = $activityHashModel->updateHash($activityId);
+                $updated = $activityHashModel->updateActivityHash($activityId);
+                
                 if(!$updated){
-                    $type = 'info';
+                    $type = 'message';
                     $message = 'No Changes Made';
                 } else {
                     //change state to editing
-                    $db = new Model_ActivityStatus;
-                    $db->updateActivityStatus($activityId,Iati_WEP_ActivityState::STATUS_EDITING);
+                    Model_Activity::updateActivityUpdatedInfo($activityId);   
                     $type = 'message';
                     $message = "Information updated sucessfully";
                 }
@@ -479,14 +479,6 @@ class Simplified_DefaultController extends Zend_Controller_Action
         $this->view->activity_id = $activity_id;
 
     }    
-    public function updateActivityUpdatedDatetime($activity_id)
-    {
-        $model = new Model_Wep();
-        $rowSet = $model->getRowsByFields('iati_activity', 'id', $activity_id);
-        $data['id'] = $activity_id;
-        $data['@last_updated_datetime'] = date('Y-m-d H:i:s');
-        $result = $model->updateRowsToTable('iati_activity', $data);
-    }
 
     public function getHelpMessageAction()
     {

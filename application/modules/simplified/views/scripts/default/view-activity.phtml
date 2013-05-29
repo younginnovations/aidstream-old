@@ -141,7 +141,12 @@
             <?php if ($activityData['result']): ?>
             <?php foreach($activityData['result'] as $result):?>
                 <tr>
-                    <td><?php echo ($result['result_type'])?$result['result_type']:'-';?></td>
+                    <td>
+                    <?php if(!empty($result["result_type"])):?>
+                    <?php printf ("%s",Iati_Core_Codelist::getCodeByAttrib('Result' , '@type' , $result["result_type"],'Name')); ?>
+                    <?php else: echo "-";?>
+                    <?php endif;?>
+                    </td>
                     <td><?php echo ($result['title'])?$result['title']:'-';?></td>
                     <td><?php echo ($result['description'])?$result['description']:'-';?></td>
                     <td><?php echo ($result['indicator'])?$result['indicator']:'-';?></td>

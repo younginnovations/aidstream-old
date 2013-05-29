@@ -1254,6 +1254,7 @@ class WepController extends Zend_Controller_Action
     {
         $ids = $this->getRequest()->getParam('ids');
         $state = $this->getRequest()->getParam('status');
+        $redirect = $this->getRequest()->getParam('redirect');
         $activity_ids = explode(',',$ids);
         $db = new Model_ActivityStatus;
 
@@ -1296,6 +1297,9 @@ class WepController extends Zend_Controller_Action
             }
         } else {
             $db->updateActivityStatus($activity_ids,(int)$state);
+        }
+        if($redirect){
+            $this->_redirect($redirect);
         }
         $this->_redirect('wep/view-activities');
     }

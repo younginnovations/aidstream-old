@@ -122,7 +122,7 @@ class Simplified_Model_Simplified
         $this->addExpenditure($data['expenditure_wrapper']['expenditure']);
         
         //Result
-        $this->addResult($data['result_wrapper']['result']);
+        $this->saveResult($data['result_wrapper']['result']);
         
         return $activityId;
         
@@ -314,16 +314,21 @@ class Simplified_Model_Simplified
         $count = 0;
         $resultEle = new Iati_Aidstream_Element_Activity_Result();
         $results = $resultEle->fetchData($activityId , true);
+        //echo "<pre>";var_dump($results);exit;
         foreach($results as $result){
             $data['result'][$count]['id'] = $result['id'];
             $data['result'][$count]['result_type']= $result['@type'];
             $data['result'][$count]['title_id'] = $result['Title'][0]['id'];
             $data['result'][$count]['title'] = $result['Title'][0]['text'];
-            $data['result'][$count]['title_id'] = $result['Description'][0]['id'];
+            $data['result'][$count]['description_id'] = $result['Description'][0]['id'];
             $data['result'][$count]['description'] = $result['Description'][0]['text'];
-            $data['result'][$count]['title_id'] = $result['Indicator'][0]['id'];
+            $data['result'][$count]['indicator_id'] = $result['Indicator'][0]['id'];
+            $data['result'][$count]['indicator_title_id'] = $result['Indicator'][0]['Title'][0]['id'];
             $data['result'][$count]['indicator'] = $result['Indicator'][0]['Title'][0]['text'];
+            $data['result'][$count]['period_id'] = $result['Indicator'][0]['Period'][0]['id'];
+            $data['result'][$count]['actual_id'] = $result['Indicator'][0]['Period'][0]['Actual'][0]['id'];
             $data['result'][$count]['achievement'] = $result['Indicator'][0]['Period'][0]['Actual'][0]['@value'];
+            $data['result'][$count]['period_end_id'] = $result['Indicator'][0]['Period'][0]['PeriodEnd'][0]['id'];
             $data['result'][$count]['end_date'] = $result['Indicator'][0]['Period'][0]['PeriodEnd'][0]['@iso_date'];
             $count++;
         }
@@ -518,7 +523,7 @@ class Simplified_Model_Simplified
             $secModel = new Simplified_Model_DbTable_Sector();
             $secModel->deleteSectorsByIds(array_keys($sectorIds));
         }
-        //$this->updateResult($data['result_wrapper']['result']);
+        $this->saveResult($data['result_wrapper']['result']);
     }
     
     public function hasValue($data)
@@ -712,11 +717,6 @@ class Simplified_Model_Simplified
 
             }
         }
-    }
-    
-    public function addResult($data)
-    {
-        
     }
     
     public function updateDocument($data)
@@ -995,9 +995,37 @@ class Simplified_Model_Simplified
         }
     }
     
-    public function updateResult($data)
+    public function saveResult($data)
     {
-        //var_dump($data);exit;
+        $resultData = array();
+        $count = 0;
+        foreach($data as $result){            
+            $resultData[$count]['id'] = $result['id'];
+            $resultData[$count]['type'] = $result['result_type'];
+
+            $resultData[$count]['Title'][0]['id'] = $result['title_id'];
+            $resultData[$count]['Title'][0]['text'] = $result['title'];
+            
+            $resultData[$count]['Description'][0]['id'] = $result['description_id'];
+            $resultData[$count]['Description'][0]['text'] = $result['description'];
+            
+            $resultData[$count]['Indicator'][0]['id'] = $result['indicator_id'];
+            $resultData[$count]['Indicator'][0]['measure'] = 1;
+            $resultData[$count]['Indicator'][0]['ascending'] = 'True';
+            
+            $resultData[$count]['Indicator'][0]['Title'][0]['id'] = $result['indicator_title_id'];
+            $resultData[$count]['Indicator'][0]['Title'][0]['text'] = $result['indicator'];
+            
+            $resultData[$count]['Indicator'][0]['Period'][0]['id'] = $result['period_id'];
+            
+            $resultData[$count]['Indicator'][0]['Period'][0]['Actual'][0]['id'] = $result['actual_id'];
+            $resultData[$count]['Indicator'][0]['Period'][0]['Actual'][0]['value'] = $result ['achievement'];
+            
+            $resultData[$count]['Indicator'][0]['Period'][0]['PeriodEnd'][0]['id']  = $result['period_end_id'];
+            $resultData[$count]['Indicator'][0]['Period'][0]['PeriodEnd'][0]['iso_date'] = $result['end_date'];
+        }
+        $result = new Iati_Aidstream_Element_Activity_Result();
+        $result->save($resultData , $this->activityId);
     }
     
     public function getCoordinates($district)

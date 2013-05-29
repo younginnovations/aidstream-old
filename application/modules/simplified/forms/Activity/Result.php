@@ -15,9 +15,29 @@ class Simplified_Form_Activity_Result extends Iati_SimplifiedForm
         
         $form['id'] = new Zend_Form_Element_Hidden('id');
         $form['id']->setValue($this->data['id']);
+    
         
-        $form['result_id'] = new Zend_Form_Element_Hidden('result_id');
-        $form['result_id']->setValue($this->data['result_id']);
+        $form['title_id'] = new Zend_Form_Element_Hidden('title_id');
+        $form['title_id']->setValue($this->data['title_id']);
+        
+        $form['description_id'] = new Zend_Form_Element_Hidden('description_id');
+        $form['description_id']->setValue($this->data['description_id']);
+        
+        $form['indicator_id'] = new Zend_Form_Element_Hidden('indicator_id');
+        $form['indicator_id']->setValue($this->data['indicator_id']);
+        
+        $form['indicator_title_id'] = new Zend_Form_Element_Hidden('indicator_title_id');
+        $form['indicator_title_id']->setValue($this->data['indicator_title_id']);
+        
+        $form['period_id'] = new Zend_Form_Element_Hidden('period_id');
+        $form['period_id']->setValue($this->data['period_id']);
+        
+        $form['actual_id'] = new Zend_Form_Element_Hidden('actual_id');
+        $form['actual_id']->setValue($this->data['actual_id']);
+        
+        $form['period_end_id'] = new Zend_Form_Element_Hidden('period_end_id');
+        $form['period_end_id']->setValue($this->data['period_end_id']);
+        
         
         $resultTypeCodes = $model->getCodeArray('ResultType' , '' , 1 , true);
         $form['result_type'] = new Zend_Form_Element_Select('result_type');
