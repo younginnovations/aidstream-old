@@ -1,6 +1,6 @@
-<?php $images = $this->images;?>
-<?php $number_of_images = sizeof($images);?>
-<?php $start = rand($min, $number_of_images-1);?>
+<?php $images = $this->usersWithImage;?>
+<?php $users = $this->usersWithoutImage; ?>
+
 <div id="organisation-total">
     <div class="org-count">
         <span><?php echo $this->count;?> Organisations</span>
@@ -17,13 +17,36 @@
 	<?php foreach($images as $image):?>
 		<li>
 		<?php if($image['url']):?>
-		<a href='<?php echo $image['url']?>' target="_blank"><img src="<?php echo $this->baseUrl().'/uploads/image/'.$image['file_name']; ?>"
-			alt="<?php echo $image['file_name']; ?>"></a>
+        	<a href='<?php echo $image['url']?>' target="_blank">
+            <div class="img-holder">
+		    <img src="<?php echo $this->baseUrl().'/uploads/image/'.$image['file_name']; ?>"
+			alt="<?php echo $image['file_name']; ?>"></div>
+		    <span class="caption"><?php echo $image['name'];?></span>
+            </a>
 		<?php else :?>
-		<img src="<?php echo $this->baseUrl().'/uploads/image/'.$image['file_name']; ?>"
-			alt="<?php echo $image['file_name']; ?>" >
+        	<div class="img-holder">
+		    <img src="<?php echo $this->baseUrl().'/uploads/image/'.$image['file_name']; ?>"
+			alt="<?php echo $image['file_name']; ?>" ></div>
+		    <span class="caption"><?php echo $image['name'];?></span>
+
 		<?php endif;?>
 		</li>
 	<?php endforeach; ?>
+	<?php foreach($users as $user): ?>
+	    <li>
+		<?php if($user['url']):?>
+        	<a href='<?php echo $image['url']?>' target="_blank">
+            <div class="img-holder">
+		    <img src="<?php echo $this->baseUrl().'/images/default-user.png'; ?>" alt="<?php echo $user['name']; ?>"></div>
+		    <span class="caption"><?php echo $user['name'];?></span>
+            </a>
+		<?php else :?>
+        	<div class="img-holder">
+		    <img src="<?php echo $this->baseUrl().'/images/default-user.png'?>" alt="<?php echo $user['name']; ?>" >
+            </div>
+		    <span class="caption"><?php echo $user['name'];?></span>
+		<?php endif;?>
+		</li>
+	<?php endforeach;?>
 	</ul>
 </div>

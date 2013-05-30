@@ -33,12 +33,23 @@ class User_Model_DbTable_Account extends Zend_Db_Table_Abstract {
         $value = $this->fetchRow($select);
         return $value;
     }
-    public function getFileNamesForFooter()
+    public function getUsersWithFileNames()
     {
         $select = $this->select()
-            ->from($this , array('file_name' , 'url'))
+            ->from($this , array('name' , 'file_name' , 'url'))
             ->where('file_name <> ""')
-            ->where('display_in_footer = ?' , 1);
+            ->where('display_in_footer = ?' , 1)
+            ->order('name');
+        return $this->fetchAll($select)->toArray();
+    }
+    
+    public function getUsersWithoutFiles()
+    {
+        $select = $this->select()
+            ->from($this , array('name' , 'file_name' , 'url'))
+            ->where('file_name IS NULL')
+            ->where('display_in_footer = ?' , 1)
+            ->order('name');
         return $this->fetchAll($select)->toArray();
     }
     

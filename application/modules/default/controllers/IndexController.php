@@ -30,10 +30,12 @@ class IndexController extends Zend_Controller_Action
     {
 	    $model = new User_Model_DbTable_Account();
 	    /* Moved to a new page from footer as per new home page*/
-	    $images = $model->getFileNamesForFooter();
+	    $usersWithImage = $model->getUsersWithFileNames();
+	    $usersWithoutImage = $model->getUsersWithoutFiles();
 	    $count = $model->getAccountCount();
 	    
-	    $this->view->images = $images;
+	    $this->view->usersWithImage = $usersWithImage;
+	    $this->view->usersWithoutImage = $usersWithoutImage;
 	    $this->view->count = $count['total'];
     }
 }

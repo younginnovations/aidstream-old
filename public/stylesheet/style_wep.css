@@ -5030,7 +5030,41 @@ button.next:hover {
 	width: 162px;
 	margin: 0 34px 60px;
 	display: inline-block;
+	vertical-align: top;
+}
+
+#organisation-logos ul li a,#organisation-logos ul li {
+	background: #fff;
+	text-align: center;
+}
+
+#organisation-logos ul li a {
+	display: block;
+}
+
+#organisation-logos ul li a img,#organisation-logos ul li img {
 	vertical-align: middle;
+}
+
+#organisation-logos ul li a span,
+#organisation-logos ul li span {
+	display: block;
+	color: #008CFF;
+	line-height: normal;
+	font-size: 14px;
+}
+
+#organisation-logos ul li span {
+	color: #333;
+}
+
+#organisation-logos ul li a:hover {
+	color: #333;
+}
+
+#organisation-logos ul li .img-holder {
+	height: 100px;
+	margin-bottom: 10px;
 }
 
 .org-count {
