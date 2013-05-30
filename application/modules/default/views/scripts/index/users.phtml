@@ -35,7 +35,7 @@
 	<?php foreach($users as $user): ?>
 	    <li>
 		<?php if($user['url']):?>
-        	<a href='<?php echo $image['url']?>' target="_blank">
+        	<a href='<?php echo $user['url']?>' target="_blank">
             <div class="img-holder">
 		    <img src="<?php echo $this->baseUrl().'/images/default-user.png'; ?>" alt="<?php echo $user['name']; ?>"></div>
 		    <span class="caption"><?php echo $user['name'];?></span>
