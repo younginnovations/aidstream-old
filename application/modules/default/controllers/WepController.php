@@ -1256,66 +1256,46 @@ class WepController extends Zend_Controller_Action
         $state = $this->getRequest()->getParam('status');
         $activity_ids = explode(',',$ids);
         $db = new Model_ActivityStatus;
-        $not_valid = false;
-        /*
-        if($ids)
-        {
-            foreach($activity_ids as $activity_id)
-            {
-                $activity_state = $db->getActivityStatus($activity_id);
-                if(!Iati_WEP_ActivityState::isValidTransition($activity_state,$state)){
-                    $not_valid = true;
-                }
-            }
-        }
-        */
-        if($not_valid){
-            $this->_helper->FlashMessenger->addMessage(array('warning' => "The activities cannot be changed to the state. Please check that a state to be changed is valid for all selected activities"));
-        } else {
-            if($state == Iati_WEP_ActivityState::STATUS_PUBLISHED){
-                $identity = Zend_Auth::getInstance()->getIdentity();
-                $account_id = $identity->account_id;
 
-                $modelRegistryInfo = new Model_RegistryInfo();
-                $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($account_id);
-                if(!$registryInfo){
-                    $this->_helper->FlashMessenger->addMessage(array('error' => "Registry information not found. Please go to <a href='{$this->view->baseUrl()}/wep/edit-defaults'>Change Defaults</a> to add registry info."));
-                } else if(!$registryInfo->publisher_id){
-                    $this->_helper->FlashMessenger->addMessage(array('error' => "Publisher Id not found. Xml files could not be created. Please go to  <a href='{$this->view->baseUrl()}/wep/edit-defaults'>Change Defaults</a> to add publisher id."));
-                } else {
-                    $db->updateActivityStatus($activity_ids,(int)$state);
-                    
-                    $pub = new Iati_WEP_Publish($account_id, $registryInfo->publisher_id , $registryInfo->publishing_type);
-                    $pub->publish();
+        if($state == Iati_WEP_ActivityState::STATUS_PUBLISHED){
+            $identity = Zend_Auth::getInstance()->getIdentity();
+            $account_id = $identity->account_id;
 
-                    if($registryInfo->update_registry){
-                        if(!$registryInfo->api_key){
-                            $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key not found. Activities could not be registered in IATI Registry. Please go to <a href='{$this->view->baseUrl()}/wep/edit-defaults'>Change Defaults</a> to add API key."));
-                        } else {
-                            $reg = new Iati_Registry($registryInfo->publisher_id , $registryInfo->api_key);
-                            $modelPublished = new Model_Published();
-                            $files = $modelPublished->getPublishedInfo($account_id);
-
-                            foreach($files as $file){
-                                $reg->prepareRegistryData($file);
-                                $reg->publishToRegistry();
-                            }
-
-                            if($reg->getErrors()){
-                                $this->_helper->FlashMessenger->addMessage(array('info' => 'Activities xml files created. '.$reg->getErrors()));
-                            } else {
-                                $this->_helper->FlashMessenger->addMessage(array('message' => "Activities published to IATI registry."));
-                            }
-                        }
-                    } else {
-                        $this->_helper->FlashMessenger->addMessage(array('message' => "Activities xml files created."));
-                    }
-
-
-                }
+            $modelRegistryInfo = new Model_RegistryInfo();
+            $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($account_id);
+            if(!$registryInfo){
+                $this->_helper->FlashMessenger->addMessage(array('error' => "Registry information not found. Please go to <a href='{$this->view->baseUrl()}/wep/edit-defaults'>Change Defaults</a> to add registry info."));
+            } else if(!$registryInfo->publisher_id){
+                $this->_helper->FlashMessenger->addMessage(array('error' => "Publisher Id not found. Xml files could not be created. Please go to  <a href='{$this->view->baseUrl()}/wep/edit-defaults'>Change Defaults</a> to add publisher id."));
             } else {
                 $db->updateActivityStatus($activity_ids,(int)$state);
+                
+                $pub = new Iati_WEP_Publish($account_id, $registryInfo->publisher_id , $registryInfo->publishing_type);
+                $pub->publish();
+
+                if($registryInfo->update_registry){
+                    if(!$registryInfo->api_key){
+                        $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key not found. Activities could not be registered in IATI Registry. Please go to <a href='{$this->view->baseUrl()}/wep/edit-defaults'>Change Defaults</a> to add API key."));
+                    } else {
+                        $modelPublished = new Model_Published();
+                        $files = $modelPublished->getPublishedInfo($account_id);
+
+                        $published =  Model_Registry::publish($files , $account_id , $registryInfo);
+
+                        if($published['error']){
+                            $this->_helper->FlashMessenger->addMessage(array('error' => $published['error']));
+                        } else {
+                            $this->_helper->FlashMessenger->addMessage(array('message' => "Activities registered to IATI registry."));
+                        }
+                    }
+                } else {
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "Activities xml files created."));
+                }
+
+
             }
+        } else {
+            $db->updateActivityStatus($activity_ids,(int)$state);
         }
         $this->_redirect('wep/view-activities');
     }
@@ -1324,29 +1304,25 @@ class WepController extends Zend_Controller_Action
     {   
         $fileIds = explode(',' , $this->_getParam('file_ids'));
         
-        if(!$fileIds[0]){
+        if(empty($fileIds)){
             $this->_helper->FlashMessenger->addMessage(array('info' => "Please select a file to register in IATI Registry."));
             $this->_redirect('wep/list-published-files');
         }
         $identity = Zend_Auth::getInstance()->getIdentity();
         $accountId = $identity->account_id;
+       
         $modelRegistryInfo = new Model_RegistryInfo();
         $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($accountId);
 
         if(!$registryInfo->api_key){
             $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key not found. Activities could not be registered in IATI Registry. Please go to <a href='{$this->view->baseUrl()}/wep/edit-defaults'>Change Defaults</a> to add API key."));
         } else {
-            $reg = new Iati_Registry($registryInfo->publisher_id , $registryInfo->api_key);
             $modelPublished = new Model_Published();
             $files = $modelPublished->getPublishedInfoByIds($fileIds);
-
-            foreach($files as $file){
-                $reg->prepareRegistryData($file);
-                $reg->publishToRegistry();
-            }
-
-            if($reg->getErrors()){
-                $this->_helper->FlashMessenger->addMessage(array('error' => $reg->getErrors()));
+            
+            $published =  Model_Registry::publish($files , $accountId , $registryInfo);
+            if($published['error']){
+                $this->_helper->FlashMessenger->addMessage(array('error' => $published['error']));
             } else {
                 $this->_helper->FlashMessenger->addMessage(array('message' => "Activities registered to IATI registry."));
             }

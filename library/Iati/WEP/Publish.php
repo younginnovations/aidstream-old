@@ -168,7 +168,7 @@ class Iati_WEP_Publish
     
     /**
      * 
-     * Creates xml file using Iati_WEP_Xmlhandler and saves them to local directory.
+     * Creates xml file using Iati_Core_Xml and saves them to local directory.
      * @param Array $activities	Array of activities to be published.
      */
     public function saveActivityXml($activitiesIdArray)

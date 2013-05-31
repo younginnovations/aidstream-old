@@ -10,6 +10,7 @@ class Iati_Registry
     protected $activities;
     protected $publisher_id;
     protected $api_key;
+    protected $publisher_name;
     protected $file;
     protected $file_id;
     protected $file_url;
@@ -17,7 +18,7 @@ class Iati_Registry
     protected $json_data;
     protected $activity_updated_datetime;
     protected $activity_count;
-    protected $country;
+    protected $country_code;
     protected $error;
     
     // For Organisation
@@ -32,6 +33,11 @@ class Iati_Registry
         $this->publisher_id = $publisherId;
         $this->api_key = $apiKey;
         $this->organisation = $organisation;
+    }
+    
+    public function setPublisherName($name)
+    {
+        $this->publisher_name = $name;
     }
 
     /**
@@ -53,6 +59,7 @@ class Iati_Registry
         $this->activity_count = $fileInfo['activity_count'];
         $this->activity_updated_datetime = $fileInfo['data_updated_datetime'];
         $this->is_pushed_to_registry = $fileInfo['pushed_to_registry'];
+        $this->country_code = $fileInfo['country_name'];
 
 
         //prepare file's url
@@ -72,11 +79,23 @@ class Iati_Registry
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
         $filename =explode('.',$this->file);
+        $title = ($this->publisher_name) ? $this->publisher_name . ' Activity File' : 'Activity File ' .$filename[0];
+        if ($this->country_code && $this->publisher_name){
+            if(is_numeric($this->country_code)){
+                $countryName = Model_Registry::getRegionNameFromCode($this->country_code);
+            } else {
+                $countryName = Model_Registry::getCountryNameFromCode($this->country_code);
+            }
+            
+            if($countryName){
+                $title .= " for ".$countryName;
+            }
+        }
 
 
         $data = array(
             "name"=>$filename[0],
-            "title"=>'Activity File '.$filename[0],
+            "title"=>$title,
             "author_email"=>$identity->email,
             "resources" => array(
                                 array(
@@ -86,7 +105,7 @@ class Iati_Registry
                                 ),
             "extras"=>array(
                     "filetype" => "activity",
-                    "country" => $this->country,
+                    "country" => $this->country_code,
                     "activity_period-from" => '',
                     "activity_period-to" => '',
                     "data_updated"=> date('Y-m-d',strtotime($this->activity_updated_datetime)),
@@ -184,15 +203,6 @@ class Iati_Registry
         return $isPublished;
     }
 
-    /**
-     *
-     * Sets country name to be used in the json data.
-     * @param $country
-     */
-    public function setCountryName($country)
-    {
-        $this->country = $country;
-    }
 
     /**
      *
@@ -241,11 +251,11 @@ class Iati_Registry
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
         $filename =explode('.',$this->file);
-
+        $title = ($this->publisher_name) ? $this->publisher_name. ' Organisation File' : 'Organisation File '.$filename[0];
 
         $data = array(
             "name"=>$filename[0],
-            "title"=>'Organisation File '.$filename[0],
+            "title"=>$title,
             "author_email"=>$identity->email,
             "resources" => array(
                                 array(
