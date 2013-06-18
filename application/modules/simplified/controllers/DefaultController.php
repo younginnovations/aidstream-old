@@ -171,23 +171,25 @@ class Simplified_DefaultController extends Zend_Controller_Action
         }
         if($incomplete){
             //For admin user redirect to defaults page.
+             //For admin user redirect to defaults page.
             if($identity->role_id == 1){
                 $this->_helper->FlashMessenger->addMessage(array(
-                                                                 'info' => "Before you start entering activity data
+                                                                 'message' => "Before you start entering activity data
                                                                  you need to add some default values that will
                                                                  automatically be filled in for
                                                                  each activity you report."
                                                                    )
                                                            );
-                $this->_redirect('wep/simplified/edit-defaults');
+                $this->_redirect('simplified/default/edit-defaults');
             } else { // For other user redirect to dashboard.
                 $this->_helper->FlashMessenger->addMessage(array(
-                                                                 'info' => "All information for Reporting Organisation
+                                                                 'message' => "All information for Reporting Organisation
                                                                     is not provided .Please contact you organisation admin"
                                                                   )
                                                            );
-                $this->_redirect('wep/simplified/dashborad');
+                $this->_redirect('simplified/default/dashborad');
             }
+
         }
         $form = new Simplified_Form_Activity_Default();
 
