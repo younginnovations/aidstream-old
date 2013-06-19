@@ -600,7 +600,7 @@ class Simplified_Model_Simplified
             
             // Insert location type code (default to PPL)
             $locType = array();
-            $locType['@code'] = '';
+            $locType['@code'] = 5;
             $locType['location_id'] = $locationId;
             $this->model->insertRowsToTable('iati_location/location_type' , $locType);
             
