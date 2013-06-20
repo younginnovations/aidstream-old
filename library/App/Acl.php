@@ -30,6 +30,9 @@ class App_Acl extends Zend_Acl
         $this->add(new Zend_Acl_Resource('user'))
                 ->add(new Zend_Acl_Resource('user:user'), 'user');
         //user controller of user module has been inherited from user module
+        
+        $this->add(new Zend_Acl_Resource('simplified'))
+            ->add(new Zend_Acl_Resource('simplified:default') , 'simplified');
 
 
         $this->addRole(new Zend_Acl_Role('guest'));
@@ -106,6 +109,7 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'default:ajax', 'get-form');
         $this->allow('user', 'default:ajax', 'remove-form');
         $this->allow('user', 'default:ajax', 'element');
+        $this->allow('user' , 'simplified:default');
 
         $this->allow('admin', 'user');
         $this->allow('admin', 'default:code-list');
