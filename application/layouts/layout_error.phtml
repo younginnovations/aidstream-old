@@ -44,6 +44,29 @@
 
 <body class="login-layout">
     <div id="wrapper">
+	
+    <div class="login-wrapper">
+      <div id="login-form-wrapper" style="display:none">
+	<? $form = new User_Form_User_Login(); ?>
+	<form method="<? echo $form->getMethod() ?>" action="<? echo $form->getAction()?>" id="<? echo $form->getId() ?>" >
+	    <table>
+		<tr>
+		    <td><? echo $form->username->renderViewHelper();?><span id='username-error' class="error" ></span></td>
+		</tr>
+		<tr>
+		    <td><? echo $form->password->renderViewHelper();?><span id='password-error' class="error" ></span></td>
+		</tr>
+		<tr>
+		    <td><? echo $this->formSubmit('login','Secure Login'); ?> </td>
+		</tr>
+		<tr> <td><div class="login-register">Not registered yet? <?php echo $this->l('Register now', 'user/user/register');?> </div><div class='forgot-password'><?php echo $this->l('Forgot Password?', 'user/user/forgotpassword');?></div></td></tr>
+	    </table>
+	</form>
+    </div><!--Close login-form-container-->
+    </div>
+	<div id="hidden-overlay"></div>
+	<div id="login-hidden-overlay"></div>
+
 	<div id="static-header">
 	    <div id="home-user-nav">
 		<div class="container_12">
@@ -71,56 +94,28 @@
 			<? endif;?>
 		</div>
 	    </div>
-	    <div id="header">
-		<a name="top"></a>
-		<div id="nav-logo-section">
-		    <div class="container_12">
-			<div id="logo-nav" class="grid_12">
-			    <div class="logo">
-				<a href="<?php print($this->baseUrl()) ?>/"><img alt="logo" src="<?php print($this->baseUrl());?>/stylesheet/images/aid-stream-logo.png"></a>
-			    </div><!--close logo-->
-			    <div class="nav">
-				<ul class="menu">
-				    <li><a href="/#contact-us" id="contact-link"><span class="title">Contact</span><br /><span>Comments,Suggestions</span></a></li>
-					<li><a href="/#behind-aidstream" id="about-link"><span class="title">Who</span><br /><span>Who is behind AidStream?</span></a></li>
-				    <li><a href="/#how-as" id="how-link"><span class="title">How</span><br /><span>How to use AidStream?</span></a></li>
-				    <li><a href="/#what-as" id="what-link"><span class="title">What</span><br /><span>What is AidStream?</span></a></li>
-				</ul>
-			    </div><!--Close nav-->
+	   <div class="header-container">
+		<div class="header">
+			<div class="logo">
+				<a href="<?php print($this->baseUrl()) ?>/"><img alt="logo" src="<?php print($this->baseUrl());?>/images/logo.png" width="240" height="39" alt="Aidstream"></a>
 			</div>
-		    </div>
-		<div class="clear"></div>
-	    </div>
-    
-	    <div class="login-section"><!--Start login-section-->
-		<div class="container_12">
-		    <div id="registration-section" class="grid_5">
-			    <div class="register-info"><div class="register-text">Not Registered yet? Please </div><?php print $this->l('Register','user/user/register'); ?>
-			    <div class="nothing"></div></div>
-		    </div>
-		    <div id="login-form-section" class="grid_7">
-			    <? if (!$auth->hasIdentity()):?>
-				<? $form = new User_Form_User_Login(); ?>
-				<div id="login-form-container">
-				    <form method="<? echo $form->getMethod() ?>" action="<? echo $form->getAction()?>" id="<? echo $form->getId() ?>" >
-					<table>
-					    <tr>
-						<td><label><? echo $form->username->renderLabel();?></label></td>
-						<td><label><? echo $form->password->renderLabel();?></label><div class='forgot-password'>(<?php echo $this->l('Forgot Password?', 'user/user/forgotpassword');?>)</div></td>
-					    </tr>
-					    <tr>
-						<td><? echo $form->username->renderViewHelper();?><span id='username-error' class="error" ></span></td>
-						<td><? echo $form->password->renderViewHelper();?><span id='password-error' class="error" ></span></td>
-						<td><? echo $this->formSubmit('login','Login'); ?> </td>
-					    </tr>
-					</table>
-				    </form>
-				</div><!--Close login-form-container-->
-				<div class="login-arrow"></div>
-				<a class="login-parent" href="#">Login / Register</a>
-			<? endif;?>
-		    </div><!--Close login-form-section-->
+			<?php $url = $_SERVER['REQUEST_URI'];?>
+			<div class="nav">
+				<ul>
+					<li class="<?php echo ($url === $this->baseUrl().'/about')? 'active-menu':'';?>"><?php echo $this->l(' About', 'about');?></li>
+					<li><?php echo $this->l("How to Use", 'how-to');?></li>
+					<li class="<?php echo ($url === $this->baseUrl().'/users')? 'active-menu':'';?>"><?php echo $this->l("Who's Using", 'users');?></li>
+					<li><?php echo $this->l('Snapshot', 'snapshot');?></li>
+					<li><?php echo $this->l('Blog', 'blog', array('attributes' => array('target' => '__blank')));?></li>
+				</ul>
+				<?php if(!$auth->hasIdentity()):?>
+				<div class="login" id="login-register-popup">
+					<?php echo $this->l('Login / Register', 'user/user/login');?>
+				</div>
+				<?php endif;?>
+			</div>
 		</div>
+	</div>
 		<div class="clear"></div>
 	    </div><!--Close login-section-->
 	    <div id="index-flash-messages">
