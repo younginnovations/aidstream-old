@@ -1,0 +1,26 @@
+<table id="list-org" class="states">
+<thead>
+<tr>
+    <th>S.N.</th><th>Organisation Name</th><th>Number of Activities</th><th>Editing</th><th>Completed</th><th>Verified</th><th>Published</th>
+<!--    <th>Action</th>-->
+</tr>
+</thead>
+
+<?php //print_r($this->rowSet);exit;?>
+<?php $i = 1;?>
+<tbody>
+    <?php foreach($this->orgs as $key=>$row):?>
+    <tr>
+    <td><?php print $i;?></td>
+    <td><?php print $row['name']?></td>
+    <td><?php print array_sum($row['states']);?>
+    <td><?php print ($row['states'][Iati_WEP_ActivityState::STATUS_EDITING])?$row['states'][Iati_WEP_ActivityState::STATUS_EDITING]:'-'?></td>
+    <td><?php print ($row['states'][Iati_WEP_ActivityState::STATUS_COMPLETED])?$row['states'][Iati_WEP_ActivityState::STATUS_COMPLETED]:'-'?></td>
+    <td><?php print ($row['states'][Iati_WEP_ActivityState::STATUS_VERIFIED])?$row['states'][Iati_WEP_ActivityState::STATUS_VERIFIED]:'-'?></td>
+    <td><?php print ($row['states'][Iati_WEP_ActivityState::STATUS_PUBLISHED])?$row['states'][Iati_WEP_ActivityState::STATUS_PUBLISHED]:'-'?></td>
+    </tr>
+    <?php $i++;?>
+    <?php endforeach;?>
+</tbody>
+
+</table>

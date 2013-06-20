@@ -119,7 +119,6 @@ class App_Acl extends Zend_Acl
         $this->allow('admin', 'default:wep', 'update-reporting-org');
         $this->allow('admin', 'default:wep', 'publish-in-registry');
         $this->allow('admin', 'default:wep', 'delete-published-file');
-        $this->allow('admin', 'default:admin', 'edit-help-message');
         $this->allow('admin', 'default:admin', 'register-user');
         $this->allow('admin', 'default:wep', 'delete-activity');
         $this->allow('admin', 'default:admin', 'list-users');
@@ -132,6 +131,9 @@ class App_Acl extends Zend_Acl
         $this->allow('superadmin', 'default:admin' , 'register');
         $this->allow('superadmin', 'default:admin', 'change-organisation-status');
         $this->allow('superadmin', 'default:admin', 'set-simplified');
+        $this->allow('superadmin', 'default:admin', 'edit-help-message');
+        $this->allow('superadmin', 'default:admin', 'change-footer-display');
+        $this->allow('superadmin', 'default:admin', 'list-activity-states');
     }
 
     public function isAllowed($role = null, $resource = null, $privilege = null)

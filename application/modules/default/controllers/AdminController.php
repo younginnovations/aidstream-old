@@ -681,5 +681,21 @@ class AdminController extends Zend_Controller_Action
         $this->_helper->FlashMessenger->addMessage(array('message' => $outMessage));
         $this->_redirect('admin/list-organisation');
     }
-
+    
+    public function listActivityStatesAction()
+    {
+        $model = new Model_Wep();
+        $activityCollModel = new Model_ActivityCollection();
+        $activityModel = new Model_Activity();
+        $orgs = $model->listOrganisation('account');
+        $orgData = array();
+        foreach($orgs as $organisation)
+        {
+            $activities = $activityCollModel->getActivitiesByAccount($organisation['id']);
+            $states = $activityModel->getCountByState($activities);
+            $organisation['states'] = $states;
+            $orgData[] = $organisation;
+        }
+        $this->view->orgs = $orgData;
+    }
 }

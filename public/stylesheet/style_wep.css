@@ -670,6 +670,7 @@ h2.form-title {
 #block-list-menu .action-icon a,
 #block-add-menu .action-icon a,
 #block-list-published-files .action-icon a,
+#block-list-activity-states .action-icon a,
 #block-list-help .action-icon a
 {
 	display: block;
@@ -685,7 +686,9 @@ h2.form-title {
 #block-add-menu a,
 #block-list-published-files a,
 #block-list-menu a,
-#block-list-help a{
+#block-list-activity-states-menu a,
+#block-list-help a,
+#block-list-activity-states a{
 	font-weight: bold;
 	font-size: 14px;
 }
@@ -2939,6 +2942,16 @@ button#cd-cancel, button#cd-ok
 #block-list-help:hover .action-icon a
 {
 	background-position:0 -1259px;
+}
+
+#block-list-activity-states .action-icon a
+{
+	background-position:0 -1501px;
+}
+
+#block-list-activity-states:hover .action-icon a
+{
+	background-position:0 -1584px;
 }
 
 /* change Default Page */
