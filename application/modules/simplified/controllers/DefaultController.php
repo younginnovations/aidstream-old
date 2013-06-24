@@ -116,15 +116,15 @@ class Simplified_DefaultController extends Zend_Controller_Action
                     $defaultFieldsValuesObj->setLanguage($data['default_language']);
                     $defaultFieldsValuesObj->setCurrency($data['default_currency']);
                     $defaultFieldsValuesObj->setReportingOrg($data['default_reporting_org']);
-                    $defaultFieldsValuesObj->setHierarchy($data['hierarchy']);
+                    //$defaultFieldsValuesObj->setHierarchy($data['hierarchy']);
                     $defaultFieldsValuesObj->setReportingOrgRef($data['reporting_org_ref']);
                     $defaultFieldsValuesObj->setReportingOrgType($data['reporting_org_type']);
                     $defaultFieldsValuesObj->setReportingOrgLang($data['reporting_org_lang']);
-                    $defaultFieldsValuesObj->setCollaborationType($data['default_collaboration_type']);
-                    $defaultFieldsValuesObj->setFlowType($data['default_flow_type']);
-                    $defaultFieldsValuesObj->setFinanceType($data['default_finance_type']);
-                    $defaultFieldsValuesObj->setAidType($data['default_aid_type']);
-                    $defaultFieldsValuesObj->setTiedStatus($data['default_tied_status']);
+                    //$defaultFieldsValuesObj->setCollaborationType($data['default_collaboration_type']);
+                    //$defaultFieldsValuesObj->setFlowType($data['default_flow_type']);
+                    //$defaultFieldsValuesObj->setFinanceType($data['default_finance_type']);
+                    //$defaultFieldsValuesObj->setAidType($data['default_aid_type']);
+                    //s$defaultFieldsValuesObj->setTiedStatus($data['default_tied_status']);
 
                     $fieldString = serialize($defaultFieldsValuesObj);
 

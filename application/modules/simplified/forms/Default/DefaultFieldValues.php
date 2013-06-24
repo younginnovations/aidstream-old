@@ -27,7 +27,7 @@ class Simplified_Form_Default_DefaultFieldValues extends App_Form
         foreach($language as $key => $eachLanguage){
             $form['default_language']->addMultiOption($key, $eachLanguage);
         }
-        
+        /*
         $form['hierarchy'] = new Zend_Form_Element_Text('hierarchy');
         $form['hierarchy']->setLabel('Default Hierarchy')
             ->setAttrib('class' , 'form-text')
@@ -82,10 +82,10 @@ class Simplified_Form_Default_DefaultFieldValues extends App_Form
         foreach($tiedStatuses as $key => $tiedStatus){
             $form['default_tied_status']->addMultiOption($key, $tiedStatus);
         }
-        
+        */
         $this->addElements($form);
         
-        $this->addDisplayGroup(array('default_currency', 'default_language', 'hierarchy', 'default_collaboration_type' , 'default_flow_type', 'default_finance_type' , 'default_aid_type', 'default_tied_status'),
+        $this->addDisplayGroup(array('default_currency', 'default_language'),
                                'default_field_values',
                                array('legend'=>'Default Field Values')
                             );
