@@ -5189,13 +5189,17 @@ fieldset#fieldset-organisation_info {
 	width: 100%;
 }
 
-#sidebar-right .block-info-menu,#sidebar-right .block-info-menu:hover {
+#sidebar-right .block-info-menu,#sidebar-right .block-info-menu:hover  , .dashboard-published-info-wrapper{
 	color: #555;
 	background: #F8FCF3;
 	border: 1px solid #93cc56;
 }
 
-#sidebar-right .block-info-menu .simplified-info {
+#sidebar-right .block-info-menu .simplified-info  , .dashboard-published-info-message {
 	background: url(../images/info-icon.png) no-repeat 0 3px;
 	padding-left: 40px;
+}
+
+.elements-group label {
+	width: 160px;
 }

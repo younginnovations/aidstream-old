@@ -10,6 +10,20 @@ class Simplified_Form_Activity_Transaction_Expenditure extends Simplified_Form_A
         
         $this->removeElement('end_date');
         
+        foreach($this->getElements() as $item_name=>$element)
+        {
+            $element->addDecorators( array(
+                        array('HtmlTag',
+                              array(
+                                    'tag'        =>'<div>',
+                                    'placement'  =>'PREPEND',
+                                    'class'      =>'help siplified-expenditure-'.$item_name
+                                )
+                            ),
+                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
+                    )
+            );
+        }
         $this->setElementsBelongTo("expenditure[{$this->count}]");
         // Add remove button
         $remove = new Iati_Form_Element_Note('remove');

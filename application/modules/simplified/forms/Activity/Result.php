@@ -87,6 +87,21 @@ class Simplified_Form_Activity_Result extends Iati_SimplifiedForm
         $remove->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'simplified-remove-element'));
         $remove->setValue("<a href='#' class='button' value='Result'> Remove element</a>");
         $this->addElement($remove);
+        
+        foreach($form as $item_name=>$element)
+        {
+            $form[$item_name]->addDecorators( array(
+                        array('HtmlTag',
+                              array(
+                                    'tag'        =>'<div>',
+                                    'placement'  =>'PREPEND',
+                                    'class'      =>'help siplified-result-'.$item_name
+                                )
+                            ),
+                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
+                    )
+            );
+        }
     }
     
     public function setData($data)

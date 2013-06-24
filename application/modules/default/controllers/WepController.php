@@ -1398,6 +1398,11 @@ class WepController extends Zend_Controller_Action
         $this->view->published_files_organisation = $publishedFilesOfOrganisation;
         
         $this->view->publish_permission = $publishPermission;
+        
+        if(Simplified_Model_Simplified::isSimplified()){
+            $this->view->blockManager()->disable('partial/organisation-data.phtml'); 
+            $this->view->blockManager()->enable('partial/simplified-info.phtml');
+        }
     }
 
     public function deletePublishedFileAction()

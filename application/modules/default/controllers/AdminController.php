@@ -15,6 +15,11 @@ class AdminController extends Zend_Controller_Action
             $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
             $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
             $this->view->blockManager()->enable('partial/published-list.phtml');
+            if(!Simplified_Model_Simplified::isSimplified()){
+                $this->view->blockManager()->enable('partial/organisation-data.phtml');
+            } else {
+                $this->view->blockManager()->enable('partial/simplified-info.phtml');
+            }
         }
         /* $contextSwitch = $this->_helper->contextSwitch;
           $contextSwitch->addActionContext('', 'json')

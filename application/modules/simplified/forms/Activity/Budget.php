@@ -66,8 +66,24 @@ class Simplified_Form_Activity_Budget extends Iati_SimplifiedForm
         // Add remove button
         $remove = new Iati_Form_Element_Note('remove');
         $remove->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'simplified-remove-element'));
+        
         $remove->setValue("<a href='#' class='button' value='Budget'> Remove element</a>");
         $this->addElement($remove);
+        
+        foreach($form as $item_name=>$element)
+        {
+            $form[$item_name]->addDecorators( array(
+                        array('HtmlTag',
+                              array(
+                                    'tag'        =>'<div>',
+                                    'placement'  =>'PREPEND',
+                                    'class'      =>'help siplified-budget-'.$item_name
+                                )
+                            ),
+                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
+                    )
+            );
+        }
     }
     
     public function setData($data)

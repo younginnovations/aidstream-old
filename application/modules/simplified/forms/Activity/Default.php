@@ -97,6 +97,21 @@ class Simplified_Form_Activity_Default extends Iati_SimplifiedForm
         
         $this->addElements($form);
         
+        foreach($form as $item_name=>$element)
+        {
+            $form[$item_name]->addDecorators( array(
+                        array('HtmlTag',
+                              array(
+                                    'tag'        =>'<div>',
+                                    'placement'  =>'PREPEND',
+                                    'class'      =>'help siplified-'.$item_name
+                                )
+                            ),
+                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
+                    )
+            );
+        }
+        
         // location
         $locationForm = new App_Form();
         $locationForm->removeDecorator('form');
