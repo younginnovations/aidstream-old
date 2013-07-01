@@ -17,7 +17,7 @@ class Simplified_Form_Activity_Transaction_IncommingFund extends Simplified_Form
                               array(
                                     'tag'        =>'<div>',
                                     'placement'  =>'PREPEND',
-                                    'class'      =>'help siplified-incommingfund-'.$item_name
+                                    'class'      =>'help simplified-incommingfund-'.$item_name
                                 )
                             ),
                         array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))

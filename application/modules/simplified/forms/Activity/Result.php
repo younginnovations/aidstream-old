@@ -95,7 +95,7 @@ class Simplified_Form_Activity_Result extends Iati_SimplifiedForm
                               array(
                                     'tag'        =>'<div>',
                                     'placement'  =>'PREPEND',
-                                    'class'      =>'help siplified-result-'.$item_name
+                                    'class'      =>'help simplified-result-'.$item_name
                                 )
                             ),
                         array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))

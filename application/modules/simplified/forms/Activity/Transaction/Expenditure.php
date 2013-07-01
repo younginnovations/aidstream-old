@@ -17,7 +17,7 @@ class Simplified_Form_Activity_Transaction_Expenditure extends Simplified_Form_A
                               array(
                                     'tag'        =>'<div>',
                                     'placement'  =>'PREPEND',
-                                    'class'      =>'help siplified-expenditure-'.$item_name
+                                    'class'      =>'help simplified-expenditure-'.$item_name
                                 )
                             ),
                         array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))

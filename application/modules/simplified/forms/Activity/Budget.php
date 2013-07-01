@@ -77,7 +77,7 @@ class Simplified_Form_Activity_Budget extends Iati_SimplifiedForm
                               array(
                                     'tag'        =>'<div>',
                                     'placement'  =>'PREPEND',
-                                    'class'      =>'help siplified-budget-'.$item_name
+                                    'class'      =>'help simplified-budget-'.$item_name
                                 )
                             ),
                         array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))

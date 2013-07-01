@@ -92,7 +92,7 @@ class Simplified_Form_Activity_Location extends Iati_SimplifiedForm
                               array(
                                     'tag'        =>'<div>',
                                     'placement'  =>'PREPEND',
-                                    'class'      =>'help siplified-location-'.$item_name
+                                    'class'      =>'help simplified-location-'.$item_name
                                 )
                             ),
                         array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))

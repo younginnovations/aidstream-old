@@ -59,7 +59,7 @@ class Simplified_Form_Activity_Document extends Iati_SimplifiedForm
                               array(
                                     'tag'        =>'<div>',
                                     'placement'  =>'PREPEND',
-                                    'class'      =>'help siplified-document-'.$item_name
+                                    'class'      =>'help simplified-document-'.$item_name
                                 )
                             ),
                         array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
