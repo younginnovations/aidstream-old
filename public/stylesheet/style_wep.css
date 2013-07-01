@@ -2074,6 +2074,12 @@ table#list-org {
     border-bottom: 1px solid #DCDCDC;
 }
 
+#list-org tr.total,#list-org tr.total td {
+	background: #eaeaea;
+	font-weight: bold;
+}
+
+
 .activity-detail-table table {
 	/*border: none !important;*/
 	/*border-top: 5px solid #feefd8 !important;*/
@@ -5195,11 +5201,25 @@ fieldset#fieldset-organisation_info {
 	border: 1px solid #93cc56;
 }
 
-#sidebar-right .block-info-menu .simplified-info  , .dashboard-published-info-message {
+#sidebar-right .block-info-menu .simplified-info {
 	background: url(../images/info-icon.png) no-repeat 0 3px;
 	padding-left: 40px;
 }
 
 .elements-group label {
 	width: 160px;
+}
+
+.dashboard-published-info-wrapper{
+	margin-bottom: 10px;
+	border: 1px solid #fbd84c;
+	color: #222;
+	background-color: #FEEFB3;
+	padding: 0 10px;
+}
+
+.dashboard-published-info-message {
+	padding: 4px 10px 4px 18px;
+	font-size: 13px;
+	background: url(../images/hour-glass.png) no-repeat 0 9px;
 }

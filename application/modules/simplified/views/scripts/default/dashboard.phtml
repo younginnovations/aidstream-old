@@ -6,6 +6,33 @@
 ?>
 
 <div class="dashboard-content">
+    
+	<?php if(is_array($stateCount)): ?>
+	    <?php
+		$registeredCount = $this->published_activity_count;
+		$otherStates = $stateCount[Iati_WEP_ActivityState::STATUS_EDITING]
+		+ $stateCount[Iati_WEP_ActivityState::STATUS_COMPLETED]
+		+ $stateCount[Iati_WEP_ActivityState::STATUS_VERIFIED];
+		$publishedCount = $stateCount[Iati_WEP_ActivityState::STATUS_PUBLISHED];
+	    ?>
+	    <?php if(($publishedCount != $registeredCount) || $otherStates ): ?>
+	    <div class="dashboard-published-info-wrapper">
+		<?php if($publishedCount != $registeredCount):?>
+		    <div class="dashboard-published-info-message">
+			You have <?php echo $registeredCount;?> activities published to IATI Registry, but there are <?php echo $publishedCount;?> activities in Published state
+			in AidStream. Please complete, verify, publish and push to the registry in order to reflect
+			the changes of edited activities into IATI Registry.
+		    </div>
+		<?php else: ?>
+		    <div class="dashboard-published-info-message">
+			You have <?php echo $otherStates;?> activities yet to be published into IATI Registry. Please complete,
+			verify, publish and push to registry to publish your activities to IATI Registry..
+		    </div>			    
+		<?php endif;?>
+	    </div>
+	    <?php endif;?>
+	<?php endif; ?>
+	
 	<div class="general-info">
 		<span id="total-activities-wrapper" class="general-info-item-wrapper">
 			<span  class="general-info-label">Total Activities:</span>

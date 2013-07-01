@@ -8,8 +8,17 @@
 
 <?php //print_r($this->rowSet);exit;?>
 <?php $i = 1;?>
+<?php $total = array(); ?>
 <tbody>
     <?php foreach($this->orgs as $key=>$row):?>
+    <?php
+        //Calculate total for display
+        $total['total'] += array_sum($row['states']);
+        $total['editing'] += $row['states'][Iati_WEP_ActivityState::STATUS_EDITING];
+        $total['completed'] += $row['states'][Iati_WEP_ActivityState::STATUS_COMPLETED];
+        $total['verified'] += $row['states'][Iati_WEP_ActivityState::STATUS_VERIFIED];
+        $total['published'] += $row['states'][Iati_WEP_ActivityState::STATUS_PUBLISHED];
+    ?>
     <tr>
     <td><?php print $i;?></td>
     <td><?php print $row['name']?></td>
@@ -21,6 +30,14 @@
     </tr>
     <?php $i++;?>
     <?php endforeach;?>
+    <tr class="total">
+        <td colspan=2>Total</td>
+        <td><?php echo ($total['total'])?$total['total']:0; ?></td>
+        <td><?php echo ($total['editing'])?$total['editing']:0; ?></td>
+        <td><?php echo ($total['completed'])?$total['completed']:0; ?></td>
+        <td><?php echo ($total['verified'])?$total['verified']:0; ?></td>
+        <td><?php echo ($total['published'])?$total['published']:0; ?></td>
+    </tr>
 </tbody>
 
 </table>
