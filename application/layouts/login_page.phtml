@@ -136,9 +136,7 @@
                                     <div id="flash-messages"><?php $flashMessenger = $this->flashMessages();
                                         print $flashMessenger->getMessages();?>
                                     </div>
-                                    <div id="breadcrumb">
-                                        <?php print $this->partial('partial/breadcrumbs.phtml', $this->getVars())?>
-                                    </div><!-- end of the breadcrumb -->
+                                   
                                     <?php if ($this->placeholder('title') != ""):?>
                                     <h1><?php print $this->placeholder('title')?></h1>
                                     <? endif;?>
