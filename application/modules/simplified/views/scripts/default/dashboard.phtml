@@ -13,7 +13,7 @@
 		$otherStates = $stateCount[Iati_WEP_ActivityState::STATUS_EDITING]
 		+ $stateCount[Iati_WEP_ActivityState::STATUS_COMPLETED]
 		+ $stateCount[Iati_WEP_ActivityState::STATUS_VERIFIED];
-		$publishedCount = $stateCount[Iati_WEP_ActivityState::STATUS_PUBLISHED];
+		$publishedCount = ($stateCount[Iati_WEP_ActivityState::STATUS_PUBLISHED]) ? ($stateCount[Iati_WEP_ActivityState::STATUS_PUBLISHED]) : 0;
 	    ?>
 	    <?php if(($publishedCount != $registeredCount) || $otherStates ): ?>
 	    <div class="dashboard-published-info-wrapper">
