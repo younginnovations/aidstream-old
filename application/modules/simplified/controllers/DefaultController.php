@@ -1,5 +1,6 @@
 <?php
 /**
+ * Handles default functionalities for simplified section.
  * @author YIPL Dev team
  *
  */

@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * Controller to handle error
+ * @author YIPL dev team
+ */
 class ErrorController extends Zend_Controller_Action
 {
     public function init()

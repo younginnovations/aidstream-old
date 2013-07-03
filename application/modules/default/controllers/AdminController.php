@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Controller to handle actions for the superadmin
+ * 
+ * @author YIPL Dev team
+ */
 class AdminController extends Zend_Controller_Action
 {
 

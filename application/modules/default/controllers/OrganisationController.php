@@ -1,7 +1,9 @@
 <?php
 
 /**
- * Controller to handle actions to organisation data. It handles all CRUD and other operations for organisation.
+ * Controller to handle actions to organisation data. It handles all CRUD and
+ * other operations for organisation.
+ * 
  * @author YIPL Dev team
  */
 class OrganisationController extends Zend_Controller_Action

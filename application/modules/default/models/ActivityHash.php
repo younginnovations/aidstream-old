@@ -16,7 +16,9 @@ class Model_ActivityHash extends Zend_Db_Table_Abstract
         $activity = $this->fetchRow($rowSet);
         return $activity;
     }
-    
+    /**
+     * @deprecated
+     */
     public function updateHash($activity_id)
     {
         $dbLayer = new Iati_WEP_DbLayer();

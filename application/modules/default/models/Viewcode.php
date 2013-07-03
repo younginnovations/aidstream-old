@@ -21,19 +21,6 @@ class Model_Viewcode extends Zend_Db_Table_Abstract
         return $result;
     }
 
-    //    public function checkcode($colName)
-    //    {
-    //
-    //        $columnName[0] = array(0 => "id",
-    //            1 => "Code", 2 => "Name", 3 => "lang_id");
-    //        $columnName[1] = array(0 => "id",
-    //            1 => "Code", 2 => "Name", 3 => "Description", 4 => "lang_id");
-    //        $columnName[2] = array(0 => "id",
-    //            1 => "Code", 2 => "Name", 3 => "Description", 4 => "CategoryCode", 5 => "lang_id");
-    //        $columnName[3] = array(0 => "id",
-    //            1 => "Code", 2 => "Name", 3 => "CategoryCode", 4 => "lang_id");
-    //    }
-
     public function filterField($colName)
     {
         $i = 0;

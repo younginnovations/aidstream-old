@@ -1,8 +1,7 @@
 <?php
 /**
  * User Controller to render pages for user module
- * Enter description here ...
- * @author geshan
+ * @author YIPL Dev Team
  *
  */
 class User_UserController extends Zend_Controller_Action

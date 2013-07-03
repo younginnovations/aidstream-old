@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * Default controller. 
+ * @author YIPL dev team
+ */
 class IndexController extends Zend_Controller_Action
 {
 
