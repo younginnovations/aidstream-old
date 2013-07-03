@@ -94,6 +94,19 @@ class Simplified_Form_Activity_Default extends Iati_SimplifiedForm
             ->setValue($sectorData)
             ->setAttrib('multiple', 'true')
             ->setAttrib('class', 'form-text');
+            
+        $form['status_id'] = new Zend_Form_Element_Hidden('status_id');
+        $form['status_id']->setValue($this->data['status_id']);
+            
+        $statuses = $model->getCodeArray('ActivityStatus' , '' , 1);
+        $form['status'] = new Zend_Form_Element_Select('status');
+        $form['status']->setLabel('Activity Status')
+            ->addMultiOption('', 'Select anyone')
+            ->addMultiOptions($statuses)
+            ->setValue($this->data['status'])
+            ->setRegisterInArrayValidator(false)
+            ->setAttrib('class' , 'form-select')
+            ->setAttrib('style' , 'width:300px');
         
         $this->addElements($form);
         

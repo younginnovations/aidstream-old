@@ -41,7 +41,10 @@
             <tr><td class="activity_view_label">Actual Start Date</td><td><?php echo $activityData['start_date'];?></td></tr>
             <tr><td class="activity_view_label">Actual End Date</td><td><?php echo $activityData['end_date'];?></td></tr>
             <?php if($activityData['sector']): ?>
-            <tr><td class="activity_view_label">Sector</td><td><?php foreach($activityData['sector'] as $sector) { echo $model->fetchValueById('Sector' , $sector, 'Name');echo "<br>";} ?></td></tr>
+                <tr><td class="activity_view_label">Sector</td><td><?php foreach($activityData['sector'] as $sector) { echo $model->fetchValueById('Sector' , $sector, 'Name');echo "<br>";} ?></td></tr>
+            <?php endif;?>
+            <?php if($activityData['status']): ?>
+                <tr><td class="activity_view_label">Activity Status</td><td><?php echo $model->fetchValueById('ActivityStatus' , $activityData['status'], 'Name'); ?></td></tr>
             <?php endif;?>
         </table>
     </div>

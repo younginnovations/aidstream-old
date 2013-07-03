@@ -106,6 +106,9 @@ class Simplified_Model_Simplified
             }
         }
         
+        //Create Status
+        $this->saveStatus($data);
+        
         //Create Document
         $this->addDocument($data['document_wrapper']['document']);
 
@@ -311,6 +314,15 @@ class Simplified_Model_Simplified
             }
         }
         
+        //Get Status
+        $statusEle = new Iati_Aidstream_Element_Activity_ActivityStatus();
+        $status = $statusEle->fetchData($activityId , true);
+        if(!empty($status)){
+            $data['status_id'] = $status['id'];
+            $data['status'] = $status['@code'];
+        }
+        
+        //Get Result
         $count = 0;
         $resultEle = new Iati_Aidstream_Element_Activity_Result();
         $results = $resultEle->fetchData($activityId , true);
@@ -468,7 +480,10 @@ class Simplified_Model_Simplified
             $endDate['activity_id'] = $activityId;
             $model->insertRowsToTable('iati_activity_date' , $endDate); 
         }
-
+        
+        //Update Status
+        $this->saveStatus($data);
+        
         //Update Document
         $this->updateDocument($data['document_wrapper']['document']);
 
@@ -1028,6 +1043,15 @@ class Simplified_Model_Simplified
         }
 
         $resultEle->save($resultData , $this->activityId);
+    }
+    
+    public function saveStatus($data)
+    {
+        $statusEle = new Iati_Aidstream_Element_Activity_ActivityStatus();
+        $status = array();
+        $status['id'] = $data['status_id'];
+        $status['code'] = $data['status'];
+        $statusEle->save($status , $this->activityId);
     }
     
     public function getCoordinates($district)
