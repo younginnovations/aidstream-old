@@ -1,3 +1,4 @@
+<?php if(!Simplified_Model_Simplified::isSimplified()) : ?>
 <!--Starts of Displaying Published Files of an Organisation-->
 <?php echo $this->partial("partials/published-files/organisation-published-files.phtml" , array(
                                                                                             'published_files_organisation'=>$this->published_files_organisation,
@@ -6,6 +7,8 @@
                                                                                             )
                           );
 ?>
+
+<?php endif;?>
 <!--Ends of Displaying Published Files of an Organisation-->
 
 <!--Starts of Displaying Published Files of an Activities-->
