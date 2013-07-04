@@ -4601,6 +4601,7 @@ a:hover {
 	background-size: cover;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
+	background-attachment: fixed;
 }
 
 .banner {
@@ -4672,7 +4673,7 @@ a:hover {
 
 .banner-slideshow {
 	background: url(../images/slide-bg.png) 0 0 no-repeat;
-	height: 399px;
+	height: 400px;
 	position: absolute;
 	right: -120px;
 	width: 686px;
