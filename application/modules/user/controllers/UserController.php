@@ -516,7 +516,7 @@ class User_UserController extends Zend_Controller_Action
             if(isset($session->identity)){
                 $auth->getStorage()->write(unserialize($session->identity));
                 Zend_Session::namespaceUnset('superadmin');
-                $this->_redirect('/admin/dashboard');
+                $this->_redirect('/admin/list-organisation');
             } else {
                 $this->_redirect('/wep/dashboard');
             }
