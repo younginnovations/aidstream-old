@@ -5223,3 +5223,8 @@ fieldset#fieldset-organisation_info {
 	font-size: 13px;
 	background: url(../images/hour-glass.png) no-repeat 0 9px;
 }
+
+.action-icon {
+	float: left;
+	width: 58px;
+}
