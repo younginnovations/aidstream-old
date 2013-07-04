@@ -699,6 +699,11 @@ class AdminController extends Zend_Controller_Action
             $activities = $activityCollModel->getActivitiesByAccount($organisation['id']);
             $states = $activityModel->getCountByState($activities);
             $organisation['states'] = $states;
+            
+            $regPublishModel = new Model_RegistryPublishedData();
+            $publishedFiles = $regPublishModel->getPublishedInfoByOrg($organisation['id']);
+            $publishedActivityCount = $regPublishModel->getActivityCount($publishedFiles);
+            $organisation['registry_published_count'] = $publishedActivityCount;
             $orgData[] = $organisation;
         }
         $this->view->orgs = $orgData;
