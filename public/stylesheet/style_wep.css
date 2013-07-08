@@ -4556,6 +4556,30 @@ a:hover {
 	padding: 0 0 3px!important;
 }
 
+.nav ul li#demo-link {
+	background: #5C5C5C;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	line-height: 29px;
+	margin: -6px 0 0 20px;
+}
+
+.nav ul li#demo-link a {
+	display: block;
+	color: #fff;
+	padding: 0 18px!important;
+}
+
+.nav ul li#demo-link:hover {
+	background: #333;
+	color: #fff;
+}
+
+.nav ul li#demo-link a:hover {
+	background: none;
+}
+
 #static-header .logo {
 	padding: 0;
 }

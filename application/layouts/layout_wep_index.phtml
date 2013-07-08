@@ -114,7 +114,8 @@
 					<li><?php echo $this->l("How to Use", 'how-to');?></li>
 					<li class="<?php echo ($url === $this->baseUrl().'/users')? 'active-menu':'';?>"><?php echo $this->l("Who's Using", 'users');?></li>
 					<li><?php echo $this->l('Snapshot', 'snapshot');?></li>
-					<li><?php echo $this->l('Blog', 'blog', array('attributes' => array('target' => '__blank')));?></li>
+					<!-- <li><a href='http://blog.aidstream.org' target="_blank">Blog</a></li> -->
+					<li id="demo-link"><a href='http://demo.aidstream.org' target="_blank">Demo</a></li>
 				</ul>
 				<?php if(!$auth->hasIdentity()):?>
 				<div class="login" id="login-register-popup">
