@@ -1040,6 +1040,8 @@ class Simplified_Model_Simplified
             
             $resultData[$count]['Indicator'][0]['Period'][0]['PeriodEnd'][0]['id']  = $result['period_end_id'];
             $resultData[$count]['Indicator'][0]['Period'][0]['PeriodEnd'][0]['iso_date'] = $result['end_date'];
+            
+            $count++;
         }
 
         $resultEle->save($resultData , $this->activityId);
