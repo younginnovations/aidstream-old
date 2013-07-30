@@ -17,6 +17,7 @@ class Iati_SimplifiedForm extends Zend_Form
         if (empty($decorators)) {
             $this->addDecorator('FormElements')
                 ->addDecorator('Form')
+		->addDecorator('Description')
                 ->addDecorators( array(array(array( 'wrapper' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'form-wrapper'))));
         }
     }

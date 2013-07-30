@@ -1267,7 +1267,7 @@ class WepController extends Zend_Controller_Action
             if(!$registryInfo){
                 $this->_helper->FlashMessenger->addMessage(array('error' => "Registry information not found. Please go to <a href='{$this->view->baseUrl()}/wep/edit-defaults'>Change Defaults</a> to add registry info."));
             } else if(!$registryInfo->publisher_id){
-                $this->_helper->FlashMessenger->addMessage(array('error' => "Publisher Id not found. Xml files could not be created. Please go to  <a href='{$this->view->baseUrl()}/wep/edit-defaults'>Change Defaults</a> to add publisher id."));
+                $this->_helper->FlashMessenger->addMessage(array('error' => "Publisher Id not found. IATI Activities files could not be created. Please go to  <a href='{$this->view->baseUrl()}/wep/edit-defaults'>Change Defaults</a> to add publisher id."));
             } else {
                 $db->updateActivityStatus($activity_ids,(int)$state);
                 
@@ -1290,7 +1290,7 @@ class WepController extends Zend_Controller_Action
                         }
                     }
                 } else {
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "Activities xml files created."));
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "IATI Activities files created. <a href='".$this->view->baseUrl()."/wep/list-published-files'>View your published files</a>"));
                 }
 
 

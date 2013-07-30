@@ -49,7 +49,9 @@ dojo.declare("my.dropDown", [dijit._Widget, dijit._Templated], {
         }
     },
     
-    openPopup: function(){
+    openPopup: function(focus){
+	if(typeof(focus) === 'undefined') focus = true
+	
         if (this.disabled) return;
         var self = this;
         
@@ -75,8 +77,11 @@ dojo.declare("my.dropDown", [dijit._Widget, dijit._Templated], {
                 self.open = false;
             }
         });
-
-        this.open = true;
+	
+	this.open = true;
+	if(focus){
+	    this.popup.focus();
+	}
     },
 
     closePopup: function(){
@@ -609,7 +614,7 @@ function initialize() {
                         var tempWrapper  = dojo.create("div");
                         tempWrapper.appendChild(temp[0]);
                         var eleHtml = tempWrapper.innerHTML;
-			var drop = new my.dropDown({
+			var helpDrop = new my.dropDown({
                             label : eleHtml,
                             popup: helpdialog
                         } , node);
@@ -1493,7 +1498,15 @@ function initialize() {
                 confirmDlg.show();
                 evt.preventDefault();
             }
-        }        
+        },
+	
+	"#close-dialog" : {
+            'onclick' : function (evt){
+		var node = dojo.NodeList(getTarget(evt));
+		var parent = node.parent('.custom-tooltip-dialog');
+		parent.style('display' , 'none');
+            }
+        }
     });
     
     // End of dojo.behavior.add

@@ -8,7 +8,15 @@ class Simplified_Form_Activity_Default extends Iati_SimplifiedForm
         
         $this->setAttrib('id' , 'simplified-default-form')
             ->setIsArray(true);
+            
         $form = array();
+        
+        $requiredMessage = new Iati_Form_Element_Note('form-message');
+        $requiredMessage->setValue("If you fill this section, the fields marked ( <span class='form-required'>*</span> ) must be filled")
+            ->setOrder(-1);
+        
+        $defaultMessage  = new Iati_Form_Element_Note('message');
+        $defaultMessage->setValue("The fields marked ( <span class='form-required'>*</span> ) must be filled");
         
         $form['activity_id'] = new Zend_Form_Element_Hidden('activity_id');
         $form['activity_id']->setValue($this->data['activity_id']);
@@ -125,6 +133,7 @@ class Simplified_Form_Activity_Default extends Iati_SimplifiedForm
             );
         }
         
+        
         // location
         $locationForm = new App_Form();
         $locationForm->removeDecorator('form');
@@ -144,6 +153,7 @@ class Simplified_Form_Activity_Default extends Iati_SimplifiedForm
         $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'simplified-add-more'));
         $add->setValue("<a href='#' class='button' value='Location'> Add More</a>");
         $locationForm->addElement($add);
+        $locationForm->addElement($requiredMessage);
         $this->addSubForm($locationForm , 'location_wrapper');
         
         
@@ -166,6 +176,7 @@ class Simplified_Form_Activity_Default extends Iati_SimplifiedForm
         $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'simplified-add-more'));
         $add->setValue("<a href='#' class='button' value='Budget'> Add More</a>");
         $budgetForm->addElement($add);
+        $budgetForm->addElement($requiredMessage);
         $this->addSubForm($budgetForm , 'budget_wrapper');
         
         /**
@@ -211,6 +222,7 @@ class Simplified_Form_Activity_Default extends Iati_SimplifiedForm
         $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'simplified-add-more'));
         $add->setValue("<a href='#' class='button' value='Transaction_IncommingFund'> Add More</a>");
         $incommForm->addElement($add);
+        $incommForm->addElement($requiredMessage);
         $this->addSubForm($incommForm , 'incomming_fund_wrapper');
         
         // Expenditure
@@ -231,6 +243,7 @@ class Simplified_Form_Activity_Default extends Iati_SimplifiedForm
         $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'simplified-add-more'));
         $add->setValue("<a href='#' class='button' value='Transaction_Expenditure'> Add More</a>");
         $expForm->addElement($add);
+        $expForm->addElement($requiredMessage);
         $this->addSubForm($expForm , 'expenditure_wrapper');
         
         // document
@@ -252,6 +265,7 @@ class Simplified_Form_Activity_Default extends Iati_SimplifiedForm
         $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'simplified-add-more'));
         $add->setValue("<a href='#' class='button' value='Document'> Add More</a>");
         $documentForm->addElement($add);
+        $documentForm->addElement($requiredMessage);
         $this->addSubForm($documentForm , 'document_wrapper');
         
         
@@ -274,6 +288,7 @@ class Simplified_Form_Activity_Default extends Iati_SimplifiedForm
         $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'simplified-add-more'));
         $add->setValue("<a href='#' class='button' value='Result'> Add More</a>");
         $resultForm->addElement($add);
+        $resultForm->addElement($requiredMessage);
         $this->addSubForm($resultForm , 'result_wrapper');
         
         
@@ -289,12 +304,14 @@ class Simplified_Form_Activity_Default extends Iati_SimplifiedForm
             array(
                 'label'    => 'Save',
                 'required' => false,
+                'class' => 'simplified-save-button'
             )
         );
         
         $this->addDecorators(array(
             array('ViewScript', array('viewScript' => 'default/viewscripts/simplified.phtml'))
         ));
+        $this->addElement($defaultMessage);
     }
     
     public function setData($data)

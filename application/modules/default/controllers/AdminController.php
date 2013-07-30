@@ -682,7 +682,7 @@ class AdminController extends Zend_Controller_Action
         $orgModel = new Model_Wep();
         $orgModel->updateRowsToTable('account' , $data);
         
-        $outMessage = ($data['simplified'])?"Organisation type changed to Simplified": "Organisatin type changed to Default";
+        $outMessage = ($data['simplified'])?"Organisation type changed to Simplified": "Organisation type changed to Default";
         $this->_helper->FlashMessenger->addMessage(array('message' => $outMessage));
         $this->_redirect('admin/list-organisation');
     }
