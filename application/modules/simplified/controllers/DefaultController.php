@@ -210,12 +210,12 @@ class Simplified_DefaultController extends Zend_Controller_Action
                 $activityHashModel = new Model_ActivityHash();
                 $updated = $activityHashModel->updateActivityHash($activityId);
                 
-                $this->_helper->FlashMessenger->addMessage(array('message' => 'Activity created sucessfully'));
+                $this->_helper->FlashMessenger->addMessage(array('message' => 'Congratulations! You have successfully created an activity.'));
                 $this->_redirect('/simplified/default/view-activity/'.$activityId);
                 
             } else {
                 $form->populate($data);
-                $this->_helper->FlashMessenger->addMessage(array('error' => 'You have some error in you data'));
+                $this->_helper->FlashMessenger->addMessage(array('error' => 'You have some error in your data. Please check the fields marked in red to proceed.'));
             }
             
         }        

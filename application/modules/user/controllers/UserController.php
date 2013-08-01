@@ -29,10 +29,10 @@ class User_UserController extends Zend_Controller_Action
                     $userModel = new User_Model_User();
                     $accountId = $userModel->registerUser($formData);
 
-                    $this->_helper->FlashMessenger->addMessage(array('message' => 'Thank you for registering. You will receive an email shortly'));
+                    $this->_helper->FlashMessenger->addMessage(array('message' => 'Thank you for registering. You will receive an email shortly.'));
                     $this->_redirect('/');
                 } else {
-                    $this->_helper->FlashMessenger->addMessage(array('error' => 'oops! something went wrong. Please check the fields marked in red to proceed'));
+                    $this->_helper->FlashMessenger->addMessage(array('error' => 'Oops! something went wrong. Please check the fields marked in red to proceed.'));
                 }
         }
         $this->view->form = $form;
@@ -161,10 +161,10 @@ class User_UserController extends Zend_Controller_Action
                     }
                 }
                 else
-                    $this->_helper->FlashMessenger->addMessage(array('error' => 'Invalid username or password.'));
+                    $this->_helper->FlashMessenger->addMessage(array('error' => 'Username or password did not match.'));
                     //$this->_redirect('/');
             } else {
-                $this->_helper->FlashMessenger->addMessage(array('error' => 'Invalid username or password'));
+                $this->_helper->FlashMessenger->addMessage(array('error' => 'Username or password did not match.'));
                 //$this->_redirect('/');
             }
         }

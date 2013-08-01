@@ -12,11 +12,11 @@ class Simplified_Form_Activity_Default extends Iati_SimplifiedForm
         $form = array();
         
         $requiredMessage = new Iati_Form_Element_Note('form-message');
-        $requiredMessage->setValue("If you fill this section, the fields marked ( <span class='form-required'>*</span> ) must be filled")
+        $requiredMessage->setValue("If you fill this section, the fields marked <span class='form-required'>*</span> must be filled.")
             ->setOrder(-1);
         
         $defaultMessage  = new Iati_Form_Element_Note('message');
-        $defaultMessage->setValue("The fields marked ( <span class='form-required'>*</span> ) must be filled");
+        $defaultMessage->setValue("The fields marked <span class='form-required'>*</span>  must be filled.");
         
         $form['activity_id'] = new Zend_Form_Element_Hidden('activity_id');
         $form['activity_id']->setValue($this->data['activity_id']);

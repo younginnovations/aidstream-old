@@ -329,7 +329,7 @@ class WepController extends Zend_Controller_Action
                     $activityHashModel = new Model_ActivityHash();
                     $updated = $activityHashModel->updateHash($activity_id);
 
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "Activity Sucessfully Created."));
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "Congratulations! You have successfully created an activity."));
                     $this->_redirect('activity/view-activity-info/?activity_id=' . $activity_id);
                 }
             } catch (Exception $e) {
@@ -1286,11 +1286,11 @@ class WepController extends Zend_Controller_Action
                         if($published['error']){
                             $this->_helper->FlashMessenger->addMessage(array('error' => $published['error']));
                         } else {
-                            $this->_helper->FlashMessenger->addMessage(array('message' => "Activities registered to IATI registry."));
+                            $this->_helper->FlashMessenger->addMessage(array('message' => "Activities have been registered to IATI registry."));
                         }
                     }
                 } else {
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "IATI Activities files created. <a href='".$this->view->baseUrl()."/wep/list-published-files'>View your published files</a>"));
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "IATI Activities files have been created. <a href='".$this->view->baseUrl()."/wep/list-published-files'>View your published files</a>"));
                 }
 
 
