@@ -121,7 +121,7 @@ class User_Form_User_RegisterForm extends App_Form
 
         $captcha = new Zend_Form_Element_Captcha('captcha',
             array(
-		'label'	 => "Please enter the text below in the box",
+		'label'	 => "Please enter the text in the box",
                 'captcha'       => 'ReCaptcha',
                 'captchaOptions' => array('captcha' => 'ReCaptcha', 'service' => $recaptcha),
                 'ignore' => true

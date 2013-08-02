@@ -5277,6 +5277,7 @@ fieldset#fieldset-organisation_info {
 	float: right;
 	font-size: 16px;
 	margin-bottom: 10px;
+	cursor: pointer;
 }
 
 .claro .dijitTooltipContainer {
@@ -5326,4 +5327,8 @@ fieldset#fieldset-organisation_info {
 
 .custom-tooltip-dialog.tooltip-below {
 	bottom: 41px;
+}
+
+#recaptcha_widget_div {
+	float: left;
 }
