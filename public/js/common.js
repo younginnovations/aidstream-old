@@ -1500,10 +1500,10 @@ function initialize() {
             }
         },
 	
-	"#close-dialog" : {
+	".close-dialog-button" : {
             'onclick' : function (evt){
 		var node = dojo.NodeList(getTarget(evt));
-		var parent = node.parent('.custom-tooltip-dialog');
+		var parent = node.parents('.custom-tooltip-dialog');
 		parent.style('display' , 'none');
             }
         }

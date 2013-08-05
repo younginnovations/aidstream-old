@@ -1834,18 +1834,18 @@ table.activity-list-table.published-files-list-table .registered-info{
 }
 
 .activity-state .state-display ul.state-2{
-	background-position: 0 -80px;
+	background-position: 0 -81px;
 }
 li#current-state span{
 	color: #565656;
 	font-weight: bold;
 }
 .activity-state .state-display ul.state-3{
-	background-position: 0 -120px;
+	background-position: 0 -122px;
 
 }
 .activity-state .state-display ul.state-4{
-	background-position: 0 -160px;
+	background-position: 0 -162px;
 
 }
 
@@ -3500,6 +3500,18 @@ ul li {
 	padding: 0 16px !important;;
 	float: left;
 	padding-left: 26px !important;
+	width: 526px;
+	border-top: 1px solid #fff;
+}
+
+.element-activity:hover {
+	background: #f1f1f1;
+}
+	
+
+.element-title:hover {
+	background: #f1f1f1 url(../images/activity-arrow.png) no-repeat 10px center;
+	border-top: 1px solid #fff;
 }
 
 .dropdown {
@@ -5278,6 +5290,10 @@ fieldset#fieldset-organisation_info {
 	font-size: 16px;
 	margin-bottom: 10px;
 	cursor: pointer;
+	text-indent: -9999px;
+	background: url(../images/close.png) no-repeat;
+	width: 16px;
+	height: 16px;
 }
 
 .claro .dijitTooltipContainer {
@@ -5289,34 +5305,61 @@ fieldset#fieldset-organisation_info {
 }
 
 .custom-tooltip-dialog {
-  background-color: rgba(255,255,255,0.85);
-  background-image: url(images/tooltipGradient.png);
-  background-repeat: repeat-x;
-  background-position: bottom;
-  border: 1px solid #769dc0;
-  padding: 6px 8px;
+  background: rgba(231,243,255);
+  background: rgba(231,243,255,0.9);
+  border: 1px solid #7C9ECE;
+  padding: 12px 10px 12px 16px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
   font-size: 1em;
   position: absolute;
-  bottom: -59px;
+  bottom: -41px;
+  width: 324px;
+  right: -115px;
+  -webkit-box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow:    1px 1px 6px rgba(0, 0, 0, 0.5);
+  box-shadow:         1px 1px 6px rgba(0, 0, 0, 0.5);
+}
+
+.custom-tooltip-dialog.state-edit {
+	right: -92px;
+}
+
+.custom-tooltip-dialog.state-verified {
+	right: -110px;
+}
+
+.custom-tooltip-dialog-save {
+	right: 137px;
+	bottom: -112px;
+	width: 430px;
+}
+
+.dialog-content {
+	color: #333;
+}
+
+.activity-state-save {
+	margin-bottom: 20px;
 }
 
 .custom-tooltip-pointer {
 	border: 0;
 	z-index: 2;
-	background-image: url(images/tooltip.png);
+	background-image: url(../images/dialog-arrow.png);
 	background-repeat: no-repeat;
-	bottom: 50px;
-	left: 3px;
-	background-position: -31px 0;
+	bottom: 14px;
+	left: -12px;
 	width: 16px;
 	height: 14px;
 	display: block;
 	position: absolute;
+}
+
+.custom-tooltip-dialog-save .custom-tooltip-pointer {
+	left: 7px;
+	bottom: 96px;
+	background-image: url(../images/save-arrow.png);
 }
 
 .custom-tooltip-pointer.pointer-below {
@@ -5331,4 +5374,29 @@ fieldset#fieldset-organisation_info {
 
 #recaptcha_widget_div {
 	float: left;
+}
+
+.custom-tooltip-dialog .close {
+	border: 1px solid #999;
+	line-height: 25px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	color: #333;
+	display: inline-block;
+	font-size: 13px;
+	background: rgb(255,255,255); /* Old browsers */
+	background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(190,190,190,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(190,190,190,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(190,190,190,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(190,190,190,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(190,190,190,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(190,190,190,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#bebebe',GradientType=0 ); /* IE6-9 */
+	padding: 0 8px;
+	cursor: pointer;
+}
+
+#contain .dialog-content p {
+	padding: 0;
 }

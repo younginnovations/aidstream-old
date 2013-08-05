@@ -1299,7 +1299,7 @@ class WepController extends Zend_Controller_Action
             $db->updateActivityStatus($activity_ids,(int)$state);
         }
         if($redirect){
-            $this->_redirect($redirect);
+            $this->_redirect($redirect , array('prependBase'=>false));
         }
         $this->_redirect('wep/view-activities');
     }

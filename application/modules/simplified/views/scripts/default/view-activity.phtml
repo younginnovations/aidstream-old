@@ -27,12 +27,15 @@
         </div>
         
         <?php if(!Model_User::checkHasPublished() && $this->state != Iati_WEP_ActivityState::STATUS_PUBLISHED):?>
-            <div id="change-state-description" class="custom-tooltip-dialog tooltip-below">
-            <span class="custom-tooltip-pointer pointer-below"></span>
-                <span id="close-dialog" class="close-dialog">X</span>
+        <div class="activity-state">
+            <div id="change-state-description" class="custom-tooltip-dialog state-<?php echo strtolower(Iati_WEP_ActivityState::getStatus($this->state));?>">
+            <span class="custom-tooltip-pointer"></span>
+                <span id="close-dialog" class="close-dialog close-dialog-button">X</span>
                 <div class="dialog-content">
-                    <?php echo Model_Help::getHelpMessageForStates($this->state);?>
+                    <p><?php echo Model_Help::getHelpMessageForStates($this->state);?></p>
+                    <div class="close close-dialog-button">Got it. Thanks</div>
                 </div>
+            </div>
             </div>
         <?php endif; ?>
         

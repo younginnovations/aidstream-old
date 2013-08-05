@@ -91,14 +91,15 @@ $form = $this->element;
     
     </div>
     <?php if(!Model_User::checkHasPublished()): ?>
-    <div class="activity-state">
-        <div id="simplified-save-description" class="custom-tooltip-dialog">
-            <span id="close-dialog" class="close-dialog">X</span>
+    <div class="activity-state activity-state-save">
+        <div id="simplified-save-description" class="custom-tooltip-dialog custom-tooltip-dialog-save">
+            <span id="close-dialog" class="close-dialog close-dialog-button">X</span>
             <div class="custom-tooltip-wrapper">
             <span class="custom-tooltip-pointer"></span>
-            <div class="dialog-content">
-                This will save the data you have entered and it will not publish them to IATI Registry.
-                You can edit your information even after saving it.
+            <div class="dialog-content close-dialog-button">
+                <p>This will save the data you have entered and it will not publish them to IATI Registry.
+                You can edit your information even after saving it.</p>
+                <div class="close close-dialog-button">Got it. Thanks</div>
             </div>
             </div>
         </div>
