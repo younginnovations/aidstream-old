@@ -33,6 +33,14 @@ class Form_General_RegistryInfo extends App_Form
         $form['update_registry'] = new Zend_Form_Element_Radio('update_registry');
         $form['update_registry']->setLabel('Automatically Update the IATI Registry when publishing files')
             ->setValue(0)
+            ->addDecorators(array(array(
+                                        'HtmlTag',
+                                        array(
+                                              'tag'        =>'<div>',
+                                              'placement'  =>'APPEND',
+                                              'class'      =>'help activity_defaults-update_registry'
+                                          )
+                            )))
             ->addMultiOptions(array('No' , 'Yes'));
         
         $form['publishing_type'] = new Zend_Form_Element_Radio('publishing_type');
@@ -44,10 +52,17 @@ class Form_General_RegistryInfo extends App_Form
             
         foreach($form as $item_name=>$element)
         {
-            $form[$item_name]->addDecorators( array(
+            if($item_name == "update_registry"){
+                $form[$item_name]->addDecorators( array(
+                        array(array( 'wrapperAll' => 'HtmlTag'), array('tag' => 'div' , 'class'=>'clearfix form-item update-registry-element'))
+                    )
+                );
+            } else {
+                $form[$item_name]->addDecorators( array(
                         array(array( 'wrapperAll' => 'HtmlTag'), array('tag' => 'div' , 'class'=>'clearfix form-item'))
                     )
-            );
+                );
+            }
         }
             
         $this->addElements($form);

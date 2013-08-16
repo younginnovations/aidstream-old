@@ -3891,6 +3891,7 @@ span.name {
     color: #777!important;
 }
 
+
 span.infom {
     color: #333!important;
 	display: inline-block;
@@ -4492,6 +4493,7 @@ ul.level-4.none span {
 	background: none;
 	padding-right: 0;
 }
+
 
 .activity-list-table .view-element-link:hover {
 	background: #009ada;
@@ -5294,6 +5296,7 @@ fieldset#fieldset-organisation_info {
 	background: url(../images/close.png) no-repeat;
 	width: 16px;
 	height: 16px;
+	margin-left: 10px;
 }
 
 .claro .dijitTooltipContainer {
@@ -5313,12 +5316,15 @@ fieldset#fieldset-organisation_info {
   border-radius: 4px;
   font-size: 1em;
   position: absolute;
-  bottom: -41px;
   width: 324px;
   right: -115px;
   -webkit-box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.5);
   -moz-box-shadow:    1px 1px 6px rgba(0, 0, 0, 0.5);
   box-shadow:         1px 1px 6px rgba(0, 0, 0, 0.5);
+}
+
+#publish-button {
+	width: 510px;
 }
 
 .custom-tooltip-dialog.state-edit {
@@ -5343,20 +5349,49 @@ fieldset#fieldset-organisation_info {
 	margin-bottom: 20px;
 }
 
+.tooltip-wrapper {
+	position : relative;
+}
+
 .custom-tooltip-pointer {
 	border: 0;
 	z-index: 2;
 	background-image: url(../images/dialog-arrow.png);
 	background-repeat: no-repeat;
-	bottom: 14px;
-	left: -12px;
 	width: 16px;
 	height: 14px;
 	display: block;
 	position: absolute;
 }
 
-.custom-tooltip-dialog-save .custom-tooltip-pointer {
+.custom-tooltip-registry {
+	width: 570px;
+}
+
+#contain .custom-tooltip-registry p {
+	padding: 0;
+	margin: 0;
+	font-size: 12px;
+}
+
+/*tooltip-up*/
+.tooltip-up {
+	left: 0;
+	top: 14px;
+}
+
+/*tooltip-left*/
+
+.tooltip-left {
+	bottom: -41px;
+}
+
+.tooltip-left .custom-tooltip-pointer {
+	bottom: 14px;
+	left: -12px;
+}
+
+.custom-tooltip-dialog-save .custom-tooltip-pointer{
 	left: 7px;
 	bottom: 96px;
 	background-image: url(../images/save-arrow.png);
@@ -5370,6 +5405,13 @@ fieldset#fieldset-organisation_info {
 
 .custom-tooltip-dialog.tooltip-below {
 	bottom: 41px;
+}
+
+
+.tooltip-up .custom-tooltip-pointer {
+	left: 7px;
+	top: -11px;
+	background-image: url(../images/save-arrow.png);
 }
 
 #recaptcha_widget_div {
@@ -5399,4 +5441,25 @@ fieldset#fieldset-organisation_info {
 
 #contain .dialog-content p {
 	padding: 0;
+}
+
+.activity-list-table .edit {
+	float: left;
+}
+
+.files .published-files-list-table {
+	margin-top: 100px;
+}
+
+#push_to_registry_for_organisation-element {
+	padding-bottom: 0;
+}
+
+.update-registry-element label {
+	width: auto;
+	margin-right: 10px;
+}
+
+.update-registry-element br {
+	display: none;
 }

@@ -45,4 +45,15 @@ class Model_RegistryInfo extends Zend_Db_Table_Abstract
     {
         $this->delete(array('org_id = ?' => $orgId));
     }
+    
+    public function getRegistryInfoForCurrentAccount()
+    {
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $info = $this->getOrgRegistryInfo($identity->account_id);
+        if($info){
+            return $info->toArray();
+        } else {
+            return arrray();
+        }
+    }
 }

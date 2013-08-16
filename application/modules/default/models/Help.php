@@ -66,13 +66,51 @@ class Model_Help extends Zend_Db_Table_Abstract
             information about the activity and its ready to publish. The activity will be changed to Verified state.";
             
         } else if($state == Iati_WEP_ActivityState::STATUS_VERIFIED){
-            
-            $help = "Clicking on Published button would create the IATI XML files and would mean that the activity
-            can be pushed to the IATI Registry. The activity will be directly pushed to IATI Registry
-            if “Automatically Update the IATI Registry when publishing files” field of “Change Defaults”
-            section is marked “Yes” else the XML files can be pushed to Registry from “List Published Files” section.";
+            $modelRegistry  = new Model_RegistryInfo();
+            $registryData = $modelRegistry->getRegistryInfoForCurrentAccount();
+            $updateRegistry = $registryData['update_registry'];
+            if($updateRegistry){
+                $help = "Clicking on Published button would create the IATI XML files and would mean that
+                the activity can be pushed to the IATI Registry. You have selected \"Yes\" in \"Automatically
+                Update the IATI Registry when publishing files\" in Change Defaults. Your files will be directly
+                published to the IATI Registry.";
+            } else {
+                $help = "Clicking on Published button would create the IATI XML files and would mean that
+                the activity can be pushed to the IATI Registry. You have selected \"No\" in \"Automatically
+                Update the IATI Registry when publishing files\" in Change Defaults. When you publish,
+                activity XML files will be created but the files will not be registered at IATI Registry.
+                The created XML files will be listed and can be pushed to Registry from List Published Files section.";
+            }
         }
         return $help;
     }
-   
+    
+    public static function getHelpMessagesForPublishButton()
+    {
+        $modelRegistry  = new Model_RegistryInfo();
+        $registryData = $modelRegistry->getRegistryInfoForCurrentAccount();
+        $updateRegistry = $registryData['update_registry'];
+        if($updateRegistry){
+            $message = "You have selected \"Yes\" in \"Automatically Update the IATI Registry when publishing files\"
+            in Change Defaults. Your files will be directly published to the IATI Registry.";
+        } else {
+            $message = "You have selected \"No\" in \"Automatically Update the IATI Registry when publishing files\"
+            in Change Defaults. When you publish, activity XML files will be created but the files will not be registered
+            at IATI Registry. The created XML files will be listed and can be pushed to Registry from
+            List Published Files section.";
+        }
+        return $message;
+    }
+    
+    public static function showHelpforPushToRegistry()
+    {
+        $modelRegistry  = new Model_RegistryInfo();
+        $registryData = $modelRegistry->getRegistryInfoForCurrentAccount();
+        $updateRegistry = $registryData['update_registry'];
+        if($updateRegistry) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
