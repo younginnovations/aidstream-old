@@ -304,7 +304,7 @@ class Iati_Core_BaseElement
                 }
             } else {
                 if($elementsData['id']){
-                    $where = $this->db->getAdapter()->quoteInto('id = ?', $elementData['id']);
+                    $where = $this->db->getAdapter()->quoteInto('id = ?', $elementsData['id']);
                     $this->db->delete($where);
                     return;
                 }
@@ -524,6 +524,9 @@ class Iati_Core_BaseElement
 
             if($eleData){
                 $data = $eleData->toArray();
+                if(!$this->hasData($data)){ // Row may be present with id only.
+                    return; // xml should not be added if data is not present.
+                }
             } else {
                 return; // xml should not be added if data is not present.
             }
@@ -554,6 +557,9 @@ class Iati_Core_BaseElement
             
             if($row){
                 $data = $row->toArray();
+                if(!$this->hasData($data)){ //Row may be present with id only.
+                    return; // xml should not be added if data is not present.
+                }
             } else { 
                 return; // xml should not be added if data is not present.
             }
