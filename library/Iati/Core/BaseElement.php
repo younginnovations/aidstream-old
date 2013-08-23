@@ -541,6 +541,13 @@ class Iati_Core_BaseElement
             }
             
             foreach($data as $row){
+                $convert = array('Activity_Budget_Value' , 'Activity_PlannedDisbursement_Value');
+                if($this->className == 'TransactionValue' || in_array($this->getFullName() , $convert)){// Temporarily change all transaction values to integer type
+                    $values = explode('.' , $row['text']);
+                    $value = $values[0];
+                    $row['text'] = preg_replace('/\D/' , '' , $value);
+                }
+                
                 if(!is_object($parent)){
                     $xmlObj = new SimpleXMLElement("<$eleName>".preg_replace('/&(?!\w+;)/' , '&amp;' , $row['text'])."</$eleName>");
                 } else {
@@ -572,7 +579,13 @@ class Iati_Core_BaseElement
             } else { 
                 return; // xml should not be added if data is not present.
             }
-            
+            $convert = array('Activity_Budget_Value' , 'Activity_PlannedDisbursement_Value');
+            if($this->className == 'TransactionValue' || in_array($this->getFullName() , $convert)){// Temporarily change all transaction values to integer type
+                $values = explode('.' , $data['text']);
+                $value = $values[0];
+                $data['text'] = preg_replace('/\D/' , '' , $value);
+            }
+                    
             if(!is_object($parent)){
                 $xmlObj = new SimpleXMLElement("<$eleName>".preg_replace('/&(?!\w+;)/' , '&amp;' ,$data['text'])."</$eleName>");
             } else {
