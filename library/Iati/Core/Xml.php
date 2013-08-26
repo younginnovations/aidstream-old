@@ -52,9 +52,12 @@ class Iati_Core_Xml
             foreach($this->childrenIds as $childId){
                 $childElementClass = "Iati_Aidstream_Element_".ucfirst($name);
                 $childElement = new $childElementClass();
-                $childElement->getXml($childId , false ,  $this->xml);
+                $data = $childElement->fetchData($childId);
+                $childElement->setData($data[$childElement->getClassName()]);
+                $childElement->getXml($this->xml);
             }
         }
+        
         return $this->xml->asXML();
     }
     

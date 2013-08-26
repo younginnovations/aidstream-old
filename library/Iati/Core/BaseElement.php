@@ -343,6 +343,17 @@ class Iati_Core_BaseElement
     }
     
     /**
+     * Function to get the data for the elements iati attribs form the elements and its childrens data.
+     */
+    public function getElementsIatiData($data)
+    {
+        foreach($this->iatiAttribs as $attrib){
+            $elementsData[$attrib] = $data[$attrib];
+        }
+        return $elementsData;
+    }
+    
+    /**
      * Function to check if the supplied array has value for any row.
      */
     public function hasData($data)
@@ -516,90 +527,61 @@ class Iati_Core_BaseElement
      * @param Object_SimpleXMLElement/null If called by parent, the parameter is the parent object else null.
      * @return Object_SimpleXMLElement/null
      */
-    public function getXml($eleId , $isParentId = false, $parent = null)
+    public function getXml($parent = null)
     {
-        $eleName = $this->getXmlName();
-        if($isParentId){
-            $parentColumn = $this->getParentCoulmn();
+        if(!$this->hasData($this->data)){
+            return ; // Xml should not be added for empty elements.
         }
-        
-        if($this->isMultiple){
-            // If parentName is present use it to fetch using the parent column.
-            if($isParentId){
-                $eleData = $this->db->fetchAll($this->db->getAdapter()->quoteInto("{$parentColumn} = ?" , $eleId ));
-            } else { // If parentName is not present the provided id is its own id so fetch by own id.
-                $eleData = $this->db->fetchAll($this->db->getAdapter()->quoteInto("id = ?" , $eleId));
-            }
-
-            if($eleData){
-                $data = $eleData->toArray();
-                if(!$this->hasData($data)){ // Row may be present with id only.
-                    return; // xml should not be added if data is not present.
-                }
-            } else {
-                return; // xml should not be added if data is not present.
-            }
-            
-            foreach($data as $row){
-                $convert = array('Activity_Budget_Value' , 'Activity_PlannedDisbursement_Value');
-                if($this->className == 'TransactionValue' || in_array($this->getFullName() , $convert)){// Temporarily change all transaction values to integer type
-                    $values = explode('.' , $row['text']);
-                    $value = $values[0];
-                    $row['text'] = preg_replace('/\D/' , '' , $value);
-                }
                 
-                if(!is_object($parent)){
-                    $xmlObj = new SimpleXMLElement("<$eleName>".preg_replace('/&(?!\w+;)/' , '&amp;' , $row['text'])."</$eleName>");
-                } else {
-                    $xmlObj = $parent->addChild($eleName , preg_replace('/&(?!\w+;)/' , '&amp;' , $row['text']));
-                }
-                $xmlObj = $this->addElementsXmlAttribsFromData($xmlObj , $row);
-                // If children is present fetch their data.
-                if(!empty($this->childElements)){
-                    foreach($this->childElements as $childElementClass){
-                        $childElementName = get_class($this)."_$childElementClass";
-                        $childElement = new $childElementName();
-                        $childElement->getXml($row['id'] , true , $xmlObj);
-                    }
-                }
+        if($this->isMultiple){
+            foreach($this->data as $data){
+                $this->generateElementXml($data , $parent);
             }
         } else {          
-            if($isParentId){
-                $select = $this->db->select()->where($this->db->getAdapter()->quoteInto("{$parentColumn} = ?" , $eleId));
-            } else {
-                $select = $this->db->select()->where($this->db->getAdapter()->quoteInto("id = ?" , $eleId));
-            }
-            $row = $this->db->fetchRow($select);
-            
-            if($row){
-                $data = $row->toArray();
-                if(!$this->hasData($data)){ //Row may be present with id only.
-                    return; // xml should not be added if data is not present.
-                }
-            } else { 
-                return; // xml should not be added if data is not present.
-            }
-            $convert = array('Activity_Budget_Value' , 'Activity_PlannedDisbursement_Value');
-            if($this->className == 'TransactionValue' || in_array($this->getFullName() , $convert)){// Temporarily change all transaction values to integer type
-                $values = explode('.' , $data['text']);
-                $value = $values[0];
-                $data['text'] = preg_replace('/\D/' , '' , $value);
-            }
-                    
-            if(!is_object($parent)){
-                $xmlObj = new SimpleXMLElement("<$eleName>".preg_replace('/&(?!\w+;)/' , '&amp;' ,$data['text'])."</$eleName>");
-            } else {
-                $xmlObj = $parent->addChild($eleName , preg_replace('/&(?!\w+;)/' , '&amp;' ,$data['text']));
-            }
-            
+           $this->generateElementXml($this->data , $parent);
+        }
+        
+        return $xmlObj;
+    }
+    
+    /**
+     * Internal function to generate xml for individual elements. Called by getXml function.    
+     *
+     * @param Array $elementData Data of the element and its child
+     * @param SimpleXml/null $parent 
+     */
+    protected function generateElementXml($elementData , $parent)
+    {
+        $eleName = $this->getXmlName();
+        $data = $this->getElementsIatiData($elementData);
+        
+        if(!$this->hasData($data) && empty($this->childElements)) return;  //Donot generate xml if no iati data and no child.
+        
+        // This block of code should be removed for getting decimal values
+        // for transaciton,budget and planned disbursement values.
+        $convert = array('Activity_Budget_Value' , 'Activity_PlannedDisbursement_Value');
+        if($this->className == 'TransactionValue' || in_array($this->getFullName() , $convert)){// Temporarily change all transaction values to integer type
+            $values = explode('.' , $data['text']);
+            $value = $values[0];
+            $data['text'] = preg_replace('/\D/' , '' , $value);
+        }
+                
+        if(!is_object($parent)){
+            $xmlObj = new SimpleXMLElement("<$eleName>".preg_replace('/&(?!\w+;)/' , '&amp;' ,$data['text'])."</$eleName>");
+        } else {
+            $xmlObj = $parent->addChild($eleName , preg_replace('/&(?!\w+;)/' , '&amp;' ,$data['text']));
+        }
+        
+        if($this->hasData($data)){
             $xmlObj = $this->addElementsXmlAttribsFromData($xmlObj , $data);
-            
-            if(!empty($this->childElements)){
-                foreach($this->childElements as $childElementClass){
-                    $childElementName = get_class($this)."_$childElementClass";
-                    $childElement = new $childElementName();
-                    $childElement->getXml($data['id'] , true , $xmlObj);
-                }
+        }
+        
+        if(!empty($this->childElements)){
+            foreach($this->childElements as $childElementClass){
+                $childElementName = get_class($this)."_$childElementClass";
+                $childElement = new $childElementName();
+                $childElement->setData($elementData[$childElement->getClassName()]);
+                $childElement->getXml($xmlObj);
             }
         }
         
@@ -634,6 +616,8 @@ class Iati_Core_BaseElement
      */
     public function addElementsXmlAttribsFromData($xmlObj , $data)
     {
+        if(!is_array($data)) return $xmlObj;
+        
         foreach($data as $name=>$value){  
             if(in_array($name , $this->iatiAttribs) && $name != 'text')
             {
