@@ -68,7 +68,7 @@ class Ckan_Client
 		'200' => 'OK',
 		'301' => 'Moved Permanently',
 		'400' => 'Bad Request',
-		'403' => 'Not Authorized',
+		'403' => 'Api key or publisher id not correct.',
 		'404' => 'Not Found',
 		'409' => 'Conflict (e.g. name already exists)',
 		'500' => 'Service Error'
