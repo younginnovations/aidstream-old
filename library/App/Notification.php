@@ -17,7 +17,7 @@ class App_Notification{
         
         $mailer = Zend_Registry::get('mailer');
         if($to){
-            $mailer->setSeparateCc(true);
+            $mailer->setsendBcc(true);
         }
         // Add admin emails as recipient.
         $to[$config->email->to] = '';

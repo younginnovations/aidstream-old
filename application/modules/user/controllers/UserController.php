@@ -538,15 +538,17 @@ class User_UserController extends Zend_Controller_Action
                 $account = $model->getRowById('account', 'id', Zend_Auth::getInstance()->getIdentity()->account_id);
 
                 //Send Support Mail
-                $mailParams['subject'] = 'Support';
+                $mailParams['subject'] = 'Support request';
                 $mailParams['support_name'] = $data['support_name'];
                 $mailParams['support_email'] = $data['support_email'];
                 $mailParams['support_query'] = $data['support_query'];
+                $mailParams['from'] = array($data['support_email'] => '');
                 $mailParams['servername'] = $_SERVER['SERVER_NAME'];
                 $mailParams['account_name'] = $account['name'];
                 $template = 'support.phtml';
+                $supportEmail = Zend_Registry::get('config')->email->support;
                 $notification = new App_Notification;
-                $notification->sendemail($mailParams,$template);
+                $notification->sendemail($mailParams, $template, array( $supportEmail => ''));
 
                 $this->_helper->FlashMessenger->addMessage(array('message' =>'Thank you. Your query has been received.'));
                 $this->_redirect('/');

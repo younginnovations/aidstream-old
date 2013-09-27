@@ -13,10 +13,12 @@ class App_Email
     private $_body_plain;
     private $_body_html;
     private $_to;
+    private $_from;
     private $_subject;
     private $_config;
     private $_tokens;
     private $_logger;
+    private $_send_bcc;
     private $_separate_cc;    // true if you want each recipient to get their own copy.  otherwise all emails are shown in email.
 
 
@@ -80,6 +82,41 @@ class App_Email
     public function getHtml()
     {
         return $this->_body_html;
+    }
+    
+    /**
+     *
+     * @param Array $from coantains email as key and name as value
+     */
+    public function setFrom($from)
+    {
+        $this->_from = $from;
+    }
+    
+    /**
+     * @return Array from value.
+     */
+    public function getFrom()
+    {
+        return $this->_from;
+    }
+    
+    /**
+     * Set if mail should be sent as bcc to receivers.
+     */
+    public function setsendBcc($bcc = false)
+    {
+        $this->_send_bcc = $bcc;
+    }
+    
+    /**
+     * Check if send as bcc is set.
+     * 
+     * @return Boolen
+     */
+    public function sendBcc()
+    {
+        return $this->_send_bcc;
     }
 
 
@@ -147,6 +184,7 @@ class App_Email
     {
         $this->_tokens = $tokens;
         if ( isset($tokens['subject']) ) $this->setSubject($tokens['subject']);
+        if (isset($tokens['from']) ) $this->setFrom($tokens['from']);
     }
     
 
@@ -199,57 +237,6 @@ class App_Email
         return $mail;
     }
 
-
-   /**
-    * Insert e-mail into mail queue
-    * 
-    * @info we only support plain text e-mails, currently
-    */
-    private function q_insert()
-    {
-        $oEmailQueue = new EmailQueue();
-        $oEmailQueue->subject = $this->_subject;
-        
-        if ( strlen(trim($this->_body_plain)) ) {
-            $oEmailQueue->content_plain=$this->_body_plain;
-        }
-
-        if ( strlen(trim($this->_body_html)) ) {
-            $oEmailQueue->content_html=$this->_body_html;
-        }
-
-        $recipients = array();
-        $i = 0;
-
-        foreach ( $this->_to AS $user )
-        {
-            try {
-
-                if ( $user['account_id'] )
-                {
-                    $oEmailQueue->EmailQueueRecipients[$i]->account_id = $user['account_id'];
-                }
-                else
-                {
-                    $oEmailQueue->EmailQueueRecipients[$i]->name = $user['name'];
-                    $oEmailQueue->EmailQueueRecipients[$i]->email = $user['email'];
-                }
-
-                $oEmailQueue->EmailQueueRecipients[$i]->type = 'to';
-
-                $this->_logger->notice("Queued Email to: user" . $user['account_id']);
-
-            } catch ( Zend_Exception $e ) {
-
-                $this->_logger->crit('Unable to Queue E-mail:' . $e->getMessage());
-            }
-
-            $i++;
-        }
-
-        $oEmailQueue->save();
-    }
-
     
    /**
     * Actually sends the email.  Redirects to dev if needed.
@@ -272,18 +259,7 @@ class App_Email
             $mail = $this->_prepareDevEmail($mail);    // add a dev note to top of email
             $mail->clearRecipients();
             
-            /*
-            if ( $auth->hasIdentity() ) {
-                // mail to authenticated user
-                $aAccount = $auth->getIdentity();
-                $mail->addTo($aAccount['email'], $aAccount['first_name'] . ' ' . $aAccount['last_name']);
-                $this->_logger->notice("Dev email redirected to " . $aAccount['email']);
-            } else {
-                // if not signed in, mail to default recipient
-                $mail->addTo($this->_config->email->bcc,'DentalCare Test User');
-                $this->_logger->notice("Dev email redirected to " . $this->_config->email->bcc);
-            }
-            */
+           
             $mail->addTo($this->_config->email->bcc,'Test User');
             $this->_logger->notice("Dev email redirected to " . $this->_config->email->bcc);
 
@@ -299,14 +275,10 @@ class App_Email
 
 
     /**
-     * Sends the email.  If dev, sends it to the user signed in (or default user)
+     * Sends the email.
      */
-    public function send($q_insert=false)
+    public function send()
     {
-        if ($q_insert) {
-            $this->q_insert();
-            return;
-        }
         if($this->_config->smtp->enabled){
             // Use smtp transport for sending using smtp server.
             $mailConfig = array(
@@ -322,12 +294,10 @@ class App_Email
         
         $mail = new Zend_Mail();
         $mail->setSubject($this->_subject)
-            ->setFrom($this->_config->email->fromAddress, $this->_config->email->fromName)
-            ->setReturnPath($this->_config->email->replyTo, $this->_config->email->fromName)
-            ->setReplyTo($this->_config->email->replyTo, $this->_config->email->fromName)
-            ->addHeader('MIME-Version', '1.0')
-            ->addHeader('Content-Transfer-Encoding', '8bit')
-            ->addHeader('X-Mailer:', 'PHP/'.phpversion());
+            ->setFrom($this->_config->email->fromAddress, $this->_config->email->fromName);
+        
+        $this->setHeaders($mail);
+        $this->setFromHeaders($mail);
 
         if ( strlen($this->_body_plain) ) {
             $mail->setBodyText($this->_body_plain);
@@ -358,6 +328,21 @@ class App_Email
                     $mail->addTo($address, $name);
                     $this->_performSend($mail);
                 }
+                
+            } else if ($this->sendBcc()) {
+                 // Add all recipients to the same email as bcc and send just one email
+                $mail->clearRecipients();
+                $recipients = $this->_to;
+                $to = current(array_keys($recipients));
+                $mail->addTo( $to , current(array_values($recipients)));// set the first email as to and other as bcc
+                
+                unset($recipients[$to]);
+                
+                foreach ( $recipients AS $address => $name ) {
+                    $mail->addBcc($address);
+                }
+
+                $this->_performSend($mail);
 
             } else {
 
@@ -385,6 +370,37 @@ class App_Email
                   );
         $transport = new Zend_Mail_Transport_Smtp($this->_config->email->host,$config);
         */
+    }
+    
+    /**
+     * Sets required headers for the mail object
+     *
+     * @param Zend_Mail
+     */
+    public function setHeaders(&$mail)
+    {
+        $mail->addHeader('MIME-Version', '1.0')
+            ->addHeader('Content-Transfer-Encoding', '8bit')
+            ->addHeader('X-Mailer:', 'PHP/'.phpversion());            
+    }
+    
+    /**
+     * Set return path and reply to headers based on from values provided
+     *
+     * @param Zend_Mail
+     */
+    public function setFromHeaders(&$mail)
+    {
+        if( $this->_from && !empty($this->_from) ) {
+            $from = $this->_from;
+            $mailer = current(array_keys($from));
+            $name = current(array_values($from));
+            $mail->setReturnPath($mailer, $name)->setReplyTo($mailer, $name);
+            
+        } else {
+            $mail->setReturnPath($this->_config->email->replyTo, $this->_config->email->fromName)
+                ->setReplyTo($this->_config->email->replyTo, $this->_config->email->fromName);
+        }
     }
 
 }
