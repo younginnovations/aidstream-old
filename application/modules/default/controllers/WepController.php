@@ -119,10 +119,10 @@ class WepController extends Zend_Controller_Action
 
     }
 
-    public function editDefaultsAction()
+    public function settingsAction()
     {
         if(Simplified_Model_Simplified::isSimplified()){
-            $this->_redirect('simplified/default/edit-defaults');
+            $this->_redirect('simplified/default/settings');
         }
         $identity = Zend_Auth::getInstance()->getIdentity();
         $model = new Model_Wep();
@@ -190,7 +190,7 @@ class WepController extends Zend_Controller_Action
                     $defaultFields['object'] = $fieldString;
                     $defaultFieldId = $model->updateRowsToTable('default_field_groups', $defaultFields);
 
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "Defaults successfully updated."));
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "Settings successfully updated."));
                     if ($identity->role == 'superadmin') {
                         $this->_redirect('admin/dashboard');
                     } else if ($identity->role == 'admin') {
@@ -291,7 +291,7 @@ class WepController extends Zend_Controller_Action
                                                                  each activity you report."
                                                                    )
                                                            );
-                $this->_redirect('wep/edit-defaults');
+                $this->_redirect('wep/settings');
             } else { // For other user redirect to dashboard.
                 $this->_helper->FlashMessenger->addMessage(array(
                                                                  'message' => "All information for Reporting Organisation
@@ -1265,9 +1265,9 @@ class WepController extends Zend_Controller_Action
             $modelRegistryInfo = new Model_RegistryInfo();
             $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($account_id);
             if(!$registryInfo){
-                $this->_helper->FlashMessenger->addMessage(array('error' => "Registry information not found. Please go to <a href='{$this->view->baseUrl()}/wep/edit-defaults'>Change Defaults</a> to add registry info."));
+                $this->_helper->FlashMessenger->addMessage(array('error' => "Registry information not found. Please go to <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a> to add registry info."));
             } else if(!$registryInfo->publisher_id){
-                $this->_helper->FlashMessenger->addMessage(array('error' => "Publisher Id not found. IATI Activities files could not be created. Please go to  <a href='{$this->view->baseUrl()}/wep/edit-defaults'>Change Defaults</a> to add publisher id."));
+                $this->_helper->FlashMessenger->addMessage(array('error' => "Publisher Id not found. IATI Activities files could not be created. Please go to  <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a> to add publisher id."));
             } else {
                 $db->updateActivityStatus($activity_ids,(int)$state);
                 
@@ -1276,7 +1276,7 @@ class WepController extends Zend_Controller_Action
 
                 if($registryInfo->update_registry){
                     if(!$registryInfo->api_key){
-                        $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key not found. Activities could not be registered in IATI Registry. Please go to <a href='{$this->view->baseUrl()}/wep/edit-defaults'>Change Defaults</a> to add API key."));
+                        $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key not found. Activities could not be registered in IATI Registry. Please go to <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a> to add API key."));
                     } else {
                         $modelPublished = new Model_Published();
                         $files = $modelPublished->getPublishedInfo($account_id);
@@ -1319,7 +1319,7 @@ class WepController extends Zend_Controller_Action
         $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($accountId);
 
         if(!$registryInfo->api_key){
-            $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key not found. Activities could not be registered in IATI Registry. Please go to <a href='{$this->view->baseUrl()}/wep/edit-defaults'>Change Defaults</a> to add API key."));
+            $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key not found. Activities could not be registered in IATI Registry. Please go to <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a> to add API key."));
         } else {
             $modelPublished = new Model_Published();
             $files = $modelPublished->getPublishedInfoByIds($fileIds);
@@ -1540,7 +1540,7 @@ class WepController extends Zend_Controller_Action
         $updated = $activityHashModel->updateHash($activityId);
         if(!$updated){
             $type = 'message';
-            $message = "Already up to date. To make changes please change values in 'Change Defaults' and then update.";
+            $message = "Already up to date. To make changes please change values in 'Settings' and then update.";
         } else {
             //update the activity so that the last updated time is updated
             $this->updateActivityUpdatedDatetime($activityId);

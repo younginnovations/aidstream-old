@@ -113,7 +113,7 @@ class App_Acl extends Zend_Acl
 
         $this->allow('admin', 'user');
         $this->allow('admin', 'default:code-list');
-        $this->allow('admin', 'default:wep', 'edit-defaults');
+        $this->allow('admin', 'default:wep', 'settings');
         $this->allow('admin', 'default:wep', 'view-activities');
         $this->allow('admin', 'default:wep', 'delete');
         $this->allow('admin', 'default:wep', 'add-activity');

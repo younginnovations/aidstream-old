@@ -5,18 +5,18 @@
 ?>
 <?php if($this->userInfo()->role == 'admin'){
     $link = 'wep/dashboard';
-    $link1 = 'wep/edit-defaults';
+    $link1 = 'wep/settings';
     
 }?>
 
 <?php if($this->userInfo()->role == 'user'){
     $link = 'wep/dashboard';
-   // $link1 = 'wep/edit-defaults';
+   // $link1 = 'wep/settings';
     
 }?>
 <div class="user-nav-inner"><?php print $this->l('Dashboard', $link, array('attributes'=>array('class'=>'user-dashboard')));?>
 <?php if($link1):?>
-<?php print $this->l('Change Defaults', $link1, array('attributes'=> array('class'=>'user-change-defaults')));?>
+<?php print $this->l('Settings', $link1, array('attributes'=> array('class'=>'user-change-defaults')));?>
 <?php endif;?>
 <?php if($link2): ?>
 <?php print $this->l('Register', $link2); ?>
