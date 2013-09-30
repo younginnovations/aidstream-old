@@ -1,6 +1,8 @@
 <?php
     $userName = $this->account['username'];
-    $roleName = $this->row['user_name'];
+    $oRole = new User_Model_DbTable_Role();
+    $role = $oRole->getRoleById($this->row['role_id'])->toArray();
+    $roleName = $role['role'];
     $accountObj = new User_Model_DbTable_Account();
     if($roleName != 'superadmin'){
         $fileName = $accountObj->getFileName($userName);
