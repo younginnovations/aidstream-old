@@ -40,9 +40,10 @@ class Iati_Core_Xml
             if($linkedDataDefault) {
                 $this->xml->addAttribute('linked_data_default' , $linkedDataDefault);
             }
-        }
-        else
-        {
+        } else if(strtolower($name) == 'organisation'){
+            $this->xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><iati-organisations></iati-organisations>');
+            
+        } else {
             $this->xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><'.strtolower($name).'s></'.strtolower($name).'s>');
         }
         $this->xml->addAttribute('generated-datetime',gmdate('c'));
