@@ -4,16 +4,17 @@
  * Coantains all the attributes of the element and the methods for functionalities that can be done
  * for the elements like creating form, saving, retrieving, generating xml etc.
  *
- * @param boolen $isMultiple Should be true if the element can be multiple.
- * @param boolen $isRequired Should be true if the element is a required element.
- * @param String $className The name of the class of the element. Name with space should be used as camelCase without space
- * @param String $displayName The name of the element for display in forms , if same as classname should be left empty.
- * @param Array $data array of the elements data and its child element.
- * @param Array $childElements array of classname of the child elements.If no child, an empty array is present.
- * @param Array $attribs array of attributes names strored in database.
+ * boolen $isMultiple Should be true if the element can be multiple.
+ * boolen $isRequired Should be true if the element is a required element.
+ * String $className The name of the class of the element. Name with space should be used as camelCase without space
+ * String $displayName The name of the element for display in forms , if same as classname should be left empty.
+ * Array $data array of the elements data and its child element.
+ * Array $childElements array of classname of the child elements.If no child, an empty array is present.
+ * Array $attribs array of attributes names strored in database.
  *      @todo use these in database activities.Currently attributes are directly used from form and fetched data.
- * @param Array $iatiAttribs array of the element's iati attributes. these are used while creating xml
- * @param String $tableName Name of the database table used to store the element's data.
+ * Array $iatiAttribs array of the element's iati attributes. these are used while creating xml
+ * String $tableName Name of the database table used to store the element's data.
+ * Boolen $viewScriptEnabled Should be true if the viewscript is to be used.
  *
  * @author bhabishyat <bhabishyat@gmail.com>
  */
@@ -522,8 +523,6 @@ class Iati_Core_BaseElement
      * If parent is present, it adds a child with the elements name as the name to the parent, adds
      * attribute and calls children's getXml if any.
      * 
-     * @param Integer $eleId Id of the element to fetch data (or the parents id)
-     * @param Boolen $isParentId true if the element id passed is the parents id.
      * @param Object_SimpleXMLElement/null If called by parent, the parameter is the parent object else null.
      * @return Object_SimpleXMLElement/null
      */

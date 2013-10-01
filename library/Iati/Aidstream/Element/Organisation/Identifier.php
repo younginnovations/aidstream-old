@@ -7,6 +7,7 @@ class Iati_Aidstream_Element_Organisation_Identifier extends Iati_Core_BaseEleme
     protected $isRequired = true;
     protected $tableName = 'iati_organisation/identifier';
     protected $attribs = array('id' ,'text');
+    protected $iatiAttribs = array('text');
     
     public function getForm($ajax = false)
     {
