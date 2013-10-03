@@ -1088,7 +1088,7 @@ dt#save_and_view-label {
 	cursor: default;
 }
 
-#Signup-label, #button-label, #save-label, #submit-label, #Submit-label, #Save-label{
+#Signup-label, #button-label, #save-label, #submit-label, #Submit-label, #Save-label , #referer-label{
 	display: none;
 }
 

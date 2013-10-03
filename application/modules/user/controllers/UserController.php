@@ -551,9 +551,14 @@ class User_UserController extends Zend_Controller_Action
                 $notification->sendemail($mailParams, $template, array( $supportEmail => ''));
 
                 $this->_helper->FlashMessenger->addMessage(array('message' =>'Thank you. Your query has been received.'));
-                $this->_redirect('/');
             } else {
-                $this->_helper->FlashMessenger->addMessage(array('error' => 'Please provide valid data'));
+                $this->_helper->FlashMessenger->addMessage(array('error' => 'Sorry your support mail could not be sent'));
+            }
+            
+            if($this->_getParam('referer')){
+                $this->_redirect($this->_getParam('referer'));
+            } else {
+                $this->_redirect('/wep/dashboard');
             }
         }
     }

@@ -9,6 +9,10 @@ class Form_General_Support extends App_Form
         $user = $model->getRowById('profile', 'user_id', $identity->user_id);
         $this->setAttrib('id', 'support-form')
             ->setAction(Zend_Controller_Front::getInstance()->getBaseUrl().'/user/user/support');
+            
+        $form['referer'] = new Zend_Form_Element_Hidden('referer');
+        $uri = Zend_Controller_Front::getInstance()->getRequest()->getRequestUri();
+        $form['referer']->setValue($uri);
 
         $form['support_name'] = new Zend_Form_Element_Text('support_name');
         $form['support_name']->setLabel('Name')
