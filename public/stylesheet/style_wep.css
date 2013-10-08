@@ -6,6 +6,11 @@ g*
 	padding: 0;
 }
 
+* {
+	margin: 0;
+	padding: 0;
+}
+
 body {
 	font-size: 13px;
 	font-family: Arial, Helvetica, "Bitstream Vera Sans", sans-serif;
@@ -2276,7 +2281,7 @@ a.edit-element:hover
 	font-size:12px;
 	line-height:18px;
 	position: absolute;
-	top: -330px;
+	top: -331px;
 	right: 0;
 }
 
@@ -5153,7 +5158,7 @@ button.next:hover {
 	padding: 26px 20px;
 	position: absolute;
 	right: 10px;
-	top: 64px;
+	top: -34px;
 	background: -moz-linear-gradient(top,  rgba(238,238,238,0.90) 0%, rgba(255,255,255,0.90) 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(238,238,238,0.90)), color-stop(100%,rgba(255,255,255,0.90))); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top,  rgba(238,238,238,0.90) 0%,rgba(255,255,255,0.90) 100%); /* Chrome10+,Safari5.1+ */
