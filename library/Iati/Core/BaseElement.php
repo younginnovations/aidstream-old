@@ -555,15 +555,6 @@ class Iati_Core_BaseElement
         $data = $this->getElementsIatiData($elementData);
         
         if(!$this->hasData($data) && empty($this->childElements)) return;  //Donot generate xml if no iati data and no child.
-        
-        // This block of code should be removed for getting decimal values
-        // for transaciton,budget and planned disbursement values.
-        $convert = array('Activity_Budget_Value' , 'Activity_PlannedDisbursement_Value');
-        if($this->className == 'TransactionValue' || in_array($this->getFullName() , $convert)){// Temporarily change all transaction values to integer type
-            $values = explode('.' , $data['text']);
-            $value = $values[0];
-            $data['text'] = preg_replace('/\D/' , '' , $value);
-        }
                 
         if(!is_object($parent)){
             $xmlObj = new SimpleXMLElement("<$eleName>".preg_replace('/&(?!\w+;)/' , '&amp;' ,$data['text'])."</$eleName>");

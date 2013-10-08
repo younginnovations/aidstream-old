@@ -1,0 +1,27 @@
+<li class="element-activity">
+    
+    <div class="element-title element-current">
+        Capital Spend
+    </div>
+    
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/edit-element/?activity_id=<?php echo $this->activity_id ?>&className=Activity_CapitalSpend">Edit</a></div>	
+
+    <?php foreach ($this->elements as $element): ?>
+        <div class="current">
+            <ul class="style-2 arrow">
+                <li>
+                    <span class="down-arrow">
+                    <?php if ($element['@percentage']) print ($this->length()->adjustDoubleTitleLength($element['@percentage'])); ?>
+                    </span> 
+                    <ul class="style-2-drop first">
+                        <li>
+                            <span class="name">Percentage:</span>
+                            <span class="infom"><?php if ($element['@percentage']) print $element['@percentage']; ?></span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    <?php endforeach; ?>
+</li><!-- end of element-activity -->
+

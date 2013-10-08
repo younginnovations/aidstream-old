@@ -153,6 +153,17 @@
         <?php endif; ?>
         <!--ContactInfo Ends-->
         
+        <!--Activity Scope Starts-->
+        <?php if(count($activity['ActivityScope'])) : ?>
+              <?php echo $this->partial("partials/view-activity/activity-scope.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,  
+                                                                                'elements' => $activity['ActivityScope'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Activity Scope Ends-->
+        
         <!--Participating Org Starts-->
         <?php if(count($activity['ParticipatingOrg'])) : ?>
               <?php echo $this->partial("partials/view-activity/participating-org.phtml" , array(
@@ -292,6 +303,18 @@
                                                                                 'activity_id' => $activity['id'] ,
                                                                                 'activityInfo' => $activity ,
                                                                                 'elements' => $activity['PlannedDisbursement'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--PlannedDisbursements Ends-->
+        
+        <!--Capital Spend Starts-->
+        <?php if(count($activity['CapitalSpend'])) : ?>
+              <?php echo $this->partial("partials/view-activity/capital-spend.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,
+                                                                                'activityInfo' => $activity ,
+                                                                                'elements' => $activity['CapitalSpend'] ,
                                                                             )
                           );
                ?>

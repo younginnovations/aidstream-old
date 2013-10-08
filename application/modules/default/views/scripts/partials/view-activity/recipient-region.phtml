@@ -32,6 +32,10 @@
                             <span class="name">Code:</span>
                             <span class="infom"><?php if ($element['@code']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('RecipientRegion' , '@code' , $element['@code'],'Name'),Iati_Core_Codelist::getCodeByAttrib('RecipientRegion' , '@code' , $element['@code']))) ?></span>
                         </li>
+                        <li>
+                            <span class="name">Vocabulary:</span>
+                            <span class="infom"><?php if ($element['@vocabulary']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('RecipientRegion' , '@vocabulary' , $element['@vocabulary'],'Name'),Iati_Core_Codelist::getCodeByAttrib('RecipientRegion' , '@vocabulary' , $element['@vocabulary']))) ?></span>
+                        </li>
                     </ul>
                 </li>
             </ul>
