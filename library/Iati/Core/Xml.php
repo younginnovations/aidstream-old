@@ -6,7 +6,7 @@
  */
 class Iati_Core_Xml
 {
-    const SCHEMA_VERSION = 1.02;
+    const SCHEMA_VERSION = 1.03;
 
     protected $xml;
     protected $xmlPath;
