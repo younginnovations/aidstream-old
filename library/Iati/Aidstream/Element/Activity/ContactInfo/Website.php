@@ -4,7 +4,7 @@ class Iati_Aidstream_Element_Activity_ContactInfo_Website extends Iati_Core_Base
 {   
     protected $isMultiple = true;
     protected $className = 'Website';
-    protected $displayName = 'website';
+    protected $displayName = 'Website';
     protected $tableName = 'iati_contact_info/website';
     protected $attribs = array('id','text');
     protected $iatiAttribs = array('text');    
