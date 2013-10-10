@@ -160,6 +160,38 @@ var messageDialog = function (title, msg) {
     msgDlg.show();
 }
 
+var confirmDialog = function(title , msg , yes_label , no_label, onOk) {
+    if(!yes_label){
+	yes_label = 'Ok';
+    }
+    if(!no_label){
+	no_label = 'Cancel';
+    }
+    
+    msg += '<p style="margin-left:100px"><button dojoType="dijit.form.Button" type="button" id="cd-ok">' + yes_label +'</button>';
+    msg += '<button dojoType="dijit.form.Button" type="button" id="cd-cancel">' + no_label + '</button></p>';
+                
+    // Destroy all dialog box before creating new. Used to remove dialog box remaining after clicking close.
+    dojo.query('.dijitDialog').forEach(dojo.destroy);
+    
+    var confirmDlg = new dijit.Dialog({
+	title: title,
+	style: "width: 400px",
+	parseOnLoad: true,
+	content: msg
+    });
+    
+    dojo.connect(dojo.byId('cd-cancel'), 'onclick', function (e) {
+	confirmDlg.destroyRecursive();
+    });
+    
+    dojo.connect(dojo.byId('cd-ok'), 'onclick', function (e) {
+	onOk.call();
+    });
+    
+    confirmDlg.show();
+}
+
 //support form goes down
 var supportUp = function (target) {
 				dojo.query("#hidden-overlay").style('display', 'block');
@@ -470,10 +502,12 @@ function initialize() {
 		    });
 		dojo.query('#ids').attr('value',ids.join(","));
 		
-		if(confirm("Are you sure you want to publish the activities"))
-		{
+		var msg = "All the selected activities will be published and ";
+		msg += "the activities earlier published will be republished. Are you sure you want to publish?";
+		
+		new confirmDialog('' , msg , 'Yes, publish these activities' , "Don't publish", function(){
 		    dojo.byId('iati_activity_status').submit();
-		}
+		});
 	    }
 	},
 	
@@ -1506,7 +1540,22 @@ function initialize() {
 		var parent = node.parents('.custom-tooltip-dialog');
 		parent.style('display' , 'none');
             }
-        }
+        },
+	
+	"#change_state" : {
+	    "onclick" : function (evt){
+		var node = getTarget(evt);
+		if(node.value == 'Published'){
+		    evt.preventDefault();
+		    var msg = "The activity will be published. The already published activities will ";
+		    msg += "be republished. Are you sure you want to publish the activities?";
+		    
+		    new confirmDialog('' , msg , 'Yes, publish these activities' , "Don't publish" , function(){
+			dojo.byId('iati_activity_change_status').submit();
+		    });
+		}
+	    }
+	}
     });
     
     // End of dojo.behavior.add

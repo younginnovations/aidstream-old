@@ -297,7 +297,7 @@ class ActivityController extends Zend_Controller_Action
         if ($next_state && Iati_WEP_ActivityState::hasPermissionForState($next_state))
         {
             $status_form = new Form_Wep_ActivityChangeState();
-            $status_form->setAction($this->view->baseUrl() . "/wep/update-status");
+            $status_form->setAction($this->view->baseUrl() . "/wep/update-status?redirect=".urlencode($this->getRequest()->getRequestUri()));
             $status_form->ids->setValue($activityId);
             $status_form->status->setValue($next_state);
             $status_form->change_state->setLabel(Iati_WEP_ActivityState::getStatus($next_state));
