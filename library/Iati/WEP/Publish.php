@@ -149,7 +149,7 @@ class Iati_WEP_Publish
                                 $percent = $country['@percentage'];
                                 if($percent > $maxPercent){
                                     $maxPercent = $percent;
-                                    $maxPercentCountry = Iati_Core_Codelist::getCodeByAttrib('RecipientCountry' , '@code' , $country['@code'],'Name');
+                                    $maxPercentCountry = Iati_Core_Codelist::getCodeByAttrib('RecipientCountry' , '@code' , $country['@code']);
                                 }
                             }
                             if($maxPercentCountry){
