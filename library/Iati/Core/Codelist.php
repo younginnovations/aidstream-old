@@ -171,6 +171,12 @@ class Iati_Core_Codelist
                 case Budget_type :
                     $return = 'BudgetType';
                     break;
+                case CountryBudgetItems_vocabulary :
+                    $return = 'BudgetIdentifierVocabulary';
+                    break;
+                case BudgetItem_code :
+                    $return = 'BudgetIdentifier';
+                    break;
                 default:
                     $return = false;
                     break;    

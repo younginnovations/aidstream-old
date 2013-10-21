@@ -213,6 +213,8 @@ class ActivityController extends Zend_Controller_Action
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();
         }
+        /* @todo this part of code should be moved to base form or base element */
+        
         if($element->getClassName() == "Transaction" || $element->getClassName() == "Result")
         {
             $form->addElement('submit' , 'save' , array('class'=>'form-submit' , 'label' => 'Update '.$element->getClassName())); 

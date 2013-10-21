@@ -29,6 +29,7 @@ class Iati_WEP_AccountDisplayFieldGroup
     protected $result = '0';
     protected $legacy_data = '0';
     protected $capital_spend = '0';
+    protected $country_budget_items = '0';
     
     public static $defaults = array('title' , 'transaction' , 'activity_status' , 'budget' , 'activity_date' ,
                                        'participating_org' , 'description' , 'recipient_country' , 'sector');

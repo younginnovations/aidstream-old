@@ -285,6 +285,17 @@
         <?php endif; ?>
         <!--Default Tied Status Ends-->
         
+        <!--Country Budget Items Starts-->
+        <?php if(count($activity['CountryBudgetItems'])) : ?>
+              <?php echo $this->partial("partials/view-activity/country-budget-items.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,  
+                                                                                'elements' => $activity['CountryBudgetItems'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Country Budget Items Ends-->
+        
         <!--Budget Starts-->
         <?php if(count($activity['Budget'])) : ?>
               <?php echo $this->partial("partials/view-activity/budget.phtml" , array(

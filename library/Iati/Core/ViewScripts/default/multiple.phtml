@@ -2,7 +2,7 @@
 <?php if(!$this->ajax):?>
     <?php if($this->eleLevel == 1):?>
         <div class="result-form-container">
-        <form action="<?php echo $form->getAction(); ?>" method="<?php echo $form->getMethod(); ?>" >
+        <form action="<?php echo $wrapperForm->getAction(); ?>" method="<?php echo $wrapperForm->getMethod(); ?>" >
     <?php endif; ?>
     
     <ul class="activity-element-level-<?php echo $this->eleLevel; ?>">
@@ -55,7 +55,8 @@
         </li>
     </ul>
     <?php if($this->eleLevel == 1): ?>
-        <?php echo $form->getElement('save'); ?>
+         <?php echo $wrapperForm->getElement('save'); ?>
+         <?php echo $wrapperForm->getElement('save_and_view');?>
         </form>
         </div>
     <?php endif; ?>

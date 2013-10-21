@@ -12,7 +12,7 @@
                         array('title','description','activity_status','activity_date','contact_info' , 'activity_scope'),
                         array ('participating_org'),
                         array('recipient_country','recipient_region','location'),
-                        array('sector','policy_marker','collaboration_type','default_flow_type','default_finance_type','default_aid_type','default_tied_status'),
+                        array('sector','policy_marker','collaboration_type','default_flow_type','default_finance_type','default_aid_type','default_tied_status' , 'country_budget_items'),
                         array ('budget','planned_disbursement', 'transaction' , 'capital_spend'),
                         array ('document_link','activity_website'),
                         array ('related_activity'),
