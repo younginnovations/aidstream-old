@@ -161,12 +161,8 @@ class ActivityController extends Zend_Controller_Action
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm(); 
             if($form->validate()){
-                $hasData = $element->hasData($data[$element->getClassName()]);              
-                if(!$hasData) {
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "You have not entered any data."));
-                    $this->_redirect("/activity/add-element?className={$elementClass}&activity_id={$activityId}&isMultiple={$isMultiple}");    
-                }
-                $element->save($data[$element->getClassName()] , $activityId);
+                //$eleId will be null is element is deleted or in case of db error
+                $eleId = $element->save($data[$element->getClassName()] , $activityId);
                 
                 $activityHashModel = new Model_ActivityHash();
                 $updated = $activityHashModel->updateActivityHash($activityId);
@@ -178,6 +174,7 @@ class ActivityController extends Zend_Controller_Action
                     $type = 'message';
                     $message = $element->getDisplayName() . " successfully updated.";
                 }
+                
                 $this->_helper->FlashMessenger->addMessage(array($type => $message)); 
                 if($element->getClassName() == "Transaction" || $element->getClassName() == "Result"){
                     $this->_redirect("activity/list-elements?classname={$elementClass}&activity_id={$activityId}");
@@ -186,6 +183,11 @@ class ActivityController extends Zend_Controller_Action
                 // Check if save and view button was clicked                
                 if ($data['save_and_view'] || $data[$element->getClassName()]['save_and_view']){
                     $this->_redirect('activity/view-activity-info/?activity_id=' . $activityId);
+                }
+                
+                //In case the eleId is not present i.e the element is deleted redirect to add page.
+                if(!$eleId){
+                    $this->_redirect("activity/add-element?className={$elementClass}&activity_id={$activityId}");
                 }
                 
             } else {

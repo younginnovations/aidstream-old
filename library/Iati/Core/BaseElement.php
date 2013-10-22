@@ -297,8 +297,8 @@ class Iati_Core_BaseElement
             $parentColumnName = $this->getParentCoulmn();
         }
         
-        $elementsData = $this->getElementsData($elementData);
         if($this->hasData($elementData)){
+            $elementsData = $this->getElementsData($elementData);
             if($parentId){
                 $elementsData[$parentColumnName] = $parentId;
             }
@@ -313,10 +313,9 @@ class Iati_Core_BaseElement
             }
         } else {
             if($elementData['id']){
-                $where = $this->db->getAdapter()->quoteInto('id = ?', $elementData['id']);
-                $this->db->delete($where);
-                return;
+                $this->deleteElement($elementData['id']);
             }
+            return;
         }
         
         // If children are present create children elements and call their save function.                
@@ -463,6 +462,9 @@ class Iati_Core_BaseElement
                 // get the ids of the elements from the parent id so that the elements ids can be passed to the children.
                 $elementIds = $this->getElementIdsFromParent($parentColumn , $eleId);
                 // Foreach element delete their children.
+                
+                if($elementIds) return;
+                
                 foreach($elementIds as $elementId){
                     foreach($this->childElements as $childElementClass){
                         $childElementName = get_class($this)."_$childElementClass";
