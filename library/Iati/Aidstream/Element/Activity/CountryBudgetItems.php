@@ -8,4 +8,5 @@ class Iati_Aidstream_Element_Activity_CountryBudgetItems extends Iati_Core_BaseE
     protected $attribs = array('id','@vocabulary');
     protected $iatiAttribs = array('@vocabulary');
     protected $childElements = array('BudgetItem');
+    protected $viewScriptEnabled = true;
 }

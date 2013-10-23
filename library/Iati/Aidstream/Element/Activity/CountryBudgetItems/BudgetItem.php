@@ -8,4 +8,5 @@ class Iati_Aidstream_Element_Activity_CountryBudgetItems_BudgetItem extends Iati
     protected $attribs = array('id','@code' , '@percentage');
     protected $iatiAttribs = array('@code' , '@percentage');
     protected $childElements = array('Description');
+    protected $viewScriptEnabled = true;
 }

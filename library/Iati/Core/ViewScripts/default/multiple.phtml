@@ -18,9 +18,11 @@
 
         <?php foreach($wrapperForm->getSubForms() as $form): ?>
             <div class="elements-wrapper clearfix">
-                <?php $formBelongsTo = $form->getElementsBelongTo();?>
-                <?php $formBelongsTo = preg_replace('/^(\w+)/' , '[$1]', $formBelongsTo);?>
-                <?php $form->setElementsBelongTo("{$wrapperForm->getElementsBelongTo()}{$formBelongsTo}");?>
+                <?php if($this->eleLevel != 1): ?>
+                    <?php $formBelongsTo = $form->getElementsBelongTo();?>
+                    <?php $formBelongsTo = preg_replace('/^(\w+)/' , '[$1]', $formBelongsTo);?>
+                    <?php $form->setElementsBelongTo("{$wrapperForm->getElementsBelongTo()}{$formBelongsTo}");?>
+                <?php endif; ?>
             
                 <ul class="level-<?php echo $this->eleLevel; ?> element-level">
                     <?php foreach($form->getElements() as $element): ?>

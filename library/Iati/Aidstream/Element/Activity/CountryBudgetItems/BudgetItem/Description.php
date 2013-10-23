@@ -7,4 +7,5 @@ class Iati_Aidstream_Element_Activity_CountryBudgetItems_BudgetItem_Description 
     protected $tableName = 'iati_country_budget_items/budget_item/description';
     protected $attribs = array('id','text','@xml_lang','@type');
     protected $iatiAttribs = array('text','@xml_lang','@type');
+    protected $viewScriptEnabled = true;
 }

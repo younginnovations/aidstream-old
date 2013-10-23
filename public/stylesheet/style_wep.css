@@ -4348,6 +4348,8 @@ ul.level-4.none span {
 .result-element-title {
 	line-height: 30px;
 	padding-left: 20px!important;
+	float: left;
+	width: 480px;
 }
 
 .result-element-title.dropdown {
