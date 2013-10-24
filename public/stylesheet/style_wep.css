@@ -4349,7 +4349,7 @@ ul.level-4.none span {
 	line-height: 30px;
 	padding-left: 20px!important;
 	float: left;
-	width: 480px;
+	width: 374px;
 }
 
 .result-element-title.dropdown {
@@ -4377,7 +4377,7 @@ ul.level-4.none span {
 	font-weight: normal!important;
 }
 
-.result-form-container #Result-save {
+.result-form-container #Result-save,.result-form-container #save-element {
 	font-size: 12px;
 	margin: 8px;
 }

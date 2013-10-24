@@ -66,23 +66,14 @@ $fieldGroup = $fieldGroups->getProperties();
                         {
                             $class = "class = highlight";
                         }
-                        
-                        // For Transaction and Result
-                        if($element == 'Result'){
-                                $paramValue = end(explode('_', $paramValue));
-                                if(str_replace(" ", "", $key) == $paramValue){
-                                $class = "class = highlight";
-                                }
-                                $href = $this->baseUrl()."/activity/list-elements/?classname=Activity_Result&activity_id=".$url['activity_id'];
+                        // Some elements have a list page from where individual element are created/edited
+                        if(Iati_Aidstream_ElementSettings::isHandledIndividually($element)){
+                            $paramValue = end(explode('_', $paramValue));
+                            if(str_replace(" ", "", $key) == $paramValue){
+                            $class = "class = highlight";
                             }
-                            
-                            if($element == 'Transaction'){
-                                $paramValue = end(explode('_', $paramValue));
-                                if(str_replace(" ", "", $key) == $paramValue){
-                                $class = "class = highlight";
-                                }
-                                $href = $this->baseUrl()."/activity/list-elements?classname=Activity_Transaction&activity_id=".$url['activity_id'];
-                            }
+                            $href = $this->baseUrl()."/activity/list-elements/?classname=Activity_".$element."&activity_id=".$url['activity_id'];
+                        }
                             
                         print "<li $class><div class='help Activity_" . $element . "'></div><a $attributes href='" . $href . "'>" . $displayName . "</a></li>";
                     }

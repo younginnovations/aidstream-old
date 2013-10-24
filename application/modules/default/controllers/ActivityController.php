@@ -87,7 +87,7 @@ class ActivityController extends Zend_Controller_Action
         } else {
             $form = $element->getForm();            
         }
-        if($element->getClassName() == "Transaction" || $element->getClassName() == "Result")
+        if(Iati_Aidstream_ElementSettings::isHandledIndividually($element->getClassName()))
         {
             $form->addElement('submit' , 'save' , array('class'=>'form-submit' , 'label' => 'Save '.$element->getClassName()));
         }
@@ -215,7 +215,7 @@ class ActivityController extends Zend_Controller_Action
         }
         /* @todo this part of code should be moved to base form or base element */
         
-        if($element->getClassName() == "Transaction" || $element->getClassName() == "Result")
+        if(Iati_Aidstream_ElementSettings::isHandledIndividually($element->getClassName()))
         {
             $form->addElement('submit' , 'save' , array('class'=>'form-submit' , 'label' => 'Update '.$element->getClassName())); 
         }

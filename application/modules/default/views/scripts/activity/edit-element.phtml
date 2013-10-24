@@ -13,7 +13,7 @@
         <span class="activity_identifier"> <?php print $activityInfo['activity_identifier']; ?> </span>
         <span class="activity_title"> <?php print $title;?> </span>
     </div>
-    <?php if($this->elementClass == "Transaction" || $this->elementClass == "Result"): ?>
+    <?php if(Iati_Aidstream_ElementSettings::isHandledIndividually($this->elementClass)): ?>
         <span class="viewer-link"><?php echo $this->l('View ' .strtolower ($this->elementClass).' list', 'activity/list-elements/?classname=Activity_'.$this->elementClass.'&activity_id='. $activityInfo['id'])?> | <?php echo $this->l('View Activity', 'activity/view-activity-info/?activity_id='. $activityInfo['id'])?></span>
     <?php else: ?>
         <span class="viewer-link"><?php echo $this->l('View Activity', 'activity/view-activity-info/?activity_id='. $activityInfo['id'])?></span>
