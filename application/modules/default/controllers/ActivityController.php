@@ -89,7 +89,7 @@ class ActivityController extends Zend_Controller_Action
         }
         if(Iati_Aidstream_ElementSettings::isHandledIndividually($element->getClassName()))
         {
-            $form->addElement('submit' , 'save' , array('class'=>'form-submit' , 'label' => 'Save '.$element->getClassName()));
+            $form->addElement('submit' , 'save' , array('class'=>'form-submit' , 'label' => 'Save '.$element->getDisplayName()));
         }
         else
         {
@@ -217,7 +217,7 @@ class ActivityController extends Zend_Controller_Action
         
         if(Iati_Aidstream_ElementSettings::isHandledIndividually($element->getClassName()))
         {
-            $form->addElement('submit' , 'save' , array('class'=>'form-submit' , 'label' => 'Update '.$element->getClassName())); 
+            $form->addElement('submit' , 'save' , array('class'=>'form-submit' , 'label' => 'Update '.$element->getDisplayName())); 
         }
         else
         {

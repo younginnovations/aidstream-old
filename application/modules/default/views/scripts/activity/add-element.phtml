@@ -14,7 +14,7 @@
         <span class="activity_title"> <?php print $title;?> </span>
     </div>
     <?php if(Iati_Aidstream_ElementSettings::isHandledIndividually($this->elementClass)): ?>
-        <span class="viewer-link"><?php echo $this->l('View ' .strtolower ($this->elementClass).' list', 'activity/list-elements/?classname=Activity_'.$this->elementClass.'&activity_id='. $activityInfo['id'])?> | <?php echo $this->l('View Activity', 'activity/view-activity-info/?activity_id='. $activityInfo['id'])?></span>
+        <span class="viewer-link"><?php echo $this->l('View ' .strtolower ($this->displayName).' list', 'activity/list-elements/?classname=Activity_'.$this->elementClass.'&activity_id='. $activityInfo['id'])?> | <?php echo $this->l('View Activity', 'activity/view-activity-info/?activity_id='. $activityInfo['id'])?></span>
     <?php else: ?>
         <span class="viewer-link"><?php echo $this->l('View Activity', 'activity/view-activity-info/?activity_id='. $activityInfo['id'])?></span>
     <?php endif; ?>
@@ -22,6 +22,4 @@
 </div>
 <div class="second-title">Editing <span><?php print $this->displayName ?>...</span></div>
     
-<?php
-print $this->form;
-?>
+<?php print $this->form; ?>
