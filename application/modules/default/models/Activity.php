@@ -154,4 +154,10 @@ class Model_Activity
         
         return $activity;
     }
+    
+    public static function getActivityStatus($activityId)
+    {
+        $db = new Model_ActivityStatus;
+        return $db->getActivityStatus($activityId);
+    }
 }

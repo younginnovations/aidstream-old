@@ -174,11 +174,20 @@ class ActivityController extends Zend_Controller_Action
                     $type = 'message';
                     $message = 'No Changes Made';
                 } else {
+                    $oldState = Model_Activity::getActivityStatus($activityId);
                     Model_Activity::updateActivityUpdatedInfo($activityId);                        
                     $type = 'message';
                     $message = $element->getDisplayName() . " successfully updated.";
                 }
-                $this->_helper->FlashMessenger->addMessage(array($type => $message)); 
+                $this->_helper->FlashMessenger->addMessage(array($type => $message));
+                
+                if($updated && $oldState != Iati_WEP_ActivityState::STATUS_EDITING){ // In case of update notify the user about state change.
+                    $this->_helper->FlashMessenger->addMessage(array('state-change-flash-message' => "The
+                                                                     activity state is changed back to Edit.
+                                                                     You must complete and verify in order
+                                                                     to publish the activity."));
+                }
+                
                 if($element->getClassName() == "Transaction" || $element->getClassName() == "Result"){
                     $this->_redirect("activity/list-elements?classname={$elementClass}&activity_id={$activityId}");
                 }
