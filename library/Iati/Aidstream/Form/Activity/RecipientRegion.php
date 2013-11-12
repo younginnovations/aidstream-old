@@ -17,6 +17,13 @@ class Iati_Aidstream_Form_Activity_RecipientRegion extends Iati_Core_BaseForm
             ->setValue($this->data['@code'])    
             ->setAttrib('class' , 'form-select')
             ->setMultioptions($countryCode);
+            
+        $vocabCode = $model->getCodeArray('RegionVocabulary', null, '1' , true);
+        $form['vocabulary'] = new Zend_Form_Element_Select('vocabulary');
+        $form['vocabulary']->setLabel('Region vocabulary')  
+            ->setValue($this->data['@vocabulary'])    
+            ->setAttrib('class' , 'form-select')
+            ->setMultioptions($vocabCode);
 
         $form['text'] = new Zend_Form_Element_Textarea('text');
         $form['text']->setLabel('Name')  
@@ -26,7 +33,7 @@ class Iati_Aidstream_Form_Activity_RecipientRegion extends Iati_Core_BaseForm
         $form['percentage'] = new Zend_Form_Element_Text('percentage');
         $form['percentage']->setLabel('Percentage')  
             ->setValue($this->data['@percentage'])
-            ->addValidator(new Zend_Validate_Int())
+            ->addValidator(new App_Validate_NumericValue())
             ->setAttrib('class' , 'form-text');
         
         $lang = $model->getCodeArray('Language', null, '1' , true);

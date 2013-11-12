@@ -87,9 +87,9 @@ class ActivityController extends Zend_Controller_Action
         } else {
             $form = $element->getForm();            
         }
-        if($element->getClassName() == "Transaction" || $element->getClassName() == "Result")
+        if(Iati_Aidstream_ElementSettings::isHandledIndividually($element->getClassName()))
         {
-            $form->addElement('submit' , 'save' , array('class'=>'form-submit' , 'label' => 'Save '.$element->getClassName()));
+            $form->addElement('submit' , 'save' , array('class'=>'form-submit' , 'label' => 'Save '.$element->getDisplayName()));
         }
         else
         {
@@ -170,12 +170,20 @@ class ActivityController extends Zend_Controller_Action
                     $type = 'message';
                     $message = 'No Changes Made';
                 } else {
+                    $oldState = Model_Activity::getActivityStatus($activityId);
                     Model_Activity::updateActivityUpdatedInfo($activityId);                        
                     $type = 'message';
                     $message = $element->getDisplayName() . " successfully updated.";
                 }
+                $this->_helper->FlashMessenger->addMessage(array($type => $message));
                 
-                $this->_helper->FlashMessenger->addMessage(array($type => $message)); 
+                if($updated && $oldState != Iati_WEP_ActivityState::STATUS_EDITING){ // In case of update notify the user about state change.
+                    $this->_helper->FlashMessenger->addMessage(array('state-change-flash-message' => "The
+                                                                     activity state is changed back to Edit.
+                                                                     You must complete and verify in order
+                                                                     to publish the activity."));
+                }
+                
                 if($element->getClassName() == "Transaction" || $element->getClassName() == "Result"){
                     $this->_redirect("activity/list-elements?classname={$elementClass}&activity_id={$activityId}");
                 }
@@ -215,9 +223,11 @@ class ActivityController extends Zend_Controller_Action
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();
         }
-        if($element->getClassName() == "Transaction" || $element->getClassName() == "Result")
+        /* @todo this part of code should be moved to base form or base element */
+        
+        if(Iati_Aidstream_ElementSettings::isHandledIndividually($element->getClassName()))
         {
-            $form->addElement('submit' , 'save' , array('class'=>'form-submit' , 'label' => 'Update '.$element->getClassName())); 
+            $form->addElement('submit' , 'save' , array('class'=>'form-submit' , 'label' => 'Update '.$element->getDisplayName())); 
         }
         else
         {
@@ -299,7 +309,7 @@ class ActivityController extends Zend_Controller_Action
         if ($next_state && Iati_WEP_ActivityState::hasPermissionForState($next_state))
         {
             $status_form = new Form_Wep_ActivityChangeState();
-            $status_form->setAction($this->view->baseUrl() . "/wep/update-status");
+            $status_form->setAction($this->view->baseUrl() . "/wep/update-status?redirect=".urlencode($this->getRequest()->getRequestUri()));
             $status_form->ids->setValue($activityId);
             $status_form->status->setValue($next_state);
             $status_form->change_state->setLabel(Iati_WEP_ActivityState::getStatus($next_state));

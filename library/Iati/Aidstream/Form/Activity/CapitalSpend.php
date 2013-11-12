@@ -1,6 +1,6 @@
 <?php
 
-class Iati_Aidstream_Form_Activity_Location extends Iati_Core_BaseForm
+class Iati_Aidstream_Form_Activity_CapitalSpend extends Iati_Core_BaseForm
 {
     public function getFormDefination()
     {
@@ -11,8 +11,8 @@ class Iati_Aidstream_Form_Activity_Location extends Iati_Core_BaseForm
         
         $form['percentage'] = new Zend_Form_Element_Text('percentage');
         $form['percentage']->setLabel('Percentage')  
+            ->setRequired()
             ->setValue($this->data['@percentage'])
-            ->addValidator(new App_Validate_NumericValue())    
             ->setAttrib('class' , 'form-text');
         
         $this->addElements($form);

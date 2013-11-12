@@ -73,6 +73,10 @@ class Iati_Core_Codelist
                     $return = 'ActivityStatus';
                     break;
                 
+                case ActivityScope_code :
+                    $return = 'ActivityScope';
+                    break;
+                
                 case ActivityDate_type :
                     $return = 'ActivityDateType';
                     break;
@@ -91,6 +95,10 @@ class Iati_Core_Codelist
                 
                 case RecipientRegion_code :
                     $return = 'Region';
+                    break;
+                
+                case RecipientRegion_vocabulary :
+                    $return = 'RegionVocabulary';
                     break;
                 
                 case Sector_vocabulary :
@@ -162,6 +170,12 @@ class Iati_Core_Codelist
                     break;
                 case Budget_type :
                     $return = 'BudgetType';
+                    break;
+                case CountryBudgetItems_vocabulary :
+                    $return = 'BudgetIdentifierVocabulary';
+                    break;
+                case BudgetItem_code :
+                    $return = 'BudgetIdentifier';
                     break;
                 default:
                     $return = false;

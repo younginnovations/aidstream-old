@@ -7,7 +7,7 @@
  * boolen $isMultiple Should be true if the element can be multiple.
  * boolen $isRequired Should be true if the element is a required element.
  * String $className The name of the class of the element. Name with space should be used as camelCase without space
- * String $displayName The name of the element for display in forms , if same as classname should be left empty.
+ * String $displayName The name of the element for display in forms , if empty classname converted to space seperated is used.
  * Array $data array of the elements data and its child element.
  * Array $childElements array of classname of the child elements.If no child, an empty array is present.
  * Array $attribs array of attributes names strored in database.
@@ -103,7 +103,7 @@ class Iati_Core_BaseElement
         if($this->displayName){
             return $this->displayName;
         } else {
-            $this->className;
+            return preg_replace('/([^A-Z_])([A-Z])/', '$1 $2', $this->className);
         }
     }
     
@@ -148,6 +148,7 @@ class Iati_Core_BaseElement
                                         )
                                     )
                                  );
+            
             return $form;
         }
         $form->wrapForm($this->getDisplayName() , $this->getIsRequired());
@@ -557,15 +558,6 @@ class Iati_Core_BaseElement
         $data = $this->getElementsIatiData($elementData);
         
         if(!$this->hasData($data) && empty($this->childElements)) return;  //Donot generate xml if no iati data and no child.
-        
-        // This block of code should be removed for getting decimal values
-        // for transaciton,budget and planned disbursement values.
-        $convert = array('Activity_Budget_Value' , 'Activity_PlannedDisbursement_Value');
-        if($this->className == 'TransactionValue' || in_array($this->getFullName() , $convert)){// Temporarily change all transaction values to integer type
-            $values = explode('.' , $data['text']);
-            $value = $values[0];
-            $data['text'] = preg_replace('/\D/' , '' , $value);
-        }
                 
         if(!is_object($parent)){
             $xmlObj = new SimpleXMLElement("<$eleName>".preg_replace('/&(?!\w+;)/' , '&amp;' ,$data['text'])."</$eleName>");

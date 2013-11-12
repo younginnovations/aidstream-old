@@ -61,22 +61,9 @@ class User_UserController extends Zend_Controller_Action
                         $resetSite = "http://" . $_SERVER['HTTP_HOST'] . $this->view->baseUrl() . '/user/user/resetpassword/email/' . urlencode($email) . '/value/' . urlencode($uniqueId);
                         $reset = new User_Model_DbTable_Reset();
                         $reset->insert(array('email' => $email, 'value' => $uniqueId, 'reset_flag' => '1'));
-
-                        $profileModel = new User_Model_DbTable_Profile();
-                        $profile = $profileModel->getProfileByUserId($user->user_id);
-                        $name = $profile->first_name;
-                        if($profile->middle_name){
-                            $name .= " ".$profile->middle_name;
-                        }
-                        $name .= " ".$profile->last_name;
-
-                        $mailParams['subject'] = 'Password reset for ' . $email;
-                        $mailParams['name'] = $name;
-                        $mailParams['username'] = $user->user_name;
-                        $mailParams['reset_url'] = $resetSite;
-                        $template = 'forgot_password.phtml';
-                        $notification = new App_Notification;
-                        $notification->sendemail($mailParams,$template,array($email => ''));
+                        
+                        $notification = new Model_Notification;
+                        $notification->sendResetNotifications($user , $resetSite);
 
                         $this->_helper->FlashMessenger->addMessage(array('message' => 'Further instructions have been sent to your e-mail address.'));
                         $this->_redirect('/');
@@ -534,21 +521,8 @@ class User_UserController extends Zend_Controller_Action
                 $modelSupport = new Model_Support();
                 $modelSupport->saveSupportRequest($data);
 
-                $model = new Model_Wep();
-                $account = $model->getRowById('account', 'id', Zend_Auth::getInstance()->getIdentity()->account_id);
-
-                //Send Support Mail
-                $mailParams['subject'] = 'Support request';
-                $mailParams['support_name'] = $data['support_name'];
-                $mailParams['support_email'] = $data['support_email'];
-                $mailParams['support_query'] = $data['support_query'];
-                $mailParams['from'] = array($data['support_email'] => '');
-                $mailParams['servername'] = $_SERVER['SERVER_NAME'];
-                $mailParams['account_name'] = $account['name'];
-                $template = 'support.phtml';
-                $supportEmail = Zend_Registry::get('config')->email->support;
-                $notification = new App_Notification;
-                $notification->sendemail($mailParams, $template, array( $supportEmail => ''));
+                $notification = new Model_Notification;
+                $notification->sendSupportNotifications($data);
 
                 $this->_helper->FlashMessenger->addMessage(array('message' =>'Thank you. Your query has been received.'));
             } else {

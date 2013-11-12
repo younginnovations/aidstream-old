@@ -5,14 +5,14 @@ $paramValue = str_replace("Activity_" , "" , $url['className']);
 $titleArray = array('Identification' , 'Basic Activity Information','Participating Organisations','Geopolitical Information','Classifications','Financial','Related Documents','Relations','Performance');
 $elements = array(
                 array('ReportingOrg' , 'IatiIdentifier' , 'OtherActivityIdentifier' ),
-                array('Title','Description','ActivityStatus','ActivityDate','ContactInfo'),
-                array ('ParticipatingOrg'),
+                array('Title','Description','ActivityStatus','ActivityDate','ContactInfo' , 'ActivityScope'),
+                array('ParticipatingOrg'),
                 array('RecipientCountry','RecipientRegion','Location'),
-                array('Sector','PolicyMarker','CollaborationType','DefaultFlowType','DefaultFinanceType','DefaultAidType','DefaultTiedStatus'),
-                array ('Budget','PlannedDisbursement','Transaction'),
-                array ('DocumentLink','ActivityWebsite'),
-                array ('RelatedActivity'),
-                array ('Conditions','Result','LegacyData'),
+                array('Sector','PolicyMarker','CollaborationType','DefaultFlowType','DefaultFinanceType','DefaultAidType','DefaultTiedStatus' , 'CountryBudgetItems'),
+                array('Budget','PlannedDisbursement' , 'Transaction' , 'CapitalSpend'),
+                array('DocumentLink','ActivityWebsite'),
+                array('RelatedActivity'),
+                array('Conditions','Result','LegacyData'),
             );
 
 $model = new Model_Wep();
@@ -66,23 +66,14 @@ $fieldGroup = $fieldGroups->getProperties();
                         {
                             $class = "class = highlight";
                         }
-                        
-                        // For Transaction and Result
-                        if($element == 'Result'){
-                                $paramValue = end(explode('_', $paramValue));
-                                if(str_replace(" ", "", $key) == $paramValue){
-                                $class = "class = highlight";
-                                }
-                                $href = $this->baseUrl()."/activity/list-elements/?classname=Activity_Result&activity_id=".$url['activity_id'];
+                        // Some elements have a list page from where individual element are created/edited
+                        if(Iati_Aidstream_ElementSettings::isHandledIndividually($element)){
+                            $paramValue = end(explode('_', $paramValue));
+                            if(str_replace(" ", "", $key) == $paramValue){
+                            $class = "class = highlight";
                             }
-                            
-                            if($element == 'Transaction'){
-                                $paramValue = end(explode('_', $paramValue));
-                                if(str_replace(" ", "", $key) == $paramValue){
-                                $class = "class = highlight";
-                                }
-                                $href = $this->baseUrl()."/activity/list-elements?classname=Activity_Transaction&activity_id=".$url['activity_id'];
-                            }
+                            $href = $this->baseUrl()."/activity/list-elements/?classname=Activity_".$element."&activity_id=".$url['activity_id'];
+                        }
                             
                         print "<li $class><div class='help Activity_" . $element . "'></div><a $attributes href='" . $href . "'>" . $displayName . "</a></li>";
                     }

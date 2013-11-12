@@ -8,6 +8,7 @@ class Iati_WEP_AccountDisplayFieldGroup
     protected $other_activity_identifier = '0';
     protected $description = '0';
     protected $activity_status = '0';
+    protected $activity_scope = '0';
     protected $contact_info = '0';
     protected $recipient_country = '0';
     protected $recipient_region = '0';
@@ -27,6 +28,8 @@ class Iati_WEP_AccountDisplayFieldGroup
     protected $conditions = '0';
     protected $result = '0';
     protected $legacy_data = '0';
+    protected $capital_spend = '0';
+    protected $country_budget_items = '0';
     
     public static $defaults = array('title' , 'transaction' , 'activity_status' , 'budget' , 'activity_date' ,
                                        'participating_org' , 'description' , 'recipient_country' , 'sector');

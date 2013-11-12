@@ -67,19 +67,9 @@ class User_Model_User
         $defaultFields['account_id'] = $accountId;
         $defaultFieldId = $modelWep->insertRowsToTable('default_field_groups', $defaultFields);
 
-        //Send notification
-        $to = array($data['email'] => '');
-        $mailParams['subject'] = 'Account registration confirmed';
-        $mailParams['first_name'] = $data['first_name'];
-        $mailParams['middle_name'] = $data['middle_name'];
-        $mailParams['last_name'] = $data['last_name'];
-        $mailParams['username'] = $user['user_name'];
-        $mailParams['password'] = $data['password'];
-        $mailParams['url'] = "http://".$_SERVER['SERVER_NAME'].Zend_Controller_Front::getInstance()->getBaseUrl();
-
-        $template = 'user-register.phtml';
-        $Wep = new App_Notification;
-        $Wep->sendemail($mailParams,$template,$to);
+        //Send notification        
+        $notification = new Model_Notification;
+        $notification->sendRegistrationNotifications($data);
 
         return $accountId;
     }

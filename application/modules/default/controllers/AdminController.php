@@ -315,19 +315,10 @@ class AdminController extends Zend_Controller_Action
                     $privilegeFields['owner_id'] = $account_id;
                     $privilegeFieldId = $model->insertRowsToTable('Privilege', $privilegeFields);
 
-                    // Send register mail.
-                    $to = array($data['email'] => '');
-                    $mailParams['subject'] = 'Account registration confirmed';
-                    $mailParams['first_name'] = $data['first_name'];
-                    $mailParams['middle_name'] = $data['middle_name'];
-                    $mailParams['last_name'] = $data['last_name'];
-                    $mailParams['username'] = $user['user_name'];
-                    $mailParams['password'] = $data['password'];
-                    $mailParams['url'] = "http://".$_SERVER['SERVER_NAME'].Zend_Controller_Front::getInstance()->getBaseUrl();
-
-                    $template = 'user-register.phtml';
-                    $Wep = new App_Notification;
-                    $Wep->sendemail($mailParams,$template,$to);
+                    //Send notification
+                    $data['user_name']  = $user['user_name'];
+                    $notification = new Model_Notification;
+                    $notification->sendRegistrationNotifications($data);
 
                     $this->_helper->FlashMessenger->addMessage(array('message' => "Account successfully registered."));
                     $this->_redirect('admin/list-organisation');
