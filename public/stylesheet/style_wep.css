@@ -1470,6 +1470,7 @@ fieldset dl
 .activity-list
 {
 	border:none;
+	overflow: hidden;
 }
 
 .default-activity-list {
@@ -1733,6 +1734,7 @@ table.activity-list-table .title a
 #contain table.activity-list-table,  .user-list{
 	margin-bottom: 20px;
 	border: 1px solid #dcdcdc;
+	overflow: hidden;
 }
 
 .user-list {
@@ -5487,31 +5489,24 @@ fieldset#fieldset-organisation_info {
 }
 
 .activity-list-table td.status {
-	position: relative;
 	width: 74px;
-}
-
-.activity-list-table td.status:after {
-	width: 8px;
+	border-right: 10px solid #E76B6B;
+	overflow: hidden;
 	height: 100%;
-	background: #E76B6B;
-	display: block;
-	position: absolute;
-	content: "";
-	right: 0;
-	top: 0;
+	padding-right: 0;
 }
 
-.activity-list-table td.status.completed:after {
-	background: #FCB941;
+
+.activity-list-table td.status.completed {
+	border-color: #FCB941;
 }
 
-.activity-list-table td.status.verified:after {
-	background: #2C82C9;
+.activity-list-table td.status.verified {
+	border-color: #2C82C9;
 }
 
-.activity-list-table td.status.published:after {
-	background: #2CC88F;
+.activity-list-table td.status.published {
+	border-color: #2CC88F;
 }
 
 .second-title {

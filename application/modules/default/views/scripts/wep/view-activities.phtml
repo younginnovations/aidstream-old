@@ -64,8 +64,8 @@
                 </td>
                 <td class="iati-identifier"><?php print $eachActivity['identifier'];?></td>
                 <td class="last-updated"><?php print $eachActivity['last_updated_datetime'];?></td>
-                <td class="status <?php echo strtolower(str_replace(" ", "-",Iati_WEP_ActivityState::getStatus($eachActivity['status_id'])));?>">
-                <?php echo Iati_WEP_ActivityState::getStatus($eachActivity['status_id']);?></td>
+                <td class="status <?php echo strtolower(str_replace(" ", "-",Iati_WEP_ActivityState::getStatus($eachActivity['status_id'])));?>"><div>
+                <?php echo Iati_WEP_ActivityState::getStatus($eachActivity['status_id']);?></div></td>
             </tr>
             
          <?php $i++;?>
