@@ -82,7 +82,18 @@ class Iati_Core_BaseElement
     public function getTableName()
     {
         return $this->tableName;
-    } 
+    }
+    
+    public function getIatiAttribs()
+    {
+        return $this->iatiAttribs;
+    }
+    
+    public function getAttribs()
+    {
+        return $this->attribs;
+    }
+    
     /**
      * Function to get the full name of the element i.e name with parent name
      * Fullname can be used to directly create the element.

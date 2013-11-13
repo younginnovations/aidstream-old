@@ -1555,4 +1555,84 @@ class WepController extends Zend_Controller_Action
         $this->_redirect("/activity/edit-element/?activity_id=" . $activityId . "&className=Activity_ReportingOrg");
        
     }
+    
+    public function downloadCsvAction()
+    {
+        $className = $this->_getParam('classname');
+        $parentId = $this->_getParam('parent_id');
+        $id = $this->_getParam('id');
+        
+        $obj = new Iati_Core_CsvHandler($className);
+        if($parentId){
+            $obj->generateCsv($parentId , true);
+        } elseif($id){
+            $obj->generateCsv($id , false);
+        }
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        echo $obj->getCsv();
+        exit;
+    }
+    
+    public function uploadTransactionAction()
+    {
+        $activityId = $this->_getParam('activity_id');
+        
+        $form = new Form_Wep_UploadTransaction();
+        
+        if($data = $this->getRequest()->getPost()){
+            if($form->isValid($data)){
+                $uploadDir = Zend_Registry::get('config')->public_folder."/files/csv/uploads";
+                $upload = new Zend_File_Transfer_Adapter_Http();
+                $upload->setDestination($uploadDir);
+                $source = $upload->getFileName();
+                try{
+                        $upload->receive();
+                        $csvHandler = new Model_CsvUpload();
+                        $csvHandler->setInputFile($source);
+                        $csvHandler->readCsv();
+                        $count = $csvHandler->uploadDataToTransaction($activityId);
+                        if(!$count){
+                            $messanger = $this->_helper->FlashMessenger;
+                            $messanger->addMessage(array('error' => 'You have following errors in your file. Please enter correct details'));
+                            foreach($csvHandler->getErrors() as $tranCount => $error){
+                                $tranNo = $tranCount+1;
+                                if(!empty($error)){
+                                    $messanger->addMessage(array('error' =>"<div class='tran-no'>Transaction no: {$tranNo}</div>"));
+                                    foreach($error as $errormessage){
+                                        $messanger->addMessage(array('error' => " # ".$errormessage['message']));
+                                    }
+                                }
+                            }
+                        } else {
+                            $activityHashModel = new Model_ActivityHash();
+                            $updated = $activityHashModel->updateActivityHash($activityId);
+                            if(!$updated){ // Update hash and status
+                                $type = 'message';
+                                $message = 'No Changes Made';
+                            } else {
+                                $oldState = Model_Activity::getActivityStatus($activityId);
+                                Model_Activity::updateActivityUpdatedInfo($activityId);                        
+                            }
+                            
+                            if($updated && $oldState != Iati_WEP_ActivityState::STATUS_EDITING){ // In case of update notify the user about state change.
+                                $this->_helper->FlashMessenger->addMessage(array('state-change-flash-message' => "The
+                                                                                 activity state is changed back to Edit.
+                                                                                 You must complete and verify in order
+                                                                                 to publish the activity."));
+                            }
+                            
+                            $this->_helper->FlashMessenger->addMessage(array('message' => "{$count} transactions added"));
+                            $this->_redirect("/activity/list-elements/?activity_id=".$activityId ."&classname=Activity_Transaction");
+                        }
+                       
+                } catch(Zend_File_Transfer_Exception $e) {
+                    $e->getMessage();
+                }
+            } else {
+                $form->populate($data);
+            }
+        }
+        $this->view->form = $form;
+    }
 }

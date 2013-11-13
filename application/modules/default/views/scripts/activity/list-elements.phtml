@@ -30,3 +30,9 @@
 There is no <?php echo $this->displayName; ?>
 <div class="add-more-link"><a href="<?php echo $this->baseUrl();?>/activity/add-element?className=<?php echo $this->elementClass;?>&activity_id=<?php echo $this->activityId;?>&isMultiple=0">Add New <?php echo $this->displayName;?></a></div>
 <? endif; ?>
+
+<?php if($this->className == 'Transaction'):?>
+<div id="transaction-upload">
+    <?php echo $this->l('Upload Transaction' , "wep/upload-transaction?activity_id={$this->activityId}");?>
+</div>
+<?php endif; ?>

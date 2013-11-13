@@ -100,12 +100,10 @@ if (!empty($transaction["TransactionValue"])):
             </li>
             <li>
                 <span class="name">Currency:</span>
-                <span class="infom"><?php echo Iati_Core_Codelist::getCodeByAttrib('Activity_default' , '@currency' , $value["@currency"],"Name");
-                                      if($value["@currency"]) 
-                                      {
+                <span class="infom"><?php if($value["@currency"]) {
+                                            print Iati_Core_Codelist::getCodeByAttrib('Activity_default' , '@currency' , $value["@currency"],"Name");
                                             printf(" [%s]",Iati_Core_Codelist::getCodeByAttrib('Activity_default' , '@currency' , $value["@currency"])); 
-                                      }
-                                   ?>
+                                      } ?>
                 </span>
             </li>
     </ul>
