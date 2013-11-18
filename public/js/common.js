@@ -9,6 +9,7 @@ dojo.require('dijit.form.DateTextBox');
 //dojo.require("dojo.date.locale");
 dojo.require('dijit.TooltipDialog');
 dojo.require('dojo.number');
+dojo.require('dojo.io.iframe');
 
 /**
  * @todo some comments on what is required for what
@@ -290,7 +291,7 @@ var validEmail = function(email){
 }
 
 function initialize() {
-    
+    var targetNode; 
     // start of dojo.behavior.add
     dojo.behavior.add({
         '.addmore' : {
@@ -1554,6 +1555,97 @@ function initialize() {
 			dojo.byId('iati_activity_change_status').submit();
 		    });
 		}
+	    }
+	},
+	
+	'#upload-document-form' : {
+	    "onsubmit" : function (evt) {
+		evt.preventDefault();
+		var node = getTarget(evt);
+		
+		dojo.io.iframe.send({
+                    url : APP_BASEPATH + "/ajax/document-upload",
+		    form : "upload-document-form",
+		    handleAs : "html",
+                    handle : function (response , ioArgs) {
+			uploadDialog.set('content' , response.body.innerHTML);
+			uploadDialog.show();
+			dojo.behavior.apply();
+                    },
+                    error : function (err , ioArgs) {
+                        console.log(err);
+			console.log(ioArgs);
+                    }
+                });
+	    }
+	},
+	
+	'.upload-here' : {
+	    "onclick" : function(evt){
+		var node = getTarget(evt);
+		evt.preventDefault();
+		targetNode = dojo.query('textarea',node.parentNode.parentNode);
+		
+		dojo.xhrGet({
+                    url : APP_BASEPATH + "/ajax/document-upload",
+                    handleAs : "text",
+		    timeout : 10000,
+                    content : '',
+                    load : function (data) {
+                        uploadDialog = new dijit.Dialog({
+			    parseOnLoad: true,
+			    content: data,
+			    style: "width: 520px;",
+			    autofocus: true
+			});
+			
+			uploadDialog.show();
+			dojo.behavior.apply();
+                    },
+                    error : function (err) {
+                        console.log(err);
+                    }
+                });
+		
+	    }
+	},
+	
+	".use-this" : {
+	    "onclick" : function(evt) {
+		evt.preventDefault();
+		var node = getTarget(evt);
+		var url = dojo.attr(getTarget(evt), 'href');
+		targetNode.attr('value' , url);
+		uploadDialog.hide();
+	    }
+	},
+	
+	".existing-doc" : {
+	    "onclick" : function(evt) {
+		var node = getTarget(evt);
+		evt.preventDefault();
+		targetNode = dojo.query('textarea',node.parentNode.parentNode);
+		
+		dojo.xhrGet({
+                    url : APP_BASEPATH + "/ajax/previous-documents",
+                    handleAs : "text",
+		    timeout : 10000,
+                    content : '',
+                    load : function (data) {
+                        uploadDialog = new dijit.Dialog({
+			    parseOnLoad: true,
+			    content: data,
+			    style: "width: 520px;",
+			    autofocus: true
+			});
+			
+			uploadDialog.show();
+			dojo.behavior.apply();
+                    },
+                    error : function (err) {
+                        console.log(err);
+                    }
+                });
 	    }
 	}
     });

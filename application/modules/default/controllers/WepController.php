@@ -1635,4 +1635,16 @@ class WepController extends Zend_Controller_Action
         }
         $this->view->form = $form;
     }
+    
+    public function listUploadedDocumentsAction()
+    {
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $accountId = $identity->account_id;
+        
+        $model = new Model_UserDocument();
+        
+        $docs = $model->fetchAllDocuments($accountId);
+        
+        $this->view->docs = $docs;
+    }
 }

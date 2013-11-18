@@ -91,4 +91,51 @@ class AjaxController extends Zend_Controller_Action
         $this->view->data = $elementData[$element->getClassName()][0];
         $this->view->className = strtolower($element->getClassName());
     }
+    
+    public function previousDocumentsAction()
+    {
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $accountId = $identity->account_id;
+        
+        $model = new Model_UserDocument();
+        $docs = $model->fetchAllDocuments($accountId);
+        
+        $this->view->docs = $docs;
+        
+        $this->_helper->layout->disableLayout();
+    }
+    
+    public function documentUploadAction()
+    {
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $accountId = $identity->account_id;
+        
+        $model = new Model_UserDocument();
+        
+        $form = new Form_Wep_DocumentUpload();
+        if($data = $this->getRequest()->getPost()){
+            //var_dump($data );exit;
+            if($form->isValid($data)){
+                $uploadDir = Zend_Registry::get('config')->public_folder."/files/documents/";
+                $upload = new Zend_File_Transfer_Adapter_Http();
+                $upload->setDestination($uploadDir);
+                $source = $upload->getFileName();
+                try{
+                    $upload->receive();
+                    $model->saveDocumentInfo(basename($source));
+                    $this->view->docUrl = "http://" . $_SERVER['HTTP_HOST'] . $this->view->baseUrl()."/files/documents/".basename($source);
+                } catch(Zend_File_Transfer_Exception $e) {
+                    $e->getMessage();
+                }
+            } else {
+                $form->populate($data);
+            }
+        }
+        $docs = $model->fetchAllDocuments($accountId);
+        
+        $this->view->form = $form;
+        $this->view->docs = $docs;
+        
+        $this->_helper->layout->disableLayout();
+    }    
 }
