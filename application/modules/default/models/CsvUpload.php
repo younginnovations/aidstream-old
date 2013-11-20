@@ -149,9 +149,13 @@ class Model_CsvUpload
             }
             
             // check if date is valid.
-            $date = date_parse($transactionData[$keys['transactiondate']]);
-            if (!checkdate($date["month"], $date["day"], $date["year"])){ 
-                $this->error[$count][]['message'] = "Transaction Value must be numeric";
+            if(!$transactionData[$keys['transactiondate']]){
+                $this->error[$count][]['message'] = "Transaction Date cannot be empty";
+            } else {
+                $date = date_parse($transactionData[$keys['transactiondate']]);
+                if (!checkdate($date["month"], $date["day"], $date["year"])){ 
+                    $this->error[$count][]['message'] = "Transaction Date must be in date format";
+                }
             }
 
             if(!$value){// check if transaction value is provided.
