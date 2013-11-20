@@ -1556,21 +1556,13 @@ class WepController extends Zend_Controller_Action
        
     }
     
+    public function downloadMyDataAction(){}
+    
     public function downloadCsvAction()
     {
-        $className = $this->_getParam('classname');
-        $parentId = $this->_getParam('parent_id');
-        $id = $this->_getParam('id');
-        
-        $obj = new Iati_Core_CsvHandler($className);
-        if($parentId){
-            $obj->generateCsv($parentId , true);
-        } elseif($id){
-            $obj->generateCsv($id , false);
-        }
-        $this->_helper->layout->disableLayout();
-        $this->_helper->viewRenderer->setNoRender(true);
-        echo $obj->getCsv();
+        $type = $this->_getParam('type');
+        $obj = new Model_CsvDownload();
+        echo $obj->downloadCsv($type);
         exit;
     }
     

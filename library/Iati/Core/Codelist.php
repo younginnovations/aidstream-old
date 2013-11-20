@@ -8,8 +8,10 @@ class Iati_Core_Codelist
 {
     public static function getCodelistTable($elementName , $attributeName)
     {
-         if($attributeName == '@xml_lang'){
+        if($attributeName == '@xml_lang'){
             return 'Language';
+        } else if($attributeName == '@currency' || $attributeName == 'currency'){
+            return 'Currency';
         } else {
             $switch = $elementName."_".preg_replace('/@/','',$attributeName);
             switch($switch)

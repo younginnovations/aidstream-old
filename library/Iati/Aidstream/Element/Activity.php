@@ -38,7 +38,8 @@ class Iati_Aidstream_Element_Activity extends Iati_Core_BaseElement
                                         'RelatedActivity' ,
                                         'Conditions' ,
                                         'Result' ,
-                                        'CountryBudgetItems'
+                                        'CountryBudgetItems',
+                                        'LegacyData'
                                     );
     protected $attribs = array('id' , '@xml_lang' , '@default_currency' , '@hierarchy','@last_updated_datetime', '@linked_data_uri');
     protected $iatiAttribs = array('@xml_lang' , '@default_currency' ,'@hierarchy', '@last_updated_datetime' , '@linked_data_uri');
