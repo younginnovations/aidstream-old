@@ -1505,6 +1505,7 @@ fieldset dl
     background: #f4f4f4;
     border-bottom:1px solid #d1d1d1;
     margin:2px 0;
+	width: 600px;
 }
 
 .activity-list fieldset.innermost-wrapper:hover, .element-wrapper .form-wrapper .element-wrapper:hover
@@ -1524,7 +1525,7 @@ fieldset dl
 	color:#336666;
 	font-size:14px;
 	font-weight:bold;
-	/*margin-bottom:10px;*/
+	margin-bottom:8px;
 	padding:5px 0 5px 10px;
 }
 
@@ -2879,6 +2880,7 @@ button#cd-cancel, button#cd-ok
 	display: block;
 	padding: 0 10px;
 	clear: both;
+	width: 580px;
 }
 
 .element-remove-this .button:hover {
@@ -4073,6 +4075,7 @@ li.result .res-style-1 li {
 
 .result-form-container .add-more {
 	float: right;
+	width:108px;
 	/*margin-right: 10px;*/
 }
 
@@ -5488,25 +5491,32 @@ fieldset#fieldset-organisation_info {
 	padding: 7px 16px;
 }
 
-.activity-list-table td.status {
-	width: 74px;
-	border-right: 10px solid #E76B6B;
+#contain .activity-list-table td.status {
+	padding-right:8px;
+}
+
+.activity-list-table td.status div {
+	background: #E76B6B;
 	overflow: hidden;
 	height: 100%;
 	padding-right: 0;
+	color: #fff;
+	text-align: center;
+	font-size: 12px;
+	padding: 2px;
 }
 
 
-.activity-list-table td.status.completed {
-	border-color: #FCB941;
+.activity-list-table td.status.completed div {
+	background: #FCB941;
 }
 
-.activity-list-table td.status.verified {
-	border-color: #2C82C9;
+.activity-list-table td.status.verified div {
+	background: #2C82C9;
 }
 
-.activity-list-table td.status.published {
-	border-color: #2CC88F;
+.activity-list-table td.status.published div {
+	background: #2CC88F;
 }
 
 .second-title {
