@@ -482,17 +482,10 @@ class OrganisationController extends Zend_Controller_Action
                             $organisationpublishedModel = new Model_OrganisationPublished();
                             $files = $organisationpublishedModel->getPublishedInfo($account_id);
 
-                            foreach ($files as $file)
-                            {
-                                $reg->prepareOrganisationRegistryData($file);
-                                $reg->publishToRegistry();
-                            }
-
-                            if ($reg->getErrors())
-                            {
-                                $this->_helper->FlashMessenger->addMessage(array('message' => 'Organisation xml files created. ' . $reg->getErrors()));
-                            } else
-                            {
+                            $published =  Model_Registry::publish($files , $accountId , $registryInfo , true);
+                            if($published['error']){
+                                $this->_helper->FlashMessenger->addMessage(array('error' => $published['error']));
+                            } else {
                                 $this->_helper->FlashMessenger->addMessage(array('message' => "Organisation published to IATI registry."));
                             }
                         }
@@ -547,15 +540,11 @@ class OrganisationController extends Zend_Controller_Action
             $organisationPublishedModel = new Model_OrganisationPublished();
             $files = $organisationPublishedModel->getPublishedInfoByIds($fileIds);
 
-            foreach($files as $file){
-                $reg->prepareOrganisationRegistryData($file);
-                $reg->publishToRegistry();
-            }
-
-            if($reg->getErrors()){
-                $this->_helper->FlashMessenger->addMessage(array('error' => $reg->getErrors()));
+            $published =  Model_Registry::publish($files , $accountId , $registryInfo , true);
+            if($published['error']){
+                $this->_helper->FlashMessenger->addMessage(array('error' => $published['error']));
             } else {
-                $this->_helper->FlashMessenger->addMessage(array('message' => "Organisation registered to IATI registry."));
+                $this->_helper->FlashMessenger->addMessage(array('message' => "Organisation published to IATI registry."));
             }
         }
 

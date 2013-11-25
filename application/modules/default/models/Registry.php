@@ -1,14 +1,12 @@
 <?php
 
-class Model_Registry extends Zend_Db_Table_Abstract
+class Model_Registry 
 {
     /**
      * @todo remove $registryInfo parameter and fetch internally.
      */
-    public static function publish($files , $publisherId , $registryInfo)
+    public static function publish($files , $publisherId , $registryInfo , $organisation = false)
     {
-        $reg = new Iati_Registry($registryInfo->publisher_id , $registryInfo->api_key);
-        
         // Set publihser name for file title
         $model = new Model_Wep();
 
@@ -16,11 +14,19 @@ class Model_Registry extends Zend_Db_Table_Abstract
         $defaults = $defaultFieldsValues->getDefaultFields();
 
         $publisherName = $defaults['reporting_org'];
-        $reg->setPublisherName($publisherName);
+        
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $email = $identity->email;
+        $publisherInfo = array('name' => $publisherName , 'email' => $email);
+        
+        $reg = new Iati_Core_Registry($registryInfo->publisher_id , $registryInfo->api_key , $publisherInfo);
+        $reg->setVersion(Zend_Registry::getInstance()->config->registry->version);
 
         foreach($files as $file){
-            $reg->prepareRegistryData($file);
-            $reg->publishToRegistry();
+            $fileObj = new Iati_Core_Registry_File();
+            $fileObj->setData($file);
+            if($organisation) $fileObj->setIsOrganisationData();
+            $reg->publishToRegistry($fileObj);
         }
 
         if($reg->getErrors()){

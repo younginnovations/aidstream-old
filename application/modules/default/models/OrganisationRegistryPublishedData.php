@@ -3,10 +3,10 @@ class Model_OrganisationRegistryPublishedData extends Zend_Db_Table_Abstract
 {
     protected $_name = 'organisation_registry_published_data';
 
-    public function saveRegistryPublishInfo($fileId , $response)
+    public function saveRegistryPublishInfo($fileId , $filename , $response)
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
-        $data['filename'] = $response->name;
+        $data['filename'] = $filename;
         $data['file_id'] = $fileId;
         $serialisedResponse = serialize($response);
         $data['response'] = $serialisedResponse;

@@ -25,7 +25,7 @@ class Ckan_Client
 	 * @link	http://knowledgeforge.net/ckan/doc/ckan/api.html#ckan-api-keys
 	 * @since	Version 0.1.0
 	 */
-	private $api_key = FALSE;
+	protected $api_key = FALSE;
 
 	/**
 	 * Version of the CKAN API we're using.
@@ -34,7 +34,7 @@ class Ckan_Client
 	 * @link	http://knowledgeforge.net/ckan/doc/ckan/api.html#api-versions
 	 * @since	Version 0.1.0
 	 */
-	private $api_version = '';
+	protected $api_version = '';
 
 	/**
 	 * URI to the CKAN web service.
@@ -42,21 +42,21 @@ class Ckan_Client
 	 * @var		string
 	 * @since	Version 0.1.0
 	 */
-	private $base_url = 'http://iati.test.ckan.net/api/';
+	protected $base_url = 'http://iati.test.ckan.net/api/';
 
 	/**
 	 * Internal cURL object.
 	 *
 	 * @since	Version 0.1.0
 	 */
-	private $ch = FALSE;
+	protected $ch = FALSE;
 
 	/**
 	 * cURL headers.
 	 *
 	 * @since	Version 0.1.0
 	 */
-	private $ch_headers;
+	protected $ch_headers;
 
 	/**
 	 * Standard HTTP status codes.
@@ -64,7 +64,7 @@ class Ckan_Client
 	 * @var		array
 	 * @since	Version 0.1.0
 	 */
-	private $http_status_codes = array(
+	protected $http_status_codes = array(
 		'200' => 'OK',
 		'301' => 'Moved Permanently',
 		'400' => 'Bad Request',
@@ -81,7 +81,7 @@ class Ckan_Client
 	 * @link	http://knowledgeforge.net/ckan/doc/ckan/api.html#ckan-model-api
 	 * @since	Version 0.1.0
 	 */
-	private $resources = array(
+	protected $resources = array(
 		'package_register' => 'rest/package',
 		'package_entity' => 'rest/package',
 		'group_register' => 'rest/group',
@@ -102,7 +102,7 @@ class Ckan_Client
 	 * @var		string
 	 * @since	Version 0.1.0
 	 */
-	private $user_agent = 'Ckan_client-PHP/%s';
+	protected $user_agent = 'Ckan_client-PHP/%s';
 
 	/**
 	 * Ckan_client version number.
@@ -110,9 +110,9 @@ class Ckan_Client
 	 * @var		string
 	 * @since	Version 0.1.0
 	 */
-	private $version = '0.1.0';
+	protected $version = '0.1.0';
 	
-	private $error;
+	protected $error;
 
 	// Magic methods ------------------------------------------------------
 
@@ -132,7 +132,7 @@ class Ckan_Client
 			$this->set_api_key($api_key);
 		}
                 // set base URI from application.ini
-                $this->base_url = Zend_Registry::getInstance()->config->registry;
+                $this->base_url = Zend_Registry::getInstance()->config->registry->url;
                 
 		// Set base URI and Ckan_client user agent string.
 		//$this->set_base_url();
@@ -198,11 +198,11 @@ class Ckan_Client
 	/**
 	 * Sets the CKAN API base URI.
 	 *
-	 * @access	private
+	 * @access	protected
 	 * @return	void
 	 * @since	Version 0.1.0
 	 */
-	private function set_base_url()
+	protected function set_base_url()
 	{
 		// Append the CKAN API version to the base URI.
 		$this->base_url = sprintf($this->base_url, $this->api_version);
@@ -211,11 +211,11 @@ class Ckan_Client
 	/**
 	 * Sets the custom cURL headers.
 	 *
-	 * @access	private
+	 * @access	protected
 	 * @return	void
 	 * @since	Version 0.1.0
 	 */
-	private function set_headers()
+	protected function set_headers()
 	{
 		$date = new DateTime(NULL, new DateTimeZone('UTC'));
 		$this->ch_headers = array(
@@ -229,11 +229,11 @@ class Ckan_Client
 	/**
 	 * Sets the Ckan_client user agent string.
 	 *
-	 * @access	private
+	 * @access	protected
 	 * @return	void
 	 * @since	Version 0.1.0
 	 */
-	private function set_user_agent()
+	protected function set_user_agent()
 	{
 		if ('80' === @$_SERVER['SERVER_PORT'])
 		{
@@ -604,19 +604,19 @@ class Ckan_Client
 		}
 	}
 
-	// Private methods ----------------------------------------------------
+	// protected methods ----------------------------------------------------
 
 	/**
 	 * Make a request to the CKAN API.
 	 *
-	 * @access	private
+	 * @access	protected
 	 * @param	string	HTTP method (GET, PUT, POST).
 	 * @param	string	URI fragment to CKAN resource.
 	 * @param	string	Optional. String in JSON-format that will be in request body.
 	 * @return	mixed	If success, either an array or object. Otherwise FALSE.
 	 * @since	Version 0.1.0
 	 */
-	private function make_request($method, $url, $data = FALSE)
+	protected function make_request($method, $url, $data = FALSE)
 	{
 		// Set cURL method.
 		curl_setopt($this->ch, CURLOPT_CUSTOMREQUEST, strtoupper($method));
@@ -655,6 +655,7 @@ class Ckan_Client
 		curl_setopt($this->ch, CURLOPT_HTTPHEADER, $this->ch_headers);
 		// Execute request and get response headers.
 		$response = curl_exec($this->ch);
+		
 		$info = curl_getinfo($this->ch);
 		// Check HTTP response code
 		if ($info['http_code'] !== 201 && $info['http_code'] !== 200)
@@ -679,13 +680,13 @@ class Ckan_Client
 	/**
 	 * Parse the response from the CKAN API.
 	 *
-	 * @access	private
+	 * @access	protected
 	 * @param	string	Data returned from the CKAN API.
 	 * @param	string	Format of data returned from the CKAN API.
 	 * @return	mixed	If success, either an array or object. Otherwise FALSE.
 	 * @since	Version 0.1.0
 	 */
-	private function parse_response($data = FALSE, $format = FALSE)
+	protected function parse_response($data = FALSE, $format = FALSE)
 	{
 		if ($data)
 		{
