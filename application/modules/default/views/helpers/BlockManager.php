@@ -38,4 +38,9 @@ class Zend_View_Helper_BlockManager extends Zend_View_Helper_Abstract
   		else 
   			return false;
   	}
+	
+	public function getEnabledBlocks()
+	{
+		return $this->enabledBlocks;
+	}
 }

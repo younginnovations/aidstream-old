@@ -1,15 +1,62 @@
 <?php
-    // Activities block
-    print $this->blockManager()->get('partial/activitymenu.phtml');
-    print $this->blockManager()->get('partial/primarymenu.phtml');
-    print $this->blockManager()->get('partial/add-activity-menu.phtml');
+    $enabledBlocks = $this->blockManager()->getEnabledBlocks();
+    $dataBlocks = array(
+        'partial/primarymenu.phtml',
+        'partial/add-activity-menu.phtml',
+        'partial/organisation-menu.phtml',
+        'partial/organisation-data.phtml',
+        'partial/published-list.phtml',
+        'partial/download-my-data.phtml',
+        'partial/superadmin-menu.phtml',
+        'partial/simplified-info.phtml'
+    );
     
-    // Organizations block
-    print $this->blockManager()->get('partial/organisation-menu.phtml');
-    print $this->blockManager()->get('partial/organisation-data.phtml'); 
+    $managementBlocks = array(
+        'partial/usermgmtmenu.phtml',
+        'partial/uploaded-docs.phtml'
+    );
     
-    print $this->blockManager()->get('partial/published-list.phtml');
-    print $this->blockManager()->get('partial/usermgmtmenu.phtml');
-    print $this->blockManager()->get('partial/superadmin-menu.phtml');
-    print $this->blockManager()->get('partial/simplified-info.phtml');
+    $otherBlocks = array(
+        'partial/activitymenu.phtml'
+    );
 ?>
+<?php
+    $hasDataBlock = false;
+    $hasMgmtBlock = false;
+    $hasOtherBlock = false;
+    
+    foreach($enabledBlocks as $block){
+        if($hasDataBlock || in_array($block , $dataBlocks)){
+            $hasDataBlock = true;
+        }
+        
+        if($hasMgmtBlock || in_array($block , $managementBlocks)){
+            $hasMgmtBlock = true;
+        }
+        
+        if($hasOtherBlock || in_array($block , $otherBlocks)){
+            $hasOtherBlock = true;
+        }
+    }
+?>
+<?php if($hasDataBlock) : ?>
+    <div class="data-block">
+        <?php foreach($dataBlocks as $dataBlock): ?>
+            <?php print $this->blockManager()->get($dataBlock); ?>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
+<?php if($hasMgmtBlock): ?>
+    <div class='management-block'>
+        <?php foreach($managementBlocks as $managemaneBlock): ?>
+            <?php print $this->blockManager()->get($managemaneBlock); ?>
+        <?php endforeach;?>
+    </div>
+<?php endif; ?>
+<?php if($hasOtherBlock) : ?>
+    <div class='other'>
+        <?php foreach($otherBlocks as $otherBlock): ?>
+            <?php print $this->blockManager()->get($otherBlock); ?>
+        <?php endforeach; ?>
+    </div>
+<?php endif;?>

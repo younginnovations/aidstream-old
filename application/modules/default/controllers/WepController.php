@@ -17,6 +17,7 @@ class WepController extends Zend_Controller_Action
         $this->view->blockManager()->enable('partial/primarymenu.phtml');
         $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
         $this->view->blockManager()->enable('partial/published-list.phtml');
+        $this->view->blockManager()->enable('partial/download-my-data.phtml');
         $this->view->blockManager()->enable('partial/organisation-data.phtml');
         
         
@@ -35,7 +36,7 @@ class WepController extends Zend_Controller_Action
         }
 
         $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
-
+        $this->view->blockManager()->enable('partial/uploaded-docs.phtml');
     }
 
     public function indexAction()
@@ -82,7 +83,7 @@ class WepController extends Zend_Controller_Action
         $this->view->last_updated_datetime = $activityModel->getLastUpdatedDatetime($activities);
         $this->view->published_activity_count = $regPublishModel->getActivityCount($publishedFiles);
         $this->view->activity_elements_info = $activitiesAttribs;
-        $this->view->registry_url = Zend_Registry::get('config')->registry->url."../../../publisher/".$regInfo->publisher_id;
+        $this->view->registry_url = Zend_Registry::get('config')->registry."../publisher/".$regInfo->publisher_id;
         $this->view->activities_id = $activities_id;
 
     }
@@ -1586,13 +1587,13 @@ class WepController extends Zend_Controller_Action
                         $count = $csvHandler->uploadDataToTransaction($activityId);
                         if(!$count){
                             $messanger = $this->_helper->FlashMessenger;
-                            $messanger->addMessage(array('error' => 'You have following errors in your file. Please enter correct details'));
+                            $messanger->addMessage(array('trans-error' => 'You have following errors in your file. Please enter correct details'));
                             foreach($csvHandler->getErrors() as $tranCount => $error){
                                 $tranNo = $tranCount+1;
                                 if(!empty($error)){
-                                    $messanger->addMessage(array('error' =>"<div class='tran-no'>Transaction no: {$tranNo}</div>"));
+                                    $messanger->addMessage(array('trans-error' =>"<div class='tran-no'>Transaction no: {$tranNo}</div>"));
                                     foreach($error as $errormessage){
-                                        $messanger->addMessage(array('error' => " # ".$errormessage['message']));
+                                        $messanger->addMessage(array('trans-error' => " # ".$errormessage['message']));
                                     }
                                 }
                             }

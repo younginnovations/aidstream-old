@@ -623,7 +623,7 @@ h2.form-title {
 #contain-left
 {
 	float:left;
-	width: 610px;
+	width: 600px;
 	margin-left: 10px;
 }
 
@@ -652,7 +652,7 @@ h2.form-title {
 
 /* sidebar */
 
-#sidebar-right .block
+#sidebar-right .data-block,#sidebar-right .management-block
 {
 	background: #f6f6f6;
 	border: 1px solid #bfbfbf;
@@ -663,7 +663,7 @@ h2.form-title {
 	margin-bottom: 10px;
 }
 
-#sidebar-right .block:hover
+#sidebar-right .data-block:hover,#sidebar-right .management-block:hover
 {
 	border-color:#8BBCF8;
 	-webkit-box-shadow: 0px 0px 5px 2px #ccc;
@@ -671,11 +671,26 @@ h2.form-title {
 	box-shadow: 0px 0px 5px 2px #ccc; 
 }
 
+#sidebar-right .data-block .block,#sidebar-right .management-block .block {
+	margin-top: 8px;
+	font-size: 12px;
+	border-top: 1px dashed #ccc;
+	padding-top: 8px;
+}
+
+#sidebar-right .data-block .block:first-child,#sidebar-right .management-block .block:first-child {
+	border-top: 0;
+	padding-top: 0;
+	margin-top: 0;
+}
+
 #block-list-menu .action-icon a,
 #block-add-menu .action-icon a,
 #block-list-published-files .action-icon a,
 #block-list-activity-states .action-icon a,
-#block-list-help .action-icon a
+#block-list-help .action-icon a,
+#block-download-data-menu .action-icon a,
+#block-uploaded-doc-menu .action-icon a
 {
 	display: block;
 	width: 48px;
@@ -692,9 +707,11 @@ h2.form-title {
 #block-list-menu a,
 #block-list-activity-states-menu a,
 #block-list-help a,
-#block-list-activity-states a{
+#block-list-activity-states a,
+#block-download-data-menu a,
+#block-uploaded-doc-menu a {
 	font-weight: bold;
-	font-size: 14px;
+	font-size: 13px;
 }
 
 #sidebar-right #block-activity-menu 
@@ -1412,7 +1429,7 @@ legend {
 
 /** new default fieldset css **/
 fieldset{
-    padding: 0 0 8px;
+    padding: 8px 0;
     background: none;
 }
 
@@ -1428,7 +1445,6 @@ legend {
     display: block;
     font-size: 16px;
     font-weight: bold;
-    margin-top:5px;
     margin:0 0 10px 0 \0/;
     padding: 5px 0 5px 10px;
     width:590px;
@@ -1504,7 +1520,7 @@ fieldset dl
     /*padding: 10px;*/
     background: #f4f4f4;
     border-bottom:1px solid #d1d1d1;
-    margin:2px 0;
+    margin:1px 0;
 	width: 600px;
 }
 
@@ -1735,7 +1751,6 @@ table.activity-list-table .title a
 #contain table.activity-list-table,  .user-list{
 	margin-bottom: 20px;
 	border: 1px solid #dcdcdc;
-	overflow: hidden;
 }
 
 .user-list {
@@ -1743,7 +1758,7 @@ table.activity-list-table .title a
 }
 
 table.activity-list-table .title .title-activity,
-table.user-list-table .title .title-activity
+table.user-list-table .title .title-activity {
 	/*float: left;
 	width: 200px;*/
 }
@@ -2774,6 +2789,10 @@ h1 .edit-this a:hover, h1 .change-password a:hover {
 	-webkit-border-radius:4px;
 }
 
+.claro .dijitDialog.document-dialogbox {
+	width: 45%!important;
+}
+
 .claro .dijitDialogTitleBar
 {
 	background-color:#fff;
@@ -2787,12 +2806,22 @@ h1 .edit-this a:hover, h1 .change-password a:hover {
 {
 	border-top:none;
 	padding: 0 20px 8px;	
+	max-height: 500px!important;
+	overflow: auto;
+}
+
+.claro .dijitDialogPaneContent .information {
+	margin-bottom: 10px;
+	border: 1px solid #fbd84c;
+	color: #222;
+	background-color: #FEEFB3;
+	padding: 4px 10px;
+	font-size: 12px;
 }
 
 .view-element-dialogbox .dijitDialogPaneContent 
 {
-	height: 400px!important;
-	overflow-x: scroll;
+	max-height: 400px!important;
 }
 
 .claro .dijitDialogPaneContent p
@@ -2969,6 +2998,29 @@ button#cd-cancel, button#cd-ok
 	background-position:0 -1584px;
 }
 
+#block-download-data-menu .action-icon a
+{
+	background-position:0 -1670px;
+}
+
+
+#block-download-data-menu:hover .action-icon a
+{
+	background-position:0 -1750px;
+}
+
+#block-uploaded-doc-menu .action-icon a
+{
+	background-position:0 -1840px;
+}
+
+
+#block-uploaded-doc-menu:hover .action-icon a
+{
+	background-position:0 -1930px;
+}
+
+
 /* change Default Page */
 .default-info {
 	background-color:#fff88d;
@@ -3077,7 +3129,7 @@ fieldset ul.errors, fieldset p.error {
 	margin-left: 220px;
 }
 
-.message, .info, .error, ul.error, .warning
+.message, .info, .error, ul.error, .warning,.trans-error
 {
 	background-color:#fce9b6;
 	border-radius: 4px;
@@ -3086,6 +3138,25 @@ fieldset ul.errors, fieldset p.error {
 	font-size:12px;
 	font-style:italic;
 	color: #000;
+}
+
+.trans-error {
+	position: relative;
+	padding: 10px 10px 10px 48px;
+}
+
+.trans-error:before {
+	background: url('images/inner-pages-icons.png') 15px -425px;
+	position: absolute;
+	width: 40px;
+	height: 30px;
+	top: 6px;
+	left: 0;
+	content: "";
+}
+
+.trans-error li {
+	
 }
 
 input.error, select.error, textarea.error
@@ -3339,7 +3410,15 @@ td.activity_view_label {
 	width:200px;
 }
 
-.add-more-link a {
+.add-more-link {
+	float: left;
+}
+
+#transaction-upload {
+	float: left;
+}
+
+.add-more-link a,#transaction-upload a,.download-format a {
 	background: #009ADA;
     border-radius: 4px;
     color: #FFFFFF;
@@ -3349,7 +3428,12 @@ td.activity_view_label {
     text-decoration: none;
 }
 
-.add-more-link a:hover {
+.btn-or {
+	float: left;
+	margin: 4px 10px;
+}
+
+.add-more-link a:hover,#transaction-upload a:hover,.download-format a:hover {
 	background: #037BAC;
 }
 
@@ -3974,6 +4058,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7db9e8', end
 
 #save_and_view-element,#save-element {
 	display: inline-block;
+	margin-top: 4px;
 }
 
 #organisation_file_ids-label,#push_to_registry_for_organisation-label,#update-label {
@@ -5496,29 +5581,138 @@ fieldset#fieldset-organisation_info {
 }
 
 .activity-list-table td.status div {
-	background: #E76B6B;
+	background: rgba(231,107,107,0.8);
 	overflow: hidden;
 	height: 100%;
 	padding-right: 0;
 	color: #fff;
 	text-align: center;
-	font-size: 12px;
+	font-size: 10px;
 	padding: 2px;
+	border-radius: 2px;
 }
 
 
 .activity-list-table td.status.completed div {
-	background: #FCB941;
+	background: rgba(252,185,65,0.8);
 }
 
 .activity-list-table td.status.verified div {
-	background: #2C82C9;
+	background: rgba(44,110,201,0.8);
 }
 
 .activity-list-table td.status.published div {
-	background: #2CC88F;
+	background: rgba(44,200,143,0.8);
 }
 
 .second-title {
 	width: 595px;
+}
+
+.download-links {
+	margin-top:20px;
+}
+
+.download-links li {
+	float: left;
+	margin-right: 14px;
+}
+
+.download-links li a {
+	background: #009ada;
+	display: inline-block;
+	padding: 5px 20px;
+	color: #FFF;
+	font-size: 12px;
+	text-decoration: none;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+
+.download-links li a:hover {
+	background:#037bac;
+}
+
+table.uploaded-docs,.claro .dijitDialogPaneContent table {
+	border: 1px solid #dcdcdc;
+	background-color: #f2f2f2;
+	margin-bottom: 20px;
+	width: 100%;
+}
+
+table.uploaded-docs tr,.claro .dijitDialogPaneContent table tr {
+	border-bottom: 1px solid #dcdcdc;
+}
+
+#upload-document-form #upload-label {
+	display:none;
+}
+
+#upload-document-form #upload-element {
+	margin-bottom: 16px;
+}
+
+.claro .dijitDialogPaneContent table th,.claro .dijitDialogPaneContent table td {
+	padding: 4px 10px;
+	text-align: left;
+}
+
+th.doc-link {
+	width: 300px;
+}
+
+.claro .dijitDialog.document-dialogbox th.doc-link {
+	width: 400px;
+}
+
+.transaction-wrap #upload-transaction-form {
+	background: #f2f2f2;
+	padding: 10px;
+	border-radius: 3px;
+	border: 1px solid #dcdcdc;
+}
+
+#contain .transaction-wrap .description {
+	margin-left: 218px;
+	padding: 0;
+}
+
+.transaction-wrap #upload-element {
+	margin: 4px 0 20px 218px;
+}
+
+.download-format {
+	margin-top: 14px;
+	display: block;
+}
+
+.tran-no {
+	font-weight:bold;
+	margin-top: 4px;
+}
+
+.trans-error li:first-child .tran-no {
+	margin-top: 0;
+}
+
+#loginform-element legend {
+	margin-bottom: 14px;
+}
+
+#loginform-element label {
+	line-height: 24px;
+}
+
+#loginform-element input[type="text"],#loginform-element input[type="password"] {
+	height: 20px;
+}
+
+#loginform-element dl.clearfix {
+	margin-bottom: 10px;
+}
+
+.no-budget {
+	display: block;
+    margin-bottom: 6px;
 }

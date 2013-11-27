@@ -195,7 +195,10 @@ class User_UserController extends Zend_Controller_Action
             $this->view->blockManager()->enable('partial/primarymenu.phtml');
             $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
             $this->view->blockManager()->enable('partial/published-list.phtml');
+            $this->view->blockManager()->enable('partial/download-my-data.phtml');
             $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
+            $this->view->blockManager()->enable('partial/uploaded-docs.phtml');
+            
             // for role user check if the user has permission to add, publish ,if not disable menu.
             if($identity->role == 'user'){
                 $model = new Model_Wep();
@@ -305,7 +308,9 @@ class User_UserController extends Zend_Controller_Action
             $this->view->blockManager()->enable('partial/primarymenu.phtml');
             $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
             $this->view->blockManager()->enable('partial/published-list.phtml');
+            $this->view->blockManager()->enable('partial/download-my-data.phtml');
             $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
+            $this->view->blockManager()->enable('partial/uploaded-docs.phtml');
             // for role user check if the user has permission to add, publish ,if not disable menu.
             if($identity->role == 'user'){
                 $model = new Model_Wep();

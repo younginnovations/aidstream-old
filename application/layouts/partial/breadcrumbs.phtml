@@ -338,9 +338,15 @@ switch($identity->role){
     break;
 
 }
-echo '<div class="breadcrumbs">';
-echo $this->navigation()->breadcrumbs()->setLinkLast(false)->setMinDepth(0)->render();
-echo '</div>';
+$breadcrumb = $this->navigation()->breadcrumbs()->setLinkLast(false)->setMinDepth(0)->render();
+?>
+<?php if($breadcrumb): ?>
+    <div id="breadcrumb">
+        <div class="breadcrumbs">
+            <?php echo $breadcrumb; ?>
+        </div>
+    </div>
+<?php endif; ?>
 
 
 

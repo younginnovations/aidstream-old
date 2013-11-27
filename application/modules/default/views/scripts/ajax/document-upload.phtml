@@ -1,7 +1,9 @@
 <?php if($this->docUrl):?>
+ 	<div class="information">
     Your document has been uploaded. Your document's url is
     <a href="<?php echo $this->docUrl; ?>" target="__blank"><?php echo $this->docUrl;?></a>.
     Please <a href="<?php echo $this->docUrl;?>" class="use-this">Use this</a>
+    </div>
 <?php else:?>
     <div class="information">
         You can upload your document here. Once your document is uploaded, a link will be provided.
@@ -18,7 +20,7 @@
     <thead>
         <tr>
             <th>S No.</th>
-            <th>Document Link</th>
+            <th class="doc-link">Document Link</th>
             <th></th>
         </tr>
     </thead>
