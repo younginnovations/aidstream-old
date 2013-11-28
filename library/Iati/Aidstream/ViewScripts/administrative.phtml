@@ -1,0 +1,21 @@
+<?php $this->headLink()->appendStylesheet($this->baseUrl() . '/js/map/leaflet-0.6.4/leaflet.css'); ?>
+<?php $this->headScript()->appendFile($this->baseUrl() . '/js/map/leaflet-0.6.4/leaflet.js', $type = 'text/javascript'); ?>
+<?php $this->headScript()->appendFile($this->baseUrl() . '/js/map/map.js', $type = 'text/javascript'); ?>
+
+<?php $form = $this->element;?>
+<?php $belongsTo = $form->getElement('id')->getId();?>
+<?php $formId = preg_replace('/-Administrative-id/' , '' , $belongsTo);?>
+
+<div class="element-wrapper">
+    <fieldset id='fieldset-Administrative'>
+        <legend>Administrative</legend>
+        <div>
+            <div class='form-wrapper'>
+                <?php foreach($form->getElements() as $element):?>
+                <?php echo $element;?>
+                <? endforeach;?>
+            </div>
+        </div>
+    </fieldset>
+</div>
+<div id='<?php echo $formId;?>' class='administrative-map' style="height:400px;"></div>

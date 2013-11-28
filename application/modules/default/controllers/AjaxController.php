@@ -137,5 +137,22 @@ class AjaxController extends Zend_Controller_Action
         $this->view->docs = $docs;
         
         $this->_helper->layout->disableLayout();
-    }    
+    }
+    
+    public function getCountryAction()
+    {
+        $code = $this->_getParam('code');
+        $id = $this->_getParam('id');
+        if($code){
+            $model = new Model_Wep();
+            $country = $model->findIdByFieldData('Country' , $code , 1);
+            echo $country[0]['id'];exit;
+        } else if($id) {
+            $model = new Model_Wep();
+            $country  = $model->fetchValueById('Country' , $id , 'Name');
+            echo strtolower($country); exit;
+        } else {
+            echo "Unknown";exit;
+        }
+    }
 }

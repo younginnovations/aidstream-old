@@ -1598,7 +1598,7 @@ function initialize() {
 			    style: "width: 520px;",
 			    autofocus: true
 			});
-			
+			uploadDialog.attr('class' , 'document-dialogbox');
 			uploadDialog.show();
 			dojo.behavior.apply();
                     },
@@ -1638,7 +1638,7 @@ function initialize() {
 			    style: "width: 520px;",
 			    autofocus: true
 			});
-			
+			uploadDialog.attr('class' , 'document-dialogbox');
 			uploadDialog.show();
 			dojo.behavior.apply();
                     },
@@ -1646,6 +1646,21 @@ function initialize() {
                         console.log(err);
                     }
                 });
+	    }
+	},
+	
+	".administrative-map" : {
+	    "found" : function(ele){				
+		var id = dojo.attr(ele , 'id');
+		var lat = dojo.attr(id + '-Coordinates-latitude', 'value');
+		var lng = dojo.attr(id + '-Coordinates-longitude' , 'value');
+		if(lat && lng){
+		    var map = initMap(ele , [lat , lng]);
+		} else {
+		    var map = initMap(ele , '');
+		}
+		
+		addCountryChange(id + '-Administrative-country' , map);
 	    }
 	}
     });

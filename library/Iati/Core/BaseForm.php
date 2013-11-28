@@ -271,10 +271,9 @@ abstract class Iati_Core_BaseForm extends Zend_Form
             return $isValid;
         } else {
             foreach ($this->getElements() as $element){
+                if($element->getType() == 'Iati_Form_Element_Note') continue;
                 $data[$element->getName()] = $element->getValue();
             }
-            unset($data['remove']);
-            unset($data['add']);
             $empty = true;
             if(!empty($data)){
                 foreach($data as $key=>$value){
@@ -318,7 +317,7 @@ abstract class Iati_Core_BaseForm extends Zend_Form
         }
 
         // Add a wrapper div to all elements other than add and remove buttons.
-        if($element->getName() != 'add' && $element->getName() != 'remove' && $element->getType() != 'Zend_Form_Element_Submit'){
+        if($element->getType() != 'Iati_Form_Element_Note' && $element->getType() != 'Zend_Form_Element_Submit'){
 
             if($element->getName() == 'id' || ($element->getType() == 'Zend_Form_Element_Hidden' && preg_match('/_id/' , $element->getName()))){
                 $element->addDecorators(array(
