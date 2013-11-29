@@ -1637,7 +1637,9 @@ class WepController extends Zend_Controller_Action
         $model = new Model_UserDocument();
         
         $docs = $model->fetchAllDocuments($accountId);
+        $usedDocs = $model->fetchUsedDocuments($accountId);
         
         $this->view->docs = $docs;
+        $this->view->usedDocs = $usedDocs;
     }
 }
