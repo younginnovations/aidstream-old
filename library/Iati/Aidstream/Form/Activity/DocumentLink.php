@@ -20,7 +20,7 @@ class Iati_Aidstream_Form_Activity_DocumentLink extends Iati_Core_BaseForm
             ->setRequired()
             ->setValue($this->data['@url'])
             ->setDescription("If your document is not uploaded,
-                             <a href='#' class='upload-here'>upload it</a>
+                             <a href='#' class='upload-here'>Upload it</a>
                              in AidStream. You can also add from your
                              <a href='#' class='existing-doc'>existing</a> documents in Aidstream")
             ->setAttribs(array('rows'=>'2' , 'cols'=> '20'))

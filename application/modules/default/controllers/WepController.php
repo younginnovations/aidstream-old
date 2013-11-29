@@ -1627,6 +1627,17 @@ class WepController extends Zend_Controller_Action
             }
         }
         $this->view->form = $form;
+        $this->view->activityId = $activityId;
+        $this->view->blockManager()->enable('partial/override-activity.phtml');
+        $this->view->blockManager()->enable('partial/activitymenu.phtml');
+        $this->view->blockManager()->disable('partial/primarymenu.phtml');
+        $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
+        $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
+        $this->view->blockManager()->disable('partial/published-list.phtml');
+        $this->view->blockManager()->disable('partial/organisation-data.phtml');
+        $this->view->blockManager()->disable('partial/uploaded-docs.phtml'); 
+        $this->view->blockManager()->disable('partial/download-my-data.phtml'); 
+
     }
     
     public function listUploadedDocumentsAction()

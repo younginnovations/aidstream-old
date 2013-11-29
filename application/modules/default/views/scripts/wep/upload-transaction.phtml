@@ -1,6 +1,15 @@
+<div class='viewer-link'>
+    <?php
+        echo $this->l('Back to Transaction List' ,
+        'activity/list-elements/?classname=Activity_Transaction&activity_id='
+        .$this->activityId);
+    ?>
+</div>
 <div class="transaction-wrap">
-<?php echo $this->form; ?>
+    <?php echo $this->form; ?>
 
-<span class="download-format">Download format for transction
-<?php echo $this->l('Simple' , 'files/csv/iati_transaction_template.csv'); ?></span>
+    <span class="download-format">
+        Download format for transction
+        <?php echo $this->l('Simple' , 'files/csv/iati_transaction_template.csv'); ?>
+    </span>
 </div>
