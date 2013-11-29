@@ -86,8 +86,12 @@ function updateMapData(map , country)
     $.ajax({
             url: 'http://open.mapquestapi.com/nominatim/v1/search.php',
             data : { format : 'json' , q : country , limit : 1},
+            parseOnLoad : true,
             success: function(data) {
-                var bb = data[0].boundingbox;
+                if(typeof data !='object'){
+                    data = JSON.parse(data);
+                }
+                var bb = data[0]['boundingbox'];
                 map.fitBounds([[bb[0] , bb[3]] , [bb[1] , bb[2]]]);
             },
             error: function(e) {
