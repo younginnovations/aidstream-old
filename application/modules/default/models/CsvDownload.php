@@ -173,18 +173,20 @@ class Model_CsvDownload
      {
           $eleData = $element->getElementsIatiData($elementData);          
           $csvData = array();
-          foreach($eleData as $attrib => $value){
-               $attribName = preg_replace('/@/' , '' , $attrib);
-               $attribValue = '';
-               if($value){
-                   $attribValue = Iati_Core_Codelist::getCodeByAttrib($element->getClassName() , $attribName , $value);
+          if($eleData){
+               foreach($eleData as $attrib => $value){
+                    $attribName = preg_replace('/@/' , '' , $attrib);
+                    $attribValue = '';
+                    if($value){
+                        $attribValue = Iati_Core_Codelist::getCodeByAttrib($element->getClassName() , $attribName , $value);
+                    }
+                    if($useParentAsKey){
+                        $key = $element->getFullName() ."-" . $attribName;
+                    } else {
+                        $key = $element->getClassName() . "-" . $attribName;
+                    }
+                    $csvData[$key] = $attribValue;
                }
-               if($useParentAsKey){
-                   $key = $element->getFullName() ."-" . $attribName;
-               } else {
-                   $key = $element->getClassName() . "-" . $attribName;
-               }
-               $csvData[$key] = $attribValue;
           }
           $childElements = $element->getChildElements();
           if(!empty($childElements)){
@@ -319,7 +321,7 @@ class Model_CsvDownload
      /**
       * Function that handles the download steps for complete activity data
      */
-     public function downloadCompleteData($accountId)
+     public function downloadCompleteData($accountId = '')
      {
           if(!$accountId){
                $identity = Zend_Auth::getInstance()->getIdentity();
@@ -350,7 +352,7 @@ class Model_CsvDownload
      /**
       * Function that handles download steps for simple format.
       */
-     public function downloadSimpleFormat($accountId)
+     public function downloadSimpleFormat($accountId = '')
      {
           if(!$accountId){
                $identity = Zend_Auth::getInstance()->getIdentity();
