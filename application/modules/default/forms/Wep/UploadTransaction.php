@@ -15,7 +15,7 @@ class Form_Wep_UploadTransaction extends App_Form
 
         
         $form['submit'] = new Zend_Form_Element_Submit('upload');
-        $form['submit']->setValue('Upload')
+        $form['submit']->setLabel('Upload')
             ->setAttrib('class' , 'form-submit');
         
         $this->addElements($form);

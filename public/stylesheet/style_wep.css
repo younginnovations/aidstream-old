@@ -3418,7 +3418,7 @@ td.activity_view_label {
 	float: left;
 }
 
-.add-more-link a,#transaction-upload a,.download-format a {
+.add-more-link a,#transaction-upload a,.download-format a,.back-link a {
 	background: #009ADA;
     border-radius: 4px;
     color: #FFFFFF;
@@ -3426,6 +3426,19 @@ td.activity_view_label {
     font-size: 12px;
     padding: 5px 12px;
     text-decoration: none;
+}
+
+.back-link {
+	margin-bottom: 10px;
+	display: block;
+}
+
+.back-link a {
+	background: #777;
+}
+
+.back-link a:hover {
+	background: #444;
 }
 
 .btn-or {
@@ -5662,8 +5675,20 @@ th.doc-link {
 	width: 300px;
 }
 
+.claro .dijitDialog.document-dialogbox th.s-num {
+	width: 36px;
+}
+
+.claro .dijitDialog.document-dialogbox th.use-this {
+	width: 60px;
+}
+
 .claro .dijitDialog.document-dialogbox th.doc-link {
 	width: 400px;
+}
+
+.transaction-wrap {
+	clear: both;
 }
 
 .transaction-wrap #upload-transaction-form {
