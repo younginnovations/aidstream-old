@@ -61,7 +61,18 @@ class Model_RegistryPublishedData extends Zend_Db_Table_Abstract
         foreach($publishedFiles as $file)
         {
             $response = unserialize($file['response']);
-            $count += $response->extras->activity_count;
+            $actCount = $response->extras->activity_count;
+            if($actCount){
+                $count += $response->extras->activity_count;    
+            } else { // for ckan version 1.03 type response
+                $extras = $response->result->extras;
+                foreach($extras as $extra){
+                    if($extra->key == 'activity_count'){
+                        $count += $extra->value;
+                    }
+                }
+            }
+            
         }
         return $count;
     }
