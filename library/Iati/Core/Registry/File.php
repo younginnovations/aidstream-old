@@ -104,7 +104,7 @@ class Iati_Core_Registry_File
      */
     public function saveRegistryPublishInfo($response)
     {   
-        if($this->isOrganisatonData){
+        if($this->isOrganisationData()){
             $model = new Model_OrganisationRegistryPublishedData();
         } else { 
             $model = new Model_RegistryPublishedData();

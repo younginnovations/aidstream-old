@@ -32,7 +32,7 @@ class Iati_Core_Registry_MetadataGenerator_101
                     "activity_period-to" => '',
                     "data_updated"=> date('Y-m-d',strtotime($file->get('dataUpdatedDatetime'))),
                     "record_updated" => date('Y-m-d'),
-                    "activity_count" => $file->get('activitCount'),
+                    "activity_count" => $file->get('activityCount'),
                     "verified" => "no",
                     "language" => "en",
                     ),

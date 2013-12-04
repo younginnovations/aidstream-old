@@ -35,7 +35,7 @@ class Iati_Core_Registry_MetadataGenerator_102
                         array('key' => "activity_period-to" , 'value' => ''),
                         array('key' => "data_updated" , 'value' => date('Y-m-d',strtotime($file->get('dataUpdatedDatetime')))),
                         array('key' => "record_updated" , 'value' => date('Y-m-d')),
-                        array('key' => "activity_count" , 'value' => $file->get('activitCount')),
+                        array('key' => "activity_count" , 'value' => $file->get('activityCount')),
                         array('key' => "verified" , 'value' => "no"),
                         array('key' => "language" , 'value' => "en"),
                     )
