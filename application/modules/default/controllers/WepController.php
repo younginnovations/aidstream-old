@@ -82,7 +82,7 @@ class WepController extends Zend_Controller_Action
         $this->view->last_updated_datetime = $activityModel->getLastUpdatedDatetime($activities);
         $this->view->published_activity_count = $regPublishModel->getActivityCount($publishedFiles);
         $this->view->activity_elements_info = $activitiesAttribs;
-        $this->view->registry_url = Zend_Registry::get('config')->registry->url."../publisher/".$regInfo->publisher_id;
+        $this->view->registry_url = Zend_Registry::get('config')->registry->url."../../../publisher/".$regInfo->publisher_id;
         $this->view->activities_id = $activities_id;
 
     }
