@@ -66,6 +66,7 @@ class Model_RegistryPublishedData extends Zend_Db_Table_Abstract
                 $count += $response->extras->activity_count;    
             } else { // for ckan version 1.03 type response
                 $extras = $response->result->extras;
+                if(empty($extras)) continue;
                 foreach($extras as $extra){
                     if($extra->key == 'activity_count'){
                         $count += $extra->value;

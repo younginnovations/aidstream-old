@@ -435,10 +435,10 @@ class OrganisationController extends Zend_Controller_Action
             if ($state == Iati_WEP_ActivityState::STATUS_PUBLISHED)
             {
                 $identity = Zend_Auth::getInstance()->getIdentity();
-                $account_id = $identity->account_id;
+                $accountId = $identity->account_id;
 
                 $modelRegistryInfo = new Model_RegistryInfo();
-                $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($account_id);
+                $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($accountId);
                 if (!$registryInfo)
                 {
                     $this->_helper->FlashMessenger->addMessage(array('error' => "Registry information not found. Please go to <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a> to add registry info."));
@@ -460,10 +460,10 @@ class OrganisationController extends Zend_Controller_Action
                     
                     //Set all status to 0
                     $modelPublished = new Model_OrganisationPublished();
-                    $modelPublished->resetPublishedInfo($account_id);
+                    $modelPublished->resetPublishedInfo($accountId);
                    
                     $organisationpublishedModel = new Model_OrganisationPublished();
-                    $publishedData['publishing_org_id'] = $account_id;
+                    $publishedData['publishing_org_id'] = $accountId;
                     $publishedData['filename'] = $fileName;
                     $publishedData['organisation_count'] = count($organisationIds);
                     $publishedData['data_updated_datetime'] = $lastUpdateDatetime;
@@ -480,7 +480,7 @@ class OrganisationController extends Zend_Controller_Action
                         {
                             $reg = new Iati_Registry($registryInfo->publisher_id , $registryInfo->api_key);
                             $organisationpublishedModel = new Model_OrganisationPublished();
-                            $files = $organisationpublishedModel->getPublishedInfo($account_id);
+                            $files = $organisationpublishedModel->getPublishedInfo($accountId);
 
                             $published =  Model_Registry::publish($files , $accountId , $registryInfo , true);
                             if($published['error']){
