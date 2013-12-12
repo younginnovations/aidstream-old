@@ -1,41 +1,6 @@
-SetEnv APPLICATION_ENV development
-
+#Copy this file as .htaccess to remove public from the url.
 RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} -s [OR]
-RewriteCond %{REQUEST_FILENAME} -l [OR]
-RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^.*$ - [NC,L]
-RewriteRule ^.*$ index.php [NC,L]
+RewriteCond %{REQUEST_FILENAME} !-l [OR]
+RewriteCond %{REQUEST_FILENAME} !^public
+RewriteRule (^.*$) public/$1 [NC,L]
 
-<IfModule mod_deflate.c>
-    <filesMatch ".(php|css|html?|xml|txt|js|pl|jpg|png)$">
-    SetOutputFilter DEFLATE
-    </filesMatch>
-</IfModule>
-
-<IfModule mod_expires.c>
-    # Turn on Expires and set default to 0
-    ExpiresActive On
-    ExpiresDefault A0
-     
-    # Set up caching on media files for 1 year (forever?)
-    <filesMatch "\.(flv|ico|pdf|avi|mov|ppt|doc|mp3|wmv|wav)$">
-    ExpiresDefault A29030400
-    Header append Cache-Control "public"
-    </filesMatch>
-     
-    # Set one week caching on commonly updated files
-    <filesMatch "\.(jpg|jpeg|png|gif|js|css)$">
-    FileETag None
-    Header unset Last-Modified
-    ExpiresDefault A604800
-    Header append Cache-Control "public, no-transform"
-    </filesMatch>
-     
-    # Force no caching for dynamic files
-    <filesMatch "\.(php|cgi|pl|htm)$">
-    ExpiresActive Off
-    Header set Cache-Control "private, no-cache, no-store, proxy-revalidate, no-transform"
-    Header set Pragma "no-cache"
-    </filesMatch>
-</IfModule>
