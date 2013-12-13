@@ -6,7 +6,7 @@
  */
 class Iati_Core_Xml
 {
-    const SCHEMA_VERSION = 1.02;
+    const SCHEMA_VERSION = 1.03;
 
     protected $xml;
     protected $xmlPath;
@@ -40,9 +40,10 @@ class Iati_Core_Xml
             if($linkedDataDefault) {
                 $this->xml->addAttribute('linked_data_default' , $linkedDataDefault);
             }
-        }
-        else
-        {
+        } else if(strtolower($name) == 'organisation'){
+            $this->xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><iati-organisations></iati-organisations>');
+            
+        } else {
             $this->xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><'.strtolower($name).'s></'.strtolower($name).'s>');
         }
         $this->xml->addAttribute('generated-datetime',gmdate('c'));
@@ -52,9 +53,12 @@ class Iati_Core_Xml
             foreach($this->childrenIds as $childId){
                 $childElementClass = "Iati_Aidstream_Element_".ucfirst($name);
                 $childElement = new $childElementClass();
-                $childElement->getXml($childId , false ,  $this->xml);
+                $data = $childElement->fetchData($childId);
+                $childElement->setData($data[$childElement->getClassName()]);
+                $childElement->getXml($this->xml);
             }
         }
+        
         return $this->xml->asXML();
     }
     

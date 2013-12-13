@@ -65,7 +65,7 @@ class Simplified_Form_Activity_Document extends Iati_SimplifiedForm
                         array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
                     )
             );
-        }
+        }        
     }
     
     public function setData($data)

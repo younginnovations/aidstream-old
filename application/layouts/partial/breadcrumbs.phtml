@@ -73,10 +73,10 @@ switch($identity->role){
                 'action'     => 'dashboard',
                 'pages'      => array(
                     array(
-                        'label' => 'Change Defaults',
+                        'label' => 'Settings',
                         'module'     => 'default',
                         'controller' => 'wep',
-                        'action'     => 'edit-defaults',
+                        'action'     => 'settings',
                     ),
                     array(
                         'label' => 'List Published Files',
@@ -176,6 +176,12 @@ switch($identity->role){
                                 'controller' => 'activity',
                                 'action'     => 'list-elements',
                             ),
+                            array(
+                                'label' => 'Upload Transaction',
+                                'module' => 'default',
+                                'controller' => 'wep',
+                                'action'    => 'upload-transaction'
+                            )
                         ),
                     ),
                     array(
@@ -246,6 +252,12 @@ switch($identity->role){
                                 'action'     => 'edit-activity',
                             ),
                         )
+                    ),
+                    array(
+                        'label'     => 'Settings',
+                        'module'    => 'simplified',
+                        'controller' => 'default',
+                        'action'    => 'settings'
                     )
                 )
             )
@@ -332,9 +344,15 @@ switch($identity->role){
     break;
 
 }
-echo '<div class="breadcrumbs">';
-echo $this->navigation()->breadcrumbs()->setLinkLast(false)->setMinDepth(0)->render();
-echo '</div>';
+$breadcrumb = $this->navigation()->breadcrumbs()->setLinkLast(false)->setMinDepth(0)->render();
+?>
+<?php if($breadcrumb): ?>
+    <div id="breadcrumb">
+        <div class="breadcrumbs">
+            <?php echo $breadcrumb; ?>
+        </div>
+    </div>
+<?php endif; ?>
 
 
 

@@ -12,12 +12,14 @@ $form = $this->element;
     <?php print $form->getElement('end_date_id'); ?>
     <?php print $form->getElement('location_id'); ?>
     <?php print $form->getElement('sector_id'); ?>
+    <?php print $form->getElement('status_id');?>   
     
     <div class="form-elements-wrapper">
         <div class="elements-group-title">
             Project Information
         </div>
         <div class="elements-group">
+            <?php print $form->getElement('message');?>
             <?php print $form->getElement('identifier')?>
             <?php print $form->getElement('title')?>
             <?php print $form->getElement('description')?>
@@ -25,6 +27,7 @@ $form = $this->element;
             <?php print $form->getElement('start_date')?>
             <?php print $form->getElement('end_date')?>
             <?php print $form->getElement('sector')?>
+            <?php print $form->getElement('status')?>
         </div>
     </div>
         
@@ -81,8 +84,27 @@ $form = $this->element;
             <?php print $form->getSubForm('result_wrapper'); ?>
         </div>
     </div>
-    
+    <div class="clearfix">
+        <span>
     <?php print $form->getElement('save')?>
+        </span>
+    
+    </div>
+    <?php if(!Model_User::checkHasPublished()): ?>
+    <div class="activity-state activity-state-save">
+        <div id="simplified-save-description" class="custom-tooltip-dialog custom-tooltip-dialog-save">
+            <span id="close-dialog" class="close-dialog close-dialog-button">X</span>
+            <div class="custom-tooltip-wrapper">
+            <span class="custom-tooltip-pointer"></span>
+            <div class="dialog-content close-dialog-button">
+                <p>This will save the data you have entered and it will not publish them to IATI Registry.
+                You can edit your information even after saving it.</p>
+                <div class="close close-dialog-button">Got it. Thanks</div>
+            </div>
+            </div>
+        </div>
+        </div>
+    <?php endif; ?>
     </form>
 </div>
         

@@ -9,6 +9,7 @@ dojo.require('dijit.form.DateTextBox');
 //dojo.require("dojo.date.locale");
 dojo.require('dijit.TooltipDialog');
 dojo.require('dojo.number');
+dojo.require('dojo.io.iframe');
 
 /**
  * @todo some comments on what is required for what
@@ -49,7 +50,9 @@ dojo.declare("my.dropDown", [dijit._Widget, dijit._Templated], {
         }
     },
     
-    openPopup: function(){
+    openPopup: function(focus){
+	if(typeof(focus) === 'undefined') focus = true
+	
         if (this.disabled) return;
         var self = this;
         
@@ -75,8 +78,11 @@ dojo.declare("my.dropDown", [dijit._Widget, dijit._Templated], {
                 self.open = false;
             }
         });
-
-        this.open = true;
+	
+	this.open = true;
+	if(focus){
+	    this.popup.focus();
+	}
     },
 
     closePopup: function(){
@@ -153,6 +159,38 @@ var messageDialog = function (title, msg) {
     });
     
     msgDlg.show();
+}
+
+var confirmDialog = function(title , msg , yes_label , no_label, onOk) {
+    if(!yes_label){
+	yes_label = 'Ok';
+    }
+    if(!no_label){
+	no_label = 'Cancel';
+    }
+    
+    msg += '<p style="margin-left:100px"><button dojoType="dijit.form.Button" type="button" id="cd-ok">' + yes_label +'</button>';
+    msg += '<button dojoType="dijit.form.Button" type="button" id="cd-cancel">' + no_label + '</button></p>';
+                
+    // Destroy all dialog box before creating new. Used to remove dialog box remaining after clicking close.
+    dojo.query('.dijitDialog').forEach(dojo.destroy);
+    
+    var confirmDlg = new dijit.Dialog({
+	title: title,
+	style: "width: 400px",
+	parseOnLoad: true,
+	content: msg
+    });
+    
+    dojo.connect(dojo.byId('cd-cancel'), 'onclick', function (e) {
+	confirmDlg.destroyRecursive();
+    });
+    
+    dojo.connect(dojo.byId('cd-ok'), 'onclick', function (e) {
+	onOk.call();
+    });
+    
+    confirmDlg.show();
 }
 
 //support form goes down
@@ -253,7 +291,7 @@ var validEmail = function(email){
 }
 
 function initialize() {
-    
+    var targetNode; 
     // start of dojo.behavior.add
     dojo.behavior.add({
         '.addmore' : {
@@ -465,10 +503,12 @@ function initialize() {
 		    });
 		dojo.query('#ids').attr('value',ids.join(","));
 		
-		if(confirm("Are you sure you want to publish the activities"))
-		{
+		var msg = "All the selected activities will be published and ";
+		msg += "the activities earlier published will be republished. Are you sure you want to publish?";
+		
+		new confirmDialog('' , msg , 'Yes, publish these activities' , "Don't publish", function(){
 		    dojo.byId('iati_activity_status').submit();
-		}
+		});
 	    }
 	},
 	
@@ -609,7 +649,7 @@ function initialize() {
                         var tempWrapper  = dojo.create("div");
                         tempWrapper.appendChild(temp[0]);
                         var eleHtml = tempWrapper.innerHTML;
-			var drop = new my.dropDown({
+			var helpDrop = new my.dropDown({
                             label : eleHtml,
                             popup: helpdialog
                         } , node);
@@ -1493,7 +1533,136 @@ function initialize() {
                 confirmDlg.show();
                 evt.preventDefault();
             }
-        }        
+        },
+	
+	".close-dialog-button" : {
+            'onclick' : function (evt){
+		var node = dojo.NodeList(getTarget(evt));
+		var parent = node.parents('.custom-tooltip-dialog');
+		parent.style('display' , 'none');
+            }
+        },
+	
+	"#change_state" : {
+	    "onclick" : function (evt){
+		var node = getTarget(evt);
+		if(node.value == 'Published'){
+		    evt.preventDefault();
+		    var msg = "The activity will be published. The already published activities will ";
+		    msg += "be republished. Are you sure you want to publish the activities?";
+		    
+		    new confirmDialog('' , msg , 'Yes, publish these activities' , "Don't publish" , function(){
+			dojo.byId('iati_activity_change_status').submit();
+		    });
+		}
+	    }
+	},
+	
+	'#upload-document-form' : {
+	    "onsubmit" : function (evt) {
+		evt.preventDefault();
+		var node = getTarget(evt);
+		
+		dojo.io.iframe.send({
+                    url : APP_BASEPATH + "/ajax/document-upload",
+		    form : "upload-document-form",
+		    handleAs : "html",
+                    handle : function (response , ioArgs) {
+			uploadDialog.set('content' , response.body.innerHTML);
+			uploadDialog.show();
+			dojo.behavior.apply();
+                    },
+                    error : function (err , ioArgs) {
+                        console.log(err);
+			console.log(ioArgs);
+                    }
+                });
+	    }
+	},
+	
+	'.upload-here' : {
+	    "onclick" : function(evt){
+		var node = getTarget(evt);
+		evt.preventDefault();
+		targetNode = dojo.query('textarea',node.parentNode.parentNode);
+		
+		dojo.xhrGet({
+                    url : APP_BASEPATH + "/ajax/document-upload",
+                    handleAs : "text",
+		    timeout : 10000,
+                    content : '',
+                    load : function (data) {
+                        uploadDialog = new dijit.Dialog({
+			    parseOnLoad: true,
+			    content: data,
+			    style: "width: 520px;",
+			    autofocus: true
+			});
+			uploadDialog.attr('class' , 'document-dialogbox');
+			uploadDialog.show();
+			dojo.behavior.apply();
+                    },
+                    error : function (err) {
+                        console.log(err);
+                    }
+                });
+		
+	    }
+	},
+	
+	".use-this" : {
+	    "onclick" : function(evt) {
+		evt.preventDefault();
+		var node = getTarget(evt);
+		var url = dojo.attr(getTarget(evt), 'href');
+		targetNode.attr('value' , url);
+		uploadDialog.hide();
+	    }
+	},
+	
+	".existing-doc" : {
+	    "onclick" : function(evt) {
+		var node = getTarget(evt);
+		evt.preventDefault();
+		targetNode = dojo.query('textarea',node.parentNode.parentNode);
+		
+		dojo.xhrGet({
+                    url : APP_BASEPATH + "/ajax/previous-documents",
+                    handleAs : "text",
+		    timeout : 10000,
+                    content : '',
+                    load : function (data) {
+                        uploadDialog = new dijit.Dialog({
+			    parseOnLoad: true,
+			    content: data,
+			    style: "width: 520px;",
+			    autofocus: true
+			});
+			uploadDialog.attr('class' , 'document-dialogbox');
+			uploadDialog.show();
+			dojo.behavior.apply();
+                    },
+                    error : function (err) {
+                        console.log(err);
+                    }
+                });
+	    }
+	},
+	
+	".administrative-map" : {
+	    "found" : function(ele){				
+		var id = dojo.attr(ele , 'id');
+		var lat = dojo.attr(id + '-Coordinates-latitude', 'value');
+		var lng = dojo.attr(id + '-Coordinates-longitude' , 'value');
+		if(lat && lng){
+		    var map = initMap(ele , [lat , lng]);
+		} else {
+		    var map = initMap(ele , '');
+		}
+		
+		addCountryChange(id + '-Administrative-country' , map);
+	    }
+	}
     });
     
     // End of dojo.behavior.add

@@ -52,4 +52,25 @@ class Model_User extends Zend_Db_Table_Abstract
             ->where('account_id = ?',$account_id);
         return $this->fetchAll($select)->toArray();
     }
+    
+    /**
+     * This function is used to check if user has minimum number of files publised for stopping displaying various tooltips.
+     * The minimum number is saved in application.ini
+     */
+    public static function checkHasPublished($accountId = null)
+    {
+	if(!$accountId){
+	    $identity = Zend_Auth::getInstance()->getIdentity();
+	    $accountId = $identity->account_id;
+	}
+	$minPublishedForHelp = Zend_Registry::get('config')->min_published_for_help;
+
+	$model = new Model_ActivityCollection();
+        $publishedCount = $model->getActivitiesCountByStatusAndAccount( Iati_WEP_ActivityState::STATUS_PUBLISHED , $accountId);
+        if($publishedCount >= $minPublishedForHelp) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

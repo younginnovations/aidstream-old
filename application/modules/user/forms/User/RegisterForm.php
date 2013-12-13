@@ -7,6 +7,10 @@ class User_Form_User_RegisterForm extends App_Form
     {
         $this->setName('Register');
         $this->setMethod('post');
+	
+	$userInfo = new Iati_Form_Element_Note('user_info_message');
+	$userInfo->setValue("Please enter your personal details.")
+	    ->setAttrib('class' , 'form-message');
         
         $orgname = new Zend_Form_Element_Text('org_name');
         $orgname->setLabel('Organisation Name')
@@ -32,12 +36,12 @@ class User_Form_User_RegisterForm extends App_Form
             ->setAttrib('class', 'form-text');
             
         $firstname = new Zend_Form_Element_Text('first_name');
-        $firstname->setLabel('First Name')
+        $firstname->setLabel('Your First Name')
             ->setRequired()
             ->setAttrib('class', 'form-text');
             
         $lastname = new Zend_Form_Element_Text('last_name');
-        $lastname->setLabel('Last Name')
+        $lastname->setLabel('Your Last Name')
             ->setRequired()
             ->setAttrib('class', 'form-text');
             
@@ -60,7 +64,7 @@ class User_Form_User_RegisterForm extends App_Form
 
 
         $email = new Zend_Form_Element_Text('email');
-        $email->setLabel('Email')->setRequired()->addValidator('emailAddress', false)
+        $email->setLabel('Your Email')->setRequired()->addValidator('emailAddress', false)
             ->addValidator('Db_NoRecordExists', false, array('table' => 'user',
                 'field' => 'email'))
             ->setAttrib('class', 'form-text');
@@ -117,6 +121,7 @@ class User_Form_User_RegisterForm extends App_Form
 
         $captcha = new Zend_Form_Element_Captcha('captcha',
             array(
+		'label'	 => "Please enter the text in the box",
                 'captcha'       => 'ReCaptcha',
                 'captchaOptions' => array('captcha' => 'ReCaptcha', 'service' => $recaptcha),
                 'ignore' => true
@@ -125,7 +130,7 @@ class User_Form_User_RegisterForm extends App_Form
 
             
 
-        $this->addElements(array($orgname, $orgaddress, $account_identifier , $firstname, $lastname, $userIdentifier, $username, $email, $password, $confirmPassword , $captcha));
+        $this->addElements(array($userInfo , $orgname, $orgaddress, $account_identifier , $firstname, $lastname, $userIdentifier, $username, $email, $password, $confirmPassword , $captcha));
         
         $this->addDisplayGroup(
                                array('org_name' , 'org_address' , 'account_identifier'),
@@ -134,7 +139,7 @@ class User_Form_User_RegisterForm extends App_Form
                            );
         
         $this->addDisplayGroup(
-                               array('first_name' , 'last_name' , 'email', 'user_identifier', 'user_name' , 'password', 'confirmpassword' , 'captcha'),
+                               array('user_info_message', 'first_name' , 'last_name' , 'email', 'user_identifier', 'user_name' , 'password', 'confirmpassword' , 'captcha'),
                                'user_info',
                                array('legend' => 'User Info')
                            );
@@ -155,6 +160,8 @@ class User_Form_User_RegisterForm extends App_Form
         // Add wrapper to all element
         foreach($this->getElements() as $item)
         {
+	    if(($item->getType()) == 'Iati_Form_Element_Note') continue;
+	    
             $item->addDecorators( array(
                         array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
                     )

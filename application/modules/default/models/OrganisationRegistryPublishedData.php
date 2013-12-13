@@ -3,10 +3,10 @@ class Model_OrganisationRegistryPublishedData extends Zend_Db_Table_Abstract
 {
     protected $_name = 'organisation_registry_published_data';
 
-    public function saveRegistryPublishInfo($fileId , $response)
+    public function saveRegistryPublishInfo($fileId , $filename , $response)
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
-        $data['filename'] = $response->name;
+        $data['filename'] = $filename;
         $data['file_id'] = $fileId;
         $serialisedResponse = serialize($response);
         $data['response'] = $serialisedResponse;
@@ -21,11 +21,8 @@ class Model_OrganisationRegistryPublishedData extends Zend_Db_Table_Abstract
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
         $serialisedResponse = serialize($response);
-        $data['filename'] = $response->name;
-        $data['file_id'] = $fileId;
         $data['response'] = $serialisedResponse;
-        $data['publisher_org_id'] = $identity->account_id;
-        $this->update($data,array('filename = ?'=>$response->name));
+        $this->update($data,array('file_id = ?'=>$fileId));
         // Update published data.
         $modelPublish = new Model_Published();
         $modelPublish->markAsPushedToRegistry($fileId);

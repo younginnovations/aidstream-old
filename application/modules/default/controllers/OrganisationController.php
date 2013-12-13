@@ -328,7 +328,7 @@ class OrganisationController extends Zend_Controller_Action
                                                                  each organisation you report."
                                                                    )
                                                            );
-                $this->_redirect('wep/edit-defaults');
+                $this->_redirect('wep/settings');
             } else { // For other user redirect to dashboard.
                 $this->_helper->FlashMessenger->addMessage(array(
                                                                  'message' => "All information for Reporting Organisation
@@ -437,16 +437,16 @@ class OrganisationController extends Zend_Controller_Action
             if ($state == Iati_WEP_ActivityState::STATUS_PUBLISHED)
             {
                 $identity = Zend_Auth::getInstance()->getIdentity();
-                $account_id = $identity->account_id;
+                $accountId = $identity->account_id;
 
                 $modelRegistryInfo = new Model_RegistryInfo();
-                $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($account_id);
+                $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($accountId);
                 if (!$registryInfo)
                 {
-                    $this->_helper->FlashMessenger->addMessage(array('error' => "Registry information not found. Please go to <a href='{$this->view->baseUrl()}/wep/edit-defaults'>Change Defaults</a> to add registry info."));
+                    $this->_helper->FlashMessenger->addMessage(array('error' => "Registry information not found. Please go to <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a> to add registry info."));
                 } else if (!$registryInfo->publisher_id)
                 {
-                    $this->_helper->FlashMessenger->addMessage(array('error' => "Publisher Id not found. Xml files could not be created. Please go to  <a href='{$this->view->baseUrl()}/wep/edit-defaults'>Change Defaults</a> to add publisher id."));
+                    $this->_helper->FlashMessenger->addMessage(array('error' => "Publisher Id not found. Xml files could not be created. Please go to  <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a> to add publisher id."));
                 } else
                 {
                     $db->updateOrganisationState($organisationIds , (int) $state);
@@ -462,10 +462,10 @@ class OrganisationController extends Zend_Controller_Action
                     
                     //Set all status to 0
                     $modelPublished = new Model_OrganisationPublished();
-                    $modelPublished->resetPublishedInfo($account_id);
+                    $modelPublished->resetPublishedInfo($accountId);
                    
                     $organisationpublishedModel = new Model_OrganisationPublished();
-                    $publishedData['publishing_org_id'] = $account_id;
+                    $publishedData['publishing_org_id'] = $accountId;
                     $publishedData['filename'] = $fileName;
                     $publishedData['organisation_count'] = count($organisationIds);
                     $publishedData['data_updated_datetime'] = $lastUpdateDatetime;
@@ -477,24 +477,17 @@ class OrganisationController extends Zend_Controller_Action
                     {
                         if (!$registryInfo->api_key)
                         {
-                            $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key not found. Activities could not be registered in IATI Registry. Please go to <a href='{$this->view->baseUrl()}/wep/edit-defaults'>Change Defaults</a> to add API key."));
+                            $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key not found. Activities could not be registered in IATI Registry. Please go to <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a> to add API key."));
                         } else
                         {
                             $reg = new Iati_Registry($registryInfo->publisher_id , $registryInfo->api_key);
                             $organisationpublishedModel = new Model_OrganisationPublished();
-                            $files = $organisationpublishedModel->getPublishedInfo($account_id);
+                            $files = $organisationpublishedModel->getPublishedInfo($accountId);
 
-                            foreach ($files as $file)
-                            {
-                                $reg->prepareOrganisationRegistryData($file);
-                                $reg->publishToRegistry();
-                            }
-
-                            if ($reg->getErrors())
-                            {
-                                $this->_helper->FlashMessenger->addMessage(array('message' => 'Organisation xml files created. ' . $reg->getErrors()));
-                            } else
-                            {
+                            $published =  Model_Registry::publish($files , $accountId , $registryInfo , true);
+                            if($published['error']){
+                                $this->_helper->FlashMessenger->addMessage(array('error' => $published['error']));
+                            } else {
                                 $this->_helper->FlashMessenger->addMessage(array('message' => "Organisation published to IATI registry."));
                             }
                         }
@@ -543,21 +536,17 @@ class OrganisationController extends Zend_Controller_Action
         $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($accountId);
 
         if(!$registryInfo->api_key){
-            $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key not found. Organisation could not be registered in IATI Registry. Please go to <a href='{$this->view->baseUrl()}/wep/edit-defaults'>Change Defaults</a> to add API key."));
+            $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key not found. Organisation could not be registered in IATI Registry. Please go to <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a> to add API key."));
         } else {
             $reg = new Iati_Registry($registryInfo->publisher_id , $registryInfo->api_key ,true);
             $organisationPublishedModel = new Model_OrganisationPublished();
             $files = $organisationPublishedModel->getPublishedInfoByIds($fileIds);
 
-            foreach($files as $file){
-                $reg->prepareOrganisationRegistryData($file);
-                $reg->publishToRegistry();
-            }
-
-            if($reg->getErrors()){
-                $this->_helper->FlashMessenger->addMessage(array('error' => $reg->getErrors()));
+            $published =  Model_Registry::publish($files , $accountId , $registryInfo , true);
+            if($published['error']){
+                $this->_helper->FlashMessenger->addMessage(array('error' => $published['error']));
             } else {
-                $this->_helper->FlashMessenger->addMessage(array('message' => "Organisation registered to IATI registry."));
+                $this->_helper->FlashMessenger->addMessage(array('message' => "Organisation published to IATI registry."));
             }
         }
 
@@ -594,7 +583,7 @@ class OrganisationController extends Zend_Controller_Action
         if (!$updated)
         {
             $type = 'message';
-            $message = "Already up to date. To make changes please change values in 'Change Defaults' and then update.";
+            $message = "Already up to date. To make changes please change values in 'Settings' and then update.";
         } else
         {
             //Update the organisation so that the last updated time is updated

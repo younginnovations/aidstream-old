@@ -42,6 +42,7 @@ class Iati_WEP_Publish
             {   
                 $this->recipient = $org;
                 $fileName = $this->saveActivityXml($activitiesId);
+                $count = 0;
                 
                 if(is_array($activitiesId)){
                     $wepModel = new Model_Wep();
@@ -49,6 +50,7 @@ class Iati_WEP_Publish
                         $activityRow = $wepModel->getRowById('iati_activity', 'id', $activityId['id']);
                         $activityUpdatedDatetime = (strtotime($activityRow['@last_updated_datetime']) > strtotime($activityUpdatedDatetime))?$activityRow['@last_updated_datetime']:$activityUpdatedDatetime;
                     }
+                    $count = sizeof($activitiesId);
                 }
                 /*
                 $country = '';
@@ -57,7 +59,7 @@ class Iati_WEP_Publish
                 }
                 */
                 
-                $this->savePublishedInfo($fileName , $org , sizeof($activities) , $activityUpdatedDatetime);
+                $this->savePublishedInfo($fileName , $org , $count , $activityUpdatedDatetime);
                 
             }
             
@@ -147,7 +149,7 @@ class Iati_WEP_Publish
                                 $percent = $country['@percentage'];
                                 if($percent > $maxPercent){
                                     $maxPercent = $percent;
-                                    $maxPercentCountry = Iati_Core_Codelist::getCodeByAttrib('RecipientCountry' , '@code' , $country['@code'],'Name');
+                                    $maxPercentCountry = Iati_Core_Codelist::getCodeByAttrib('RecipientCountry' , '@code' , $country['@code']);
                                 }
                             }
                             if($maxPercentCountry){

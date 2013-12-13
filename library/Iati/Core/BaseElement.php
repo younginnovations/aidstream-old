@@ -4,16 +4,17 @@
  * Coantains all the attributes of the element and the methods for functionalities that can be done
  * for the elements like creating form, saving, retrieving, generating xml etc.
  *
- * @param boolen $isMultiple Should be true if the element can be multiple.
- * @param boolen $isRequired Should be true if the element is a required element.
- * @param String $className The name of the class of the element. Name with space should be used as camelCase without space
- * @param String $displayName The name of the element for display in forms , if same as classname should be left empty.
- * @param Array $data array of the elements data and its child element.
- * @param Array $childElements array of classname of the child elements.If no child, an empty array is present.
- * @param Array $attribs array of attributes names strored in database.
+ * boolen $isMultiple Should be true if the element can be multiple.
+ * boolen $isRequired Should be true if the element is a required element.
+ * String $className The name of the class of the element. Name with space should be used as camelCase without space
+ * String $displayName The name of the element for display in forms , if empty classname converted to space seperated is used.
+ * Array $data array of the elements data and its child element.
+ * Array $childElements array of classname of the child elements.If no child, an empty array is present.
+ * Array $attribs array of attributes names strored in database.
  *      @todo use these in database activities.Currently attributes are directly used from form and fetched data.
- * @param Array $iatiAttribs array of the element's iati attributes. these are used while creating xml
- * @param String $tableName Name of the database table used to store the element's data.
+ * Array $iatiAttribs array of the element's iati attributes. these are used while creating xml
+ * String $tableName Name of the database table used to store the element's data.
+ * Boolen $viewScriptEnabled Should be true if the viewscript is to be used.
  *
  * @author bhabishyat <bhabishyat@gmail.com>
  */
@@ -81,7 +82,18 @@ class Iati_Core_BaseElement
     public function getTableName()
     {
         return $this->tableName;
-    } 
+    }
+    
+    public function getIatiAttribs()
+    {
+        return $this->iatiAttribs;
+    }
+    
+    public function getAttribs()
+    {
+        return $this->attribs;
+    }
+    
     /**
      * Function to get the full name of the element i.e name with parent name
      * Fullname can be used to directly create the element.
@@ -102,7 +114,7 @@ class Iati_Core_BaseElement
         if($this->displayName){
             return $this->displayName;
         } else {
-            $this->className;
+            return preg_replace('/([^A-Z_])([A-Z])/', '$1 $2', $this->className);
         }
     }
     
@@ -126,77 +138,15 @@ class Iati_Core_BaseElement
      */
     public function getForm($ajax = false)
     {
-        $formname = preg_replace('/Element/' , 'Form' , get_class($this));
         if($this->data){
-            if($this->isMultiple){
-                $form = new Iati_Core_WrapperForm();
-                foreach($this->data as $data){
-                    $eleForm = new $formname(array('element' => $this));
-                    $eleForm->setData($data);
-                    $elementForm = $eleForm->getForm();
-                    $childElements = $this->getChildElements();
-                    if(!empty($childElements)){
-                        $elementForm = $this->addChildForms($childElements , $elementForm , $data);
-                    }
-
-                    $elementForm->removeDecorator('form');
-                    $elementForm->prepare();
-
-                    $form->addSubForm($elementForm , $this->getClassName().$elementForm->getCount($this->getClassName()));
-                }
-
-                // add add button to wrapper form;
-                $form->addAddLink($this->getFullName());
-                
-            } else {
-                $eleForm = new $formname(array('element' => $this));
-                $form = $eleForm->getForm();
-                $childElements = $this->getChildElements();
-                if(!empty($childElements)){
-                    $form = $this->addChildForms($childElements , $form , $this->data);
-                }
-                $form->prepare();
-            }
+            $form = $this->getFormWithData();
         } else {
-            if($this->isMultiple){
-                $form = new Iati_Core_WrapperForm();
-                $eleForm = new $formname(array('element' => $this));
-                if($this->count){
-                    $eleForm->setCount($this->count);
-                }
-                $elementForm = $eleForm->getForm();
-                
-                $childElements = $this->getChildElements();
-                if(!empty($childElements)){
-                    $elementForm = $this->addChildForms($childElements , $elementForm);
-                }
-                
-                $elementForm->removeDecorator('form');
-                $elementForm->prepare();
-                
-                // If the form build is called using ajax return the form without preparing it further.
-                if($ajax && !$this->viewScriptEnabled){
-                    return $elementForm;
-                }
-                
-                $form->addSubForm($elementForm , $this->getClassName());
-                
-                // add add button to wrapper form;
-                $form->addAddLink($this->getFullName());
-                
-            } else {
-                $eleForm = new $formname(array('element' => $this));
-                if($this->count){
-                    $eleForm->setCount($this->count);
-                }
-                $form = $eleForm->getFormDefination();
-                $childElements = $this->getChildElements();
-                if(!empty($childElements)){
-                    $form = $this->addChildForms($childElements , $form);
-                }
-                $form->prepare();
+            $form = $this->getFormWithoutData($ajax);
+            if($ajax && !$this->viewScriptEnabled){
+                return $form;
             }
         }
+        // Use viewscript if enabled
         if($this->viewScriptEnabled){
             $viewScriptFile = ($this->viewScript) ? $this->viewScript : (($this->isMultiple) ? 'default/multiple.phtml' : 'default/single.phtml');
             $form->setDecorators(array(
@@ -209,9 +159,99 @@ class Iati_Core_BaseElement
                                         )
                                     )
                                  );
+            
             return $form;
         }
         $form->wrapForm($this->getDisplayName() , $this->getIsRequired());
+        return $form;
+    }
+    
+    /**
+     * Internal function that acutally generates form for edit. Called by getForm.
+     */
+    protected function getFormWithData()
+    {
+        $formname = preg_replace('/Element/' , 'Form' , get_class($this));
+        
+        if($this->isMultiple){
+            $form = new Iati_Core_WrapperForm();
+            foreach($this->data as $data){
+                $eleForm = new $formname(array('element' => $this));
+                $eleForm->setData($data);
+                $elementForm = $eleForm->getForm();
+                $childElements = $this->getChildElements();
+                if(!empty($childElements)){
+                    $elementForm = $this->addChildForms($childElements , $elementForm , $data);
+                }
+
+                $elementForm->removeDecorator('form');
+                $elementForm->prepare();
+
+                $form->addSubForm($elementForm , $this->getClassName().$elementForm->getCount($this->getClassName()));
+            }
+
+            // add add button to wrapper form;
+            $form->addAddLink($this->getFullName());
+            
+        } else {
+            $eleForm = new $formname(array('element' => $this));
+            $form = $eleForm->getForm();
+            $childElements = $this->getChildElements();
+            if(!empty($childElements)){
+                $form = $this->addChildForms($childElements , $form , $this->data);
+            }
+            $form->prepare();
+        }
+        return $form;
+    }
+    
+    /**
+     * Internal function that actually generates form for create. Called by getForm.
+     *
+     * @param boolen $ajax True if the form fetch is done using ajax
+     */
+    protected function getFormWithoutData($ajax = false)
+    {
+        $formname = preg_replace('/Element/' , 'Form' , get_class($this));
+        
+        if($this->isMultiple){
+            $form = new Iati_Core_WrapperForm();
+            $eleForm = new $formname(array('element' => $this));
+            if($this->count){
+                $eleForm->setCount($this->count);
+            }
+            $elementForm = $eleForm->getForm();
+            
+            $childElements = $this->getChildElements();
+            if(!empty($childElements)){
+                $elementForm = $this->addChildForms($childElements , $elementForm);
+            }
+            
+            $elementForm->removeDecorator('form');
+            $elementForm->prepare();
+            
+            // If the form build is called using ajax return the form without preparing it further.
+            if($ajax && !$this->viewScriptEnabled){
+                return $elementForm;
+            }
+            
+            $form->addSubForm($elementForm , $this->getClassName());
+            
+            // add add button to wrapper form;
+            $form->addAddLink($this->getFullName());
+                
+        } else {
+            $eleForm = new $formname(array('element' => $this));
+            if($this->count){
+                $eleForm->setCount($this->count);
+            }
+            $form = $eleForm->getFormDefination();
+            $childElements = $this->getChildElements();
+            if(!empty($childElements)){
+                $form = $this->addChildForms($childElements , $form);
+            }
+            $form->prepare();
+        }
         return $form;
     }
     
@@ -249,75 +289,56 @@ class Iati_Core_BaseElement
      */
     public function save($data , $parentId = null)
     {  
-        if($parentId){
-            $parentColumnName = $this->getParentCoulmn();
-        }
         if($this->isMultiple){
             if(!$data) return;
             foreach($data as $elementData){ 
-                $elementsData = $this->getElementsData($elementData);
-                if($this->hasData($elementData)){
-                    if($parentId){
-                        $elementsData[$parentColumnName] = $parentId;
-                    }
-                    // If no id is present, insert the data else update the data using the id.
-                    if(!$elementsData['id']){
-                        $elementsData['id'] = null;
-                        $eleId = $this->db->insert($elementsData);
-                    } else {
-                        $eleId = $elementsData['id'];
-                        unset($elementsData['id']);
-                        $this->db->update($elementsData , array('id = ?' => $eleId));
-                    }
-                } else {
-                    if($elementData['id']){
-                        $where = $this->db->getAdapter()->quoteInto('id = ?', $elementData['id']);
-                        $this->db->delete($where);
-                        return;
-                    }
-                }
-                
-                // If children are present create children elements and call their save function.                
-                if(!empty($this->childElements)){
-                    foreach($this->childElements as $childElementClass){
-                        $childElementName = get_class($this)."_$childElementClass";
-                        $childElement = new $childElementName();
-                        $childElement->save($elementData[$childElement->getClassName()] , $eleId);
-                    }
-                }
+                $eleId = $this->saveSingleElement($elementData , $parentId);
             }
         } else {
-            $elementsData = $this->getElementsData($data);
-            if($this->hasData($data)){
-                if($parentId){
-                    $elementsData[$parentColumnName] = $parentId;
-                }
-
-                // If no id is present, insert the data else update the data using the id.
-                if(!$elementsData['id']){
-                    $elementsData['id'] = null;
-                    $eleId = $this->db->insert($elementsData);
-                } else {
-                    $eleId = $elementsData['id'];
-                    unset($elementsData['id']);
-                    $this->db->update($elementsData , array('id = ?' => $eleId));
-                }
-            } else {
-                if($elementsData['id']){
-                    $where = $this->db->getAdapter()->quoteInto('id = ?', $elementData['id']);
-                    $this->db->delete($where);
-                    return;
-                }
+            $eleId = $this->saveSingleElement($data , $parentId);
+        }
+        return $eleId;
+    }
+    
+    /**
+     * Internal function to save single element. Called by save function.
+     */
+    protected function saveSingleElement($elementData , $parentId = null)
+    {
+        if($parentId){
+            $parentColumnName = $this->getParentCoulmn();
+        }
+        
+        if($this->hasData($elementData)){
+            $elementsData = $this->getElementsData($elementData);
+            if($parentId){
+                $elementsData[$parentColumnName] = $parentId;
             }
-            // If children are present create children elements and call their save function.
-            if(!empty($this->childElements)){
-                foreach($this->childElements as $childElementClass){
-                    $childElementName = get_class($this)."_$childElementClass";
-                    $childElement = new $childElementName();
-                    $childElement->save($data[$childElement->getClassName()] , $eleId);
-                }
+            // If no id is present, insert the data else update the data using the id.
+            if(!$elementsData['id']){
+                $elementsData['id'] = null;
+                $eleId = $this->db->insert($elementsData);
+            } else {
+                $eleId = $elementsData['id'];
+                unset($elementsData['id']);
+                $this->db->update($elementsData , array('id = ?' => $eleId));
+            }
+        } else {
+            if($elementData['id']){
+                $this->deleteElement($elementData['id']);
+            }
+            return;
+        }
+        
+        // If children are present create children elements and call their save function.                
+        if(!empty($this->childElements)){
+            foreach($this->childElements as $childElementClass){
+                $childElementName = get_class($this)."_$childElementClass";
+                $childElement = new $childElementName();
+                $childElement->save($elementData[$childElement->getClassName()] , $eleId);
             }
         }
+        
         return $eleId;
     }
 
@@ -329,6 +350,17 @@ class Iati_Core_BaseElement
         foreach($this->attribs as $attrib){
             // @todo remove the replace once the @ is removed from columnname.
             $elementsData[$attrib] = $data[preg_replace('/^@/' , '' , $attrib)];
+        }
+        return $elementsData;
+    }
+    
+    /**
+     * Function to get the data for the elements iati attribs form the elements and its childrens data.
+     */
+    public function getElementsIatiData($data)
+    {
+        foreach($this->iatiAttribs as $attrib){
+            $elementsData[$attrib] = $data[$attrib];
         }
         return $elementsData;
     }
@@ -442,6 +474,9 @@ class Iati_Core_BaseElement
                 // get the ids of the elements from the parent id so that the elements ids can be passed to the children.
                 $elementIds = $this->getElementIdsFromParent($parentColumn , $eleId);
                 // Foreach element delete their children.
+                
+                if($elementIds) return;
+                
                 foreach($elementIds as $elementId){
                     foreach($this->childElements as $childElementClass){
                         $childElementName = get_class($this)."_$childElementClass";
@@ -502,76 +537,55 @@ class Iati_Core_BaseElement
      * If parent is present, it adds a child with the elements name as the name to the parent, adds
      * attribute and calls children's getXml if any.
      * 
-     * @param Integer $eleId Id of the element to fetch data (or the parents id)
-     * @param Boolen $isParentId true if the element id passed is the parents id.
      * @param Object_SimpleXMLElement/null If called by parent, the parameter is the parent object else null.
      * @return Object_SimpleXMLElement/null
      */
-    public function getXml($eleId , $isParentId = false, $parent = null)
+    public function getXml($parent = null)
     {
-        $eleName = $this->getXmlName();
-        if($isParentId){
-            $parentColumn = $this->getParentCoulmn();
+        if(!$this->hasData($this->data)){
+            return ; // Xml should not be added for empty elements.
         }
-        
+                
         if($this->isMultiple){
-            // If parentName is present use it to fetch using the parent column.
-            if($isParentId){
-                $eleData = $this->db->fetchAll($this->db->getAdapter()->quoteInto("{$parentColumn} = ?" , $eleId ));
-            } else { // If parentName is not present the provided id is its own id so fetch by own id.
-                $eleData = $this->db->fetchAll($this->db->getAdapter()->quoteInto("id = ?" , $eleId));
-            }
-
-            if($eleData){
-                $data = $eleData->toArray();
-            } else {
-                return; // xml should not be added if data is not present.
-            }
-            
-            foreach($data as $row){
-                if(!is_object($parent)){
-                    $xmlObj = new SimpleXMLElement("<$eleName>".preg_replace('/&(?!\w+;)/' , '&amp;' , $row['text'])."</$eleName>");
-                } else {
-                    $xmlObj = $parent->addChild($eleName , preg_replace('/&(?!\w+;)/' , '&amp;' , $row['text']));
-                }
-                $xmlObj = $this->addElementsXmlAttribsFromData($xmlObj , $row);
-                // If children is present fetch their data.
-                if(!empty($this->childElements)){
-                    foreach($this->childElements as $childElementClass){
-                        $childElementName = get_class($this)."_$childElementClass";
-                        $childElement = new $childElementName();
-                        $childElement->getXml($row['id'] , true , $xmlObj);
-                    }
-                }
+            foreach($this->data as $data){
+                $this->generateElementXml($data , $parent);
             }
         } else {          
-            if($isParentId){
-                $select = $this->db->select()->where($this->db->getAdapter()->quoteInto("{$parentColumn} = ?" , $eleId));
-            } else {
-                $select = $this->db->select()->where($this->db->getAdapter()->quoteInto("id = ?" , $eleId));
-            }
-            $row = $this->db->fetchRow($select);
-            
-            if($row){
-                $data = $row->toArray();
-            } else { 
-                return; // xml should not be added if data is not present.
-            }
-            
-            if(!is_object($parent)){
-                $xmlObj = new SimpleXMLElement("<$eleName>".preg_replace('/&(?!\w+;)/' , '&amp;' ,$data['text'])."</$eleName>");
-            } else {
-                $xmlObj = $parent->addChild($eleName , preg_replace('/&(?!\w+;)/' , '&amp;' ,$data['text']));
-            }
-            
+           $this->generateElementXml($this->data , $parent);
+        }
+        
+        return $xmlObj;
+    }
+    
+    /**
+     * Internal function to generate xml for individual elements. Called by getXml function.    
+     *
+     * @param Array $elementData Data of the element and its child
+     * @param SimpleXml/null $parent 
+     */
+    protected function generateElementXml($elementData , $parent)
+    {
+        $eleName = $this->getXmlName();
+        $data = $this->getElementsIatiData($elementData);
+        
+        if(!$this->hasData($data) && empty($this->childElements)) return;  //Donot generate xml if no iati data and no child.
+                
+        if(!is_object($parent)){
+            $xmlObj = new SimpleXMLElement("<$eleName>".preg_replace('/&(?!\w+;)/' , '&amp;' ,$data['text'])."</$eleName>");
+        } else {
+            $xmlObj = $parent->addChild($eleName , preg_replace('/&(?!\w+;)/' , '&amp;' ,$data['text']));
+        }
+        
+        if($this->hasData($data)){
             $xmlObj = $this->addElementsXmlAttribsFromData($xmlObj , $data);
-            
-            if(!empty($this->childElements)){
-                foreach($this->childElements as $childElementClass){
-                    $childElementName = get_class($this)."_$childElementClass";
-                    $childElement = new $childElementName();
-                    $childElement->getXml($data['id'] , true , $xmlObj);
-                }
+        }
+        
+        if(!empty($this->childElements)){
+            foreach($this->childElements as $childElementClass){
+                $childElementName = get_class($this)."_$childElementClass";
+                $childElement = new $childElementName();
+                $childElement->setData($elementData[$childElement->getClassName()]);
+                $childElement->getXml($xmlObj);
             }
         }
         
@@ -606,6 +620,8 @@ class Iati_Core_BaseElement
      */
     public function addElementsXmlAttribsFromData($xmlObj , $data)
     {
+        if(!is_array($data)) return $xmlObj;
+        
         foreach($data as $name=>$value){  
             if(in_array($name , $this->iatiAttribs) && $name != 'text')
             {

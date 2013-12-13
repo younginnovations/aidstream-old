@@ -35,8 +35,21 @@
             <?php endforeach; ?>
         </ul>
     </div>
+    <?php if(!Model_User::checkHasPublished() && $this->state != Iati_WEP_ActivityState::STATUS_PUBLISHED):?>
+    <div class="activity-state">
+        <div id="change-state-description" class="custom-tooltip-dialog tooltip-left state-<?php echo strtolower(Iati_WEP_ActivityState::getStatus($this->state));?>">
+        <span class="custom-tooltip-pointer"></span>
+            <span id="close-dialog" class="close-dialog close-dialog-button">X</span>
+            <div class="dialog-content">
+                <p><?php echo Model_Help::getHelpMessageForStates($this->state);?></p>
+                 <div class="close close-dialog-button">Got it. Thanks</div>
+            </div>
+        </div>
+        </div>
+    <?php endif; ?>
     <div class='change-state'>
-        <div class="change-state-info-section">This activity is in <span class="change-state-current-state"><?php print(Iati_WEP_ActivityState::getStatus($this->state));?></span> State. <?php if($this->state != Iati_WEP_ActivityState::STATUS_PUBLISHED): ?>Mark it as <?php print($change_status_form)?><?php endif; ?></div>
+        <div class="change-state-info-section">This activity is in <span class="change-state-current-state"><?php print(Iati_WEP_ActivityState::getStatus($this->state));?></span> State. <?php if($this->state != Iati_WEP_ActivityState::STATUS_PUBLISHED): ?>Mark it as <?php print($change_status_form)?><?php endif; ?>
+        </div>
         <div class="change-state-help-section"><span class="change-state-help"><a href="#">what's this?</a></span></div>
     </div>
 </div>
@@ -139,6 +152,17 @@
                ?>
         <?php endif; ?>
         <!--ContactInfo Ends-->
+        
+        <!--Activity Scope Starts-->
+        <?php if(count($activity['ActivityScope'])) : ?>
+              <?php echo $this->partial("partials/view-activity/activity-scope.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,  
+                                                                                'elements' => $activity['ActivityScope'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Activity Scope Ends-->
         
         <!--Participating Org Starts-->
         <?php if(count($activity['ParticipatingOrg'])) : ?>
@@ -261,6 +285,17 @@
         <?php endif; ?>
         <!--Default Tied Status Ends-->
         
+        <!--Country Budget Items Starts-->
+        <?php if(count($activity['CountryBudgetItems'])) : ?>
+              <?php echo $this->partial("partials/view-activity/country-budget-items.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,  
+                                                                                'elements' => $activity['CountryBudgetItems'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--Country Budget Items Ends-->
+        
         <!--Budget Starts-->
         <?php if(count($activity['Budget'])) : ?>
               <?php echo $this->partial("partials/view-activity/budget.phtml" , array(
@@ -279,6 +314,18 @@
                                                                                 'activity_id' => $activity['id'] ,
                                                                                 'activityInfo' => $activity ,
                                                                                 'elements' => $activity['PlannedDisbursement'] ,
+                                                                            )
+                          );
+               ?>
+        <?php endif; ?>
+        <!--PlannedDisbursements Ends-->
+        
+        <!--Capital Spend Starts-->
+        <?php if(count($activity['CapitalSpend'])) : ?>
+              <?php echo $this->partial("partials/view-activity/capital-spend.phtml" , array(
+                                                                                'activity_id' => $activity['id'] ,
+                                                                                'activityInfo' => $activity ,
+                                                                                'elements' => $activity['CapitalSpend'] ,
                                                                             )
                           );
                ?>

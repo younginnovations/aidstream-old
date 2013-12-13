@@ -14,7 +14,23 @@
                 <div class="highlight first">
                 <?php endif; ?>
 
-                <ul class="style-3">     
+                <ul class="style-3">
+                     <!-- contact info type -->
+                    <?php $type = $element['@type']; ?>
+                    <?php if ($type || $element['@xml_lang']): ?>                        
+                        <li>
+                            <span class="name">Type: </span>
+                                <span class="infom">
+                                    <?php print $type; ?>
+                                     <?php if ($element['@xml_lang'])
+                                                            {
+                                                                printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('ContactInfo' , '@xml_lang' , $element['@xml_lang']));
+                                                            }
+                                                    ?> 
+                                </span>
+                        </li>
+                    <?php endif; ?>
+                    
                     <!-- Organisation Starts -->
                     <?php
                     $organisation = $element['Organisation'];
@@ -43,6 +59,24 @@
                         </li>
                     <?php endif; ?>
                     <!-- PersonName Ends -->
+                    
+                    <!-- JobTitle Starts -->
+                    <?php
+                    $jobtitle = $element['JobTitle'];
+                    ?>
+                    <?php if (!empty($jobtitle)): ?>                        
+                        <li>
+                            <span class="name">Job Title: </span>
+                                <span class="infom"><?php if ($jobtitle['text']) print ($jobtitle['text']); ?>
+                                                    <?php if ($jobtitle['@xml_lang'])
+                                                            {
+                                                                printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('JobTitle' , '@xml_lang' , $jobtitle['@xml_lang']));
+                                                            }
+                                                    ?> 
+                                </span>
+                        </li>
+                    <?php endif; ?>
+                    <!-- JobTitle Ends -->
 
 
                     <!-- Telephone Starts -->
@@ -95,6 +129,24 @@
                         </li>
                     <?php endif; ?>
                     <!-- MailingAddress Ends -->
+                    
+                    <!-- Website Starts -->
+                    <?php
+                    $websites = $element['Website'];
+                    ?>
+                    <?php if (!empty($websites)): ?>                       
+                        <li>
+                            <span class="name">Website:</span>
+                            <?php foreach ($websites as $website): ?>                                
+                                <span class="infom">
+                                    <?php if ($website['text']) print ($website['text']); ?>
+
+                                </span>
+                            <?php endforeach; ?>
+                        </li>
+                    <?php endif; ?>
+                    <!-- Website Ends -->
+                    
                 </ul> <!-- End .style-1 style-4 -->
             </div>
             <?php $i = $i + 1; ?>

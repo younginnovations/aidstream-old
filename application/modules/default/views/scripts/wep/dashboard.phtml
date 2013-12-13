@@ -5,6 +5,13 @@
     $stateCount = $this->state_count;
 ?>
 <div class="dashboard-content">
+	<?php if(!$this->activity_count):?>
+	<div class="dashboard-published-info-wrapper">
+	    <div id="no-activities-message" class="dashboard-published-info-message">
+		You do not have any activities yet. Here's how you <a href="<?php echo $this->baseUrl();?>/how-to/#data-entry" target="__blank">get started</a> !!!
+	    </div>
+	</div>
+	<?php endif;?>
 
 	<?php if(is_array($stateCount)): ?>
 	    <?php

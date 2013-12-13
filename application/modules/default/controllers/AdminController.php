@@ -17,12 +17,15 @@ class AdminController extends Zend_Controller_Action
         } else {
             $this->view->blockManager()->enable('partial/primarymenu.phtml');
             $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
+            $this->view->blockManager()->enable('partial/download-my-data.phtml');
             $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
             $this->view->blockManager()->enable('partial/published-list.phtml');
+            $this->view->blockManager()->enable('partial/uploaded-docs.phtml');
             if(!Simplified_Model_Simplified::isSimplified()){
                 $this->view->blockManager()->enable('partial/organisation-data.phtml');
             } else {
-                $this->view->blockManager()->enable('partial/simplified-info.phtml');
+                $this->view->blockManager()->enable('partial/simplified-info.phtml'
+);
             }
         }
         /* $contextSwitch = $this->_helper->contextSwitch;
@@ -319,19 +322,10 @@ class AdminController extends Zend_Controller_Action
                     $privilegeFields['owner_id'] = $account_id;
                     $privilegeFieldId = $model->insertRowsToTable('Privilege', $privilegeFields);
 
-                    // Send register mail.
-                    $to = array($data['email'] => '');
-                    $mailParams['subject'] = 'Account registration confirmed';
-                    $mailParams['first_name'] = $data['first_name'];
-                    $mailParams['middle_name'] = $data['middle_name'];
-                    $mailParams['last_name'] = $data['last_name'];
-                    $mailParams['username'] = $user['user_name'];
-                    $mailParams['password'] = $data['password'];
-                    $mailParams['url'] = "http://".$_SERVER['SERVER_NAME'].Zend_Controller_Front::getInstance()->getBaseUrl();
-
-                    $template = 'user-register.phtml';
-                    $Wep = new App_Notification;
-                    $Wep->sendemail($mailParams,$template,$to);
+                    //Send notification
+                    $data['user_name']  = $user['user_name'];
+                    $notification = new Model_Notification;
+                    $notification->sendRegistrationNotifications($data);
 
                     $this->_helper->FlashMessenger->addMessage(array('message' => "Account successfully registered."));
                     $this->_redirect('admin/list-organisation');
@@ -686,7 +680,7 @@ class AdminController extends Zend_Controller_Action
         $orgModel = new Model_Wep();
         $orgModel->updateRowsToTable('account' , $data);
         
-        $outMessage = ($data['simplified'])?"Organisation type changed to Simplified": "Organisatin type changed to Default";
+        $outMessage = ($data['simplified'])?"Organisation type changed to Simplified": "Organisation type changed to Default";
         $this->_helper->FlashMessenger->addMessage(array('message' => $outMessage));
         $this->_redirect('admin/list-organisation');
     }
@@ -703,6 +697,11 @@ class AdminController extends Zend_Controller_Action
             $activities = $activityCollModel->getActivitiesByAccount($organisation['id']);
             $states = $activityModel->getCountByState($activities);
             $organisation['states'] = $states;
+            
+            $regPublishModel = new Model_RegistryPublishedData();
+            $publishedFiles = $regPublishModel->getPublishedInfoByOrg($organisation['id']);
+            $publishedActivityCount = $regPublishModel->getActivityCount($publishedFiles);
+            $organisation['registry_published_count'] = $publishedActivityCount;
             $orgData[] = $organisation;
         }
         $this->view->orgs = $orgData;

@@ -4,6 +4,8 @@ class Iati_Aidstream_Form_Activity_DocumentLink extends Iati_Core_BaseForm
 {  
     public function getFormDefination()
     {
+        $baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
+
         $model = new Model_Wep();
         
         $form = array();
@@ -17,7 +19,12 @@ class Iati_Aidstream_Form_Activity_DocumentLink extends Iati_Core_BaseForm
             ->setAttribs(array('class' => 'form-text'))
             ->setRequired()
             ->setValue($this->data['@url'])
-            ->setAttribs(array('rows'=>'2' , 'cols'=> '20'));     
+            ->setDescription("If your document is not uploaded,
+                             <a href='#' class='upload-here'>Upload it</a>
+                             in AidStream. You can also add from your
+                             <a href='#' class='existing-doc'>existing</a> documents in Aidstream")
+            ->setAttribs(array('rows'=>'2' , 'cols'=> '20'))
+            ->addDecorator('Description' , array('escape' => false , 'class' => 'description'));
             
         $format = $model->getCodeArray('FileFormat', null, '1' , true);
         $form['format'] = new Zend_Form_Element_Select('format');

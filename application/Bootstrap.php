@@ -60,6 +60,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view = $layout->getView();
         // Add script path for custom scripts.
         $view->addScriptPath(APPLICATION_PATH .'/../library/Iati/WEP/ViewScripts/');
+        $view->addScriptPath(APPLICATION_PATH .'/../library/Iati/Aidstream/ViewScripts/');
         $view->addScriptPath(APPLICATION_PATH .'/../library/Iati/Core/ViewScripts/');
         $view->addScriptPath(APPLICATION_PATH .'/../library/Iati/Aidstream/Form/ViewScripts/');
 

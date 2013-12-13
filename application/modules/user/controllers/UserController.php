@@ -28,8 +28,10 @@ class User_UserController extends Zend_Controller_Action
                     $userModel = new User_Model_User();
                     $accountId = $userModel->registerUser($formData);
 
-                    $this->_helper->FlashMessenger->addMessage(array('message' => 'Thank you for registering. You will receive an email shortly'));
+                    $this->_helper->FlashMessenger->addMessage(array('message' => 'Thank you for registering. You will receive an email shortly.'));
                     $this->_redirect('/');
+                } else {
+                    $this->_helper->FlashMessenger->addMessage(array('error' => 'Oops! something went wrong. Please check the fields marked in red to proceed.'));
                 }
         }
         $this->view->form = $form;
@@ -58,22 +60,9 @@ class User_UserController extends Zend_Controller_Action
                         $resetSite = "http://" . $_SERVER['HTTP_HOST'] . $this->view->baseUrl() . '/user/user/resetpassword/email/' . urlencode($email) . '/value/' . urlencode($uniqueId);
                         $reset = new User_Model_DbTable_Reset();
                         $reset->insert(array('email' => $email, 'value' => $uniqueId, 'reset_flag' => '1'));
-
-                        $profileModel = new User_Model_DbTable_Profile();
-                        $profile = $profileModel->getProfileByUserId($user->user_id);
-                        $name = $profile->first_name;
-                        if($profile->middle_name){
-                            $name .= " ".$profile->middle_name;
-                        }
-                        $name .= " ".$profile->last_name;
-
-                        $mailParams['subject'] = 'Password reset for ' . $email;
-                        $mailParams['name'] = $name;
-                        $mailParams['username'] = $user->user_name;
-                        $mailParams['reset_url'] = $resetSite;
-                        $template = 'forgot_password.phtml';
-                        $notification = new App_Notification;
-                        $notification->sendemail($mailParams,$template,array($email => ''));
+                        
+                        $notification = new Model_Notification;
+                        $notification->sendResetNotifications($user , $resetSite);
 
                         $this->_helper->FlashMessenger->addMessage(array('message' => 'Further instructions have been sent to your e-mail address.'));
                         $this->_redirect('/');
@@ -158,10 +147,10 @@ class User_UserController extends Zend_Controller_Action
                     }
                 }
                 else
-                    $this->_helper->FlashMessenger->addMessage(array('error' => 'Invalid username or password.'));
+                    $this->_helper->FlashMessenger->addMessage(array('error' => 'Username or password did not match.'));
                     //$this->_redirect('/');
             } else {
-                $this->_helper->FlashMessenger->addMessage(array('error' => 'Invalid data provided'));
+                $this->_helper->FlashMessenger->addMessage(array('error' => 'Username or password did not match.'));
                 //$this->_redirect('/');
             }
         }
@@ -205,7 +194,10 @@ class User_UserController extends Zend_Controller_Action
             $this->view->blockManager()->enable('partial/primarymenu.phtml');
             $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
             $this->view->blockManager()->enable('partial/published-list.phtml');
+            $this->view->blockManager()->enable('partial/download-my-data.phtml');
             $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
+            $this->view->blockManager()->enable('partial/uploaded-docs.phtml');
+            
             // for role user check if the user has permission to add, publish ,if not disable menu.
             if($identity->role == 'user'){
                 $model = new Model_Wep();
@@ -315,7 +307,9 @@ class User_UserController extends Zend_Controller_Action
             $this->view->blockManager()->enable('partial/primarymenu.phtml');
             $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
             $this->view->blockManager()->enable('partial/published-list.phtml');
+            $this->view->blockManager()->enable('partial/download-my-data.phtml');
             $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
+            $this->view->blockManager()->enable('partial/uploaded-docs.phtml');
             // for role user check if the user has permission to add, publish ,if not disable menu.
             if($identity->role == 'user'){
                 $model = new Model_Wep();
@@ -515,7 +509,7 @@ class User_UserController extends Zend_Controller_Action
             if(isset($session->identity)){
                 $auth->getStorage()->write(unserialize($session->identity));
                 Zend_Session::namespaceUnset('superadmin');
-                $this->_redirect('/admin/dashboard');
+                $this->_redirect('/admin/list-organisation');
             } else {
                 $this->_redirect('/wep/dashboard');
             }
@@ -531,24 +525,18 @@ class User_UserController extends Zend_Controller_Action
                 $modelSupport = new Model_Support();
                 $modelSupport->saveSupportRequest($data);
 
-                $model = new Model_Wep();
-                $account = $model->getRowById('account', 'id', Zend_Auth::getInstance()->getIdentity()->account_id);
-
-                //Send Support Mail
-                $mailParams['subject'] = 'Support';
-                $mailParams['support_name'] = $data['support_name'];
-                $mailParams['support_email'] = $data['support_email'];
-                $mailParams['support_query'] = $data['support_query'];
-                $mailParams['servername'] = $_SERVER['SERVER_NAME'];
-                $mailParams['account_name'] = $account['name'];
-                $template = 'support.phtml';
-                $notification = new App_Notification;
-                $notification->sendemail($mailParams,$template);
+                $notification = new Model_Notification;
+                $notification->sendSupportNotifications($data);
 
                 $this->_helper->FlashMessenger->addMessage(array('message' =>'Thank you. Your query has been received.'));
-                $this->_redirect('/');
             } else {
-                $this->_helper->FlashMessenger->addMessage(array('error' => 'Please provide valid data'));
+                $this->_helper->FlashMessenger->addMessage(array('error' => 'Sorry your support mail could not be sent'));
+            }
+            
+            if($this->_getParam('referer')){
+                $this->_redirect($this->_getParam('referer'));
+            } else {
+                $this->_redirect('/wep/dashboard');
             }
         }
     }

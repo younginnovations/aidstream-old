@@ -16,6 +16,7 @@ class WepController extends Zend_Controller_Action
         $this->view->blockManager()->enable('partial/primarymenu.phtml');
         $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
         $this->view->blockManager()->enable('partial/published-list.phtml');
+        $this->view->blockManager()->enable('partial/download-my-data.phtml');
         $this->view->blockManager()->enable('partial/organisation-data.phtml');
         
         
@@ -34,7 +35,7 @@ class WepController extends Zend_Controller_Action
         }
 
         $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
-
+        $this->view->blockManager()->enable('partial/uploaded-docs.phtml');
     }
 
     public function indexAction()
@@ -118,10 +119,10 @@ class WepController extends Zend_Controller_Action
 
     }
 
-    public function editDefaultsAction()
+    public function settingsAction()
     {
         if(Simplified_Model_Simplified::isSimplified()){
-            $this->_redirect('simplified/default/edit-defaults');
+            $this->_redirect('simplified/default/settings');
         }
         $identity = Zend_Auth::getInstance()->getIdentity();
         $model = new Model_Wep();
@@ -189,7 +190,7 @@ class WepController extends Zend_Controller_Action
                     $defaultFields['object'] = $fieldString;
                     $defaultFieldId = $model->updateRowsToTable('default_field_groups', $defaultFields);
 
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "Defaults successfully updated."));
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "Settings successfully updated."));
                     if ($identity->role == 'superadmin') {
                         $this->_redirect('admin/dashboard');
                     } else if ($identity->role == 'admin') {
@@ -293,7 +294,7 @@ class WepController extends Zend_Controller_Action
                                                                  each activity you report."
                                                                    )
                                                            );
-                $this->_redirect('wep/edit-defaults');
+                $this->_redirect('wep/settings');
             } else { // For other user redirect to dashboard.
                 $this->_helper->FlashMessenger->addMessage(array(
                                                                  'message' => "All information for Reporting Organisation
@@ -331,7 +332,7 @@ class WepController extends Zend_Controller_Action
                     $activityHashModel = new Model_ActivityHash();
                     $updated = $activityHashModel->updateActivityHash($activity_id);
 
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "Activity Sucessfully Created."));
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "Congratulations! You have successfully created an activity."));
                     $this->_redirect('activity/view-activity-info/?activity_id=' . $activity_id);
                 }
             } catch (Exception $e) {
@@ -768,9 +769,9 @@ class WepController extends Zend_Controller_Action
             $modelRegistryInfo = new Model_RegistryInfo();
             $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($account_id);
             if(!$registryInfo){
-                $this->_helper->FlashMessenger->addMessage(array('error' => "Registry information not found. Please go to <a href='{$this->view->baseUrl()}/wep/edit-defaults'>Change Defaults</a> to add registry info."));
+                $this->_helper->FlashMessenger->addMessage(array('error' => "Registry information not found. Please go to <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a> to add registry info."));
             } else if(!$registryInfo->publisher_id){
-                $this->_helper->FlashMessenger->addMessage(array('error' => "Publisher Id not found. Xml files could not be created. Please go to  <a href='{$this->view->baseUrl()}/wep/edit-defaults'>Change Defaults</a> to add publisher id."));
+                $this->_helper->FlashMessenger->addMessage(array('error' => "Publisher Id not found. IATI Activities files could not be created. Please go to  <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a> to add publisher id."));
             } else {
                 $db->updateActivityStatus($activity_ids,(int)$state);
                 
@@ -779,7 +780,7 @@ class WepController extends Zend_Controller_Action
 
                 if($registryInfo->update_registry){
                     if(!$registryInfo->api_key){
-                        $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key not found. Activities could not be registered in IATI Registry. Please go to <a href='{$this->view->baseUrl()}/wep/edit-defaults'>Change Defaults</a> to add API key."));
+                        $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key not found. Activities could not be registered in IATI Registry. Please go to <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a> to add API key."));
                     } else {
                         $modelPublished = new Model_Published();
                         $files = $modelPublished->getPublishedInfo($account_id);
@@ -789,11 +790,11 @@ class WepController extends Zend_Controller_Action
                         if($published['error']){
                             $this->_helper->FlashMessenger->addMessage(array('error' => $published['error']));
                         } else {
-                            $this->_helper->FlashMessenger->addMessage(array('message' => "Activities registered to IATI registry."));
+                            $this->_helper->FlashMessenger->addMessage(array('message' => "Activities have been registered to IATI registry."));
                         }
                     }
                 } else {
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "Activities xml files created."));
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "IATI Activities files have been created. <a href='".$this->view->baseUrl()."/wep/list-published-files'>View your published files</a>"));
                 }
 
 
@@ -802,7 +803,7 @@ class WepController extends Zend_Controller_Action
             $db->updateActivityStatus($activity_ids,(int)$state);
         }
         if($redirect){
-            $this->_redirect($redirect);
+            $this->_redirect($redirect , array('prependBase'=>false));
         }
         $this->_redirect('wep/view-activities');
     }
@@ -822,7 +823,7 @@ class WepController extends Zend_Controller_Action
         $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($accountId);
 
         if(!$registryInfo->api_key){
-            $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key not found. Activities could not be registered in IATI Registry. Please go to <a href='{$this->view->baseUrl()}/wep/edit-defaults'>Change Defaults</a> to add API key."));
+            $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key not found. Activities could not be registered in IATI Registry. Please go to <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a> to add API key."));
         } else {
             $modelPublished = new Model_Published();
             $files = $modelPublished->getPublishedInfoByIds($fileIds);
@@ -950,7 +951,7 @@ class WepController extends Zend_Controller_Action
         $updated = $activityHashModel->updateHash($activityId);
         if(!$updated){
             $type = 'message';
-            $message = "Already up to date. To make changes please change values in 'Change Defaults' and then update.";
+            $message = "Already up to date. To make changes please change values in 'Settings' and then update.";
         } else {
             //update the activity so that the last updated time is updated
             $this->updateActivityUpdatedDatetime($activityId);
@@ -964,5 +965,102 @@ class WepController extends Zend_Controller_Action
         $this->_helper->FlashMessenger->addMessage(array($type => $message));
         $this->_redirect("/activity/edit-element/?activity_id=" . $activityId . "&className=Activity_ReportingOrg");
        
+    }
+    
+    public function downloadMyDataAction(){}
+    
+    public function downloadCsvAction()
+    {
+        $type = $this->_getParam('type');
+        $obj = new Model_CsvDownload();
+        echo $obj->downloadCsv($type);
+        exit;
+    }
+    
+    public function uploadTransactionAction()
+    {
+        $activityId = $this->_getParam('activity_id');
+        
+        $form = new Form_Wep_UploadTransaction();
+        
+        if($data = $this->getRequest()->getPost()){
+            if($form->isValid($data)){
+                $uploadDir = Zend_Registry::get('config')->public_folder."/files/csv/uploads";
+                $upload = new Zend_File_Transfer_Adapter_Http();
+                $upload->setDestination($uploadDir);
+                $source = $upload->getFileName();
+                try{
+                        $upload->receive();
+                        $csvHandler = new Model_CsvUpload();
+                        $csvHandler->setInputFile($source);
+                        $csvHandler->readCsv();
+                        $count = $csvHandler->uploadDataToTransaction($activityId);
+                        if(!$count){
+                            $messanger = $this->_helper->FlashMessenger;
+                            $messanger->addMessage(array('trans-error' => 'You have following errors in your file. Please enter correct details'));
+                            foreach($csvHandler->getErrors() as $tranCount => $error){
+                                $tranNo = $tranCount+1;
+                                if(!empty($error)){
+                                    $messanger->addMessage(array('trans-error' =>"<div class='tran-no'>Transaction no: {$tranNo}</div>"));
+                                    foreach($error as $errormessage){
+                                        $messanger->addMessage(array('trans-error' => " # ".$errormessage['message']));
+                                    }
+                                }
+                            }
+                        } else {
+                            $activityHashModel = new Model_ActivityHash();
+                            $updated = $activityHashModel->updateActivityHash($activityId);
+                            if(!$updated){ // Update hash and status
+                                $type = 'message';
+                                $message = 'No Changes Made';
+                            } else {
+                                $oldState = Model_Activity::getActivityStatus($activityId);
+                                Model_Activity::updateActivityUpdatedInfo($activityId);                        
+                            }
+                            
+                            if($updated && $oldState != Iati_WEP_ActivityState::STATUS_EDITING){ // In case of update notify the user about state change.
+                                $this->_helper->FlashMessenger->addMessage(array('state-change-flash-message' => "The
+                                                                                 activity state is changed back to Edit.
+                                                                                 You must complete and verify in order
+                                                                                 to publish the activity."));
+                            }
+                            
+                            $this->_helper->FlashMessenger->addMessage(array('message' => "{$count} transactions added"));
+                            $this->_redirect("/activity/list-elements/?activity_id=".$activityId ."&classname=Activity_Transaction");
+                        }
+                       
+                } catch(Zend_File_Transfer_Exception $e) {
+                    $e->getMessage();
+                }
+            } else {
+                $form->populate($data);
+            }
+        }
+        $this->view->form = $form;
+        $this->view->activityId = $activityId;
+        $this->view->blockManager()->enable('partial/override-activity.phtml');
+        $this->view->blockManager()->enable('partial/activitymenu.phtml');
+        $this->view->blockManager()->disable('partial/primarymenu.phtml');
+        $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
+        $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
+        $this->view->blockManager()->disable('partial/published-list.phtml');
+        $this->view->blockManager()->disable('partial/organisation-data.phtml');
+        $this->view->blockManager()->disable('partial/uploaded-docs.phtml'); 
+        $this->view->blockManager()->disable('partial/download-my-data.phtml'); 
+
+    }
+    
+    public function listUploadedDocumentsAction()
+    {
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $accountId = $identity->account_id;
+        
+        $model = new Model_UserDocument();
+        
+        $docs = $model->fetchAllDocuments($accountId);
+        $usedDocs = $model->fetchUsedDocuments($accountId);
+        
+        $this->view->docs = $docs;
+        $this->view->usedDocs = $usedDocs;
     }
 }

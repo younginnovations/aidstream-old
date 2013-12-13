@@ -78,6 +78,10 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'default:wep', 'add-activities');
         $this->allow('user', 'default:wep', 'add-activity', new App_ActionAssertion('add_activity'));
         $this->allow('user', 'default:wep', 'activitybar');
+        $this->allow('user', 'default:wep', 'upload-transaction');
+        $this->allow('user', 'default:wep', 'download-csv');
+        $this->allow('user', 'default:wep', 'download-my-data');
+        $this->allow('user', 'default:wep', 'list-uploaded-documents');
         $this->allow('user', 'default:wep', 'add-activity-elements', new App_ActionAssertion('add_activity_elements'));
         $this->allow('user', 'default:wep', 'edit-activity-elements', new App_ActionAssertion('edit_activity_elements'));
         $this->allow('user', 'default:wep', 'edit-element', new App_ActionAssertion('edit_activity_elements'));
@@ -109,11 +113,14 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'default:ajax', 'get-form');
         $this->allow('user', 'default:ajax', 'remove-form');
         $this->allow('user', 'default:ajax', 'element');
+        $this->allow('user', 'default:ajax', 'previous-documents');
+        $this->allow('user', 'default:ajax', 'document-upload');
+        $this->allow('user', 'default:ajax', 'get-country');
         $this->allow('user' , 'simplified:default');
 
         $this->allow('admin', 'user');
         $this->allow('admin', 'default:code-list');
-        $this->allow('admin', 'default:wep', 'edit-defaults');
+        $this->allow('admin', 'default:wep', 'settings');
         $this->allow('admin', 'default:wep', 'view-activities');
         $this->allow('admin', 'default:wep', 'delete');
         $this->allow('admin', 'default:wep', 'add-activity');

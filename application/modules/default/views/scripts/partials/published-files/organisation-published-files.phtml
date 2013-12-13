@@ -50,6 +50,17 @@
         </table>
             <? if($this->publish_permission): ?>
                 <?php echo $this->formForOrganisation; ?>
+		
+		<?php if(Model_Help::showHelpforPushToRegistry()): ?>
+		<div class="tooltip-wrapper">
+		<div class="custom-tooltip-dialog tooltip-up custom-tooltip-registry">
+		       <div class="custom-tooltip-wrapper">
+			<span class="custom-tooltip-pointer"></span>
+		       <p>To push the organisation XML files to IATI Registry, please click on "Register to IATI Registry" button.</p>
+		       </div>
+		</div>
+		</div>
+	    <?php endif; ?>
             <? endif; ?>
     <? endif; ?>
 </div>

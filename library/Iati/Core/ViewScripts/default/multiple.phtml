@@ -2,7 +2,7 @@
 <?php if(!$this->ajax):?>
     <?php if($this->eleLevel == 1):?>
         <div class="result-form-container">
-        <form action="<?php echo $form->getAction(); ?>" method="<?php echo $form->getMethod(); ?>" >
+        <form action="<?php echo $wrapperForm->getAction(); ?>" method="<?php echo $wrapperForm->getMethod(); ?>" >
     <?php endif; ?>
     
     <ul class="activity-element-level-<?php echo $this->eleLevel; ?>">
@@ -18,9 +18,11 @@
 
         <?php foreach($wrapperForm->getSubForms() as $form): ?>
             <div class="elements-wrapper clearfix">
-                <?php $formBelongsTo = $form->getElementsBelongTo();?>
-                <?php $formBelongsTo = preg_replace('/^(\w+)/' , '[$1]', $formBelongsTo);?>
-                <?php $form->setElementsBelongTo("{$wrapperForm->getElementsBelongTo()}{$formBelongsTo}");?>
+                <?php if($this->eleLevel != 1): ?>
+                    <?php $formBelongsTo = $form->getElementsBelongTo();?>
+                    <?php $formBelongsTo = preg_replace('/^(\w+)/' , '[$1]', $formBelongsTo);?>
+                    <?php $form->setElementsBelongTo("{$wrapperForm->getElementsBelongTo()}{$formBelongsTo}");?>
+                <?php endif; ?>
             
                 <ul class="level-<?php echo $this->eleLevel; ?> element-level">
                     <?php foreach($form->getElements() as $element): ?>
@@ -55,7 +57,8 @@
         </li>
     </ul>
     <?php if($this->eleLevel == 1): ?>
-        <?php echo $form->getElement('save'); ?>
+         <?php echo $wrapperForm->getElement('save'); ?>
+         <?php echo $wrapperForm->getElement('save_and_view');?>
         </form>
         </div>
     <?php endif; ?>

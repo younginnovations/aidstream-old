@@ -29,6 +29,8 @@ class Form_Admin_Userregister extends App_Form
         $form['email'] = new Zend_Form_Element_Text('email');
         $form['email']->setLabel('Email')
         ->addValidator('emailAddress', false)
+        ->addValidator('Db_NoRecordExists', false, array('table' => 'user',
+                'field' => 'email'))
         ->addFilter('stringTrim')
         ->setRequired();
 

@@ -1,0 +1,27 @@
+<li class="element-activity">
+
+    <div class="element-title element-current">
+        Country Budget Items
+    </div>
+
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/list-elements/?classname=Activity_CountryBudgetItems&activity_id=<?php echo $this->activity_id ?>">Edit</a></div>
+
+    <?php foreach ($this->elements as $key=>$element): ?>
+        <div class="current">
+            <ul class="style-2 arrow">
+                <li>
+                    <span class="ajaxElement-down-arrow">
+                        <div id="get-elementId" style="display:none"><?php echo $element['id'] ; ?></div>
+                        <div id="get-index" style="display:none"><?php echo $key ; ?></div>
+                        <div id="get-className" style="display:none"><?php echo "CountryBudgetItems" ; ?></div> 
+                        <?php if ($element['@vocabulary']): ?>
+                            <?php printf("%s[%s]",Iati_Core_Codelist::getCodeByAttrib('CountryBudgetItems' , '@vocabulary' , $element['@vocabulary'] , 'Name'),Iati_Core_Codelist::getCodeByAttrib('CountryBudgetItems' , '@vocabulary' , $element['@vocabulary'])) ;?> 
+                        <?php endif; ?>
+                    </span>
+                    <div id="view-activity-ajaxElement"style="display:none"></div>
+                </li>
+            </ul><!-- End .style-2 arrow -->
+        </div>
+    <?php endforeach; ?>
+
+</li><!-- end of element-activity -->

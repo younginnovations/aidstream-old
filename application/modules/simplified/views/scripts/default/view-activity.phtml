@@ -21,10 +21,24 @@
             <ul class='state-<?php echo $this->state;?>'>
                 <li class='label'>Activity State</li>
                 <?php foreach(Iati_WEP_ActivityState::getStatus() as $state_value => $state_name):?>
-                    <li <?php if($this->state == $state_value) {print "id='current-state'";}?> ><span class='<?php print (!in_array($state_value,Iati_WEP_ActivityState::getRemainingStates($this->state)))?'visited-state':'not-visited-state'; ?>'><?php print $state_name ?></span></li>
+                <li <?php if($this->state == $state_value) {print "id='current-state'";}?> ><span class='<?php print (!in_array($state_value,Iati_WEP_ActivityState::getRemainingStates($this->state)))?'visited-state':'not-visited-state'; ?>'><?php print $state_name ?></span></li>
                 <?php endforeach; ?>
             </ul>
         </div>
+        
+        <?php if(!Model_User::checkHasPublished() && $this->state != Iati_WEP_ActivityState::STATUS_PUBLISHED):?>
+        <div class="activity-state">
+            <div id="change-state-description" class="custom-tooltip-dialog tooltip-left state-<?php echo strtolower(Iati_WEP_ActivityState::getStatus($this->state));?>">
+            <span class="custom-tooltip-pointer"></span>
+                <span id="close-dialog" class="close-dialog close-dialog-button">X</span>
+                <div class="dialog-content">
+                    <p><?php echo Model_Help::getHelpMessageForStates($this->state);?></p>
+                    <div class="close close-dialog-button">Got it. Thanks</div>
+                </div>
+            </div>
+            </div>
+        <?php endif; ?>
+        
         <div class='change-state'>
             <div class="change-state-info-section">This activity is in <span class="change-state-current-state"><?php print(Iati_WEP_ActivityState::getStatus($this->state));?></span> State. <?php if($this->state != Iati_WEP_ActivityState::STATUS_PUBLISHED): ?>Mark it as <?php print($change_status_form)?><?php endif; ?></div>
             <div class="change-state-help-section"><span class="change-state-help"><a href="#">what's this?</a></span></div>
@@ -41,7 +55,10 @@
             <tr><td class="activity_view_label">Actual Start Date</td><td><?php echo $activityData['start_date'];?></td></tr>
             <tr><td class="activity_view_label">Actual End Date</td><td><?php echo $activityData['end_date'];?></td></tr>
             <?php if($activityData['sector']): ?>
-            <tr><td class="activity_view_label">Sector</td><td><?php foreach($activityData['sector'] as $sector) { echo $model->fetchValueById('Sector' , $sector, 'Name');echo "<br>";} ?></td></tr>
+                <tr><td class="activity_view_label">Sector</td><td><?php foreach($activityData['sector'] as $sector) { echo $model->fetchValueById('Sector' , $sector, 'Name');echo "<br>";} ?></td></tr>
+            <?php endif;?>
+            <?php if($activityData['status']): ?>
+                <tr><td class="activity_view_label">Activity Status</td><td><?php echo $model->fetchValueById('ActivityStatus' , $activityData['status'], 'Name'); ?></td></tr>
             <?php endif;?>
         </table>
     </div>

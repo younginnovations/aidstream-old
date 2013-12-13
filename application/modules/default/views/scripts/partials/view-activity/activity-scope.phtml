@@ -1,0 +1,40 @@
+<li class="element-activity">
+
+    <div class="element-title">
+        Activity Scope
+
+            <div class="element-info">
+                <div class="element-values">
+                    <?php if($this->elements['@code']): ?>
+                        <span class="attrib-label">Code:</span>
+                        <span class="attrib-value"><?php if ($this->elements['@code']) ( printf("%s [%s]" , $this->length()->adjustSingleLength(Iati_Core_Codelist::getCodeByAttrib('ActivityScope' , '@code' , $this->elements['@code'],'Name')),Iati_Core_Codelist::getCodeByAttrib('ActivityScope' , '@code' , $this->elements['@code']))) ?></span>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+    </div>    
+
+    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/edit-element/?activity_id=<?php echo $this->activity_id;?>&className=Activity_ActivityScope">Edit</a></div>	
+
+        <div class="highlight">
+            <ul class="style-1">
+                <li>
+                    <span class="name">Text:</span>
+                    <span class="infom"><?php if ($this->elements['text']) print ($this->elements['text']); ?>
+                                        <?php
+                                                if ($this->elements['@xml_lang'])
+                                                {
+                                                    printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('ActivityScope' , '@xml_lang' , $this->elements['@xml_lang']));
+                                                }
+                                            ?> 
+                    </span>
+                </li>
+                <li>
+                    <span class="name">Code:</span>
+                    <span class="infom"><?php if ($this->elements['@code']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('ActivityScope' , '@code' , $this->elements['@code'],'Name'),Iati_Core_Codelist::getCodeByAttrib('ActivityStatus' , '@code' , $this->elements['@code']))); ?></span>
+                </li>
+            </ul>
+        </div>
+
+</li><!-- end of element-activity -->
+

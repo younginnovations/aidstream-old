@@ -111,4 +111,15 @@ class Model_ActivityCollection extends Zend_Db_Table_Abstract
         $output['sector'] = array_unique($sectors);
         return $output;
     }
+    
+    public function getActivitiesCountByStatusAndAccount($status , $accountId)
+    {
+	$rowSet = $this->select()->setIntegrityCheck(false)
+            ->from(array('iact'=>'iati_activity'),'count(*) as activityCount')
+            ->join(array('iacts'=>'iati_activities'),'iact.activities_id = iacts.id','')
+            ->where('iacts.account_id=?',$accountId)
+            ->where('iact.status_id=?',$status);
+        $activitiesCount = $this->fetchRow($rowSet)->activityCount;
+        return $activitiesCount;
+    }
 }

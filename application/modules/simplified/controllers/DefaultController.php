@@ -78,7 +78,7 @@ class Simplified_DefaultController extends Zend_Controller_Action
         $this->view->activities_id = $activities_id;
     }
 
-    public function editDefaultsAction()
+    public function settingsAction()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
         $model = new Model_Wep();
@@ -133,7 +133,7 @@ class Simplified_DefaultController extends Zend_Controller_Action
                     $defaultValues['object'] = $fieldString;
                     $defaultValuesId = $model->updateRowsToTable('default_field_values', $defaultValues);
 
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "Defaults successfully updated."));
+                    $this->_helper->FlashMessenger->addMessage(array('message' => "Settings successfully updated."));
                     if ($identity->role == 'superadmin') {
                         $this->_redirect('admin/dashboard');
                     } else if ($identity->role == 'admin') {
@@ -181,7 +181,7 @@ class Simplified_DefaultController extends Zend_Controller_Action
                                                                  each activity you report."
                                                                    )
                                                            );
-                $this->_redirect('simplified/default/edit-defaults');
+                $this->_redirect('simplified/default/settings');
             } else { // For other user redirect to dashboard.
                 $this->_helper->FlashMessenger->addMessage(array(
                                                                  'message' => "All information for Reporting Organisation
@@ -211,12 +211,12 @@ class Simplified_DefaultController extends Zend_Controller_Action
                 $activityHashModel = new Model_ActivityHash();
                 $updated = $activityHashModel->updateActivityHash($activityId);
                 
-                $this->_helper->FlashMessenger->addMessage(array('message' => 'Activity created sucessfully'));
+                $this->_helper->FlashMessenger->addMessage(array('message' => 'Congratulations! You have successfully created an activity.'));
                 $this->_redirect('/simplified/default/view-activity/'.$activityId);
                 
             } else {
                 $form->populate($data);
-                $this->_helper->FlashMessenger->addMessage(array('error' => 'You have some error in you data'));
+                $this->_helper->FlashMessenger->addMessage(array('error' => 'You have some error in your data. Please check the fields marked in red to proceed.'));
             }
             
         }        
