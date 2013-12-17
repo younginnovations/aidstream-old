@@ -40,7 +40,8 @@ class ActivityController extends Zend_Controller_Action
         $isMultiple = $this->_getParam('isMultiple' , 1);
 
         if(!$elementClass){
-            $this->_helper->FlashMessenger->addMessage(array('error' => "Could not fetch element."));
+            $this->_helper->FlashMessenger
+                ->addMessage(array('error' => "Could not fetch element."));
             $this->_redirect("/wep/dashboard");           
         }
         
@@ -56,8 +57,10 @@ class ActivityController extends Zend_Controller_Action
             if($form->validate()){
                 $hasData = $element->hasData($data[$element->getClassName()]); 
                 if(!$hasData){
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "You have not entered any data."));
-                    $this->_redirect("/activity/add-element?className={$elementClass}&activity_id={$parentId}&isMultiple={$isMultiple}");    
+                    $this->_helper->FlashMessenger
+                        ->addMessage(array('message' => "You have not entered any data."));
+                    $this->_redirect("/activity/add-element?className={$elementClass}"
+                                    ."&activity_id={$parentId}&isMultiple={$isMultiple}");    
                 }
                 $id = $element->save($data[$element->getClassName()] , $parentId);
                 
@@ -72,18 +75,22 @@ class ActivityController extends Zend_Controller_Action
                     $idParam = "id={$id}";
                 }
                 
-                if($element->getClassName() == "Transaction" || $element->getClassName() == "Result"){
-                    $this->_redirect("activity/list-elements?classname={$elementClass}&activity_id={$parentId}");
+                if(Iati_Aidstream_ElementSettings::isHandledIndividually($element->getClassName())){
+                    $this->_redirect("activity/list-elements?classname={$elementClass}"
+                                     ."&activity_id={$parentId}");
                 }
                 
                 // Check if save and view button was clicked
                 if ($data['save_and_view'] || $data[$element->getClassName()]['save_and_view']){
                     $this->_redirect('activity/view-activity-info/?activity_id=' .$parentId);
                 }
-                $this->_redirect("activity/edit-element?className={$elementClass}&activity_id={$parentId}&isMultiple={$isMultiple}");
+                $this->_redirect("activity/edit-element?className={$elementClass}"
+                                ."&activity_id={$parentId}&isMultiple={$isMultiple}");
                 
             } else {
-                $this->_helper->FlashMessenger->addMessage(array('error' => "You have some problem in your data. Please correct and save again"));
+                $this->_helper->FlashMessenger
+                    ->addMessage(array('error' => "You have some problem in your
+                                     data. Please correct and save again"));
             }
             
         } else {
@@ -91,7 +98,14 @@ class ActivityController extends Zend_Controller_Action
         }
         if(Iati_Aidstream_ElementSettings::isHandledIndividually($element->getClassName()))
         {
-            $form->addElement('submit' , 'save' , array('class'=>'form-submit' , 'label' => 'Save '.$element->getDisplayName()));
+            $form->addElement(
+                            'submit' ,
+                            'save' ,
+                            array(
+                                'class'=>'form-submit' ,
+                                'label' => 'Save '.$element->getDisplayName()
+                            )
+                        );
         }
         else
         {
@@ -116,7 +130,8 @@ class ActivityController extends Zend_Controller_Action
         $parentId = $this->_getParam('activity_id');
 
         if(!$elementClass){
-            $this->_helper->FlashMessenger->addMessage(array('error' => "Could not fetch element."));
+            $this->_helper->FlashMessenger->addMessage(array('error' => "Could not
+                                                             fetch element."));
             $this->_redirect("/wep/dashboard");           
         }
         
@@ -149,7 +164,8 @@ class ActivityController extends Zend_Controller_Action
         $isMultiple = $this->_getParam('isMultiple' , 1);
         
         if(!$elementClass){
-            $this->_helper->FlashMessenger->addMessage(array('error' => "Could not fetch element."));
+            $this->_helper->FlashMessenger->addMessage(array('error' => "Could not
+                                                             fetch element."));
             $this->_redirect("/wep/dashboard");           
         }
         
@@ -179,15 +195,19 @@ class ActivityController extends Zend_Controller_Action
                 }
                 $this->_helper->FlashMessenger->addMessage(array($type => $message));
                 
-                if($updated && $oldState != Iati_WEP_ActivityState::STATUS_EDITING){ // In case of update notify the user about state change.
-                    $this->_helper->FlashMessenger->addMessage(array('state-change-flash-message' => "The
-                                                                     activity state is changed back to Edit.
-                                                                     You must complete and verify in order
-                                                                     to publish the activity."));
+                // In case of update notify the user about state change.
+                if($updated && $oldState != Iati_WEP_ActivityState::STATUS_EDITING){ 
+                    $this->_helper->FlashMessenger
+                        ->addMessage(array('state-change-flash-message' => "The
+                                        activity state is changed back to Edit.
+                                        You must complete and verify in order
+                                        to publish the activity.")
+                                    );
                 }
                 
                 if($element->getClassName() == "Transaction" || $element->getClassName() == "Result"){
-                    $this->_redirect("activity/list-elements?classname={$elementClass}&activity_id={$activityId}");
+                    $this->_redirect("activity/list-elements?classname={$elementClass}"
+                                    ."&activity_id={$activityId}");
                 }
                 
                 // Check if save and view button was clicked                
@@ -197,14 +217,19 @@ class ActivityController extends Zend_Controller_Action
                 
                 //In case the eleId is not present i.e the element is deleted redirect to add page.
                 if(!$eleId){
-                    $this->_redirect("activity/add-element?className={$elementClass}&activity_id={$activityId}");
+                    $this->_redirect("activity/add-element?className={$elementClass}"
+                                    ."&activity_id={$activityId}");
                 }
                 
             } else {
                 $form->populate($data);
-                $this->_helper->FlashMessenger->addMessage(array('error' => "You have some problem in your data. Please correct and save again"));
+                $this->_helper->FlashMessenger
+                    ->addMessage( array('error' => "You have some problem in your
+                                        data. Please correct and save again")
+                                );
             }
         } else {
+            //This can be used to edit element at any level by providing parent id.
             if($parentId){
                 $data[$element->getClassName()] = $element->fetchData($parentId , true);
             } else {
@@ -219,7 +244,8 @@ class ActivityController extends Zend_Controller_Action
                 }    
             }
             if(empty($data[$element->getClassName()])){
-                $this->_redirect("/activity/add-element?className={$elementClass}&activity_id={$activityId}");
+                $this->_redirect("/activity/add-element?className={$elementClass}"
+                                ."&activity_id={$activityId}");
             }
            
             $element->setData($data[$element->getClassName()]);
@@ -227,12 +253,16 @@ class ActivityController extends Zend_Controller_Action
         }
         /* @todo this part of code should be moved to base form or base element */
         
-        if(Iati_Aidstream_ElementSettings::isHandledIndividually($element->getClassName()))
-        {
-            $form->addElement('submit' , 'save' , array('class'=>'form-submit' , 'label' => 'Update '.$element->getDisplayName())); 
-        }
-        else
-        {
+        if(Iati_Aidstream_ElementSettings::isHandledIndividually($element->getClassName())) {
+            $form->addElement(
+                            'submit' ,
+                            'save' ,
+                            array(
+                                'class'=>'form-submit' ,
+                                'label' => 'Update '.$element->getDisplayName()
+                            )
+                        ); 
+        } else {
             $form->addSubmitButton('Save');
         }
         
@@ -254,12 +284,14 @@ class ActivityController extends Zend_Controller_Action
         $eleId = $this->_getParam('id');
         $activityId = $this->_getParam('activity_id');
         if(!$elementClass){
-            $this->_helper->FlashMessenger->addMessage(array('error' => "Could not fetch element."));
+            $this->_helper->FlashMessenger
+                ->addMessage(array('error' => "Could not fetch element."));
             $this->_redirect("/wep/dashboard");           
         }
         
         if(!$eleId){
-            $this->_helper->FlashMessenger->addMessage(array('error' => "No id provided."));
+            $this->_helper->FlashMessenger
+                ->addMessage(array('error' => "No id provided."));
             $this->_redirect("/wep/dashboard");  
         }
         
@@ -267,8 +299,10 @@ class ActivityController extends Zend_Controller_Action
         $element = new $elementName();
         $element->deleteElement($eleId , false);
         
-        $this->_helper->FlashMessenger->addMessage(array('message' => "Element Deleted sucessfully."));
-        $this->_redirect("activity/list-elements?classname={$elementClass}&activity_id={$activityId}");
+        $this->_helper->FlashMessenger
+            ->addMessage(array('message' => "Element Deleted sucessfully."));
+        $this->_redirect("activity/list-elements?classname={$elementClass}"
+                        ."&activity_id={$activityId}");
     }
     
     public function viewElementAction()
@@ -311,7 +345,8 @@ class ActivityController extends Zend_Controller_Action
         if ($next_state && Iati_WEP_ActivityState::hasPermissionForState($next_state))
         {
             $status_form = new Form_Wep_ActivityChangeState();
-            $status_form->setAction($this->view->baseUrl() . "/wep/update-status?redirect=".urlencode($this->getRequest()->getRequestUri()));
+            $status_form->setAction($this->view->baseUrl() . "/wep/update-status?redirect="
+                                    .urlencode($this->getRequest()->getRequestUri()));
             $status_form->ids->setValue($activityId);
             $status_form->status->setValue($next_state);
             $status_form->change_state->setLabel(Iati_WEP_ActivityState::getStatus($next_state));
@@ -332,25 +367,20 @@ class ActivityController extends Zend_Controller_Action
     
     public function deleteActivityAction()
     {
-        $elementClass = $this->_getParam('className');
         $activityId = $this->_getParam('activityId');
-        if (!$elementClass)
-        {
-            $this->_helper->FlashMessenger->addMessage(array('error' => "Could not fetch element."));
-            $this->_redirect("/wep/dashboard");
-        }
 
         if (!$activityId)
         {
-            $this->_helper->FlashMessenger->addMessage(array('error' => "No id provided."));
+            $this->_helper->FlashMessenger
+                ->addMessage(array('error' => "No id provided."));
             $this->_redirect("/wep/dashboard");
         }
 
-        $elementName = "Iati_Aidstream_Element_" . $elementClass;
-        $element = new $elementName();
-        $element->deleteElement($activityId);
+        $model = new Model_Activity();
+        $model->deleteActivityById($activityId);
 
-        $this->_helper->FlashMessenger->addMessage(array('message' => "Element Deleted sucessfully."));
+        $this->_helper->FlashMessenger
+            ->addMessage(array('message' => "Activity Deleted sucessfully."));
         $this->_redirect("/wep/view-activities");
 
     }

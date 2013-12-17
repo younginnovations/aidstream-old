@@ -33,7 +33,11 @@ class Form_Wep_Title extends App_Form
         $form['save']->setValue('save')->setAttrib('class','ajax_save');
         $this->addElements($form); 
 //        $this->addElement($save);                            
-        $this->addDisplayGroup(array('iati_title_text', 'iati_title_xmllang', 'save'), 'field3',array('legend'=>'Title'));
+        $this->addDisplayGroup(
+            array('iati_title_text', 'iati_title_xmllang', 'save'),
+            'field3',
+            array('legend'=>'Title')
+        );
 
        
         

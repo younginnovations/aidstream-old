@@ -62,7 +62,8 @@ class User_Form_User_Edit extends App_Form
                 $form['image'] = new Zend_Form_Element_Image('image');
                 $form['image']->setImage($filePath)
                     ->setLabel('Logo')
-                    ->setDescription('<a href="'.$remove.$user_id.'/user_name/'.$userName.'" class ="remove-logo" title = "Remove Logo" >Remove</a>')
+                    ->setDescription('<a href="'.$remove.$user_id.'/user_name/'.$userName.
+                                     '" class ="remove-logo" title = "Remove Logo" >Remove</a>')
                     ->setDecorators(array(
                                     'ViewHelper',
                                     array('Description', array('escape' => false, 'tag' => false)),
@@ -88,7 +89,10 @@ class User_Form_User_Edit extends App_Form
         }
         foreach($form as $element){
             $element->addDecorators( array(
-                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
+                        array(
+                            array( 'wrapperAll' => 'HtmlTag' ),
+                            array( 'tag' => 'div','class'=>'clearfix form-item')
+                        )
                     )
             );
         }

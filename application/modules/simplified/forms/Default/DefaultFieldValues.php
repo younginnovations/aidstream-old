@@ -94,21 +94,33 @@ class Simplified_Form_Default_DefaultFieldValues extends App_Form
         $group->setDecorators(array(
             'FormElements',
             'Fieldset',
-            array('HtmlTag' , array('tag' => 'div' , 'class' => 'help activity_defaults-'. $group->getName().' legend-help' , 'placement' => 'PREPEND')),
-            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'default-activity-list'))
+            array(
+                'HtmlTag' ,
+                array(
+                    'tag' => 'div' ,
+                    'class' => 'help activity_defaults-'. $group->getName().' legend-help' ,
+                    'placement' => 'PREPEND')
+            ),
+            array(
+                array( 'wrapperAll' => 'HtmlTag' ),
+                array( 'tag' => 'div','class'=>'default-activity-list')
+            )
         ));                            
         foreach($form as $item_name=>$element)
         {
             $form[$item_name]->addDecorators( array(
-                        array('HtmlTag',
-                              array(
-                                    'tag'        =>'<div>',
-                                    'placement'  =>'PREPEND',
-                                    'class'      =>'help activity_defaults-'.$item_name
-                                )
-                            ),
-                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
-                    )
+                array('HtmlTag',
+                      array(
+                            'tag'        =>'<div>',
+                            'placement'  =>'PREPEND',
+                            'class'      =>'help activity_defaults-'.$item_name
+                        )
+                    ),
+                array(
+                    array( 'wrapperAll' => 'HtmlTag' ),
+                    array( 'tag' => 'div','class'=>'clearfix form-item')
+                )
+            )
             );
         }
     }   

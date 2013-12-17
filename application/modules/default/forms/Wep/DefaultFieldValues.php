@@ -90,29 +90,45 @@ class Form_Wep_DefaultFieldValues extends App_Form
         
         $this->addElements($form);
         
-        $this->addDisplayGroup(array('default_currency', 'default_language', 'hierarchy', 'linked_data_default' , 'default_collaboration_type' , 'default_flow_type', 'default_finance_type' , 'default_aid_type', 'default_tied_status'),
-                               'default_field_values',
-                               array('legend'=>'Default Field Values')
-                            );
+        $this->addDisplayGroup(
+            array('default_currency', 'default_language', 'hierarchy',
+                  'linked_data_default' , 'default_collaboration_type' ,
+                  'default_flow_type', 'default_finance_type' ,
+                  'default_aid_type', 'default_tied_status'),
+            'default_field_values',
+            array('legend'=>'Default Field Values')
+         );
         
         $group = $this->getDisplayGroup('default_field_values');
         $group->setDecorators(array(
             'FormElements',
             'Fieldset',
-            array('HtmlTag' , array('tag' => 'div' , 'class' => 'help activity_defaults-'. $group->getName().' legend-help' , 'placement' => 'PREPEND')),
-            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'default-activity-list'))
+            array(
+                'HtmlTag' ,
+                array(
+                    'tag' => 'div' ,
+                    'class' => 'help activity_defaults-'. $group->getName().' legend-help' ,
+                    'placement' => 'PREPEND')
+                ),
+            array(
+                array( 'wrapperAll' => 'HtmlTag' ),
+                array( 'tag' => 'div','class'=>'default-activity-list')
+            )
         ));                            
         foreach($form as $item_name=>$element)
         {
             $form[$item_name]->addDecorators( array(
                         array('HtmlTag',
-                              array(
-                                    'tag'        =>'<div>',
-                                    'placement'  =>'PREPEND',
-                                    'class'      =>'help activity_defaults-'.$item_name
-                                )
-                            ),
-                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
+                            array(
+                                'tag'        =>'<div>',
+                                'placement'  =>'PREPEND',
+                                'class'      =>'help activity_defaults-'.$item_name
+                            )
+                        ),
+                        array(
+                            array( 'wrapperAll' => 'HtmlTag' ),
+                            array( 'tag' => 'div','class'=>'clearfix form-item')
+                        )
                     )
             );
         }

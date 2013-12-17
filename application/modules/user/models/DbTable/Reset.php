@@ -6,9 +6,9 @@ class User_Model_DbTable_Reset extends Zend_Db_Table_Abstract
 	public function uniqueValue($email, $resetValue)
 	{
 		$select = $this->select()
-                    ->where('email = ?', $email)
-                    ->where('value = ? ', $resetValue)
-                    ->where('reset_flag = ? ', '1');
+            ->where('email = ?', $email)
+            ->where('value = ? ', $resetValue)
+            ->where('reset_flag = ? ', '1');
 		$row = $this->fetchRow($select);
 		if($row) {
 			return TRUE;
@@ -20,7 +20,10 @@ class User_Model_DbTable_Reset extends Zend_Db_Table_Abstract
 
         public function getResetId($email, $resetValue)
 	{
-		$select = $this->select()->where('email = ?', $email)->where('value = ? ', $resetValue)->where('reset_flag = ? ', '1');
+		$select = $this->select()
+			->where('email = ?', $email)
+			->where('value = ? ', $resetValue)
+            ->where('reset_flag = ? ', '1');
 		$row = $this->fetchRow($select);
 		
                 $resetId = $row['reset_id'];

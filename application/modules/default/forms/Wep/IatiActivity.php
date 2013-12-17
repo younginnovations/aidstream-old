@@ -58,23 +58,34 @@ class Form_Wep_IatiActivity extends App_Form
                         'ViewHelper',
                         'Errors',
                         'Label',
-                        array('HtmlTag', array(
-                                               'tag'        =>'<div>',
-                                               'placement'  =>'PREPEND',
-                                               'class'      =>'help activity-'.$item_name
-                                               )
-                            ),
-                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
+                        array(
+                            'HtmlTag',
+                            array(
+                                'tag'        =>'<div>',
+                                'placement'  =>'PREPEND',
+                                'class'      =>'help activity-'.$item_name
+                            )
+                        ),
+                        array(
+                            array( 'wrapperAll' => 'HtmlTag' ),
+                            array( 'tag' => 'div','class'=>'clearfix form-item')
+                        )
                     )
             );
         }
         $this->addElements($form);
 
-        $this->addDisplayGroup(array('xml_lang', 'default_currency', 'hierarchy' , 'linked_data_uri'), 
-                                    'field1',array('legend'=>'Activity'));
+        $this->addDisplayGroup(
+            array('xml_lang', 'default_currency', 'hierarchy' , 'linked_data_uri'), 
+            'field1',
+            array('legend'=>'Activity')
+        );
         $activity = $this->getDisplayGroup('field1');
         $activity->addDecorators( array(
-                array(array('wrapperAll' => 'HtmlTag'), array('tag' => 'div', 'class' => 'default-activity-list'))
+                array(
+                    array('wrapperAll' => 'HtmlTag'),
+                    array('tag' => 'div', 'class' => 'default-activity-list')
+                )
             )
         );
         

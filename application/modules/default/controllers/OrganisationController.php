@@ -50,7 +50,8 @@ class OrganisationController extends Zend_Controller_Action
 
         if (!$elementClass)
         {
-            $this->_helper->FlashMessenger->addMessage(array('error' => "Could not fetch element."));
+            $this->_helper->FlashMessenger
+                ->addMessage(array('error' => "Could not fetch element."));
             $this->_redirect("/wep/dashboard");
         }
 
@@ -66,8 +67,10 @@ class OrganisationController extends Zend_Controller_Action
             {   
                 if(!$hasData)
                 {
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "You have not entered any data."));
-                    $this->_redirect("/organisation/add-elements/?className=$elementClass&parentId=$parentId");
+                    $this->_helper->FlashMessenger
+                        ->addMessage(array('message' => "You have not entered any data."));
+                    $this->_redirect("/organisation/add-elements/?className=$elementClass
+                                     &parentId=$parentId");
                 }
                 $id = $element->save($data[$element->getClassName()] , $parentId);
 
@@ -109,7 +112,10 @@ class OrganisationController extends Zend_Controller_Action
             } else
             {
                 $form->populate($data);
-                $this->_helper->FlashMessenger->addMessage(array('error' => "You have some problem in your data. Please correct and save again"));
+                $this->_helper->FlashMessenger
+                    ->addMessage(array('error' => "You have some problem
+                                       in your data. Please correct and save again")
+                                );
             }
         } else
         {
@@ -120,7 +126,11 @@ class OrganisationController extends Zend_Controller_Action
 
         // Fetch Title
         $wepModel = new Model_Wep();
-        $reportingOrg = $wepModel->getRowsByFields('iati_organisation/reporting_org' , 'organisation_id' , $parentId);
+        $reportingOrg = $wepModel->getRowsByFields(
+                                                   'iati_organisation/reporting_org' ,
+                                                   'organisation_id' ,
+                                                   $parentId
+                                                );
         $title = $reportingOrg[0]['text'];
         $this->view->title = $title . " Organisation File";
 
@@ -147,13 +157,15 @@ class OrganisationController extends Zend_Controller_Action
 
         if (!$elementClass)
         {
-            $this->_helper->FlashMessenger->addMessage(array('error' => "Could not fetch element."));
+            $this->_helper->FlashMessenger
+                ->addMessage(array('error' => "Could not fetch element."));
             $this->_redirect("/wep/dashboard");
         }
 
         if (!$eleId && !$parentId)
         {
-            $this->_helper->FlashMessenger->addMessage(array('error' => "No id provided."));
+            $this->_helper->FlashMessenger
+                ->addMessage(array('error' => "No id provided."));
             $this->_redirect("/wep/dashboard");
         }
 
@@ -169,8 +181,10 @@ class OrganisationController extends Zend_Controller_Action
             {  
                 if(!$hasData)
                 {
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "You have not entered any data."));
-                    $this->_redirect("/organisation/add-elements/?className=$elementClass&parentId=$parentId");
+                    $this->_helper->FlashMessenger
+                        ->addMessage(array('message' => "You have not entered any data."));
+                    $this->_redirect("/organisation/add-elements/?className=$elementClass
+                                     &parentId=$parentId");
                 }
                 $element->save($data[$element->getClassName()] , $parentId);
 
@@ -205,7 +219,9 @@ class OrganisationController extends Zend_Controller_Action
             } else
             {
                 $form->populate($data);
-                $this->_helper->FlashMessenger->addMessage(array('error' => "You have some problem in your data. Please correct and save again"));
+                $this->_helper->FlashMessenger
+                    ->addMessage(array('error' => "You have some problem in your
+                                       data. Please correct and save again"));
             }
         } else
         {
@@ -231,7 +247,8 @@ class OrganisationController extends Zend_Controller_Action
             }
             if (empty($data[$element->getClassName()]))
             {
-                $this->_redirect("/organisation/add-elements/?className=$elementClass&parentId=$parentId");
+                $this->_redirect("/organisation/add-elements/?className=$elementClass
+                                 &parentId=$parentId");
             } 
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();
@@ -242,7 +259,11 @@ class OrganisationController extends Zend_Controller_Action
         
         // Fetch title
         $wepModel = new Model_Wep();   
-        $reportingOrg = $wepModel->getRowsByFields('iati_organisation/reporting_org' , 'organisation_id' , $parentId);
+        $reportingOrg = $wepModel->getRowsByFields(
+                                                   'iati_organisation/reporting_org' ,
+                                                   'organisation_id' ,
+                                                   $parentId
+                                                );
         $title = $reportingOrg[0]['text'];
         $this->view->title = $title . " Organisation File";
         
@@ -266,13 +287,15 @@ class OrganisationController extends Zend_Controller_Action
         $eleId = $this->_getParam('id');
         if (!$elementClass)
         {
-            $this->_helper->FlashMessenger->addMessage(array('error' => "Could not fetch element."));
+            $this->_helper->FlashMessenger
+                ->addMessage(array('error' => "Could not fetch element."));
             $this->_redirect("/wep/dashboard");
         }
 
         if (!$eleId)
         {
-            $this->_helper->FlashMessenger->addMessage(array('error' => "No id provided."));
+            $this->_helper->FlashMessenger
+                ->addMessage(array('error' => "No id provided."));
             $this->_redirect("/wep/dashboard");
         }
 
@@ -280,7 +303,8 @@ class OrganisationController extends Zend_Controller_Action
         $element = new $elementName();
         $element->deleteElement($eleId);
 
-        $this->_helper->FlashMessenger->addMessage(array('message' => "Element Deleted sucessfully."));
+        $this->_helper->FlashMessenger
+            ->addMessage(array('message' => "Element Deleted sucessfully."));
         $this->_redirect("/wep/dashboard");
 
     }
@@ -300,7 +324,10 @@ class OrganisationController extends Zend_Controller_Action
         
         // Fetch default value for an organisation
         $model = new Model_Viewcode();
-        $rowSet = $model->getRowsByFields('default_field_values' , 'account_id' , $identity->account_id);
+        $rowSet = $model->getRowsByFields(
+                                          'default_field_values' ,
+                                          'account_id' ,
+                                          $identity->account_id);
         
         $defaultValues = unserialize($rowSet[0]['object']);
         $default = $defaultValues->getDefaultFields();
@@ -309,8 +336,14 @@ class OrganisationController extends Zend_Controller_Action
         $wepModel = new Model_Wep();
         $reporting_org_info['@reporting_org_name'] = $default['reporting_org'];
         $reporting_org_info['@reporting_org_ref'] = $default['reporting_org_ref'];
-        $reporting_org_info['@reporting_org_type'] = $wepModel->fetchValueById('OrganisationType' , $default['reporting_org_type'] , 'Code');
-        $reporting_org_info['@reporting_org_lang'] = $wepModel->fetchValueById('Language' , $default['reporting_org_lang'] , 'Name');
+        $reporting_org_info['@reporting_org_type'] = $wepModel->fetchValueById(
+                                                                    'OrganisationType' ,
+                                                                    $default['reporting_org_type'] ,
+                                                                    'Code');
+        $reporting_org_info['@reporting_org_lang'] = $wepModel->fetchValueById(
+                                                                    'Language' ,
+                                                                    $default['reporting_org_lang'] ,
+                                                                    'Name');
         $incomplete = false;
         foreach($reporting_org_info as $key => $reportingOrgValue){
             if(!$reportingOrgValue && $key != '@reporting_org_lang'){
@@ -321,20 +354,20 @@ class OrganisationController extends Zend_Controller_Action
         if($incomplete){
             //For admin user redirect to defaults page.
             if($identity->role_id == 1){
-                $this->_helper->FlashMessenger->addMessage(array(
-                                                                 'message' => "Before you start entering organisation data
-                                                                 you need to add some default values that will
-                                                                 automatically be filled in for
-                                                                 each organisation you report."
-                                                                   )
-                                                           );
+                $this->_helper->FlashMessenger
+                    ->addMessage(array(
+                                    'message' => "Before you start entering organisation data
+                                    you need to add some default values that will
+                                    automatically be filled in for
+                                    each organisation you report."
+                                    ));
                 $this->_redirect('wep/settings');
             } else { // For other user redirect to dashboard.
-                $this->_helper->FlashMessenger->addMessage(array(
-                                                                 'message' => "All information for Reporting Organisation
-                                                                    is not provided .Please contact you organisation admin"
-                                                                  )
-                                                           );
+                $this->_helper->FlashMessenger
+                    ->addMessage(array(
+                                    'message' => "All information for Reporting Organisation
+                                       is not provided .Please contact you organisation admin"
+                                    ));
                 $this->_redirect('wep/dashborad');
             }
         }
@@ -357,13 +390,19 @@ class OrganisationController extends Zend_Controller_Action
         
         // Fetch default value for an organisation
         $model = new Model_Viewcode();
-        $rowSet = $model->getRowsByFields('default_field_values' , 'account_id' , $identity->account_id);
+        $rowSet = $model->getRowsByFields(
+                                          'default_field_values',
+                                          'account_id',
+                                          $identity->account_id);
+        
         $defaultValues = unserialize($rowSet[0]['object']);
         $default = $defaultValues->getDefaultFields();
         
         // Saved default value for an organisation
         $organisationModel = new Model_Organisation();
-        $organisationId = $organisationModel->createOrganisation($identity->account_id , $default);
+        $organisationId = $organisationModel->createOrganisation(
+                                                                 $identity->account_id,
+                                                                 $default);
 
         //Create Activity Hash
         $organisationHashModel = new Model_OrganisationHash();
@@ -431,7 +470,10 @@ class OrganisationController extends Zend_Controller_Action
         $not_valid = false;
         if ($not_valid)
         {
-            $this->_helper->FlashMessenger->addMessage(array('warning' => "The organisation cannot be changed to the state. Please check that a state to be changed is valid for all selected organisations"));
+            $this->_helper->FlashMessenger
+                ->addMessage(array('warning' => "The organisation cannot be changed
+                                   to the state. Please check that a state to be
+                                   changed is valid for all selected organisations"));
         } else
         {
             if ($state == Iati_WEP_ActivityState::STATUS_PUBLISHED)
@@ -443,21 +485,35 @@ class OrganisationController extends Zend_Controller_Action
                 $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($accountId);
                 if (!$registryInfo)
                 {
-                    $this->_helper->FlashMessenger->addMessage(array('error' => "Registry information not found. Please go to <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a> to add registry info."));
+                    $this->_helper->FlashMessenger
+                        ->addMessage(array('error' => "Registry information not found.
+                                           Please go to
+                                           <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a>
+                                           to add registry info."));
                 } else if (!$registryInfo->publisher_id)
                 {
-                    $this->_helper->FlashMessenger->addMessage(array('error' => "Publisher Id not found. Xml files could not be created. Please go to  <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a> to add publisher id."));
+                    $this->_helper->FlashMessenger
+                        ->addMessage(array('error' => "Publisher Id not found.
+                                           Xml files could not be created.
+                                           Please go to
+                                           <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a>
+                                           to add publisher id."));
                 } else
                 {
                     $db->updateOrganisationState($organisationIds , (int) $state);
 
                     // Generate Xml
                     $obj = new Iati_Core_Xml();
-                    $fileName = $obj->generateFile('organisation' , $organisationIds, $registryInfo->publisher_id);
+                    $fileName = $obj->generateFile('organisation' ,
+                                                   $organisationIds,
+                                                   $registryInfo->publisher_id);
                     
                     // Fetch last updated data's datetime
                     $wepModel = new Model_Wep();
-                    $organsationInfo = $wepModel->getRowsByFields('iati_organisation' , 'id' , $organisationIds[0]);
+                    $organsationInfo = $wepModel->getRowsByFields(
+                                                                'iati_organisation' ,
+                                                                'id' ,
+                                                                $organisationIds[0]);
                     $lastUpdateDatetime = $organsationInfo[0]['@last_updated_datetime'];
                     
                     //Set all status to 0
@@ -477,7 +533,12 @@ class OrganisationController extends Zend_Controller_Action
                     {
                         if (!$registryInfo->api_key)
                         {
-                            $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key not found. Activities could not be registered in IATI Registry. Please go to <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a> to add API key."));
+                            $this->_helper->FlashMessenger
+                                ->addMessage(array('error' => "Api Key not found.
+                                                   Activities could not be registered
+                                                   in IATI Registry. Please go to
+                                                   <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a>
+                                                   to add API key."));
                         } else
                         {
                             $reg = new Iati_Registry($registryInfo->publisher_id , $registryInfo->api_key);
@@ -486,14 +547,18 @@ class OrganisationController extends Zend_Controller_Action
 
                             $published =  Model_Registry::publish($files , $accountId , $registryInfo , true);
                             if($published['error']){
-                                $this->_helper->FlashMessenger->addMessage(array('error' => $published['error']));
+                                $this->_helper->FlashMessenger
+                                    ->addMessage(array('error' => $published['error']));
                             } else {
-                                $this->_helper->FlashMessenger->addMessage(array('message' => "Organisation published to IATI registry."));
+                                $this->_helper->FlashMessenger
+                                    ->addMessage(array('message' => "Organisation
+                                                       published to IATI registry."));
                             }
                         }
                     } else
                     {
-                        $this->_helper->FlashMessenger->addMessage(array('message' => "Organisation xml files created."));
+                        $this->_helper->FlashMessenger
+                            ->addMessage(array('message' => "Organisation xml files created."));
                     }
                 }
             } else
@@ -514,7 +579,8 @@ class OrganisationController extends Zend_Controller_Action
         $OrganisationPublishedModel = new Model_OrganisationPublished();
         $publishedFiles = $OrganisationPublishedModel->deleteByFileId($fileId);
 
-        $this->_helper->FlashMessenger->addMessage(array('message' => "File Deleted Sucessfully."));
+        $this->_helper->FlashMessenger
+            ->addMessage(array('message' => "File Deleted Sucessfully."));
         $this->_redirect('wep/list-published-files');
 
     }
@@ -527,7 +593,9 @@ class OrganisationController extends Zend_Controller_Action
         $fileIds = explode(',' , $this->_getParam('organisation_file_ids'));
        
         if(!$fileIds[0]){
-            $this->_helper->FlashMessenger->addMessage(array('message' => "Please select a file to register in IATI Registry."));
+            $this->_helper->FlashMessenger
+                ->addMessage(array('message' => "Please select a file to
+                                   register in IATI Registry."));
             $this->_redirect('wep/list-published-files');
         }
         $identity = Zend_Auth::getInstance()->getIdentity();
@@ -536,7 +604,11 @@ class OrganisationController extends Zend_Controller_Action
         $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($accountId);
 
         if(!$registryInfo->api_key){
-            $this->_helper->FlashMessenger->addMessage(array('error' => "Api Key not found. Organisation could not be registered in IATI Registry. Please go to <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a> to add API key."));
+            $this->_helper->FlashMessenger
+                ->addMessage(array('error' => "Api Key not found. Organisation could
+                                   not be registered in IATI Registry. Please go to
+                                   <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a>
+                                   to add API key."));
         } else {
             $reg = new Iati_Registry($registryInfo->publisher_id , $registryInfo->api_key ,true);
             $organisationPublishedModel = new Model_OrganisationPublished();
@@ -544,9 +616,11 @@ class OrganisationController extends Zend_Controller_Action
 
             $published =  Model_Registry::publish($files , $accountId , $registryInfo , true);
             if($published['error']){
-                $this->_helper->FlashMessenger->addMessage(array('error' => $published['error']));
+                $this->_helper->FlashMessenger
+                    ->addMessage(array('error' => $published['error']));
             } else {
-                $this->_helper->FlashMessenger->addMessage(array('message' => "Organisation published to IATI registry."));
+                $this->_helper->FlashMessenger
+                    ->addMessage(array('message' => "Organisation published to IATI registry."));
             }
         }
 
@@ -563,7 +637,8 @@ class OrganisationController extends Zend_Controller_Action
         
         if (!$elementName)
         {
-            $this->_helper->FlashMessenger->addMessage(array('error' => "Could not fetch element Name."));
+            $this->_helper->FlashMessenger
+                ->addMessage(array('error' => "Could not fetch element Name."));
             $this->_redirect("/wep/dashboard");
         }
 
@@ -575,7 +650,10 @@ class OrganisationController extends Zend_Controller_Action
 
         // Update Default Element Value And Fetch Organisation Id
         $organisationDefaultElementModel = new Model_OrganisationDefaultElement();
-        $organisationId = $organisationDefaultElementModel->updateElementData($elementName , $elementId);
+        $organisationId = $organisationDefaultElementModel->updateElementData(
+                                                                              $elementName ,
+                                                                              $elementId
+                                                                            );
 
         //Update Organisation Hash
         $organisationHashModel = new Model_OrganisationHash();
@@ -583,7 +661,8 @@ class OrganisationController extends Zend_Controller_Action
         if (!$updated)
         {
             $type = 'message';
-            $message = "Already up to date. To make changes please change values in 'Settings' and then update.";
+            $message = "Already up to date. To make changes please change values
+                    in 'Settings' and then update.";
         } else
         {
             //Update the organisation so that the last updated time is updated
@@ -605,7 +684,8 @@ class OrganisationController extends Zend_Controller_Action
             $message = "$displayName sucessfully updated";
         }
         $this->_helper->FlashMessenger->addMessage(array($type => $message));
-        $this->_redirect("/organisation/edit-elements/?parentId=" . $organisationId . "&className=Organisation_$elementName");
+        $this->_redirect("/organisation/edit-elements/?parentId=" . $organisationId
+                         . "&className=Organisation_$elementName");
 
     }
 

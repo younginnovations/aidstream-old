@@ -15,16 +15,22 @@ class Form_Admin_Userregister extends App_Form
         $form['last_name']->setLabel('Last Name')->setRequired();
 
         $form['user_name'] = new Zend_Form_Element_Text('user_name');
-        $form['user_name']->setLabel('User Name')->addValidator('Db_NoRecordExists', false, array('table' => 'user',
-                                                               'field' => 'user_name'))->setRequired();
+        $form['user_name']->setLabel('User Name')
+            ->addValidator('Db_NoRecordExists', false, array('table' => 'user',
+                                                            'field' => 'user_name'))
+            ->setRequired();
 
         $passwordConfirmation = new App_PasswordConfirmation();
         $form['password'] = new Zend_Form_Element_Password('password');
-        $form['password']->setLabel('Password')->setRequired()->addValidator($passwordConfirmation);
+        $form['password']->setLabel('Password')
+            ->setRequired()
+            ->addValidator($passwordConfirmation);
 
         $form['confirmpassword'] = new Zend_Form_Element_Password('confirmpassword');
-        $form['confirmpassword']->setLabel('Confirm Password')->setAttrib('class', 'input_box confirmpassword');
-        $form['confirmpassword']->setRequired()->addValidator($passwordConfirmation);
+        $form['confirmpassword']->setLabel('Confirm Password')
+            ->setAttrib('class', 'input_box confirmpassword');
+        $form['confirmpassword']->setRequired()
+            ->addValidator($passwordConfirmation);
         
         $form['email'] = new Zend_Form_Element_Text('email');
         $form['email']->setLabel('Email')
@@ -45,19 +51,33 @@ class Form_Admin_Userregister extends App_Form
         $this->addElements($form);
         // add clearfix div for all form items
         foreach($form as $element){
-            $element->addDecorators(array(array(array('wrapperAll' => 'HtmlTag') ,
-                                                array('tag' => 'div' , 'class' => 'clearfix form-item'))
-                                          ));
+            $element->addDecorators(
+                                    array(
+                                          array(
+                                                array('wrapperAll' => 'HtmlTag') ,
+                                                array(
+                                                      'tag' => 'div' ,
+                                                      'class' => 'clearfix form-item')
+                                                )
+                                        )
+                                    );
         }
         
-        $this->addDisplayGroup(array('first_name', 'middle_name', 'last_name', 'user_name', 'password', 'confirmpassword', 'email'),
-                                        'field1',array('legend'=>'User Information'));
+        $this->addDisplayGroup(
+                                array('first_name', 'middle_name', 'last_name',
+                                      'user_name','password', 'confirmpassword', 'email'),
+                                'field1',
+                                array('legend'=>'User Information')
+                            );
         // add wrapper class for the group
         $group = $this->getDisplayGroup('field1');
         $group->setDecorators(array(
             'FormElements',
             'Fieldset',
-            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'default-activity-list'))
+            array(
+                  array( 'wrapperAll' => 'HtmlTag' ),
+                  array( 'tag' => 'div','class'=>'default-activity-list')
+            )
         ));
         
         // add permission form

@@ -13,45 +13,64 @@ class Form_Wep_IatiIdentifier extends App_Form
         $form['activity_identifier']->setLabel('Activity Identifier')
                                     ->setRequired()
                                     ->setAttrib('class', 'form-text')
-                                    ->setDecorators( array(
-                                                            'ViewHelper',
-                                                            'Errors',
-                                                            'Label',
-                                                            array('HtmlTag', array(
-                                                                                   'tag'        =>'<div>',
-                                                                                   'placement'  =>'PREPEND',
-                                                                                   'class'      =>'help activity_identifier'
-                                                                                   )
-                                                                ),
-                                                            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
-                                                        )
-                                                );
+                                    ->setDecorators(
+                                        array(
+                                            'ViewHelper',
+                                            'Errors',
+                                            'Label',
+                                            array(
+                                                'HtmlTag',
+                                                array(
+                                                    'tag'        =>'<div>',
+                                                    'placement'  =>'PREPEND',
+                                                    'class'      =>'help activity_identifier'
+                                                )
+                                            ),
+                                            array(
+                                                array( 'wrapperAll' => 'HtmlTag' ),
+                                                array(
+                                                    'tag' => 'div',
+                                                    'class'=>'clearfix form-item'
+                                                )
+                                            )
+                                        )
+                                    );
         
         $form['iati_identifier_text'] = new Zend_Form_Element_Text('iati_identifier_text');
         $form['iati_identifier_text']->setLabel('IATI Identifier')
                                     ->setRequired()
                                     ->setAttrib('class', 'form-text')
                                     ->setAttrib('readonly', true)
-                                    ->setDecorators( array(
-                                                            'ViewHelper',
-                                                            'Errors',
-                                                            'Label',
-                                                            array('HtmlTag', array(
-                                                                                   'tag'        =>'<div>',
-                                                                                   'placement'  =>'PREPEND',
-                                                                                   'class'      =>'help identifier-text'
-                                                                                   )
-                                                                ),
-                                                            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
-                                                        )
-                                                );
+                                    ->setDecorators(
+                                        array(
+                                            'ViewHelper',
+                                            'Errors',
+                                            'Label',
+                                            array(
+                                                'HtmlTag',
+                                                array(
+                                                    'tag'        =>'<div>',
+                                                    'placement'  =>'PREPEND',
+                                                    'class'      =>'help identifier-text'
+                                                )
+                                            ),
+                                            array(
+                                                array( 'wrapperAll' => 'HtmlTag' ),
+                                                array( 'tag' => 'div','class'=>'clearfix form-item')
+                                            )
+                                        )
+                                    );
         
         $form['reporting_org'] = new Zend_Form_Element_Hidden('reporting_org');
         
         //$this->addSubForm($form1, 'Reporting Organisation');
         
         $this->addElements($form);
-        $this->addDisplayGroup(array('reporting_org' , 'activity_identifier' , 'iati_identifier_text'), 'field',array('legend'=>'IATI Identifier'));
+        $this->addDisplayGroup(
+            array('reporting_org' , 'activity_identifier' , 'iati_identifier_text'),
+            'field',
+            array('legend'=>'IATI Identifier')
+        );
         
         $group = $this->getDisplayGroup('field');
         $group->addDecorators(array(

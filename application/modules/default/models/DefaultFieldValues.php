@@ -28,4 +28,18 @@ class Model_DefaultFieldValues extends Zend_Db_Table_Abstract
         return $default;
     }
     
+    public function getDefaultObjByOrganisation($orgId)
+    {
+        $rowSet = $this->select()
+            ->where('account_id = ?',$orgId);
+        $row = $this->fetchRow($rowSet);
+        
+        $objDefault = unserialize($row->object);
+        if($objDefault){
+            return $objDefault;
+        } else {
+            return false;
+        }
+    }
+    
 }

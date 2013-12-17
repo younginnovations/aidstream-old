@@ -24,13 +24,10 @@ class AdminController extends Zend_Controller_Action
             if(!Simplified_Model_Simplified::isSimplified()){
                 $this->view->blockManager()->enable('partial/organisation-data.phtml');
             } else {
-                $this->view->blockManager()->enable('partial/simplified-info.phtml'
-);
+                $this->view->blockManager()->enable('partial/simplified-info.phtml');
             }
         }
-        /* $contextSwitch = $this->_helper->contextSwitch;
-          $contextSwitch->addActionContext('', 'json')
-          ->initContext('json'); */
+       
     }
 
     public function indexAction()
@@ -70,14 +67,11 @@ class AdminController extends Zend_Controller_Action
 
     public function viewAction()
     {
-        if ($this->getRequest()->isGet()) {/*
-          print_r($this->_request->getParam('id'));
-          exit(); */
-
+        if ($this->getRequest()->isGet()) {
+            
             $user_id = $this->_request->getParam('id');
             $wep = new Model_Wep();
             $user_info = $wep->listAll('user', 'user_id', $user_id);
-//            print_r($user_info);exit();
             if ($user_info) {
                 $user_profile = $wep->listAll('profile', 'user_id', $user_id);
                 $account_info = $wep->listAll('account', 'id', $user_info[0]['account_id']);
@@ -110,9 +104,17 @@ class AdminController extends Zend_Controller_Action
             $user_info['admin_username'] = $user['user_name'];
 
             //Create edit form
-            $defaultFieldsValues = $model->getDefaults('default_field_values', 'account_id', $rowSet['id']);
+            $defaultFieldsValues = $model->getDefaults(
+                                                       'default_field_values',
+                                                       'account_id',
+                                                       $rowSet['id']
+                                                    );
             $default['field_values'] = $defaultFieldsValues->getDefaultFields();
-            $defaultFieldGroup = $model->getDefaults('default_field_groups', 'account_id',$rowSet['id']);
+            $defaultFieldGroup = $model->getDefaults(
+                                                     'default_field_groups',
+                                                     'account_id',
+                                                     $rowSet['id']
+                                                );
             $default['fields'] = $defaultFieldGroup->getProperties();
 
             $form = new Form_Wep_Accountregister();
@@ -153,10 +155,19 @@ class AdminController extends Zend_Controller_Action
                 unset($data['confirmpassword']);
             }
 
-            $defaultFieldsValues = $model->getDefaults('default_field_values', 'account_id', $org_id);
+            $defaultFieldsValues = $model->getDefaults(
+                                                       'default_field_values',
+                                                       'account_id',
+                                                       $org_id
+                                                    );
             $default['field_values'] = $defaultFieldsValues->getDefaultFields();
-            $defaultFieldGroup = $model->getDefaults('default_field_groups', 'account_id',$org_id);
+            $defaultFieldGroup = $model->getDefaults(
+                                                     'default_field_groups',
+                                                     'account_id',
+                                                     $org_id
+                                                );
             $default['fields'] = $defaultFieldGroup->getProperties();
+            
             $form = new Form_Wep_Accountregister();
             $form->add($default);
             $form->organisation_username->clearValidators();
@@ -178,36 +189,21 @@ class AdminController extends Zend_Controller_Action
                 $admin['last_name'] = $data['last_name'];
                 $admin_id = $model->updateRow('profile', $admin,'id',$profile_id);
 
-                //Update Default Values
-                $defaultFieldsValues->setLanguage($data['default_language']);
-                $defaultFieldsValues->setCurrency($data['default_currency']);
-                $defaultFieldsValues->setHierarchy($data['hierarchy']);
-                $defaultFieldsValues->setCollaborationType($data['default_collaboration_type']);
-                $defaultFieldsValues->setFlowType($data['default_flow_type']);
-                $defaultFieldsValues->setFinanceType($data['default_finance_type']);
-                $defaultFieldsValues->setAidType($data['default_aid_type']);
-                $defaultFieldsValues->setTiedStatus($data['default_tied_status']);
-                $fieldString = serialize($defaultFieldsValues);
-                $defaultValues['object'] = $fieldString;
-                $defaultValues['account_id'] = $account_id;
-                $defaultValuesId = $model->updateRow('default_field_values', $defaultValues,'account_id',$account_id);
-
-                $defaultFieldGroup = new Iati_WEP_AccountDisplayFieldGroup();
-                $i = 0;
-                foreach ($data['default_fields'] as $eachField) {
-                    $defaultKey[$i] = $eachField;
-                    $defaultFieldGroup->setProperties($eachField);
-                    $i++;
-                }
-
-                $fieldString = serialize($defaultFieldGroup);
-                $defaultFields['object'] = $fieldString;
-                $defaultFieldId = $model->updateRow('default_field_groups', $defaultFields,'account_id',$account_id);
+                //Update defaults
+                $default = new Model_Defaults();
+                $default->updateDefaults($data , $org_id);
 
                 $privilegeFields['resource'] = serialize($defaultKey);
-                $privilegeFieldId = $model->updateRow('Privilege', $privilegeFields,'owner_id',$account_id);
+                $privilegeFieldId = $model->updateRow(
+                                                      'Privilege',
+                                                      $privilegeFields,
+                                                      'owner_id',
+                                                      $account_id
+                                                    );
 
-                $this->_helper->FlashMessenger->addMessage(array('message' => "Organisation Information Sucessfully Updated."));
+                $this->_helper->FlashMessenger
+                    ->addMessage(array('message' => "Organisation Information
+                                       Sucessfully Updated."));
                 $this->_redirect('/admin/edit-organisation/?id='.$org_id);
 
             } else {
@@ -221,6 +217,8 @@ class AdminController extends Zend_Controller_Action
                 $form->Signup->setLabel('Save');
             }
             $this->view->form = $form;
+        } else {
+            $this->_redirect('admin/register');
         }
     }
 
@@ -292,42 +290,23 @@ class AdminController extends Zend_Controller_Action
                     $admin_id = $model->insertRowsToTable('profile', $admin);
 
                     //Save Default Fields
-                    $defaultFieldsValues->setLanguage($data['default_language']);
-                    $defaultFieldsValues->setCurrency($data['default_currency']);
-                    $defaultFieldsValues->setHierarchy($data['hierarchy']);
-                    $defaultFieldsValues->setCollaborationType($data['default_collaboration_type']);
-                    $defaultFieldsValues->setFlowType($data['default_flow_type']);
-                    $defaultFieldsValues->setFinanceType($data['default_finance_type']);
-                    $defaultFieldsValues->setAidType($data['default_aid_type']);
-                    $defaultFieldsValues->setTiedStatus($data['default_tied_status']);
-                    $fieldString = serialize($defaultFieldsValues);
-                    $defaultValues['object'] = $fieldString;
-                    $defaultValues['account_id'] = $account_id;
-                    $defaultValuesId = $model->insertRowsToTable('default_field_values', $defaultValues);
-
-                    //Save Default Groups
-                    $i = 0;
-                    foreach ($data['default_fields'] as $eachField) {
-                        $defaultKey[$i] = $eachField;
-                        $defaultFieldGroup->setProperties($eachField);
-                        $i++;
-                    }
-
-                    $fieldString = serialize($defaultFieldGroup);
-                    $defaultFields['object'] = $fieldString;
-                    $defaultFields['account_id'] = $account_id;
-                    $defaultFieldId = $model->insertRowsToTable('default_field_groups', $defaultFields);
+                    $default = new Model_Defaults();
+                    $default->createDefaults($data , $account_id);
 
                     $privilegeFields['resource'] = serialize($defaultKey);
                     $privilegeFields['owner_id'] = $account_id;
-                    $privilegeFieldId = $model->insertRowsToTable('Privilege', $privilegeFields);
+                    $privilegeFieldId = $model->insertRowsToTable(
+                                                                  'Privilege',
+                                                                  $privilegeFields
+                                                            );
 
                     //Send notification
                     $data['user_name']  = $user['user_name'];
                     $notification = new Model_Notification;
                     $notification->sendRegistrationNotifications($data);
 
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "Account successfully registered."));
+                    $this->_helper->FlashMessenger
+                        ->addMessage(array('message' => "Account successfully registered."));
                     $this->_redirect('admin/list-organisation');
                 }
             } catch (Exception $e) {
@@ -352,8 +331,12 @@ class AdminController extends Zend_Controller_Action
         $adminId = $identity->user_id;
         $accountId = $identity->account_id;
         $model = new Model_Wep();
-        //$admindefaultField = $model->getDefaults('default_field_groups', 'account_id', $identity->account_id);
-
+        /*
+        $admindefaultField = $model->getDefaults('default_field_groups',
+                                                 'account_id',
+                                                 $identity->account_id
+                                            );
+        */
         $defaultFieldGroup = new Iati_WEP_UserPermission();
         $default['fields'] = $defaultFieldGroup->getProperties();
         $form = new Form_Admin_Userregister();
@@ -370,11 +353,14 @@ class AdminController extends Zend_Controller_Action
                 }
                 //@todo check for unique username. fix the bug
                 else if (!empty($usernameExists)) {
-                    $this->_helper->FlashMessenger->addMessage(array('error' => "Username already exists."));
+                    $this->_helper->FlashMessenger
+                        ->addMessage(array('error' => "Username already exists."));
                     $form->populate($data);
                 }
                 else if (!empty($emailExists)) {
-                    $this->_helper->FlashMessenger->addMessage(array('error' => "User with the email address already exists."));
+                    $this->_helper->FlashMessenger
+                        ->addMessage(array('error' => "User with the email
+                                           address already exists."));
                     $form->populate($data);
                 }else {
                     $model = new Model_Wep();
@@ -427,7 +413,8 @@ class AdminController extends Zend_Controller_Action
                     $privilegeFields['owner_id'] = $user_id;
                     $privilegeFieldId = $model->insertRowsToTable('Privilege', $privilegeFields);
 
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "Account successfully registered."));
+                    $this->_helper->FlashMessenger
+                        ->addMessage(array('message' => "Account successfully registered."));
                     $this->_redirect('user/user/login');
                 }
             } catch (Exception $e) {
@@ -444,7 +431,11 @@ class AdminController extends Zend_Controller_Action
         $identity = Zend_Auth::getInstance()->getIdentity();
         $model = new Model_Wep();
         //print_r($identity->account_id);exit;
-        $usersList = $model->getUsersByAccountId('user', $identity->account_id, array('role_id' => '2'));
+        $usersList = $model->getUsersByAccountId(
+                                                 'user',
+                                                 $identity->account_id,
+                                                 array('role_id' => '2')
+                                            );
         //print_r($usersList);exit;
         $this->view->users = $usersList;
         //$this->_helper->layout()->setLayout('layout_wep');
@@ -457,7 +448,8 @@ class AdminController extends Zend_Controller_Action
                 try{
                     $model = new Model_Admin();
                     $model->deleteUserById($_GET['user_id']);
-                    $this->_helper->FlashMessenger->addMessage(array('message' => 'User Deleted.'));
+                    $this->_helper->FlashMessenger
+                        ->addMessage(array('message' => 'User Deleted.'));
                     $this->_redirect('admin/list-users');
                 }
                 catch(Exception $e){
@@ -466,7 +458,8 @@ class AdminController extends Zend_Controller_Action
             }
         }
         else{
-            $this->_helper->FlashMessenger->addMessage(array('error' => 'Access Denied.'));
+            $this->_helper->FlashMessenger
+                ->addMessage(array('error' => 'Access Denied.'));
             $this->_redirect('user/user/login');
 
         }
@@ -495,7 +488,8 @@ class AdminController extends Zend_Controller_Action
             }
         }
         else{
-            $this->_helper->FlashMessenger->addMessage(array('error' => 'Access Denied.'));
+            $this->_helper->FlashMessenger
+                ->addMessage(array('error' => 'Access Denied.'));
             $this->_redirect('user/user/login');
 
         }
@@ -553,13 +547,24 @@ class AdminController extends Zend_Controller_Action
                 $fieldString = serialize($permissionObj);
                 $defaultFields['object'] = $fieldString;
                 $defaultFields['user_id'] = $user_id;
-                $defaultFieldId = $model->updateRow('user_permission', $defaultFields, 'user_id', $user_id);
+                $defaultFieldId = $model->updateRow(
+                                                    'user_permission',
+                                                    $defaultFields,
+                                                    'user_id',
+                                                    $user_id
+                                                );
                 //print_r($defaultKey);exit;
                 $privilegeFields['resource'] = serialize($defaultKey);
                 $privilegeFields['owner_id'] = $user_id;
-                $privilegeFieldId = $model->updateRow('Privilege', $privilegeFields, 'owner_id', $user_id);
+                $privilegeFieldId = $model->updateRow(
+                                                    'Privilege',
+                                                    $privilegeFields,
+                                                    'owner_id',
+                                                    $user_id
+                                                );
 
-                $this->_helper->FlashMessenger->addMessage(array('message' => 'User permission updated.'));
+                $this->_helper->FlashMessenger
+                    ->addMessage(array('message' => 'User permission updated.'));
                 $this->_redirect('admin/view-profile?user_id='.$user_id);
             }
             catch(Exception $e){
@@ -591,7 +596,8 @@ class AdminController extends Zend_Controller_Action
                         $model = new User_Model_DbTable_User();
                         $data['password'] = $this->getRequest()->getParam('password');
                         $model->changePassword($data, $user_id);
-                        $this->_helper->FlashMessenger->addMessage(array('message' => 'Changed password successfully.'));
+                        $this->_helper->FlashMessenger
+                            ->addMessage(array('message' => 'Changed password successfully.'));
 
                         $this->_redirect('admin/list-users');
 
@@ -664,7 +670,8 @@ class AdminController extends Zend_Controller_Action
         $orgModel = new Model_Wep();
         $orgModel->updateRowsToTable('account' , $data);
 
-        $this->_helper->FlashMessenger->addMessage(array('message' => 'Footer display changed sucessfully.'));
+        $this->_helper->FlashMessenger
+            ->addMessage(array('message' => 'Footer display changed sucessfully.'));
         $this->_redirect('admin/list-organisation');
     }
     
@@ -680,7 +687,8 @@ class AdminController extends Zend_Controller_Action
         $orgModel = new Model_Wep();
         $orgModel->updateRowsToTable('account' , $data);
         
-        $outMessage = ($data['simplified'])?"Organisation type changed to Simplified": "Organisation type changed to Default";
+        $outMessage = ($data['simplified'])?"Organisation type changed to Simplified":
+            "Organisation type changed to Default";
         $this->_helper->FlashMessenger->addMessage(array('message' => $outMessage));
         $this->_redirect('admin/list-organisation');
     }
