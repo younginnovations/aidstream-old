@@ -2,8 +2,6 @@
 /**
  * Zend Framework addition by Iati
  *
- * @category   Iati
- * @package    Iati_Filter
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @author     Stefan Koch <cct@stefan-koch.name>
  */
@@ -11,11 +9,8 @@
 
 /**
  * Resizes a given file and saves the created file
- *
- * @category   Iati
- * @package    Iati_Filter
  */
-abstract class Iati_Filter_File_Resize_Adapter_Abstract
+abstract class App_Filter_File_Resize_Adapter_Abstract
 {
     abstract public function resize($width, $height, $keepRatio, $file, $target, $keepSmaller = true);
 

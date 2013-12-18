@@ -2,22 +2,17 @@
 /**
  * Zend Framework addition by Iati
  *
- * @category   Iati
- * @package    Iati_Filter
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @author     Stefan Koch <cct@stefan-koch.name>
  */
 
-require_once 'Iati/Filter/File/Resize/Adapter/Abstract.php';
+require_once 'App/Filter/File/Resize/Adapter/Abstract.php';
 
 /**
  * Resizes a given file with the gd adapter and saves the created file
- *
- * @category   Iati
- * @package    Iati_Filter
  */
-class Iati_Filter_File_Resize_Adapter_Gd extends
-    Iati_Filter_File_Resize_Adapter_Abstract
+class App_Filter_File_Resize_Adapter_Gd extends
+    App_Filter_File_Resize_Adapter_Abstract
 {
     public function resize($width, $height, $keepRatio, $file, $target, $keepSmaller = true)
     {
