@@ -29,8 +29,8 @@
                 <td><?php echo $fileOfActivities['published_date'] ?></td>
                 <td>
                 <?php if( $fileOfActivities['pushed_to_registry']): ?>
-                	<?php $response = unserialize($fileOfActivities['response']);?>
-                	<a href='<?php echo $response->ckan_url?>' target='_blank' title="view file in IATI Registry">Yes</a>
+                	<?php $dataset = preg_replace('/.xml$/' , '' , $fileOfActivities['filename']); ?>
+                	<a href="http://iatiregistry.org/dataset/<?php echo $dataset; ?>" target='_blank' title="view file in IATI Registry">Yes</a>
                 <?php else:?>
                 	No
                 <?php endif; ?>
