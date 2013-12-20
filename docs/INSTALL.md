@@ -1,11 +1,14 @@
 ## INSTALLATION
 
 Please follow the following steps for installing AidStream.
+** The root directory should have 'Allow override on'.
+** mod_rewrite should be enabled in apache for the framework to work.
 
 1. Clone the code from the git repository.
 
 2. Create a database and import the sql files in the schema directory of the root folder.
 The files to be imported are  schema.sql, codelists.sql, help.sql and superadmin.sql file.
+schema.sql should be the first file to be imported as it coantains the db schema.
     
 3. Make a copy of default.application.ini as application.ini in application/configs.
     - Change the db parameters to match your db configuration
@@ -18,13 +21,19 @@ The files to be imported are  schema.sql, codelists.sql, help.sql and superadmin
     ** PRODUCTION environment is the default environment.
 
 4. Make sure the data/log, data/session folders are writable.(Please create the
-folders in case they are missing)
+folders in case they are missing). The system log file 'zf.iati.log' is written
+in the log folder and the session folder contains the session files for different
+users.
 
 5. Make sure the public/files/xml , public/files/csv/uploads , public/files/documents
 and public/uploads/image are writable (Please create the folders in case they
 are missing ).
 
-6. Zend Framework should be in your php include path. In case zend framework is
+6. Copy .htaccess_bak to .htaccess in the root folder and in the public folder.
+The .htaccess in the root folder is used for removing /public baseurl so can be
+used only if required.
+
+7. Zend Framework should be in your php include path. In case zend framework is
 not in include path ( e.g you get a reqired file 'Zend/Application.php' not found error),
     - Set up zend framework and add it to include path
     OR
@@ -34,7 +43,7 @@ not in include path ( e.g you get a reqired file 'Zend/Application.php' not foun
 
 ** AidStream does not support ZendFramework 2.
 
-7. Clone the snapshot, how-to, how-to-simplified and blog from their respective
+8. Clone the snapshot, how-to, how-to-simplified and blog from their respective
 repositories to the public folder.
 
 
