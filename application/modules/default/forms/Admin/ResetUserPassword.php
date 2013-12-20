@@ -13,7 +13,8 @@ class Form_Admin_ResetUserPassword extends App_Form
             ->addValidator($passwordConfirmation)
             ->addDecorators( array(
                                 array(
-                                    array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item')
+                                    array( 'wrapperAll' => 'HtmlTag' ),
+                                    array( 'tag' => 'div','class'=>'clearfix form-item')
                                 )
                             )
                            )
@@ -25,19 +26,26 @@ class Form_Admin_ResetUserPassword extends App_Form
             ->setRequired()
             ->addDecorators( array(
                                 array(
-                                    array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item')
+                                    array( 'wrapperAll' => 'HtmlTag' ),
+                                    array( 'tag' => 'div','class'=>'clearfix form-item')
                                 )
                             )
                            )
             ->addValidator($passwordConfirmation);
 
         $this->addElements(array($oldpassword, $password, $confirmPassword));
-        $this->addDisplayGroup(array('password', 'confirmpassword'), 'field1',array('legend'=>'Reset User Password'));
+        $this->addDisplayGroup(
+                               array('password', 'confirmpassword'), 'field1',
+                               array('legend'=>'Reset User Password')
+                            );
         $group = $this->getDisplayGroup('field1');
         $group->setDecorators(array(
             'FormElements',
             'Fieldset',
-            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'default-activity-list'))
+            array(
+                  array( 'wrapperAll' => 'HtmlTag' ),
+                  array( 'tag' => 'div','class'=>'default-activity-list')
+                )
         ));
         
         $submit = new Zend_Form_Element_Submit('Submit');

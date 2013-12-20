@@ -130,19 +130,27 @@ class User_Form_User_RegisterForm extends App_Form
 
             
 
-        $this->addElements(array($userInfo , $orgname, $orgaddress, $account_identifier , $firstname, $lastname, $userIdentifier, $username, $email, $password, $confirmPassword , $captcha));
+        $this->addElements(
+	    array(
+		$userInfo , $orgname, $orgaddress, $account_identifier ,
+		$firstname, $lastname, $userIdentifier, $username, $email,
+		$password, $confirmPassword , $captcha
+	    )
+	);
         
         $this->addDisplayGroup(
-                               array('org_name' , 'org_address' , 'account_identifier'),
-                               'organisation_info',
-                               array('legend' => 'Organisation Info')
-                           );
+	    array('org_name' , 'org_address' , 'account_identifier'),
+	    'organisation_info',
+	    array('legend' => 'Organisation Info')
+	);
         
         $this->addDisplayGroup(
-                               array('user_info_message', 'first_name' , 'last_name' , 'email', 'user_identifier', 'user_name' , 'password', 'confirmpassword' , 'captcha'),
-                               'user_info',
-                               array('legend' => 'User Info')
-                           );
+	    array('user_info_message', 'first_name' , 'last_name' ,
+		  'email', 'user_identifier', 'user_name' , 'password',
+		  'confirmpassword' , 'captcha'),
+	    'user_info',
+	    array('legend' => 'User Info')
+	);
         /*
         $this->addDisplayGroup(
                                 array('publisher_id' , 'api_key'),

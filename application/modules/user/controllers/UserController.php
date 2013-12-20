@@ -1,8 +1,7 @@
 <?php
 /**
  * User Controller to render pages for user module
- * Enter description here ...
- * @author geshan
+ * @author YIPL Dev Team
  *
  */
 class User_UserController extends Zend_Controller_Action
@@ -29,10 +28,14 @@ class User_UserController extends Zend_Controller_Action
                     $userModel = new User_Model_User();
                     $accountId = $userModel->registerUser($formData);
 
-                    $this->_helper->FlashMessenger->addMessage(array('message' => 'Thank you for registering. You will receive an email shortly.'));
+                    $this->_helper->FlashMessenger
+                        ->addMessage(array('message' => 'Thank you for registering.'
+                                           .'You will receive an email shortly.'));
                     $this->_redirect('/');
                 } else {
-                    $this->_helper->FlashMessenger->addMessage(array('error' => 'Oops! something went wrong. Please check the fields marked in red to proceed.'));
+                    $this->_helper->FlashMessenger
+                        ->addMessage(array('error' => 'Oops! something went wrong.'
+                                           .' Please check the fields marked in red to proceed.'));
                 }
         }
         $this->view->form = $form;
@@ -58,20 +61,27 @@ class User_UserController extends Zend_Controller_Action
                     try {
 
                         $uniqueId = md5(uniqid());
-                        $resetSite = "http://" . $_SERVER['HTTP_HOST'] . $this->view->baseUrl() . '/user/user/resetpassword/email/' . urlencode($email) . '/value/' . urlencode($uniqueId);
+                        $resetSite = "http://" . $_SERVER['HTTP_HOST']
+                                . $this->view->baseUrl() . '/user/user/resetpassword/email/'
+                                . urlencode($email) . '/value/' . urlencode($uniqueId);
                         $reset = new User_Model_DbTable_Reset();
                         $reset->insert(array('email' => $email, 'value' => $uniqueId, 'reset_flag' => '1'));
                         
                         $notification = new Model_Notification;
                         $notification->sendResetNotifications($user , $resetSite);
 
-                        $this->_helper->FlashMessenger->addMessage(array('message' => 'Further instructions have been sent to your e-mail address.'));
+                        $this->_helper->FlashMessenger
+                            ->addMessage(array('message' => 'Further instructions'
+                                            .' have been sent to your e-mail address.'));
                         $this->_redirect('/');
                     } catch (Exception $e) {
-                        $this->_helper->FlashMessenger->addMessage(array('error' => 'Error in sending mail.'));
+                        $this->_helper->FlashMessenger
+                            ->addMessage(array('error' => 'Error in sending mail.'));
                     }//end of try catch
                 } else {
-                    $this->_helper->FlashMessenger->addMessage(array('error' => 'Sorry, ' . $email . ' is not a registered email in AidStream.'));
+                    $this->_helper->FlashMessenger
+                        ->addMessage(array('error' => 'Sorry, ' . $email
+                                           . ' is not a registered email in AidStream.'));
                 }//end of if
             } else {
                 $form->populate($formData);
@@ -117,13 +127,17 @@ class User_UserController extends Zend_Controller_Action
                         if ($auth->hasIdentity()) {
                             $auth->clearIdentity();
                         }
-                        $this->_helper->FlashMessenger->addMessage(array('error' => 'Your account has been disabled. Please contact the system administrator'));
+                        $this->_helper
+                            ->FlashMessenger
+                            ->addMessage(array('error' => 'Your account has been disabled.'
+                                            .' Please contact the system administrator'));
                         $this->_redirect('/');
                     }
 
                     $identity = $authAdapter->getResultRowObject(null , 'password');
 
-                    //getting role from table role and merging it with $authAdapter->getResultRowObject() [adding role to identity]
+                    //getting role from table role and merging it with $authAdapter->getResultRowObject()
+                    // [adding role to identity]
                     $rolevalue = new User_Model_DbTable_Role;
                     $role = $rolevalue->getRoleById($identity->role_id);
                     $obj2 = new stdClass;
@@ -148,10 +162,12 @@ class User_UserController extends Zend_Controller_Action
                     }
                 }
                 else
-                    $this->_helper->FlashMessenger->addMessage(array('error' => 'Username or password did not match.'));
+                    $this->_helper->FlashMessenger
+                        ->addMessage(array('error' => 'Username or password did not match.'));
                     //$this->_redirect('/');
             } else {
-                $this->_helper->FlashMessenger->addMessage(array('error' => 'Username or password did not match.'));
+                $this->_helper->FlashMessenger
+                    ->addMessage(array('error' => 'Username or password did not match.'));
                 //$this->_redirect('/');
             }
         }
@@ -262,7 +278,7 @@ class User_UserController extends Zend_Controller_Action
                 if($roleName != 'user'){
                     $upload = new Zend_File_Transfer_Adapter_Http();
                     $upload->setDestination($uploadDir);
-                    $upload->addFilter(new Iati_Filter_File_Resize(array(
+                    $upload->addFilter(new App_Filter_File_Resize(array(
 						    'width' => 150,
 						    'height' => 100,
 						    'keepRatio' => true,
@@ -341,7 +357,8 @@ class User_UserController extends Zend_Controller_Action
         $reset = new User_Model_DbTable_Reset();
         $resetResult = $reset->uniqueValue($resetEmail, $resetValue);
         if (!$resetResult) {
-            $this->_helper->FlashMessenger->addMessage(array('error' => 'You have already used this one-time reset link.'));
+            $this->_helper->FlashMessenger
+                ->addMessage(array('error' => 'You have already used this one-time reset link.'));
             $this->_redirect('/');
         } else {
             $resetId = $reset->getResetId($resetEmail, $resetValue);
@@ -360,9 +377,11 @@ class User_UserController extends Zend_Controller_Action
                         //update the reset value in reset table
                         $resetData['reset_flag'] = 0;
                         $reset->update($resetData, array('reset_id' => $resetId));
-                        $this->_helper->FlashMessenger->addMessage(array('message' => 'Your password has been changed sucessfully.'));
+                        $this->_helper->FlashMessenger
+                            ->addMessage(array('message' => 'Your password has been changed sucessfully.'));
                     } else {
-                        $this->_helper->FlashMessenger->addMessage(array('error' => 'Sorry some error occured please try again later.'));
+                        $this->_helper->FlashMessenger
+                            ->addMessage(array('error' => 'Sorry some error occured please try again later.'));
                     }
                     $this->_redirect('/');
                 }
@@ -408,12 +427,14 @@ class User_UserController extends Zend_Controller_Action
                         $model->changePassword($data, $user_id);
 
 
-                        $this->_helper->FlashMessenger->addMessage(array('message' => 'Changed password successfully.'));
+                        $this->_helper->FlashMessenger
+                            ->addMessage(array('message' => 'Changed password successfully.'));
 
                         $this->_redirect('user/user/login');
                     } else {
 
-                        $this->_helper->FlashMessenger->addMessage(array('error' => 'Old password did not match.'));
+                        $this->_helper->FlashMessenger
+                            ->addMessage(array('error' => 'Old password did not match.'));
                     }
                 } catch (Exception $e) {
                     print 'Error Occured';
@@ -432,7 +453,8 @@ class User_UserController extends Zend_Controller_Action
         Zend_Auth::getInstance()->clearIdentity();
         Zend_Session::forgetMe();
 
-        $this->_helper->FlashMessenger->addMessage(array('message' => 'Successfully logged out.'));
+        $this->_helper->FlashMessenger
+            ->addMessage(array('message' => 'Successfully logged out.'));
 
         $this->_redirect('');
     }
@@ -465,7 +487,8 @@ class User_UserController extends Zend_Controller_Action
                 $account_id = $this->_getParam('org_id');
                 $user_id = $this->_getParam('user_id');
                 if(!$account_id || !$user_id){
-                    $this->_helper->FlashMessenger->addMessage(array('error' => 'Could not masquerade. User information missing'));
+                    $this->_helper->FlashMessenger
+                        ->addMessage(array('error' => 'Could not masquerade. User information missing'));
                     $this->_redirect('/wep/dashboard');
                 }
                 $superAdminIdentity = $identity;
@@ -496,7 +519,8 @@ class User_UserController extends Zend_Controller_Action
                 $this->_redirect('/wep/dashboard');
 
             } else {
-                $this->_helper->FlashMessenger->addMessage(array('error' => 'You are not authorised to masquerade.'));
+                $this->_helper->FlashMessenger
+                    ->addMessage(array('error' => 'You are not authorised to masquerade.'));
                 $this->_redirect('/wep/dashboard');
             }
         }
@@ -529,9 +553,11 @@ class User_UserController extends Zend_Controller_Action
                 $notification = new Model_Notification;
                 $notification->sendSupportNotifications($data);
 
-                $this->_helper->FlashMessenger->addMessage(array('message' =>'Thank you. Your query has been received.'));
+                $this->_helper->FlashMessenger
+                    ->addMessage(array('message' =>'Thank you. Your query has been received.'));
             } else {
-                $this->_helper->FlashMessenger->addMessage(array('error' => 'Sorry your support mail could not be sent'));
+                $this->_helper->FlashMessenger
+                    ->addMessage(array('error' => 'Sorry your support mail could not be sent'));
             }
             
             if($this->_getParam('referer')){

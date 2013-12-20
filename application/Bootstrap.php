@@ -12,9 +12,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initModuleAutoLoad()
     {
         $moduleLoader = new Zend_Application_Module_Autoloader(
-                        array(
-                            "namespace" => '',
-                            "basePath" => APPLICATION_PATH . '/modules/default'));                
+                            array(
+                                "namespace" => '',
+                                "basePath" => APPLICATION_PATH . '/modules/default'
+                            ));                
     }
     
     protected function _initRegisterNamespace()
@@ -28,7 +29,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initRegistry()
     {
         $registry = Zend_Registry::getInstance();
-        $registry->config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', APPLICATION_ENV, true);
+        $registry->config = new Zend_Config_Ini(
+            APPLICATION_PATH . '/configs/application.ini',
+            APPLICATION_ENV,
+            true
+        );
 
         return $registry;
     }
@@ -47,7 +52,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         // look in the modules directory and automatically make modules out of all folders found
         $frontController->addModuleDirectory(APPLICATION_PATH . '/modules');
 
-        // forces the front controller to forward all errors to the default error controller (may already be false by default)
+        // forces the front controller to forward all errors to the default error
+        // controller (may already be false by default)
         $frontController->throwExceptions(false);
 
         return $frontController;
@@ -72,13 +78,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->addHelperPath('ZendX/JQuery/View/Helper/', 'ZendX_JQuery_View_Helper');
     }
 
-    /* public function _initRouter()
-      {
-      $routes = new Zend_Config_Xml(APPLICATION_PATH . '/configs/routes.xml');
-      $router = Zend_Controller_Front::getInstance()->getRouter();
-      $router->addConfig($routes, 'routes');
-      } */
-
     function _initRouting()
     {
         $router = $this->getResource('frontController')->getRouter();
@@ -86,24 +85,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $router->addConfig($config, 'routes');
     }
 
-    /* public function _initFolderPath()
-      {
-      $pathConfig = $this->getOptions();
-
-      $path = $pathConfig['folder']['path'];
-
-      //        $path
-      } */
-
-    /* public function _initSetLibraryPaths()
-      {
-      $config = $this->getOptions();
-      $schemaPath = $config['iati']['validator']['schemaPath'];
-
-      if ($schemaPath) {
-      Iati_Iatischema_Validator::setSchemaPath($schemaPath);
-      }
-      } */
 
     protected function _initAcl()
     {
@@ -112,7 +93,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $frontController = Zend_Controller_Front::getInstance();
         $frontController->registerPlugin(new App_AccessCheck($this->_acl));
         
-        //for the guest user role is assigned as guest rather than null and for other roles it is fetched from zend_auth
+        //for the guest user role is assigned as guest rather than null and for
+        //other roles it is fetched from zend_auth
         if (Zend_Auth::getInstance()->hasIdentity()) {
             Zend_Registry::set('role', Zend_Auth::getInstance()->getStorage()->read()->role);
         } else {
@@ -132,7 +114,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         // register our custom error handler
         App_Error_Handler::register();
         
-        $writer_filesys = new Zend_Log_Writer_Stream(APPLICATION_PATH . '/../data/log/zf.iati.log');
+        $writer_filesys = new Zend_Log_Writer_Stream(APPLICATION_PATH .
+                                                     '/../data/log/zf.iati.log');
         $writer_filesys->addFilter(Zend_Log::WARN);
         
         $logger->addWriter($writer_filesys);

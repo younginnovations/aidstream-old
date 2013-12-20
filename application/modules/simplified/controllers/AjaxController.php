@@ -1,6 +1,6 @@
 <?php
 /**
- * @todo some class description required
+ * Handles ajax request for simplified section.
  * @author YIPL Dev team
  *
  */

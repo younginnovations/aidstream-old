@@ -46,27 +46,10 @@ class User_Model_User
         $admin['user_id'] = $user_id;
         $admin_id = $modelWep->insertRowsToTable('profile', $admin);
 
-        //Insert Default Values
-        $defaultFieldsValues = new Iati_WEP_AccountDefaultFieldValues();
-        $fieldString = serialize($defaultFieldsValues);
-
-        $defaultValues['object'] = $fieldString;
-        $defaultValues['account_id'] = $accountId;
-        $defaultValuesId = $modelWep->insertRowsToTable('default_field_values', $defaultValues);
-
-        //Insert Default Fields
-        $defaultFieldGroup = new Iati_WEP_AccountDisplayFieldGroup();
-        $default = array('title','description','activity_status','activity_date','participating_org','recipient_country','sector','budget','transaction');
-
-        foreach ($default as $eachField) {
-            $defaultFieldGroup->setProperties($eachField);
-        }
-
-        $fieldString = serialize($defaultFieldGroup);
-        $defaultFields['object'] = $fieldString;
-        $defaultFields['account_id'] = $accountId;
-        $defaultFieldId = $modelWep->insertRowsToTable('default_field_groups', $defaultFields);
-
+        //Create defaults
+        $defaults = new Model_Defaults();
+        $defaults->createDefaults($data , $accountId);
+        
         //Send notification        
         $notification = new Model_Notification;
         $notification->sendRegistrationNotifications($data);

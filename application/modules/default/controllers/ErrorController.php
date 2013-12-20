@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * Controller to handle error
+ * @author YIPL dev team
+ */
 class ErrorController extends Zend_Controller_Action
 {
     public function init()
@@ -21,7 +24,13 @@ class ErrorController extends Zend_Controller_Action
         if(!$errors){
             $this->view->message = 'You have reached the error page';
         } else {
-            if(Zend_Registry::getInstance()->config->resources->frontController->params->displayExceptions){
+            $excpts = Zend_Registry::getInstance()
+                ->config
+                ->resources
+                ->frontController
+                ->params
+                ->displayExceptions;
+            if($excpts){
                 $this->view->exception = $errors->exception;
             }
             $this->view->request   = $errors->request;
@@ -70,10 +79,5 @@ class ErrorController extends Zend_Controller_Action
      * Shows the 404 error action
      */
     public function error404Action() {}
-
-
-
-
-
 }
 

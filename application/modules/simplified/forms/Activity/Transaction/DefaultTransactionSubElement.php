@@ -30,7 +30,7 @@ class Simplified_Form_Activity_Transaction_DefaultTransactionSubElement extends 
         $form['amount'] = new Zend_Form_Element_Text('amount');
         $form['amount']->setLabel('Amount')
             ->setRequired()
-            ->addFilter(new Iati_Filter_Currency())
+            ->addFilter(new App_Filter_Currency())
             ->setValue($this->data['amount'])
             ->addValidator(new App_Validate_Numeric())
             ->setAttrib('class', 'form-text');

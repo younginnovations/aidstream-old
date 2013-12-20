@@ -23,7 +23,9 @@ class Form_Wep_Accountregister extends App_Form
             ->setRequired()
             ->addValidator('Db_NoRecordExists', false, array('table' => 'account','field' => 'username'))
             ->addErrorMessage('Prefix is already used')
-            ->setDescription('<div class="popup">This name will be prefixed to all the usernames created for the organisation (eg if the prefix is ABC then the username will be ABC_admin for admin user.)</div>')
+            ->setDescription('<div class="popup">This name will be prefixed to all the usernames'
+                    .'created for the organisation (eg if the prefix is ABC then the username will'
+                    .'be ABC_admin for admin user.)</div>')
             ->setAttrib('class', 'form-text')
             ->setDecorators(array(
                     'ViewHelper',
@@ -83,7 +85,10 @@ class Form_Wep_Accountregister extends App_Form
         foreach($form as $item_name=>$element)
         {
             $form[$item_name]->addDecorators( array(
-                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
+                        array(
+                            array( 'wrapperAll' => 'HtmlTag' ),
+                            array( 'tag' => 'div','class'=>'clearfix form-item')
+                        )
                     )
             );
         }
@@ -93,7 +98,9 @@ class Form_Wep_Accountregister extends App_Form
                                 array('legend'=>'Organisation Information')
                             );
         
-        $this->addDisplayGroup( array('first_name', 'middle_name', 'last_name', 'admin_username', 'password', 'confirmpassword', 'email'), 
+        $this->addDisplayGroup(
+                                array('first_name', 'middle_name', 'last_name',
+                                     'admin_username', 'password', 'confirmpassword', 'email'), 
                                 'field1',
                                 array('legend'=>'Admin Information')
                             );
@@ -113,7 +120,10 @@ class Form_Wep_Accountregister extends App_Form
         $groups = $this->getDisplayGroups();
         foreach($groups as $group){
             $group->addDecorators(array(
-                array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'default-activity-list'))
+                array(
+                        array( 'wrapperAll' => 'HtmlTag' ),
+                        array( 'tag' => 'div','class'=>'default-activity-list')
+                    )
             ));
         }
        

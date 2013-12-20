@@ -7,8 +7,6 @@ class AjaxController extends Zend_Controller_Action
 { 
     public function preDispatch()
     {
-//        $this->_helper->layout()->disableLayout(); 
-//        $this->_helper->viewRenderer->setNoRender(true);
         $this->_helper->layout()->setLayout('layout_wep');
         //Using Ajax for element to load in view-activity page
         $ajaxContext = $this->_helper->getHelper('AjaxContext');
@@ -31,7 +29,8 @@ class AjaxController extends Zend_Controller_Action
         $form = $element->getForm(true);
         
         /**
-         * If the element is a child form, we have to add the parent's name and count to the form elements.
+         * If the element is a child form, we have to add the parent's name and
+         * count to the form elements.
          * @todo refractor the baseElement's code so that we dont need to do this here.
          */
         $parents = preg_replace("/(-)?{$ele}.*$/" , '' , $refItem );
@@ -123,7 +122,9 @@ class AjaxController extends Zend_Controller_Action
                 try{
                     $upload->receive();
                     $model->saveDocumentInfo(basename($source));
-                    $this->view->docUrl = "http://" . $_SERVER['HTTP_HOST'] . $this->view->baseUrl()."/files/documents/".basename($source);
+                    $this->view->docUrl = "http://" . $_SERVER['HTTP_HOST']
+                        . $this->view->baseUrl()."/files/documents/"
+                        .basename($source);
                 } catch(Zend_File_Transfer_Exception $e) {
                     $e->getMessage();
                 }

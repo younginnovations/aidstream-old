@@ -56,4 +56,16 @@ class Model_RegistryInfo extends Zend_Db_Table_Abstract
             return arrray();
         }
     }
+    
+    public function updateRegistryInfoFromData($data)
+    {
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $registryInfo = array();
+        $registryInfo['publisher_id'] = $data['publisher_id'];
+        $registryInfo['api_key'] = $data['api_key'];
+        $registryInfo['publishing_type'] = $data['publishing_type'][0];
+        $registryInfo['update_registry'] = $data['update_registry'];
+        $registryInfo['org_id'] = $identity->account_id;
+        $this->updateRegistryInfo($registryInfo);
+    }
 }

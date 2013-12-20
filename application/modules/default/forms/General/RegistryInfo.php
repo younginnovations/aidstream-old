@@ -10,10 +10,10 @@ class Form_General_RegistryInfo extends App_Form
             ->addDecorators(array(array(
                                         'HtmlTag',
                                         array(
-                                              'tag'        =>'<div>',
-                                              'placement'  =>'APPEND',
-                                              'class'      =>'help activity_defaults-publisher_id'
-                                          )
+                                            'tag'        =>'<div>',
+                                            'placement'  =>'APPEND',
+                                            'class'      =>'help activity_defaults-publisher_id'
+                                        )
                             )))
             ->addErrorMessage('Please Enter the Publisher ID');
         
@@ -23,10 +23,10 @@ class Form_General_RegistryInfo extends App_Form
             ->addDecorators(array(array(
                                         'HtmlTag',
                                         array(
-                                              'tag'        =>'<div>',
-                                              'placement'  =>'APPEND',
-                                              'class'      =>'help activity_defaults-api_key'
-                                          )
+                                            'tag'        =>'<div>',
+                                            'placement'  =>'APPEND',
+                                            'class'      =>'help activity_defaults-api_key'
+                                        )
                             )))
             ->addErrorMessage('Please Enter an API key');
             
@@ -54,12 +54,18 @@ class Form_General_RegistryInfo extends App_Form
         {
             if($item_name == "update_registry"){
                 $form[$item_name]->addDecorators( array(
-                        array(array( 'wrapperAll' => 'HtmlTag'), array('tag' => 'div' , 'class'=>'clearfix form-item update-registry-element'))
+                        array(
+                              array( 'wrapperAll' => 'HtmlTag'),
+                              array('tag' => 'div' , 'class'=>'clearfix form-item update-registry-element')
+                            )
                     )
                 );
             } else {
                 $form[$item_name]->addDecorators( array(
-                        array(array( 'wrapperAll' => 'HtmlTag'), array('tag' => 'div' , 'class'=>'clearfix form-item'))
+                        array(
+                            array( 'wrapperAll' => 'HtmlTag'),
+                            array('tag' => 'div' , 'class'=>'clearfix form-item')
+                        )
                     )
                 );
             }
@@ -83,8 +89,18 @@ class Form_General_RegistryInfo extends App_Form
         $registry_info->setDecorators(array(
             'FormElements',
             'Fieldset',
-            array('HtmlTag' , array('tag' => 'div' , 'class' => 'help activity_defaults-registry_info legend-help' , 'placement' => 'PREPEND')),
-            array(array( 'wrapperAll' => 'HtmlTag'), array( 'tag' => 'div','class'=>'default-activity-list'))
+            array(
+                    'HtmlTag' ,
+                    array(
+                          'tag' => 'div' ,
+                          'class' => 'help activity_defaults-registry_info legend-help' ,
+                          'placement' => 'PREPEND'
+                        )
+                ),
+            array(
+                  array( 'wrapperAll' => 'HtmlTag'),
+                  array( 'tag' => 'div','class'=>'default-activity-list')
+                )
         ));
         
         $publishing_info = $this->getDisplayGroup('publishing_info');
@@ -92,8 +108,18 @@ class Form_General_RegistryInfo extends App_Form
         $publishing_info->setDecorators(array(
             'FormElements',
             'Fieldset',
-            array('HtmlTag' , array('tag' => 'div' , 'class' => 'help activity_defaults-publishing_type legend-help' , 'placement' => 'PREPEND')),
-            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'default-activity-list'))
+            array(
+                    'HtmlTag' ,
+                    array(
+                            'tag' => 'div' ,
+                            'class' => 'help activity_defaults-publishing_type legend-help' ,
+                            'placement' => 'PREPEND'
+                        )
+                  ),
+            array(
+                    array( 'wrapperAll' => 'HtmlTag' ),
+                    array( 'tag' => 'div','class'=>'default-activity-list')
+                )
         ));
     }
 }

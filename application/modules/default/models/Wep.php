@@ -1,4 +1,7 @@
 <?php
+/**
+ * common model to be used for various database purposes.
+ */
 class Model_Wep extends Zend_Db_Table_Abstract
 {
 

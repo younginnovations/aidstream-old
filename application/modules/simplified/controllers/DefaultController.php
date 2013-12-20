@@ -1,5 +1,6 @@
 <?php
 /**
+ * Handles default functionalities for simplified section.
  * @author YIPL Dev team
  *
  */
@@ -73,7 +74,8 @@ class Simplified_DefaultController extends Zend_Controller_Action
         $this->view->last_updated_datetime = $activityModel->getLastUpdatedDatetime($activities);
         $this->view->published_activity_count = $regPublishModel->getActivityCount($publishedFiles);
         $this->view->activity_elements_info = $activitiesAttribs;
-        $this->view->registry_url = Zend_Registry::get('config')->registry."../publisher/".$regInfo->publisher_id;
+        $this->view->registry_url = Zend_Registry::get('config')->registry.url
+                                        ."../publisher/".$regInfo->publisher_id;
         $this->view->activities_id = $activities_id;
     }
 
@@ -83,9 +85,17 @@ class Simplified_DefaultController extends Zend_Controller_Action
         $model = new Model_Wep();
         $modelRegistryInfo = new Model_RegistryInfo();
 
-        $defaultFieldsValues = $model->getDefaults('default_field_values', 'account_id', $identity->account_id);
+        $defaultFieldsValues = $model->getDefaults(
+                                        'default_field_values',
+                                        'account_id',
+                                        $identity->account_id
+                                    );
         $default['field_values'] = $defaultFieldsValues->getDefaultFields();
-        $defaultFieldGroup = $model->getDefaults('default_field_groups', 'account_id', $identity->account_id);
+        $defaultFieldGroup = $model->getDefaults(
+                                        'default_field_groups',
+                                        'account_id',
+                                        $identity->account_id
+                                    );
         $default['fields'] = $defaultFieldGroup->getProperties();
         $form = new Simplified_Form_Default_EditDefaults();
         $form->edit($default);
@@ -100,39 +110,16 @@ class Simplified_DefaultController extends Zend_Controller_Action
                 if (!$form->isValid($data)) {
                     $form->populate($data);
                 } else {
-
+                    
                     //Update Publishing Info
-                    $registryInfo = array();
-                    $registryInfo['publisher_id'] = $data['publisher_id'];
-                    $registryInfo['api_key'] = $data['api_key'];
-                    $registryInfo['publishing_type'] = $data['publishing_type'][0];
-                    $registryInfo['update_registry'] = $data['update_registry'];
-                    $registryInfo['org_id'] = $identity->account_id;
-                    $modelRegistryInfo->updateRegistryInfo($registryInfo);
+                    $modelRegistryInfo->updateRegistryInfoFromData($data);
 
                     //Update Default Values
-                    $defaultFieldsValuesObj = new Iati_WEP_AccountDefaultFieldValues();
+                    $defaults = new Model_Defaults();
+                    $defaults->updateDefaults($data);
 
-                    $defaultFieldsValuesObj->setLanguage($data['default_language']);
-                    $defaultFieldsValuesObj->setCurrency($data['default_currency']);
-                    $defaultFieldsValuesObj->setReportingOrg($data['default_reporting_org']);
-                    //$defaultFieldsValuesObj->setHierarchy($data['hierarchy']);
-                    $defaultFieldsValuesObj->setReportingOrgRef($data['reporting_org_ref']);
-                    $defaultFieldsValuesObj->setReportingOrgType($data['reporting_org_type']);
-                    $defaultFieldsValuesObj->setReportingOrgLang($data['reporting_org_lang']);
-                    //$defaultFieldsValuesObj->setCollaborationType($data['default_collaboration_type']);
-                    //$defaultFieldsValuesObj->setFlowType($data['default_flow_type']);
-                    //$defaultFieldsValuesObj->setFinanceType($data['default_finance_type']);
-                    //$defaultFieldsValuesObj->setAidType($data['default_aid_type']);
-                    //s$defaultFieldsValuesObj->setTiedStatus($data['default_tied_status']);
-
-                    $fieldString = serialize($defaultFieldsValuesObj);
-
-                    $defaultValues['id'] = $model->getIdByField('default_field_values', 'account_id', $identity->account_id);
-                    $defaultValues['object'] = $fieldString;
-                    $defaultValuesId = $model->updateRowsToTable('default_field_values', $defaultValues);
-
-                    $this->_helper->FlashMessenger->addMessage(array('message' => "Settings successfully updated."));
+                    $this->_helper->FlashMessenger
+                        ->addMessage(array('message' => "Settings successfully updated."));
                     if ($identity->role == 'superadmin') {
                         $this->_redirect('admin/dashboard');
                     } else if ($identity->role == 'admin') {
@@ -173,20 +160,21 @@ class Simplified_DefaultController extends Zend_Controller_Action
             //For admin user redirect to defaults page.
              //For admin user redirect to defaults page.
             if($identity->role_id == 1){
-                $this->_helper->FlashMessenger->addMessage(array(
-                                                                 'message' => "Before you start entering activity data
-                                                                 you need to add some default values that will
-                                                                 automatically be filled in for
-                                                                 each activity you report."
-                                                                   )
-                                                           );
+                $this->_helper->FlashMessenger
+                    ->addMessage(array(
+                                    'message' => "Before you start entering activity data
+                                    you need to add some default values that will
+                                    automatically be filled in for
+                                    each activity you report."
+                                    ));
                 $this->_redirect('simplified/default/settings');
             } else { // For other user redirect to dashboard.
-                $this->_helper->FlashMessenger->addMessage(array(
-                                                                 'message' => "All information for Reporting Organisation
-                                                                    is not provided .Please contact you organisation admin"
-                                                                  )
-                                                           );
+                $this->_helper->FlashMessenger
+                    ->addMessage(array(
+                                    'message' => "All information for Reporting Organisation
+                                       is not provided .Please contact you organisation admin"
+                                    )
+                              );
                 $this->_redirect('simplified/default/dashborad');
             }
 
@@ -210,12 +198,16 @@ class Simplified_DefaultController extends Zend_Controller_Action
                 $activityHashModel = new Model_ActivityHash();
                 $updated = $activityHashModel->updateActivityHash($activityId);
                 
-                $this->_helper->FlashMessenger->addMessage(array('message' => 'Congratulations! You have successfully created an activity.'));
+                $this->_helper->FlashMessenger
+                    ->addMessage(array('message' => 'Congratulations! You have
+                                       successfully created an activity.'));
                 $this->_redirect('/simplified/default/view-activity/'.$activityId);
                 
             } else {
                 $form->populate($data);
-                $this->_helper->FlashMessenger->addMessage(array('error' => 'You have some error in your data. Please check the fields marked in red to proceed.'));
+                $this->_helper->FlashMessenger
+                    ->addMessage(array('error' => 'You have some error in your data.
+                                       Please check the fields marked in red to proceed.'));
             }
             
         }        
@@ -235,7 +227,10 @@ class Simplified_DefaultController extends Zend_Controller_Action
         );
         $identity = Zend_Auth::getInstance()->getIdentity();
         $model = new Model_Wep();
-        $defaultFieldValues = $model->getDefaults('default_field_values', 'account_id', $identity->account_id);
+        $defaultFieldValues = $model->getDefaults(
+                                        'default_field_values',
+                                        'account_id',
+                                        $identity->account_id);
         $defaults = $defaultFieldValues->getDefaultFields();
         $initial['@currency'] = $defaults['currency'];
         //$initial['@xml_lang'] = $defaults['language'];
@@ -291,7 +286,9 @@ class Simplified_DefaultController extends Zend_Controller_Action
                 $identifier = $wepModel->listAll('iati_identifier', 'activity_id', $activity['id']);
                 //                    print_r($title[0]['text']);exit;
                 $activity_array[$i]['title'] = ($title[0]['text'])?$title[0]['text']:'No title';
-                $activity_array[$i]['identifier'] = ($identifier[0]['activity_identifier'])?$identifier[0]['activity_identifier']:'No Activity Identifier';
+                $activity_array[$i]['identifier'] = ($identifier[0]['activity_identifier'])?
+                                                        $identifier[0]['activity_identifier']:
+                                                        'No Activity Identifier';
                 $activity_array[$i]['last_updated_datetime'] = $activity['@last_updated_datetime'];
                 $activity_array[$i]['id'] = $activity['id'];
                 $activity_array[$i]['status_id']  = $activity['status_id'];
@@ -330,8 +327,14 @@ class Simplified_DefaultController extends Zend_Controller_Action
         $activity_info = $model->listAll('iati_activity', 'id', $activityId);
         $activity = $activity_info[0];
         $state = $activity['status_id'];
-        $activity['@xml_lang'] = $model->fetchValueById('Language', $activity_info[0]['@xml_lang'], 'Code');
-        $activity['@default_currency'] = $model->fetchValueById('Currency', $activity_info[0]['@default_currency'], 'Code');
+        $activity['@xml_lang'] = $model->fetchValueById(
+                                            'Language',
+                                            $activity_info[0]['@xml_lang'],
+                                            'Code');
+        $activity['@default_currency'] = $model->fetchValueById(
+                                                    'Currency',
+                                                    $activity_info[0]['@default_currency'],
+                                                    'Code');
 
         $iati_identifier_row = $model->getRowById('iati_identifier', 'activity_id', $activityId);
         $activity['activity_identifier'] = $iati_identifier_row['activity_identifier'];
@@ -340,7 +343,8 @@ class Simplified_DefaultController extends Zend_Controller_Action
         $next_state = Iati_WEP_ActivityState::getNextStatus($state);
         if($next_state && Iati_WEP_ActivityState::hasPermissionForState($next_state)){
             $status_form = new Form_Wep_ActivityChangeState();
-            $status_form->setAction($this->view->baseUrl()."/wep/update-status?redirect=".urlencode($this->getRequest()->getRequestUri()));
+            $status_form->setAction($this->view->baseUrl()."/wep/update-status?redirect="
+                                    .urlencode($this->getRequest()->getRequestUri()));
             $status_form->ids->setValue($activityId);
             $status_form->status->setValue($next_state);
             $status_form->change_state->setLabel(Iati_WEP_ActivityState::getStatus($next_state));
@@ -358,55 +362,6 @@ class Simplified_DefaultController extends Zend_Controller_Action
         $this->view->activity_id = $activityId;
     }
     
-    public function viewIatiActivityAction()
-    {
-        if(!$activity_id = $this->getRequest()->getParam('activity_id'))
-        {
-            $this->_redirect('/wep/view-activities');
-        }
-
-        $identity = Zend_Auth::getInstance()->getIdentity();
-        $model = new Model_Wep();
-        $activity_info = $model->listAll('iati_activity', 'id', $activity_id);
-        $activity = $activity_info[0];
-        $state = $activity['status_id'];
-        $activity['@xml_lang'] = $model->fetchValueById('Language', $activity_info[0]['@xml_lang'], 'Code');
-        $activity['@default_currency'] = $model->fetchValueById('Currency', $activity_info[0]['@default_currency'], 'Code');
-
-        $iati_identifier_row = $model->getRowById('iati_identifier', 'activity_id', $activity_id);
-        $activity['activity_identifier'] = $iati_identifier_row['activity_identifier'];
-        $title_row = $model->getRowById('iati_title', 'activity_id', $activity_id);
-        $activity['iati_title'] = $title_row['text'];
-
-        // Get form for status change
-        $next_state = Iati_WEP_ActivityState::getNextStatus($state);
-        if($next_state && Iati_WEP_ActivityState::hasPermissionForState($next_state)){
-            $status_form = new Form_Wep_ActivityChangeState();
-            $status_form->setAction($this->view->baseUrl()."/wep/update-status");
-            $status_form->ids->setValue($activity_id);
-            $status_form->status->setValue($next_state);
-            $status_form->change_state->setLabel(Iati_WEP_ActivityState::getAction($next_state));
-        } else {
-            $status_form = null;
-        }
-
-        $dbLayer = new Iati_WEP_DbLayer();
-        $activitys = $dbLayer->getRowSet('Activity', 'id', $activity_id, true, true);
-        $output = '';
-        $this->view->activity = $activitys;
-
-        $this->view->status_form = $status_form;
-        $this->view->state = $state;
-        $this->view->activityInfo = $activity;
-        $this->view->activity_id = $activity_id;
-
-        //$this->view->blockManager()->enable('partial/activitymenu.phtml');
-        $this->view->blockManager()->disable('partial/primarymenu.phtml');
-        $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
-        $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
-        $this->view->blockManager()->disable('partial/published-list.phtml');
-    }
-
     public function editActivityAction()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
@@ -414,7 +369,10 @@ class Simplified_DefaultController extends Zend_Controller_Action
         $identity = Zend_Auth::getInstance()->getIdentity();
     
         $modelVc = new Model_Viewcode();
-        $rowSet = $modelVc->getRowsByFields('default_field_values' , 'account_id' , $identity->account_id);
+        $rowSet = $modelVc->getRowsByFields(
+                                'default_field_values' ,
+                                'account_id' ,
+                                $identity->account_id);
         $defaultValues = unserialize($rowSet[0]['object']);
         $default = $defaultValues->getDefaultFields();
 
@@ -423,7 +381,8 @@ class Simplified_DefaultController extends Zend_Controller_Action
             $form = new Simplified_Form_Activity_Default(array('data' => $formData));
             if (!$form->validate($formData)) {
                 $form->populate($formData);
-                $this->_helper->FlashMessenger->addMessage(array('error' => 'You have some error in form data'));
+                $this->_helper->FlashMessenger
+                    ->addMessage(array('error' => 'You have some error in form data'));
             } else {
                 $fundingOrgData = $formData['funding_org'];
                 $sector = $formData['sector'];
@@ -457,7 +416,8 @@ class Simplified_DefaultController extends Zend_Controller_Action
             if($activityId = $this->getRequest()->getParam('activity_id')){
                 $activity = $wepModel->getRowById('iati_activity', 'id', $activityId);
                 if(!$activity){
-                    $this->_helper->FlashMessenger->addMessage(array('warning' => "Activity does not exist."));
+                    $this->_helper->FlashMessenger
+                        ->addMessage(array('warning' => "Activity does not exist."));
     
                     $this->_redirect('/simplified/default/dashboard');
                 }

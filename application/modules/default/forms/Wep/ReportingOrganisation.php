@@ -37,30 +37,45 @@ class Form_Wep_ReportingOrganisation extends App_Form
             ->addMultiOptions($language);
             
         $this->addElements($form);
-        $this->addDisplayGroup(array( 'reporting_org_ref', 'reporting_org_type' ,'default_reporting_org' , 'reporting_org_lang'),
-                               'reporting_org_info',
-                               array('legend' =>'Reporting Organisation Info')
-                               );
+        $this->addDisplayGroup(
+            array( 'reporting_org_ref', 'reporting_org_type' ,
+                  'default_reporting_org' , 'reporting_org_lang'),
+            'reporting_org_info',
+            array('legend' =>'Reporting Organisation Info')
+         );
         $group = $this->getDisplayGroup('reporting_org_info');
         $group->setDecorators(array(
             'FormElements',
             'Fieldset',
-            array('HtmlTag' , array('tag' => 'div' , 'class' => 'help activity_defaults-'. $group->getName().' legend-help' , 'placement' => 'PREPEND')),
-            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'default-activity-list'))
+            array(
+                'HtmlTag' ,
+                array(
+                    'tag' => 'div' ,
+                    'class' => 'help activity_defaults-'. $group->getName().' legend-help' ,
+                    'placement' => 'PREPEND'
+                )
+            ),
+            array(
+                array( 'wrapperAll' => 'HtmlTag' ),
+                array( 'tag' => 'div','class'=>'default-activity-list')
+            )
         ));
         
         
         foreach($form as $item_name=>$element)
         {
             $form[$item_name]->addDecorators( array(
-                        array('HtmlTag',
-                              array(
-                                    'tag'        =>'<div>',
-                                    'placement'  =>'PREPEND',
-                                    'class'      =>'help activity_defaults-'.$item_name
-                                )
-                            ),
-                        array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'clearfix form-item'))
+                array('HtmlTag',
+                    array(
+                        'tag'        =>'<div>',
+                        'placement'  =>'PREPEND',
+                        'class'      =>'help activity_defaults-'.$item_name
+                    )
+                ),
+                array(
+                      array( 'wrapperAll' => 'HtmlTag' ),
+                      array( 'tag' => 'div','class'=>'clearfix form-item')
+                )
                     )
             );
         }        

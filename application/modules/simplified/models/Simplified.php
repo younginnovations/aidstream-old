@@ -2,6 +2,9 @@
 DEFINE ('VDCS_DEFAULT_VALUE' , 'District');
 DEFINE ('LOCATION_API' , "http://www.developmentcheck.org/geotag/");
 
+/**
+ * Model to handle all the functionalities for simplified section.
+ */
 class Simplified_Model_Simplified
 {
     public $activityId;

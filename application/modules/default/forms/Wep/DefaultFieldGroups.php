@@ -22,8 +22,11 @@ class Form_Wep_DefaultFieldGroups extends App_Form
                                 'multiOptions' => $default_fields,
                                 'value' => $checked,
                                 'decorators'   => array(                                        
-                                            'Errors',
-                                            array('ViewScript', array('viewScript'=>'wep/viewscripts/multicheckboxview.php'))            
+                                    'Errors',
+                                    array(
+                                          'ViewScript',
+                                          array('viewScript'=>'wep/viewscripts/multicheckboxview.php')
+                                    )            
                                 )
                             )
                         );
@@ -38,8 +41,18 @@ class Form_Wep_DefaultFieldGroups extends App_Form
         $group->setDecorators(array(
             'FormElements',
             'Fieldset',
-            array('HtmlTag' , array('tag' => 'div' , 'class' => 'help activity_defaults-'. $group->getName().' legend-help' , 'placement' => 'PREPEND')),
-            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'default-activity-list'))
+            array(
+                'HtmlTag' ,
+                array(
+                    'tag' => 'div' ,
+                    'class' => 'help activity_defaults-'. $group->getName().' legend-help' ,
+                    'placement' => 'PREPEND'
+                )
+            ),
+            array(
+                  array( 'wrapperAll' => 'HtmlTag' ),
+                  array( 'tag' => 'div','class'=>'default-activity-list')
+            )
         ));   
     }
 }

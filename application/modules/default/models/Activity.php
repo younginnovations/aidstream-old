@@ -87,11 +87,12 @@ class Model_Activity
 
         return (int) $activityId;
     }
+    
 
     public function deleteActivityById($activityId)
     {
-        $dbLayer = new Iati_WEP_DbLayer();
-        $dbLayer->deleteRows('Activity', 'id', $activityId);
+        $element = new Iati_Aidstream_Element_Activity();
+        $element->deleteElement($activityId);
 
         $modelActivityHash = new Model_ActivityHash();
         $modelActivityHash->deleteActivityHash($activityId);
