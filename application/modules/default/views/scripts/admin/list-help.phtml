@@ -1,4 +1,4 @@
-<?
+<?php
      $helpTopics = $this->helpTopics;
 ?>
 <div class="xml-lang">
@@ -14,11 +14,11 @@
                   <tr>
                     <td>Language</td>
                     <td class="help-message-text">
-                         <div class="value-info"><? echo $helpTopics['xml_lang'][0]['message'] ?></div>
+                         <div class="value-info"><?php echo $helpTopics['xml_lang'][0]['message'] ?></div>
                          <div class="inline-edit-form">
                               <form class="inline-form">
                                   <input type="hidden" value="xml_lang" name = "id">
-                                  <textarea class="inline-content" name="message" ><? echo $helpTopics['xml_lang'][0]['message'] ?></textarea>
+                                  <textarea class="inline-content" name="message" ><?php echo $helpTopics['xml_lang'][0]['message'] ?></textarea>
                                   <input type="submit" value="Save">
                                   <input class="inline-cancel" type="button" value="Cancel">
                               </form>
@@ -28,11 +28,11 @@
                   <tr>
                      <td>Iso Date</td>
                      <td class="help-message-text">
-                         <div class="value-info"><? echo $helpTopics['iso_date'][0]['message'] ?></div>
+                         <div class="value-info"><?php echo $helpTopics['iso_date'][0]['message'] ?></div>
                          <div class="inline-edit-form">
                              <form class="inline-form">
                                   <input type="hidden" value="iso_date" name = "id">
-                                  <textarea class="inline-content" name="message" ><? echo $helpTopics['iso_date'][0]['message'] ?></textarea>
+                                  <textarea class="inline-content" name="message" ><?php echo $helpTopics['iso_date'][0]['message'] ?></textarea>
                                   <input type="submit" value="Save">
                                   <input class="inline-cancel" type="button" value="Cancel">
                              </form>
@@ -54,22 +54,22 @@
                  </tr>
              </thead>
              <tbody>
-             <? foreach ($helpTopics['default'] as $helpTopic): ?>
+             <?php foreach ($helpTopics['default'] as $helpTopic): ?>
                   <tr>
-                     <td><? echo $helpTopic['element_name'] ?></td>
+                     <td><?php echo $helpTopic['element_name'] ?></td>
                      <td class="help-message-text">
-                         <div class="value-info"><? echo $helpTopic['message'] ?></div>
+                         <div class="value-info"><?php echo $helpTopic['message'] ?></div>
                          <div class="inline-edit-form">
                              <form class="inline-form">
-                                  <input type="hidden" value="<? echo $helpTopic['id'] ?>" name="id" >
-                                  <textarea class="inline-content" name="message" ><? echo $helpTopic['message']?></textarea>
+                                  <input type="hidden" value="<?php echo $helpTopic['id'] ?>" name="id" >
+                                  <textarea class="inline-content" name="message" ><?php echo $helpTopic['message']?></textarea>
                                   <input type="submit" value="Save">
                                   <input class="inline-cancel" type="button" value="Cancel">
                              </form>
                          </div>
                      </td>
                  </tr>
-             <? endforeach; ?>
+             <?php endforeach; ?>
              </tbody>
           </table>
      </div>
@@ -84,22 +84,22 @@
                  </tr>
              </thead>
              <tbody>
-             <? foreach ($helpTopics['other'] as $helpTopic): ?>
+             <?php foreach ($helpTopics['other'] as $helpTopic): ?>
                   <tr>
-                     <td><? echo $helpTopic['element_name'] ?></td>
+                     <td><?php echo $helpTopic['element_name'] ?></td>
                      <td class="help-message-text">
-                         <div class="value-info"><? echo $helpTopic['message'] ?></div>
+                         <div class="value-info"><?php echo $helpTopic['message'] ?></div>
                          <div class="inline-edit-form">
                              <form class="inline-form">
-                                  <input type="hidden" value="<? echo $helpTopic['id'] ?>" name="id" >
-                                  <textarea class="inline-content" name="message" ><? echo $helpTopic['message']?></textarea>
+                                  <input type="hidden" value="<?php echo $helpTopic['id'] ?>" name="id" >
+                                  <textarea class="inline-content" name="message" ><?php echo $helpTopic['message']?></textarea>
                                   <input type="submit" value="Save">
                                   <input class="inline-cancel" type="button" value="Cancel">
                              </form>
                          </div>
                      </td>
                  </tr>
-             <? endforeach; ?>
+             <?php endforeach; ?>
              </tbody>
           </table>
      </div>

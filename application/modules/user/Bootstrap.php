@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * @uses       Zend_Application_Module_Bootstrap
  * @version    $Id$

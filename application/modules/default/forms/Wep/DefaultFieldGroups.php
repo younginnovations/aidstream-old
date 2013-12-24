@@ -1,4 +1,4 @@
-<?
+<?php
 class Form_Wep_DefaultFieldGroups extends App_Form
 {
 

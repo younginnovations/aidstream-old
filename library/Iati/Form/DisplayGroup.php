@@ -1,4 +1,4 @@
-<?
+<?php
 class Iati_Form_DisplayGroup extends Zend_Form_DisplayGroup
 {
     /**

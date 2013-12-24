@@ -1,13 +1,13 @@
 <?php
     $activityInfo = $this->activityInfo;
 ?>
-<? if($activityInfo): ?>
-<?
+<?php if($activityInfo): ?>
+<?php
     $title = "(" ;
     $title .= ($activityInfo['iati_title'])?$this->activityInfo['iati_title']:'No Title' ;
     $title .= ")";
 ?>
-<? endif; ?>
+<?php endif; ?>
 <div class="activity-title">
     <div class="element-edit-activity-info-wrapper">
         <span class="activity_identifier"> <?php print $activityInfo['activity_identifier']; ?> </span>

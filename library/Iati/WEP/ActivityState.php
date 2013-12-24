@@ -1,4 +1,4 @@
-<?
+<?php
 class Iati_WEP_ActivityState
 {
     protected static $_instance;

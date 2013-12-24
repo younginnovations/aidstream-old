@@ -1,4 +1,4 @@
-<?
+<?php
 class Model_OrganisationState extends Zend_Db_Table_Abstract
 {
     protected $_name = 'iati_organisation';

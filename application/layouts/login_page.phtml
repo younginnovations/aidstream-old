@@ -33,7 +33,7 @@
 
     </script>
     <script src="<?php echo $this->baseUrl()?>/js/dojo-release/dojo/dojo/dojo.js" djConfig="locale:'en-us'" djConfig="parseOnLoad: true"></script>
-    <?
+    <?php
 	$this->headScript()->appendFile($this->baseUrl() . '/js/dojo-release/nls/iati_en-us.js', $type = 'text/javascript');
 	$this->headScript()->appendFile($this->baseUrl() . '/js/dojo-release/iati.js', $type = 'text/javascript');
 	$this->headScript()->appendFile($this->baseUrl() . '/js/home.js', $type = 'text/javascript');
@@ -49,17 +49,17 @@
     <div id="wrapper">
     <div class="login-wrapper">
       <div id="login-form-wrapper" style="display:none">
-	<? $form = new User_Form_User_Login(); ?>
-	<form method="<? echo $form->getMethod() ?>" action="<? echo $form->getAction()?>" id="<? echo $form->getId() ?>" >
+	<?php $form = new User_Form_User_Login(); ?>
+	<form method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>" id="<?php echo $form->getId() ?>" >
 	    <table>
 		<tr>
-		    <td><? echo $form->username->renderViewHelper();?><span id='username-error' class="error" ></span></td>
+		    <td><?php echo $form->username->renderViewHelper();?><span id='username-error' class="error" ></span></td>
 		</tr>
 		<tr>
-		    <td><? echo $form->password->renderViewHelper();?><span id='password-error' class="error" ></span></td>
+		    <td><?php echo $form->password->renderViewHelper();?><span id='password-error' class="error" ></span></td>
 		</tr>
 		<tr>
-		    <td><? echo $this->formSubmit('login','Secure Login'); ?> </td>
+		    <td><?php echo $this->formSubmit('login','Secure Login'); ?> </td>
 		</tr>
 		<tr> <td><div class="login-register">Not registered yet? <?php echo $this->l('Register now', 'user/user/register');?> </div><div class='forgot-password'><?php echo $this->l('Forgot Password?', 'user/user/forgotpassword');?></div></td></tr>
 	    </table>
@@ -73,8 +73,8 @@
 	<div id="static-header">
 	    <div id="home-user-nav">
 		<div class="container_12">
-		    	<? $auth = Zend_Auth::getInstance();  ?>
-			<?   if ($auth->hasIdentity()):?>
+		    	<?php $auth = Zend_Auth::getInstance();  ?>
+			<?php   if ($auth->hasIdentity()):?>
 			<div class="nav_container">
 			    <?php $identity = $auth->getIdentity();?>
 			    <?php $session = new Zend_Session_Namespace('superadmin')?>
@@ -94,7 +94,7 @@
 				<?php print " , (". $this->l('Logout', 'user/user/logout') . ")";?>
 			    <?php endif;?>
 			</div>
-			<? endif;?>
+			<?php endif;?>
 		</div>
 	    </div>
 	   <div class="header-container">
@@ -140,7 +140,7 @@
                                    
                                     <?php if ($this->placeholder('title') != ""):?>
                                     <h1><?php print $this->placeholder('title')?></h1>
-                                    <? endif;?>
+                                    <?php endif;?>
                                     <?php print $this->layout()->content;?>
                                 </div>
                             </div>
@@ -166,7 +166,7 @@
         <div id="footer"><!--Start footer-->
             <div class="container_12">
             	<div class="grid_12">
-            	    <? echo $this->partial('partial/layout/footer.phtml') ?>
+            	    <?php echo $this->partial('partial/layout/footer.phtml') ?>
             	</div>
             </div>
             <div class="clearfix"></div>
