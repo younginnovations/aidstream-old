@@ -143,15 +143,40 @@ abstract class Iati_Core_BaseForm extends Zend_Form
      */
     public function prepare()
     {
+        if($this->hasDefaultFields()){
+            $this->addDefaultToogleLink();
+        }
         if($this->isMultiple) {
             $this->addRemoveLink();
             $this->setIsArray(true);
-            $this->setElementsBelongTo("{$this->element->getClassName()}[{$this->getCount($this->element->getClassName())}]");
+            $this->setElementsBelongTo("{$this->element->getClassName()}
+                [{$this->getCount($this->element->getClassName())}]");
         } else {
             $this->setElementsBelongTo("{$this->element->getClassName()}");
         }
     }
+
+    public function hasDefaultFields(){
+        $elementAttribs = $this->element->getAttribs();
+        $defaultFields = Iati_Aidstream_ElementSettings::$defaultFields;
+        foreach($defaultFields as $fieldName){
+            $attribName = '@'.$fieldName;
+            if(in_array($attribName,$elementAttribs)){
+                return true;
+            }
+        }
+        return false;
+    }
     
+    public function addDefaultToogleLink($className = ''){
+        if(!$className){
+            $className = $this->element->getFullName();
+        } 
+        $defaultsToggle = new Iati_Form_Element_Note('defaultsToggle');
+        $defaultsToggle->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'element-default-toogle'));
+        $defaultsToggle->setValue("<a href='#' class='element-default-toogle-button show' value='{$className}'>Show Defaults</a>");  
+        $this->addElement($defaultsToggle);
+    }
     /**
      * Function to add 'remove element' link to the form for element which can be multiple.
      *
@@ -333,11 +358,14 @@ abstract class Iati_Core_BaseForm extends Zend_Form
                 // Add help element
                  $uniqueElementName = $this->element->getFullName().'-'.$element->getName();
                  $element->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help '.$uniqueElementName , 'placement' => 'PREPEND'))));
-                    
+                 $wrapperClass = 'form-item clearfix';
+                 if(Iati_Aidstream_ElementSettings::isDefaultField($element->getName())){
+                    $wrapperClass.=' default-item element-'.$this->element->getFullName();
+                 }
                  $element->addDecorators(array(
-                            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'form-item clearfix'))
+                            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>$wrapperClass))
                         )
-                    );
+                );
             }
         } else {
             $element->removeDecorator('label');

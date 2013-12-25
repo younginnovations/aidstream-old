@@ -5741,3 +5741,6 @@ th.doc-link {
 	display: block;
     margin-bottom: 6px;
 }
+.default-item {
+	display: none;
+}
