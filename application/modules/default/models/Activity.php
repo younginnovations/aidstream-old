@@ -158,7 +158,7 @@ class Model_Activity
     
     public static function getActivityStatus($activityId)
     {
-        $db = new Model_ActivityStatus;
+        $db = new Model_ActivityStatus();
         return $db->getActivityStatus($activityId);
     }
 }

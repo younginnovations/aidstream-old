@@ -15,14 +15,14 @@
                 <? endif; ?>
                 <th>Filename</th>
                 <th>Published Date</th>
-                <th class="registered-info"'>Registered in IATI Regsitry</th>
+                <th class="registered-info">Registered in IATI Regsitry</th>
                 <th>Preview As</th>
                 <th></th>
             </thead>
             <?php foreach ($publishedFilesOfActivities as $fileOfActivities): ?>
             <tr>
                 <? if($this->publish_permission): ?>
-                <td><? if(!$this->update_to_registry): ?><input type="checkbox" name="file_<?php echo $fileOfActivities['id']?>" value="<?php echo $fileOfActivities['id']?>"<?php ($fileOfActivities['status'])? print("checked='checked'") : print("disabled='disabled'"); ?>" /><? endif; ?></td>
+                <td><? if(!$this->update_to_registry): ?><input type="checkbox" name="file_<?php echo $fileOfActivities['id']?>" value="<?php echo $fileOfActivities['id']?>"<?php ($fileOfActivities['status'])? print("checked='checked'") : print("disabled='disabled'"); ?> /><? endif; ?></td>
                 <? endif; ?>
 
                 <td><a href="<?php echo $this->baseUrl().Zend_Registry::get('config')->xml_folder.$fileOfActivities['filename']?>" target="_blank"><?php echo $fileOfActivities['filename'] ?></a></td>
