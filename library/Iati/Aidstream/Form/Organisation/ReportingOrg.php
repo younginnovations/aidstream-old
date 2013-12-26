@@ -53,6 +53,7 @@ class Iati_Aidstream_Form_Organisation_ReportingOrg extends Iati_Core_BaseForm
             'ignore' => false ,
                 )
         );
+        $this->removeElement('update');
 
     }
 
