@@ -61,7 +61,7 @@ class Model_RegistryInfo extends Zend_Db_Table_Abstract
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
         $registryInfo = array();
-        $registryInfo['publisher_id'] = $data['publisher_id'];
+        $registryInfo['publisher_id'] = strtolower($data['publisher_id']);
         $registryInfo['api_key'] = $data['api_key'];
         $registryInfo['publishing_type'] = $data['publishing_type'][0];
         $registryInfo['update_registry'] = $data['update_registry'];
