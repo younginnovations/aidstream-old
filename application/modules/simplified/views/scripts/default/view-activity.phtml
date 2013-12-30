@@ -76,7 +76,7 @@
             <?php foreach($activityData['location'] as $location):?>
                 <tr>
                     <td class="table-width"><?php echo ($location['location_name'])?$location['location_name']:'-';?></td>
-                    <td><?php echo ($location['location_vdcs'])? ($location['location_vdcs']):'-';?></td></td>
+                    <td><?php echo ($location['location_vdcs'])? (preg_replace('/,/' , ', ' , $location['location_vdcs'])):'-';?></td></td>
                 </tr>
             <?php endforeach;?>
             <?php endif; ?>

@@ -13,10 +13,11 @@
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/reset.css');
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style.css');
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style_wep.css');
+			$this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/print.css','print');
 
 	    print $this->headLink();
     ?>
-
+	
     <script type="text/javascript">
 	var APP_BASEPATH = '<?php echo $this->baseUrl();?>';
 
