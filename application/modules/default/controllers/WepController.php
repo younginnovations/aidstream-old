@@ -35,7 +35,9 @@ class WepController extends Zend_Controller_Action
         }
 
         $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
-        $this->view->blockManager()->enable('partial/uploaded-docs.phtml');
+        if(!Simplified_Model_Simplified::isSimplified()){
+            $this->view->blockManager()->enable('partial/uploaded-docs.phtml');
+        }
     }
 
     public function indexAction()
@@ -68,7 +70,6 @@ class WepController extends Zend_Controller_Action
         $activityCollModel = new Model_ActivityCollection();
         $activities = $activityCollModel->getActivitiesByAccount($account_id);
         $activitiesAttribs = $activityCollModel->getActivityAttribs($activities);
-
 
         $regInfoModel = new Model_RegistryInfo();
         $regInfo = $regInfoModel->getOrgRegistryInfo($account_id);
@@ -152,13 +153,55 @@ class WepController extends Zend_Controller_Action
                         ->addMessage(array('error' => "You have some error in your data"));                  
                     $form->populate($data);
                 } else {
+                    //Get default fields values for reporting org 
+                    $defaultFieldsValues = $model->getDefaults('default_field_values', 'account_id', $identity->account_id);
+                    $defaults = $defaultFieldsValues->getDefaultFields();
+                    $reportingOrgOld['@ref'] = $defaults['reporting_org_ref'];
+                    $reportingOrgOld['@type'] = $defaults['reporting_org_type'];
+                    $reportingOrgOld['@xml_lang'] = $defaults['reporting_org_lang'];
+                    $reportingOrgOld['text'] = $defaults['reporting_org'];
+
+                    $reportingOrgOld = serialize($reportingOrgOld);
+
+                    //Get values from settings form
+                    $reportingOrgNew['@ref'] = $data['reporting_org_ref'];
+                    $reportingOrgNew['@type'] = $data['reporting_org_type'];
+                    $reportingOrgNew['@xml_lang'] = $data['reporting_org_lang'];
+                    $reportingOrgNew['text'] = $data['default_reporting_org'];
+
+                    $reportingOrgNew = serialize($reportingOrgNew);
+
                     //Update Publishing Info
                     $modelRegistryInfo->updateRegistryInfoFromData($data);
 
                     //Update Default Values
                     $defaults = new Model_Defaults();
-                    $defaults->updateDefaults($data);
+                    $defaults->updateDefaults($data); 
+                    
+                    //Check push_to_registry for organisation and activity
+                    $modelPublished = new Model_Published();
+                    $activityPublish = $modelPublished->isPushedToRegistry($identity->account_id);
+                    $modelOrganisationPublished = new Model_OrganisationPublished();
+                    $organisationPublish = $modelOrganisationPublished->isPushedToRegistry($identity->account_id);
+                    
+                    if (isset($_GET['btn'])) {
+                        $save = $_GET['btn'];
+                    }
 
+                    //If reporting org change
+                    if ($reportingOrgNew != $reportingOrgOld) {
+                        $this->settingsChangeAction();
+                        if ($save == "ok") {
+                            if ($activityPublish == true && $organistationPublish == true) {
+                                $this->pushToRegistryAction(array('Published', 'OrganisationPublished'));
+                            } elseif ($activityPublish == true) {
+                                $this->pushToRegistryAction('Pubished');
+                            } elseif ($organisationPublish == true) {
+                                $this->pushToRegistryAction('OrganisationPublished');
+                            }
+                        }
+                    }
+                    
                     $this->_helper->FlashMessenger
                         ->addMessage(array('message' => "Settings successfully updated."));
                     if ($identity->role == 'superadmin') {
@@ -173,6 +216,111 @@ class WepController extends Zend_Controller_Action
         }
         $this->view->blockManager()->enable('partial/dashboard.phtml');
         $this->view->form = $form;
+    }
+
+    /**
+     * Update all reporting org values in activities and organisation data if changed in settings.
+     */
+    private function settingsChangeAction() 
+    {
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        //Get Activities
+        $model = new Model_Wep();
+        $activities = $model->listAll('iati_activities', 'account_id', $identity->account_id);
+        $activities_id = $activities[0]['id'];
+        $activityArray = $model->listAll('iati_activity', 'activities_id', $activities_id);
+        
+        //Update Each Activity Reporting Org
+        $activityReportingOrg = new Model_ReportingOrg();
+        $activityHashModel = new Model_ActivityHash();
+        $activityModel = new Model_Activity();
+        foreach ($activityArray as $key=>$activity) {
+            $activityReportingOrg->updateReportingOrg($activity['id']);
+            $updated = $activityHashModel->updateActivityHash($activity['id']);
+            if($updated){
+                //Update each activity: last updated time
+                $wepModel = new Model_Wep();
+                $activityData['id'] = $activity['id'];
+                $activityData['@last_updated_datetime'] = date('Y-m-d H:i:s');
+                $wepModel->updateRowsToTable('iati_activity', $activityData);             
+            }
+        }
+
+        //Get Organisation Id
+        $organisationModelObj = new Model_Organisation();
+        $organisationId = $organisationModelObj->checkOrganisationPresent($identity->account_id);
+
+        // If organisation data exists        
+        if (count($organisationData)) {
+            //Update Organisation Reporting Org
+            $organisationReportingOrg = new Model_OrganisationDefaultElement();
+            $organisationReportingOrg->updateElementData('ReportingOrg', $organisationId);
+
+            //Update Organisation Hash
+            $organisationHashModel = new Model_OrganisationHash();
+            $update = $organisationHashModel->updateHash($organisationId);
+            
+            if ($update) {
+                //Update organisation: last updated time
+                $wepModel = new Model_Wep();
+                $organisationData = array();
+                $organisationData['@last_updated_datetime'] = date('Y-m-d h:i:s');
+                $organisationData['id'] = $organisationId;
+                $wepModel->updateRowsToTable('iati_organisation' , $organisationData);                        
+            }
+        }
+    }
+
+    /**
+     * Push already pushed activities if reporting org has been changed in settings.
+     */
+    private function pushToRegistryAction($publish = array()) 
+    {
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $account_id = $identity->account_id;
+
+        $modelRegistryInfo = new Model_RegistryInfo();
+        $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($account_id);
+        if(!$registryInfo){
+            $this->_helper->FlashMessenger
+                ->addMessage(array('error' => "Registry information not found.
+                                   Please go to
+                                   <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a>
+                                   to add registry info."));
+        } else if(!$registryInfo->publisher_id){
+            $this->_helper->FlashMessenger
+                ->addMessage(array('error' => "Publisher Id not found. IATI
+                                   Activities files could not be created. Please go to
+                                   <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a>
+                                   to add publisher id."));
+        } else {
+            if(!$registryInfo->api_key){
+                $this->_helper->FlashMessenger
+                    ->addMessage(array('error' => "Api Key not found.
+                                       Activities could not be registered in
+                                       IATI Registry. Please go to
+                                       <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a>
+                                       to add API key."));
+            } else {
+                foreach ($publish as $string) {
+                    $model = 'Model_' . $string;                  
+                    $modelPublished = new $model();
+                    $files = $modelPublished->getPublishedInfo($account_id);
+
+                    $published =  Model_Registry::publish($files , $account_id , $registryInfo);
+
+                } // end for each
+                if($published['error']){
+                    $this->_helper->FlashMessenger
+                        ->addMessage(array('error' => $published['error']));
+                } else {
+                    $this->_helper->FlashMessenger
+                        ->addMessage(array('message' => "Activities have been
+                                           registered to IATI registry."));
+                }
+            }
+        }
+    
     }
     
     /**
@@ -564,7 +712,7 @@ class WepController extends Zend_Controller_Action
 
                         //Create Activity Hash
                         $activityHashModel = new Model_ActivityHash();
-                        $updated = $activityHashModel->updateHash($activityId);
+                        $updated = $activityHashModel->updateActivityHash($activityId);
 
                         $this->_helper->FlashMessenger
                             ->addMessage(array('message' => "Activity Sucessfully Created."));
@@ -581,7 +729,7 @@ class WepController extends Zend_Controller_Action
                         $result = $wepModel->updateRowsToTable('iati_activity', $data);
                         $wepModel = new Model_Wep();
                         $activityHashModel = new Model_ActivityHash();
-                        $updated = $activityHashModel->updateHash($activity_id);
+                        $updated = $activityHashModel->updateActivityHash($activity_id);
                         if(!$updated){
                             $type = 'info';
                             $message = 'No Changes Made';
@@ -734,8 +882,6 @@ class WepController extends Zend_Controller_Action
 
     public function publishInRegistryAction()
     {   
-        $fileIds = explode(',' , $this->_getParam('file_ids'));
-        
         if(empty($fileIds)){
             $this->_helper->FlashMessenger
                 ->addMessage(array('info' => "Please select a file to register
@@ -885,7 +1031,7 @@ class WepController extends Zend_Controller_Action
 
         //Update Activity Hash
         $activityHashModel = new Model_ActivityHash();
-        $updated = $activityHashModel->updateHash($activityId);
+        $updated = $activityHashModel->updateActivityHash($activityId);
         if(!$updated){
             $type = 'message';
             $message = "Already up to date. To make changes please change
@@ -895,7 +1041,7 @@ class WepController extends Zend_Controller_Action
             $this->updateActivityUpdatedDatetime($activityId);
 
             //change state to editing
-            $db = new Model_ActivityStatus;
+            $db = new Model_ActivityStatus();
             $db->updateActivityStatus($activityId,Iati_WEP_ActivityState::STATUS_EDITING);
             $type = 'message';
             $message = "Updated Reporting Organisation sucessfully";
@@ -1010,4 +1156,5 @@ class WepController extends Zend_Controller_Action
         $this->view->docs = $docs;
         $this->view->usedDocs = $usedDocs;
     }
+    
 }

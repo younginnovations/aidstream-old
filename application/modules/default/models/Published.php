@@ -74,4 +74,16 @@ class Model_Published extends Zend_Db_Table_Abstract
     {
         $this->update(array('pushed_to_registry'=> '1') , array('id = ?' => $fileId));
     }
+
+    public function isPushedToRegistry($accountId) {
+        $rowSet = $this->select()
+            ->where("publishing_org_id = ?",$accountId)
+            ->where("pushed_to_registry = 1");
+        $result = $this->fetchRow($rowSet);
+        if(count($result)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
