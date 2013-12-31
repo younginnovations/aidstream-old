@@ -1,4 +1,4 @@
-<?
+<?php
 class Simplified_Form_Default_DefaultFieldValues extends App_Form
 {
     

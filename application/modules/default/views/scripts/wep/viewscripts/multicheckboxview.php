@@ -32,11 +32,11 @@
     <div class="group-title"><?php echo $option ?></div>
     <div class="group-elements">
     <?php foreach($value as $value): ?>
-        <input type="checkbox" id = "<?= $value ?>" name = "<?= $elem->getName().'[]' ?>" value ="<?= $value ?>" <?php if($values) if(in_array($value , $values)){ echo ' checked="checked"'; }?>/>
+        <input type="checkbox" id = "<?php echo $value ?>" name = "<?php echo $elem->getName().'[]' ?>" value ="<?php echo $value ?>" <?php if($values) if(in_array($value , $values)){ echo ' checked="checked"'; }?>/>
         <?php echo ucwords(str_replace("_", " ", $value)) ?>
-        <? if(in_array($value , Iati_WEP_AccountDisplayFieldGroup::$defaults)):?>
+        <?php if(in_array($value , Iati_WEP_AccountDisplayFieldGroup::$defaults)):?>
             <span class="recommended">*</span>
-        <? endif; ?>
+        <?php endif; ?>
         <br/>
     <?php endforeach; ?>
     <?php $elementcount++ ?>

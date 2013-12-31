@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Custom error/exception handler to do something more with PHP errors.  Writes to our zend logger instance.
  * 

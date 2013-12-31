@@ -1,8 +1,8 @@
 <?php
     $activityInfo = $this->activityInfo;
 ?>
-<? if($activityInfo): ?>
-<?
+<?php if($activityInfo): ?>
+<?php
     $title = "(" ;
     $title .= ($activityInfo['iati_title'])?$this->activityInfo['iati_title']:'No Title' ;
     $title .= ")";
@@ -13,5 +13,5 @@
     <span class="viewer-link"><?php echo $this->l('View Activity', 'wep/view-activity/'. $activityInfo['id'])?></span>
 </div>
 <div class="second-title">Editing <span><?php print ('Activity Default') ?>...</span></div>
-<? endif; ?>
+<?php endif; ?>
 <?php print $this->form?>

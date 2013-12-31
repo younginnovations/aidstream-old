@@ -11,7 +11,7 @@
 <?php foreach($data as $element): ?>
         <tr>
             <td></td>
-            <td><? echo $count?></td>
+            <td><?php echo $count?></td>
             <td><?php if (!empty($element["@type"])) printf ("%s [%s]",Iati_Core_Codelist::getCodeByAttrib('Result' , '@type' , $element["@type"],'Name'),Iati_Core_Codelist::getCodeByAttrib('Result' , '@type' , $element["@type"])); ?></td>
             
             <td colspan=3>

@@ -1,18 +1,18 @@
-<?
+<?php
     $publishedFilesOfActivities = $this->published_files_activities;
 ?>
 <div class="files">
-    <? if(empty($publishedFilesOfActivities)): ?>
+    <?php if(empty($publishedFilesOfActivities)): ?>
         <div class="no-data">You haven't published any files yet. Please go to
-        <? print $this->l('List Activities' , 'wep/view-activities') ?>
+        <?php print $this->l('List Activities' , 'wep/view-activities') ?>
         to publish your completed activities. </div>
 
-    <? else: ?>
+    <?php else: ?>
         <table class="activity-list-table published-files-list-table">
             <thead>
-                <? if($this->publish_permission): ?>
+                <?php if($this->publish_permission): ?>
                 <th></th>
-                <? endif; ?>
+                <?php endif; ?>
                 <th>Filename</th>
                 <th>Published Date</th>
                 <th class="registered-info">Registered in IATI Regsitry</th>
@@ -21,16 +21,15 @@
             </thead>
             <?php foreach ($publishedFilesOfActivities as $fileOfActivities): ?>
             <tr>
-                <? if($this->publish_permission): ?>
-                <td><? if(!$this->update_to_registry): ?><input type="checkbox" name="file_<?php echo $fileOfActivities['id']?>" value="<?php echo $fileOfActivities['id']?>"<?php ($fileOfActivities['status'])? print("checked='checked'") : print("disabled='disabled'"); ?> /><? endif; ?></td>
-                <? endif; ?>
-
+                <?php if($this->publish_permission): ?>
+                <td><?php if(!$this->update_to_registry): ?><input type="checkbox" name="file_<?php echo $fileOfActivities['id']?>" value="<?php echo $fileOfActivities['id']?>"<?php ($fileOfActivities['status'])? print("checked='checked'") : print("disabled='disabled'"); ?>" /><?php endif; ?></td>
+                <?php endif; ?>
                 <td><a href="<?php echo $this->baseUrl().Zend_Registry::get('config')->xml_folder.$fileOfActivities['filename']?>" target="_blank"><?php echo $fileOfActivities['filename'] ?></a></td>
                 <td><?php echo $fileOfActivities['published_date'] ?></td>
                 <td>
                 <?php if( $fileOfActivities['pushed_to_registry']): ?>
-                	<?php $response = unserialize($fileOfActivities['response']);?>
-                	<a href='<?php echo $response->ckan_url?>' target='_blank' title="view file in IATI Registry">Yes</a>
+                	<?php $dataset = preg_replace('/.xml$/' , '' , $fileOfActivities['filename']); ?>
+                	<a href="http://iatiregistry.org/dataset/<?php echo $dataset; ?>" target='_blank' title="view file in IATI Registry">Yes</a>
                 <?php else:?>
                 	No
                 <?php endif; ?>
@@ -48,7 +47,7 @@
             </tr>
             <?php endforeach; ?>
         </table>
-            <? if($this->publish_permission): ?>
+            <?php if($this->publish_permission): ?>
                 <?php echo $this->formForActivities; ?>
 		
 		<?php if(Model_Help::showHelpforPushToRegistry()): ?>
@@ -61,6 +60,6 @@
 		</div>
 		</div>
 	    <?php endif; ?>
-            <? endif; ?>
-    <? endif; ?>
+            <?php endif; ?>
+    <?php endif; ?>
 </div>

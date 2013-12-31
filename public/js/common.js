@@ -1662,7 +1662,25 @@ function initialize() {
 		
 		addCountryChange(id + '-Administrative-country' , map);
 	    }
-	}
+	},
+    ".element-default-toogle-button" : {
+        "onclick" : function(evt) {
+            var elementName = dojo.query(this).attr('value');
+            if(dojo.hasClass(this,'show')){
+                dojo.query(this).parents('.form-wrapper').first().query('.default-item.element-'+elementName).style('display','block');
+                //dojo.query('.default-item.element-'+elementName).style('display','block');
+                dojo.query(this).removeClass('show');
+                dojo.query(this).addClass('hide');
+                dojo.query(this).innerHTML('Hide Defaults');
+            } else if(dojo.hasClass(this,'hide')) {
+                dojo.query('.default-item.element-'+elementName).style('display','none');
+                dojo.query(this).removeClass('hide');
+                dojo.query(this).addClass('show');
+                dojo.query(this).innerHTML('Show Defaults');
+            }
+            evt.preventDefault();
+        }
+     }
     });
     
     // End of dojo.behavior.add
