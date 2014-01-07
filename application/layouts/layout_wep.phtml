@@ -40,9 +40,9 @@
 	    $this->headScript()->appendFile($this->baseUrl() . '/js/dojo-release/iati.js', $type = 'text/javascript');
             $this->headScript()->prependFile($this->baseUrl() . '/js/jquery-min-1.7.js', $type = 'text/javascript'); 
             $this->headScript()->appendFile($this->baseUrl() . '/js/select2/select2.js', $type = 'text/javascript');
-            $this->headScript()->appendFile($this->baseUrl() . '/js/settings.js', $type = 'text/javascript');
             $this->headScript()->appendFile($this->baseUrl() . '/js/select.js', $type = 'text/javascript');  
 	    $this->headScript()->appendFile($this->baseUrl() . '/js/common.js', $type = 'text/javascript');
+        $this->headScript()->appendFile($this->baseUrl() . '/js/common-jquery.js', $type = 'text/javascript');
             $this->headScript()->appendFile($this->baseUrl() . '/js/expandcollapse.js', $type = 'text/javascript');
             $this->headScript()->appendFile($this->baseUrl() . '/js/location.js', $type = 'text/javascript');
 	    print $this->headScript();
