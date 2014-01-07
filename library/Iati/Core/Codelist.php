@@ -16,167 +16,167 @@ class Iati_Core_Codelist
             $switch = $elementName."_".preg_replace('/@/','',$attributeName);
             switch($switch)
             {   
-                case Indicator_measure:
+                case "Indicator_measure":
                     $return = 'IndicatorMeasure';
                     break;
-                case Activity_default_currency:
+                case "Activity_default_currency":
                     $return = 'Currency';
                     break;
                 
-                case Language_text:
+                case "Language_text":
                     $return = 'Language';
                     break;
                     
-                case TransactionType_code:
+                case "TransactionType_code":
                     $return = 'TransactionType';
                     break;
                     
-                case TransactionValue_currency:
+                case "TransactionValue_currency":
                     $return = 'Currency';
                     break;
                 
-                case FlowType_code:
+                case "FlowType_code":
                     $return = 'FlowType';
                     break;
                 
-                case FinanceType_code:
+                case "FinanceType_code":
                     $return = 'FinanceType';
                     break;
                 
-                case AidType_code:
+                case "AidType_code":
                     $return = 'AidType';
                     break;
                 
-                case DisbursementChannel_code:
+                case "DisbursementChannel_code":
                     $return = 'DisbursementChannel';
                     break;
                 
-                case TiedStatus_code:
+                case "TiedStatus_code":
                     $return = 'TiedStatus';
                     break;
                 
-                case Condition_type:
+                case "Condition_type":
                     $return = 'ConditionType';
                     break;
                 
-                case Category_code:
+                case "Category_code":
                     $return = 'DocumentCategory';
                     break;
                 
-                case Result_type :
+                case "Result_type":
                     $return = 'ResultType';
                     break;
                 
-                case ReportingOrg_type :
+                case "ReportingOrg_type":
                     $return = 'OrganisationType';
                     break;
                 
-                case ActivityStatus_code :
+                case "ActivityStatus_code":
                     $return = 'ActivityStatus';
                     break;
                 
-                case ActivityScope_code :
+                case "ActivityScope_code":
                     $return = 'ActivityScope';
                     break;
                 
-                case ActivityDate_type :
+                case "ActivityDate_type":
                     $return = 'ActivityDateType';
                     break;
                 
-                case ParticipatingOrg_type :
+                case "ParticipatingOrg_type":
                     $return = 'OrganisationType';
                     break;
                 
-                case ParticipatingOrg_role :
+                case "ParticipatingOrg_role":
                     $return = 'OrganisationRole';
                     break;
                 
-                case RecipientCountry_code :
+                case "RecipientCountry_code":
                     $return = 'Country';
                     break;
                 
-                case RecipientRegion_code :
+                case "RecipientRegion_code":
                     $return = 'Region';
                     break;
                 
-                case RecipientRegion_vocabulary :
+                case "RecipientRegion_vocabulary":
                     $return = 'RegionVocabulary';
                     break;
                 
-                case Sector_vocabulary :
+                case "Sector_vocabulary":
                     $return = 'Vocabulary';
                     break;
                 
-                case Sector_code :
+                case "Sector_code":
                     $return = 'Sector';
                     break;
                 
-                case PolicyMarker_significance :
+                case "PolicyMarker_significance":
                     $return = 'PolicySignificance';
                     break;
                 
-                case PolicyMarker_code :
+                case "PolicyMarker_code":
                     $return = 'PolicyMarker';
                     break;
                 
-                case PolicyMarker_vocabulary :
+                case "PolicyMarker_vocabulary":
                     $return = 'Vocabulary';
                     break;
                 
-                case DefaultFlowType_code :
+                case "DefaultFlowType_code":
                     $return = 'FlowType';
                     break;
                 
-                case DefaultFinanceType_code :
+                case "DefaultFinanceType_code":
                     $return = 'FinanceType';
                     break;
                 
-                case DefaultAidType_code :
+                case "DefaultAidType_code":
                     $return = 'AidType';
                     break;
                 
-                case DefaultTiedStatus_code :
+                case "DefaultTiedStatus_code":
                     $return = 'TiedStatus';
                     break;
                 
-                case RelatedActivity_type :
+                case "RelatedActivity_type":
                     $return = 'RelatedActivityType';
                     break;
             
-                case CollaborationType_code :
+                case "CollaborationType_code":
                     $return = 'CollaborationType';
                     break;
                     
-                case Description_type :
+                case "Description_type":
                     $return = 'DescriptionType';
                     break;
                 
-                case DocumentLink_format :
+                case "DocumentLink_format":
                     $return = 'FileFormat';
                     break;
                     
-                case LocationType_code:
+                case "LocationType_code":
                     $return = 'LocationType';
                     break;
                     
-                case Administrative_country:
+                case "Administrative_country":
                     $return = 'Country';
                     break;
                     
-                case Coordinates_precision :
+                case "Coordinates_precision":
                     $return = 'PercisionCode';
                     break;
                 
-                case GazetteerEntry_gazetteer_ref:
+                case "GazetteerEntry_gazetteer_ref":
                     $return = 'GazetteerAgency';
                     break;
-                case Budget_type :
+                case "Budget_type":
                     $return = 'BudgetType';
                     break;
-                case CountryBudgetItems_vocabulary :
+                case "CountryBudgetItems_vocabulary":
                     $return = 'BudgetIdentifierVocabulary';
                     break;
-                case BudgetItem_code :
+                case "BudgetItem_code":
                     $return = 'BudgetIdentifier';
                     break;
                 default:
