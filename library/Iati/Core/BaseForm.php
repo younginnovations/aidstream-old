@@ -143,8 +143,12 @@ abstract class Iati_Core_BaseForm extends Zend_Form
      */
     public function prepare()
     {
-        if($this->hasDefaultFields()){
-            $this->addDefaultToogleLink();
+        if($elementDefaultFields = $this->hasDefaultFields()){
+            if($elementDefaultFields['hasValue']){
+                $this->addDefaultToogleLink('','hide');
+            } else {
+                $this->addDefaultToogleLink();
+            }
         }
         if($this->isMultiple) {
             $this->addRemoveLink();
@@ -157,24 +161,31 @@ abstract class Iati_Core_BaseForm extends Zend_Form
     }
 
     public function hasDefaultFields(){
+        $hasField = false;
+        $hasValue = false;
         $elementAttribs = $this->element->getAttribs();
         $defaultFields = Iati_Aidstream_ElementSettings::$defaultFields;
         foreach($defaultFields as $fieldName){
             $attribName = '@'.$fieldName;
             if(in_array($attribName,$elementAttribs)){
-                return true;
+                $hasField = true;
+                if($this->getElement($fieldName)->getValue()){
+                    $hasValue = true;
+                }
             }
+        }
+        if($hasField){
+            return array('hasValue'=> $hasValue);
         }
         return false;
     }
-    
-    public function addDefaultToogleLink($className = ''){
+    public function addDefaultToogleLink($className = '',$toggleState='show'){
         if(!$className){
             $className = $this->element->getFullName();
         } 
         $defaultsToggle = new Iati_Form_Element_Note('defaultsToggle');
         $defaultsToggle->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'element-default-toogle'));
-        $defaultsToggle->setValue("<a href='#' class='element-default-toogle-button show' value='{$className}'>Show Defaults</a>");  
+        $defaultsToggle->setValue("<a href='#' class='element-default-toogle-button {$toggleState}' value='{$className}'>".ucfirst($toggleState)." Defaults</a>");  
         $this->addElement($defaultsToggle);
     }
     /**
@@ -359,8 +370,15 @@ abstract class Iati_Core_BaseForm extends Zend_Form
                  $uniqueElementName = $this->element->getFullName().'-'.$element->getName();
                  $element->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help '.$uniqueElementName , 'placement' => 'PREPEND'))));
                  $wrapperClass = 'form-item clearfix';
+                 //If the current element is a default field then add default-item class to wrapper
                  if(Iati_Aidstream_ElementSettings::isDefaultField($element->getName())){
                     $wrapperClass.=' default-item element-'.$this->element->getFullName();
+                    //if default field has value set wrapper visible else hidden
+                    if($element->getValue()){
+                        $wrapperClass.=' visible';
+                    } else {
+                        $wrapperClass.=' hidden';
+                    }
                  }
                  $element->addDecorators(array(
                             array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>$wrapperClass))
