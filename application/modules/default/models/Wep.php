@@ -290,4 +290,109 @@ class Model_Wep extends Zend_Db_Table_Abstract
         return $result;
     }
 
+    /**
+     * Update all reporting org values in activities and organisation data if changed in settings.
+     */
+    public function settingsChange() 
+    {
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        //Get Activities
+        $model = new Model_Wep();
+        $activities = $model->listAll('iati_activities', 'account_id', $identity->account_id);
+        $activities_id = $activities[0]['id'];
+        $activityArray = $model->listAll('iati_activity', 'activities_id', $activities_id);
+        
+        //Update Each Activity Reporting Org
+        $activityReportingOrg = new Model_ReportingOrg();
+        $activityHashModel = new Model_ActivityHash();
+        $activityModel = new Model_Activity();
+        foreach ($activityArray as $key=>$activity) {
+            $activityReportingOrg->updateReportingOrg($activity['id']);
+            $updated = $activityHashModel->updateActivityHash($activity['id']);
+            if($updated){
+                //Update each activity: last updated time
+                $wepModel = new Model_Wep();
+                $activityData['id'] = $activity['id'];
+                $activityData['@last_updated_datetime'] = date('Y-m-d H:i:s');
+                $wepModel->updateRowsToTable('iati_activity', $activityData);             
+            }
+        }
+
+        //Get Organisation Id
+        $organisationModelObj = new Model_Organisation();
+        $organisationId = $organisationModelObj->checkOrganisationPresent($identity->account_id);
+
+        // If organisation exists        
+        if ($organisationId) {
+            //Update Organisation Reporting Org
+            $organisationReportingOrg = new Model_OrganisationDefaultElement();
+            $organisationReportingOrg->updateElementData('ReportingOrg', $organisationId);
+
+            //Update Organisation Hash
+            $organisationHashModel = new Model_OrganisationHash();
+            $update = $organisationHashModel->updateHash($organisationId);
+            
+            if ($update) {
+                //Update organisation: last updated time
+                $wepModel = new Model_Wep();
+                $organisationData = array();
+                $organisationData['@last_updated_datetime'] = date('Y-m-d h:i:s');
+                $organisationData['id'] = $organisationId;
+                $wepModel->updateRowsToTable('iati_organisation' , $organisationData);                        
+            }
+        }
+    }
+
+    /**
+     * Push already pushed activities if reporting org has been changed in settings.
+     */
+    public function pushToRegistry($publish) 
+    {
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $account_id = $identity->account_id;
+
+        $modelRegistryInfo = new Model_RegistryInfo();
+        $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($account_id);
+        if(!$registryInfo){
+            $this->_helper->FlashMessenger
+                ->addMessage(array('error' => "Registry information not found.
+                                   Please go to
+                                   <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a>
+                                   to add registry info."));
+        } else if(!$registryInfo->publisher_id){
+            $this->_helper->FlashMessenger
+                ->addMessage(array('error' => "Publisher Id not found. IATI
+                                   Activities files could not be created. Please go to
+                                   <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a>
+                                   to add publisher id."));
+        } else {
+            if(!$registryInfo->api_key){
+                $this->_helper->FlashMessenger
+                    ->addMessage(array('error' => "Api Key not found.
+                                       Activities could not be registered in
+                                       IATI Registry. Please go to
+                                       <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a>
+                                       to add API key."));
+            } else {
+                $model = 'Model_' . $publish;                  
+                $modelPublished = new $model();
+                $files = $modelPublished->getPublishedInfo($account_id);
+                if ($publish == 'OrganisationPublished') {
+                    $published =  Model_Registry::publish($files , $account_id , $registryInfo, true);
+                } elseif ($publish == 'Published') {
+                    $published =  Model_Registry::publish($files , $account_id , $registryInfo);
+                }
+                if($published['error']){
+                    $this->_helper->FlashMessenger
+                        ->addMessage(array('error' => $published['error']));
+                } else {
+                    $this->_helper->FlashMessenger
+                        ->addMessage(array('message' => "Activities have been
+                                           registered to IATI registry."));
+                }
+            }
+        }
+    
+    }
+
 }

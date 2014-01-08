@@ -75,9 +75,17 @@ class Model_Published extends Zend_Db_Table_Abstract
         $this->update(array('pushed_to_registry'=> '1') , array('id = ?' => $fileId));
     }
 
-    public function isPushedToRegistry($accountId) {
+    public function getActivitiesByOrgId($accountId) {
         $rowSet = $this->select()
             ->where("publishing_org_id = ?",$accountId)
+            ->where("pushed_to_registry = 1");
+        $result = $this->fetchAll($rowSet)->toArray();
+        return $result;
+    }
+
+    public function isPushedToRegistry($fileId) {
+        $rowSet = $this->select()
+            ->where("id = ?",$fileId)
             ->where("pushed_to_registry = 1");
         $result = $this->fetchRow($rowSet);
         if(count($result)) {
@@ -86,4 +94,5 @@ class Model_Published extends Zend_Db_Table_Abstract
             return false;
         }
     }
+
 }

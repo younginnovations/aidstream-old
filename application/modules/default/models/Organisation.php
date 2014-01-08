@@ -42,7 +42,7 @@ class Model_Organisation extends Zend_Db_Table_Abstract
             return $result['id'];
         }
         
-        return $result;
+        return false;
     }
 
 }
