@@ -4,6 +4,11 @@
     <title>AidStream</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+    <?php  
+    	$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+    	$action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+    ?>
+
     <?php
     		$this->headLink()->headLink(array('rel' => 'shortcut icon',
                                     'type' => 'image/png',
@@ -14,6 +19,13 @@
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style.css');
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style_wep.css');
 			$this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/print.css','print');
+			if ($controller == "index" && $action == "user") {
+				$this->headLink()->appendStylesheet('http://fonts.googleapis.com/css?family=Roboto:400,300');
+				$this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/snapshot/style.css');
+            	$this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/snapshot/nv.d3.css');
+            	$this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/snapshot/jquery-ui.css');
+            	$this->headLink()->appendStylesheet($this->baseUrl() . '/js/select2/select2.css');	
+			}
 
 	    print $this->headLink();
     ?>
@@ -37,13 +49,23 @@
     <?php
 	    $this->headScript()->appendFile($this->baseUrl() . '/js/dojo-release/nls/iati_en-us.js', $type = 'text/javascript');
 	    $this->headScript()->appendFile($this->baseUrl() . '/js/dojo-release/iati.js', $type = 'text/javascript');
-	    $this->headScript()->prependFile($this->baseUrl() . '/js/jquery-1.3.2.min.js', $type = 'text/javascript');
+	    //$this->headScript()->prependFile($this->baseUrl() . '/js/jquery-1.3.2.min.js', $type = 'text/javascript');
+	    $this->headScript()->prependFile($this->baseUrl() . '/js/jquery-1.10.2.min.js', $type = 'text/javascript');
+	    $this->headScript()->appendFile($this->baseUrl() . '/js/jquery-migrate-1.2.1.min.js', $type = 'text/javascript');
 	    $this->headScript()->appendFile($this->baseUrl() . '/js/jquery.easing.1.3.js', $type = 'text/javascript');
 	    $this->headScript()->appendFile($this->baseUrl() . '/js/jcarousellite.js', $type = 'text/javascript');
-	    $this->headScript()->appendFile($this->baseUrl() . '/js/home.js', $type = 'text/javascript');
 	    $this->headScript()->appendFile($this->baseUrl() . '/js/common-jquery.js', $type = 'text/javascript');
+	    $this->headScript()->appendFile($this->baseUrl() . '/js/home.js', $type = 'text/javascript');
 	    $this->headScript()->appendFile($this->baseUrl() . '/js/bjqs-1.3.js', $type = 'text/javascript');
 	    $this->headScript()->appendFile($this->baseUrl() . '/js/jquery.secret-source.min.js', $type = 'text/javascript');
+		if ($controller == "index" && $action == "user") {
+			$this->headScript()->appendFile($this->baseUrl() . '/js/snapshot/jquery_ui-1-10-3.js', $type = 'text/javascript');
+        	$this->headScript()->appendFile($this->baseUrl() . '/js/snapshot/jquery.colorbox.js', $type = 'text/javascript');
+        	$this->headScript()->appendFile($this->baseUrl() . '/js/snapshot/d3/d3.v3.min.js', $type = 'text/javascript');
+        	$this->headScript()->appendFile($this->baseUrl() . '/js/snapshot/d3/nv.d3.min.js', $type = 'text/javascript');	
+			$this->headScript()->appendFile($this->baseUrl() . '/js/snapshot/common.js', $type = 'text/javascript');
+			$this->headScript()->appendFile($this->baseUrl() . '/js/select2/select2.js', $type = 'text/javascript');
+		}
 
 	    print $this->headScript();
     ?>

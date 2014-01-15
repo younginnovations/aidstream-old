@@ -1,0 +1,215 @@
+<?php
+	$handler = $this->handler;
+	$url = Zend_Controller_Front::getInstance()->getRequest()->getRequestUri();
+	$baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
+	$identifier = $this->organisation_array['prefix'];
+	$organisation = $this->organisation_array;
+?>
+<div class="organisation-data">
+	<div id="organisation-info">
+		<h3><?php print $organisation['name']; ?></h3>
+		<?php 
+			$filePath = $baseUrl.'/uploads/image/'.$organisation['image']; 
+			if ($organisation['image']) {
+		?>
+			<div id="organization-logo"><img src="<?php print $filePath; ?>" alt="logo"/></div>
+		<?php		
+			} else {	
+		?>
+			<div id="organization-logo"><img src="<?php echo $this->baseUrl().'/images/default-logo.png' ?>" alt="logo"/></div>
+		<?php
+			}
+		?>
+	</div>
+	<div id="organisation-contact-info">
+		<h4>Contact Details</h4>	
+		<ul>	
+			<li>Address: <?php print $organisation['address']; ?></li>
+			<li>Telephone: <?php print $organisation['telephone']; ?></li>
+			<li>Email: <a href="mailto:<?php print $organisation['email']; ?>"><?php print $organisation['email']; ?></a></li>
+
+			<li>Website: 
+            <?php if ($organisation['website'] != 'Not Available'){ ?>
+                <a href="<?php print $organisation['website']; ?>"><?php print $organisation['website']; ?></a></li><?php } else { ?>
+			    <?php print $organisation['twitter']; ?></li>
+            <?php } ?>
+		</ul>
+	</div>
+	<div id="published-files">
+		<?php if ($this->activity_array) { ?>
+			<table class="data">
+			  	<tr>
+			    	<th>Activity Title</th>
+			    	<th>Link / Publisher</th>
+			  	</tr>
+			<?php foreach ($this->activity_array as $activity) { ?>
+				<tr>
+				    <td><?php print $activity['title']; ?></td>
+				    <td><a href="<?php print $activity['link']; ?>"><?php print $activity['link']; ?></a></td>
+			  	</tr>
+			<?php } ?>
+			</table>
+		<?php } ?>
+	</div>
+</div>
+
+<div id="data-wrapper">
+    <div id="left-block">
+        <div class="inner-block">
+            <h3>Activity Status<span id="activity-status-info" class="dialog-box-open">help</span></h3>
+            <div id="activity-status">
+            </div>
+        </div>
+        
+        <div class="inner-block">
+            <h3>Activity Dates<span id="activity-date-info" class="dialog-box-open">help</span></h3>
+            <div id="activity-dates"></div>
+        </div>
+        
+        <div class="block">
+            <h3>Recipient Region/Country<span id="recipient-region-country-info" class="dialog-box-open">help</span></h3>
+            <div id="recipient-info">
+            </div>
+        </div>
+    </div>
+    
+    <div id="right-block">
+       <div class="transaction-wrapper inner-block">
+            <h3>Transaction<span id="transaction-info" class="dialog-box-open">help</span></h3>
+            <div class="transaction-block">
+            <?php $transactions = $handler->get('transaction');?>         
+                    <div class="transactions">
+                        <div class="heading">Total Commitments</div>
+                        <div class="value">$<?php echo number_format($transactions->total_commitments->value , 2);?></div>
+                    </div>
+                    <div class="transactions">
+                        <div class="heading">Total Disbursements</div>
+                        <div class="value">$<?php echo number_format($transactions->total_disbursements->value , 2);?></div>
+                   
+                    </div>
+              
+                   <div class="transactions">
+                        <div class="heading">Total Expenditures</div>
+                        <div class="value">$<?php echo number_format($transactions->total_expenditure->value , 2);?></div>
+                    </div>
+                    <div class="transactions">
+                        <div class="heading">Total Incoming Funds</div>
+                        <div class="value">$<?php echo number_format($transactions->total_incoming_funds->value , 2);?></div>
+                    </div>              
+         
+        </div>
+    
+        <div class="sector-wrapper inner-block">
+            <h3>Sector(Top 3)<a href="#inline_content" class="inline">View all</a><span id="sector-info" class="dialog-box-open">help</span></h3>
+            <div class="sector">
+            <?php $sectors = $handler->getTop3Sectors(); ?>
+            <?php if($sectors):?>
+                <?php foreach($sectors as $sectorName=>$sectorCount):?>
+                    <div><span class="count"><?php echo $sectorCount;?></span><span><?php echo $sectorName;?></span></div>
+                <?php endforeach;?>
+            <?php else: ?>
+                <div class="no-data">No Data Available</div>
+            <?php endif;?>
+            </div>
+        </div>
+        
+        <div class="activities-wrapper inner-block">
+            <?php $activities = $handler->get('activities');?>
+            <?php if($activities):?>
+            <h3>Activities<span id="activities-info" class="dialog-box-open">help</span></h3>
+            <div class="activities-block">
+            <ul>
+                <?php foreach($activities as $activityId => $activity):?>
+                    <li><span><?echo $activityId;?></span></li>
+                <?php endforeach;?>
+            </ul>
+            </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+
+<!-- Help Messages -->
+<div style="display:none" >
+    <div id='about'>
+    <p>
+        Snapshot is an overview of aid data published by organisations through AidStream into IATI Registry.
+        There are <?php echo sizeof($reportingOrgs) - 1; ?> organisations that have published data into IATI through Aidstream.
+        The overview can be viewed for a single organisation or for all the organisations as a whole.
+    </p>
+    <p>
+        The data of activity status, transaction, activity date, sector, recipient country/region
+        are presented in the graphical forms for easy understanding. Here, the transaction values
+        from all the projects reported by an organisation are summed up and are
+        converted into USD using the exchange rates from www.openexchange.org.
+    </p>
+    </div>
+</div>
+<div style="display:none" >
+    <div id='help-activity-status-info' title="Activity Status">
+    <p>
+        The following bar graph shows the number of activities in different states. <a href="http://iatistandard.org/codelists/activity_status/" target="__blank">IATI Standard</a>
+        defines 5 status for the activity. Any activity can have only one status at a time.         
+    </p>
+    </div>
+</div>
+<div style="display:none" >
+    <div id='help-activity-date-info' title="Activity Date">
+    <p>
+        Each activity has a start date and end date. <a href="http://iatistandard.org/codelists/activity_date_type/" target="__blank">IATI standard</a>
+        lists 4 different activity date types. For clarity, only actual dates are considered in the
+        line chart below. You may select duration in the smaller graph below.
+    </p>
+    </div>
+</div>
+<div style="display:none" >
+    <div id='help-transaction-info' title="Transaction" class="dialog-box">
+    <p>
+        The transactions amount under different heading shows the total amount in USD for a given transaction type.
+        IATI defines number of transactions types like committment, disbursements.
+        The following table show amounts for selected types only. <a href="http://iatistandard.org/codelists/transaction_type/" target="__blank">IATI Standard</a> gives
+        the details on the meaning of each transaction type.        
+    </p>
+    </div>
+</div>
+<div style="display:none" >
+    <div id='help-sector-info' title="Sector">
+    <p>
+        Sectors shows the number of activities under each sector. An activity may fall under more than one sector.
+    </p>
+    </div>
+</div>
+<div style="display:none" >
+    <div id='help-recipient-region-country-info' title="Recipient Region/Country">
+    <p>
+        The bar graph shows the number of activities that are benefiting each of the listed regions/countries.
+        A single activity may benefit multiple countries. 
+    </p>
+    </div>
+</div>
+<div style="display:none" >
+    <div id='help-activities-info' title="Activities" class="dialog-box">
+    <p>
+        More details about the activities can be found in <a href="http://iatiregistry.org" target="__blank">IATI registry</a>
+    </p>
+    </div>
+</div>
+	
+<!-- Discuss Thread Starts Here -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = 'testaidstream'; // shortname
+    var disqus_identifier = '<?php print $identifier; ?>';
+    //var disqus_url = '<?php print $url; ?>';
+    var disqus_disable_mobile = true;
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
