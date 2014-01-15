@@ -14,27 +14,38 @@ class User_Form_User_Edit extends App_Form
         $accountObj = new User_Model_DbTable_Account();
         $userName = strtok($auth->user_name, '_');
         $account = $accountObj->getAccountRowByUserName('account', 'username', $userName);
-
+        $usernameClause = $db->quoteInto('username != ?', $userName);
         $this->setName('Edit Account');
         $form = array();
 
         if($roleName != 'superadmin')
         {
-        $form['name'] = new Zend_Form_Element_Text('name');
-        $form['name']->setLabel('Organisation Name')
-            ->setAttrib('class', 'form-text')
-            ->setAttrib('readonly', 'true')
-            ->setRequired();
-        $form['address'] = new Zend_Form_Element_Textarea('address');
-        $form['address']->setLabel('Organisation Address')
-            ->setRequired()
-            ->setAttrib('rows', '4')
-            ->setAttrib('class', 'form-text');
+            $form['name'] = new Zend_Form_Element_Text('name');
+            $form['name']->setLabel('Organisation Name')
+                ->setAttrib('class', 'form-text')
+                ->setAttrib('readonly', 'true')
+                ->setRequired();
+            $form['address'] = new Zend_Form_Element_Textarea('address');
+            $form['address']->setLabel('Organisation Address')
+                ->setRequired()
+                ->setAttrib('rows', '4')
+                ->setAttrib('class', 'form-text');
+            $form['telephone'] = new Zend_Form_Element_Text('telephone');
+            $form['telephone']->setLabel('Organisaton Telephone Number')
+                ->setAttrib('class', 'form-text');
+            $form['twitter'] = new Zend_Form_Element_Text('twitter');
+            $form['twitter']->setLabel('Organisaton Twitter Handle')
+                ->setAttrib('class', 'form-text')
+                ->addValidator('Db_NoRecordExists', false,
+                      array('table' => 'account', 'field' => 'twitter', 'exclude' => $usernameClause,
+                      'messages' => array(
+                      Zend_Validate_Db_NoRecordExists::ERROR_RECORD_FOUND => 'Duplicate twitter handle.')));
         }
         if($roleName == 'user')
         {
             $form['address']->setAttrib('readonly', 'true');
         }
+        
         $form['first_name'] = new Zend_Form_Element_Text('first_name');
         $form['first_name']->setLabel('First Name')
             ->setRequired()
@@ -42,7 +53,7 @@ class User_Form_User_Edit extends App_Form
         $form['last_name'] = new Zend_Form_Element_Text('last_name');
         $form['last_name']->setLabel('Last Name')
            ->setRequired()
-           ->setAttrib('class', 'form-text');
+           ->setAttrib('class', 'form-text');   
         $form['email'] = new Zend_Form_Element_Text('email');
         $form['email']->setLabel('Email')
            ->setRequired()
@@ -52,12 +63,10 @@ class User_Form_User_Edit extends App_Form
                  array('table' => 'user', 'field' => 'email', 'exclude' => $clause,
                  'messages' => array(
                  Zend_Validate_Db_NoRecordExists::ERROR_RECORD_FOUND => 'Email Address already exists.')));
-
         if($roleName == 'admin')
         {
             $filePath = $baseUrl.'/uploads/image/'.$account['file_name'] ;
             $remove = $baseUrl.'/user/user/remove/user_id/';
-
             if($account['file_name']){
                 $form['image'] = new Zend_Form_Element_Image('image');
                 $form['image']->setImage($filePath)

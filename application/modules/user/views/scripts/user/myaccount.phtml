@@ -45,9 +45,17 @@
         </div>
 
         <?php if($roleName != 'superadmin'):?>
-        <div class="individual-url profile-item last">
+        <div class="individual-url profile-item">
             <span class="profile-item-label">Organisation Url:</span>
             <span class="profile-item-value"><?php print $this->account->url?></span>
+        </div>
+        <div class="individual-telephone profile-item">
+            <span class="profile-item-label">Organisation Telephone:</span>
+            <span class="profile-item-value"><?php print $this->account->telephone?></span>
+        </div>
+        <div class="individual-twitter profile-item last">
+            <span class="profile-item-label">Organisation Twitter:</span>
+            <span class="profile-item-value"><?php print $this->account->twitter?></span>
         </div>
         <?php endif; ?>
 

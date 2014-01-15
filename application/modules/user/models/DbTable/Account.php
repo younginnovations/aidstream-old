@@ -18,6 +18,8 @@ class User_Model_DbTable_Account extends Zend_Db_Table_Abstract {
     public function updateAccount($data, $userName){
         $value['address'] = $data['address'];
         $value['url'] = $data['url'];
+        $value['telephone'] = $data['telephone'];
+        $value['twitter'] = $data['twitter'];
         return parent::update($value, array('username = ?' => $userName));
     }
 
@@ -59,4 +61,14 @@ class User_Model_DbTable_Account extends Zend_Db_Table_Abstract {
             ->from($this , array('total' =>'count(*)'));
         return $this->fetchRow($select)->toArray();
     }
+
+    public function getAccountByOrganisation($reportingOrg) 
+    {
+        $select = $this->select()
+            ->where('name = ?', $reportingOrg);
+        if ($this->fetchRow($select)) {
+            return $this->fetchRow($select)->toArray();   
+        }
+    }
 }
+
