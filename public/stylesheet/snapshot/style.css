@@ -1,0 +1,863 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font: normal 12px/20px Roboto;
+	color: #333;
+}
+
+a:link {
+ color: #00ACED;
+}
+
+.header-container {
+	background: #fff;
+}
+
+.header {
+	width: 940px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+#logo {
+	float: left;
+	width: 260px;
+	margin: 11px 0;
+}
+
+.logo a:hover {
+	background: none;	
+}
+
+#menu {
+	float: right;
+	margin: 40px 0;
+}
+
+#menu ul li {
+	list-style: none;
+	float: left;
+	margin-left: 18px;
+}
+
+#menu ul li a {
+	text-decoration: none;
+	font: normal 12px Roboto;
+	color: #00ADEE;
+}
+
+#menu ul li a:hover {
+	color: #333;
+}
+
+#content {
+	background: #f5f5f5;
+	overflow: hidden;
+}
+
+.reporting-org-wrapper {
+	background: #fff;
+	padding: 108px 0 10px;
+}
+
+.reporting-org-wrapper form {
+	display: inline-block;
+}
+
+.reporting-org-select {
+	width: 940px;
+	margin: 0 auto;
+}
+
+.reporting-org-select select {
+  background: #00ADEE;
+  border: 0;
+  padding: 10px;
+  border-radius: 4px;
+  color: #fff;
+  font: normal 14px Roboto;
+}
+
+.reporting-org-select select.default option {
+  display: block;
+  margin: 20px;
+  border: 0;
+  background: #00ADEE;
+  border-radius: 4px;
+  outline: 0;
+}
+
+.reporting-org-select select:focus {
+  outline: 0;
+}
+
+.tagline {
+	color: #333;
+	font-size: 24px;
+	text-align: center;
+	padding: 24px 0 10px;
+}
+
+.tagline span {
+	font-size: 17px;
+	color: #878787;
+	display: block;
+	margin-bottom: 6px;
+}
+
+#reporting-org-select .report-org,#reporting-org-select input[type='submit']{
+	display: none;
+}
+
+#data-wrapper {
+	width: 940px;
+	margin: 0 auto;
+	overflow: hidden;
+	padding: 34px 0;
+	clear: both;
+}
+
+#left-block {
+	float: left;
+	width: 460px;
+}
+
+#right-block {
+	float: right;
+	width: 460px;
+}
+
+#data-wrapper h3 {
+	font: normal 20px Roboto;
+	color: #333;
+	text-transform: uppercase;
+	border-bottom: 1px solid #fff;
+	box-shadow: inset 0 -1px 0px #ccc;
+	-moz-box-shadow: inset 0 -1px 0px #ccc;
+	-webkit-box-shadow: inset 0 -1px 0px #ccc;
+	padding-bottom: 10px;
+	margin-bottom: 16px;
+	font-weight: 300;
+}
+
+#activity-status,
+#activity-dates {
+	width: 450px;
+	height: 294px;
+}
+
+#activity-dates {
+	height: 400px;
+}
+
+.transactions {
+	margin: 0 26px 28px 0;
+}
+
+.transaction-wrapper {
+	overflow: hidden;
+}
+
+.transaction-block {
+	overflow: hidden;
+	height: 364px;
+}
+
+.transactions .heading {
+	color: #888;
+	font: normal 14px/20px Roboto; 
+	margin-bottom: 6px;
+}
+
+.transactions .value {
+	color: #333;
+	font: normal 28px/20px Roboto; 
+}
+
+.sector-wrapper h3 a {
+	color: #00ACED;
+	font: normal 15px/20px Roboto; 
+	text-transform: none;
+	text-decoration: none;
+	float: right;
+}
+
+.sector-wrapper h3 a:hover {
+	color: #333;
+}
+
+.sector {
+	height: 400px;
+}
+
+.sector span {
+	font-size: 14px;
+}
+
+.sector .count {
+	border: 2px solid #F6AC42;
+	width: 80px;
+	line-height: 80px;
+	border-radius: 50%;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+	display: inline-block;
+	font-size: 20px;
+	text-align: center;
+	margin: 0 10px 10px 0;
+}
+
+.activities-block {
+}
+
+.inner-block {
+	margin-bottom: 70px;
+	overflow: hidden;
+}
+
+.transaction-wrapper { 
+	margin-bottom: 70px;
+}
+
+#about {
+    font-size : 14px;
+}
+
+#about p {
+    margin : 10px;
+}
+
+/*dropkick*/
+
+/**
+ * Default DropKick theme
+ *
+ * Feel free to edit the default theme
+ * or even add your own.
+ *
+ * See the readme for themeing help
+ *
+ */
+
+/***** Begin Theme, feel free to edit in here! ******/
+
+/* One container to bind them... */
+.dk_container {
+  background: #00ADEE;
+  font-family: 'Helvetica', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 14px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  width: 150px;
+}
+  .dk_container:focus {
+    outline: 0;
+  }
+  .dk_container a {
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+/* Opens the dropdown and holds the menu label */
+.dk_toggle {
+  /**
+   * Help: Arrow image not appearing
+   * Try updating this property to your correct dk_arrows.png path
+   */
+  background-image: url('images/arrow.png');
+  background-repeat: no-repeat;
+  background-position: 94% center;
+  color: #fff;
+  padding: 7px 10px;
+  font: bold 13px Roboto;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -webkit-transition: border-color .5s;
+  -moz-transition: border-color .5s;
+  -o-transition: border-color .5s;
+  transition: border-color .5s;
+}
+  .dk_toggle:hover {
+    border-color: #8c8c8c;
+  }
+  /* Applied when the dropdown is focused */
+  .dk_focus .dk_toggle {
+    border-color: #40b5e2;
+  }
+  .dk_focus .dk_toggle {
+    box-shadow: 0 0 5px #40b5e2;
+    -moz-box-shadow: 0 0 5px #40b5e2;
+    -webkit-box-shadow: 0 0 5px #40b5e2;
+  }
+
+/* Applied whenever the dropdown is open */
+.dk_open {
+/*  box-shadow: 0 0 5px #40b5e2;
+  -moz-box-shadow: 0 0 5px #40b5e2;
+  -webkit-box-shadow: 0 0 5px #40b5e2;*/
+  /**
+   * Help: Dropdown menu is covered by something
+   * Try setting this value higher
+   */
+  z-index: 10;
+}
+  .dk_open .dk_toggle {
+   /* background-color: #ececec;
+    border-color: #8c8c8c;
+    color: #ccc;
+    box-shadow: inset 0 -2px 5px #ccc;
+    border-radius: 5px 5px 0 0;
+    -moz-border-radius: 5px 5px 0 0;
+    -webkit-border-radius: 5px 5px 0 0;*/
+  }
+
+/* The outer container of the options */
+.dk_options {
+/*  box-shadow: rgba(0, 0, 0, .2) 0 2px 8px;
+  -moz-box-shadow: rgba(0, 0, 0, .2) 0 2px 8px;
+  -webkit-box-shadow: rgba(0, 0, 0, .2) 0 2px 8px;
+  border-radius: 0 0 5px 5px;
+  -moz-border-radius: 0 0 5px 5px;
+  -webkit-border-radius: 0 0 5px 5px;*/
+}
+  .dk_options a {
+    background-color: #fff;
+    border-bottom: 1px solid #999;
+    font-weight: bold;
+    padding: 8px 10px;
+  }
+  .dk_options li:last-child a {
+    border-bottom: none;
+  }
+  .dk_options a:hover,
+  .dk_option_current a {
+    background-color: #00ADEE;
+    border-bottom-color: #004c72;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: none;
+  }
+
+/* Inner container for options, this is what makes the scrollbar possible. */
+.dk_options_inner {
+  max-height: 250px;
+  text-shadow: none;
+  border-radius: 0 0 5px 5px;
+  -moz-border-radius: 0 0 5px 5px;
+  -webkit-border-radius: 0 0 5px 5px;
+  margin-top: -2px;
+}
+
+/* Set a max-height on the options inner */
+.dk_options_inner,
+.dk_touch .dk_options {
+  max-height: 250px;
+}
+
+/******  End Theme ******/
+
+/***** Critical to the continued enjoyment of working dropdowns ******/
+
+.dk_container {
+  display: none;
+  float: left;
+  position: relative;
+}
+  .dk_container a {
+    outline: 0;
+  }
+
+.dk_toggle {
+  display: -moz-inline-stack;
+  display: inline-block;
+  *display: inline;
+  position: relative;
+  zoom: 1;
+  width: 129px!important;
+}
+
+.dk_open {
+  position: relative;
+}
+  .dk_open .dk_options {
+    display: block;
+  }
+  .dk_open .dk_label {
+    color: inherit;
+  }
+
+.dk_options {
+  display: none;
+  margin-top: -1px;
+  position: absolute;
+  right: 0;
+  width: 100%;
+}
+  .dk_options a,
+  .dk_options a:link,
+  .dk_options a:visited {
+    display: block;
+  }
+  .dk_options_inner {
+    overflow: auto;
+    position: relative;
+    border: 1px solid #ccc;
+    border-top: 0;
+  }
+
+.dk_touch .dk_options {
+  overflow: hidden;
+}
+
+.dk_touch .dk_options_inner {
+  max-height: none;
+  overflow: visible;
+}
+
+.dk_fouc select {
+  position: relative;
+  top: -99999em;
+  visibility: hidden;
+}
+
+
+/***** End Critical to the continued enjoyment of working dropdowns ******/
+
+
+.sectors-block {
+	font-size: 14px;
+	line-height: 26px;
+  width: 590px;
+}
+
+.sectors-block .name {
+	font-weight: bold;
+  display: inline-block;
+  width: 546px;
+}
+
+.sector-details {
+  border-bottom: 1px solid #ddd;
+  padding: 4px 10px;
+}
+
+.sector-details:nth-child(2n) {
+  background: #eef9fd;
+}
+
+/*
+    ColorBox Core Style:
+    The following CSS is consistent between example themes and should not be altered.
+*/
+#colorbox, #cboxOverlay, #cboxWrapper{position:absolute; top:0; left:0; z-index:9999; padding: 30px;}
+#cboxOverlay{position:fixed; width:100%; height:100%;}
+#cboxMiddleLeft, #cboxBottomLeft{clear:left;}
+#cboxContent{position:relative;}
+#cboxLoadedContent{overflow:auto; -webkit-overflow-scrolling: touch;}
+#cboxTitle{margin:0;}
+#cboxLoadingOverlay, #cboxLoadingGraphic{position:absolute; top:0; left:0; width:100%; height:100%;}
+#cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow{cursor:pointer;}
+.cboxPhoto{float:left; margin:auto; border:0; display:block; max-width:none;}
+.cboxIframe{width:100%; height:100%; display:block; border:0;}
+#colorbox, #cboxContent, #cboxLoadedContent{box-sizing:content-box; -moz-box-sizing:content-box; -webkit-box-sizing:content-box;}
+
+/* 
+    User Style:
+    Change the following styles to modify the appearance of ColorBox.  They are
+    ordered & tabbed in a way that represents the nesting of the generated HTML.
+*/
+#cboxOverlay{background:url(images/overlay.png) repeat 0 0;}
+#colorbox{outline:0; background: #fff; border-radius: 4px;  box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.40);}
+   
+    #cboxContent { background:#fff; }
+        .cboxIframe{background:#fff;}
+        #cboxError{padding:50px; border:1px solid #ccc;}
+        #cboxLoadedContent{margin-bottom:28px; height: 450px; overflow-y: scroll;}
+        #cboxTitle{position:absolute; bottom:4px; left:0; text-align:center; width:100%; color:#949494;}
+        #cboxCurrent{position:absolute; bottom:4px; left:58px; color:#949494;}
+        #cboxLoadingOverlay{background:uimages/loading_background.png) no-repeat center center;}
+        #cboxLoadingGraphic{background:uimages/loading.gif) no-repeat center center;}
+
+        /* these elements are buttons, and may need to have additional styles reset to avoid unwanted base styles */
+        #cboxPrevious, #cboxNext, #cboxSlideshow, #cboxClose {border:0; padding:0; margin:0; overflow:visible; width:auto; background:none; }
+        
+        /* avoid outlines on :active (mouseclick), but preserve outlines on :focus (tabbed navigating) */
+        #cboxPrevious:active, #cboxNext:active, #cboxSlideshow:active, #cboxClose:active {outline:0;}
+
+        #cboxClose{position:absolute; top: -42px; right: -42px; background:url(images/controls.png) no-repeat 0 0; width:26px; height:26px; text-indent:-9999px;}
+        #cboxClose:hover{background-position: 0 -30px;}
+
+/*
+  The following fixes a problem where IE7 and IE8 replace a PNG's alpha transparency with a black fill
+  when an alpha filter (opacity change) is set on the element or ancestor element.  This style is not applied to or needed in IE9.
+  See: http://jacklmoore.com/notes/ie-transparency-problems/
+*/
+.cboxIE #cboxTopLeft,
+.cboxIE #cboxTopCenter,
+.cboxIE #cboxTopRight,
+.cboxIE #cboxBottomLeft,
+.cboxIE #cboxBottomCenter,
+.cboxIE #cboxBottomRight,
+.cboxIE #cboxMiddleLeft,
+.cboxIE #cboxMiddleRight {
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);
+}
+
+/*
+  The following provides PNG transparency support for IE6
+  Feel free to remove this and the /ie6/ directory if you have dropped IE6 support.
+*/
+
+.cboxIE6 #cboxTopLeft,
+.cboxIE6 #cboxTopCenter,
+.cboxIE6 #cboxTopRight,
+.cboxIE6 #cboxBottomLeft,
+.cboxIE6 #cboxBottomCenter,
+.cboxIE6 #cboxBottomRight,
+.cboxIE6 #cboxMiddleLeft,
+.cboxIE6 #cboxMiddleRight {
+    _behavior: expression(this.src = this.src ? this.src : this.currentStyle.backgroundImage.split('"')[1], this.style.background = "none", this.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src=" + this.src + ", sizingMethod='scale')");
+}
+
+
+
+svg {
+  font: 10px sans-serif;
+}
+
+path {
+  fill: steelblue;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+#activity-status svg{
+  height: 300px;
+  min-width: 50px;
+  min-height: 50px;
+}
+
+#activity-dates svg {
+  height: 400px;
+  width : 450px;
+  min-width: 50px;
+  min-height: 50px;
+}
+
+div.tooltip {
+  -webkit-box-shadow:  1px 1px 4px 1px #ccc;       
+  box-shadow:  1px 1px 4px 1px #ccc;
+  position: absolute;           
+  text-align: center;           
+  width: 100px;                                  
+  padding: 2px;             
+  font: 12px sans-serif;        
+  background: #fff;   
+  border: 0px;      
+  border-radius: 4px;           
+  pointer-events: none;         
+}
+
+.activities-block ul li {
+	list-style: none;
+	padding-bottom: 16px;
+}
+
+.activities-block ul li span {	
+	font: normal 14px/20px Roboto;
+	color: #888;
+	text-decoration: none;
+	background: url(images/activity-arrow.png) no-repeat 0 0;
+	padding-left: 26px;
+}
+
+.activities-block ul li a:hover {
+	background: url(images/activity-arrow-hover.png) no-repeat 0 0;
+	color: #F6AC42;
+}
+
+/* new header */
+a {
+	color: #008CFF;
+	text-decoration: none;
+}
+
+a:hover {
+	background: #008CFF;
+	color: #fff;
+}
+
+.header-container {
+	border-bottom: 14px solid #D5E0E4;
+	position: fixed;
+	width: 100%;
+	z-index: 100;
+}
+
+.header {
+	width: 940px;
+	margin: 0 auto;
+	padding: 20px 10px 26px;
+	overflow: hidden;
+}
+
+.logo {
+	float: left;
+	width: 240px;
+}
+
+.logo a {
+	display: block;
+	height: 39px;
+}
+
+.nav {
+	float: right;
+	margin-top: 10px;
+	margin-right: 0;
+}
+
+.nav ul {
+	float: left;
+	padding-top: 6px;
+	line-height: 18px;
+}
+
+.nav ul li {
+	float: left;
+	margin-left: 26px;
+	list-style: none;
+}
+
+.nav ul li:first-child {
+	margin-left: 0;
+}
+
+.nav ul li a {
+	color: #111;
+	font-size: 13px;
+	text-decoration: none;
+	font-family: Roboto,sans-serif;
+	display: block;
+	padding: 0 0 3px;
+}
+
+.nav ul li a:hover,.nav ul li.active-menu a {
+	background: url(images/nav-hover.png) no-repeat bottom;
+	color: #858585;
+}
+
+.login {
+	float: right;
+	background: #85B200;
+	border-radius: 3px; 
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	padding: 0 14px;
+	font: 13px/29px Arial,sans-serif;
+	color: #fff;
+	margin-left: 20px;
+}	
+
+.login a {
+	font: 13px/29px Arial,sans-serif;
+	color: #fff;
+	text-decoration: none;
+	display: inline-block;
+}
+
+.login:hover {
+	background: #4DA118;
+}
+
+.login a:hover {
+	background: none;
+}
+	
+/** Navigation after login**/
+#home-user-nav
+{
+	background-color: #D5E0E4;
+	line-height:16px;
+}
+
+#home-user-nav .nav_container
+{
+	font-size: 11px;
+	color: #7b7c7c;
+	padding: 5px 0 5px 0;
+	text-align: right;
+}
+
+.container_12, .container_16 {
+	margin-left: auto;
+	margin-right: auto;
+	width: 960px;
+}
+
+/** login popup **/
+
+.login-wrapper {
+	width: 960px;
+	margin: 0 auto;
+	position: relative;
+}
+
+#login-form-wrapper {
+	width: 380px;
+	padding: 26px 20px;
+	position: absolute;
+	right: 10px;
+	top: 64px;
+	background: -moz-linear-gradient(top,  rgba(238,238,238,0.90) 0%, rgba(255,255,255,0.90) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(238,238,238,0.90)), color-stop(100%,rgba(255,255,255,0.90))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(238,238,238,0.90) 0%,rgba(255,255,255,0.90) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(238,238,238,0.90) 0%,rgba(255,255,255,0.90) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(238,238,238,0.90) 0%,rgba(255,255,255,0.90) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(238,238,238,0.90) 0%,rgba(255,255,255,0.90) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e8eeeeee', endColorstr='#e8ffffff',GradientType=0 ); /* IE6-9 */
+	z-index: 101;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.65);
+	-moz-box-shadow:    0px 0px 4px rgba(0, 0, 0, 0.65);
+	box-shadow:         0px 0px 4px rgba(0, 0, 0, 0.65);
+}
+
+#login-form-wrapper td {
+	font: normal 14px Arial, Helvetica, sans-serif;
+}
+
+#login-form-wrapper input[type="text"],#login-form-wrapper input[type="password"]  {
+	width: 334px;
+	height: 36px;
+	background: #eee;
+	border: 1px solid #bbb;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	padding: 4px 20px;
+	margin-bottom: 14px;
+	color: #999;
+	font: normal 14px Arial, Helvetica, sans-serif;
+}
+
+.login-register {
+	float: left;
+}
+
+#login-form-wrapper #login {
+	background: #85B200;
+	width: 220px;
+	font: normal 14px Arial, Helvetica, sans-serif;
+	color: #fff;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border: 0;
+	height: 46px;
+	text-transform: uppercase;
+	text-align: left;
+	margin-bottom: 14px;
+	-webkit-box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.65);
+	-moz-box-shadow:    0px 3px 6px rgba(0, 0, 0, 0.65);
+	box-shadow:         0px 3px 6px rgba(0, 0, 0, 0.65);
+	padding: 5px 20px;
+}
+
+.forgot-password {
+	font-size: 12px;
+	float: right;
+}
+
+.inner-block .dialog-box-open,.block .dialog-box-open {
+	background: url(images/help.png) no-repeat 0 1px;
+	display: inline-block;
+	text-indent: -9999px;
+	width: 20px;
+	height: 22px;
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+.inner-block .dialog-box-open:hover,.block .dialog-box-open:hover {
+	background: url(images/help-hover.png) no-repeat 0 1px;
+}
+
+#footer {
+	background: url(images/footer-bg.jpg) no-repeat top;
+	background-size: cover;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	border: 0;
+	min-height: 300px;
+}
+
+.footer {
+	width: 940px;
+	padding:90px 10px 70px;
+	margin: 0 auto;
+}
+
+.footer span {
+	display: block;
+	color: #fff;
+}
+
+.query {
+	font: bold 30px Arial,sans-serif;
+}
+
+.email {
+	font: bold 25px Arial,sans-serif;
+}
+
+.email a {
+	display: inline-block;
+	border-bottom: 2px solid #009AEA;
+	line-height: 160%;
+	color: #fff;
+}
+
+.ui-widget-content a  {
+	color : #00ACED !important;
+}
+
+.nav ul li#demo-link {
+	background: #5C5C5C;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	line-height: 29px;
+	margin: -6px 0 0 20px;
+}
+
+.nav ul li#demo-link a {
+	display: block;
+	color: #fff;
+	padding: 0 18px!important;
+}
+
+.nav ul li#demo-link:hover {
+	background: #333;
+	color: #fff;
+}
+
+.nav ul li#demo-link a:hover {
+	background: none;
+}
