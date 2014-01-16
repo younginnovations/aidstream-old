@@ -10,8 +10,8 @@
     $filename = INPUT_FILE_DIR . COMBINED_ORG_FILENAME;
     $outputDir = INPUT_JSON_DIR;
     
-    exec('rm -r '.$outputDir);
-    mkdir($outputDir);
+    exec('rm -r '.$outputDir.'*.json');
+    if(!file_exists($outputDir)) { mkdir($outputDir); }
     
     $fp = fopen($filename , 'r');
     $reportingOrg = array();

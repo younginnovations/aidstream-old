@@ -1,21 +1,24 @@
 <?php
-class AidstreamConnector extends Zend_Db_Table_Abstract{
+class AidstreamConnector{
+    protected $connection;
+    protected $tableName;
     
-    protected $_name = 'registry_published_data';
+    public function __construct($user = 'root' , $password = 'yipl123' , $dbname= 'iati_aims_db' , $tablename = 'registry_published_data')
+    {
+        $this->tableName = $tablename;
+        $con = new PDO('mysql:host=localhost;dbname='.$dbname, $user, $password);
+        $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->connection = $con;
+    }
     
     public function getFileUrls($lastDate = '')
     {
-        /*        
-            $stmt = $this->connection->prepare("SELECT filename , response FROM  `{$this->tableName}` ");
-            $stmt->execute();
-            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        */
-
         $activityLastUpdate = strtotime($lastDate);
-        $stmt = $this->select()
-                    ->from($this, array('filename', 'response'));
-        $rows = $this->fetchAll($stmt);
-
+                
+        $stmt = $this->connection->prepare("SELECT filename , response FROM  `{$this->tableName}` ");
+        $stmt->execute();
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
         $urls = array();
         foreach( $rows as $file){
             $metadata = unserialize($file['response']);
@@ -43,17 +46,9 @@ class AidstreamConnector extends Zend_Db_Table_Abstract{
                 break;
             default : return false;
         }
-
-        /*
-            $stmt = $this->connection->prepare("SELECT * FROM `{$tablename}` where Code = '{$code}' and lang_id = '1'");
-            $stmt->execute();
-            $rows = $stmt->fetch(PDO::FETCH_ASSOC);
-        */
-
-        $stmt = $this->select()
-                ->where('Code = ?', $code)
-                ->where('lang_id = 1');
-        $rows = $this->fetchRow($stmt);
+        $stmt = $this->connection->prepare("SELECT * FROM `{$tablename}` where Code = '{$code}' and lang_id = '1'");
+        $stmt->execute();
+        $rows = $stmt->fetch(PDO::FETCH_ASSOC);
         if(!empty($rows)){
             return $rows['Name'];
         } else {
