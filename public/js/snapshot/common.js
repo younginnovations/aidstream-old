@@ -21,6 +21,9 @@ $(document).ready(function(){
     
     // Draw graphs
     var repOrg = getUrlVar('reporting_org');
+    if (repOrg == '') {
+        repOrg == 'all';
+    }
     $.ajax({
         type:"get",
         url: location.protocol + "//" + location.host + "/default/index/ajax",

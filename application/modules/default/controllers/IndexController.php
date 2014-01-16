@@ -44,7 +44,11 @@ class IndexController extends Zend_Controller_Action
 
     public function userAction() 
     {
-        $reportingOrg = $this->_request->getParam('reporting_org');
+        if ($_GET['reporting_org']) {
+            $reportingOrg = $this->_request->getParam('reporting_org');
+        } else {
+            $this->redirect('user?reporting_org=all');
+        }
         (!$reportingOrg) ? ($handler = new Iati_Snapshot_Lib_DataHandler()) : ($handler = new Iati_Snapshot_Lib_DataHandler($reportingOrg));
         $accountModel = new User_Model_DbTable_Account();
         $userModel = new Model_User();
@@ -71,8 +75,8 @@ class IndexController extends Zend_Controller_Action
             $activities = $wepModel->listAll('iati_activities', 'account_id', $accountId);
             $activitiesId = $activities[0]['id'];
             $activityArray = $wepModel->listAll('iati_activity', 'activities_id', $activitiesId);
-            $files = $publishModel->getPublishedInfo($accountId);   
-            if ($file['pushed_to_registry'] == 1) {     //change here
+            // $files = $publishModel->getPublishedInfo($accountId);   
+            // if ($file['pushed_to_registry'] == 1) {     //change here
                 if ($activityArray) {
                     $index = 0;
                     foreach($activityArray as $key=>$activity){
@@ -83,15 +87,20 @@ class IndexController extends Zend_Controller_Action
                         $index++;
                     }
                 }
-            }
-            $this->view->handler = $handler;
+            // }
             $this->view->organisation_array = $organisation_array;
             $this->view->activity_array = $activity_array;
         } else {
-            $this->_helper->FlashMessenger->addMessage(array('error' => "No such page."));
-            $this->_redirect();
-        }// end if
-        
+            // For all organisations: snapshot 
+            if ($reportingOrg == 'all' || $reportingOrg == '') {
+                $accountModel = new User_Model_DbTable_Account();
+                $count = $accountModel->getAccountCount();
+                $this->view->total_array = $count['total'];
+            } else {
+                $this->redirect('user?reporting_org=all');
+            }
+        } // end if
+        $this->view->handler = $handler;
     }
 
     public function ajaxAction() 
