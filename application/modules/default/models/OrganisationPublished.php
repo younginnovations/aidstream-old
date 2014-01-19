@@ -39,6 +39,14 @@ class Model_OrganisationPublished extends Zend_Db_Table_Abstract
         return $result;
     }
 
+    public function getPushedToRegistryInfo($accountId) {
+        $rowSet = $this->select()
+            ->where("publishing_org_id = ?", $accountId)
+            ->where("pushed_to_registry = 1");
+        $result = $this->fetchAll($rowSet)->toArray();
+        return $result;
+    }
+
     public function getAllPublishedInfo($accountId)
     {
         $rowSet = $this->select()->setIntegrityCheck(false)
@@ -79,7 +87,7 @@ class Model_OrganisationPublished extends Zend_Db_Table_Abstract
         $rowSet = $this->select()
             ->where("publishing_org_id = ?",$accountId)
             ->where("pushed_to_registry = 1");
-        $result = $this->fetchRow($rowSet);
+        $result = $this->fetchAll($rowSet);
         if(count($result)) {
             return true;
         } else {

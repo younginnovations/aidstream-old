@@ -188,19 +188,16 @@ class WepController extends Zend_Controller_Action
                         if ($save == "ok") {
                             //Check push_to_registry for activity
                             $modelPublished = new Model_Published();
-                            $activities = $modelPublished->getActivitiesByOrgId($identity->account_id);
-                            foreach ($activities as $activity) {
-                                $activityPublish = $modelPublished->isPushedToRegistry($activity['id']);
-                                if ($activityPublish) {
-                                    $model->pushToRegistry('Published');
-                                }   
-                            }
+                            $activityPublish = $modelPublished->isPushedToRegistry($identity->account_id);
+                            if ($activityPublish) {
+                                $this->pushToRegistry('Published');
+                            }   
 
                             //Check push_to_registry for organisation data
                             $modelOrganisationPublished = new Model_OrganisationPublished();
                             $organisationPublish = $modelOrganisationPublished->isPushedToRegistry($identity->account_id);
                             if ($organisationPublish) {
-                                $model->pushToRegistry('OrganisationPublished');
+                                $this->pushToRegistry('OrganisationPublished');
                             } 
                         }
                     }
@@ -219,6 +216,58 @@ class WepController extends Zend_Controller_Action
         }
         $this->view->blockManager()->enable('partial/dashboard.phtml');
         $this->view->form = $form;
+    }
+
+    /**
+     * Push already pushed activities if reporting org has been changed in settings.
+     */
+    private function pushToRegistry($publish) 
+    {
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $account_id = $identity->account_id;
+
+        $modelRegistryInfo = new Model_RegistryInfo();
+        $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($account_id);
+        if(!$registryInfo){
+            $this->_helper->FlashMessenger
+                ->addMessage(array('error' => "Registry information not found.
+                                   Please go to
+                                   <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a>
+                                   to add registry info."));
+        } else if(!$registryInfo->publisher_id){
+            $this->_helper->FlashMessenger
+                ->addMessage(array('error' => "Publisher Id not found. IATI
+                                   Activities files could not be created. Please go to
+                                   <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a>
+                                   to add publisher id."));
+        } else {
+            if(!$registryInfo->api_key){
+                $this->_helper->FlashMessenger
+                    ->addMessage(array('error' => "Api Key not found.
+                                       Activities could not be registered in
+                                       IATI Registry. Please go to
+                                       <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a>
+                                       to add API key."));
+            } else {
+                $model = 'Model_' . $publish;                  
+                $modelPublished = new $model();
+                $files = $modelPublished->getPushedToRegistryInfo($account_id);
+                if ($publish == 'OrganisationPublished') {
+                    $published =  Model_Registry::publish($files , $account_id , $registryInfo, true);
+                } elseif ($publish == 'Published') {
+                    $published =  Model_Registry::publish($files , $account_id , $registryInfo);
+                }
+                if($published['error']){
+                    $this->_helper->FlashMessenger
+                        ->addMessage(array('error' => $published['error']));
+                } else {
+                    $this->_helper->FlashMessenger
+                        ->addMessage(array('message' => "Activities have been
+                                           registered to IATI registry."));
+                }
+            }
+        }
+    
     }
 
     /**
