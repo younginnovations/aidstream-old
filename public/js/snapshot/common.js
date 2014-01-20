@@ -18,6 +18,9 @@ $(document).ready(function(){
             }
         );
     });
+
+    $(".inline").colorbox({inline:true, width:"45%"});
+    $(".inline-more").colorbox({inline:true, width:"45%",height:"34%"});
     
     // Draw graphs
     var repOrg = getUrlVar('reporting_org');
