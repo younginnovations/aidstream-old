@@ -10,6 +10,12 @@ class User_Model_DbTable_Account extends Zend_Db_Table_Abstract {
         return $result;
     }
 
+    public function getAccountRowById($accountId) {
+        $rowSet = $this->select()->where('id = ?', $accountId);
+        $result = $this->fetchRow($rowSet);
+        return $result;
+    }
+
     public function updateFileNameWithNull($userName){
         $data['file_name'] = '';
         return parent::update($data, array('username = ?' => $userName));

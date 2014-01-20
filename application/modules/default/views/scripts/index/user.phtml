@@ -31,26 +31,16 @@
 
     			<li>Website: 
                 <?php if ($organisation['website'] != 'Not Available'){ ?>
-                    <a href="<?php print $organisation['website']; ?>"><?php print $organisation['website']; ?></a></li><?php } else { ?>
-    			    <?php print $organisation['twitter']; ?></li>
+                    <a href="<?php print $organisation['website']; ?>" target="_blank"><?php print $organisation['website']; ?></a></li><?php } else { ?>
+    			    <?php print $organisation['website']; ?></li>
                 <?php } ?>
+                <li>Twitter:
+                <?php if ($organisation['twitter'] != 'Not Available'){ ?>
+                    <a href="http://twitter.com/<?php print preg_replace("/@/", "", $organisation['twitter'], 1); ?>" target="_blank"><?php print $organisation['twitter']; ?></a></li><?php } else { ?>
+                    <?php print $organisation['twitter']; ?></li>
+                <?php } ?>
+                
     		</ul>
-    	</div>
-<?php endif; ?>
-<?php if (isset($this->activity_array)): ?>
-    	<div id="published-files">
-    			<table class="data">
-    			  	<tr>
-    			    	<th>Activity Title</th>
-    			    	<th>Link / Publisher</th>
-    			  	</tr>
-    			<?php foreach ($this->activity_array as $activity) { ?>
-    				<tr>
-    				    <td><?php print $activity['title']; ?></td>
-    				    <td><a href="<?php print $activity['link']; ?>"><?php print $activity['link']; ?></a></td>
-    			  	</tr>
-    			<?php } ?>
-    			</table>
     	</div>
     </div>
 <?php endif; ?>
@@ -59,6 +49,24 @@
     </div>
 <?php endif; ?>
 
+
+<?php if ($handler->get('activities')):?>
+    <?php if (isset($this->activity_array)): ?>
+        <div id="published-files">
+                <table class="data">
+                    <tr>
+                        <th>Activity Title</th>
+                        <th>Link / Publisher</th>
+                    </tr>
+                <?php foreach ($this->activity_array as $activity) { ?>
+                    <tr>
+                        <td><?php print $activity['title']; ?></td>
+                        <td><a href="<?php print $activity['link']; ?>" target="_blank"><?php print $activity['link']; ?></a></td>
+                    </tr>
+                <?php } ?>
+                </table>
+        </div>
+    <?php endif; ?>
     <div id="data-wrapper">
         <div id="left-block">
             <div class="inner-block">
@@ -135,6 +143,21 @@
         </div>
     </div>
 
+    <?php $sectors = $handler->get('sectors'); ?>
+    <div style='display:none'>
+        <div id='inline_content' style='background:#fff;'>
+            <div class="sectors-block">
+            <?php if($sectors): ?>
+            <?php foreach($sectors as $sectorName=>$sector):?>
+                <div class="sector-details"><span class="name"><?php echo $sectorName;?> : </span><span><?php echo $sector->count;?></span></div>
+            <?php endforeach;?>
+            <?php else :?>
+                <div class="no-data">No Data Available</div>
+            <?php endif; ?>
+            </div>
+        </div>
+    </div>
+
     <!-- Help Messages -->
     <div style="display:none" >
         <div id='about'>
@@ -200,6 +223,11 @@
         </p>
         </div>
     </div>
+<?php else: ?>
+    <div id="data-wrapper">
+        <h2>This organisation has no activity published to the IATI registry.</h2>
+    </div>
+<?php endif; ?>
 
 <!-- Discuss Thread Starts Here -->
 <div id="disqus_thread"></div>

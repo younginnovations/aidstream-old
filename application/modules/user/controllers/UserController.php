@@ -269,7 +269,7 @@ class User_UserController extends Zend_Controller_Action
             if ($form->isValid($formData)) {
                 $data['address'] = $form->getValue('address');
                 $data['telephone'] = $form->getValue('telephone');
-                $data['twitter'] = $form->getValue('twitter');
+                $data['twitter'] = (!$form->getValue('twitter')) ? $form->getValue('twitter') : '@' . preg_replace("/@/", "", $form->getValue('twitter'), 1);
                 $data['first_name'] = $form->getValue('first_name');
                 $data['last_name'] = $form->getValue('last_name');
                 $data['email'] = $form->getValue('email');

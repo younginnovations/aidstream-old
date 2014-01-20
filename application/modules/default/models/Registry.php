@@ -9,6 +9,7 @@ class Model_Registry
     {
         // Set publihser name for file title
         $model = new Model_Wep();
+        $twitterModel = new Model_Twitter();
 
         $defaultFieldsValues = $model->getDefaults('default_field_values', 'account_id', $publisherId);
         $defaults = $defaultFieldsValues->getDefaultFields();
@@ -32,6 +33,9 @@ class Model_Registry
         if($reg->getErrors()){
             return array('error' => $reg->getErrors());
         }
+
+        //Tweet about the publish file from @aidstream
+        $twitterModel->sendTweet();
         return array('error' => false);
     }
     
