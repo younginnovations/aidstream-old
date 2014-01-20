@@ -83,7 +83,7 @@ class IndexController extends Zend_Controller_Action
                         $title = $wepModel->listAll('iati_title', 'activity_id', $activity['id']);
                         $identifier = $wepModel->listAll('iati_identifier', 'activity_id', $activity['id']);
                         $activity_array[$index]['title'] = ($title[0]['text'])?$title[0]['text']:'No title';
-                        $activity_array[$index]['link'] = "http://www.iatiregistry.org/publisher/" . $result['username'];
+                        $activity_array[$index]['link'] = "http://www.iatiregistry.org/publisher/" . strtolower($result['username']);
                         $index++;
                     }
                 }
