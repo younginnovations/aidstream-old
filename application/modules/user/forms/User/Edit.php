@@ -31,15 +31,25 @@ class User_Form_User_Edit extends App_Form
                 ->setAttrib('rows', '4')
                 ->setAttrib('class', 'form-text');
             $form['telephone'] = new Zend_Form_Element_Text('telephone');
-            $form['telephone']->setLabel('Organisaton Telephone Number')
+            $form['telephone']->setLabel('Organisaton Telephone')
+                ->addValidator(regex, false, array(
+                                            'pattern' => '/^[\d -]+$/',
+                                            'messages' => 'Invalid telephone number.'
+                                        )
+                            )
                 ->setAttrib('class', 'form-text');
+            
+
+            $twitterUsernameValidator = new App_Validate_TwitterUsername();
             $form['twitter'] = new Zend_Form_Element_Text('twitter');
-            $form['twitter']->setLabel('Organisaton Twitter Handle')
+            $form['twitter']->setLabel('Organisaton Twitter')
                 ->setAttrib('class', 'form-text')
+                ->setDescription("Please insert a valid twitter username. Example: '@oxfam' or 'oxfam'")
+                ->addValidator($twitterUsernameValidator)
                 ->addValidator('Db_NoRecordExists', false,
                       array('table' => 'account', 'field' => 'twitter', 'exclude' => $usernameClause,
                       'messages' => array(
-                      Zend_Validate_Db_NoRecordExists::ERROR_RECORD_FOUND => 'Duplicate twitter handle.')));
+                      Zend_Validate_Db_NoRecordExists::ERROR_RECORD_FOUND => 'Twitter handle already in use.')));
         }
         if($roleName == 'user')
         {
