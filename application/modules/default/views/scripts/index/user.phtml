@@ -3,11 +3,11 @@
 	$url = Zend_Controller_Front::getInstance()->getRequest()->getRequestUri();
 	$baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
 	if (isset($this->organisation_array)):
-            $identifier = $this->organisation_array['prefix'];
-            $organisation = $this->organisation_array;
+        $identifier = $this->organisation_array['prefix'];
+        $organisation = $this->organisation_array;
+    endif;
 ?>
 
-<?php endif; ?>
 <?php if (isset($this->total_array)): ?>
     <div id="aidstream-stats">
         <p>Total no. of organisation:</p>
@@ -20,9 +20,7 @@
 
 <?php if ($handler->get('activities') || (isset($this->total_array))):?>
 
-
     <div id="data-wrapper">
- 
                   
     <?php if (isset($this->activity_array)): ?>
         <div id="published-files" class="inner-block">
@@ -44,44 +42,46 @@
     <div class="load-more">Load More...</div>
      <div class="block-wrapper">
         <div id="left-block">
-        <div class="organisation-data inner-block">
-        <div id="organisation-info">
-            <h3><?php print $organisation['name']; ?></h3>
-            <?php 
-                $filePath = $baseUrl.'/uploads/image/'.$organisation['image']; 
-                if ($organisation['image']) {
-            ?>
-                <div id="organization-logo"><img src="<?php print $filePath; ?>" alt="logo"/></div>
-            <?php       
-                } else {    
-            ?>
-                <div id="organization-logo"><img src="<?php echo $this->baseUrl().'/images/default-user.png' ?>" alt="logo"/></div>
-            <?php
-                }
-            ?>
-       
-        <div id="organisation-contact-info">
-            <h4>Contact Details</h4>    
-            <ul>    
-                <li>Address: <?php print $organisation['address']; ?></li>
-                <li>Telephone: <?php print $organisation['telephone']; ?></li>
-                <li>Email: <a href="mailto:<?php print $organisation['email']; ?>"><?php print $organisation['email']; ?></a></li>
+        <?php if ($organisation): ?>
+            <div class="organisation-data inner-block">
+                <div id="organisation-info">
+                    <h3><?php print $organisation['name']; ?></h3>
+                    <?php 
+                        $filePath = $baseUrl.'/uploads/image/'.$organisation['image']; 
+                        if ($organisation['image']) {
+                    ?>
+                        <div id="organization-logo"><img src="<?php print $filePath; ?>" alt="logo"/></div>
+                    <?php       
+                        } else {    
+                    ?>
+                        <div id="organization-logo"><img src="<?php echo $this->baseUrl().'/images/default-user.png' ?>" alt="logo"/></div>
+                    <?php
+                        }
+                    ?>
+           
+                    <div id="organisation-contact-info">
+                        <h4>Contact Details</h4>    
+                        <ul>    
+                            <li>Address: <?php print $organisation['address']; ?></li>
+                            <li>Telephone: <?php print $organisation['telephone']; ?></li>
+                            <li>Email: <a href="mailto:<?php print $organisation['email']; ?>"><?php print $organisation['email']; ?></a></li>
 
-                <li>Website: 
-                <?php if ($organisation['website'] != 'Not Available'){ ?>
-                    <a href="<?php print $organisation['website']; ?>" target="_blank"><?php print $organisation['website']; ?></a></li><?php } else { ?>
-                    <?php print $organisation['website']; ?></li>
-                <?php } ?>
-                <li>Twitter:
-                <?php if ($organisation['twitter'] != 'Not Available'){ ?>
-                    <a href="http://twitter.com/<?php print preg_replace("/@/", "", $organisation['twitter'], 1); ?>" target="_blank"><?php print $organisation['twitter']; ?></a></li><?php } else { ?>
-                    <?php print $organisation['twitter']; ?></li>
-                <?php } ?>
-                
-            </ul>
-        </div>
-         </div>
-    </div>
+                            <li>Website: 
+                            <?php if ($organisation['website'] != 'Not Available'){ ?>
+                                <a href="<?php print $organisation['website']; ?>" target="_blank"><?php print $organisation['website']; ?></a></li><?php } else { ?>
+                                <?php print $organisation['website']; ?></li>
+                            <?php } ?>
+                            <li>Twitter:
+                            <?php if ($organisation['twitter'] != 'Not Available'){ ?>
+                                <a href="http://twitter.com/<?php print preg_replace("/@/", "", $organisation['twitter'], 1); ?>" target="_blank"><?php print $organisation['twitter']; ?></a></li><?php } else { ?>
+                                <?php print $organisation['twitter']; ?></li>
+                            <?php } ?>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
             <div class="inner-block">
                 <h3>Activity Status<span id="activity-status-info" class="dialog-box-open">help</span></h3>
                 <div id="activity-status">
