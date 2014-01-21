@@ -118,7 +118,7 @@ a:link {
 	width: 940px;
 	margin: 0 auto;
 	overflow: hidden;
-	padding: 124px 0 34px;
+	padding: 144px 0 34px;
 	clear: both;
 }
 
@@ -887,13 +887,24 @@ a:hover {
 	height: 344px;
 }
 
-/*.block-wrapper {
+.block-wrapper {
 	display: none;
+	overflow: hidden;
+	margin-top: 40px;
 }
 
 .load-more {
-	display: none;
+	background: #ddd;
 	text-align: center;
-	width: 32px;
-	margin: 20px auto;
-}*/
+	color: #00ACED;
+	font-weight: bold;
+	border-radius: 3px;
+	cursor: pointer;
+	padding: 4px;
+	width: 200px;
+	margin: 0 auto;
+}
+
+.load-more:hover {
+	background: #ccc;
+}
