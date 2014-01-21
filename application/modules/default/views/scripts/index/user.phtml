@@ -15,28 +15,8 @@
 <?php if ($handler->get('activities') || (isset($this->total_array))):?>
 
     <div id="data-wrapper">
-                  
-    <?php if (isset($this->activity_array)): ?>
-        <div id="published-files" class="inner-block">
-            <h3>Activity Title<!-- <a href="#" class="inline">View all</a> --><a href="#">View all</a></h3>
-                <table class="data">
-                    <tr>
-                        <th>Activity Title</th>
-                        <th>Link / Publisher</th>
-                    </tr>
-                <?php foreach ($this->activity_array as $activity) { ?>
-                    <tr>
-                        <td><?php print $activity['title']; ?></td>
-                        <td><a href="<?php print $activity['link']; ?>" target="_blank"><?php print $activity['link']; ?></a></td>
-                    </tr>
-                <?php } ?>
-                </table>
-        </div>
-    <?php endif; ?>
-    <div class="load-more">Load More...</div>
-     <div class="block-wrapper">
-        <div id="left-block">
-            <?php if (isset($this->total_array)): ?>
+    <div class="left-block">
+                    <?php if (isset($this->total_array)): ?>
     <div id="aidstream-stats" class="inner-block">
         <h3>Stats</h3>
         <p><span><span class="count">5</span>Total no. of organisations</span></p>
@@ -84,27 +64,9 @@
                 </div>
             </div>
         <?php endif; ?>
-            <div class="inner-block">
-                <h3>Activity Status<span id="activity-status-info" class="dialog-box-open">help</span></h3>
-                <div id="activity-status">
-                </div>
-            </div>
-            
-            <div class="inner-block">
-                <h3>Activity Dates<span id="activity-date-info" class="dialog-box-open">help</span></h3>
-                <div id="activity-dates"></div>
-            </div>
-            
-            <div class="block">
-                <h3>Recipient Region/Country<span id="recipient-region-country-info" class="dialog-box-open">help</span></h3>
-                <div id="recipient-info">
-                </div>
-            </div>
-        </div>
-        
-        <div id="right-block">
-
-           <div class="transaction-wrapper inner-block">
+    </div>
+    <div class="right-block">
+          <div class="transaction-wrapper inner-block">
                 <h3>Transaction<span id="transaction-info" class="dialog-box-open">help</span></h3>
                 <div class="transaction-block">
                 <?php $transactions = $handler->get('transaction');?>         
@@ -128,6 +90,54 @@
                         </div>              
              
             </div>
+    </div>
+</div>
+
+    <div class="load-more">Load More...</div>
+     <div class="block-wrapper">
+
+            <?php if (isset($this->activity_array)): ?>
+        <div id="published-files" class="inner-block">
+            <h3>Activity Title<!-- <a href="#" class="inline">View all</a> --><a href="#">View all</a></h3>
+                <table class="data">
+                    <tr>
+                        <th>Activity Title</th>
+                        <th>Link / Publisher</th>
+                    </tr>
+                <?php foreach ($this->activity_array as $activity) { ?>
+                    <tr>
+                        <td><?php print $activity['title']; ?></td>
+                        <td><a href="<?php print $activity['link']; ?>" target="_blank"><?php print $activity['link']; ?></a></td>
+                    </tr>
+                <?php } ?>
+                </table>
+        </div>
+    <?php endif; ?>
+        <div id="left-block">
+
+
+        
+            <div class="inner-block">
+                <h3>Activity Status<span id="activity-status-info" class="dialog-box-open">help</span></h3>
+                <div id="activity-status">
+                </div>
+            </div>
+            
+            <div class="inner-block">
+                <h3>Activity Dates<span id="activity-date-info" class="dialog-box-open">help</span></h3>
+                <div id="activity-dates"></div>
+            </div>
+            
+            <div class="block">
+                <h3>Recipient Region/Country<span id="recipient-region-country-info" class="dialog-box-open">help</span></h3>
+                <div id="recipient-info">
+                </div>
+            </div>
+        </div>
+        
+        <div id="right-block">
+
+         
         
             <div class="sector-wrapper inner-block">
                 <h3>Sector(Top 3)<a href="#inline_content" class="inline">View all</a><span id="sector-info" class="dialog-box-open">help</span></h3>
@@ -157,7 +167,7 @@
                 <?php endif; ?>
             </div>
         </div>
-    </div>
+   
     </div>
 
     <?php $sectors = $handler->get('sectors'); ?>
@@ -247,7 +257,7 @@
 <?php endif; ?>
 
 <!-- Discuss Thread Starts Here -->
-<div id="disqus_thread"></div>
+<div id="disqus_thread"></div> </div>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = 'testaidstream'; // shortname

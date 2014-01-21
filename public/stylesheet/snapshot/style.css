@@ -115,7 +115,7 @@ a:link {
 }
 
 #content-section {
-	padding-top: 144px;
+	padding-top: 114px;
 }
 
 #data-wrapper {
@@ -126,12 +126,12 @@ a:link {
 	clear: both;
 }
 
-#left-block {
+#left-block,.left-block {
 	float: left;
 	width: 460px;
 }
 
-#right-block {
+#right-block,.right-block {
 	float: right;
 	width: 460px;
 }
@@ -169,7 +169,7 @@ a:link {
 
 .transaction-block {
 	overflow: hidden;
-	height: 364px;
+	height: 320px;
 }
 
 .transactions .heading {
@@ -220,7 +220,7 @@ a:link {
 }
 
 #aidstream-stats .count {
-	
+
 }
 
 .activities-block {
@@ -232,7 +232,7 @@ a:link {
 }
 
 .transaction-wrapper { 
-	margin-bottom: 70px;
+	margin-bottom: 0;
 }
 
 #about {
@@ -898,7 +898,8 @@ a:hover {
 .block-wrapper {
 	display: none;
 	overflow: hidden;
-	margin-top: 40px;
+	padding-top: 40px;
+	clear: both;
 }
 
 .load-more {
@@ -911,6 +912,7 @@ a:hover {
 	padding: 4px;
 	width: 200px;
 	margin: 0 auto;
+	clear: both;
 }
 
 .load-more:hover {
@@ -919,4 +921,9 @@ a:hover {
 
 #disqus_thread {
 	clear: both;
+	margin-top: 40px;
+}
+
+#aidstream-stats {
+	margin-bottom: 0;
 }
