@@ -8,13 +8,7 @@
     endif;
 ?>
 
-<?php if (isset($this->total_array)): ?>
-    <div id="aidstream-stats">
-        <p>Total no. of organisation:</p>
-        <p>Total no. of activities:</p>
-        <p>Total no. of activities published to IATI:</p>
-    </div>
-<?php endif; ?>
+
 
 
 
@@ -42,6 +36,14 @@
     <div class="load-more">Load More...</div>
      <div class="block-wrapper">
         <div id="left-block">
+            <?php if (isset($this->total_array)): ?>
+    <div id="aidstream-stats" class="inner-block">
+        <h3>Stats</h3>
+        <p><span><span class="count">5</span>Total no. of organisations</span></p>
+        <p><span><span class="count">5</span>Total no. of activities</span></p>
+        <p><span><span class="count">5</span>Total no. of activities published to IATI</span></p>
+    </div>
+<?php endif; ?>
         <?php if ($organisation): ?>
             <div class="organisation-data inner-block">
                 <div id="organisation-info">

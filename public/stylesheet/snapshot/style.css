@@ -114,11 +114,15 @@ a:link {
 	display: none;
 }
 
+#content-section {
+	padding-top: 144px;
+}
+
 #data-wrapper {
 	width: 940px;
 	margin: 0 auto;
 	overflow: hidden;
-	padding: 144px 0 34px;
+	padding: 34px 0;
 	clear: both;
 }
 
@@ -199,7 +203,7 @@ a:link {
 	font-size: 14px;
 }
 
-.sector .count {
+.sector .count,#aidstream-stats .count {
 	border: 2px solid #F6AC42;
 	width: 80px;
 	line-height: 80px;
@@ -213,6 +217,10 @@ a:link {
 	background: none;
 	height: auto;
 	color: #333;
+}
+
+#aidstream-stats .count {
+	
 }
 
 .activities-block {
@@ -907,4 +915,8 @@ a:hover {
 
 .load-more:hover {
 	background: #ccc;
+}
+
+#disqus_thread {
+	clear: both;
 }

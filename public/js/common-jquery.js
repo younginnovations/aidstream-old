@@ -31,4 +31,10 @@ $(document).ready(function(){
         });
     }
 
+$('.load-more').click(function(){
+    $('.block-wrapper').slideDown('slow');
+})
+
+
+
 });
