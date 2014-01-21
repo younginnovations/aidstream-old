@@ -118,7 +118,7 @@ a:link {
 	width: 940px;
 	margin: 0 auto;
 	overflow: hidden;
-	padding: 34px 0;
+	padding: 124px 0 34px;
 	clear: both;
 }
 
@@ -179,7 +179,7 @@ a:link {
 	font: normal 28px/20px Roboto; 
 }
 
-.sector-wrapper h3 a {
+.sector-wrapper h3 a,#published-files h3 a {
 	color: #00ACED;
 	font: normal 15px/20px Roboto; 
 	text-transform: none;
@@ -187,12 +187,12 @@ a:link {
 	float: right;
 }
 
-.sector-wrapper h3 a:hover {
+.sector-wrapper h3 a:hover,#published-files h3 a:hover {
 	color: #333;
 }
 
 .sector {
-	height: 400px;
+	height: 293px;
 }
 
 .sector span {
@@ -210,6 +210,9 @@ a:link {
 	font-size: 20px;
 	text-align: center;
 	margin: 0 10px 10px 0;
+	background: none;
+	height: auto;
+	color: #333;
 }
 
 .activities-block {
@@ -861,3 +864,36 @@ a:hover {
 .nav ul li#demo-link a:hover {
 	background: none;
 }
+
+.inner-block #organization-logo {
+	border: 0;
+}
+
+.inner-block #organisation-contact-info {
+	float: right;
+	width: 300px;
+}
+
+.data th {
+	text-align: left;
+	width: 44%;
+}
+
+.data {
+	font-size: 15px;
+}
+
+.organisation-data {
+	height: 344px;
+}
+
+/*.block-wrapper {
+	display: none;
+}
+
+.load-more {
+	display: none;
+	text-align: center;
+	width: 32px;
+	margin: 20px auto;
+}*/
