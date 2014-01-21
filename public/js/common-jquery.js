@@ -31,15 +31,4 @@ $(document).ready(function(){
         });
     }
 
-$('.load-more').click(function(){
-    $('.block-wrapper').slideDown('slow');
-    if($('.block-wrapper').css('display','block')) {
-    $(this).fadeOut();
-}
-})
-
-
-
-
-
 });

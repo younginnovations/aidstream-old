@@ -21,6 +21,13 @@ $(document).ready(function(){
 
     $(".inline").colorbox({inline:true, width:"45%"});
     $(".inline-more").colorbox({inline:true, width:"45%",height:"34%"});
+
+    $('.load-more').click(function(){
+        $('.block-wrapper').slideDown('slow');
+        if($('.block-wrapper').css('display','block')) {
+            $(this).fadeOut();
+        }
+    });
     
     // Draw graphs
     var repOrg = getUrlVar('reporting_org');
@@ -69,6 +76,8 @@ function getUrlVar(key) {
 }
 
 function drawBarChart(eleId , dataset){
+    var width = 450;
+    var height = 294;
     nv.addGraph(function() {  
         var chart = nv.models.discreteBarChart()
             .x(function(d) { return d.label })
@@ -78,6 +87,8 @@ function drawBarChart(eleId , dataset){
             .tooltips(false)
             .showValues(true)
             .valueFormat(d3.format('d'))
+            .width(width)
+            .height(height)
             
         chart.yAxis
             .axisLabel('Number of Activities')
