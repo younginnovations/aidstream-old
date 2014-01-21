@@ -45,12 +45,15 @@
     </div>
 <?php endif; ?>
 <?php if (isset($this->total_array)): ?>
-    <div id="aidstream-data">
+    <div id="aidstream-stats">
+        <p>Total no. of organisation:</p>
+        <p>Total no. of activities:</p>
+        <p>Total no. of activities published to IATI:</p>
     </div>
 <?php endif; ?>
 
 
-<?php if ($handler->get('activities')):?>
+<?php if ($handler->get('activities') || (isset($this->total_array))):?>
     <?php if (isset($this->activity_array)): ?>
         <div id="published-files">
                 <table class="data">
