@@ -511,6 +511,22 @@ function initialize() {
 		});
 	    }
 	},
+
+    "#validate" : {
+        "onclick" : function (evt) {
+        var files = new Array();
+            dojo.query('.xml-list-table  input[type=checkbox]:checked').forEach(function(tag){
+                files.push(tag.value);
+            });
+        dojo.query('#files').attr('value',files.join(","));
+        
+        var msg = "Are you sure you want to validate the selected XML files?";
+        
+        new confirmDialog('' , msg , 'Yes' , "Don't Validate", function(){
+            dojo.byId('xml_form').submit();
+        });
+        }
+    },
 	
 	"#push_to_registry" : {
 	    "onclick" : function (evt) {

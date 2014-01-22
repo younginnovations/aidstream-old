@@ -1,0 +1,52 @@
+<?php if (!isset($this->errors)): ?>
+<div id="xml-list">
+	<dd id="button-element">
+		<button name="button" id="button" type="button" class="check-uncheck">Check All</button>
+	</dd>
+	<table class="xml-list-table">
+		<thead>
+			<tr>
+				<th></th><th>S.N.</th><th>Filename</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php $index = 1; ?>
+			<?php foreach ($this->xml as $xml): ?>
+				<tr class="xml-row">
+					<td><input type="checkbox" name="xml_<?php print $xml; ?>" value="<?php print $xml; ?>" /></td>
+					<td class="sn"><?php print $index; ?></td>
+					<td class="filename"><a href="/files/xml/<?php print $xml; ?>" target="_blank"><?php print $xml; ?></a></td>
+				</tr>
+			<?php $index++; ?>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+	<?php print $this->xmlForm; ?>
+</div>
+<?php endif; ?>
+
+<?php if (isset($this->errors)): ?>
+<div id="validation-errors">
+	<p>The following errors were encountered:</p>
+	<table class="xml-validation-table">
+		<thead>
+			<tr>
+				<th>S.N.</th><th>Filename</th><th>Error</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php if (count($this->errors)): ?>
+				<?php $index = 1; ?>
+				<?php foreach ($this->errors as $filename => $error): ?>
+					<tr class="xml-row">
+						<td class="sn"><?php print $index; ?></td>
+						<td class="filename"><a href="/files/xml/<?php print $filename; ?>" target="_blank"><?php print $filename; ?></a></td>
+						<td class="xmlerror"><?php print $error; ?></td>
+					</tr>
+				<?php $index++; ?>
+				<?php endforeach; ?>
+			<?php endif; ?>
+		</tbody>
+	</table>
+</div>
+<?php endif; ?>

@@ -147,6 +147,7 @@ class App_Acl extends Zend_Acl
         $this->allow('superadmin', 'default:admin', 'edit-help-message');
         $this->allow('superadmin', 'default:admin', 'change-footer-display');
         $this->allow('superadmin', 'default:admin', 'list-activity-states');
+        $this->allow('superadmin', 'default:admin', 'validate-xml-files');
     }
 
     public function isAllowed($role = null, $resource = null, $privilege = null)

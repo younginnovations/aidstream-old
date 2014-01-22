@@ -714,4 +714,42 @@ class AdminController extends Zend_Controller_Action
         }
         $this->view->orgs = $orgData;
     }
+
+    public function validateXmlFilesAction() 
+    {
+        $xmlFolder = APPLICATION_PATH ."/../public" . Zend_Registry::get('config')->xml_folder;
+        $index = 0;
+        if ($handle = opendir($xmlFolder)) {
+            // Loop over directory
+            while (false !== ($entry = readdir($handle))) {
+                // Only XML files
+                if (preg_match("/.xml/", $entry)) {
+                    $xml[$index] = $entry;    
+                }
+                $index++; 
+            }
+            closedir($handle);
+        }
+        $xmlForm = new Form_Admin_Xml();
+        $this->view->xmlForm = $xmlForm;
+        $this->view->xml = $xml;
+        
+        if($formData = $this->getRequest()->isPost()) {
+            $xmlSchema = Zend_Registry::get('config')->public_folder . Zend_Registry::get('config')->xml_schema . 'iati-activities-schema.xsd'; // Schema for validation
+            $xmlFiles = $this->getRequest()->getParam('files');
+            $xmlFiles = explode(',',$xmlFiles);
+            foreach ($xmlFiles as $xml) {
+                $output[$xml] = shell_exec('xmllint --noout --schema ' . $xmlSchema . ' ' . $xmlFolder . $xml.' 2>&1');
+                if (preg_match("/validates/", $output[$xml])) {
+                    unset($output[$xml]);
+                }
+            }
+            foreach ($output as $filename => $error) {
+                $error = strstr($error, $filename);
+                $error = strstr($error, "\n", true);
+                $output[$filename] = $error;
+            }
+            $this->view->errors = $output;
+        }
+    }
 }
