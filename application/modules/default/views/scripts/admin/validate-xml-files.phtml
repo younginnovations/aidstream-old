@@ -1,8 +1,10 @@
 <?php if (!isset($this->errors)): ?>
+
 <div id="xml-list">
 	<dd id="button-element">
 		<button name="button" id="button" type="button" class="check-uncheck">Check All</button>
 	</dd>
+	<?php print $this->xmlForm; ?>
 	<table class="xml-list-table">
 		<thead>
 			<tr>
@@ -31,17 +33,23 @@
 	<table class="xml-validation-table">
 		<thead>
 			<tr>
-				<th>S.N.</th><th>Filename</th><th>Error</th>
+				<th>S.N.</th><th>Filename</th><th>Errors</th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php if (count($this->errors)): ?>
 				<?php $index = 1; ?>
-				<?php foreach ($this->errors as $filename => $error): ?>
+				<?php foreach ($this->errors as $filename => $errors): ?>
 					<tr class="xml-row">
 						<td class="sn"><?php print $index; ?></td>
 						<td class="filename"><a href="/files/xml/<?php print $filename; ?>" target="_blank"><?php print $filename; ?></a></td>
-						<td class="xmlerror"><?php print $error; ?></td>
+						<td class="xmlerror">
+							<?php foreach ($errors as $error):
+								echo $error;
+								echo "<br>";
+								echo "<hr>";
+							endforeach; ?>
+						</td>
 					</tr>
 				<?php $index++; ?>
 				<?php endforeach; ?>
