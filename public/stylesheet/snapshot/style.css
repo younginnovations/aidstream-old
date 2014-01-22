@@ -890,10 +890,10 @@ a:hover {
 .data {
 	font-size: 15px;
 }
-
+/*
 .organisation-data {
 	height: 344px;
-}
+}*/
 
 .block-wrapper {
 	display: none;
@@ -921,9 +921,30 @@ a:hover {
 
 #disqus_thread {
 	clear: both;
-	margin-top: 40px;
+	width: 980px;
+	margin: 40px auto 0;
 }
 
 #aidstream-stats {
 	margin-bottom: 0;
+}
+
+.data-info {
+	clear: both;
+	background: #D5E0E4;
+	color: #666;
+	padding: 4px 0;
+	text-align: center;
+	font-size: 15px;
+	border-radius: 4px;
+	margin-bottom: 30px;
+	border: 1px solid #b8ddea;
+}
+
+.data-info h2 {
+	font-weight: normal;
+}
+
+.pull-right,#form {
+	margin-right: 20px!important;
 }
