@@ -130,13 +130,7 @@
 	</div>	
 
 	    
-		<div class="clear"></div>
-	    <div id="index-flash-messages">
-		<div class="message-wrapper container_12">
-		<?php $flashMessenger = $this->flashMessages();
-		  print $flashMessenger->getMessages();?>
-		</div>
-	    </div>
+		
 	    <div class="clear"></div>
         <div class="login-wrapper">
       <div id="login-form-wrapper" style="display:none">
@@ -157,6 +151,13 @@
 	</form>
     </div><!--Close login-form-container-->
     </div>
+    <div class="clear"></div>
+	    <div id="index-flash-messages">
+		<div class="message-wrapper container_12">
+		<?php $flashMessenger = $this->flashMessages();
+		  print $flashMessenger->getMessages();?>
+		</div>
+	    </div>
 	</div><!--header closed-->
 
         <div id="content-section" dojotype="dijit.layout.ContentPane" class="content-section"><!--Start content-section-->

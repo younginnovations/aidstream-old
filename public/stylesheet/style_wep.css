@@ -690,7 +690,8 @@ h2.form-title {
 #block-list-activity-states .action-icon a,
 #block-list-help .action-icon a,
 #block-download-data-menu .action-icon a,
-#block-uploaded-doc-menu .action-icon a
+#block-uploaded-doc-menu .action-icon a,
+#block-validate-xml-files .action-icon a
 {
 	display: block;
 	width: 48px;
@@ -709,7 +710,8 @@ h2.form-title {
 #block-list-help a,
 #block-list-activity-states a,
 #block-download-data-menu a,
-#block-uploaded-doc-menu a {
+#block-uploaded-doc-menu a,
+#block-validate-xml-files a {
 	font-weight: bold;
 	font-size: 13px;
 }
@@ -2087,19 +2089,27 @@ li#current-state span{
 
 
 /** admin list org page **/
-table#list-org {
+table#list-org,table.xml-list-table {
 	border: 1px solid #DCDCDC;
     width: 100%;
 }
 
-#list-org tr {
+#list-org tr,.xml-list-table tr {
 	background: none repeat scroll 0 0 #F2F2F2;
     border-bottom: 1px solid #DCDCDC;
+}
+
+.xml-list-table td {
+	padding: 8px 5px!important;
 }
 
 #list-org tr.total,#list-org tr.total td {
 	background: #eaeaea;
 	font-weight: bold;
+}
+
+#xml_form {
+	margin-top: 20px;
 }
 
 
@@ -3020,6 +3030,13 @@ button#cd-cancel, button#cd-ok
 	background-position:0 -1930px;
 }
 
+#block-validate-xml-files .action-icon a {
+	background-position:0 -2018px;
+}
+
+#block-validate-xml-files:hover .action-icon a {
+	background-position:0 -2108px;
+}
 
 /* change Default Page */
 .default-info {
@@ -5268,7 +5285,7 @@ button.next:hover {
 	padding: 26px 20px;
 	position: absolute;
 	right: 10px;
-	top: -34px;
+	top: -28px;
 	background: -moz-linear-gradient(top,  rgba(238,238,238,0.90) 0%, rgba(255,255,255,0.90) 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(238,238,238,0.90)), color-stop(100%,rgba(255,255,255,0.90))); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top,  rgba(238,238,238,0.90) 0%,rgba(255,255,255,0.90) 100%); /* Chrome10+,Safari5.1+ */
