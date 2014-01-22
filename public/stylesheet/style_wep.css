@@ -2089,17 +2089,17 @@ li#current-state span{
 
 
 /** admin list org page **/
-table#list-org,table.xml-list-table {
+table#list-org, table.xml-list-table, table.xml-validation-table {
 	border: 1px solid #DCDCDC;
     width: 100%;
 }
 
-#list-org tr,.xml-list-table tr {
+#list-org tr,.xml-list-table tr, .xml-validation-table tr {
 	background: none repeat scroll 0 0 #F2F2F2;
     border-bottom: 1px solid #DCDCDC;
 }
 
-.xml-list-table td {
+.xml-list-table td, .xml-validation-table td {
 	padding: 8px 5px!important;
 }
 

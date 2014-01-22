@@ -730,6 +730,7 @@ class AdminController extends Zend_Controller_Action
             }
             closedir($handle);
         }
+        natcasesort($xml);
         $xmlForm = new Form_Admin_Xml();
         $this->view->xmlForm = $xmlForm;
         $this->view->xml = $xml;
@@ -745,8 +746,10 @@ class AdminController extends Zend_Controller_Action
                 }
             }
             foreach ($output as $filename => $error) {
-                $error = strstr($error, $filename);
-                $error = strstr($error, "\n", true);
+                $repeatString = strstr($error, $filename, true);
+                $error = explode($repeatString, $error);
+                if ($error[0] == '') unset($error[0]);   // unset first array
+                array_pop($error);  // unset last array
                 $output[$filename] = $error;
             }
             $this->view->errors = $output;

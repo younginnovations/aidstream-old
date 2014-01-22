@@ -25,13 +25,13 @@
 		</tbody>
 	</table>
 	</div>
-	<?php print $this->xmlForm; ?>
 </div>
 <?php endif; ?>
 
 <?php if (isset($this->errors)): ?>
 <div id="validation-errors">
-	<p>The following errors were encountered:</p>
+	<p>Validation Report:</p>
+	<a href="/admin/validate-xml-files">Go Back</a>
 	<table class="xml-validation-table">
 		<thead>
 			<tr>
@@ -46,18 +46,23 @@
 						<td class="sn"><?php print $index; ?></td>
 						<td class="filename"><a href="/files/xml/<?php print $filename; ?>" target="_blank"><?php print $filename; ?></a></td>
 						<td class="xmlerror">
-							<?php foreach ($errors as $error):
-								echo $error;
-								echo "<br>";
-								echo "<hr>";
-							endforeach; ?>
+							<?php 
+								if ($errors): 
+									foreach ($errors as $error):
+										echo $error;
+										echo "<br>";
+									endforeach;
+								else:
+									echo "Validation unsucessful, check XML file manually.";
+								endif; 
+							?>
 						</td>
 					</tr>
 				<?php $index++; ?>
 				<?php endforeach; ?>
 			<?php else: ?>
 				<tr class="xml-row">
-					<td class="noerror" colspan="3">No Validation Errors.</td>
+					<td class="noerror" colspan="3">Validation Successful.</td>
 				</tr>
 			<?php endif; ?>
 		</tbody>
