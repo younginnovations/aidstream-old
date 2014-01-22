@@ -5,6 +5,7 @@
 		<button name="button" id="button" type="button" class="check-uncheck">Check All</button>
 	</dd>
 	<?php print $this->xmlForm; ?>
+	<div class="xml-list-wrapper">
 	<table class="xml-list-table">
 		<thead>
 			<tr>
@@ -23,6 +24,7 @@
 			<?php endforeach; ?>
 		</tbody>
 	</table>
+	</div>
 	<?php print $this->xmlForm; ?>
 </div>
 <?php endif; ?>

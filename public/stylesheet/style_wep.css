@@ -2108,8 +2108,17 @@ table#list-org,table.xml-list-table {
 	font-weight: bold;
 }
 
+#button-element {
+	float: left;
+}
+
 #xml_form {
-	margin-top: 20px;
+	float: left;
+	margin-top: 10px;
+}
+
+#xml_form dt {
+	display: none;
 }
 
 
@@ -5762,4 +5771,10 @@ th.doc-link {
 }
 .default-item.hidden {
 	display: none;
+}
+
+.xml-list-wrapper {
+	height: 520px;
+	overflow-y: scroll;
+	clear: both;
 }
