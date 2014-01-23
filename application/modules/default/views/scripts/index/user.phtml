@@ -10,12 +10,12 @@
 
     <div id="data-wrapper">
     <div class="left-block">
-    <?php if (isset($this->total_array)): ?>
+    <?php if (isset($this->total)): ?>
         <div id="aidstream-stats" class="inner-block">
-            <h3>Stats</h3>
-            <p><span><span class="count">5</span>Total no. of organisations</span></p>
-            <p><span><span class="count">5</span>Total no. of activities</span></p>
-            <p><span><span class="count">5</span>Total no. of activities published to IATI</span></p>
+            <h3>AidStream Statistics</h3>
+            <p><span><span class="count"><?php print $this->total['organisations']; ?></span>Total no. of Organisations</span></p>
+            <p><span><span class="count"><?php print $this->total['activities']; ?></span>Total no. of Actvities</span></p>
+            <p><span><span class="count"><?php print $this->total['published']; ?></span>Total no. of Activities published to IATI Registry</span></p>
         </div>
     <?php endif; ?>
     <?php if ($organisation): ?>
@@ -59,7 +59,7 @@
         </div>
     <?php endif; ?>
     </div>
-    <?php if ($handler->get('activities') || (isset($this->total_array))):?>
+    <?php if ($handler->get('activities') || (isset($this->total))):?>
     <div class="right-block">
         <div class="transaction-wrapper inner-block">
             <h3>Transaction<span id="transaction-info" class="dialog-box-open">help</span></h3>
@@ -87,23 +87,40 @@
 
     <div class="load-more">Load More...</div>
     <div class="block-wrapper">
-    <?php if (isset($this->activity_array)): ?>
+    
+    <?php $activities = $handler->getTop3Activities();?>
+    <?php if($activities):?>
         <div id="published-files" class="inner-block">
-            <h3>Activity Title<!-- <a href="#" class="inline">View all</a> --><a href="#">View all</a></h3>
+            <h3>Activities(Top 3)<span id="activities-info" class="dialog-box-open">help</span><a href="#">View all</a></h3>
                 <table class="data">
                     <tr>
                         <th>Activity Title</th>
-                        <th>Link / Publisher</th>
+                        <th>Activity Identifier</th>
                     </tr>
-                <?php foreach ($this->activity_array as $activity) { ?>
+                <?php foreach($activities as $activityId => $activityTitle): ?>
                     <tr>
-                        <td><?php print $activity['title']; ?></td>
-                        <td><a href="<?php print $activity['link']; ?>" target="_blank"><?php print $activity['link']; ?></a></td>
+                        <td><?php print $activityTitle; ?></td>
+                        <td><?php print $activityId?></td>
                     </tr>
-                <?php } ?>
+                <?php endforeach; ?>
                 </table>
         </div>
     <?php endif; ?>
+    <?php $activities = $handler->get('activities'); ?>
+        <div style='display:none'>
+            <div id='' style='background:#fff;'>
+                <div class="activities-block">
+                <?php if($activities): ?>
+                <?php foreach($activities as $activityId=>$activityTitle):?>
+                    <div class="activity-details"><span class="name"><?php echo $activityTitle;?> : </span><span><?php echo $activityId;?></span></div>
+                <?php endforeach;?>
+                <?php else :?>
+                    <div class="no-data">No Data Available</div>
+                <?php endif; ?>
+                </div>
+            </div>
+        </div>
+
         <div id="left-block">
             <div class="inner-block">
                 <h3>Activity Status<span id="activity-status-info" class="dialog-box-open">help</span></h3>
@@ -113,11 +130,6 @@
             <div class="inner-block">
                 <h3>Activity Dates<span id="activity-date-info" class="dialog-box-open">help</span></h3>
                 <div id="activity-dates"></div>
-            </div>
-        
-            <div class="block">
-                <h3>Recipient Region/Country<span id="recipient-region-country-info" class="dialog-box-open">help</span></h3>
-                <div id="recipient-info"></div>
             </div>
         </div>
         
@@ -134,20 +146,10 @@
                     <div class="no-data">No Data Available</div>
                 <?php endif;?>
                 </div>
-            </div>
-            
-            <div class="activities-wrapper inner-block">
-                <?php $activities = $handler->get('activities');?>
-                <?php if($activities):?>
-                <h3>Activities<span id="activities-info" class="dialog-box-open">help</span></h3>
-                <div class="activities-block">
-                <ul>
-                    <?php foreach($activities as $activityId => $activity):?>
-                        <li><span><?echo $activityId;?></span></li>
-                    <?php endforeach;?>
-                </ul>
-                </div>
-                <?php endif; ?>
+            </div> 
+            <div class="block">
+                <h3>Recipient Region/Country<span id="recipient-region-country-info" class="dialog-box-open">help</span></h3>
+                <div id="recipient-info"></div>
             </div>
         </div>
    

@@ -71,31 +71,20 @@ class IndexController extends Zend_Controller_Action
             $organisation_array['twitter'] = ($result['twitter']) ? $result['twitter'] : 'Not Available';
             $organisation_array['prefix'] = $result['username'];
             
-            // List Activities
-            $activities = $wepModel->listAll('iati_activities', 'account_id', $accountId);
-            $activitiesId = $activities[0]['id'];
-            $activityArray = $wepModel->listAll('iati_activity', 'activities_id', $activitiesId);
-            // $files = $publishModel->getPublishedInfo($accountId);   
-            // if ($file['pushed_to_registry'] == 1) {     //change here
-                if ($activityArray) {
-                    $index = 0;
-                    foreach($activityArray as $key=>$activity){
-                        $title = $wepModel->listAll('iati_title', 'activity_id', $activity['id']);
-                        $identifier = $wepModel->listAll('iati_identifier', 'activity_id', $activity['id']);
-                        $activity_array[$index]['title'] = ($title[0]['text'])?$title[0]['text']:'No title';
-                        $activity_array[$index]['link'] = "http://www.iatiregistry.org/publisher/" . strtolower($result['username']);
-                        $index++;
-                    }
-                }
-            // }
             $this->view->organisation_array = $organisation_array;
-            $this->view->activity_array = $activity_array;
         } else {
             // For all organisations: snapshot 
             if ($reportingOrg == 'all' || $reportingOrg == '') {
+                $activityModel = new Model_Activity();
+                $orgData = $activityModel->allOrganisationsActivityStates();
+                foreach ($orgData as $key => $row) {
+                    $total['activities'] += array_sum($row['states']);
+                    $total['published'] +=  $row['registry_published_count'];
+                }
                 $accountModel = new User_Model_DbTable_Account();
                 $count = $accountModel->getAccountCount();
-                $this->view->total_array = $count['total'];
+                $total['organisations'] = $count['total'];
+                $this->view->total = $total;
             } else {
                 $this->redirect('user?reporting_org=all');
             }
