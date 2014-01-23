@@ -736,8 +736,13 @@ class AdminController extends Zend_Controller_Action
         $this->view->xml = $xml;
         
         if($formData = $this->getRequest()->isPost()) {
-            $xmlSchema = Zend_Registry::get('config')->public_folder . Zend_Registry::get('config')->xml_schema . 'iati-activities-schema.xsd'; // Schema for validation
             $xmlFiles = $this->getRequest()->getParam('files');
+            if(empty($xmlFiles)){
+                $this->_helper->FlashMessenger
+                    ->addMessage(array('info' => "Please select a XML file to validate."));
+                $this->_redirect('admin/validate-xml-files');
+            }
+            $xmlSchema = Zend_Registry::get('config')->public_folder . Zend_Registry::get('config')->xml_schema . 'iati-activities-schema.xsd'; // Schema for validation
             $xmlFiles = explode(',',$xmlFiles);
             foreach ($xmlFiles as $xml) {
                 $output[$xml] = shell_exec('xmllint --noout --schema ' . $xmlSchema . ' ' . $xmlFolder . $xml.' 2>&1');

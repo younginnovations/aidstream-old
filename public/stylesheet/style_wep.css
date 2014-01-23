@@ -4471,7 +4471,8 @@ ul.level-4.none span {
 
 .info {
 	float: right;
-	width: 380px;
+	/*width: 380px;*/
+	width: auto;
 }
 
 .result-form-container .element-remove-this {
