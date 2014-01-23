@@ -139,7 +139,8 @@
             }
         }
         
-        $outputData[$reportingOrgName]['activities'][$out['iati_identifier']] = $out['full_details'];
+        //$outputData[$reportingOrgName]['activities'][$out['iati_identifier']] = $out['full_details'];
+        $outputData[$reportingOrgName]['activities'][$out['iati_identifier']] = $out['aid_project_title'];
     }
 
     $reportingOrgs = array_keys($outputData);

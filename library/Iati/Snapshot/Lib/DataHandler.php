@@ -88,4 +88,20 @@ class Iati_Snapshot_Lib_DataHandler
         }
         return false;
     }
+
+    public function getTop3Activities() 
+    {
+        if($this->getData()){
+            $activities = $this->get('activities');
+            if(!$activities) return false;
+            $activityArray = array();
+            foreach($activities as $activityId => $activityTitle){
+                $activityArray[$activityId] = $activityTitle;
+            }
+            arsort($activityArray);
+            $output = array_slice($activityArray, 0, 3);
+            return $output;
+        }
+        return false;
+    }
 }
