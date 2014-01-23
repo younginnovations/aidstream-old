@@ -29,7 +29,7 @@ class IndexController extends Zend_Controller_Action
     /**
      * Users list page
      */
-    public function usersAction()
+    public function organisationsAction()
     {
 	    $model = new User_Model_DbTable_Account();
 	    /* Moved to a new page from footer as per new home page*/
@@ -42,12 +42,12 @@ class IndexController extends Zend_Controller_Action
 	    $this->view->count = $count['total'];
     }
 
-    public function userAction() 
+    public function organisationAction() 
     {
         if ($_GET['reporting_org']) {
             $reportingOrg = $this->_request->getParam('reporting_org');
         } else {
-            $this->redirect('user?reporting_org=all');
+            $this->redirect('organisation?reporting_org=all');
         }
         (!$reportingOrg) ? ($handler = new Iati_Snapshot_Lib_DataHandler()) : ($handler = new Iati_Snapshot_Lib_DataHandler($reportingOrg));
         $accountModel = new User_Model_DbTable_Account();
@@ -86,7 +86,7 @@ class IndexController extends Zend_Controller_Action
                 $total['organisations'] = $count['total'];
                 $this->view->total = $total;
             } else {
-                $this->redirect('user?reporting_org=all');
+                $this->redirect('organisation?reporting_org=all');
             }
         } // end if
         $this->view->handler = $handler;

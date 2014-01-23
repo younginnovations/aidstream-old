@@ -49,8 +49,8 @@ class App_Acl extends Zend_Acl
         $this->allow('guest', 'user:user', 'resetpassword');
         $this->allow('guest', 'default:index', 'index');
         $this->allow('guest', 'default:index', 'about');
-        $this->allow('guest', 'default:index', 'users');
-        $this->allow('guest', 'default:index', 'user');
+        $this->allow('guest', 'default:index', 'organisations');
+        $this->allow('guest', 'default:index', 'organisation');
         $this->allow('guest', 'default:index', 'ajax');
         $this->allow('guest', 'default:error', 'error');
         $this->allow('guest', 'default:error', 'error404');

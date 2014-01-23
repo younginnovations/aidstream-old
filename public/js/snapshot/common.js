@@ -21,7 +21,8 @@ $(document).ready(function(){
 
     $(".inline").colorbox({inline:true, width:"45%"});
     $(".inline-more").colorbox({inline:true, width:"45%",height:"34%"});
-
+    $(".activities-more").colorbox({inline:true, width:"45%", href:"#content"});
+    
     $('.load-more').click(function(){
         $('.block-wrapper').slideDown('slow');
         if($('.block-wrapper').css('display','block')) {

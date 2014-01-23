@@ -91,7 +91,7 @@
     <?php $activities = $handler->getTop3Activities();?>
     <?php if($activities):?>
         <div id="published-files" class="inner-block">
-            <h3>Activities(Top 3)<span id="activities-info" class="dialog-box-open">help</span><a href="#">View all</a></h3>
+            <h3>Activities(Top 3)<span id="activities-info" class="dialog-box-open">help</span><a href="#" class="activities-more">View all</a></h3>
                 <table class="data">
                     <tr>
                         <th>Activity Title</th>
@@ -107,8 +107,8 @@
         </div>
     <?php endif; ?>
     <?php $activities = $handler->get('activities'); ?>
-        <div style='display:none'>
-            <div id='' style='background:#fff;'>
+        <div id="activities" style='display:none'>
+            <div id='content' style='background:#fff;'>
                 <div class="activities-block">
                 <?php if($activities): ?>
                 <?php foreach($activities as $activityId=>$activityTitle):?>
@@ -247,7 +247,7 @@
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = 'testaidstream'; // shortname
     var disqus_identifier = '<?php print $identifier; ?>';
-    //var disqus_url = '<?php print $url; ?>';
+    var disqus_url = '<?php print $baseUrl . $url; ?>';
     var disqus_disable_mobile = true;
 
     /* * * DON'T EDIT BELOW THIS LINE * * */

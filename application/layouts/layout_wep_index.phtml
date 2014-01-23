@@ -19,7 +19,7 @@
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style.css');
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style_wep.css');
 			$this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/print.css','print');
-			if ($controller == "index" && $action == "user") {
+			if ($controller == "index" && $action == "organisation") {
 				$this->headLink()->appendStylesheet('http://fonts.googleapis.com/css?family=Roboto:400,300');
 				$this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/snapshot/style.css');
             	$this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/snapshot/nv.d3.css');
@@ -57,7 +57,7 @@
 	    $this->headScript()->appendFile($this->baseUrl() . '/js/home.js', $type = 'text/javascript');
 	    $this->headScript()->appendFile($this->baseUrl() . '/js/bjqs-1.3.js', $type = 'text/javascript');
 	    $this->headScript()->appendFile($this->baseUrl() . '/js/jquery.secret-source.min.js', $type = 'text/javascript');
-		if ($controller == "index" && $action == "user") {
+		if ($controller == "index" && $action == "organisation") {
 			$this->headScript()->appendFile($this->baseUrl() . '/js/snapshot/jquery_ui-1-10-3.js', $type = 'text/javascript');
         	$this->headScript()->appendFile($this->baseUrl() . '/js/snapshot/jquery.colorbox.js', $type = 'text/javascript');
         	$this->headScript()->appendFile($this->baseUrl() . '/js/snapshot/d3/d3.v3.min.js', $type = 'text/javascript');
@@ -115,7 +115,7 @@
 				<ul>
 					<li class="<?php echo ($url === $this->baseUrl().'/about')? 'active-menu':'';?>"><?php echo $this->l(' About', 'about');?></li>
 					<li><?php echo $this->l("How to Use", 'how-to');?></li>
-					<li class="<?php echo ($url === $this->baseUrl().'/users')? 'active-menu':'';?>"><?php echo $this->l("Who's Using", 'users');?></li>
+					<li class="<?php echo ($url === $this->baseUrl().'/organisations')? 'active-menu':'';?>"><?php echo $this->l("Who's Using", 'organisations');?></li>
 					<li><?php echo $this->l('Snapshot', 'snapshot');?></li>
 					<li><a href='http://blog.aidstream.org' target="_blank">Blog</a></li> 
 					<li id="demo-link"><a href='http://demo.aidstream.org' target="_blank">Demo</a></li>
