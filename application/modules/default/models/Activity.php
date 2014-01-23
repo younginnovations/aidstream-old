@@ -161,4 +161,32 @@ class Model_Activity
         $db = new Model_ActivityStatus();
         return $db->getActivityStatus($activityId);
     }
+
+    /**
+     *  Ported from Admin Controller::listActivityStatesAction()
+     * @param None
+     * @return Array containing activity states and activity registry published count for all organisations.
+     */
+    public function allOrganisationsActivityStates() 
+    {
+        $model = new Model_Wep();
+        $activityCollModel = new Model_ActivityCollection();
+        // $activityModel = new Model_Activity();
+        $orgs = $model->listOrganisation('account');
+        $orgData = array();
+        foreach($orgs as $organisation)
+        {
+            $activities = $activityCollModel->getActivitiesByAccount($organisation['id']);
+            $states = $this->getCountByState($activities);
+            $organisation['states'] = $states;
+            
+            $regPublishModel = new Model_RegistryPublishedData();
+            $publishedFiles = $regPublishModel->getPublishedInfoByOrg($organisation['id']);
+            $publishedActivityCount = $regPublishModel->getActivityCount($publishedFiles);
+            $organisation['registry_published_count'] = $publishedActivityCount;
+            $orgData[] = $organisation;
+        }
+        return $orgData;
+    }
+
 }

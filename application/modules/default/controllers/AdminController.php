@@ -695,23 +695,8 @@ class AdminController extends Zend_Controller_Action
     
     public function listActivityStatesAction()
     {
-        $model = new Model_Wep();
-        $activityCollModel = new Model_ActivityCollection();
         $activityModel = new Model_Activity();
-        $orgs = $model->listOrganisation('account');
-        $orgData = array();
-        foreach($orgs as $organisation)
-        {
-            $activities = $activityCollModel->getActivitiesByAccount($organisation['id']);
-            $states = $activityModel->getCountByState($activities);
-            $organisation['states'] = $states;
-            
-            $regPublishModel = new Model_RegistryPublishedData();
-            $publishedFiles = $regPublishModel->getPublishedInfoByOrg($organisation['id']);
-            $publishedActivityCount = $regPublishModel->getActivityCount($publishedFiles);
-            $organisation['registry_published_count'] = $publishedActivityCount;
-            $orgData[] = $organisation;
-        }
+        $orgData = $activityModel->allOrganisationsActivityStates();
         $this->view->orgs = $orgData;
     }
 
@@ -723,7 +708,7 @@ class AdminController extends Zend_Controller_Action
             // Loop over directory
             while (false !== ($entry = readdir($handle))) {
                 // Only XML files
-                if (preg_match("/.xml/", $entry)) {
+                if (!preg_match("/org/", $entry) && preg_match("/.xml/", $entry)) {
                     $xml[$index] = $entry;    
                 }
                 $index++; 
