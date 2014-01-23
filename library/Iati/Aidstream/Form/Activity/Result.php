@@ -22,7 +22,7 @@ class Iati_Aidstream_Form_Activity_Result extends Iati_Core_BaseForm
         $form['aggregation_status']->setLabel('Aggregation Status')    
             ->setAttribs(array('class' => 'form-select')) 
             ->setValue($this->data['@aggregation_status'])
-            ->setMultiOptions(array(''=>'Select Anyone','True'=>'True','False'=>'False'));             
+            ->setMultiOptions(array(''=>'Select Anyone','true'=>'True','false'=>'False'));             
 
         $this->addElements($form);
         return $this;
