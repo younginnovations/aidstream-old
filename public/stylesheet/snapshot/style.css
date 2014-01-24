@@ -444,24 +444,38 @@ a:link {
 /***** End Critical to the continued enjoyment of working dropdowns ******/
 
 
-.sectors-block {
+.sectors-block,.activities-block {
 	font-size: 14px;
 	line-height: 26px;
   width: 590px;
 }
 
-.sectors-block .name {
+.activities-block {
+	width: 98%;
+}
+
+.sectors-block .name,.activities-block .name {
 	font-weight: bold;
   display: inline-block;
   width: 546px;
 }
 
-.sector-details {
-  border-bottom: 1px solid #ddd;
-  padding: 4px 10px;
+.activities-block span {
+	float: left;
 }
 
-.sector-details:nth-child(2n) {
+.activities-block .name {
+	font-family: Arial;
+	width: 200px;
+}
+
+.sector-details,.activity-details {
+  border-bottom: 1px solid #ddd;
+  padding: 4px 10px;
+   overflow: hidden;
+}
+
+.sector-details:nth-child(2n),.activity-details:nth-child(2n) {
   background: #eef9fd;
 }
 
@@ -884,12 +898,23 @@ a:hover {
 
 .data th {
 	text-align: left;
-	width: 44%;
 }
 
 .data {
 	font-size: 15px;
+	width: 100%;
+	background: #f4f4f4;
+	border-radius: 4px;
 }
+
+.data tr th {
+	background: #e4e4e4;
+}
+
+.data th,.data td {
+	padding: 2px 10px;
+}
+
 /*
 .organisation-data {
 	height: 344px;
@@ -898,7 +923,7 @@ a:hover {
 .block-wrapper {
 	display: none;
 	overflow: hidden;
-	padding-top: 40px;
+/*	padding-top: 40px;*/
 	clear: both;
 }
 

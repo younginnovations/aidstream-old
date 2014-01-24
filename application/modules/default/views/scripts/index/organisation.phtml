@@ -94,13 +94,13 @@
             <h3>Activities(Top 3)<span id="activities-info" class="dialog-box-open">help</span><a href="#" class="activities-more">View all</a></h3>
                 <table class="data">
                     <tr>
-                        <th>Activity Title</th>
-                        <th>Activity Identifier</th>
+                         <th>Activity Identifier</th>
+                        <th>Activity Title</th>                       
                     </tr>
                 <?php foreach($activities as $activityId => $activityTitle): ?>
                     <tr>
-                        <td><?php print $activityTitle; ?></td>
                         <td><?php print $activityId?></td>
+                        <td><?php print $activityTitle; ?></td>
                     </tr>
                 <?php endforeach; ?>
                 </table>
@@ -112,7 +112,7 @@
                 <div class="activities-block">
                 <?php if($activities): ?>
                 <?php foreach($activities as $activityId=>$activityTitle):?>
-                    <div class="activity-details"><span class="name"><?php echo $activityTitle;?> : </span><span><?php echo $activityId;?></span></div>
+                    <div class="activity-details"><span class="name"><?php echo $activityId;?></span><span><?php echo $activityTitle;?> </span></div>
                 <?php endforeach;?>
                 <?php else :?>
                     <div class="no-data">No Data Available</div>
