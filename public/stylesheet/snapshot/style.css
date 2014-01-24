@@ -460,6 +460,10 @@ a:link {
   width: 546px;
 }
 
+.activities-block span {
+	display: block;
+}
+
 .activities-block .name {
 	font-family: Arial;
 }
