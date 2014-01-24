@@ -478,6 +478,10 @@ a:link {
   background: #eef9fd;
 }
 
+.activity-details:nth-child(2n) {
+  background: #eef9fd url(images/activity-arrow.png) no-repeat 4px 10px;;
+}
+
 /*
     ColorBox Core Style:
     The following CSS is consistent between example themes and should not be altered.
@@ -980,16 +984,21 @@ a:hover {
 #organisation-contact-info ul li span {
 	color: #777;
 	float: left;
+	padding-right: 2px;
 }
 
 #organisation-contact-info .value {
 	float: left;
 }
 
-.published-block ul li {
+.published-block ul li,.activity-details {
 	list-style: none;
 	padding-bottom: 16px;
-	background: url(images/activity-arrow.png) no-repeat 0 0;
+	background: url(images/activity-arrow.png) no-repeat 4px 10px;
+}
+
+.activity-details {
+	padding-left: 26px;
 }
 
 .published-block ul li span {
