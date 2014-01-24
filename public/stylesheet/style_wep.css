@@ -1029,7 +1029,8 @@ input[type="checkbox"]
 	margin-top: 10px;
 }
 
-button.form-submit, input.form-submit, a.button, .profile-links, .dashboard-summary a, #Submit, #create_new_account, #reset_password, #login, #save, #save_and_view{
+button.form-submit, input.form-submit, a.button, .profile-links, .dashboard-summary a, #Submit, #create_new_account, #reset_password, #login, #save, #save_and_view,
+.xml-back{
     background: rgb(125,185,232); /* Old browsers */
 background: -moz-linear-gradient(top,  rgba(125,185,232,1) 0%, rgba(0,119,169,1) 100%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(125,185,232,1)), color-stop(100%,rgba(0,119,169,1))); /* Chrome,Safari4+ */
@@ -1051,7 +1052,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7db9e8', end
     text-decoration: none;
 }
 
-button.form-submit:hover, input.form-submit:hover, a.button:hover, .profile-links:hover, .dashboard-summary a:hover, #Submit:hover, #create_new_account:hover, #reset_password:hover, #login:hover, #save:hover, #save_and_view:hover
+button.form-submit:hover, input.form-submit:hover, a.button:hover, .profile-links:hover, .dashboard-summary a:hover, #Submit:hover, #create_new_account:hover, #reset_password:hover, #login:hover, #save:hover, #save_and_view:hover,
+.xml-back:hover
 {
 	background: rgb(125,185,232); /* Old browsers */
 background: -moz-linear-gradient(top,  rgba(125,185,232,1) 0%, rgba(0,107,201,1) 100%); /* FF3.6+ */
@@ -5778,4 +5780,18 @@ th.doc-link {
 	height: 520px;
 	overflow-y: scroll;
 	clear: both;
+}
+
+#validation-errors p {
+	float: left;
+	font-weight: bold;
+}
+
+.xml-back {
+	float: right;
+	margin-top: 8px;
+}
+
+.xml-validation-table th.filename,.xml-validation-table th.xmlerrors {
+	width: 240px;
 }

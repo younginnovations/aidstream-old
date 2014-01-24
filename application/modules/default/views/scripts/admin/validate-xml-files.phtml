@@ -31,11 +31,12 @@
 <?php if (isset($this->errors)): ?>
 <div id="validation-errors">
 	<p>Validation Report:</p>
-	<a href="/admin/validate-xml-files">Go Back</a>
+	<a href="/admin/validate-xml-files" class="xml-back">Go Back</a>
+	<div class="xml-list-wrapper">
 	<table class="xml-validation-table">
 		<thead>
 			<tr>
-				<th>S.N.</th><th>Filename</th><th>Errors</th>
+				<th class="num">S.N.</th><th class="filename">Filename</th><th class="xmlerror">Errors</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -67,5 +68,6 @@
 			<?php endif; ?>
 		</tbody>
 	</table>
+</div>
 </div>
 <?php endif; ?>
