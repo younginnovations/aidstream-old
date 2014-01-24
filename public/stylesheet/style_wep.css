@@ -5792,8 +5792,12 @@ th.doc-link {
 	margin-top: 8px;
 }
 
-.xml-validation-table th.filename,.xml-validation-table th.xmlerrors {
-	width: 240px;
+.xml-validation-table th.filename {
+	width: 200px;
+}
+
+.xml-validation-table th.xmlerrors {
+	width: 300px;
 }
 
 #contain .xml-validation-table td {

@@ -136,7 +136,7 @@ a:link {
 	width: 460px;
 }
 
-#data-wrapper h3 {
+#data-wrapper h3,.activities-block h3,.sectors-block h3 {
 	font: normal 20px Roboto;
 	color: #333;
 	text-transform: uppercase;
@@ -460,13 +460,8 @@ a:link {
   width: 546px;
 }
 
-.activities-block span {
-	float: left;
-}
-
 .activities-block .name {
 	font-family: Arial;
-	width: 200px;
 }
 
 .sector-details,.activity-details {
@@ -974,3 +969,32 @@ a:hover {
 	margin-right: 20px!important;
 }
 
+#organisation-contact-info ul li {
+	overflow: hidden;
+}
+
+#organisation-contact-info ul li span {
+	color: #777;
+	float: left;
+}
+
+#organisation-contact-info .value {
+	float: left;
+}
+
+.published-block ul li {
+	list-style: none;
+	padding-bottom: 16px;
+	background: url(images/activity-arrow.png) no-repeat 0 0;
+}
+
+.published-block ul li span {
+	font: normal 14px/20px Roboto;
+	color: #888;
+	text-decoration: none;
+	padding-left: 26px;
+}
+
+.published-block .value {
+	padding-left: 26px;
+}

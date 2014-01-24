@@ -38,19 +38,19 @@
                 <div id="organisation-contact-info">
                     <h4>Contact Details</h4>    
                     <ul>    
-                        <li>Address: <?php print $organisation['address']; ?></li>
-                        <li>Telephone: <?php print $organisation['telephone']; ?></li>
-                        <li>Email: <a href="mailto:<?php print $organisation['email']; ?>"><?php print $organisation['email']; ?></a></li>
+                        <li><span>Address:</span> <div class="value"><?php print $organisation['address']; ?></div></li>
+                        <li><span>Telephone:</span> <div class="value"><?php print $organisation['telephone']; ?></div></li>
+                        <li><span>Email:</span> <div class="value"><a href="mailto:<?php print $organisation['email']; ?>"><?php print $organisation['email']; ?></a></div></li>
 
-                        <li>Website: 
-                        <?php if ($organisation['website'] != 'Not Available'){ ?>
+                        <li><span>Website:</span> 
+                        <div class="value"><?php if ($organisation['website'] != 'Not Available'){ ?>
                             <a href="<?php print $organisation['website']; ?>" target="_blank"><?php print $organisation['website']; ?></a></li><?php } else { ?>
-                            <?php print $organisation['website']; ?></li>
+                            <?php print $organisation['website']; ?></div></li>
                         <?php } ?>
-                        <li>Twitter:
-                        <?php if ($organisation['twitter'] != 'Not Available'){ ?>
+                        <li><span>Twitter:</span>
+                        <div class="value"><?php if ($organisation['twitter'] != 'Not Available'){ ?>
                             <a href="http://twitter.com/<?php print preg_replace("/@/", "", $organisation['twitter'], 1); ?>" target="_blank"><?php print $organisation['twitter']; ?></a></li><?php } else { ?>
-                            <?php print $organisation['twitter']; ?></li>
+                            <?php print $organisation['twitter']; ?></div></li>
                         <?php } ?>
                         
                     </ul>
@@ -92,7 +92,7 @@
     <?php if($activities):?>
         <div id="published-files" class="inner-block">
             <h3>Activities(Top 3)<span id="activities-info" class="dialog-box-open">help</span><a href="#" class="activities-more">View all</a></h3>
-                <table class="data">
+            <!--     <table class="data">
                     <tr>
                          <th>Activity Identifier</th>
                         <th>Activity Title</th>                       
@@ -103,13 +103,23 @@
                         <td><?php print $activityTitle; ?></td>
                     </tr>
                 <?php endforeach; ?>
-                </table>
+                </table> -->
+                <div class="published-block">
+            <ul>
+                <?php foreach($activities as $activityId => $activityTitle): ?>
+                <li><span><?php print $activityId?></span>
+                    <div class="value"><?php print $activityTitle; ?></div>
+                </li>
+                 <?php endforeach; ?>
+            </ul>
+            </div>
         </div>
     <?php endif; ?>
     <?php $activities = $handler->get('activities'); ?>
         <div id="activities" style='display:none'>
             <div id='content' style='background:#fff;'>
                 <div class="activities-block">
+                    <h3>ACTIVITIES</h3>
                 <?php if($activities): ?>
                 <?php foreach($activities as $activityId=>$activityTitle):?>
                     <div class="activity-details"><span class="name"><?php echo $activityId;?></span><span><?php echo $activityTitle;?> </span></div>
@@ -159,6 +169,7 @@
     <div style='display:none'>
         <div id='inline_content' style='background:#fff;'>
             <div class="sectors-block">
+                <h3>SECTORS</h3>
             <?php if($sectors): ?>
             <?php foreach($sectors as $sectorName=>$sector):?>
                 <div class="sector-details"><span class="name"><?php echo $sectorName;?> : </span><span><?php echo $sector->count;?></span></div>
