@@ -5795,3 +5795,7 @@ th.doc-link {
 .xml-validation-table th.filename,.xml-validation-table th.xmlerrors {
 	width: 240px;
 }
+
+#contain .xml-validation-table td {
+	vertical-align: top;
+}
