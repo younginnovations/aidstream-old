@@ -341,6 +341,31 @@ class Model_Wep extends Zend_Db_Table_Abstract
                 $wepModel->updateRowsToTable('iati_organisation' , $organisationData);                        
             }
         }
+
+        $modelRegistryInfo = new Model_RegistryInfo();
+        $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($identity->account_id);
+        if($registryInfo && $registryInfo->publisher_id){
+            $pub = new Iati_WEP_Publish(
+                    $identity->account_id,
+                    $registryInfo->publisher_id ,
+                    $registryInfo->publishing_type
+                );
+            $pub->publish();
+        }
+
+    }
+
+    public function updateIatiIdentifiers($reportingOrgRef) {
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $activities = $this->listAll('iati_activities', 'account_id', $identity->account_id);
+        $activitiesId = $activities[0]['id'];
+        $activityArray = $this->listAll('iati_activity', 'activities_id', $activitiesId);
+        foreach ($activityArray as $key=>$activity) {
+            $activityRow = $this->getRowById('iati_identifier', 'activity_id', $activity['id']);
+            $iatiIdentifier = $reportingOrgRef . '-' . $activityRow['activity_identifier']; 
+            $data['text'] = $iatiIdentifier;
+            $this->updateRow('iati_identifier', $data, 'activity_id', $activity['id']);
+        }
     }
 
 }

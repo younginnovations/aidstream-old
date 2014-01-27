@@ -18,7 +18,7 @@ $(document).ready(function(){
             var newData = $('#fieldset-reporting_org_info :input').serialize();
             if (oldData != newData) {
                 event.preventDefault();
-                var confirmDialog = confirm('It seems you have changed your Reporting Org Information. Are you sure you want to continue?');
+                var confirmDialog = confirm('You have changed the reporting organisation information. Your changes are saved in the settings. Do you want to update your activities and publish them?');
                 if (confirmDialog == true) {
                     $(this).attr("action", "settings?btn=ok") 
                     $(this).submit();

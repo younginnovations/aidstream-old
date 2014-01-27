@@ -853,8 +853,8 @@ function initialize() {
 		var selected = getTarget(evt);
 		var identifier = selected.value.replace(/ /g,'');
 		var repOrg = dojo.query('#IatiIdentifier-reporting_org').attr('value');
-		dojo.query('#IatiIdentifier-text').attr('value', repOrg+'-'+identifier);
-	    }
+		dojo.query('#IatiIdentifier-text').attr('value', repOrg+'-'+identifier);	    
+        }
 	},
 	
 	".delete-files" : {
@@ -1718,20 +1718,21 @@ dojo.ready( function () {
         } 
     });     
     dojo.query(".form-submit").connect( "click", function(evt){
-	dojo.query('.currency').forEach( function(node) {
-        var amount = dojo.query(node).val(); 
-        if(amount){ 
-             match = amount.match(/,,,*/g); 
-             if(!match)
-             {
-                amount = amount.replace(/,/g, "");
-                var num  = dojo.number.round(amount, 2); 
-                if(num)
-                {
-                    dojo.query(node).val(num);
-                }
-             }
-       }                     
-    }); 
-});   
+    	dojo.query('.currency').forEach( function(node) {
+            var amount = dojo.query(node).val(); 
+            if(amount){ 
+                 match = amount.match(/,,,*/g); 
+                 if(!match)
+                 {
+                    amount = amount.replace(/,/g, "");
+                    var num  = dojo.number.round(amount, 2); 
+                    if(num)
+                    {
+                        dojo.query(node).val(num);
+                    }
+                 }
+            }                         
+        }); 
+    });
+
 });

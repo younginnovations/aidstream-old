@@ -184,8 +184,9 @@ class WepController extends Zend_Controller_Action
 
                     //If reporting org change
                     if ($reportingOrgNew != $reportingOrgOld) {
-                        $model->settingsChange();
                         if ($save == "ok") {
+                            $model->settingsChange();
+                            $model->updateIatiIdentifiers($data['reporting_org_ref']);
                             //Check push_to_registry for activity
                             $modelPublished = new Model_Published();
                             $activityPublish = $modelPublished->isPushedToRegistry($identity->account_id);
