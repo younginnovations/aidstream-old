@@ -4670,17 +4670,21 @@ a:hover {
 .header {
 	width: 940px;
 	margin: 0 auto;
-	padding: 20px 10px 26px;
+	padding: 16px 10px 26px;
 	overflow: hidden;
 }
 
 .logo {
 	float: left;
-	width: 240px;
+	width: 180px;
 }
 
 .logo a {
 	display: block;
+}
+
+.logo a:hover {
+	background: none;
 }
 
 .nav {
@@ -4691,7 +4695,7 @@ a:hover {
 
 .nav ul {
 	float: left;
-	padding-top: 6px;
+	padding-top: 12px;
 }
 
 .nav ul li {
@@ -4756,6 +4760,7 @@ a:hover {
 	font: 13px/29px Arial,sans-serif;
 	color: #fff;
 	margin-left: 20px;
+	margin-top: 6px;
 }	
 
 .login a {
@@ -5297,7 +5302,7 @@ button.next:hover {
 	padding: 26px 20px;
 	position: absolute;
 	right: 10px;
-	top: -28px;
+	top: -48px;
 	background: -moz-linear-gradient(top,  rgba(238,238,238,0.90) 0%, rgba(255,255,255,0.90) 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(238,238,238,0.90)), color-stop(100%,rgba(255,255,255,0.90))); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top,  rgba(238,238,238,0.90) 0%,rgba(255,255,255,0.90) 100%); /* Chrome10+,Safari5.1+ */
