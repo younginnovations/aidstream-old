@@ -1,0 +1,6 @@
+../xml/aai-activities.xml validates
+../xml/asdfweasdfasdfqsfqw123-activities.xml validates
+../xml/asdfweasdfasdfqsfqw123-org.xml:2: element iati-organisations: Schemas validity error : Element 'iati-organisations': No matching global declaration available for the validation root.
+../xml/asdfweasdfasdfqsfqw123-org.xml fails to validate
+../xml/asdfweasdfasdfqsfqw12-998.xml validates
+../xml/asdfweasdfasdfqsfqw12-np.xml validates
