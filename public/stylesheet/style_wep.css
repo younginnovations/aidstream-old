@@ -4756,7 +4756,6 @@ a:hover {
 	border-radius: 3px; 
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
-	padding: 0 14px;
 	font: 13px/29px Arial,sans-serif;
 	color: #fff;
 	margin-left: 20px;
@@ -4768,6 +4767,7 @@ a:hover {
 	color: #fff;
 	text-decoration: none;
 	display: inline-block;
+	padding: 0 14px;
 }
 
 .login:hover {

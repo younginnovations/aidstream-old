@@ -48,25 +48,7 @@
 
 <body class="login-layout">
     <div id="wrapper">
-    <div class="login-wrapper">
-      <div id="login-form-wrapper" style="display:none">
-	<?php $form = new User_Form_User_Login(); ?>
-	<form method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>" id="<?php echo $form->getId() ?>" >
-	    <table>
-		<tr>
-		    <td><?php echo $form->username->renderViewHelper();?><span id='username-error' class="error" ></span></td>
-		</tr>
-		<tr>
-		    <td><?php echo $form->password->renderViewHelper();?><span id='password-error' class="error" ></span></td>
-		</tr>
-		<tr>
-		    <td><?php echo $this->formSubmit('login','Secure Login'); ?> </td>
-		</tr>
-		<tr> <td><div class="login-register">Not registered yet? <?php echo $this->l('Register now', 'user/user/register');?> </div><div class='forgot-password'><?php echo $this->l('Forgot Password?', 'user/user/forgotpassword');?></div></td></tr>
-	    </table>
-	</form>
-    </div><!--Close login-form-container-->
-    </div>
+
 	    
         <div id="hidden-overlay"></div>
 	<div id="login-hidden-overlay"></div>
@@ -121,6 +103,25 @@
 			</div>
 		</div>
 	</div>	
+        <div class="login-wrapper">
+      <div id="login-form-wrapper" style="display:none">
+    <?php $form = new User_Form_User_Login(); ?>
+    <form method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>" id="<?php echo $form->getId() ?>" >
+        <table>
+        <tr>
+            <td><?php echo $form->username->renderViewHelper();?><span id='username-error' class="error" ></span></td>
+        </tr>
+        <tr>
+            <td><?php echo $form->password->renderViewHelper();?><span id='password-error' class="error" ></span></td>
+        </tr>
+        <tr>
+            <td><?php echo $this->formSubmit('login','Secure Login'); ?> </td>
+        </tr>
+        <tr> <td><div class="login-register">Not registered yet? <?php echo $this->l('Register now', 'user/user/register');?> </div><div class='forgot-password'><?php echo $this->l('Forgot Password?', 'user/user/forgotpassword');?></div></td></tr>
+        </table>
+    </form>
+    </div><!--Close login-form-container-->
+    </div>
     </div>
             <!--search div start-->
 
