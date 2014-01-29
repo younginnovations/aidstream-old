@@ -4,6 +4,7 @@ library/Zend/
 public/error_log
 tests/output
 public/iaticodes
+public/files/v1.03/
 tests/annual_csv
 nbproject/
 *.komodoproject
