@@ -631,9 +631,9 @@ a:hover {
 
 .header-container {
 	border-bottom: 14px solid #D5E0E4;
-	position: fixed;
+/*	position: fixed;
 	width: 100%;
-	z-index: 100;
+	z-index: 100;*/
 }
 
 .header {
@@ -645,12 +645,11 @@ a:hover {
 
 .logo {
 	float: left;
-	width: 240px;
+	width: 180px;
 }
 
 .logo a {
 	display: block;
-	height: 39px;
 }
 
 .nav {
@@ -661,8 +660,7 @@ a:hover {
 
 .nav ul {
 	float: left;
-	padding-top: 6px;
-	line-height: 18px;
+	padding-top: 12px;
 }
 
 .nav ul li {
@@ -692,13 +690,13 @@ a:hover {
 .login {
 	float: right;
 	background: #85B200;
-	border-radius: 3px; 
+	border-radius: 3px;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
-	padding: 0 14px;
 	font: 13px/29px Arial,sans-serif;
 	color: #fff;
 	margin-left: 20px;
+	margin-top: 6px;
 }	
 
 .login a {
@@ -750,7 +748,7 @@ a:hover {
 	padding: 26px 20px;
 	position: absolute;
 	right: 10px;
-	top: 64px;
+	top: -48px;
 	background: -moz-linear-gradient(top,  rgba(238,238,238,0.90) 0%, rgba(255,255,255,0.90) 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(238,238,238,0.90)), color-stop(100%,rgba(255,255,255,0.90))); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top,  rgba(238,238,238,0.90) 0%,rgba(255,255,255,0.90) 100%); /* Chrome10+,Safari5.1+ */
