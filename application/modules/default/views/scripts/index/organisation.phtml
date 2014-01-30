@@ -1,7 +1,5 @@
 <?php
 	$handler = $this->handler;
-	$url = Zend_Controller_Front::getInstance()->getRequest()->getRequestUri();
-	$baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
 	$identifier = $_GET['reporting_org'];
     if (isset($this->organisation_array)):
         $organisation = $this->organisation_array;
@@ -39,14 +37,13 @@
                     <h4>Contact Details</h4>    
                     <ul>    
                         <li><span>Address:</span> <div class="value"><?php print $organisation['address']; ?></div></li>
-                        <li><span>Telephone:</span> <div class="value"><?php print $organisation['telephone']; ?></div></li>
                         <li><span>Email:</span> <div class="value"><a href="mailto:<?php print $organisation['email']; ?>"><?php print $organisation['email']; ?></a></div></li>
-
                         <li><span>Website:</span> 
                         <div class="value"><?php if ($organisation['website'] != 'Not Available'){ ?>
                             <a href="<?php print $organisation['website']; ?>" target="_blank"><?php print $organisation['website']; ?></a></li><?php } else { ?>
                             <?php print $organisation['website']; ?></div></li>
                         <?php } ?>
+                        <li><span>Telephone:</span> <div class="value"><?php print $organisation['telephone']; ?></div></li>
                         <li><span>Twitter:</span>
                         <div class="value"><?php if ($organisation['twitter'] != 'Not Available'){ ?>
                             <a href="http://twitter.com/<?php print preg_replace("/@/", "", $organisation['twitter'], 1); ?>" target="_blank"><?php print $organisation['twitter']; ?></a></li><?php } else { ?>
@@ -258,7 +255,6 @@
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = 'testaidstream'; // shortname
     var disqus_identifier = '<?php print $identifier; ?>';
-    var disqus_url = '<?php print $baseUrl . $url; ?>';
     var disqus_disable_mobile = true;
 
     /* * * DON'T EDIT BELOW THIS LINE * * */
