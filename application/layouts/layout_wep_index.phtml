@@ -19,8 +19,8 @@
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style.css');
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style_wep.css');
 			$this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/print.css','print');
+			$this->headLink()->appendStylesheet('http://fonts.googleapis.com/css?family=Roboto:400,300');
 			if ($controller == "index" && $action == "organisation") {
-				$this->headLink()->appendStylesheet('http://fonts.googleapis.com/css?family=Roboto:400,300');
 				$this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/snapshot/style.css');
             	$this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/snapshot/nv.d3.css');
             	$this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/snapshot/jquery-ui.css');
