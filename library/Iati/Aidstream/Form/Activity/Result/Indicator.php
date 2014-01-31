@@ -24,7 +24,7 @@ class Iati_Aidstream_Form_Activity_Result_Indicator extends Iati_Core_BaseForm
         $form['ascending']->setLabel('Ascending')   
             ->setAttribs(array('class' => 'form-select'))
             ->setValue($this->data['@ascending'])
-            ->setMultiOptions(array(''=>'Select Anyone','True'=>'True','False'=>'False'));        
+            ->setMultiOptions(array(''=>'Select Anyone','true'=>'True','false'=>'False'));        
 
         $this->addElements($form);
         return $this;

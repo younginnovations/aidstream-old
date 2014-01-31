@@ -1031,7 +1031,7 @@ class Simplified_Model_Simplified
             
             $resultData[$count]['Indicator'][0]['id'] = $result['indicator_id'];
             $resultData[$count]['Indicator'][0]['measure'] = 1;
-            $resultData[$count]['Indicator'][0]['ascending'] = 'True';
+            $resultData[$count]['Indicator'][0]['ascending'] = 'true';
             
             $resultData[$count]['Indicator'][0]['Title'][0]['id'] = $result['indicator_title_id'];
             $resultData[$count]['Indicator'][0]['Title'][0]['text'] = $result['indicator'];
