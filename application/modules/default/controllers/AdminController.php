@@ -703,22 +703,24 @@ class AdminController extends Zend_Controller_Action
     public function validateXmlFilesAction() 
     {
         $xmlFolder = APPLICATION_PATH ."/../public" . Zend_Registry::get('config')->xml_folder;
-        $index = 0;
         if ($handle = opendir($xmlFolder)) {
             // Loop over directory
             while (false !== ($entry = readdir($handle))) {
-                // Only XML files
+                // Only activities XML files
                 if (!preg_match("/org/", $entry) && preg_match("/.xml/", $entry)) {
-                    $xml[$index] = $entry;    
+                    $activityXml[] = $entry;    
+                } elseif (preg_match("/org/", $entry)) {
+                    $organisationXml[] = $entry;
                 }
-                $index++; 
             }
             closedir($handle);
         }
-        natcasesort($xml);
+        natcasesort($activityXml);
+        natcasesort($organisationXml);
         $xmlForm = new Form_Admin_Xml();
         $this->view->xmlForm = $xmlForm;
-        $this->view->xml = $xml;
+        $this->view->activityXml = $activityXml;
+        $this->view->organisationXml = $organisationXml;
         
         if($formData = $this->getRequest()->isPost()) {
             $xmlFiles = $this->getRequest()->getParam('files');

@@ -1,31 +1,49 @@
 <?php if (!isset($this->errors)): ?>
-
 <div id="xml-list">
 	<dd id="button-element">
 		<button name="button" id="button" type="button" class="check-uncheck">Check All</button>
 	</dd>
 	<?php print $this->xmlForm; ?>
 	<div class="xml-list-wrapper">
-	<table class="xml-list-table">
-		<thead>
-			<tr>
-				<th></th><th>S.N.</th><th>Filename</th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php $index = 1; ?>
-			<?php foreach ($this->xml as $xml): ?>
-				<tr class="xml-row">
-					<td><input type="checkbox" name="xml_<?php print $xml; ?>" value="<?php print $xml; ?>" /></td>
-					<td class="sn"><?php print $index; ?></td>
-					<td class="filename"><a href="/files/xml/<?php print $xml; ?>" target="_blank"><?php print $xml; ?></a></td>
+		<table class="xml-list-table">
+			<thead>
+				<tr>
+					<th></th><th>S.N.</th><th>Filename</th>
 				</tr>
-			<?php $index++; ?>
-			<?php endforeach; ?>
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				<?php $index = 1; ?>
+				<?php foreach ($this->activityXml as $xml): ?>
+					<tr class="xml-row">
+						<td><input type="checkbox" name="xml_<?php print $xml; ?>" value="<?php print $xml; ?>" /></td>
+						<td class="sn"><?php print $index; ?></td>
+						<td class="filename"><a href="/files/xml/<?php print $xml; ?>" target="_blank"><?php print $xml; ?></a></td>
+					</tr>
+				<?php $index++; ?>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
 	</div>
 </div>
+<table class="xml-list-table">
+	<thead>
+		<tr>
+			<th></th><th>S.N.</th><th>Filename</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php $index = 1; ?>
+		<?php foreach ($this->organisationXml as $xml): ?>
+			<tr class="xml-row">
+				<td><input type="checkbox" name="xml_<?php print $xml; ?>" value="<?php print $xml; ?>" /></td>
+				<td class="sn"><?php print $index; ?></td>
+				<td class="filename"><a href="/files/xml/<?php print $xml; ?>" target="_blank"><?php print $xml; ?></a></td>
+			</tr>
+		<?php $index++; ?>
+		<?php endforeach; ?>
+	</tbody>
+</table>
+
 <?php endif; ?>
 
 <?php if (isset($this->errors)): ?>
