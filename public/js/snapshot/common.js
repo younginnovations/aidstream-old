@@ -23,50 +23,51 @@ $(document).ready(function(){
     $(".inline-more").colorbox({inline:true, width:"45%",height:"34%"});
     $(".activities-more").colorbox({inline:true, width:"58%", href:"#content"});
     
-    $('.load-more').click(function(){
-        $('.block-wrapper').slideDown('slow');
-        if($('.block-wrapper').css('display','block')) {
-            $(this).fadeOut();
-        }
-    });
-    
     // Draw graphs
     var repOrg = getUrlVar('reporting_org');
     if (repOrg == '') {
         repOrg == 'all';
     }
-    $.ajax({
-        type:"get",
-        url: location.protocol + "//" + location.host + "/default/index/ajax",
-        data: "reporting_org=" + repOrg + "&ele=activity_status",
-        success: function(data){
-            // Succesful, load visualization API and send data
-            var dataset = prepareStatusData(data)
-            drawBarChart('activity-status' , dataset);
-        }
-    });
     
-    $.ajax({
-        type:"get",
-        url: location.protocol + "//" + location.host + "/default/index/ajax",
-        data: "reporting_org=" + repOrg + "&ele=activity_dates",
-        success: function(data){
-            // Succesful, load visualization API and send data
-            var dataset = prepareDatesData(data);
-            drawLineChart('activity-dates' , dataset);
+    $('.load-more').click(function(){
+        $('.block-wrapper').slideDown('slow');
+        if($('.block-wrapper').css('display','block')) {
+            $(this).fadeOut();
         }
-    });
-    
-    
-    $.ajax({
-        type:"get",
-        url: location.protocol + "//" + location.host + "/default/index/ajax",
-        data: "reporting_org=" + repOrg + "&ele=recipient",
-        success: function(data){
-            // Succesful, load visualization API and send data
-            var dataset = prepareRecipientData(data);
-            drawHorizontalBarChart('recipient-info' , dataset);
-        }
+
+        $.ajax({
+            type:"get",
+            url: location.protocol + "//" + location.host + "/default/index/ajax",
+            data: "reporting_org=" + repOrg + "&ele=activity_status",
+            success: function(data){
+                // Succesful, load visualization API and send data
+                var dataset = prepareStatusData(data)
+                drawBarChart('activity-status' , dataset);
+            }
+        });
+        
+        $.ajax({
+            type:"get",
+            url: location.protocol + "//" + location.host + "/default/index/ajax",
+            data: "reporting_org=" + repOrg + "&ele=activity_dates",
+            success: function(data){
+                // Succesful, load visualization API and send data
+                var dataset = prepareDatesData(data);
+                drawLineChart('activity-dates' , dataset);
+            }
+        });
+        
+        
+        $.ajax({
+            type:"get",
+            url: location.protocol + "//" + location.host + "/default/index/ajax",
+            data: "reporting_org=" + repOrg + "&ele=recipient",
+            success: function(data){
+                // Succesful, load visualization API and send data
+                var dataset = prepareRecipientData(data);
+                drawHorizontalBarChart('recipient-info' , dataset);
+            }
+        });
     });
     
 });
@@ -76,7 +77,7 @@ function getUrlVar(key) {
     return result && unescape(result[1]) || ""; 
 }
 
-function drawBarChart(eleId , dataset){
+function drawBarChart(eleId , dataset) {
     var width = 450;
     var height = 294;
     nv.addGraph(function() {  
@@ -109,8 +110,7 @@ function drawBarChart(eleId , dataset){
       });
 }
 
-function prepareStatusData(data)
-{
+function prepareStatusData(data) {
     obj = JSON && JSON.parse(data) || $.parseJSON(data);
     if(obj == null) return;
     var status = new Array();
@@ -141,8 +141,7 @@ function prepareStatusData(data)
     return outData;
 }
 
-function drawLineChart(eleId , dataset)
-{
+function drawLineChart(eleId , dataset) {
     nv.addGraph(function() {
         var chart = nv.models.lineWithFocusChart();
       
@@ -210,8 +209,7 @@ function prepareDatesData(datesData) {
     ];
 }
 
-function prepareRecipientData(recipientData)
-{
+function prepareRecipientData(recipientData) {
     var values = new Array();
     obj = JSON && JSON.parse(recipientData) || $.parseJSON(recipientData);
     if(obj == null) return false;
@@ -240,8 +238,7 @@ function prepareRecipientData(recipientData)
     return values;
 }
 
-function drawHorizontalBarChart(eleId , sortedData)
-{
+function drawHorizontalBarChart(eleId , sortedData) {
     var valueLabelWidth = 40; // space reserved for value labels (right)
     var barHeight = 30; // height of one bar
     var barLabelWidth = 50; // space reserved for bar labels
