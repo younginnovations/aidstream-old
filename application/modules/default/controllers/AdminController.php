@@ -729,10 +729,15 @@ class AdminController extends Zend_Controller_Action
                     ->addMessage(array('info' => "Please select a XML file to validate."));
                 $this->_redirect('admin/validate-xml-files');
             }
-            $xmlSchema = Zend_Registry::get('config')->public_folder . Zend_Registry::get('config')->xml_schema . 'iati-activities-schema.xsd'; // Schema for validation
+            $xmlSchemaActivity = Zend_Registry::get('config')->public_folder . Zend_Registry::get('config')->xml_schema . 'iati-activities-schema.xsd'; // Schema for activity validation
+            $xmlSchemaOrg = Zend_Registry::get('config')->public_folder . Zend_Registry::get('config')->xml_schema . 'iati-organisations-schema.xsd'; // Schema for organisation validation
             $xmlFiles = explode(',',$xmlFiles);
             foreach ($xmlFiles as $xml) {
-                $output[$xml] = shell_exec('xmllint --noout --schema ' . $xmlSchema . ' ' . $xmlFolder . $xml.' 2>&1');
+                if (preg_match("/org/", $xml)) {
+                    $output[$xml] = shell_exec('xmllint --noout --schema ' . $xmlSchemaOrg . ' ' . $xmlFolder . $xml.' 2>&1');
+                } else {
+                    $output[$xml] = shell_exec('xmllint --noout --schema ' . $xmlSchemaActivity . ' ' . $xmlFolder . $xml.' 2>&1');
+                }
                 if (preg_match("/validates/", $output[$xml])) {
                     unset($output[$xml]);
                 }

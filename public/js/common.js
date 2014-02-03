@@ -515,7 +515,7 @@ function initialize() {
     "#validate" : {
         "onclick" : function (evt) {
         var files = new Array();
-            dojo.query('.xml-list-table  input[type=checkbox]:checked').forEach(function(tag){
+            dojo.query('.xml-list-table td input[type=checkbox]:checked').forEach(function(tag){
                 files.push(tag.value);
             });
         dojo.query('#files').attr('value',files.join(","));
