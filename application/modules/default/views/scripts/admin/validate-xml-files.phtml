@@ -4,11 +4,16 @@
 		<button name="button" id="button" type="button" class="check-uncheck">Check All</button>
 	</dd>
 	<?php print $this->xmlForm; ?>
+	<ul id="tabs">
+    <li><a id="tab1">Activity</a></li>
+    <li><a id="tab2">Organisation</a></li>
+  	</ul> 
+  	<div class="tabs-container" id="tab1C">
 	<div class="xml-list-wrapper">
 		<table class="xml-list-table">
 			<thead>
 				<tr>
-					<th></th><th>S.N.</th><th>Filename</th>
+					<th class="empty"></th><th class="num">S.N.</th><th class="filename">Filename</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -24,26 +29,30 @@
 			</tbody>
 		</table>
 	</div>
-</div>
-<table class="xml-list-table">
-	<thead>
-		<tr>
-			<th></th><th>S.N.</th><th>Filename</th>
-		</tr>
-	</thead>
-	<tbody>
-		<?php $index = 1; ?>
-		<?php foreach ($this->organisationXml as $xml): ?>
-			<tr class="xml-row">
-				<td><input type="checkbox" name="xml_<?php print $xml; ?>" value="<?php print $xml; ?>" /></td>
-				<td class="sn"><?php print $index; ?></td>
-				<td class="filename"><a href="/files/xml/<?php print $xml; ?>" target="_blank"><?php print $xml; ?></a></td>
+	</div>
+	<div class="tabs-container" id="tab2C">
+	<div class="xml-list-wrapper">
+	<table class="xml-list-table">
+		<thead>
+			<tr>
+				<th class="empty"></th><th class="num">S.N.</th><th class="filename">Filename</th>
 			</tr>
-		<?php $index++; ?>
-		<?php endforeach; ?>
-	</tbody>
-</table>
-
+		</thead>
+		<tbody>
+			<?php $index = 1; ?>
+			<?php foreach ($this->organisationXml as $xml): ?>
+				<tr class="xml-row">
+					<td><input type="checkbox" name="xml_<?php print $xml; ?>" value="<?php print $xml; ?>" /></td>
+					<td class="sn"><?php print $index; ?></td>
+					<td class="filename"><a href="/files/xml/<?php print $xml; ?>" target="_blank"><?php print $xml; ?></a></td>
+				</tr>
+			<?php $index++; ?>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+	</div>
+	</div>
+</div>
 <?php endif; ?>
 
 <?php if (isset($this->errors)): ?>
