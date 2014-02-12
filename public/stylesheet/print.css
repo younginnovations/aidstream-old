@@ -613,6 +613,7 @@ table {
 	float:right;
 	margin:0 100px 15px 0;
 	width:400px;
+    display: none;
 }
 
 .nav ul li
@@ -1094,7 +1095,7 @@ h2.form-title {
 #contain-left
 {
 	float:left;
-	width: 600px;
+	width: 98%;
 	margin-left: 10px;
 }
 
@@ -1122,6 +1123,10 @@ h2.form-title {
 }
 
 /* sidebar */
+
+#sidebar-right {
+    display: none;
+}
 
 #sidebar-right .data-block,#sidebar-right .management-block
 {
@@ -2749,6 +2754,7 @@ a.edit-element:hover
 	top: 0;
 	left: 0;
 	z-index: 900;
+    display: none;
 }
 
 #support-wrapper
@@ -4151,9 +4157,10 @@ ul li {
 	display: inline-block;
 }
 
-/*ul li {
-    overflow: hidden;
-}*/
+.element-activity ul li {
+    width: 96%!important;
+    margin: 0 auto;
+}
 
 
 /*style1*/
@@ -6175,4 +6182,9 @@ th.doc-link {
 .no-budget {
 	display: block;
     margin-bottom: 6px;
+}
+
+.element-default-toogle {
+    padding-left: 10px;
+    font-size: 12px;
 }

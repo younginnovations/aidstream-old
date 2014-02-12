@@ -5885,3 +5885,8 @@ a {cursor:pointer;}
 #xml-list dd#button-element {
 	margin-left: 0;
 }
+
+.element-default-toogle {
+    padding-left: 10px;
+    font-size: 12px;
+}
