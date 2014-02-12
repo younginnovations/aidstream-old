@@ -12,19 +12,19 @@ $(document).ready(function(){
     });
 
     $('#tabs li a:not(:first)').addClass('inactive');
-$('.tabs-container').hide();
-$('.tabs-container:first').show();
-    
-$('#tabs li a').click(function(){
-    var t = $(this).attr('id');
-  if($(this).hasClass('inactive')){ //this is the start of our condition 
-    $('#tabs li a').addClass('inactive');           
-    $(this).removeClass('inactive');
-    
     $('.tabs-container').hide();
-    $('#'+ t + 'C').show();
- }
-});
+    $('.tabs-container:first').show();
+        
+    $('#tabs li a').click(function(){
+        var t = $(this).attr('id');
+        if($(this).hasClass('inactive')){ //this is the start of our condition 
+            $('#tabs li a').addClass('inactive');           
+            $(this).removeClass('inactive');
+        
+            $('.tabs-container').hide();
+            $('#'+ t + 'C').show();
+        }
+    });
 
     // Reporting Org Change Detection
     var oldData = $("#fieldset-reporting_org_info :input[value!='']").serialize();
@@ -46,4 +46,20 @@ $('#tabs li a').click(function(){
         });
     }
 
+    // Select all xml files for validation
+    $('.selectallactivity').click(function(){
+        if ($(this).is(':checked')) {
+            $('#activity-xml input').attr('checked', true);
+        } else {
+            $('#activity-xml input').attr('checked', false);
+        }
+    });   
+
+    $('.selectallorganisation').click(function(){
+        if ($(this).is(':checked')) {
+            $('#organisation-xml input').attr('checked', true);
+        } else {
+            $('#organisation-xml input').attr('checked', false);
+        }
+    });
 });

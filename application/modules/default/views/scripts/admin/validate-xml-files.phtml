@@ -1,8 +1,5 @@
 <?php if (!isset($this->errors)): ?>
 <div id="xml-list">
-	<dd id="button-element">
-		<button name="button" id="button" type="button" class="check-uncheck">Check All</button>
-	</dd>
 	<?php print $this->xmlForm; ?>
 	<ul id="tabs">
     <li><a id="tab1">Activity</a></li>
@@ -10,10 +7,12 @@
   	</ul> 
   	<div class="tabs-container" id="tab1C">
 	<div class="xml-list-wrapper">
-		<table class="xml-list-table">
+		<table class="xml-list-table" id="activity-xml">
 			<thead>
 				<tr>
-					<th class="empty"></th><th class="num">S.N.</th><th class="filename">Filename</th>
+					<th class="empty"><input type="checkbox" class="selectallactivity"></th>
+					<th class="num">S.N.</th>
+					<th class="filename">Filename</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -32,10 +31,12 @@
 	</div>
 	<div class="tabs-container" id="tab2C">
 	<div class="xml-list-wrapper">
-	<table class="xml-list-table">
+	<table class="xml-list-table" id="organisation-xml">
 		<thead>
 			<tr>
-				<th class="empty"></th><th class="num">S.N.</th><th class="filename">Filename</th>
+				<th class="empty"><input type="checkbox" class="selectallorganisation"></th>
+				<th class="num">S.N.</th>
+				<th class="filename">Filename</th>
 			</tr>
 		</thead>
 		<tbody>
