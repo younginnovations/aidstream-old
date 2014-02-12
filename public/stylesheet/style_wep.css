@@ -5185,6 +5185,7 @@ button.next:hover {
 	font-size: 14px;
 }
 
+
 .aid-bottom-block {
 	width: 940px;
 	padding: 0 10px;
@@ -5856,6 +5857,7 @@ a {cursor:pointer;}
     outline:none;
   
 }
+
 
 #tabs li a.inactive{
   padding-left: 8px;
