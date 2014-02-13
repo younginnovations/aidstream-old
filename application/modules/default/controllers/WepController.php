@@ -84,7 +84,7 @@ class WepController extends Zend_Controller_Action
         $this->view->published_activity_count = $regPublishModel->getActivityCount($publishedFiles);
         $this->view->activity_elements_info = $activitiesAttribs;
         $this->view->registry_url = Zend_Registry::get('config')->registry
-                                        ."../publisher/".$regInfo->publisher_id;
+                                        ."/publisher/".$regInfo->publisher_id;
         $this->view->activities_id = $activities_id;
 
     }
