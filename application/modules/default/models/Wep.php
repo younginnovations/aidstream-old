@@ -355,8 +355,12 @@ class Model_Wep extends Zend_Db_Table_Abstract
 
     }
 
+    /**
+     * Update IATI Identifier values in activities and organisation data if changed in settings.
+     */
     public function updateIatiIdentifiers($reportingOrgRef) {
-        $identity = Zend_Auth::getInstance()->getIdentity();
+        $identity = Zend_Auth::getInstance()->getIdentity(); 
+        // For Activities
         $activities = $this->listAll('iati_activities', 'account_id', $identity->account_id);
         $activitiesId = $activities[0]['id'];
         $activityArray = $this->listAll('iati_activity', 'activities_id', $activitiesId);
@@ -366,6 +370,10 @@ class Model_Wep extends Zend_Db_Table_Abstract
             $data['text'] = $iatiIdentifier;
             $this->updateRow('iati_identifier', $data, 'activity_id', $activity['id']);
         }
+        // For Organisation Data
+        $organisation = $this->getRowById('iati_organisation', 'account_id', $identity->account_id);
+        $organisationId = $organisation['id'];
+        $this->updateRow('iati_organisation/identifier', array('text'=>$reportingOrgRef), 'organisation_id', $organisationId);
     }
 
 }

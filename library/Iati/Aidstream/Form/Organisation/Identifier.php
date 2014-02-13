@@ -36,6 +36,7 @@ class Iati_Aidstream_Form_Organisation_Identifier extends Iati_Core_BaseForm
                 'ignore'   => false,
             )
         );
+        $this->removeElement('update');
     }
 
 }
