@@ -88,27 +88,18 @@
     <?php $activities = $handler->getTop3Activities();?>
     <?php if($activities):?>
         <div id="published-files" class="inner-block">
-            <h3>Activities(Top 3)<span id="activities-info" class="dialog-box-open">help</span><a href="#" class="activities-more">View all</a></h3>
-            <!--     <table class="data">
-                    <tr>
-                         <th>Activity Identifier</th>
-                        <th>Activity Title</th>                       
-                    </tr>
-                <?php foreach($activities as $activityId => $activityTitle): ?>
-                    <tr>
-                        <td><?php print $activityId?></td>
-                        <td><?php print $activityTitle; ?></td>
-                    </tr>
-                <?php endforeach; ?>
-                </table> -->
-                <div class="published-block">
-            <ul>
-                <?php foreach($activities as $activityId => $activityTitle): ?>
-                <li><span><?php print $activityId?></span>
-                    <div class="value"><?php print $activityTitle; ?></div>
-                </li>
-                 <?php endforeach; ?>
-            </ul>
+            <h3>Activities<span id="activities-info" class="dialog-box-open">help</span><a href="#" class="activities-more">View all</a></h3>
+            <div class="published-block">
+                <ul>
+                    <?php foreach($activities as $activityId => $activityTitle): ?>
+                    <li><span><?php print $activityId?></span>
+                        <div class="value"><?php print $activityTitle; ?></div>
+                    </li>
+                     <?php endforeach; ?>
+                </ul>
+                <?php if(isset($this->registry_url)): ?>
+                    <li>Publisher URL: <a href="http://iatiregistry.org<?php echo $this->registry_url; ?>" target="_blank">http://iatiregistry.org<?php echo $this->registry_url; ?></a></li>
+                <?php endif; ?>
             </div>
         </div>
     <?php endif; ?>

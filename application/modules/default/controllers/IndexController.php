@@ -54,13 +54,15 @@ class IndexController extends Zend_Controller_Action
         $userModel = new Model_User();
         $publishModel = new Model_Published();
         $wepModel = new Model_Wep();
+        $regInfoModel = new Model_RegistryInfo();
         
         $result = $accountModel->getAccountByOrganisation($reportingOrg);
         if (count($result)) {
             // Get Account Id
             $accountId = $result['id'];
             $user = $userModel->getUserByAccountId($accountId);
-
+            $regInfo = $regInfoModel->getOrgRegistryInfo($accountId);
+        
             // Get Organisation Info
             $organisation_array['name'] = $result['name'];
             $organisation_array['image'] = $result['file_name'];
@@ -72,6 +74,8 @@ class IndexController extends Zend_Controller_Action
             $organisation_array['prefix'] = $result['username'];
             
             $this->view->organisation_array = $organisation_array;
+            $this->view->registry_url = Zend_Registry::get('config')->registry
+                                            ."/publisher/".$regInfo->publisher_id;
         } else {
             // For all organisations: snapshot 
             if ($reportingOrg == 'all' || $reportingOrg == '') {
