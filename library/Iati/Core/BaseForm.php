@@ -179,15 +179,17 @@ abstract class Iati_Core_BaseForm extends Zend_Form
         }
         return false;
     }
+
     public function addDefaultToogleLink($className = '',$toggleState='show'){
         if(!$className){
             $className = $this->element->getFullName();
         } 
         $defaultsToggle = new Iati_Form_Element_Note('defaultsToggle');
         $defaultsToggle->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'element-default-toogle'));
-        $defaultsToggle->setValue("<a href='#' class='element-default-toogle-button {$toggleState}' value='{$className}'>".ucfirst($toggleState)." Defaults</a>");  
+        $defaultsToggle->setValue("<a href='#' class='element-default-toogle-button {$toggleState}' value='{$className}'>".ucfirst($toggleState)." Defaults</a><br>");  
         $this->addElement($defaultsToggle);
     }
+
     /**
      * Function to add 'remove element' link to the form for element which can be multiple.
      *
