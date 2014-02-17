@@ -47,7 +47,7 @@ class IndexController extends Zend_Controller_Action
         if ($_GET['reporting_org']) {
             $reportingOrg = $this->_request->getParam('reporting_org');
         } else {
-            $this->redirect('organisation?reporting_org=all');
+            $this->_redirect('organisations');
         }
         (!$reportingOrg) ? ($handler = new Iati_Snapshot_Lib_DataHandler()) : ($handler = new Iati_Snapshot_Lib_DataHandler($reportingOrg));
         $accountModel = new User_Model_DbTable_Account();
@@ -90,7 +90,7 @@ class IndexController extends Zend_Controller_Action
                 $total['organisations'] = $count['total'];
                 $this->view->total = $total;
             } else {
-                $this->redirect('organisation?reporting_org=all');
+                $this->_redirect('organisation?reporting_org=all');
             }
         } // end if
         $this->view->handler = $handler;
