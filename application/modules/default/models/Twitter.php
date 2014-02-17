@@ -31,6 +31,10 @@ class Model_Twitter {
 	public function sendTweet() {
 		$identity = Zend_Auth::getInstance()->getIdentity();
 		$accountId = $identity->account_id;
+
+		$regInfoModel = new Model_RegistryInfo();
+		$regInfo = $regInfoModel->getOrgRegistryInfo($accountId);
+		$registryUrl = "/publisher/".$regInfo->publisher_id;
 		
 		$model = new User_Model_DbTable_Account();
 		$row = $model->getAccountRowById($accountId);
@@ -38,7 +42,7 @@ class Model_Twitter {
 		if (strlen($row['twitter']) != 0)
 			$twitter = $this->verifyCredentials();
 			if (is_object($twitter)) {
-				$twitter->statuses->update($row['name'] . ' (' . $row['twitter'] .  ') has published their aid data. View the data here: http://iatiregistry.org/publisher/' . $row['username'] . ' #AidStream #IATI');
+				$twitter->statuses->update($row['name'] . ' (' . $row['twitter'] .  ') has published their aid-data. View the data here: http://iatiregistry.org' . $registryUrl . ' #AidStream #IATI');
 			} else {
 				return false;
 		}
