@@ -83,6 +83,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $router = $this->getResource('frontController')->getRouter();
         $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/routing.ini', 'routing');
         $router->addConfig($config, 'routes');
+
+        $route = new Zend_Controller_Router_Route_Static(
+            'snapshot',
+            array('controller' => 'index', 'action' => 'organisation')
+        );
+        $router->addRoute('snapshot', $route);
     }
 
 
