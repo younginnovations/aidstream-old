@@ -1,24 +1,25 @@
 <?php
+include_once("Config.php");
 class AidstreamConnector{
     protected $connection;
     protected $tableName;
-    
-    public function __construct($user = 'root' , $password = 'yipl123' , $dbname= 'iati_aims_db' , $tablename = 'registry_published_data')
+
+    public function __construct()
     {
-        $this->tableName = $tablename;
-        $con = new PDO('mysql:host=localhost;dbname='.$dbname, $user, $password);
+        $this->tableName = DB_TABLE;
+        $con = new PDO('mysql:host=localhost;dbname='.DB_NAME, DB_USER, DB_PASSWORD);
         $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->connection = $con;
     }
-    
+
     public function getFileUrls($lastDate = '')
     {
         $activityLastUpdate = strtotime($lastDate);
-                
+
         $stmt = $this->connection->prepare("SELECT filename , response FROM  `{$this->tableName}` ");
         $stmt->execute();
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         $urls = array();
         foreach( $rows as $file){
             $metadata = unserialize($file['response']);
@@ -28,7 +29,7 @@ class AidstreamConnector{
         }
         return $urls;
     }
-    
+
     public function getNames($eleName , $code)
     {
         switch($eleName){
