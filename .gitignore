@@ -14,3 +14,4 @@ nbproject/
 data/log/zf.iati.log
 application/configs/application.ini
 public/captcha
+Config.php
