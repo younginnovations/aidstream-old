@@ -1,6 +1,6 @@
 <?php
 /**
- * Default controller. 
+ * Default controller.
  * @author YIPL dev team
  */
 class IndexController extends Zend_Controller_Action
@@ -8,7 +8,7 @@ class IndexController extends Zend_Controller_Action
 
     public function init()
     {
-	    $this->_helper->layout->setLayout('layout_wep_index');   
+	    $this->_helper->layout->setLayout('layout_wep_index');
     }
     /**
      * Home page
@@ -17,15 +17,15 @@ class IndexController extends Zend_Controller_Action
     {
     	$model = new User_Model_DbTable_Account();
     	$count = $model->getAccountCount();
-    	
+
     	$this->view->orgCount = $count['total'];
     }
-    
+
     /**
      * About us page.
      */
     public function aboutAction(){}
-    
+
     /**
      * Users list page
      */
@@ -36,13 +36,13 @@ class IndexController extends Zend_Controller_Action
 	    $usersWithImage = $model->getUsersWithFileNames();
 	    $usersWithoutImage = $model->getUsersWithoutFiles();
 	    $count = $model->getAccountCount();
-	    
+
 	    $this->view->usersWithImage = $usersWithImage;
 	    $this->view->usersWithoutImage = $usersWithoutImage;
 	    $this->view->count = $count['total'];
     }
 
-    public function organisationAction() 
+    public function organisationAction()
     {
         if ($_GET['reporting_org']) {
             $reportingOrg = $this->_request->getParam('reporting_org');
@@ -55,14 +55,14 @@ class IndexController extends Zend_Controller_Action
         $publishModel = new Model_Published();
         $wepModel = new Model_Wep();
         $regInfoModel = new Model_RegistryInfo();
-        
+
         $result = $accountModel->getAccountByOrganisation($reportingOrg);
         if (count($result)) {
             // Get Account Id
             $accountId = $result['id'];
             $user = $userModel->getUserByAccountId($accountId);
             $regInfo = $regInfoModel->getOrgRegistryInfo($accountId);
-        
+
             // Get Organisation Info
             $organisation_array['name'] = $result['name'];
             $organisation_array['image'] = $result['file_name'];
@@ -72,12 +72,11 @@ class IndexController extends Zend_Controller_Action
             $organisation_array['website'] = ($result['url']) ? $result['url'] : 'Not Available';
             $organisation_array['twitter'] = ($result['twitter']) ? $result['twitter'] : 'Not Available';
             $organisation_array['prefix'] = $result['username'];
-            
+
             $this->view->organisation_array = $organisation_array;
-            $this->view->registry_url = Zend_Registry::get('config')->registry
-                                            ."/publisher/".$regInfo->publisher_id;
+            $this->view->registry_url = "/publisher/".$regInfo->publisher_id;
         } else {
-            // For all organisations: snapshot 
+            // For all organisations: snapshot
             if ($reportingOrg == 'all' || $reportingOrg == '') {
                 $activityModel = new Model_Activity();
                 $orgData = $activityModel->allOrganisationsActivityStates();
@@ -96,12 +95,12 @@ class IndexController extends Zend_Controller_Action
         $this->view->handler = $handler;
     }
 
-    public function ajaxAction() 
+    public function ajaxAction()
     {
         // Disable Layout and View for this action
         $this->_helper->viewRenderer->setNoRender(true);
-        $this->_helper->layout()->disableLayout();     
-        
+        $this->_helper->layout()->disableLayout();
+
         // If Ajax Request
         if ($this->_request->isXmlHttpRequest()) {
             $reportingOrg = $_GET['reporting_org'];
@@ -111,7 +110,7 @@ class IndexController extends Zend_Controller_Action
             print_r($activityStatus);
             exit;
         } else {
-            $this->_redirect();
+            $this->_redirect('index');
         } // End if
     }
 

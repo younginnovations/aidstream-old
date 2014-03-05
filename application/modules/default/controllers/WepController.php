@@ -18,8 +18,8 @@ class WepController extends Zend_Controller_Action
         $this->view->blockManager()->enable('partial/published-list.phtml');
         $this->view->blockManager()->enable('partial/download-my-data.phtml');
         $this->view->blockManager()->enable('partial/organisation-data.phtml');
-        
-        
+
+
         // for role user check if the user has permission to add, publish ,if not disable menu.
         if($identity->role == 'user'){
             $model = new Model_Wep();
@@ -50,7 +50,7 @@ class WepController extends Zend_Controller_Action
         if(Simplified_Model_Simplified::isSimplified()){
             $this->_redirect('simplified/default/dashboard');
         }
-        
+
         $identity = Zend_Auth::getInstance()->getIdentity();
         $account_id = $identity->account_id;
         $model = new Model_Wep();
@@ -83,8 +83,7 @@ class WepController extends Zend_Controller_Action
         $this->view->last_updated_datetime = $activityModel->getLastUpdatedDatetime($activities);
         $this->view->published_activity_count = $regPublishModel->getActivityCount($publishedFiles);
         $this->view->activity_elements_info = $activitiesAttribs;
-        $this->view->registry_url = Zend_Registry::get('config')->registry
-                                        ."/publisher/".$regInfo->publisher_id;
+        $this->view->registry_url = "/publisher/".$regInfo->publisher_id;
         $this->view->activities_id = $activities_id;
 
     }
@@ -92,13 +91,13 @@ class WepController extends Zend_Controller_Action
      * @deprecated
      */
     public function listActivitiesAction()
-    { 
+    {
         //@todo list only activities related to the user
         if ($_GET) {
             if ($this->getRequest()->getParam('type')) {
                 $tblName = $this->getRequest()->getParam('type');
             }
-            
+
             if ($this->getRequest()->getParam('account_id')) {
                 $field = 'account_id';
                 //print $field;exit();
@@ -130,7 +129,7 @@ class WepController extends Zend_Controller_Action
                                                    'account_id',
                                                    $identity->account_id
                                                 );
-        
+
         $default['field_values'] = $defaultFieldsValues->getDefaultFields();
         $defaultFieldGroup = $model->getDefaults(
                                                 'default_field_groups',
@@ -150,10 +149,10 @@ class WepController extends Zend_Controller_Action
                 $data = $this->getRequest()->getPost();
                 if (!$form->isValid($data)) {
                     $this->_helper->FlashMessenger
-                        ->addMessage(array('error' => "You have some error in your data"));                  
+                        ->addMessage(array('error' => "You have some error in your data"));
                     $form->populate($data);
                 } else {
-                    //Get default fields values for reporting org 
+                    //Get default fields values for reporting org
                     $defaultFieldsValues = $model->getDefaults('default_field_values', 'account_id', $identity->account_id);
                     $defaults = $defaultFieldsValues->getDefaultFields();
                     $reportingOrgOld['@ref'] = $defaults['reporting_org_ref'];
@@ -176,8 +175,8 @@ class WepController extends Zend_Controller_Action
 
                     //Update Default Values
                     $defaults = new Model_Defaults();
-                    $defaults->updateDefaults($data); 
-                    
+                    $defaults->updateDefaults($data);
+
                     if (isset($_GET['btn'])) {
                         $save = $_GET['btn'];
                     }
@@ -192,17 +191,17 @@ class WepController extends Zend_Controller_Action
                             $activityPublish = $modelPublished->isPushedToRegistry($identity->account_id);
                             if ($activityPublish) {
                                 $this->pushToRegistry('Published');
-                            }   
+                            }
 
                             //Check push_to_registry for organisation data
                             $modelOrganisationPublished = new Model_OrganisationPublished();
                             $organisationPublish = $modelOrganisationPublished->isPushedToRegistry($identity->account_id);
                             if ($organisationPublish) {
                                 $this->pushToRegistry('OrganisationPublished');
-                            } 
+                            }
                         }
                     }
-                    
+
                     $this->_helper->FlashMessenger
                         ->addMessage(array('message' => "Settings successfully updated."));
                     if ($identity->role == 'superadmin') {
@@ -222,7 +221,7 @@ class WepController extends Zend_Controller_Action
     /**
      * Push already pushed activities if reporting org has been changed in settings.
      */
-    private function pushToRegistry($publish) 
+    private function pushToRegistry($publish)
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
         $account_id = $identity->account_id;
@@ -250,7 +249,7 @@ class WepController extends Zend_Controller_Action
                                        <a href='{$this->view->baseUrl()}/wep/settings'>Settings</a>
                                        to add API key."));
             } else {
-                $model = 'Model_' . $publish;                  
+                $model = 'Model_' . $publish;
                 $modelPublished = new $model();
                 $files = $modelPublished->getPushedToRegistryInfo($account_id);
                 if ($publish == 'OrganisationPublished') {
@@ -268,7 +267,7 @@ class WepController extends Zend_Controller_Action
                 }
             }
         }
-    
+
     }
 
     /**
@@ -326,7 +325,7 @@ class WepController extends Zend_Controller_Action
             $activities = $wepModel->listAll('iati_activities', 'account_id', $identity->account_id);
             $activities_id = $activities[0]['id'];
         }
-        
+
         $model = new Model_Viewcode();
         $rowSet = $model->getRowsByFields('default_field_values' , 'account_id' , $identity->account_id);
 
@@ -342,7 +341,7 @@ class WepController extends Zend_Controller_Action
                                                             'Currency' ,
                                                             $default['currency'] ,
                                                             'Code');
-        
+
         $activity_info['@hierarchy'] = $default['hierarchy'];
         $activity_info['@linked_data_uri'] = $default['linked_data_default'];
         $activity_info['@last_updated_datetime'] = date('Y-m-d H:i:s');
@@ -505,14 +504,14 @@ class WepController extends Zend_Controller_Action
 
 
     public function viewActivitiesAction()
-    { 
+    {
         if(Simplified_Model_Simplified::isSimplified()){
             $this->_redirect('simplified/default/view-activities');
         }
-        
+
         $identity = Zend_Auth::getInstance()->getIdentity();
         $wepModel = new Model_Wep();
-    
+
         if ($_GET) {
             $activities_id = $this->getRequest()->getParam('activities_id');
             $wepModel = new Model_Wep();
@@ -568,14 +567,14 @@ class WepController extends Zend_Controller_Action
         $this->view->status_form = $status_form;
     }
 
-   
+
 
     public function editActivityAction()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
         if ($_GET) {
             $wepModel = new Model_Wep();
-            if(isset($_GET['activities_id'])){ 
+            if(isset($_GET['activities_id'])){
                 $exists = $wepModel->getRowById('iati_activities', 'id', $_GET['activities_id']);
                 if(!$exists){
                     $this->_helper->FlashMessenger
@@ -781,7 +780,7 @@ class WepController extends Zend_Controller_Action
                                        to add publisher id."));
             } else {
                 $db->updateActivityStatus($activity_ids,(int)$state);
-                
+
                 $pub = new Iati_WEP_Publish(
                                             $account_id,
                                             $registryInfo->publisher_id ,
@@ -829,8 +828,9 @@ class WepController extends Zend_Controller_Action
     }
 
     public function publishInRegistryAction()
-    {   
-        if(empty($fileIds)){
+    {
+        $fileIds = explode(',' , $this->_getParam('file_ids'));
+        if(!($fileIds[0])){
             $this->_helper->FlashMessenger
                 ->addMessage(array('info' => "Please select a file to register
                                    in IATI Registry."));
@@ -838,7 +838,7 @@ class WepController extends Zend_Controller_Action
         }
         $identity = Zend_Auth::getInstance()->getIdentity();
         $accountId = $identity->account_id;
-       
+
         $modelRegistryInfo = new Model_RegistryInfo();
         $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($accountId);
 
@@ -851,7 +851,7 @@ class WepController extends Zend_Controller_Action
         } else {
             $modelPublished = new Model_Published();
             $files = $modelPublished->getPublishedInfoByIds($fileIds);
-            
+
             $published =  Model_Registry::publish($files , $accountId , $registryInfo);
             if($published['error']){
                 $this->_helper->FlashMessenger
@@ -893,7 +893,7 @@ class WepController extends Zend_Controller_Action
         $identity = Zend_Auth::getInstance()->getIdentity();
         $orgId = $identity->account_id;
         // set publish permission to true so that we should only check permission for user.
-        $publishPermission = 1; 
+        $publishPermission = 1;
         if($identity->role == 'user'){
             $model = new Model_Wep();
             $userPermission = $model->getUserPermission($identity->user_id);
@@ -902,7 +902,7 @@ class WepController extends Zend_Controller_Action
 
         $modelRegistryInfo = new Model_RegistryInfo();
         $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($orgId);
-        
+
         // Create Registry Form For Activities
         $formForActivities = new Form_Wep_PublishToRegistry();
         $formForActivities->setAction($this->view->baseUrl().'/wep/publish-in-registry');
@@ -910,7 +910,7 @@ class WepController extends Zend_Controller_Action
             $formForActivities->push_to_registry->setAttrib('disabled', 'disabled');
         }
         $this->view->formForActivities = $formForActivities;
-        
+
         // Create Registry Form For Organisation
         $formForOrganisation = new Form_Organisation_PublishToRegistry();
         $formForOrganisation->setAction($this->view->baseUrl()
@@ -925,16 +925,16 @@ class WepController extends Zend_Controller_Action
         $db = new Model_Published();
         $publishedFilesOfActivities = $db->getAllPublishedInfo($orgId);
         $this->view->published_files_activities = $publishedFilesOfActivities;
-        
+
         // Fetch Publish Data For Organisation
         $organisationpublishedModel = new Model_OrganisationPublished();
         $publishedFilesOfOrganisation = $organisationpublishedModel->getAllPublishedInfo($orgId);
         $this->view->published_files_organisation = $publishedFilesOfOrganisation;
-        
+
         $this->view->publish_permission = $publishPermission;
-        
+
         if(Simplified_Model_Simplified::isSimplified()){
-            $this->view->blockManager()->disable('partial/organisation-data.phtml'); 
+            $this->view->blockManager()->disable('partial/organisation-data.phtml');
             $this->view->blockManager()->enable('partial/simplified-info.phtml');
         }
     }
@@ -966,7 +966,7 @@ class WepController extends Zend_Controller_Action
         }
         return false;
     }
-    
+
     public function updateReportingOrgAction()
     {
         $reportingOrgId = $this->_getParam('id');
@@ -974,7 +974,7 @@ class WepController extends Zend_Controller_Action
 
         $model = new Model_ReportingOrg();
         $model->updateReportingOrg($reportingOrgId);
-        
+
         $activityId = $model->getActivityIdById($reportingOrgId);
 
         //Update Activity Hash
@@ -996,11 +996,11 @@ class WepController extends Zend_Controller_Action
         }
         $this->_helper->FlashMessenger->addMessage(array($type => $message));
         $this->_redirect("/activity/edit-element/?activity_id=" . $activityId
-                         . "&className=Activity_ReportingOrg");       
+                         . "&className=Activity_ReportingOrg");
     }
-    
+
     public function downloadMyDataAction(){}
-    
+
     public function downloadCsvAction()
     {
         $type = $this->_getParam('type');
@@ -1008,13 +1008,13 @@ class WepController extends Zend_Controller_Action
         echo $obj->downloadCsv($type);
         exit;
     }
-    
+
     public function uploadTransactionAction()
     {
         $activityId = $this->_getParam('activity_id');
-        
+
         $form = new Form_Wep_UploadTransaction();
-        
+
         if($data = $this->getRequest()->getPost()){
             if($form->isValid($data)){
                 $uploadDir = Zend_Registry::get('config')->public_folder."/files/csv/uploads";
@@ -1052,9 +1052,9 @@ class WepController extends Zend_Controller_Action
                                 $message = 'No Changes Made';
                             } else {
                                 $oldState = Model_Activity::getActivityStatus($activityId);
-                                Model_Activity::updateActivityUpdatedInfo($activityId);                        
+                                Model_Activity::updateActivityUpdatedInfo($activityId);
                             }
-                            
+
                             if($updated && $oldState != Iati_WEP_ActivityState::STATUS_EDITING){
                                 // In case of update notify the user about state change.
                                 $this->_helper->FlashMessenger
@@ -1063,13 +1063,13 @@ class WepController extends Zend_Controller_Action
                                                     You must complete and verify in order
                                                     to publish the activity."));
                             }
-                            
+
                             $this->_helper->FlashMessenger
                                 ->addMessage(array('message' => "{$count} transactions added"));
                             $this->_redirect("/activity/list-elements/?activity_id=".$activityId
                                              ."&classname=Activity_Transaction");
                         }
-                       
+
                 } catch(Zend_File_Transfer_Exception $e) {
                     $e->getMessage();
                 }
@@ -1086,23 +1086,23 @@ class WepController extends Zend_Controller_Action
         $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
         $this->view->blockManager()->disable('partial/published-list.phtml');
         $this->view->blockManager()->disable('partial/organisation-data.phtml');
-        $this->view->blockManager()->disable('partial/uploaded-docs.phtml'); 
-        $this->view->blockManager()->disable('partial/download-my-data.phtml'); 
+        $this->view->blockManager()->disable('partial/uploaded-docs.phtml');
+        $this->view->blockManager()->disable('partial/download-my-data.phtml');
 
     }
-    
+
     public function listUploadedDocumentsAction()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
         $accountId = $identity->account_id;
-        
+
         $model = new Model_UserDocument();
-        
+
         $docs = $model->fetchAllDocuments($accountId);
         $usedDocs = $model->fetchUsedDocuments($accountId);
-        
+
         $this->view->docs = $docs;
         $this->view->usedDocs = $usedDocs;
     }
-    
+
 }
