@@ -1,7 +1,7 @@
 <?php
 /**
  * Controller to handle actions for the superadmin
- * 
+ *
  * @author YIPL Dev team
  */
 class AdminController extends Zend_Controller_Action
@@ -27,7 +27,7 @@ class AdminController extends Zend_Controller_Action
                 $this->view->blockManager()->enable('partial/simplified-info.phtml');
             }
         }
-       
+
     }
 
     public function indexAction()
@@ -68,7 +68,7 @@ class AdminController extends Zend_Controller_Action
     public function viewAction()
     {
         if ($this->getRequest()->isGet()) {
-            
+
             $user_id = $this->_request->getParam('id');
             $wep = new Model_Wep();
             $user_info = $wep->listAll('user', 'user_id', $user_id);
@@ -167,7 +167,7 @@ class AdminController extends Zend_Controller_Action
                                                      $org_id
                                                 );
             $default['fields'] = $defaultFieldGroup->getProperties();
-            
+
             $form = new Form_Wep_Accountregister();
             $form->add($default);
             $form->organisation_username->clearValidators();
@@ -674,7 +674,7 @@ class AdminController extends Zend_Controller_Action
             ->addMessage(array('message' => 'Footer display changed sucessfully.'));
         $this->_redirect('admin/list-organisation');
     }
-    
+
     public function setSimplifiedAction()
     {
         $data['id'] = $this->_getParam('org_id');
@@ -686,13 +686,13 @@ class AdminController extends Zend_Controller_Action
 
         $orgModel = new Model_Wep();
         $orgModel->updateRowsToTable('account' , $data);
-        
+
         $outMessage = ($data['simplified'])?"Organisation type changed to Simplified":
             "Organisation type changed to Default";
         $this->_helper->FlashMessenger->addMessage(array('message' => $outMessage));
         $this->_redirect('admin/list-organisation');
     }
-    
+
     public function listActivityStatesAction()
     {
         $activityModel = new Model_Activity();
@@ -700,7 +700,7 @@ class AdminController extends Zend_Controller_Action
         $this->view->orgs = $orgData;
     }
 
-    public function validateXmlFilesAction() 
+    public function validateXmlFilesAction()
     {
         $xmlFolder = APPLICATION_PATH ."/../public" . Zend_Registry::get('config')->xml_folder;
         if ($handle = opendir($xmlFolder)) {
@@ -708,7 +708,7 @@ class AdminController extends Zend_Controller_Action
             while (false !== ($entry = readdir($handle))) {
                 // Only activities XML files
                 if (!preg_match("/org/", $entry) && preg_match("/.xml/", $entry)) {
-                    $activityXml[] = $entry;    
+                    $activityXml[] = $entry;
                 } elseif (preg_match("/org/", $entry)) {
                     $organisationXml[] = $entry;
                 }
@@ -721,7 +721,7 @@ class AdminController extends Zend_Controller_Action
         $this->view->xmlForm = $xmlForm;
         $this->view->activityXml = $activityXml;
         $this->view->organisationXml = $organisationXml;
-        
+
         if($formData = $this->getRequest()->isPost()) {
             $xmlFiles = $this->getRequest()->getParam('files');
             if(empty($xmlFiles)){
@@ -734,7 +734,7 @@ class AdminController extends Zend_Controller_Action
             $xmlFiles = explode(',',$xmlFiles);
             foreach ($xmlFiles as $xml) {
                 if (preg_match("/org/", $xml)) {
-                    $output[$xml] = shell_exec('xmllint --noout --schema ' . $xmlSchemaOrg . ' ' . $xmlFolder . $xml.' 2>&1');
+                    $output[$xml] = shell_exec('xmllint --noout --schema ' . $xmlSchemaOrg . ' ' . $xmlFolder . escapeshellarg($xml).' 2>&1');
                 } else {
                     $output[$xml] = shell_exec('xmllint --noout --schema ' . $xmlSchemaActivity . ' ' . $xmlFolder . $xml.' 2>&1');
                 }
@@ -744,10 +744,12 @@ class AdminController extends Zend_Controller_Action
             }
             foreach ($output as $filename => $error) {
                 $repeatString = strstr($error, $filename, true);
-                $error = explode($repeatString, $error);
-                if ($error[0] == '') unset($error[0]);   // unset first array
-                array_pop($error);  // unset last array
-                $output[$filename] = $error;
+                if($repeatString) {
+                    $error = explode($repeatString, $error);
+                    if ($error[0] == '') unset($error[0]);   // unset first array
+                    array_pop($error);  // unset last array
+                    $output[$filename] = $error;
+                }
             }
             $this->view->errors = $output;
         }
