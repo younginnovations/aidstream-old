@@ -1,6 +1,8 @@
 <?php
 	$handler = $this->handler;
-	$identifier = $_GET['reporting_org'];
+    $config = new Zend_Config_Ini(APPLICATION_PATH.'/configs/application.ini', APPLICATION_ENV);
+    $shortname = $config->disqus->shortname;
+    $identifier = $_GET['reporting_org'];
     if (isset($this->organisation_array)):
         $organisation = $this->organisation_array;
     endif;
@@ -20,25 +22,25 @@
         <div class="organisation-data inner-block">
             <div id="organisation-info">
                 <h3><?php print $organisation['name']; ?></h3>
-                <?php 
-                    $filePath = $baseUrl.'/uploads/image/'.$organisation['image']; 
+                <?php
+                    $filePath = '/uploads/image/'.$organisation['image'];
                     if ($organisation['image']) {
                 ?>
                     <div id="organization-logo"><img src="<?php print $filePath; ?>" alt="logo"/></div>
-                <?php       
-                    } else {    
+                <?php
+                    } else {
                 ?>
-                    <div id="organization-logo"><img src="<?php echo $this->baseUrl().'/images/default-user.png' ?>" alt="logo"/></div>
+                    <div id="organization-logo"><img src="<?php echo '/images/default-user.png' ?>" alt="logo"/></div>
                 <?php
                     }
                 ?>
-       
+
                 <div id="organisation-contact-info">
-                    <h4>Contact Details</h4>    
-                    <ul>    
+                    <h4>Contact Details</h4>
+                    <ul>
                         <li><span>Address:</span> <div class="value"><?php print $organisation['address']; ?></div></li>
                         <li><span>Email:</span> <div class="value"><a href="mailto:<?php print $organisation['email']; ?>"><?php print $organisation['email']; ?></a></div></li>
-                        <li><span>Website:</span> 
+                        <li><span>Website:</span>
                         <div class="value"><?php if ($organisation['website'] != 'Not Available'){ ?>
                             <a href="<?php print $organisation['website']; ?>" target="_blank"><?php print $organisation['website']; ?></a></li><?php } else { ?>
                             <?php print $organisation['website']; ?></div></li>
@@ -49,7 +51,7 @@
                             <a href="http://twitter.com/<?php print preg_replace("/@/", "", $organisation['twitter'], 1); ?>" target="_blank"><?php print $organisation['twitter']; ?></a></li><?php } else { ?>
                             <?php print $organisation['twitter']; ?></div></li>
                         <?php } ?>
-                        
+
                     </ul>
                 </div>
             </div>
@@ -61,7 +63,7 @@
         <div class="transaction-wrapper inner-block">
             <h3>Transaction<span id="transaction-info" class="dialog-box-open">help</span></h3>
             <div class="transaction-block">
-                <?php $transactions = $handler->get('transaction');?>         
+                <?php $transactions = $handler->get('transaction');?>
                 <div class="transactions">
                     <div class="heading">Total Commitments</div>
                     <div class="value">$<?php echo number_format($transactions->total_commitments->value , 2);?></div>
@@ -77,14 +79,14 @@
                 <div class="transactions">
                     <div class="heading">Total Incoming Funds</div>
                     <div class="value">$<?php echo number_format($transactions->total_incoming_funds->value , 2);?></div>
-                </div>              
+                </div>
             </div>
         </div>
     </div>
 
     <div class="load-more">Load More...</div>
     <div class="block-wrapper">
-    
+
     <?php $activities = $handler->getTop3Activities();?>
     <?php if($activities):?>
         <div id="published-files" class="inner-block">
@@ -124,13 +126,13 @@
                 <h3>Activity Status<span id="activity-status-info" class="dialog-box-open">help</span></h3>
                 <div id="activity-status"></div>
             </div>
-            
+
             <div class="inner-block">
                 <h3>Activity Dates<span id="activity-date-info" class="dialog-box-open">help</span></h3>
                 <div id="activity-dates"></div>
             </div>
         </div>
-        
+
         <div id="right-block">
             <div class="sector-wrapper inner-block">
                 <h3>Sector(Top 3)<a href="#inline_content" class="inline">View all</a><span id="sector-info" class="dialog-box-open">help</span></h3>
@@ -144,13 +146,13 @@
                     <div class="no-data">No Data Available</div>
                 <?php endif;?>
                 </div>
-            </div> 
+            </div>
             <div class="block">
                 <h3>Recipient Region/Country<span id="recipient-region-country-info" class="dialog-box-open">help</span></h3>
                 <div id="recipient-info"></div>
             </div>
         </div>
-   
+
     </div>
 
     <?php $sectors = $handler->get('sectors'); ?>
@@ -189,7 +191,7 @@
         <div id='help-activity-status-info' title="Activity Status">
         <p>
             The following bar graph shows the number of activities in different states. <a href="http://iatistandard.org/codelists/activity_status/" target="__blank">IATI Standard</a>
-            defines 5 status for the activity. Any activity can have only one status at a time.         
+            defines 5 status for the activity. Any activity can have only one status at a time.
         </p>
         </div>
     </div>
@@ -208,7 +210,7 @@
             The transactions amount under different heading shows the total amount in USD for a given transaction type.
             IATI defines number of transactions types like committment, disbursements.
             The following table show amounts for selected types only. <a href="http://iatistandard.org/codelists/transaction_type/" target="__blank">IATI Standard</a> gives
-            the details on the meaning of each transaction type.        
+            the details on the meaning of each transaction type.
         </p>
         </div>
     </div>
@@ -223,7 +225,7 @@
         <div id='help-recipient-region-country-info' title="Recipient Region/Country">
         <p>
             The bar graph shows the number of activities that are benefiting each of the listed regions/countries.
-            A single activity may benefit multiple countries. 
+            A single activity may benefit multiple countries.
         </p>
         </div>
     </div>
@@ -240,11 +242,13 @@
     </div>
 <?php endif; ?>
 </div>
+
+<?php if($shortname): ?>
 <!-- Discuss Thread Starts Here -->
-<div id="disqus_thread"></div> 
+<div id="disqus_thread"></div>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = 'testaidstream'; // shortname
+    var disqus_shortname = '<?php print $shortname ?>'; // Set shortname
     var disqus_identifier = '<?php print $identifier; ?>';
     var disqus_disable_mobile = true;
 
@@ -257,4 +261,5 @@
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+<?php endif; ?>
 

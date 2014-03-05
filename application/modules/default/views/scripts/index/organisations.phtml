@@ -19,7 +19,7 @@
 		<?php if($image['name']):?>
         	<a href='organisation?reporting_org=<?php echo rawurlencode($image['name']); ?>'>
             <div class="img-holder">
-		    <img src="<?php echo $this->baseUrl().'/uploads/image/'.$image['file_name']; ?>"
+		    <img src="<?php echo '/uploads/image/'.$image['file_name']; ?>"
 			alt="<?php echo $image['file_name']; ?>"></div>
 		    <span class="caption"><?php echo $image['name'];?></span>
             </a>
@@ -31,7 +31,7 @@
 		<?php if($user['name']):?>
         	<a href='organisation?reporting_org=<?php echo rawurlencode($user['name']); ?>'>
             <div class="img-holder">
-		    <img src="<?php echo $this->baseUrl().'/images/default-user.png'; ?>" alt="<?php echo $user['name']; ?>"></div>
+		    <img src="<?php echo '/images/default-user.png'; ?>" alt="<?php echo $user['name']; ?>"></div>
 		    <span class="caption"><?php echo $user['name'];?></span>
             </a>
 		</li>
