@@ -6,33 +6,34 @@ class Iati_Snapshot_Lib_DataHandler
     protected $json;
     protected $reportingOrg;
     protected $filename = '';
-    
+
     public function __construct($reportingOrg = 'all')
     {
         $this->setNewReportingOrg($reportingOrg);
     }
-    
+
     public function setNewReportingOrg($reportingOrg)
     {
         $this->reportingOrg = $reportingOrg;
         $this->getJsonData();
     }
-    
+
     public function getJsonData()
     {
         $repOrgName = preg_replace('/-| /' , '_' , strtolower($this->reportingOrg));
         $this->filename = INPUT_JSON_DIR.$repOrgName.".json";
-        
-        $fp = fopen( $this->filename, 'r');
-        $this->json = fread($fp , filesize($this->filename));
-        fclose($fp);
+        if(file_exists($this->filename)) {
+            $fp = fopen( $this->filename, 'r');
+            $this->json = fread($fp , filesize($this->filename));
+            fclose($fp);
 
-        if($this->json){
-            $this->data = json_decode($this->json);
+            if($this->json){
+                $this->data = json_decode($this->json);
+            }
         }
         return $this->json;
     }
-    
+
     public function getData()
     {
         if($this->data){
@@ -40,7 +41,7 @@ class Iati_Snapshot_Lib_DataHandler
         }
         return false;
     }
-    
+
     public function get($elementName , $ajax = false)
     {
         if($this->getData()){
@@ -51,7 +52,7 @@ class Iati_Snapshot_Lib_DataHandler
         }
         return false;
     }
-    
+
     /*
     public function getActivityStatusDetails()
     {
@@ -72,7 +73,7 @@ class Iati_Snapshot_Lib_DataHandler
         }
         return false;
     }
-    
+
     public function getTop3Sectors()
     {
         if($this->getData()){
@@ -89,7 +90,7 @@ class Iati_Snapshot_Lib_DataHandler
         return false;
     }
 
-    public function getTop3Activities() 
+    public function getTop3Activities()
     {
         if($this->getData()){
             $activities = $this->get('activities');
