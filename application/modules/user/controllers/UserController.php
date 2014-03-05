@@ -66,7 +66,7 @@ class User_UserController extends Zend_Controller_Action
                                 . urlencode($email) . '/value/' . urlencode($uniqueId);
                         $reset = new User_Model_DbTable_Reset();
                         $reset->insert(array('email' => $email, 'value' => $uniqueId, 'reset_flag' => '1'));
-                        
+
                         $notification = new Model_Notification;
                         $notification->sendResetNotifications($user , $resetSite);
 
@@ -146,7 +146,7 @@ class User_UserController extends Zend_Controller_Action
                     $identity = (object) array_merge((array) $identity, (array) $obj2);
                     $authStorage = $auth->getStorage();
                     $authStorage->write($identity);
-                    
+
                     $accModel = new User_Model_DbTable_Account();
                     $account = $accModel->getAccountRowByUserName('account' , 'id' , $identity->account_id);
                     $simplified = new Zend_Session_Namespace('simplified');
@@ -214,7 +214,7 @@ class User_UserController extends Zend_Controller_Action
             $this->view->blockManager()->enable('partial/download-my-data.phtml');
             $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
             $this->view->blockManager()->enable('partial/uploaded-docs.phtml');
-            
+
             // for role user check if the user has permission to add, publish ,if not disable menu.
             if($identity->role == 'user'){
                 $model = new Model_Wep();
@@ -286,7 +286,7 @@ class User_UserController extends Zend_Controller_Action
 						    'keepRatio' => true,
 						)));
                     $source = $upload->getFileName();
-                    $data['file_name'] = basename($source);
+                    if(is_string($source)) { $data['file_name'] = basename($source); }
                     try{
                            $upload->receive();
                            $accountObj->insertFileNameOrUpdate($data ,  $userName);
@@ -510,12 +510,12 @@ class User_UserController extends Zend_Controller_Action
 
                 $identity = (object) array_merge((array) $identity, (array) $std);
                 $accountAuth->getStorage()->write($identity);
-                    
+
                 $accModel = new User_Model_DbTable_Account();
                 $account = $accModel->getAccountRowByUserName('account' , 'id' , $identity->account_id);
                 $simplified = new Zend_Session_Namespace('simplified');
                 $simplified->simplified = $account->simplified;
-                
+
                 $session = new Zend_Session_Namespace('superadmin');
                 $session->identity = serialize($superAdminIdentity);
                 $this->_redirect('/wep/dashboard');
@@ -561,7 +561,7 @@ class User_UserController extends Zend_Controller_Action
                 $this->_helper->FlashMessenger
                     ->addMessage(array('error' => 'Sorry your support mail could not be sent'));
             }
-            
+
             if($this->_getParam('referer')){
                 $this->_redirect($this->_getParam('referer'));
             } else {

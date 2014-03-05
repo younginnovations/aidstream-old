@@ -17,7 +17,7 @@ class User_Model_DbTable_Account extends Zend_Db_Table_Abstract {
     }
 
     public function updateFileNameWithNull($userName){
-        $data['file_name'] = '';
+        $data['file_name'] = NULL;
         return parent::update($data, array('username = ?' => $userName));
     }
 
@@ -50,7 +50,7 @@ class User_Model_DbTable_Account extends Zend_Db_Table_Abstract {
             ->order('name');
         return $this->fetchAll($select)->toArray();
     }
-    
+
     public function getUsersWithoutFiles()
     {
         $select = $this->select()
@@ -60,7 +60,7 @@ class User_Model_DbTable_Account extends Zend_Db_Table_Abstract {
             ->order('name');
         return $this->fetchAll($select)->toArray();
     }
-    
+
     public function getAccountCount()
     {
         $select = $this->select()
@@ -68,12 +68,12 @@ class User_Model_DbTable_Account extends Zend_Db_Table_Abstract {
         return $this->fetchRow($select)->toArray();
     }
 
-    public function getAccountByOrganisation($reportingOrg) 
+    public function getAccountByOrganisation($reportingOrg)
     {
         $select = $this->select()
             ->where('name = ?', $reportingOrg);
         if ($this->fetchRow($select)) {
-            return $this->fetchRow($select)->toArray();   
+            return $this->fetchRow($select)->toArray();
         }
     }
 }
