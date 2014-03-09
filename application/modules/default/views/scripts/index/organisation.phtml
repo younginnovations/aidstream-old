@@ -7,7 +7,6 @@
         $organisation = $this->organisation_array;
     endif;
 ?>
-
     <div id="data-wrapper">
     <div class="left-block">
     <?php if (isset($this->total)): ?>
@@ -87,49 +86,31 @@
     <div class="load-more">Load More...</div>
     <div class="block-wrapper">
 
-    <?php $activities = $handler->getTop3Activities();?>
-    <?php if($activities):?>
-        <div id="published-files" class="inner-block">
-            <h3>Activities<span id="activities-info" class="dialog-box-open">help</span><a href="#" class="activities-more">View all</a></h3>
-            <div class="published-block">
-                <ul>
-                    <?php foreach($activities as $activityId => $activityTitle): ?>
-                    <li><span><?php print $activityId?></span>
-                        <div class="value"><?php print $activityTitle; ?></div>
-                    </li>
-                     <?php endforeach; ?>
-                </ul>
-                <?php if(isset($this->registry_url)): ?>
-                    <li>Publisher URL: <a href="http://iatiregistry.org<?php echo $this->registry_url; ?>" target="_blank">http://iatiregistry.org<?php echo $this->registry_url; ?></a></li>
-                <?php endif; ?>
-            </div>
-        </div>
-    <?php endif; ?>
-    <?php $activities = $handler->get('activities'); ?>
-        <div id="activities" style='display:none'>
-            <div id='content' style='background:#fff;'>
-                <div class="activities-block">
-                    <h3>ACTIVITIES</h3>
-                <?php if($activities): ?>
-                <?php foreach($activities as $activityId=>$activityTitle):?>
-                    <div class="activity-details"><span class="name"><?php echo $activityId;?></span><span><?php echo $activityTitle;?> </span></div>
-                <?php endforeach;?>
-                <?php else :?>
-                    <div class="no-data">No Data Available</div>
-                <?php endif; ?>
-                </div>
-            </div>
-        </div>
-
         <div id="left-block">
+           <div id="inner-block">
+           <?php $activities = $handler->getTop3Activities();?>
+           <?php if($activities):?>
+                <?php $activityCount = $handler->getActivityCount(); ?>
+                <div id="published-files" class="inner-block">
+                   <h3>Activities<?php if($activityCount > 3): ?><a href="#" class="activities-more">View all (<?php echo $activityCount; ?> activities)</a><?php endif; ?><span id="activities-info" class="dialog-box-open">help</span></h3>
+                   <div class="published-block">
+                       <ul>
+                           <?php foreach($activities as $activityId => $activityTitle): ?>
+                           <li><span><?php print $activityId?></span>
+                               <div class="value"><?php print $activityTitle; ?></div>
+                           </li>
+                            <?php endforeach; ?>
+                       </ul>
+                       <?php if(isset($this->registry_url)): ?>
+                           <li><a href="http://iatiregistry.org<?php echo $this->registry_url; ?>" target="_blank">View publisher in IATI Registry</a></li>
+                       <?php endif; ?>
+                   </div>
+               </div>
+           <?php endif; ?>
+           </div> 
             <div class="inner-block">
                 <h3>Activity Status<span id="activity-status-info" class="dialog-box-open">help</span></h3>
                 <div id="activity-status"></div>
-            </div>
-
-            <div class="inner-block">
-                <h3>Activity Dates<span id="activity-date-info" class="dialog-box-open">help</span></h3>
-                <div id="activity-dates"></div>
             </div>
         </div>
 
@@ -171,6 +152,22 @@
         </div>
     </div>
 
+    <?php $activities = $handler->get('activities'); ?>
+        <div style='display:none'>
+            <div id='content' style='background:#fff;'>
+                <div class="activities-block">
+                    <h3>ACTIVITIES</h3>
+                <?php if($activities): ?>
+                <?php foreach($activities as $activityId=>$activityTitle):?>
+                    <div class="activity-details"><span class="name"><?php echo $activityId;?></span><span><?php echo $activityTitle;?> </span></div>
+                <?php endforeach;?>
+                <?php else :?>
+                    <div class="no-data">No Data Available</div>
+                <?php endif; ?>
+                </div>
+            </div>
+        </div>
+
     <!-- Help Messages -->
     <div style="display:none" >
         <div id='about'>
@@ -192,15 +189,6 @@
         <p>
             The following bar graph shows the number of activities in different states. <a href="http://iatistandard.org/codelists/activity_status/" target="__blank">IATI Standard</a>
             defines 5 status for the activity. Any activity can have only one status at a time.
-        </p>
-        </div>
-    </div>
-    <div style="display:none" >
-        <div id='help-activity-date-info' title="Activity Date">
-        <p>
-            Each activity has a start date and end date. <a href="http://iatistandard.org/codelists/activity_date_type/" target="__blank">IATI standard</a>
-            lists 4 different activity date types. For clarity, only actual dates are considered in the
-            line chart below. You may select duration in the smaller graph below.
         </p>
         </div>
     </div>
@@ -243,23 +231,22 @@
 <?php endif; ?>
 </div>
 
-<?php if($shortname): ?>
-<!-- Discuss Thread Starts Here -->
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = '<?php print $shortname ?>'; // Set shortname
-    var disqus_identifier = '<?php print $identifier; ?>';
-    var disqus_disable_mobile = true;
+<?php if($shortname && ($organisation['disqus_comments']==1) || $identifier=='all'): ?>
+    <!-- Disqus Thread Starts Here -->
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES * * */
+        var disqus_shortname = '<?php print $shortname ?>'; // Set shortname
+        var disqus_identifier = '<?php print $identifier; ?>';
+        var disqus_disable_mobile = true;
 
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 <?php endif; ?>
-

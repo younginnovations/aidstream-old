@@ -53,27 +53,6 @@ class Iati_Snapshot_Lib_DataHandler
         return false;
     }
 
-    /*
-    public function getActivityStatusDetails()
-    {
-        if($this->getData()){
-            return $this->getData()->activity_status;
-        }
-        return false;
-    }
-    */
-    public function getActivityDatesDetails($type = '')
-    {
-        if($this->getData()){
-            $acitvityDates = $this->get('activity_dates');
-            if($type){
-                return $acitvityDates->$type;
-            }
-            return $acitvityDates;
-        }
-        return false;
-    }
-
     public function getTop3Sectors()
     {
         if($this->getData()){
@@ -102,6 +81,19 @@ class Iati_Snapshot_Lib_DataHandler
             arsort($activityArray);
             $output = array_slice($activityArray, 0, 3);
             return $output;
+        }
+        return false;
+    }
+
+    public function getActivityCount() 
+    {
+        if($this->getData()){
+            $activities = $this->get('activities');
+            $activityCount = 0;
+            foreach ($activities as $activity) {
+                $activityCount += 1;
+            }
+            return $activityCount;
         }
         return false;
     }

@@ -48,21 +48,6 @@
             $outputData[$reportingOrgName]['activity_status'][$key]['activities'][] = $out['full_details'];
         }
 
-        //activity dates
-        $dateElements = array('start_planned' , 'start_actual' , 'end_planned' , 'end_actual');
-        foreach($dateElements as $dateElement){
-            $ele = $dateElement."_iso_date";
-            if($out[$ele] == '') continue;
-            $date = strtotime($out[$ele]);
-            if($date < strtotime('1999')) continue;
-            $year = date('Y' , $date);
-            $outputData[DEFAULT_ORG]['activity_dates'][$year][$dateElement]['count']  += 1;
-            $outputData[DEFAULT_ORG]['activity_dates'][$year][$dateElement]['activities'][]  = $out['full_details'];
-            $outputData[$reportingOrgName]['activity_dates'][$year][$dateElement]['count']  += 1;
-            $outputData[$reportingOrgName]['activity_dates'][$year][$dateElement]['activities'][]  = $out['full_details'];
-        }
-
-
         // Transactions
         $transElements = array('total_commitments' , 'total_disbursements' , 'total_expenditure' , 'total_incoming_funds' , 'total_reimbursements');
         foreach($transElements as $transElement){
@@ -157,5 +142,5 @@
         fwrite( $fp , json_encode($outData));
         fclose($fp);
     }
-    exec('chmod -R 777 '. INPUT_JSON_DIR);
+    exec('chmod -R 777 '. INPUT_JSON_DIR . '*.json');
 ?>

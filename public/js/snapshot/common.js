@@ -49,18 +49,6 @@ $(document).ready(function(){
         $.ajax({
             type:"get",
             url: location.protocol + "//" + location.host + "/default/index/ajax",
-            data: "reporting_org=" + repOrg + "&ele=activity_dates",
-            success: function(data){
-                // Succesful, load visualization API and send data
-                var dataset = prepareDatesData(data);
-                drawLineChart('activity-dates' , dataset);
-            }
-        });
-        
-        
-        $.ajax({
-            type:"get",
-            url: location.protocol + "//" + location.host + "/default/index/ajax",
             data: "reporting_org=" + repOrg + "&ele=recipient",
             success: function(data){
                 // Succesful, load visualization API and send data
@@ -177,36 +165,6 @@ function drawLineChart(eleId , dataset) {
       
         return chart;
       });
-}
-
-
-function prepareDatesData(datesData) {
-    obj = JSON && JSON.parse(datesData) || $.parseJSON(datesData);
-    if(obj == null) return false;
-    
-    var startActual = new Array();
-    var endActual = new Array();
-    
-    $.each(obj , function (datename , dateValues){
-        var startActualValue = (dateValues.hasOwnProperty('start_actual')? dateValues.start_actual.count: 0);
-        var endActualValue = (dateValues.hasOwnProperty('end_actual')? dateValues.end_actual.count: 0);
-        
-        startActual.push({x : datename , y : startActualValue});
-        endActual.push({x : datename , y : endActualValue});
-    });
-
-    return [
-        {
-          values: startActual,
-          key: "Start Actual",
-          color: "#9ca04c"
-        },
-        {
-          values: endActual,
-          key: "End Actual",
-          color: "#2ca02c"
-        }
-    ];
 }
 
 function prepareRecipientData(recipientData) {
