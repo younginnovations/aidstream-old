@@ -18,6 +18,24 @@ class User_Form_User_Edit extends App_Form
         $this->setName('Edit Account');
         $form = array();
 
+        $form['first_name'] = new Zend_Form_Element_Text('first_name');
+        $form['first_name']->setLabel('First Name')
+            ->setRequired()
+            ->setAttrib('class', 'form-text');
+        $form['last_name'] = new Zend_Form_Element_Text('last_name');
+        $form['last_name']->setLabel('Last Name')
+           ->setRequired()
+           ->setAttrib('class', 'form-text');   
+        $form['email'] = new Zend_Form_Element_Text('email');
+        $form['email']->setLabel('Email')
+           ->setRequired()
+           ->addValidator('emailAddress', false)
+           ->setAttrib('class', 'form-text')
+           ->addValidator('Db_NoRecordExists', false,
+                 array('table' => 'user', 'field' => 'email', 'exclude' => $clause,
+                 'messages' => array(
+                 Zend_Validate_Db_NoRecordExists::ERROR_RECORD_FOUND => 'Email Address already exists.')));
+        
         if($roleName != 'superadmin')
         {
             $form['name'] = new Zend_Form_Element_Text('name');
@@ -29,6 +47,10 @@ class User_Form_User_Edit extends App_Form
             $form['address']->setLabel('Organisation Address')
                 ->setRequired()
                 ->setAttrib('rows', '4')
+                ->setAttrib('class', 'form-text');
+            $form['url'] = new Zend_Form_Element_Text('url');
+            $form['url']->setLabel('Organisation Url')
+                ->addValidator(new App_Validate_Url())
                 ->setAttrib('class', 'form-text');
             $form['telephone'] = new Zend_Form_Element_Text('telephone');
             $form['telephone']->setLabel('Organisaton Telephone')
@@ -51,28 +73,7 @@ class User_Form_User_Edit extends App_Form
                       'messages' => array(
                       Zend_Validate_Db_NoRecordExists::ERROR_RECORD_FOUND => 'Twitter handle already in use.')));
         }
-        if($roleName == 'user')
-        {
-            $form['address']->setAttrib('readonly', 'true');
-        }
         
-        $form['first_name'] = new Zend_Form_Element_Text('first_name');
-        $form['first_name']->setLabel('First Name')
-            ->setRequired()
-            ->setAttrib('class', 'form-text');
-        $form['last_name'] = new Zend_Form_Element_Text('last_name');
-        $form['last_name']->setLabel('Last Name')
-           ->setRequired()
-           ->setAttrib('class', 'form-text');   
-        $form['email'] = new Zend_Form_Element_Text('email');
-        $form['email']->setLabel('Email')
-           ->setRequired()
-           ->addValidator('emailAddress', false)
-           ->setAttrib('class', 'form-text')
-           ->addValidator('Db_NoRecordExists', false,
-                 array('table' => 'user', 'field' => 'email', 'exclude' => $clause,
-                 'messages' => array(
-                 Zend_Validate_Db_NoRecordExists::ERROR_RECORD_FOUND => 'Email Address already exists.')));
         if($roleName == 'admin')
         {
             $filePath = $baseUrl.'/uploads/image/'.$account['file_name'] ;
@@ -80,7 +81,7 @@ class User_Form_User_Edit extends App_Form
             if($account['file_name']){
                 $form['image'] = new Zend_Form_Element_Image('image');
                 $form['image']->setImage($filePath)
-                    ->setLabel('Logo')
+                    ->setLabel('Organisation Logo')
                     ->setDescription('<a href="'.$remove.$user_id.'/user_name/'.$userName.
                                      '" class ="remove-logo" title = "Remove Logo" >Remove</a>')
                     ->setDecorators(array(
@@ -100,12 +101,17 @@ class User_Form_User_Edit extends App_Form
             if(!$account['file_name']){
                 $form['file']->setLabel('Upload Logo');
             }
-
-            $form['url'] = new Zend_Form_Element_Text('url');
-            $form['url']->setLabel('Organisation Url')
-            ->addValidator(new App_Validate_Url())
-            ->setAttrib('class', 'form-text');
+            $form['disqus_comments'] = new Zend_Form_Element_Checkbox('disqus_comments');
+            $form['disqus_comments']->setLabel('Disqus Comments')
+                ->setDescription('Enable/disable comments on your <a href="/organisation?reporting_org=' . rawurlencode($account->name) .'" target="_blank"> organization page</a>.');
+            $form['disqus_comments']->getDecorator('Description')->setOption('escape', false);
         }
+
+        if($roleName == 'user')
+        {
+            $form['address']->setAttrib('readonly', 'true');
+        }
+        
         foreach($form as $element){
             $element->addDecorators( array(
                         array(
@@ -128,7 +134,7 @@ class User_Form_User_Edit extends App_Form
                       array( 'wrapperAll' => 'HtmlTag' ),
                       array( 'tag' => 'div','class'=>'default-activity-list'))
             ));
-        $save = new Zend_Form_Element_Submit('save');
+        $save = new Zend_Form_Element_Submit('Save');
         $save->setValue('save')
             ->setAttrib('class' , 'form-submit');
         $this->addElement($save);

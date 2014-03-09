@@ -274,6 +274,7 @@ class User_UserController extends Zend_Controller_Action
                 $data['last_name'] = $form->getValue('last_name');
                 $data['email'] = $form->getValue('email');
                 $data['url'] = $form->getValue('url');
+                $data['disqus_comments'] = $form->getValue('disqus_comments');
                 $accountObj->updateAccount($data, $userName);
                 $value = $userModel->updateUser($data, $user_id);
                 $profileModel->updateProfile($data, $user_id);
@@ -294,6 +295,8 @@ class User_UserController extends Zend_Controller_Action
                         $e->getMessage();
                     }
                 }
+                $this->_helper->FlashMessenger
+                    ->addMessage(array('message' => 'Profile saved successfully.'));           
                 $this->_redirect('user/user/myaccount/user_id/' . $row->user_id);
             }else{
                 $form->populate($formData);

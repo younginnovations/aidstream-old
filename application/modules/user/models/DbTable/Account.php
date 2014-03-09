@@ -26,6 +26,7 @@ class User_Model_DbTable_Account extends Zend_Db_Table_Abstract {
         $value['url'] = $data['url'];
         $value['telephone'] = $data['telephone'];
         $value['twitter'] = $data['twitter'];
+        $value['disqus_comments'] = $data['disqus_comments'];
         return parent::update($value, array('username = ?' => $userName));
     }
 

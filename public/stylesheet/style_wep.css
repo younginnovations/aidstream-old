@@ -1020,6 +1020,11 @@ input[type="checkbox"]
 	margin: 0 5px;
 }
 
+input#disqus_comments
+{
+	margin:	3px 0;
+}
+
 .claro .change-password {
 	margin-top: 10px;
 }
@@ -2510,7 +2515,7 @@ form#support-form
 	margin-left: 170px;
 }
 
-.organization-deatail-item {
+.organization-detail-item {
 	margin-bottom:10px;
 }
 

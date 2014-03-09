@@ -39,26 +39,11 @@
             <span class="profile-item-value"><?php print $this->row->email?></span>
         </div>
 
-        <div class="individual-username profile-item">
+        <div class="individual-username profile-item last">
             <span class="profile-item-label">Username:</span>
             <span class="profile-item-value"><?php print $this->row->user_name?></span>
         </div>
-
-        <?php if($roleName != 'superadmin'):?>
-        <div class="individual-url profile-item">
-            <span class="profile-item-label">Organisation Url:</span>
-            <span class="profile-item-value"><?php print $this->account->url?></span>
-        </div>
-        <div class="individual-telephone profile-item">
-            <span class="profile-item-label">Organisation Telephone:</span>
-            <span class="profile-item-value"><?php print $this->account->telephone?></span>
-        </div>
-        <div class="individual-twitter profile-item last">
-            <span class="profile-item-label">Organisation Twitter:</span>
-            <span class="profile-item-value"><?php print $this->account->twitter?></span>
-        </div>
-        <?php endif; ?>
-
+    
     </div>
 </div>
 
@@ -66,7 +51,7 @@
 
     <div id="organization-info">
 
-        <h2>Organisation details</h2>
+        <h2>Organisation Details</h2>
 
         <?php if($fileName['file_name']): ?>
                <div id="organization-logo"><img src="<?php print $filePath; ?>" alt="logo"/></div>
@@ -77,17 +62,35 @@
 
         <?php endif ?>
 
-
-
                 <div id="organization-details">
-                    <div class="organization-name organization-deatail-item">
-                            <div class="profile-item-label">Organisation Name:</div>
-                            <div class="profile-item-value"><?php print $this->account['name']; ?></div>
+                    <div class="organization-name organization-detail-item">
+                            <span class="profile-item-label">Organisation Name:</span>
+                            <span class="profile-item-value"><?php print $this->account['name']; ?></span>
                     </div>
 
-                    <div class="organization-address organization-deatail-item">
-                            <div class="profile-item-label">Organisation Address:</div>
-                            <div class="profile-item-value"><?php print $this->account['address']; ?></div>
+                    <div class="organization-address organization-detail-item">
+                            <span class="profile-item-label">Organisation Address:</span>
+                            <span class="profile-item-value"><?php print $this->account['address']; ?></span>
+                    </div>
+
+                    <div class="organization-url organization-detail-item">
+                        <span class="profile-item-label">Organisation Url:</span>
+                        <span class="profile-item-value"><?php print $this->account->url?></span>
+                    </div>
+
+                    <div class="organization-telephone organization-detail-item">
+                        <span class="profile-item-label">Organisation Telephone:</span>
+                        <span class="profile-item-value"><?php print $this->account->telephone?></span>
+                    </div>
+
+                    <div class="organization-twitter organization-detail-item">
+                        <span class="profile-item-label">Organisation Twitter:</span>
+                        <span class="profile-item-value"><?php print $this->account->twitter?></span>
+                    </div>
+
+                    <div class="organization-comments organization-detail-item last">
+                        <span class="profile-item-label">Disqus Comments:</span>
+                        <span class="profile-item-value"><?php print ($this->account->disqus_comments==1)? 'Enabled' : 'Disabled'; ?></span>
                     </div>
                 </div>
         <div class="clear"></div>

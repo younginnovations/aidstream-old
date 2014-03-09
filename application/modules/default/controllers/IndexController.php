@@ -72,6 +72,7 @@ class IndexController extends Zend_Controller_Action
             $organisation_array['website'] = ($result['url']) ? $result['url'] : 'Not Available';
             $organisation_array['twitter'] = ($result['twitter']) ? $result['twitter'] : 'Not Available';
             $organisation_array['prefix'] = $result['username'];
+            $organisation_array['disqus_comments'] = $result['disqus_comments'];
 
             $this->view->organisation_array = $organisation_array;
             $this->view->registry_url = "/publisher/".$regInfo->publisher_id;
@@ -110,7 +111,7 @@ class IndexController extends Zend_Controller_Action
             print_r($activityStatus);
             exit;
         } else {
-            $this->_redirect('index');
+            $this->_redirect('/');
         } // End if
     }
 
