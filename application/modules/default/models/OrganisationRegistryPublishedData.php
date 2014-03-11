@@ -48,4 +48,9 @@ class Model_OrganisationRegistryPublishedData extends Zend_Db_Table_Abstract
         $rowSet = $this->select()->where('publisher_org_id = ?',$org_id);
         return $this->fetchAll($rowSet)->toArray();
     }
+
+    public function getAllOrganisationRegistryPublishedData() {
+        $query = $this->select()->from($this, array('publisher_org_id', 'file_id', 'filename'));
+        return $this->fetchAll($query);
+    }
 }

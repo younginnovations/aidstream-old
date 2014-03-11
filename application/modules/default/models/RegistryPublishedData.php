@@ -77,4 +77,9 @@ class Model_RegistryPublishedData extends Zend_Db_Table_Abstract
         }
         return $count;
     }
+
+    public function getAllRegistryPublishedData() {
+        $query = $this->select()->from($this, array('publisher_org_id', 'file_id', 'filename'));
+        return $this->fetchAll($query);
+    }
 }

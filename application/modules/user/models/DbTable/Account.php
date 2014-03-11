@@ -77,5 +77,13 @@ class User_Model_DbTable_Account extends Zend_Db_Table_Abstract {
             return $this->fetchRow($select)->toArray();
         }
     }
+
+    public function getOrganisationNameById($accountId) 
+    {
+        $select = $this->select()
+            ->from($this, array('name'))
+            ->where('id = ?', $accountId);
+        return $this->fetchRow($select)->name;
+    }
 }
 

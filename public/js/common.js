@@ -1114,7 +1114,7 @@ function initialize() {
                 var node = new dojo.NodeList(getTarget(evt));
 
                 var value = node.attr('value')[0];
-		var url = APP_BASEPATH + "/simplified/default/get-form";
+		        var url = APP_BASEPATH + "/simplified/default/get-form";
                 var wrapperNode = dojo.query(getTarget(evt)).parents(".zend_form").first();
                 var lastNode =wrapperNode.query(".form-wrapper").last();
 
@@ -1696,7 +1696,16 @@ function initialize() {
             }
             evt.preventDefault();
         }
-     }
+    },
+    "#block-generate-published-xml-files a" : {
+        "onclick" : function(evt) {
+            evt.preventDefault();
+            var msg = "Are you sure you want to generate the XML file?";
+            new confirmDialog('' , msg , 'Yes, Generate and Redirect', 'Cancel', function(){
+                document.location.assign('/files/xml/published-files.xml');
+            });   
+        }
+    },
     });
 
     // End of dojo.behavior.add

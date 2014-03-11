@@ -754,4 +754,42 @@ class AdminController extends Zend_Controller_Action
             $this->view->errors = $output;
         }
     }
+
+    public function generatePublishedXmlFilesAction() {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout()->disableLayout();
+        $config = new Zend_Config_Ini(APPLICATION_PATH.'/configs/application.ini', APPLICATION_ENV);       
+        $xmlPath = $config->public_folder.$config->xml_folder;
+        $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><iati-publishers></iati-publishers>');
+        $registryPublishedModel = new Model_RegistryPublishedData();
+        $organisationRegistryPublishedModel = new Model_OrganisationRegistryPublishedData();
+        $accountModel = new User_Model_DbTable_Account();
+        $organisationRegistryPublishedData = $organisationRegistryPublishedModel->getAllOrganisationRegistryPublishedData();
+        $registryPublishedData = $registryPublishedModel->getAllRegistryPublishedData();
+        foreach ($registryPublishedData as $registryData) {
+            $orgName = $accountModel->getOrganisationNameById($registryData->publisher_org_id);
+            $registry[$orgName][] = $registryData->filename;
+        }
+        foreach ($organisationRegistryPublishedData as $registryData) {
+            $orgName = $accountModel->getOrganisationNameById($registryData->publisher_org_id);
+            $registry[$orgName][] = $registryData->filename;
+        }
+        ksort($registry);
+        foreach ($registry as $publisherName => $files) {
+            $iatiPublisher = $xml->addChild('iati-publisher');
+            $iatiPublisher->addChild('name', $publisherName);
+            $iatiFiles = $iatiPublisher->addChild('iati-files');
+            foreach ($files as $iatiFile) {
+                $fileUrl = 'http://aidstream.org/public/files/xml/' . $iatiFile . '.xml';
+                $iatiFile = $iatiFiles->addChild('iati-file', $fileUrl);
+            }
+        }
+        $fileName = "published-files.xml"; 
+        $fp = fopen($xmlPath.$fileName,'w');
+        fwrite($fp,$xml->asXML());
+        fclose($fp);
+        if (file_exists($xmlPath.$fileName)) {
+            $this->_redirect('/files/xml/' . $fileName);
+        }
+    }
 }
