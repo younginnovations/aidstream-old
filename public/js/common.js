@@ -1702,7 +1702,7 @@ function initialize() {
             evt.preventDefault();
             var msg = "Are you sure you want to generate the XML file?";
             new confirmDialog('' , msg , 'Yes, Generate and Redirect', 'Cancel', function(){
-                document.location.assign('/files/xml/published-files.xml');
+                document.location.assign('/admin/generate-published-xml-files');
             });   
         }
     },
