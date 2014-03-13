@@ -29,12 +29,12 @@ body {
 
 #left-block,.left-block {
 	float: left;
-	width: 460px;
+	width: 454px;
 }
 
 #right-block,.right-block {
 	float: right;
-	width: 460px;
+	width: 454px;
 }
 
 #data-wrapper h3,.activities-block h3,.sectors-block h3 {
@@ -96,10 +96,6 @@ body {
 	color: #333;
 }
 
-.sector {
-	height: 293px;
-}
-
 .sector span {
 	font-size: 14px;
 }
@@ -123,6 +119,15 @@ body {
 .inner-block {
 	margin-bottom: 70px;
 	overflow: hidden;
+}
+
+#published-files .published-block li {
+    list-style: none;
+}
+
+#published-files .published-block li a {
+    font-size: 14px;
+    margin-left: 20px;
 }
 
 .transaction-wrapper { 
@@ -564,6 +569,10 @@ div.tooltip {
 	clear: both;
 }
 
+.block-inner-wrapper {
+    overflow: hidden;
+}
+
 .load-more {
 	background: #ddd;
 	text-align: center;
@@ -628,7 +637,7 @@ div.tooltip {
 .published-block ul li,.activity-details {
 	list-style: none;
 	padding-bottom: 16px;
-	background: url(images/activity-arrow.png) no-repeat 4px 10px;
+	background: url(images/activity-arrow.png) no-repeat 4px 1px;
 }
 
 .activity-details {

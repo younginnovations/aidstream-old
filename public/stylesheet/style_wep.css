@@ -686,7 +686,8 @@ h2.form-title {
 #block-list-help .action-icon a,
 #block-download-data-menu .action-icon a,
 #block-uploaded-doc-menu .action-icon a,
-#block-validate-xml-files .action-icon a
+#block-validate-xml-files .action-icon a,
+#block-generate-published-xml-files .action-icon a
 {
 	display: block;
 	width: 48px;
@@ -695,6 +696,7 @@ h2.form-title {
 	outline: none;
 	float: left;
 	margin-right: 12px;
+    background-color: transparent;
 }
 
 #block-list-menu a,
@@ -706,7 +708,8 @@ h2.form-title {
 #block-list-activity-states a,
 #block-download-data-menu a,
 #block-uploaded-doc-menu a,
-#block-validate-xml-files a {
+#block-validate-xml-files a,
+#block-generate-published-xml-files a{
 	font-weight: bold;
 	font-size: 13px;
 }
@@ -3047,6 +3050,14 @@ button#cd-cancel, button#cd-ok
 
 #block-validate-xml-files:hover .action-icon a {
 	background-position:0 -2108px;
+}
+
+#block-generate-published-xml-files .action-icon a {
+    background-position:0 -2195px;
+}
+
+#block-generate-published-xml-files:hover .action-icon a {
+     background-position:0 -2295px;
 }
 
 /* change Default Page */
@@ -5418,6 +5429,7 @@ fieldset#fieldset-organisation_info {
 .action-icon {
 	float: left;
 	width: 58px;
+    height: 58px;
 }
 
 #user_info_message-element {
