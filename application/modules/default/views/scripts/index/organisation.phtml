@@ -21,17 +21,17 @@ endif;
         <div class="organisation-data inner-block">
             <div id="organisation-info">
                 <h3><?php print $organisation['name']; ?></h3>
-                <?php
-$filePath = '/uploads/image/'.$organisation['image'];
-if ($organisation['image']) {
+                <?php 
+                    $filePath = '/uploads/image/'.$organisation['image'];
+                    if ($organisation['image']) {
                 ?>
                 <div id="organization-logo"><img src="<?php print $filePath; ?>" alt="logo"/></div>
                 <?php
-} else {
+                    } else {
                 ?>
                 <div id="organization-logo"><img src="<?php echo '/images/default-user.png' ?>" alt="logo"/></div>
                 <?php
-}
+                    }
                 ?>
 
                 <div id="organisation-contact-info">
@@ -40,22 +40,25 @@ if ($organisation['image']) {
                         <li><span>Address:</span> <div class="value"><?php print $organisation['address']; ?></div></li>
                         <li><span>Email:</span> <div class="value"><a href="mailto:<?php print $organisation['email']; ?>"><?php print $organisation['email']; ?></a></div></li>
                         <li><span>Website:</span>
-                            <div class="value"><?php if ($organisation['website'] != 'Not Available'){ ?>
-                                <a href="<?php print $organisation['website']; ?>" target="_blank"><?php print $organisation['website']; ?></a></li><?php } else { ?>
-                            <?php print $organisation['website']; ?></div></li>
-                <?php } ?>
-                <li><span>Telephone:</span> <div class="value"><?php print $organisation['telephone']; ?></div></li>
-                <li><span>Twitter:</span>
-                    <div class="value"><?php if ($organisation['twitter'] != 'Not Available'){ ?>
-                        <a href="http://twitter.com/<?php print preg_replace("/@/", "", $organisation['twitter'], 1); ?>" target="_blank"><?php print $organisation['twitter']; ?></a></li><?php } else { ?>
-                    <?php print $organisation['twitter']; ?></div></li>
-        <?php } ?>
-
-    </ul>
-</div>
-</div>
-</div>
-<?php endif; ?>
+                            <div class="value">
+                            <?php if ($organisation['website'] != 'Not Available'){ ?>
+                                <a href="<?php print $organisation['website']; ?>" target="_blank"><?php print $organisation['website']; ?></a></li>
+                            <?php } else { ?>
+                                <?php print $organisation['website']; ?></div></li>
+                            <?php } ?>
+                        <li><span>Telephone:</span> <div class="value"><?php print $organisation['telephone']; ?></div></li>
+                        <li><span>Twitter:</span>
+                            <div class="value">
+                            <?php if ($organisation['twitter'] != 'Not Available'){ ?>
+                                <a href="http://twitter.com/<?php print preg_replace("/@/", "", $organisation['twitter'], 1); ?>" target="_blank"><?php print $organisation['twitter']; ?></a></li>
+                            <?php } else { ?>
+                                <?php print $organisation['twitter']; ?></div></li>
+                            <?php } ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
 </div>
 <?php if ($handler->get('activities') || (isset($this->total))):?>
 <div class="right-block">
@@ -134,7 +137,6 @@ if ($organisation['image']) {
         </div>
 
         <div id="right-block">
-
             <div class="block">
                 <h3>Recipient Region/Country<span id="recipient-region-country-info" class="dialog-box-open">help</span></h3>
                 <div id="recipient-info"></div>
