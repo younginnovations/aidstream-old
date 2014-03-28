@@ -1,7 +1,14 @@
 <li class="element-activity">
-
     <div class="element-title ">
         <?php echo "Name"; ?>
+        <div class="element-info">
+            <div class="element-values">
+                <?php if($this->elements[0]['text']):?>
+                    <span class="attrib-label">Text:</span>                 
+                    <span class="attrib-value"><?php echo $this->length()->adjustSingleLength($this->elements[0]['text']); ?></span>
+                <?php endif; ?>
+            </div>
+        </div>
     </div>
 
     <div class="edit"><a href="<?php echo $this->baseUrl() ?>/organisation/edit-elements/?parentId=<?php echo $this->parentId ?>&className=Organisation_Name">Edit</a></div> 
@@ -24,9 +31,5 @@
               <?php endif; ?>
         </ul>           
     </div><!--Ends .highlight-->
-
-
-
-
 
 </li><!-- end of element-activity -->
