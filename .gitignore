@@ -5,6 +5,8 @@ public/error_log
 tests/output
 public/iaticodes
 public/files/v1.03/
+public/how-to/
+public/how-to-simplified/
 tests/annual_csv
 nbproject/
 *.komodoproject

@@ -75,7 +75,7 @@ class IndexController extends Zend_Controller_Action
             $organisation_array['disqus_comments'] = $result['disqus_comments'];
 
             $this->view->organisation_array = $organisation_array;
-            $this->view->registry_url = "/publisher/".$regInfo->publisher_id;
+            $this->view->publisher_id = $regInfo->publisher_id;
         } else {
             // For all organisations: snapshot
             if ($reportingOrg == 'all' || $reportingOrg == '') {

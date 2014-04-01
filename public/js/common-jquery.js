@@ -1,12 +1,12 @@
-$(document).ready(function(){
-    $('body').click(function(evt){
+$(document).ready(function () {
+    $('body').click(function (evt) {
         var ele = $(evt.target);
-        if(!ele.is('input') && ele.attr('id') != 'login-register-popup' && ele.closest('div').attr('id') != 'login-register-popup'){
-            $('#login-form-wrapper').css('display' , 'none');
+        if (!ele.is('input') && ele.attr('id') != 'login-register-popup' && ele.closest('div').attr('id') != 'login-register-popup') {
+            $('#login-form-wrapper').css('display', 'none');
         }
     })
-    
-    $('#login-register-popup').click(function(evt){
+
+    $('#login-register-popup').click(function (evt) {
         evt.preventDefault();
         $('#login-form-wrapper').toggle();
     });
@@ -14,48 +14,48 @@ $(document).ready(function(){
     $('#tabs li a:not(:first)').addClass('inactive');
     $('.tabs-container').hide();
     $('.tabs-container:first').show();
-        
-    $('#tabs li a').click(function(){
+
+    $('#tabs li a').click(function () {
         var t = $(this).attr('id');
-        if($(this).hasClass('inactive')){ //this is the start of our condition 
-            $('#tabs li a').addClass('inactive');           
+        if ($(this).hasClass('inactive')) { //this is the start of our condition 
+            $('#tabs li a').addClass('inactive');
             $(this).removeClass('inactive');
-        
+
             $('.tabs-container').hide();
-            $('#'+ t + 'C').show();
+            $('#' + t + 'C').show();
         }
     });
 
     // Reporting Org Change Detection
     var oldData = $("#fieldset-reporting_org_info :input[value!='']").serialize();
     if (oldData != '') {
-        $('.defaults-forms form').one('submit', function(event){
+        $('.defaults-forms form').one('submit', function (event) {
             var newData = $('#fieldset-reporting_org_info :input').serialize();
             if (oldData != newData) {
                 event.preventDefault();
                 var confirmDialog = confirm('You have changed the reporting organisation information. Your changes are saved in the settings. Do you want to update your activities and publish them?');
                 if (confirmDialog == true) {
-                    $(this).attr("action", "settings?btn=ok") 
+                    $(this).attr("action", "settings?btn=ok")
                     $(this).submit();
-                } else { 
+                } else {
                     $(this).submit();
                 }
             } else {
                 $(this).submit();
-            } 
+            }
         });
     }
 
     // Select all xml files for validation
-    $('.selectallactivity').click(function(){
+    $('.selectallactivity').click(function () {
         if ($(this).is(':checked')) {
             $('#activity-xml input').attr('checked', true);
         } else {
             $('#activity-xml input').attr('checked', false);
         }
-    });   
+    });
 
-    $('.selectallorganisation').click(function(){
+    $('.selectallorganisation').click(function () {
         if ($(this).is(':checked')) {
             $('#organisation-xml input').attr('checked', true);
         } else {

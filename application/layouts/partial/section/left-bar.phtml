@@ -54,7 +54,7 @@
     </div>
 <?php endif; ?>
 <?php if($hasOtherBlock) : ?>
-    <div class='other'>
+    <div class='other data-block'>
         <?php foreach($otherBlocks as $otherBlock): ?>
             <?php print $this->blockManager()->get($otherBlock); ?>
         <?php endforeach; ?>

@@ -1,14 +1,14 @@
 <?php
-$handler = $this->handler;
-$config = new Zend_Config_Ini(APPLICATION_PATH.'/configs/application.ini', APPLICATION_ENV);
-$shortname = $config->disqus->shortname;
-$identifier = $_GET['reporting_org'];
-if (isset($this->organisation_array)):
-$organisation = $this->organisation_array;
-endif;
+    $handler = $this->handler;
+    $config = new Zend_Config_Ini(APPLICATION_PATH.'/configs/application.ini', APPLICATION_ENV);
+    $shortname = $config->disqus->shortname;
+    $identifier = $_GET['reporting_org'];
+    $registry_url = "/publisher/".$this->publisher_id;
+    if (isset($this->organisation_array)) $organisation = $this->organisation_array;
 ?>
 <div id="data-wrapper">
     <div class="left-block">
+        
         <?php if (isset($this->total)): ?>
         <div id="aidstream-stats" class="inner-block">
             <h3>AidStream Statistics</h3>
@@ -17,22 +17,17 @@ endif;
             <p><span><span class="count"><?php print $this->total['published']; ?></span>Total no. of Activities published to IATI Registry</span></p>
         </div>
         <?php endif; ?>
+
         <?php if ($organisation): ?>
         <div class="organisation-data inner-block">
             <div id="organisation-info">
                 <h3><?php print $organisation['name']; ?></h3>
-                <?php
-$filePath = '/uploads/image/'.$organisation['image'];
-if ($organisation['image']) {
-                ?>
-                <div id="organization-logo"><img src="<?php print $filePath; ?>" alt="logo"/></div>
-                <?php
-} else {
-                ?>
-                <div id="organization-logo"><img src="<?php echo '/images/default-user.png' ?>" alt="logo"/></div>
-                <?php
-}
-                ?>
+                <?php $filePath = '/uploads/image/'.$organisation['image'];
+                if ($organisation['image']): ?>
+                    <div id="organization-logo"><img src="<?php print $filePath; ?>" alt="logo"/></div>
+                <?php else: ?>
+                    <div id="organization-logo"><img src="<?php echo '/images/default-user.png' ?>" alt="logo"/></div>
+                <?php endif; ?>
 
                 <div id="organisation-contact-info">
                     <h4>Contact Details</h4>
@@ -40,108 +35,111 @@ if ($organisation['image']) {
                         <li><span>Address:</span> <div class="value"><?php print $organisation['address']; ?></div></li>
                         <li><span>Email:</span> <div class="value"><a href="mailto:<?php print $organisation['email']; ?>"><?php print $organisation['email']; ?></a></div></li>
                         <li><span>Website:</span>
-                            <div class="value"><?php if ($organisation['website'] != 'Not Available'){ ?>
-                                <a href="<?php print $organisation['website']; ?>" target="_blank"><?php print $organisation['website']; ?></a></li><?php } else { ?>
-                            <?php print $organisation['website']; ?></div></li>
-                <?php } ?>
-                <li><span>Telephone:</span> <div class="value"><?php print $organisation['telephone']; ?></div></li>
-                <li><span>Twitter:</span>
-                    <div class="value"><?php if ($organisation['twitter'] != 'Not Available'){ ?>
-                        <a href="http://twitter.com/<?php print preg_replace("/@/", "", $organisation['twitter'], 1); ?>" target="_blank"><?php print $organisation['twitter']; ?></a></li><?php } else { ?>
-                    <?php print $organisation['twitter']; ?></div></li>
-        <?php } ?>
+                            <div class="value">
+                            <?php if ($organisation['website'] != 'Not Available'){ ?>
+                                <a href="<?php print $organisation['website']; ?>" target="_blank"><?php print $organisation['website']; ?></a></li>
+                            <?php } else { ?>
+                                <?php print $organisation['website']; ?></div></li>
+                            <?php } ?>
+                        <li><span>Telephone:</span> <div class="value"><?php print $organisation['telephone']; ?></div></li>
+                        <li><span>Twitter:</span>
+                            <div class="value">
+                            <?php if ($organisation['twitter'] != 'Not Available'){ ?>
+                                <a href="http://twitter.com/<?php print preg_replace("/@/", "", $organisation['twitter'], 1); ?>" target="_blank"><?php print $organisation['twitter']; ?></a></li>
+                            <?php } else { ?>
+                                <?php print $organisation['twitter']; ?></div></li>
+                            <?php } ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
+</div>
 
-    </ul>
-</div>
-</div>
-</div>
-<?php endif; ?>
-</div>
 <?php if ($handler->get('activities') || (isset($this->total))):?>
-<div class="right-block">
-    <div class="transaction-wrapper inner-block">
-        <h3>Transaction<span id="transaction-info" class="dialog-box-open">help</span></h3>
-        <div class="transaction-block">
-            <?php $transactions = $handler->get('transaction');?>
-            <div class="transactions">
-                <div class="heading">Total Commitments</div>
-                <div class="value">$<?php echo number_format($transactions->total_commitments->value , 2);?></div>
-            </div>
-            <div class="transactions">
-                <div class="heading">Total Disbursements</div>
-                <div class="value">$<?php echo number_format($transactions->total_disbursements->value , 2);?></div>
-            </div>
-            <div class="transactions">
-                <div class="heading">Total Expenditures</div>
-                <div class="value">$<?php echo number_format($transactions->total_expenditure->value , 2);?></div>
-            </div>
-            <div class="transactions">
-                <div class="heading">Total Incoming Funds</div>
-                <div class="value">$<?php echo number_format($transactions->total_incoming_funds->value , 2);?></div>
+    <div class="right-block">
+        <div class="transaction-wrapper inner-block">
+            <h3>Transaction<span id="transaction-info" class="dialog-box-open">help</span></h3>
+            <div class="transaction-block">
+                <?php $transactions = $handler->get('transaction');?>
+                <div class="transactions">
+                    <div class="heading">Total Commitments</div>
+                    <div class="value">$<?php echo number_format($transactions->total_commitments->value , 2);?></div>
+                </div>
+                <div class="transactions">
+                    <div class="heading">Total Disbursements</div>
+                    <div class="value">$<?php echo number_format($transactions->total_disbursements->value , 2);?></div>
+                </div>
+                <div class="transactions">
+                    <div class="heading">Total Expenditures</div>
+                    <div class="value">$<?php echo number_format($transactions->total_expenditure->value , 2);?></div>
+                </div>
+                <div class="transactions">
+                    <div class="heading">Total Incoming Funds</div>
+                    <div class="value">$<?php echo number_format($transactions->total_incoming_funds->value , 2);?></div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="load-more">Load More...</div>
-<div class="block-wrapper">
-    <div class="block-inner-wrapper">
-        <div class="left-block">
-            <div id="inner-block">
-                <?php $activities = $handler->getTop3Activities();?>
-                <?php if($activities):?>
-                <?php $activityCount = $handler->getActivityCount(); ?>
-                <div id="published-files" class="inner-block">
-                    <h3>Activities<?php if($activityCount > 3): ?><a href="#" class="activities-more">View all (<?php echo $activityCount; ?> activities)</a><?php endif; ?><span id="activities-info" class="dialog-box-open">help</span></h3>
-                    <div class="published-block">
-                        <ul>
-                            <?php foreach($activities as $activityId => $activityTitle): ?>
-                            <li><span><?php print $activityId?></span>
-                                <div class="value"><?php print $activityTitle; ?></div>
-                            </li>
-                            <?php endforeach; ?>
-                        </ul>
-                        <?php if(isset($this->registry_url)): ?>
-                        <li><a href="http://iatiregistry.org<?php echo $this->registry_url; ?>" target="_blank">View publisher in IATI Registry</a></li>
-                        <?php endif; ?>
+    <div class="load-more">Load More...</div>
+    <div class="block-wrapper">
+        <div class="block-inner-wrapper">
+            <div class="left-block">
+                <div id="inner-block">
+                    <?php $activities = $handler->getTop3Activities();?>
+                    <?php if($activities):?>
+                    <?php $activityCount = $handler->getActivityCount(); ?>
+                    <div id="published-files" class="inner-block">
+                        <h3>Activities<?php if($activityCount > 3): ?><a href="#" class="activities-more">View all (<?php echo $activityCount; ?> activities)</a><?php endif; ?><span id="activities-info" class="dialog-box-open">help</span></h3>
+                        <div class="published-block">
+                            <ul>
+                                <?php foreach($activities as $activityId => $activityTitle): ?>
+                                    <li><span><?php print $activityId?></span>
+                                        <div class="value"><?php print $activityTitle; ?></div>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                            <?php if(!empty($this->publisher_id)): ?>
+                                <li><a href="http://iatiregistry.org<?php echo $registry_url; ?>" target="_blank">View publisher in IATI Registry</a></li>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <div class="right-block">
+                <div class="sector-wrapper inner-block">
+                    <h3>Sector(Top 3)<a href="#inline_content" class="inline">View all</a><span id="sector-info" class="dialog-box-open">help</span></h3>
+                    <div class="sector">
+                        <?php $sectors = $handler->getTop3Sectors(); ?>
+                        <?php if($sectors):?>
+                        <?php foreach($sectors as $sectorName=>$sectorCount):?>
+                        <div><span class="count"><?php echo $sectorCount;?></span><span><?php echo $sectorName;?></span></div>
+                        <?php endforeach;?>
+                        <?php else: ?>
+                        <div class="no-data">No Data Available</div>
+                        <?php endif;?>
                     </div>
                 </div>
-                <?php endif; ?>
-            </div>
+            </div> 
         </div>
-        <div class="right-block">
-            <div class="sector-wrapper inner-block">
-                <h3>Sector(Top 3)<a href="#inline_content" class="inline">View all</a><span id="sector-info" class="dialog-box-open">help</span></h3>
-                <div class="sector">
-                    <?php $sectors = $handler->getTop3Sectors(); ?>
-                    <?php if($sectors):?>
-                    <?php foreach($sectors as $sectorName=>$sectorCount):?>
-                    <div><span class="count"><?php echo $sectorCount;?></span><span><?php echo $sectorName;?></span></div>
-                    <?php endforeach;?>
-                    <?php else: ?>
-                    <div class="no-data">No Data Available</div>
-                    <?php endif;?>
+        <div class="block-inner-wrapper">
+            <div id="left-block">
+                <div class="inner-block">
+                    <h3>Activity Status<span id="activity-status-info" class="dialog-box-open">help</span></h3>
+                    <div id="activity-status"></div>
                 </div>
             </div>
-        </div> 
-    </div>
-    <div class="block-inner-wrapper">
-        <div id="left-block">
-            <div class="inner-block">
-                <h3>Activity Status<span id="activity-status-info" class="dialog-box-open">help</span></h3>
-                <div id="activity-status"></div>
-            </div>
-        </div>
 
-        <div id="right-block">
-
-            <div class="block">
-                <h3>Recipient Region/Country<span id="recipient-region-country-info" class="dialog-box-open">help</span></h3>
-                <div id="recipient-info"></div>
+            <div id="right-block">
+                <div class="block">
+                    <h3>Recipient Region/Country<span id="recipient-region-country-info" class="dialog-box-open">help</span></h3>
+                    <div id="recipient-info"></div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 <?php $sectors = $handler->get('sectors'); ?>
 <div style='display:none'>
@@ -231,29 +229,35 @@ if ($organisation['image']) {
         </p>
     </div>
 </div>
+
 <?php else: ?>
-<div class="data-info">
-    <h2>This organisation has no activity published to the IATI registry.</h2>
-</div>
+    <div class="data-info">
+        <?php if (!empty($this->publisher_id)): ?>
+            <h2><?php print $organisation['name']; ?> has not published to <a href="http://iatiregistry.org" target="__blank">IATI Registry</a> via AidStream. Please visit <?php print $organisation['name']; ?> 
+            <a href="http://iatiregistry.org<?php print $registry_url; ?>" target="__blank">registry page</a> for details.</h2>
+        <?php else: ?>
+            <h2><?php print $organisation['name']; ?> has not published to <a href="http://iatiregistry.org" target="__blank">IATI Registry</a> via AidStream. Please visit IATI Registry <a href="http://iatiregistry.org/publisher" target="__blank">publishers page</a> for details.</h2>
+        <?php endif; ?>
+    </div>
 <?php endif; ?>
 </div>
 
 <?php if($shortname && ($organisation['disqus_comments']==1) || $identifier=='all'): ?>
-<!-- Disqus Thread Starts Here -->
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = '<?php print $shortname ?>'; // Set shortname
-    var disqus_identifier = '<?php print $identifier; ?>';
-    var disqus_disable_mobile = true;
+    <!-- Disqus Thread Starts Here -->
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES * * */
+        var disqus_shortname = '<?php print $shortname ?>'; // Set shortname
+        var disqus_identifier = '<?php print $identifier; ?>';
+        var disqus_disable_mobile = true;
 
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">&nbsp; comments powered by <span class="logo-disqus">Disqus</span></a>
 <?php endif; ?>

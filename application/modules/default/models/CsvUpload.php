@@ -99,7 +99,8 @@ class Model_CsvUpload
             //Transaction date
             $this->elementData[$count]['TransactionDate']['iso_date'] = $transactionDate;
 
-            
+            //Description
+            $this->elementData[$count]['Description']['text'] = $transactionData[$keys['description']];
             $count++;
         }
         return $count;
