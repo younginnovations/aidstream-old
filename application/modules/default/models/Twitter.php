@@ -1,15 +1,15 @@
 <?php
 class Model_Twitter {
-
-	// Twitter API Configuration and Verification
-	private function verifyCredentials() {
+	// Twitter API Configuration
+	public function __construct() {
+		// Config path
 		$config = new Zend_Config_Ini(APPLICATION_PATH.'/configs/application.ini', APPLICATION_ENV);
 		$twitterOauth = $config->service->twitter->oauth;
 		$accessToken = new Zend_Oauth_Token_Access();
 		$accessToken->setToken($twitterOauth->oauthToken)
 		            ->setTokenSecret($twitterOauth->oauthTokenSecret);
 
-		$options = array(
+		$this->options = array(
 		    'username' => $twitterOauth->username,
 		    'accessToken' => $accessToken,
 		    'oauthOptions' => array(
@@ -17,11 +17,14 @@ class Model_Twitter {
 		        'consumerSecret' => $twitterOauth->consumerSecret
 		    )
 		);
+	}
 
-		$twitter = new Zend_Service_Twitter($options);
+	// Verify Credentials
+	private function verifyCredentials() {
+		$twitter = new Zend_Service_Twitter($this->options);
 		$response = $twitter->account->verifyCredentials();
 
-		if ( !$response || !empty( $response->error ) ) {
+		if ( !$response || !empty($response->error) ) {
 		   return false;
 		} else {
 			return $twitter;
@@ -39,12 +42,16 @@ class Model_Twitter {
 		$model = new User_Model_DbTable_Account();
 		$row = $model->getAccountRowById($accountId);
 		// If twitter screen name is present
-		if (strlen($row['twitter']) != 0)
-			$twitter = $this->verifyCredentials();
-			if (is_object($twitter)) {
-				$twitter->statuses->update($row['name'] . ' (' . $row['twitter'] .  ') has published their aid-data. View the data here: http://iatiregistry.org' . $registryUrl . ' #AidStream #IATI');
+		$twitter = $this->verifyCredentials();
+		if (is_object($twitter)) {
+			if (strlen($row['twitter']) != 0) {
+				$status = $row['name'] . ' ' . $row['twitter'] . ' has published their aid-data. View the data here: http://iatiregistry.org' . $registryUrl . ' #AidStream #IATI';
 			} else {
-				return false;
+				$status = $row['name'] . ' has published their aid-data. View the data here: http://iatiregistry.org' . $registryUrl . ' #AidStream #IATI';
+			}
+			$twitter->statuses->update($status);
+		} else {
+			return false;
 		}
 	}
 
