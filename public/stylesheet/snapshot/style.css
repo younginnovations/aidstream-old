@@ -23,7 +23,7 @@ body {
 	width: 940px;
 	margin: 0 auto;
 	overflow: hidden;
-	padding: 34px 0;
+	padding: 94px 0 34px;
 	clear: both;
 }
 
@@ -541,7 +541,7 @@ div.tooltip {
 
 .inner-block #organisation-contact-info {
 	float: right;
-	width: 300px;
+	width: 290px;
 }
 
 .data th {
