@@ -16,9 +16,9 @@ switch($identity->role){
                 'action' => 'dashboard',
                 'pages' => array(
                     array(
-                        'label' => 'Register Organisation',
+                        'label' => 'Add Organisation',
                         'module' => 'default',
-                        'controller' => 'wep',
+                        'controller' => 'admin',
                         'action' => 'register',
                     ),
                     array(
@@ -28,17 +28,28 @@ switch($identity->role){
                         'action' => 'list-help',
                     ),
                     array(
-                        'label' => 'Awaiting Request',
+                        'label' => 'List Organisation',
                         'module' => 'default',
                         'controller' => 'admin',
-                        'action' => 'awaiting',
+                        'action' => 'list-organisation',
                     ),
-
+                    array(
+                        'label' => 'Validate XML',
+                        'module' => 'default',
+                        'controller' => 'admin',
+                        'action' => 'validate-xml-files',
+                    ),
                     array(
                         'label' => 'View',
                         'module' => 'default',
                         'controller' => 'admin',
                         'action' => 'view',
+                    ),
+                    array(
+                        'label' => 'List Activity States',
+                        'module' => 'default',
+                        'controller' => 'admin',
+                        'action' => 'list-activity-states'
                     ),
                     array(
                         'label' => 'My Profile',
@@ -52,14 +63,15 @@ switch($identity->role){
                                 'controller' => 'user',
                                 'action' => 'edit',
                             ),
+                            array(
+                                'label' => 'Change Password',
+                                'module' => 'user',
+                                'controller' => 'user',
+                                'action' => 'changepassword',
                             ),
+                        ),
                     ),
-                    array(
-                        'label' => 'Change Password',
-                        'module' => 'user',
-                        'controller' => 'user',
-                        'action' => 'changepassword',
-                    ),
+                    
                 ),
             )
         );
@@ -83,6 +95,18 @@ switch($identity->role){
                         'module'     => 'default',
                         'controller' => 'wep',
                         'action'     => 'list-published-files',
+                    ),
+                    array(
+                        'label' => 'Download My Data',
+                        'module' => 'default',
+                        'controller' => 'wep',
+                        'action' => 'download-my-data'
+                    ),
+                    array(
+                        'label' => 'Uploaded Docs',
+                        'module' => 'default',
+                        'controller' => 'wep',
+                        'action' => 'list-uploaded-documents'
                     ),
                     array(
                         'label' => 'Add Activity',
