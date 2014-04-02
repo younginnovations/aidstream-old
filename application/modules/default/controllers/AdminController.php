@@ -65,26 +65,6 @@ class AdminController extends Zend_Controller_Action
 
     }
 
-    public function viewAction()
-    {
-        if ($this->getRequest()->isGet()) {
-
-            $user_id = $this->_request->getParam('id');
-            $wep = new Model_Wep();
-            $user_info = $wep->listAll('user', 'user_id', $user_id);
-            if ($user_info) {
-                $user_profile = $wep->listAll('profile', 'user_id', $user_id);
-                $account_info = $wep->listAll('account', 'id', $user_info[0]['account_id']);
-
-                $this->view->user_info = $user_info[0];
-                $this->view->user_profile = $user_profile[0];
-                $this->view->account_info = $account_info[0];
-            } else {
-                $this->view->message = "The user does not exist.";
-            }
-        }
-    }
-
     public function editOrganisationAction()
     {
         if($this->getRequest()->isGet()){

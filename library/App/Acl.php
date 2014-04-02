@@ -97,7 +97,6 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'default:wep', 'edit-activity');
         $this->allow('user', 'default:wep', 'dashboard');
         $this->allow('user', 'default:wep', 'remove-elements');
-        $this->allow('user', 'default:wep', 'clone-node');
         $this->allow('user', 'default:wep', 'update-status');
         $this->allow('user', 'default:wep', 'get-help-message');
         $this->allow('user', 'default:wep', 'list-published-files');
@@ -141,7 +140,7 @@ class App_Acl extends Zend_Acl
         $this->allow('admin', 'default:admin', 'reset-user-password');
 
         $this->allow('superadmin', 'default:admin');
-        $this->allow('superadmin', 'default:admin' , 'register');
+        $this->allow('superadmin', 'default:admin', 'register');
         $this->allow('superadmin', 'default:admin', 'change-organisation-status');
         $this->allow('superadmin', 'default:admin', 'set-simplified');
         $this->allow('superadmin', 'default:admin', 'edit-help-message');
