@@ -1,7 +1,12 @@
-Choose the type of data you want to download.
+<div class="default-info">
+If you are looking to download XML files to host in your own server and link to <a href="http://iatiregistry.org" target="__blank"><u><i>IATI Registry</i></u></a>, then ensure that your activities are published. Go to <a href="/wep/list-published-files"><u><i>List Publihsed Files</i></u></a>, right click on the XML link and select "Save Link As..." to save the IATI XML file in your computer.
+</div>
+Download your activities data in CSV format. The content of the CSV might be different from pubished files as these data contains:
 <ul class="download-links">
-<li><?php echo $this->l('Complete' , 'wep/download-csv?type=complete'); ?></li>
-<li><?php echo $this->l('Simple' , 'wep/download-csv?type=simple'); ?></li>
-<li><?php echo $this->l('Transactions' , "wep/download-csv?type=transaction"); ?></li>
-<li><?php echo $this->l('Budgets' , "wep/download-csv?type=budget"); ?></li>
+<li><?php echo $this->l('Complete' , 'wep/download-csv?type=complete'); ?> a row for each aid activity. Each activity contains total figures for each type of transaction. Useful for quick verification of the data.</li>
+<li><?php echo $this->l('Simple' , 'wep/download-csv?type=simple'); ?> full information for each activity with one row per activity. When multiple values exist for a column (e.g. multiple transactions, multiple sectors) are separated by ";".</li>
+<li><?php echo $this->l('Transactions' , "wep/download-csv?type=transaction"); ?> detailed list og all transactions of all the activities, with currencies, amounts and classifications with a row for each transaction.</li>
+<li><?php echo $this->l('Budgets' , "wep/download-csv?type=budget"); ?> detailed list of budgets of all activites, with currencies, amounts and dates with a row for each budget entry.</li>
 </ul>
+
+<p></p>
