@@ -25,6 +25,8 @@ $(document).ready(function () {
             $('#' + t + 'C').show();
         }
     });
+    
+    $('.nav_container').parents('body').find('#update-message').addClass('updatemsg');
 
     // Reporting Org Change Detection
     var oldData = $("#fieldset-reporting_org_info :input[value!='']").serialize();

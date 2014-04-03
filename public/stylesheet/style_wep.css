@@ -272,7 +272,7 @@ a.login-parent {
 /** ---- Homepage ---**/
 
 #aidstream-homepage #content-section, #aidstream-homepage #content {
-    background: f3f3f3;
+    background: #f3f3f3;
 }
 /**********start what is aidstream?************/
 
@@ -4284,7 +4284,7 @@ button.next:hover {
     padding: 26px 20px;
     position: absolute;
     right: 10px;
-    top: -48px;
+    top: -38px;
     background: -moz-linear-gradient(top, rgba(238, 238, 238, 0.90) 0%, rgba(255, 255, 255, 0.90) 100%);
     /* FF3.6+ */
 
@@ -4854,10 +4854,17 @@ a {
 }
 
 #update-message {
-    margin-top: 17px;
-    background: rgba(0,0,0,0.4);
+    background: #999;
     color: #fff;
     text-align: center;
     font-size: 15px;
     text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+    position: fixed;
+    top: 105px;
+    left: 0;
+    width: 100%;
+}
+
+#update-message.updatemsg {
+    top: 131px;
 }
