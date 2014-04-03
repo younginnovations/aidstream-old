@@ -2423,7 +2423,7 @@ button#cd-cancel, button#cd-ok {
 }
 
 .default-info a {
-   color: rgb(114,114,56);
+    color: rgb(114,114,56);
     font-weight: bold;
 }
 
@@ -3759,7 +3759,7 @@ a:hover {
 .header {
     width: 940px;
     margin: 0 auto;
-    padding: 16px 10px 26px;
+    padding: 16px 10px;
     overflow: hidden;
 }
 .logo {
@@ -4851,4 +4851,13 @@ a {
     width: 400px;
     margin: 0 0 30px 20px;
     line-height: 17px;
+}
+
+#update-message {
+    margin-top: 17px;
+    background: rgba(0,0,0,0.4);
+    color: #fff;
+    text-align: center;
+    font-size: 15px;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
 }
