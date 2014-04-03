@@ -10,13 +10,13 @@
     $elements = array(
                         array('other_activity_identifier'),
                         array('title','description','activity_status','activity_date','contact_info' , 'activity_scope'),
-                        array ('participating_org'),
+                        array('participating_org'),
                         array('recipient_country','recipient_region','location'),
                         array('sector','policy_marker','collaboration_type','default_flow_type','default_finance_type','default_aid_type','default_tied_status' , 'country_budget_items'),
-                        array ('budget','planned_disbursement', 'transaction' , 'capital_spend'),
-                        array ('document_link','activity_website'),
-                        array ('related_activity'),
-                        array ('conditions','result','legacy_data'),
+                        array('budget','planned_disbursement', 'transaction' , 'capital_spend'),
+                        array('document_link','activity_website'),
+                        array('related_activity'),
+                        array('conditions','result','legacy_data'),
                     );
     $i = 0;
     foreach($elements as $key){            
@@ -34,9 +34,6 @@
     <?php foreach($value as $value): ?>
         <input type="checkbox" id = "<?php echo $value ?>" name = "<?php echo $elem->getName().'[]' ?>" value ="<?php echo $value ?>" <?php if($values) if(in_array($value , $values)){ echo ' checked="checked"'; }?>/>
         <?php echo ucwords(str_replace("_", " ", $value)) ?>
-        <?php if(in_array($value , Iati_WEP_AccountDisplayFieldGroup::$defaults)):?>
-            <span class="recommended">*</span>
-        <?php endif; ?>
         <br/>
     <?php endforeach; ?>
     <?php $elementcount++ ?>
@@ -46,4 +43,3 @@
     <div class="clear"></div>
 <?php endif; ?>
 <?php endforeach; ?>
-<div class="recommended-message"> <span class="recommended">*</span> Recommended groups.</div>
