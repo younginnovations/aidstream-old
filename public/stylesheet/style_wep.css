@@ -2419,17 +2419,17 @@ button#cd-cancel, button#cd-ok {
     padding: 10px 10px 10px 79px;
     border: 1px dotted #aaa23b;
     clear: both;
-    color: #aaa23b;
+    color: rgb(114,114,56);
 }
 
 .default-info a {
-    color: #aaa23b;
+   color: rgb(114,114,56);
     font-weight: bold;
 }
 
 .default-info a:hover {
     background: none;
-    color: #aaa23b;
+    color: rgb(114,114,56);
 }
 dd#captcha-element {
     margin-left: 208px;
