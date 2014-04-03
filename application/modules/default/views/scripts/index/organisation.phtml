@@ -6,6 +6,7 @@
     $registry_url = "/publisher/".$this->publisher_id;
     if (isset($this->organisation_array)) $organisation = $this->organisation_array;
 ?>
+<div id="update-message">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</div>
 <div id="data-wrapper">
     <div class="left-block">
         
@@ -83,8 +84,17 @@
     </div>
 
     <div class="load-more">Load More...</div>
+
     <div class="block-wrapper">
         <div class="block-inner-wrapper">
+        <?php if (isset($this->total)): ?>
+            <div id="left-block">
+                <div class="inner-block">
+                    <h3>Activity Status<span id="activity-status-info" class="dialog-box-open">help</span></h3>
+                    <div id="activity-status"></div>
+                </div>
+            </div>
+        <?php endif; ?>
             <div class="left-block">
                 <div id="inner-block">
                     <?php $activities = $handler->getTop3Activities();?>
@@ -125,12 +135,14 @@
             </div> 
         </div>
         <div class="block-inner-wrapper">
+            <?php if (!isset($this->total)): ?>
             <div id="left-block">
                 <div class="inner-block">
                     <h3>Activity Status<span id="activity-status-info" class="dialog-box-open">help</span></h3>
                     <div id="activity-status"></div>
                 </div>
             </div>
+            <?php endif; ?>
 
             <div id="right-block">
                 <div class="block">
