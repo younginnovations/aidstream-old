@@ -2418,6 +2418,18 @@ button#cd-cancel, button#cd-ok {
     margin: 1.5em 0;
     padding: 10px 10px 10px 79px;
     border: 1px dotted #aaa23b;
+    clear: both;
+    color: #aaa23b;
+}
+
+.default-info a {
+    color: #aaa23b;
+    font-weight: bold;
+}
+
+.default-info a:hover {
+    background: none;
+    color: #aaa23b;
 }
 dd#captcha-element {
     margin-left: 208px;
@@ -4608,18 +4620,23 @@ fieldset#fieldset-organisation_info {
     margin-right: 14px;
 }
 .download-links li a {
-    background: #009ada;
-    display: inline-block;
-    padding: 5px 20px;
-    color: #FFF;
-    font-size: 12px;
+    background: #eee url(../images/download.png) no-repeat 132px 5px;
+    float: left;
+    padding: 8px;
+    color: #0099DD;
+    font-size: 16px;
     text-decoration: none;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    font-weight: bold;
+    width: 160px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 .download-links li a:hover {
-    background: #037bac;
+    background: #ddd url(../images/download.png) no-repeat 132px 5px;;
 }
 table.uploaded-docs, .claro .dijitDialogPaneContent table {
     border: 1px solid #dcdcdc;
@@ -4809,5 +4826,29 @@ a {
 .print-page a:hover {
     color: #009ada;
     color: #037bac;
+}
 
+.download-note {
+    margin: 30px 0;
+}
+
+.download-note h2 {
+    font-size: 21px;
+    font-weight: normal;
+}
+
+#contain .download-note p {
+    font-size: 14px;
+    color: #666;
+    font-style: italic;
+    padding-top: 4px;
+}
+
+.download-activity {
+    font-size: 13px;
+    color: #777;
+    float: left;
+    width: 248px;
+    margin: 0 0 30px 20px;
+    line-height: 17px;
 }
