@@ -713,10 +713,10 @@ class AdminController extends Zend_Controller_Action
             $xmlSchemaOrg = Zend_Registry::get('config')->public_folder . Zend_Registry::get('config')->xml_schema . 'iati-organisations-schema.xsd'; // Schema for organisation validation
             $xmlFiles = explode(',',$xmlFiles);
             foreach ($xmlFiles as $xml) {
-                if (preg_match("/org/", $xml)) {
+                if (preg_match("/org.xml/", $xml)) {
                     $output[$xml] = shell_exec('xmllint --noout --schema ' . $xmlSchemaOrg . ' ' . $xmlFolder . escapeshellarg($xml).' 2>&1');
                 } else {
-                    $output[$xml] = shell_exec('xmllint --noout --schema ' . $xmlSchemaActivity . ' ' . $xmlFolder . $xml.' 2>&1');
+                    $output[$xml] = shell_exec('xmllint --noout --schema ' . $xmlSchemaActivity . ' ' . $xmlFolder . escapeshellarg($xml).' 2>&1');
                 }
                 if (preg_match("/validates/", $output[$xml])) {
                     unset($output[$xml]);
