@@ -19,10 +19,11 @@ $(document).ready(function(){
         );
     });
 
-    $(".inline").colorbox({inline:true, width:"45%"});
     $(".inline-more").colorbox({inline:true, width:"45%",height:"34%"});
     $(".activities-more").colorbox({inline:true, width:"58%", href:"#content"});
-    
+    $(".sectors-more").colorbox({inline:true, width:"48%", href:"#inline_content"}); 
+
+    $('.nav_container').parents('body').find('#update-message').addClass('updatemsg');  
     
     var repOrg = getUrlVar('reporting_org');
     if (repOrg == '') {
