@@ -97,4 +97,17 @@ class Iati_Snapshot_Lib_DataHandler
         }
         return false;
     }
+
+    public function getSectorCount()
+    {
+        if($this->getData()){
+            $sectors = $this->get('sectors');
+            $sectorCount = 0;
+            foreach ($sectors as $sector) {
+                $sectorCount += 1;
+            }
+            return $sectorCount;
+        }
+        return false;
+    } 
 }

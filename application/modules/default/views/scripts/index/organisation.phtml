@@ -122,12 +122,13 @@
             </div>
             <div class="right-block">
                 <div class="sector-wrapper inner-block">
-                    <h3>Sector(Top 3)<a href="#inline_content" class="inline">View all</a><span id="sector-info" class="dialog-box-open">help</span></h3>
+                    <?php $sectorCount = $handler->getSectorCount(); ?>
+                    <h3>Sector(Top 3)<?php if($sectorCount > 3): ?><a href="#" class="sectors-more">View all (<?php echo $sectorCount; ?> sectors)</a><?php endif; ?><span id="sector-info" class="dialog-box-open">help</span></h3>
                     <div class="sector">
                         <?php $sectors = $handler->getTop3Sectors(); ?>
                         <?php if($sectors):?>
                         <?php foreach($sectors as $sectorName=>$sectorCount):?>
-                        <div><span class="count"><?php echo $sectorCount;?></span><span><?php echo $sectorName;?></span></div>
+                        <div><span class="count"><?php echo $sectorCount;?></span><span><?php echo $this->length()->adjustSingleLength($sectorName); ?></span></div>
                         <?php endforeach;?>
                         <?php else: ?>
                         <div class="no-data">No Data Available</div>
@@ -166,10 +167,16 @@
     <div id='inline_content' style='background:#fff;'>
         <div class="sectors-block">
             <h3>SECTORS</h3>
-            <?php if($sectors): ?>
-            <?php foreach($sectors as $sectorName=>$sector):?>
-            <div class="sector-details"><span class="name"><?php echo $sectorName;?> : </span><span><?php echo $sector->count;?></span></div>
-            <?php endforeach;?>
+            <?php if($sectors): 
+                $sectorArray = array();
+                foreach($sectors as $sectorName=>$sector):
+                    $sectorArray[$sectorName] = $sector->count;
+                endforeach;
+                arsort($sectorArray);
+            ?>
+                <?php foreach ($sectorArray as $sectorName => $sectorCount): ?>
+                    <div class="sector-details"><span class="name"><?php echo $sectorName;?> : </span><span><?php echo $sectorCount;?></span></div>
+                <?php endforeach; ?>
             <?php else :?>
             <div class="no-data">No Data Available</div>
             <?php endif; ?>
@@ -253,10 +260,12 @@
 <?php else: ?>
     <div class="data-info">
         <?php if (!empty($this->publisher_id)): ?>
-            <h2><?php print $organisation['name']; ?> has not published to <a href="http://iatiregistry.org" target="__blank">IATI Registry</a> via AidStream. Please visit <?php print $organisation['name']; ?> 
+            <h2><?php print $organisation['name']; ?> has not published to <a href="http://iatiregistry.org" target="__blank">IATI Registry</a> via AidStream.
+            Please visit <?php print $organisation['name']; ?> 
             <a href="http://iatiregistry.org<?php print $registry_url; ?>" target="__blank">registry page</a> for details.</h2>
         <?php else: ?>
-            <h2><?php print $organisation['name']; ?> has not published to <a href="http://iatiregistry.org" target="__blank">IATI Registry</a> via AidStream. Please visit IATI Registry <a href="http://iatiregistry.org/publisher" target="__blank">publishers page</a> for details.</h2>
+            <h2><?php print $organisation['name']; ?> has not published to <a href="http://iatiregistry.org" target="__blank">IATI Registry</a> via AidStream.
+            Please visit IATI Registry <a href="http://iatiregistry.org/publisher" target="__blank">publishers page</a> for details.</h2>
         <?php endif; ?>
     </div>
 <?php endif; ?>
