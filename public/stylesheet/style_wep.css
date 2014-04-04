@@ -4852,19 +4852,3 @@ a {
     margin: 0 0 30px 20px;
     line-height: 17px;
 }
-
-#update-message {
-    background: #999;
-    color: #fff;
-    text-align: center;
-    font-size: 15px;
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
-    position: fixed;
-    top: 105px;
-    left: 0;
-    width: 100%;
-}
-
-#update-message.updatemsg {
-    top: 131px;
-}
