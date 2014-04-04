@@ -21,10 +21,15 @@ class AidstreamConnector{
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $urls = array();
-        foreach( $rows as $file){
+        foreach($rows as $file){
             $metadata = unserialize($file['response']);
-            if($metadata->extras->activity_count > 0 || !preg_match('/activities/', $file['filename'])){
+            // Responses
+            if (isset($metadata->download_url)) {   // CKAN 1.0               
                 $urls[$file['filename']] = $metadata->download_url;
+            } elseif (isset($metadata->resources[0]->url)) {    // CKAN 2.0
+                $urls[$file['filename']] = $metadata->$metadata->resources[0]->url;
+            } elseif (isset($metadata->result->resources[0]->url)) {    // CKAN 3.0
+                $urls[$file['filename']] = $metadata->result->resources[0]->url;
             }
         }
         return $urls;
