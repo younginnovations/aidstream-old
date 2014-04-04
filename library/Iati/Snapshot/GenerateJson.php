@@ -24,28 +24,19 @@
         foreach($keys as $key=>$keyValue){
             $out[$key] = $data[$keyValue];
         }
+        // Organisation Name
         $reportingOrgName = $out['reporting_organisation'];
-        /*
-        $elements = array('activity_status');
-        $activityDatae =
-        foreach($elements as $element){
-            $outputData['combined'][$element][$out[$element]]['count']  += 1;
-            $outputData['combined'][$element][$out[$element]]['activities'][] = $out['full_details'];
-            $outputData[$reportingOrgName][$element][$out[$element]]['count']  += 1;
-            $outputData[$reportingOrgName][$element][$out[$element]]['activities'][] = $out['full_details'];
-        }
-        */
 
+        // Activity Status
         $activityStatus = array('Completion' , 'Post-completion' , 'Implementation' , 'Pipeline/identification' , 'Cancelled');
         foreach($activityStatus as $element){
             $statusCode = $out['activity_status_code'];
             $status = $aidConnector->getNames('activity_status' , $statusCode);
             if($status != $element) continue;
             $key = preg_replace('/(\-|\/)/' , '_' , strtolower($element));
+            
             $outputData[DEFAULT_ORG]['activity_status'][$key]['count']  += 1;
-            $outputData[DEFAULT_ORG]['activity_status'][$key]['activities'][] = $out['full_details'];
             $outputData[$reportingOrgName]['activity_status'][$key]['count']  += 1;
-            $outputData[$reportingOrgName]['activity_status'][$key]['activities'][] = $out['full_details'];
         }
 
         // Transactions
@@ -65,9 +56,7 @@
 
             $transValue = $out[$transElement] * $rate;
             $outputData[DEFAULT_ORG]['transaction'][$transElement]['value']  += $transValue;
-            //$outputData[DEFAULT_ORG]['transaction'][$transElement]['count']  += ($transValue)?0:1;
             $outputData[$reportingOrgName]['transaction'][$transElement]['value']  += $transValue;
-            //$outputData[$reportingOrgName]['transaction'][$transElement]['count']  += ($transValue)?0:1;
         }
 
         // Sectors
@@ -78,13 +67,13 @@
                 $sectorCode = trim($sectorCode);
                 $sector = $aidConnector->getNames('sector' , $sectorCode);
                 if(!$sector) continue;
+                
                 $outputData[DEFAULT_ORG]['sectors'][$sector]['count']  += 1;
-                $outputData[DEFAULT_ORG]['sectors'][$sector]['activities'][]  = $out['full_details'];
                 $outputData[$reportingOrgName]['sectors'][$sector]['count']  += 1;
-                $outputData[$reportingOrgName]['sectors'][$sector]['activities'][]  = $out['full_details'];
             }
         }
 
+        // Recipient Region
         $recipientRegionCodes = $out['recipient_region_codes'];
         if($recipientRegionCodes){
             $regions = explode(';' , $recipientRegionCodes);
@@ -95,15 +84,15 @@
                 if($regionCode){
                     $regionName = $aidConnector->getNames('recipient_region' , $regionCode);
                 }
+
                 $outputData[DEFAULT_ORG]['recipient']['region'][$region]['count']  += 1;
                 $outputData[DEFAULT_ORG]['recipient']['region'][$region]['name'] = $regionName;
-                $outputData[DEFAULT_ORG]['recipient']['region'][$region]['activities'][]  = $out['full_details'];
                 $outputData[$reportingOrgName]['recipient']['region'][$region]['count']  += 1;
                 $outputData[$reportingOrgName]['recipient']['region'][$region]['name'] = $regionName;
-                $outputData[$reportingOrgName]['recipient']['region'][$region]['activities'][]  = $out['full_details'];
             }
         }
 
+        // Recipient Country
         $recipientCountryCodes = $out['recipient_country_codes'];
         if($recipientCountryCodes){
             $countrys = explode(';' , $recipientCountryCodes);
@@ -114,17 +103,15 @@
                 if($countryCode){
                     $countryName = $aidConnector->getNames('recipient_country' , $countryCode);
                 }
+                
                 $outputData[DEFAULT_ORG]['recipient']['country'][$country]['count']  += 1;
-                $outputData[DEFAULT_ORG]['recipient']['country'][$country]['name']  = $countryName;
-                $outputData[DEFAULT_ORG]['recipient']['country'][$country]['activities'][]  = $out['full_details'];
-
+                $outputData[DEFAULT_ORG]['recipient']['country'][$country]['name']  = utf8_encode($countryName);
                 $outputData[$reportingOrgName]['recipient']['country'][$country]['count']  += 1;
-                $outputData[$reportingOrgName]['recipient']['country'][$country]['name']  = $countryName;
-                $outputData[$reportingOrgName]['recipient']['country'][$country]['activities'][]  = $out['full_details'];
+                $outputData[$reportingOrgName]['recipient']['country'][$country]['name']  = utf8_encode($countryName);
             }
         }
 
-        //$outputData[$reportingOrgName]['activities'][$out['iati_identifier']] = $out['full_details'];
+        // Activities
         $outputData[$reportingOrgName]['activities'][$out['iati_identifier']] = $out['aid_project_title'];
     }
 
@@ -137,9 +124,9 @@
     foreach($outputData as $reportingOrgName => $reportingOrgData){
         $reportingOrgData['all_reporting_orgs'] = $reportingOrgs;
         $outData = (object) $reportingOrgData;
-        $reportingOrgName = preg_replace("/-| /" , '_' , strtolower($reportingOrgName));
+        $reportingOrgName = preg_replace("/-| /", '_', strtolower($reportingOrgName));
         $fp = fopen($outputDir."/$reportingOrgName.json" , 'w');
-        fwrite( $fp , json_encode($outData));
+        fwrite($fp, json_encode($outData));
         fclose($fp);
     }
     exec('chmod -R 777 '. INPUT_JSON_DIR . '*.json');
