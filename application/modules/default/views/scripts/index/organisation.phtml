@@ -138,21 +138,27 @@
         </div>
         <div class="block-inner-wrapper">
             <?php if (!isset($this->total)): ?>
-            <div id="left-block">
-                <div class="inner-block">
-                    <h3>Activity Status<span id="activity-status-info" class="dialog-box-open">help</span></h3>
-                    <div id="activity-status"></div>
+                <div id="left-block">
+                    <div class="inner-block">
+                        <h3>Activity Status<span id="activity-status-info" class="dialog-box-open">help</span></h3>
+                        <div id="activity-status"></div>
+                    </div>
                 </div>
-            </div>
-            <?php endif; ?>
 
-            <div id="right-block">
-                <div class="block">
-                    <h3>Recipient Region/Country<span id="recipient-region-country-info" class="dialog-box-open">help</span></h3>
-                    <div id="recipient-info"></div>
+                <div id="right-block">
+                    <div id="recipient-block" class="block" width="">
+                        <h3>Recipient Region/Country<span id="recipient-region-country-info" class="dialog-box-open">help</span></h3>
+                        <div id="recipient-info"></div>
+                    </div>
                 </div>
-            </div>
+            <?php endif; ?>
         </div>
+        <?php if (isset($this->total)): ?>
+            <div id="recipient-block" class="block" width="940">
+                <h3>Recipient Region/Country<span id="recipient-region-country-info" class="dialog-box-open">help</span></h3>
+                <div id="recipient-info"></div>
+            </div>
+        <?php endif; ?>
     </div>
 
 <?php $sectors = $handler->get('sectors'); ?>

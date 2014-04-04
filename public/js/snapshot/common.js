@@ -23,12 +23,13 @@ $(document).ready(function(){
     $(".inline-more").colorbox({inline:true, width:"45%",height:"34%"});
     $(".activities-more").colorbox({inline:true, width:"58%", href:"#content"});
     
-    // Draw graphs
+    
     var repOrg = getUrlVar('reporting_org');
     if (repOrg == '') {
         repOrg == 'all';
     }
     
+    // Draw graphs
     $('.load-more').click(function(){
         $('.block-wrapper').slideDown('slow');
         if($('.block-wrapper').css('display','block')) {
@@ -203,7 +204,7 @@ function drawHorizontalBarChart(eleId , sortedData) {
     var barLabelPadding = 5; // padding between bar and bar labels (left)
     var gridLabelHeight = 18; // space reserved for gridline labels
     var gridChartOffset = 3; // space between start of grid and first bar
-    var maxBarWidth = 350; // width of the bar with the max value
+    var maxBarWidth = $('#recipient-block').width() - 140; // width of the bar with the max value
     var offsetHeight = offsetWidth = 70;
      
     // accessor functions 
@@ -304,4 +305,5 @@ function drawHorizontalBarChart(eleId , sortedData) {
       .attr("y1", -gridChartOffset)
       .attr("y2", yScale.rangeExtent()[1] + gridChartOffset)
       .style("stroke", "#000");
+
 }
