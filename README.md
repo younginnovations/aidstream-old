@@ -2,8 +2,7 @@
 
 AidStream is a web platform that can be used to enter aid related data compliant
 to International Aid Transparence Initiatives (IATI). It can be used by INGO/NGO's
-involved in aid flow, to open up their aid data in the IATI standard
-(http:iatistandard.org).
+involved in aid flow, to open up their aid data in the [IATI standard](http:iatistandard.org).
 
 
 ### SUPPORT

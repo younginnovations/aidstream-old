@@ -39,12 +39,17 @@ not in include path ( e.g you get a reqired file 'Zend/Application.php' not foun
     OR
     - Download Zend Framework and place it in library folder.( library/Zend )
 
-** Note that the version of Zend Framework tested with AidStream is 1.12.0
+** Note that the version of Zend Framework tested with AidStream is 1.12.3
 
 ** AidStream does not support ZendFramework 2.
 
-8. Clone the snapshot, how-to, how-to-simplified and blog from their respective
-repositories to the public folder.
+## OPTIONAL
 
+1. For snapshot and organisations page: copy Config.php.bak to Config.php in 
+library/Iati/Snapshot folder and provide the correct database credentials in the 
+file. Make sure all the folders inside data folder are writable. Execute PHP Script 
+'UpdateData.php' using crontab or manually "php UpdateData.php" via unix terminal. 
+This will grab all data for the snapshot and organisation page.
 
-
+2. Clone how-to, how-to-simplified and blog from their respective repositories to 
+the public folder.
