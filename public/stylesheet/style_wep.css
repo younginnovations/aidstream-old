@@ -545,7 +545,8 @@ h2.form-title {
     border: none;
     border-radius: 0;
     margin-bottom: 10px;
-    padding: 5px 40px 5px 5px;
+/*    padding: 5px 40px 5px 5px;*/
+    padding: 5px;
 }
 #sidebar-right #block-activity-menu h2 {
     font-size: 18px;
@@ -2786,6 +2787,18 @@ td.activity_view_label {
 .activity-title {
     margin-bottom: 10px;
 }
+
+#contain-left .activity-title {
+    overflow: hidden;
+}
+
+/*
+#contain-left .activity-title  .activity_title {
+    float: left;
+    width: 440px;
+}
+*/
+
 .activity-title span {
     font-size: 21px;
     color: #336666;
@@ -4810,7 +4823,6 @@ a {
 
 .print-page {
     float: right;
-    margin-top: -48px;
 }
 
 .print-page a {

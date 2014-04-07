@@ -604,7 +604,7 @@ div.tooltip {
 	clear: both;
 	background: #D5E0E4;
 	color: #666;
-	padding: 4px 0;
+	padding: 10px;
 	text-align: center;
 	font-size: 15px;
 	border-radius: 4px;
@@ -614,6 +614,7 @@ div.tooltip {
 
 .data-info h2 {
 	font-weight: normal;
+	line-height: 24px;
 }
 
 .pull-right,#form {
