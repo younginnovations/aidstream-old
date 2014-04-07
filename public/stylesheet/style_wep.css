@@ -4840,16 +4840,7 @@ a {
     color: #037bac;
 }
 
-.download-note {
-    margin: 30px 0;
-}
-
-.download-note h2 {
-    font-size: 21px;
-    font-weight: normal;
-}
-
-#contain .download-note p {
+#contain p {
     font-size: 14px;
     color: #666;
     font-style: italic;
