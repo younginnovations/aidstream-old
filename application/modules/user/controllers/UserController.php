@@ -409,7 +409,7 @@ class User_UserController extends Zend_Controller_Action
         $auth = Zend_Auth::getInstance()->getIdentity();
 
         if ($user_id != $auth->user_id) {
-            throw new App_Exception_AccessDenied('Access Denied');
+            throw new Exception('Access Denied');
         }
 
         $model = new User_Model_DbTable_User();
@@ -436,12 +436,58 @@ class User_UserController extends Zend_Controller_Action
                         $this->_helper->FlashMessenger
                             ->addMessage(array('message' => 'Changed password successfully.'));
 
-                        $this->_redirect('user/user/login');
+                        $this->_redirect('user/user/myaccount');
                     } else {
 
                         $this->_helper->FlashMessenger
                             ->addMessage(array('error' => 'Old password did not match.'));
                     }
+                } catch (Exception $e) {
+                    print 'Error Occured';
+                    print $e->getMessage();
+                }//end of try catch
+            }
+        }
+        $this->view->user = $user;
+        $this->_helper->layout()->setLayout('layout_wep');
+        $this->view->blockManager()->enable('partial/dashboard.phtml');
+    }
+
+    public function changeusernameAction()
+    {
+        $user_id = $this->getRequest()->getParam('user_id');
+
+        if (!$user_id) {
+            throw new Exception('Invalid Request');
+        }
+        
+        $auth = Zend_Auth::getInstance()->getIdentity();
+
+        if ($user_id != $auth->user_id) {
+            throw new Exception('Access Denied');
+        }
+
+        $userModel = new User_Model_DbTable_User();
+        $user = $userModel->getUserById($user_id);
+
+        $form = new User_Form_User_Changeusername();
+        $this->view->form = $form;
+        if ($this->getRequest()->isPost()) {
+            $formdata = $this->getRequest()->getPost();
+
+            if ($form->isValid($formdata)) {
+                try {
+                    $old_account_identifier = strstr($user->user_name, '_', TRUE);
+                    $account_identifier = $this->getRequest()->getParam('account_identifier');
+
+                    $userModel->changeUsername($old_account_identifier, $account_identifier, $auth->account_id);
+                    $auth->user_name = $account_identifier . '_admin';
+
+                    $this->_helper->FlashMessenger
+                        ->addMessage(array('message' => 'Username changed successfully. Please use the new username next time you log in.'));
+
+                    $this->_redirect('user/user/myaccount');
+                    
                 } catch (Exception $e) {
                     print 'Error Occured';
                     print $e->getMessage();

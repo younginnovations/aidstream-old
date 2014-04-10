@@ -16,8 +16,13 @@
     <?php if($roleName != 'superadmin'):?>
     <span class = "edit-this"><?php print $this->l('Edit','user/user/edit/user_id/'.$this->row->user_id)?></span>
     <?php endif;?>
+    
+    <?php if($roleName == 'admin'):?>
     <span>|</span>
+    <span class="change-username"><?php print $this->l('Change Username','user/user/changeusername/user_id/'.$this->row->user_id)?></span>
+    <?php endif; ?>
 
+    <span>|</span>
     <span class = "change-password"><?php print $this->l('Change Password','user/user/changepassword/user_id/'.$this->row->user_id)?></span>
 </h1>
 

@@ -63,6 +63,12 @@ switch($identity->role){
                                 'controller' => 'user',
                                 'action' => 'changepassword',
                             ),
+                            array(
+                                'label' => 'Change Username',
+                                'module' => 'user',
+                                'controller' => 'user',
+                                'action' => 'changeusername',
+                            ),
                         ),
                     ),
                     
@@ -156,14 +162,21 @@ switch($identity->role){
                                 'controller' => 'user',
                                 'action' => 'edit',
                             ),
+                            array(
+                                'label' => 'Change Password',
+                                'module' => 'user',
+                                'controller' => 'user',
+                                'action' => 'changepassword',
                             ),
+                            array(
+                                'label' => 'Change Username',
+                                'module' => 'user',
+                                'controller' => 'user',
+                                'action' => 'changeusername'
+                            )
+                        ),
                     ),
-                    array(
-                        'label' => 'Change Password',
-                        'module' => 'user',
-                        'controller' => 'user',
-                        'action' => 'changepassword',
-                    ),
+                    
                     array(
                         'label' => 'List Activities',
                         'module'     => 'default',

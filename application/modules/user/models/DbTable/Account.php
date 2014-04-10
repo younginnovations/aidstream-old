@@ -85,5 +85,10 @@ class User_Model_DbTable_Account extends Zend_Db_Table_Abstract {
             ->where('id = ?', $accountId);
         return $this->fetchRow($select)->name;
     }
+
+    public function updateUsername($username, $accountId)
+    {
+        return parent::update(array('username' => $username), array('id = ?' => $accountId));        
+    }
 }
 

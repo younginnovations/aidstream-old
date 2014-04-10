@@ -74,6 +74,22 @@ class User_Model_DbTable_User extends Zend_Db_Table_Abstract {
         $value['email'] = $data['email'];
         return parent::update($value, array('user_id = ?' => $user_id));
     }
+
+    public function changeUsername($old_account_identifier, $account_identifier, $account_id)
+    {
+        
+        $select = $this->select()
+                    ->from($this,array('user_name'))
+                    ->where('account_id = ?', $account_id); 
+        $usernames = $this->fetchAll($select)->toArray();
+        foreach ($usernames as $username) {
+            $data = preg_replace('/' . $old_account_identifier . '/', $account_identifier, $username, 1);    
+            parent::update($data, array('user_name = ?' => $username));
+        }
+        
+        $accountModel = new User_Model_DbTable_Account();
+        $accountModel->updateUsername($account_identifier, $account_id);
+    } 
 }
 
 ?>
