@@ -744,17 +744,23 @@ class AdminController extends Zend_Controller_Action
         $registryPublishedModel = new Model_RegistryPublishedData();
         $organisationRegistryPublishedModel = new Model_OrganisationRegistryPublishedData();
         $accountModel = new User_Model_DbTable_Account();
+        
         $organisationRegistryPublishedData = $organisationRegistryPublishedModel->getAllOrganisationRegistryPublishedData();
         $registryPublishedData = $registryPublishedModel->getAllRegistryPublishedData();
+        
         foreach ($registryPublishedData as $registryData) {
             $orgName = $accountModel->getOrganisationNameById($registryData->publisher_org_id);
+            $orgName = preg_replace('/&/', '&amp;', $orgName);
             $registry[$orgName][] = $registryData->filename;
         }
+        
         foreach ($organisationRegistryPublishedData as $registryData) {
             $orgName = $accountModel->getOrganisationNameById($registryData->publisher_org_id);
+            $orgName = preg_replace('/&/', '&amp;', $orgName);
             $registry[$orgName][] = $registryData->filename;
         }
         ksort($registry);
+        
         foreach ($registry as $publisherName => $files) {
             $iatiPublisher = $xml->addChild('iati-publisher');
             $iatiPublisher->addChild('name', $publisherName);
@@ -764,6 +770,7 @@ class AdminController extends Zend_Controller_Action
                 $iatiFile = $iatiFiles->addChild('iati-file', $fileUrl);
             }
         }
+        
         $fileName = "published-files.xml"; 
         $fp = fopen($xmlPath.$fileName,'w');
         fwrite($fp,$xml->asXML());
