@@ -24,6 +24,13 @@ class Iati_Aidstream_Form_Activity_Transaction_Value extends Iati_Core_BaseForm
             ->setAttribs(array('class' => 'currency form-text'))
             ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help transaction-value-text' , 'placement' => 'PREPEND'))));
 
+        $form['value_date'] = new Zend_Form_Element_Text('value_date');
+        $form['value_date']->setLabel('Value Date')
+            ->setValue($this->data['@value_date'])
+            ->setRequired()
+            ->setAttrib('class' , 'datepicker' )
+            ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help transaction-value-value_date' , 'placement' => 'PREPEND'))));
+
         $currency = $model->getCodeArray('Currency', null, '1' , true);
         $form['currency'] = new Zend_Form_Element_Select('currency');
         $form['currency']->setLabel('Currency')
@@ -31,13 +38,6 @@ class Iati_Aidstream_Form_Activity_Transaction_Value extends Iati_Core_BaseForm
             ->setAttrib('class' , 'form-select')
             ->setMultioptions($currency)
             ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help transaction-value-currency' , 'placement' => 'PREPEND'))));
-
-        $form['value_date'] = new Zend_Form_Element_Text('value_date');
-        $form['value_date']->setLabel('Value Date')
-            ->setValue($this->data['@value_date'])
-            ->setRequired()
-            ->setAttrib('class' , 'datepicker' )
-            ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help transaction-value-value_date' , 'placement' => 'PREPEND'))));
 
         $this->addElements($form);
         return $this;
