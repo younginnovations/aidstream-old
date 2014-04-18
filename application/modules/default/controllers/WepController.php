@@ -1030,8 +1030,7 @@ class WepController extends Zend_Controller_Action
                         if(!$count){
                             $messanger = $this->_helper->FlashMessenger;
                             $messanger->addMessage(array('trans-error' => 'You have
-                                                         following errors in your file.
-                                                         Please enter correct details'));
+                                                         following errors. Please correct the errors.'));
                             foreach($csvHandler->getErrors() as $tranCount => $error){
                                 $tranNo = $tranCount+1;
                                 if(!empty($error)){
@@ -1065,7 +1064,7 @@ class WepController extends Zend_Controller_Action
                             }
 
                             $this->_helper->FlashMessenger
-                                ->addMessage(array('message' => "{$count} transactions added"));
+                                ->addMessage(array('message' => "{$count['add']} transactions added. {$count['update']} transactions updated."));
                             $this->_redirect("/activity/list-elements/?activity_id=".$activityId
                                              ."&classname=Activity_Transaction");
                         }

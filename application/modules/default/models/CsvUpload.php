@@ -23,6 +23,7 @@ class Model_CsvUpload
      */
     public function readCsv()
     {
+        ini_set("auto_detect_line_endings", true);
         $fp = fopen($this->inputFile , 'r');
         while($row = fgetcsv($fp)){
             $this->data[] = $row;
@@ -31,14 +32,49 @@ class Model_CsvUpload
     
     public function uploadDataToTransaction($activityId)
     {
-        $count = $this->prepareTransactionData();
+        $count = array();
+        $count['total'] = $this->prepareTransactionData();
+        $element = new Iati_Aidstream_Element_Activity_Transaction();
+        
+        $result = $element->fetchData($activityId, true);
+        $result = Iati_ElementSorter::sortElementsData($result, array('TransactionDate' =>'@iso_date'), array('TransactionValue' => '@value_date'));
+        
+        // Update if existing transaction by compairing 'internal reference'
+        $count['update'] = 0;
+        $duplicate = 0;
+        $transactionKey = 0;
+        foreach ($this->elementData as $key => $data) {
+            $refCount = 0;
+            foreach($result as $row) {
+                if (strtolower($data['ref']) == strtolower($row['@ref']) && !empty($data['ref'])) {
+                    if ($refCount == 0) {
+                        $this->elementData[$key]['id'] = $row['id'];
+                        $this->elementData[$key]['TransactionType']['id'] = $row['TransactionType']['id'];
+                        $this->elementData[$key]['TransactionValue']['id'] = $row['TransactionValue']['id'];
+                        $this->elementData[$key]['ProviderOrg']['id'] = $row['ProviderOrg']['id'];
+                        $this->elementData[$key]['ReceiverOrg']['id'] = $row['ReceiverOrg']['id'];
+                        $this->elementData[$key]['TransactionDate']['id'] = $row['TransactionDate']['id'];
+                        $this->elementData[$key]['Description']['id'] = $row['Description']['id'];
+                        $count['update'] += 1;  // Transaction Update count
+                        $refCount = 1;
+                    } elseif ($refCount == 1) {
+                        $duplicate += 1;
+                        $transactionKey = $key;
+                    }        
+                }
+            }
+        }
+
+        // Transaction add count
+        $count['add'] = $count['total'] - $count['update'];
+        
+        if($duplicate >= 1) {
+            $this->error[$transactionKey][]['message'] = "Cannot update transaction. Internal reference duplication on your 
+                                                        existing transactions. Please use a different internal reference or 
+                                                        check your existing transactions.";
+        }
+        
         if(empty($this->error)){
-            $element = new Iati_Aidstream_Element_Activity_Transaction();
-            //Validation using element's form. some validation should be done previously if this is used
-            //$element->setData($this->elementData);
-            //$form = $element->getForm();
-            //$form->validate();
-            //var_dump($form->getMessages());exit;
             $element->save($this->elementData , $activityId);
             
             return $count;
@@ -59,7 +95,7 @@ class Model_CsvUpload
         $this->validateTransactionData(); // @todo Validation can be done by using elements form
         if(!empty($this->error)) return false; // In case of validation failure the error array is set.
         
-        foreach($this->data as $transactionData){// Prepare date for element.       
+        foreach($this->data as $transactionData){ // Prepare date for element.       
             $value = '';
             if($transactionData[$keys['incomingfund']]){
                 $value = $transactionData[$keys['incomingfund']];
@@ -79,8 +115,8 @@ class Model_CsvUpload
             }
             $transactionDate = date( 'Y-m-d' , strtotime($transactionData[$keys['transactiondate']]));
             
-            $this->elementData[$count]['ref'] = $transactionData[$keys['internalreference']];
-
+            $this->elementData[$count]['ref'] = trim($transactionData[$keys['internalreference']]);
+            $this->elementData[$count]['id'] = null;
             //Transaction type
             $this->elementData[$count]['TransactionType']['code']= $type;
             
@@ -103,6 +139,7 @@ class Model_CsvUpload
             $this->elementData[$count]['Description']['text'] = $transactionData[$keys['description']];
             $count++;
         }
+        
         return $count;
     }
     
@@ -110,9 +147,10 @@ class Model_CsvUpload
     {
         $count = 0;
         $keys = $this->keys;
+
         $multipleMessage = "Transaction amount (value) must be filled in only one of Incoming Fund,
                     Expenditure, Disbursement or Commitment";
-                    
+
         foreach($this->data as $transactionData){// Validate each instance at a time.
             $value = 0;
             if($transactionData[$keys['incomingfund']]){
@@ -164,7 +202,18 @@ class Model_CsvUpload
                     Expenditure, Disbursement or Commitment";
             }
             
+            if($transactionData[$keys['internalreference']]){
+                $refArray[] = trim($transactionData[$keys['internalreference']]);
+            }
+
             $count++;
         }
+
+        // check for internal reference duplication. 
+        $refError = array_diff_assoc($refArray, array_unique($refArray));
+        foreach ($refError as $key => $value) {
+            $this->error[$key+1][]['message'] = 'Internal Reference duplication. Please check your CSV file.';
+        }
     }
+        
 }
