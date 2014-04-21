@@ -1064,7 +1064,7 @@ class WepController extends Zend_Controller_Action
                             }
 
                             $this->_helper->FlashMessenger
-                                ->addMessage(array('message' => "{$count['add']} transactions added. {$count['update']} transactions updated."));
+                                ->addMessage(array('message' => "{$count['add']} transaction(s) added. {$count['update']} transaction(s) updated."));
                             $this->_redirect("/activity/list-elements/?activity_id=".$activityId
                                              ."&classname=Activity_Transaction");
                         }
