@@ -352,7 +352,7 @@ class WepController extends Zend_Controller_Action
         $reporting_org_info['@reporting_org_type'] = $wepModel->fetchValueById(
                                                                     'OrganisationType' ,
                                                                     $default['reporting_org_type'] ,
-                                                                    'Code');
+                                                                    'Name');
         $reporting_org_info['@reporting_org_lang'] = $wepModel->fetchValueById(
                                                                     'Language' ,
                                                                     $default['reporting_org_lang'] ,
@@ -391,23 +391,23 @@ class WepController extends Zend_Controller_Action
         $activityDefaults['@collaboration_type'] = $wepModel->fetchValueById(
                                                             'CollaborationType',
                                                             $default['collaboration_type'],
-                                                            'Code');
+                                                            'Name');
         $activityDefaults['@flow_type'] = $wepModel->fetchValueById(
                                                         'FlowType' ,
                                                         $default['flow_type'],
-                                                        'Code');
+                                                        'Name');
         $activityDefaults['@finance_type'] = $wepModel->fetchValueById(
                                                             'FinanceType' ,
                                                             $default['finance_type'],
-                                                            'Code');
+                                                            'Name');
         $activityDefaults['@aid_type'] = $wepModel->fetchValueById(
                                                         'AidType' ,
                                                         $default['aid_type'],
-                                                        'Code');
+                                                        'Name');
         $activityDefaults['@tied_status'] = $wepModel->fetchValueById(
                                                             'TiedStatus' ,
                                                             $default['tied_status'],
-                                                            'Code');
+                                                            'Name');
 
         $form = new Form_Wep_IatiIdentifier('add', $identity->account_id);
         $form->add('add', $identity->account_id);
