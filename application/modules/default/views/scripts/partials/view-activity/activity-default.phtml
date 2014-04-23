@@ -32,12 +32,13 @@
         <ul class="style-1">
             <li>
                 <span class="name">Language:</span>
-                <span class="infom"><?php 
-                                                if ($this->activityInfo['@xml_lang'])
-                                                {
-                                                    printf("%s ", Iati_Core_Codelist::getCodeByAttrib('Activity' , '@xml_lang' , $this->activityInfo['@xml_lang']));
-                                                }
-                                            ?> 
+                <span class="infom">
+                <?php 
+                    if ($this->activityInfo['@xml_lang'])
+                    {
+                        printf("%s ", Iati_Core_Codelist::getCodeByAttrib('Activity' , '@xml_lang' , $this->activityInfo['@xml_lang']));
+                    }
+                ?> 
                 </span>
             </li>
             <li>
@@ -52,7 +53,8 @@
                 <span class="name">Last Updated Date Time: </span>
                 <span class="infom"><?php print $this->activityInfo['@last_updated_datetime']; ?></span>
             </li>
-            <li>
+            <!-- Hide Linked Data Default (v1.2.4) --> 
+            <li style="display:none">
                 <span class="name">Linked Data Uri: </span>
                 <span class="infom"><?php print $this->activityInfo['@linked_data_uri']; ?></span>
             </li>

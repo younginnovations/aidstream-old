@@ -33,11 +33,15 @@ class Form_Wep_DefaultFieldValues extends App_Form
             ->setAttrib('class' , 'form-text')
             ->setValue($defaults['field_values']['hierarchy']);
             
-        $form['linked_data_default'] = new Zend_Form_Element_Text('linked_data_default');
-        $form['linked_data_default']->setLabel('Linked Data Default')
-            ->setAttrib('class' , 'form-text')
-            ->setValue($defaults['field_values']['linked_data_default']);
-                                    
+        /*
+         * Hide Linked Data Default (v1.2.4)
+         *
+            $form['linked_data_default'] = new Zend_Form_Element_Text('linked_data_default');
+            $form['linked_data_default']->setLabel('Linked Data Default')
+                ->setAttrib('class' , 'form-text')
+                ->setValue($defaults['field_values']['linked_data_default']);
+        */
+
         $form['default_collaboration_type'] = new Zend_Form_Element_Select('default_collaboration_type');
         $form['default_collaboration_type']->setLabel('Default Collaboration Type')
             ->setValue($defaults['field_values']['collaboration_type'])
