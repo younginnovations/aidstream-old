@@ -24,19 +24,19 @@ class User_UserController extends Zend_Controller_Action
         $form = new User_Form_User_RegisterForm();
         $modelWep = new Model_Wep();
         if ($formData) {
-                if ($form->isValid($formData)) {
-                    $userModel = new User_Model_User();
-                    $accountId = $userModel->registerUser($formData);
+            if ($form->isValid($formData)) {
+                $userModel = new User_Model_User();
+                $accountId = $userModel->registerUser($formData);
 
-                    $this->_helper->FlashMessenger
-                        ->addMessage(array('message' => 'Thank you for registering.'
-                                           .'You will receive an email shortly.'));
-                    $this->_redirect('/');
-                } else {
-                    $this->_helper->FlashMessenger
-                        ->addMessage(array('error' => 'Oops! something went wrong.'
-                                           .' Please check the fields marked in red to proceed.'));
-                }
+                $this->_helper->FlashMessenger
+                    ->addMessage(array('message' => 'Thank you for registering.'
+                                       .'You will receive an email shortly.'));
+                $this->_redirect('/');
+            } else {
+                $this->_helper->FlashMessenger
+                    ->addMessage(array('error' => 'Oops! something went wrong.'
+                                       .' Please check the fields marked in red to proceed.'));
+            }
         }
         $this->view->form = $form;
         $this->view->placeholder('title')->set('Register user');
@@ -259,15 +259,15 @@ class User_UserController extends Zend_Controller_Action
         //$userName = strtok($row['user_name'], '_');
         $names = explode('_' , $row['user_name']);
         $last  = array_pop($names);
-        $userName = implode('_' , $names);
+        $userName = implode('_' , $names); 
 
         $account = $accountObj->getAccountRowByUserName('account', 'username', $userName);
-
         $form = new User_Form_User_Edit();
 
         if ($this->getRequest()->isPost()) {
             $formData = $this->getRequest()->getPost();
             if ($form->isValid($formData)) {
+                $data['name'] = $form->getValue('name');
                 $data['address'] = $form->getValue('address');
                 $data['telephone'] = $form->getValue('telephone');
                 $data['twitter'] = (!$form->getValue('twitter')) ? $form->getValue('twitter') : '@' . preg_replace("/@/", "", $form->getValue('twitter'), 1);
@@ -279,6 +279,13 @@ class User_UserController extends Zend_Controller_Action
                 $accountObj->updateAccount($data, $userName);
                 $value = $userModel->updateUser($data, $user_id);
                 $profileModel->updateProfile($data, $user_id);
+                
+                if(trim($account->name) != trim($data['name'])) {
+                    $jsonFile = APPLICATION_PATH . '/../library/Iati/Snapshot/data/json/' . preg_replace('/-| /' , '_' , strtolower($account->name) . '.json');
+                    $newJsonFile = APPLICATION_PATH . '/../library/Iati/Snapshot/data/json/' . preg_replace('/-| /' , '_' , strtolower($data['name'])) . '.json';
+                    if(file_exists($jsonFile)) { rename($jsonFile, $newJsonFile); }
+                } 
+                
                 if($roleName != 'user'){
                     $upload = new Zend_File_Transfer_Adapter_Http();
                     $upload->setDestination($uploadDir);
@@ -290,8 +297,8 @@ class User_UserController extends Zend_Controller_Action
                     $source = $upload->getFileName();
                     if(is_string($source)) { $data['file_name'] = basename($source); }
                     try{
-                           $upload->receive();
-                           $accountObj->insertFileNameOrUpdate($data ,  $userName);
+                       $upload->receive();
+                       $accountObj->insertFileNameOrUpdate($data ,  $userName);
                     } catch(Zend_File_Transfer_Exception $e) {
                         $e->getMessage();
                     }

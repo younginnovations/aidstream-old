@@ -22,6 +22,7 @@ class User_Model_DbTable_Account extends Zend_Db_Table_Abstract {
     }
 
     public function updateAccount($data, $userName){
+        $value['name'] = trim($data['name']);
         $value['address'] = $data['address'];
         $value['url'] = $data['url'];
         $value['telephone'] = $data['telephone'];

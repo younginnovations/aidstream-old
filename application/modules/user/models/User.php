@@ -21,7 +21,7 @@ class User_Model_User
         $data['account_identifier'] = $userData['account_identifier'];
         $data['user_name'] = $userData['user_name'];
         $data['password'] = $userData['password'];
-        $data['org_name'] = $userData['org_name'];
+        $data['org_name'] = trim($userData['org_name']);
         $data['org_address'] = $userData['org_address'];
 
         //Save Organisation Info

@@ -40,9 +40,13 @@ class User_Form_User_Edit extends App_Form
         {
             $form['name'] = new Zend_Form_Element_Text('name');
             $form['name']->setLabel('Organisation Name')
+                ->setRequired()
                 ->setAttrib('class', 'form-text')
-                ->setAttrib('readonly', 'true')
-                ->setRequired();
+                ->addValidator('Db_NoRecordExists', false,
+                      array('table' => 'account', 'field' => 'name', 'exclude' => $usernameClause,
+                      'messages' => array(
+                      Zend_Validate_Db_NoRecordExists::ERROR_RECORD_FOUND => 'Organisation Name already in use.')));
+
             $form['address'] = new Zend_Form_Element_Textarea('address');
             $form['address']->setLabel('Organisation Address')
                 ->setRequired()
