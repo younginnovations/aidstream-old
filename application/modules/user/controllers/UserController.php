@@ -280,12 +280,6 @@ class User_UserController extends Zend_Controller_Action
                 $value = $userModel->updateUser($data, $user_id);
                 $profileModel->updateProfile($data, $user_id);
                 
-                if(trim($account->name) != trim($data['name'])) {
-                    $jsonFile = APPLICATION_PATH . '/../library/Iati/Snapshot/data/json/' . preg_replace('/-| /' , '_' , strtolower($account->name) . '.json');
-                    $newJsonFile = APPLICATION_PATH . '/../library/Iati/Snapshot/data/json/' . preg_replace('/-| /' , '_' , strtolower($data['name'])) . '.json';
-                    if(file_exists($jsonFile)) { rename($jsonFile, $newJsonFile); }
-                } 
-                
                 if($roleName != 'user'){
                     $upload = new Zend_File_Transfer_Adapter_Http();
                     $upload->setDestination($uploadDir);

@@ -41,21 +41,19 @@ class User_Form_User_Edit extends App_Form
             $form['name'] = new Zend_Form_Element_Text('name');
             $form['name']->setLabel('Organisation Name')
                 ->setRequired()
-                ->setAttrib('class', 'form-text')
-                ->addValidator('Db_NoRecordExists', false,
-                      array('table' => 'account', 'field' => 'name', 'exclude' => $usernameClause,
-                      'messages' => array(
-                      Zend_Validate_Db_NoRecordExists::ERROR_RECORD_FOUND => 'Organisation Name already in use.')));
+                ->setAttrib('class', 'form-text');
 
             $form['address'] = new Zend_Form_Element_Textarea('address');
             $form['address']->setLabel('Organisation Address')
                 ->setRequired()
                 ->setAttrib('rows', '4')
                 ->setAttrib('class', 'form-text');
+
             $form['url'] = new Zend_Form_Element_Text('url');
             $form['url']->setLabel('Organisation Url')
                 ->addValidator(new App_Validate_Url())
                 ->setAttrib('class', 'form-text');
+            
             $form['telephone'] = new Zend_Form_Element_Text('telephone');
             $form['telephone']->setLabel('Organisaton Telephone')
                 ->addValidator(regex, false, array(
@@ -64,8 +62,11 @@ class User_Form_User_Edit extends App_Form
                                         )
                             )
                 ->setAttrib('class', 'form-text');
-            
-
+                 
+        }
+        
+        if($roleName == 'admin')
+        {
             $twitterUsernameValidator = new App_Validate_TwitterUsername();
             $form['twitter'] = new Zend_Form_Element_Text('twitter');
             $form['twitter']->setLabel('Organisaton Twitter')
@@ -76,10 +77,7 @@ class User_Form_User_Edit extends App_Form
                       array('table' => 'account', 'field' => 'twitter', 'exclude' => $usernameClause,
                       'messages' => array(
                       Zend_Validate_Db_NoRecordExists::ERROR_RECORD_FOUND => 'Twitter handle already in use.')));
-        }
-        
-        if($roleName == 'admin')
-        {
+
             $filePath = $baseUrl.'/uploads/image/'.$account['file_name'] ;
             $remove = $baseUrl.'/user/user/remove/user_id/';
             if($account['file_name']){
@@ -114,6 +112,7 @@ class User_Form_User_Edit extends App_Form
         if($roleName == 'user')
         {
             $form['address']->setAttrib('readonly', 'true');
+            $form['name']->setAttrib('readonly', 'true');
         }
         
         foreach($form as $element){
