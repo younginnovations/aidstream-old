@@ -87,33 +87,6 @@ class WepController extends Zend_Controller_Action
         $this->view->activities_id = $activities_id;
 
     }
-    /**
-     * @deprecated
-     */
-    public function listActivitiesAction()
-    {
-        //@todo list only activities related to the user
-        if ($_GET) {
-            if ($this->getRequest()->getParam('type')) {
-                $tblName = $this->getRequest()->getParam('type');
-            }
-
-            if ($this->getRequest()->getParam('account_id')) {
-                $field = 'account_id';
-                //print $field;exit();
-                $id = $this->getRequest()->getParam('account_id');
-            }
-            if ($this->getRequest()->getParam('user_id')) {
-                $field = 'user_id';
-                $id = $this->getRequest()->getParam('user_id');
-            }
-
-            $model = new Model_Wep();
-            $rowSet = $model->listAll($tblName, $field, $id);
-            $this->view->rowSet = $rowSet;
-        }
-
-    }
 
     public function settingsAction()
     {
@@ -268,44 +241,6 @@ class WepController extends Zend_Controller_Action
             }
         }
 
-    }
-
-    /**
-     * @deprecated
-     */
-    public function addActivitiesAction()
-    {
-        $identity = Zend_Auth::getInstance()->getIdentity();
-        $form = new Form_Wep_IatiActivities();
-        $form->add();
-        if ($this->getRequest()->isPost()) {
-            try {
-                $data = $this->getRequest()->getPost();
-                if (!$form->isValid($data)) {
-                    $form->populate($data);
-                } else {
-                    $wepModel = new Model_Wep();
-
-                    $data1['@version'] = $this->_request->getParam('version');
-                    $data1['@generated_datetime'] = $this->_request->getParam('generated_datetime');
-                    $data1['unqid'] = uniqid();
-                    $data1['user_id'] = $identity->user_id;
-                    $data1['account_id'] = $identity->account_id;
-
-                    $activities_id = $wepModel->insertRowsToTable('iati_activities', $data1);
-                    $this->_helper->FlashMessenger
-                        ->addMessage(array('message' => "Activities Saved."));
-
-                    $this->_redirect('wep/list-activities?account_id=' .
-                                     $identity->account_id . '&type=iati_activities');
-                }
-            } catch (Exception $e) {
-                print $e;
-            }
-        }
-
-        $this->view->form = $form;
-        $this->view->blockManager()->enable('partial/dashboard.phtml');
     }
 
     public function addActivityAction()
