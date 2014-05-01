@@ -1,17 +1,16 @@
 <?php $model = new Model_Wep(); ?>
-<?php $count = 1; ?>
 <?php $data = Iati_ElementSorter::sortElementsData($this->data , array('TransactionDate' =>'@iso_date') , array('TransactionValue' => '@value_date')); ?>
 <table class="activity-list-table">
     <thead>
         <tr>
-            <th></th><th>S.N.</th><th>Transaction Type</th><th>Transaction Value</th><th>Transaction Date</th><th></th>
+            <th></th><th>Internal Ref</th><th>Transaction Type</th><th>Transaction Value</th><th>Transaction Date</th><th></th>
         </tr>
     </thead>
     <tbody>
 <?php foreach($data as $element): ?>
         <tr>
             <td></td>
-            <td><?php echo $count?></td>
+            <td><b><?php echo $element['@ref']; ?></b></td>
             <td><?php echo Iati_Core_Codelist::getCodeByAttrib('TransactionType' , '@code' , $element['TransactionType']['@code'], 'Name') ?></td>
             <td><?php echo $this->numberFormat()->localization($element['TransactionValue']['text']); ?></td>
             <td><?php echo $element['TransactionDate']['@iso_date']?></td>
@@ -21,7 +20,6 @@
                 <a href='<?php echo $this->baseUrl();?>/activity/delete-element?classname=<?php echo $this->elementClass;?>&id=<?php echo $element['id'];?>&activity_id=<?php echo $this->activityId;?>' class="delete-element-link">Delete</a>
             </td>
         </tr>
-        <?php $count++; ?>
 <?php endforeach; ?>
     </tbody>
 </table>
