@@ -961,22 +961,32 @@ class WepController extends Zend_Controller_Action
                         $csvHandler = new Model_CsvUpload();
                         $csvHandler->setInputFile($source);
                         $csvHandler->readCsv();
-                        $count = $csvHandler->uploadDataToTransaction($activityId);
+                        $headerCount = $csvHandler->countHeader();  
+                        if ($headerCount == 34) {
+                            $count = $csvHandler->uploadDetailDataToTransaction($activityId);
+                        } elseif ($headerCount == 11) {
+                            $count = $csvHandler->uploadSimpleDataToTransaction($activityId);
+                        }
                         if(!$count){
                             $messanger = $this->_helper->FlashMessenger;
                             $messanger->addMessage(array('trans-error' => 'You have
                                                          following errors. Please correct the errors.'));
-                            foreach($csvHandler->getErrors() as $tranCount => $error){
-                                $tranNo = $tranCount+1;
-                                if(!empty($error)){
-                                    $messanger->addMessage(
-                                            array('trans-error' =>"<div class='tran-no'>
-                                                  Transaction no: {$tranNo}</div>"));
-                                    foreach($error as $errormessage){
+                            if ($csvHandler->getErrors()) {
+                                foreach($csvHandler->getErrors() as $tranCount => $error){
+                                    $tranNo = $tranCount+1;
+                                    if(!empty($error)){
                                         $messanger->addMessage(
-                                            array('trans-error' => " # ".$errormessage['message']));
+                                                array('trans-error' =>"<div class='tran-no'>
+                                                      Transaction no: {$tranNo}</div>"));
+                                        foreach($error as $errormessage){
+                                            $messanger->addMessage(
+                                                array('trans-error' => " # ".$errormessage['message']));
+                                        }
                                     }
                                 }
+                            } else {
+                                $messanger->addMessage(array('trans-error' => "<div class='tran-no'>
+                                                    Something went wrong. Please check your csv file.</div>"));
                             }
                         } else {
                             $activityHashModel = new Model_ActivityHash();

@@ -120,8 +120,6 @@ class Model_Wep extends Zend_Db_Table_Abstract
         return $result;
     }
     
-    
-    
     public function getCodeArray($tblName, $codeid, $lang , $nullOption = false)
     {
         $this->_name = $tblName;
@@ -149,6 +147,19 @@ class Model_Wep extends Zend_Db_Table_Abstract
             $finalResult[$eachResult['id']] = $eachResult['Code']. $name;
         }
         return $finalResult;
+    }
+
+    public function getCodeandName($tblName, $lang_id)
+    {
+        $this->_name = $tblName;
+        $rowSet = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART)->setIntegrityCheck(false)
+        ->where('lang_id = ?',$lang_id)
+        ->order(array('id ASC'));
+        $results = $this->fetchAll($rowSet)->toArray();
+        foreach ($results as $result) {
+            $return[$result['id']] = $result['Code'];
+        }
+        return $return;
     }
 
     public function insertRowsToTable($tblName, $data){
