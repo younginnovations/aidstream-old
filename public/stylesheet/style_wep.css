@@ -545,7 +545,7 @@ h2.form-title {
     border: none;
     border-radius: 0;
     margin-bottom: 10px;
-/*    padding: 5px 40px 5px 5px;*/
+    /*    padding: 5px 40px 5px 5px;*/
     padding: 5px;
 }
 #sidebar-right #block-activity-menu h2 {
@@ -2794,8 +2794,8 @@ td.activity_view_label {
 
 /*
 #contain-left .activity-title  .activity_title {
-    float: left;
-    width: 440px;
+float: left;
+width: 440px;
 }
 */
 
@@ -4651,6 +4651,19 @@ fieldset#fieldset-organisation_info {
 .download-links li a:hover {
     background: #ddd url(../images/download.png) no-repeat 132px 5px;;
 }
+
+.download-links li .download-activity a {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    font-size: 13px;
+    width: auto;
+    padding: 0 4px 0 0;
+    font-weight: normal;
+}
+
+.download-links li .download-activity a:hover {
+    text-decoration: underline;
+}
+
 table.uploaded-docs, .claro .dijitDialogPaneContent table {
     border: 1px solid #dcdcdc;
     background-color: #f2f2f2;
