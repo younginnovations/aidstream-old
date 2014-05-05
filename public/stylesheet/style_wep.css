@@ -4658,6 +4658,7 @@ fieldset#fieldset-organisation_info {
     width: auto;
     padding: 0 4px 0 0;
     font-weight: normal;
+    float: none;
 }
 
 .download-links li .download-activity a:hover {

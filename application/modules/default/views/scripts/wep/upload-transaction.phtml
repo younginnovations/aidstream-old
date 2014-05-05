@@ -12,12 +12,16 @@ Use one of the following transactions template:
 
 <ul class="download-links">
     <li><?php echo $this->l('Simple' , 'files/csv/iati_transaction_template_simple.csv'); ?> 
-        <div class="download-activity">Contains very less information. Ideal if you are filling the information by hand. It doesn't contain many transaction elements for simplicity. </div></li>
+        <div class="download-activity">
+            Contains very less information. Ideal if you are filling the information by hand. It doesn't contain many transaction elements for simplicity.
+        </div>
+    </li>
 
     <li><?php echo $this->l('Detailed' , 'files/csv/iati_transaction_template_detailed.csv'); ?>
-        <div class="download-activity"> Contains all information about transaction. Ideal if you download your existing transaction from
-            <?php echo $this->l('Download My Data', 'wep/download-my-data'); ?> page and want to update the transactions in bulk. Manual filling can be difficult as you have to ensure you use proper code values while filling certain fields. The first three fields (Activity_Identifier, Activity_Title, Default_currency) are ignored during uploading - they are there to make it consistent with transaction <?php echo $this->l('download', 'wep/download-csv?type=transaction'); ?>.</div></li>
-
+        <div class="download-activity"> 
+            Contains all information about transaction. Ideal if you download your existing transaction from <?php echo $this->l('Download My Data', 'wep/download-my-data'); ?> page and want to update the transactions in bulk. Manual filling can be difficult as you have to ensure you use proper code values while filling certain fields. The first three fields (Activity_Identifier, Activity_Title, Default_currency) are ignored during uploading. This is done to make it consistent with transaction <?php echo $this->l('download', 'wep/download-csv?type=transaction'); ?>via Download My Data.
+        </div>
+    </li>
 
 </ul>
 
