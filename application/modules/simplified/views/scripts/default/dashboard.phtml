@@ -17,7 +17,7 @@
 	<?php if(is_array($stateCount)): ?>
 	    <?php
 		$registeredCount = $this->published_activity_count;
-		$otherStates = $stateCount[Iati_WEP_ActivityState::STATUS_EDITING]
+		$otherStates = $stateCount[Iati_WEP_ActivityState::STATUS_DRAFT]
 		+ $stateCount[Iati_WEP_ActivityState::STATUS_COMPLETED]
 		+ $stateCount[Iati_WEP_ActivityState::STATUS_VERIFIED];
 		$publishedCount = ($stateCount[Iati_WEP_ActivityState::STATUS_PUBLISHED]) ? ($stateCount[Iati_WEP_ActivityState::STATUS_PUBLISHED]) : 0;

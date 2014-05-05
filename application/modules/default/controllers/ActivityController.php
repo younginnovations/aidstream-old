@@ -196,10 +196,10 @@ class ActivityController extends Zend_Controller_Action
                 $this->_helper->FlashMessenger->addMessage(array($type => $message));
                 
                 // In case of update notify the user about state change.
-                if($updated && $oldState != Iati_WEP_ActivityState::STATUS_EDITING){ 
+                if($updated && $oldState != Iati_WEP_ActivityState::STATUS_DRAFT){ 
                     $this->_helper->FlashMessenger
                         ->addMessage(array('state-change-flash-message' => "The
-                                        activity state is changed back to Edit.
+                                        activity state is changed back to Draft.
                                         You must complete and verify in order
                                         to publish the activity.")
                                     );

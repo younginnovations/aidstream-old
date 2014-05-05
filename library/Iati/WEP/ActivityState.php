@@ -3,7 +3,7 @@ class Iati_WEP_ActivityState
 {
     protected static $_instance;
 
-    const STATUS_EDITING = 1;
+    const STATUS_DRAFT = 1;
     const STATUS_COMPLETED = 2;
     const STATUS_VERIFIED = 3;
     const STATUS_PUBLISHED = 4;
@@ -18,20 +18,21 @@ class Iati_WEP_ActivityState
                             );
 
     protected $STATUS_LIST = array(
-                            self::STATUS_EDITING        =>'Edit',
+                            self::STATUS_DRAFT        =>'Draft',
                             self::STATUS_COMPLETED  =>'Completed',
                             self::STATUS_VERIFIED        =>'Verified',
                             self::STATUS_PUBLISHED      =>'Published'
                             );
+    
     protected $TRANSITIONS = array(
-                            self::STATUS_EDITING           => array(self::STATUS_COMPLETED),
-                            self::STATUS_COMPLETED     => array(self::STATUS_EDITING, self::STATUS_VERIFIED),
-                            self::STATUS_VERIFIED           => array(self::STATUS_EDITING, self::STATUS_PUBLISHED),
-                            self::STATUS_PUBLISHED         => array(self::STATUS_EDITING)
+                            self::STATUS_DRAFT           => array(self::STATUS_COMPLETED),
+                            self::STATUS_COMPLETED     => array(self::STATUS_DRAFT, self::STATUS_VERIFIED),
+                            self::STATUS_VERIFIED           => array(self::STATUS_DRAFT, self::STATUS_PUBLISHED),
+                            self::STATUS_PUBLISHED         => array(self::STATUS_DRAFT)
                             );
 
     protected $PERMISSIONS  = array(
-                            self::STATUS_EDITING        =>array(Iati_WEP_PermissionConts::ADD_ACTIVITY,Iati_WEP_PermissionConts::ADD_ACTIVITY_ELEMENTS,Iati_WEP_PermissionConts::EDIT_ACTIVITY,Iati_WEP_PermissionConts::EDIT_ACTIVITY_ELEMENTS),
+                            self::STATUS_DRAFT        =>array(Iati_WEP_PermissionConts::ADD_ACTIVITY,Iati_WEP_PermissionConts::ADD_ACTIVITY_ELEMENTS,Iati_WEP_PermissionConts::EDIT_ACTIVITY,Iati_WEP_PermissionConts::EDIT_ACTIVITY_ELEMENTS),
                             self::STATUS_COMPLETED  =>array(Iati_WEP_PermissionConts::ADD_ACTIVITY,Iati_WEP_PermissionConts::ADD_ACTIVITY_ELEMENTS,Iati_WEP_PermissionConts::EDIT_ACTIVITY,Iati_WEP_PermissionConts::EDIT_ACTIVITY_ELEMENTS),
                             self::STATUS_VERIFIED        =>array(Iati_WEP_PermissionConts::PUBLISH),
                             self::STATUS_PUBLISHED      =>array(Iati_WEP_PermissionConts::PUBLISH)
@@ -129,7 +130,7 @@ class Iati_WEP_ActivityState
 
     public static function getNextStatus($state)
     {
-        if($state == Iati_WEP_ActivityState::STATUS_EDITING) {
+        if($state == Iati_WEP_ActivityState::STATUS_DRAFT) {
             $next_state = Iati_WEP_ActivityState::STATUS_COMPLETED;
 
         } else if($state == Iati_WEP_ActivityState::STATUS_COMPLETED) {
@@ -147,7 +148,7 @@ class Iati_WEP_ActivityState
     
     public static function getRemainingStates($state)
     {
-         if($state == Iati_WEP_ActivityState::STATUS_EDITING) {
+         if($state == Iati_WEP_ActivityState::STATUS_DRAFT) {
             $remaining_state = array(Iati_WEP_ActivityState::STATUS_COMPLETED,Iati_WEP_ActivityState::STATUS_VERIFIED,Iati_WEP_ActivityState::STATUS_PUBLISHED);
 
         } else if($state == Iati_WEP_ActivityState::STATUS_COMPLETED) {

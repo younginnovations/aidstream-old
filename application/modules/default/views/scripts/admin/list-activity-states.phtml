@@ -16,7 +16,7 @@
     <?php
         //Calculate total for display
         $total['total'] += array_sum($row['states']);
-        $total['editing'] += $row['states'][Iati_WEP_ActivityState::STATUS_EDITING];
+        $total['editing'] += $row['states'][Iati_WEP_ActivityState::STATUS_DRAFT];
         $total['completed'] += $row['states'][Iati_WEP_ActivityState::STATUS_COMPLETED];
         $total['verified'] += $row['states'][Iati_WEP_ActivityState::STATUS_VERIFIED];
         $total['published'] += $row['states'][Iati_WEP_ActivityState::STATUS_PUBLISHED];
@@ -26,7 +26,7 @@
     <td><?php print $i;?></td>
     <td><?php print $row['name']?></td>
     <td><?php print array_sum($row['states']);?>
-    <td><?php print ($row['states'][Iati_WEP_ActivityState::STATUS_EDITING])?$row['states'][Iati_WEP_ActivityState::STATUS_EDITING]:'-'?></td>
+    <td><?php print ($row['states'][Iati_WEP_ActivityState::STATUS_DRAFT])?$row['states'][Iati_WEP_ActivityState::STATUS_DRAFT]:'-'?></td>
     <td><?php print ($row['states'][Iati_WEP_ActivityState::STATUS_COMPLETED])?$row['states'][Iati_WEP_ActivityState::STATUS_COMPLETED]:'-'?></td>
     <td><?php print ($row['states'][Iati_WEP_ActivityState::STATUS_VERIFIED])?$row['states'][Iati_WEP_ActivityState::STATUS_VERIFIED]:'-'?></td>
     <td><?php print ($row['states'][Iati_WEP_ActivityState::STATUS_PUBLISHED])?$row['states'][Iati_WEP_ActivityState::STATUS_PUBLISHED]:'-'?></td>

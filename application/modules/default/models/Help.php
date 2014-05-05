@@ -55,10 +55,10 @@ class Model_Help extends Zend_Db_Table_Abstract
     
     public static function getHelpMessageForStates($state)
     {
-        if($state == Iati_Wep_ActivityState::STATUS_EDITING){
+        if($state == Iati_Wep_ActivityState::STATUS_DRAFT){
             
             $help =  "Clicking on Completed button would mean that you have completed entering information about the activity.
-            The activity will be changed to Completed state from Edit state.";
+            The activity will be changed to Completed state from Draft state.";
             
         } else if($state == Iati_WEP_ActivityState::STATUS_COMPLETED){
             

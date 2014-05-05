@@ -620,7 +620,7 @@ class WepController extends Zend_Controller_Action
                             $db = new Model_ActivityStatus;
                             $db->updateActivityStatus(
                                                       $activity_id,
-                                                      Iati_WEP_ActivityState::STATUS_EDITING
+                                                      Iati_WEP_ActivityState::STATUS_DRAFT
                                                     );
                             $type = 'message';
                             $message = "Activity overridden";
@@ -925,7 +925,7 @@ class WepController extends Zend_Controller_Action
 
             //change state to editing
             $db = new Model_ActivityStatus();
-            $db->updateActivityStatus($activityId,Iati_WEP_ActivityState::STATUS_EDITING);
+            $db->updateActivityStatus($activityId,Iati_WEP_ActivityState::STATUS_DRAFT);
             $type = 'message';
             $message = "Updated Reporting Organisation sucessfully";
         }
@@ -999,11 +999,11 @@ class WepController extends Zend_Controller_Action
                                 Model_Activity::updateActivityUpdatedInfo($activityId);
                             }
 
-                            if($updated && $oldState != Iati_WEP_ActivityState::STATUS_EDITING){
+                            if($updated && $oldState != Iati_WEP_ActivityState::STATUS_DRAFT){
                                 // In case of update notify the user about state change.
                                 $this->_helper->FlashMessenger
                                     ->addMessage(array('state-change-flash-message' => "The
-                                                    activity state is changed back to Edit.
+                                                    activity state is changed back to Draft.
                                                     You must complete and verify in order
                                                     to publish the activity."));
                             }

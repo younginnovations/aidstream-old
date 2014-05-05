@@ -1204,8 +1204,8 @@ var validEmail = function (email) {
                     msg += "<div class='state-help-title'><span class='info-image'></span>Aidstream Activity States</div>"; // title
                     // message body
                     msg += "<div class= 'state-help-body'><p>Aidstream maintains a simple workflow to ensure that the activities are properly verified before it gets registered in IATI Registry for public view. The following states are maintained in the activities.</p>";
-                    msg += "<ul class='states-list'><li>Edit</li><li>Completed</li><li>Verified</li><li>Published</li></ul>";
-                    msg += "<p>When the activity is in any one of the states, any further changes in the activity will return its state back to Editing. The entire flow has to be followed before the changes get updated in the activty xml files and registered in IATI Registry. It is recommended that different users are given access to each of these roles for the workflow.</p>"
+                    msg += "<ul class='states-list'><li>Draft</li><li>Completed</li><li>Verified</li><li>Published</li></ul>";
+                    msg += "<p>When the activity is in any one of the states, any further changes in the activity will return its state back to Draft. The entire flow has to be followed before the changes get updated in the activty xml files and registered in IATI Registry. It is recommended that different users are given access to each of these roles for the workflow.</p>"
                     msg += "</div></div>"; // closing body and main div
                     var stateHelpDialog = new dijit.TooltipDialog({
                         content: msg,
@@ -1234,8 +1234,8 @@ var validEmail = function (email) {
                     msg += "<div class='state-help-title'><span class='info-image'></span>Aidstream Organisation File States</div>"; // title
                     // message body
                     msg += "<div class= 'state-help-body'><p>Aidstream maintains a simple workflow to ensure that the organisation files are properly verified before it gets registered in IATI Registry for public view. The following states are maintained in the organisation file.</p>";
-                    msg += "<ul class='states-list'><li>Edit</li><li>Completed</li><li>Verified</li><li>Published</li></ul>";
-                    msg += "<p>When the organisation file is in any one of the states, any further changes in the organisation file will return its state back to Editing. The entire flow has to be followed before the changes get updated in the organisation xml files and registered in IATI Registry. It is recommended that different users are given access to each of these roles for the workflow.</p>"
+                    msg += "<ul class='states-list'><li>Draft</li><li>Completed</li><li>Verified</li><li>Published</li></ul>";
+                    msg += "<p>When the organisation file is in any one of the states, any further changes in the organisation file will return its state back to Draft. The entire flow has to be followed before the changes get updated in the organisation xml files and registered in IATI Registry. It is recommended that different users are given access to each of these roles for the workflow.</p>"
                     msg += "</div></div>"; // closing body and main div
                     var stateHelpDialog = new dijit.TooltipDialog({
                         content: msg,

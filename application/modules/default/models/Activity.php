@@ -133,7 +133,7 @@ class Model_Activity
         
         //change state to editing
         $db = new Model_ActivityStatus;
-        $db->updateActivityStatus($activityId,Iati_WEP_ActivityState::STATUS_EDITING);
+        $db->updateActivityStatus($activityId,Iati_WEP_ActivityState::STATUS_DRAFT);
     }
     
     public static function getActivityInfo($activityId)

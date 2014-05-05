@@ -92,7 +92,7 @@ class OrganisationController extends Zend_Controller_Action
 
                     //change state to editing
                     $db = new Model_OrganisationState;
-                    $db->updateOrganisationState($parentId , Iati_WEP_ActivityState::STATUS_EDITING);
+                    $db->updateOrganisationState($parentId , Iati_WEP_ActivityState::STATUS_DRAFT);
                     $type = 'message';
                     $message = $element->getDisplayName() . " successfully inserted.";
                 }
@@ -206,7 +206,7 @@ class OrganisationController extends Zend_Controller_Action
 
                     //change state to editing
                     $db = new Model_OrganisationState;
-                    $db->updateOrganisationState($parentId , Iati_WEP_ActivityState::STATUS_EDITING);
+                    $db->updateOrganisationState($parentId , Iati_WEP_ActivityState::STATUS_DRAFT);
                     $type = 'message';
                     $message = $element->getDisplayName() . " successfully updated.";
                 }
@@ -674,7 +674,7 @@ class OrganisationController extends Zend_Controller_Action
 
             //Change state to editing
             $db = new Model_OrganisationState();
-            $db->updateOrganisationState($organisationId , Iati_WEP_ActivityState::STATUS_EDITING);
+            $db->updateOrganisationState($organisationId , Iati_WEP_ActivityState::STATUS_DRAFT);
             $type = 'message';
             // Get display name
             $className = "Iati_Aidstream_Element_Organisation_$elementName";
