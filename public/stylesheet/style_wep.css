@@ -3903,7 +3903,7 @@ a:hover {
     line-height: 160%;
     padding-bottom: 20px;
 }
-.tagline a, .email a {
+.tagline a, .email a, .fork a {
     border-bottom: 2px solid #009AEA;
     line-height: 160%;
     color: #fff;
@@ -4093,6 +4093,11 @@ button.next:hover {
 }
 .email a {
     display: inline-block;
+}
+.fork {
+    font: bold 22px Arial, sans-serif;
+    float: right;
+    margin-top: -33px;
 }
 .about-tagline {
     font: normal 34px Arial, sans-serif;
