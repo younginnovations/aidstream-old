@@ -51,5 +51,4 @@ file. Make sure all the folders inside data folder are writable. Execute PHP Scr
 'UpdateData.php' using crontab or manually "php UpdateData.php" via unix terminal. 
 This will grab all data for the snapshot and organisation page.
 
-2. Clone how-to, how-to-simplified and blog from their respective repositories to 
-the public folder.
+2. Clone [aidstream-howto](https://github.com/younginnovations/aidstream-howto), [simplified-aidstream-howto](https://github.com/younginnovations/simplified-aidstream-howto) from their respective repositories to the public folder. Rename the folders to `how-to` and `how-to-simplified` respectively.
