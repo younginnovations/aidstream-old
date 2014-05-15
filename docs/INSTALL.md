@@ -8,7 +8,7 @@ Please follow the following steps for installing AidStream.
 
 2. Create a database and import the sql files in the schema directory of the root folder.
 The files to be imported are  schema.sql, codelists.sql, help.sql and superadmin.sql file.
-schema.sql should be the first file to be imported as it coantains the db schema.
+schema.sql should be the first file to be imported as it contains the db schema.
     
 3. Make a copy of default.application.ini as application.ini in application/configs.
     - Change the db parameters to match your db configuration
