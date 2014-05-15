@@ -33,7 +33,7 @@
         <tbody>
         <?php foreach($this->activity_array as $eachActivity):?>
             <tr class="activity-row1">
-               <td><input type="checkbox" name="activity_<?php echo $eachActivity['id']?>" value="<?php echo $eachActivity['id']?>"<?php ($eachActivity['status_id'] == Iati_WEP_ActivityState::STATUS_VERIFIED)? print("checked='checked'"): print("disabled='disabled'");?>" /></td>
+               <td><input type="checkbox" name="activity_<?php echo $eachActivity['id']?>" value="<?php echo $eachActivity['id']?>"<?php ($eachActivity['status_id'] == Iati_WEP_ActivityState::STATUS_VERIFIED)? print("checked='checked'"): print("disabled='disabled'");?> /></td>
                 <td class="sn"><?php print $i;?></td>
                 <td class="title"><div class='title-activity'><?php print $eachActivity['title'];?></div>
                 <?php if($userPermission):?>
@@ -64,8 +64,7 @@
                 </td>
                 <td class="iati-identifier"><?php print $eachActivity['identifier'];?></td>
                 <td class="last-updated"><?php print $eachActivity['last_updated_datetime'];?></td>
-                <td class="status <?php echo strtolower(str_replace(" ", "-",Iati_WEP_ActivityState::getStatus($eachActivity['status_id'])));?>"><div>
-                <?php echo Iati_WEP_ActivityState::getStatus($eachActivity['status_id']);?></div></td>
+                <td class="status <?php echo strtolower(str_replace(" ", "-",Iati_WEP_ActivityState::getStatus($eachActivity['status_id'])));?>"><div><?php echo Iati_WEP_ActivityState::getStatus($eachActivity['status_id']);?></div></td>
             </tr>
             
          <?php $i++;?>
