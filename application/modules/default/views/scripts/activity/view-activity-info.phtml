@@ -1,7 +1,7 @@
 <?php 
     $activities = $this->activities;
     $change_status_form = $this->status_form;
-    $model_wep = new Model_Wep();
+    $model_user = new Model_User();
 ?>
 
 <div class= "activity-state">
@@ -9,12 +9,12 @@
     <span class = "override-link"><?php echo $this->l('Override Activity Default', 'wep/edit-activity/?activity_id='
                                                             . $this->activityInfo['id'])?></span>
 
-<?php endif; ?>
-<?php if(!$userPermission): ?>
-<span class = "override-link"><?php echo $this->l('Override Activity Default', 'wep/edit-activity/?activity_id='
-                                                            . $this->activityInfo['id'])?></span>
+    <?php endif; ?>
+    <?php if(!$userPermission): ?>
+    <span class = "override-link"><?php echo $this->l('Override Activity Default', 'wep/edit-activity/?activity_id='
+                                                                . $this->activityInfo['id'])?></span>
 
-<?php endif; ?>
+    <?php endif; ?>
 </div>
 <?php
     $title = "(" ;
@@ -24,15 +24,13 @@
 
 <div class="activity-title">
     <div class="activity-inner-title">
-    <span class="activity_identifier"> <?php print $this->activityInfo['activity_identifier']; ?> </span>
-    <span class="activity_title"> <?php print $title;?> </span>
+      <span class="activity_identifier"> <?php print $this->activityInfo['activity_identifier']; ?> </span>
+      <span class="activity_title"> <?php print $title;?> </span>
     </div>
     <div class="print-page">
-  <a onclick="window.print();">Print Activity</a>
+      <a onclick="window.print();">Print Activity</a>
+  </div>
 </div>
-</div>
-
-
 
 <div class= "activity-state">
     <div class="state-display">
@@ -44,16 +42,18 @@
         </ul>
     </div>
     <?php if(!Model_User::checkHasPublished() && $this->state != Iati_WEP_ActivityState::STATUS_PUBLISHED):?>
-    <div class="activity-state">
-        <div id="change-state-description" class="custom-tooltip-dialog tooltip-left state-<?php echo strtolower(Iati_WEP_ActivityState::getStatus($this->state));?>">
-        <span class="custom-tooltip-pointer"></span>
-            <span id="close-dialog" class="close-dialog close-dialog-button">X</span>
-            <div class="dialog-content">
-                <p><?php echo Model_Help::getHelpMessageForStates($this->state);?></p>
-                 <div class="close close-dialog-button">Got it. Thanks</div>
-            </div>
+      <?php if(!$model_user->getHelpState(Iati_WEP_ActivityState::getNextStatus($this->state))): ?>
+        <div class="activity-state">
+          <div id="change-state-description" class="custom-tooltip-dialog tooltip-left state-<?php echo strtolower(Iati_WEP_ActivityState::getStatus($this->state));?>">
+          <span class="custom-tooltip-pointer"></span>
+              <span id="close-dialog" class="close-dialog close-dialog-button">X</span>
+              <div class="dialog-content">
+                  <p><?php echo Model_Help::getHelpMessageForStates($this->state);?></p>
+                   <div class="close close-dialog-button" value="<?php echo Iati_WEP_ActivityState::getNextStatus($this->state); ?>">Got it. Thanks</div>
+              </div>
+          </div>
         </div>
-        </div>
+      <?php endif; ?>
     <?php endif; ?>
     <div class='change-state'>
         <div class="change-state-info-section">This activity is in <span class="change-state-current-state"><?php print(Iati_WEP_ActivityState::getStatus($this->state));?></span> State. <?php if($this->state != Iati_WEP_ActivityState::STATUS_PUBLISHED): ?>Mark it as <?php print($change_status_form)?><?php endif; ?>

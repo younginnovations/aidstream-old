@@ -4,6 +4,7 @@
         $model = new Model_Wep();
         $userPermission = $model->getUserPermission($identity->user_id);
     }
+    $model_user = new Model_User();
     
 ?>
 
@@ -74,7 +75,7 @@
 </div>
 <?php print ($this->status_form);?>
 
-<?php if(!Model_User::checkHasPublished()): ?>
+<?php if(!Model_User::checkHasPublished() && !$model_user->getHelpState(Iati_WEP_ActivityState::STATUS_PUBLISHED)): ?>
     <div class="tooltip-wrapper">
         <div id="publish-button" class="custom-tooltip-dialog tooltip-up">
             <span id="close-dialog" class="close-dialog close-dialog-button">X</span>
@@ -82,7 +83,7 @@
             <span class="custom-tooltip-pointer"></span>
             <div class="dialog-content close-dialog-button">
                 <p><?php echo Model_Help::getHelpMessagesForPublishButton(); ?></p>
-                <div class="close close-dialog-button">Got it. Thanks</div>
+                <div class="close close-dialog-button" value="4">Got it. Thanks</div>
             </div>
             </div>
         </div>

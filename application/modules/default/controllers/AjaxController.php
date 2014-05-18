@@ -156,4 +156,17 @@ class AjaxController extends Zend_Controller_Action
             echo "Unknown";exit;
         }
     }
+
+    public function changeStateAction()
+    {
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $userId = $identity->user_id;
+
+        $stateId = $this->_getParam('id');
+        if ($stateId > 0 && $stateId <=4) {
+            $userModel = new Model_User();
+            $userModel->updateHelpState($stateId);
+        }
+        exit;
+    } 
 }

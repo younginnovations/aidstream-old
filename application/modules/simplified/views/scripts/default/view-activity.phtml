@@ -3,6 +3,7 @@
     $activityId = $this->activity_id;
     $change_status_form = $this->status_form;
     $model = new Model_Wep();
+    $model_user = new Model_User();
 ?>
 
 <div id="simplified_activity">
@@ -27,16 +28,18 @@
         </div>
         
         <?php if(!Model_User::checkHasPublished() && $this->state != Iati_WEP_ActivityState::STATUS_PUBLISHED):?>
-        <div class="activity-state">
-            <div id="change-state-description" class="custom-tooltip-dialog tooltip-left state-<?php echo strtolower(Iati_WEP_ActivityState::getStatus($this->state));?>">
-            <span class="custom-tooltip-pointer"></span>
-                <span id="close-dialog" class="close-dialog close-dialog-button">X</span>
-                <div class="dialog-content">
-                    <p><?php echo Model_Help::getHelpMessageForStates($this->state);?></p>
-                    <div class="close close-dialog-button">Got it. Thanks</div>
+            <?php if(!$model_user->getHelpState(Iati_WEP_ActivityState::getNextStatus($this->state))): ?>
+                <div class="activity-state">
+                    <div id="change-state-description" class="custom-tooltip-dialog tooltip-left state-<?php echo strtolower(Iati_WEP_ActivityState::getStatus($this->state));?>">
+                        <span class="custom-tooltip-pointer"></span>
+                        <span id="close-dialog" class="close-dialog close-dialog-button">X</span>
+                        <div class="dialog-content">
+                            <p><?php echo Model_Help::getHelpMessageForStates($this->state);?></p>
+                            <div class="close close-dialog-button" value="<?php echo Iati_WEP_ActivityState::getNextStatus($this->state); ?>">Got it. Thanks</div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            </div>
+            <?php endif; ?>
         <?php endif; ?>
         
         <div class='change-state'>

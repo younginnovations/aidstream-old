@@ -53,6 +53,23 @@ class Model_User extends Zend_Db_Table_Abstract
         return $this->fetchAll($select)->toArray();
     }
     
+    public function getHelpState($stateId) 
+    {
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $userId = $identity->user_id;
+
+        $select = $this->select()
+                    ->from($this->_name, array('help_state'))
+                    ->where('user_id = ?', $userId);
+        $result = $this->fetchRow($select);
+        if ($result->help_state) {
+            $data = unserialize($result->help_state);
+            $stateName = Iati_WEP_ActivityState::getStatus($stateId);
+            return $data[$stateName];
+        }
+        return false;
+    }
+
     /**
      * This function is used to check if user has minimum number of files publised for stopping displaying various tooltips.
      * The minimum number is saved in application.ini
@@ -73,4 +90,32 @@ class Model_User extends Zend_Db_Table_Abstract
             return false;
         }
     }
+
+    public function updateHelpState($stateId)
+    {
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $userId = $identity->user_id;
+
+        $data = array(
+                    'Draft' => 1,
+                    'Completed' => 0,
+                    'Verified' => 0,
+                    'Published' => 0
+                );
+
+        $select = $this->select()
+                    ->from($this->_name, array('help_state'))
+                    ->where('user_id = ?', $userId);
+        $result = $this->fetchRow($select);
+        if ($result->help_state) {
+            $data = unserialize($result->help_state);
+        }
+
+        $stateName = Iati_WEP_ActivityState::getStatus($stateId);
+        $data[$stateName] = 1;
+        $data = serialize($data);
+
+        return $this->update(array('help_state' => $data) , array('user_id = ?' => $userId));
+    }
+
 }

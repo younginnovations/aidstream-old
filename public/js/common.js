@@ -1535,6 +1535,20 @@ var validEmail = function (email) {
                 }
             },
 
+            ".close": {
+                'onclick': function (evt) {
+                    var node = getTarget(evt);
+                    var state = dojo.attr(node, 'value');
+                    dojo.xhrPost({
+                        url: APP_BASEPATH + "/ajax/change-state",
+                        handleAs: "text",
+                        content: {
+                            id: state
+                        }
+                    });
+                }
+            },
+
             "#change_state": {
                 "onclick": function (evt) {
                     var node = getTarget(evt);

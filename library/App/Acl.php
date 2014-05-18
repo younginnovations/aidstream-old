@@ -115,6 +115,7 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'default:ajax', 'previous-documents');
         $this->allow('user', 'default:ajax', 'document-upload');
         $this->allow('user', 'default:ajax', 'get-country');
+        $this->allow('user', 'default:ajax', 'change-state');
         $this->allow('user' , 'simplified:default');
 
         $this->allow('admin', 'user');
