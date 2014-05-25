@@ -926,6 +926,13 @@ var validEmail = function (email) {
                 }
             },
 
+            "#group_identifier": {
+                "onkeyup": function (evt) {
+                    var identifier = getTarget(evt).value.replace(/ /g, '');
+                    dojo.query('#user_name').attr('value', identifier + "_group");
+                }
+            },  
+
             ".delete-item": {
                 'onclick': function (evt) {
                     if (!confirm("Are you sure you want to delete this?")) {
