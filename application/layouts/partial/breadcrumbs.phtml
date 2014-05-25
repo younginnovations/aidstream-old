@@ -46,6 +46,20 @@ switch($identity->role){
                         'action' => 'list-activity-states'
                     ),
                     array(
+                        'label' => 'Group Organisations',
+                        'module' => 'default',
+                        'controller' => 'admin',
+                        'action' => 'group-organisations',
+                        'pages' => array(
+                            array(
+                                'label' => 'Create Organisation Group',
+                                'module' => 'default',
+                                'controller' => 'admin',
+                                'action' => 'create-organisation-group'
+                            )
+                        )
+                    ),
+                    array(
                         'label' => 'My Profile',
                         'module' => 'user',
                         'controller' => 'user',
@@ -76,6 +90,24 @@ switch($identity->role){
             )
         );
         break;
+    case 'groupadmin':
+        $container->addPage(
+            array(
+                'label' => 'Dashboard',
+                'module' => 'default',
+                'controller' => 'group',
+                'action' => 'dashboard',
+                'pages' => array(
+                    array(
+                        'label' => 'List Organisation',
+                        'module' => 'default',
+                        'controller' => 'group',
+                        'action' => 'list-organisation'
+                    )
+                )
+            )
+        );
+    break;
     case 'admin':
         $container->addPage(
             array(
