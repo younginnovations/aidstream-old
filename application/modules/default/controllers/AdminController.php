@@ -793,7 +793,134 @@ class AdminController extends Zend_Controller_Action
         fwrite($fp,$xml->asXML());
         fclose($fp);
         if (file_exists($xmlPath.$fileName)) {
-            $this->_redirect('/files/xml/' . $fileName);
+            $this->_redirect('/files/$xml/' . $fileName);
         }
     }
+
+    public function groupOrganisationsAction() {
+        $userGroupModel = new User_Model_DbTable_UserGroup();
+        $groupModel = new User_Model_DbTable_Group();
+        $groups = $userGroupModel->getAllUserGroups();
+        foreach ($groups as $group) {
+            $groupOrganisationCount[] = $groupModel->getOrganisationCountByGroupId($group['group_id']);
+        }
+        $this->view->orgCount = $groupOrganisationCount;
+        $this->view->groups = $groups;
+    }
+
+    public function createOrganisationGroupAction() {
+        $form = new Form_Admin_CreateOrganisationGroup();
+        $this->view->form = $form;
+        if($this->getRequest()->isPost()){
+            $data = $this->getRequest()->getPost();
+            if(!$form->isValid($data)) {
+                $form->populate($data);
+            } else {
+                $model = new Model_Wep();
+                $userGroupModel = new User_Model_DbTable_UserGroup();
+                $groupModel = new User_Model_DbTable_Group();
+
+                $user['user_name'] = $data['group_identifier'] . '_group';
+                $user['password'] = md5($data['password']);
+                $user['role_id'] = 4;
+                $user['email'] = $data['email'];
+                $user['account_id'] = 0;
+                $user['status'] = 1;
+                $user_id = $model->insertRowsToTable('user', $user);
+
+                $information['first_name'] = $data['first_name'];
+                $information['middle_name'] = $data['middle_name'];
+                $information['last_name'] = $data['last_name'];
+                $information['user_id'] = $user_id;
+                $profile_id = $model->insertRowsToTable('profile', $information);
+
+                $group['name'] = $data['group_name'];
+                $group['username'] = $data['group_identifier'];
+                $group['user_id'] = $user_id;
+                $group_id = $userGroupModel->insertUserGroup($group);
+                
+                $accountIds = $data['group_organisations'];
+                foreach ($accountIds as $account_id) {
+                    $groupModel->insertGroupWithAccountId($account_id, $group_id);
+                }
+
+                $this->_helper->FlashMessenger
+                    ->addMessage(array('message' => "Organisation Group successfully created."));
+                $this->_redirect('/admin/group-organisations');
+            }
+        }
+    }
+
+    public function editGroupAction() {
+        $groupId = $this->_getParam('group_id');
+        if (!isset($groupId)) {
+            $this->_helper->FlashMessenger
+                ->addMessage(array('error' => "No Group Id Provided."));
+            $this->_redirect('/admin/group-organisations');  
+        }
+        $form = new Form_Admin_EditOrganisationGroup();
+        $userModel = new User_Model_DbTable_User();
+        $profileModel = new User_Model_DbTable_Profile();
+        $userGroupModel = new User_Model_DbTable_UserGroup();
+        $groupModel = new User_Model_DbTable_Group();
+        
+        $row = $userGroupModel->getRowByGroupId($groupId);
+        if (!count($row)) {
+            $this->_helper->FlashMessenger
+                ->addMessage(array('error' => "Invalid Group Id."));
+            $this->_redirect('/admin/group-organisations'); 
+        }
+        $userId = $row['user_id'];
+        $row1 = $userModel->getUserById($userId);
+        $row2 = $profileModel->getProfileByUserId($userId);
+        $row1 = $row1->toArray();
+        $row2 = $row2->toArray();
+        $row3['group_organisations'] = $groupModel->getOrganisationIdByGroupId($groupId);
+
+        $row['group_identifier'] = $row['username'];
+        $row['group_name'] = $row['name'];
+
+        $this->view->form = $form;
+
+        if ($this->getRequest()->isPost()) {
+            $data = $this->getRequest()->getPost();
+            if ($form->isValid($data)) {
+                $user['user_name'] = $data['group_identifier'] . '_group';
+                $user['email'] = $data['email'];
+                $value = $userModel->updateUser($user, $userId);
+
+                $information['first_name'] = $data['first_name'];
+                $information['middle_name'] = $data['middle_name'];
+                $information['last_name'] = $data['last_name'];
+                $profileModel->updateProfile($information, $userId);
+
+                $group['name'] = $data['group_name'];
+                $group['username'] = $data['group_identifier'];
+                $userGroupModel->updateUserGroup($group, $groupId);
+
+                $accountIds = $data['group_organisations'];
+                $groupModel->deleteGroup($groupId);
+                foreach ($accountIds as $accountId) {
+                    $groupModel->insertGroupWithAccountId($accountId, $groupId);
+                }
+
+                $this->_helper->FlashMessenger
+                    ->addMessage(array('message' => "Organisation Group successfully updated."));
+                $this->_redirect('/admin/group-organisations');                
+            } else {
+                $form->populate($data);
+            }
+        } else {
+            $form->populate($row);
+            $form->populate($row1);
+            $form->populate($row2);
+            $form->populate($row3);
+        }
+        
+    }
+
+    public function deleteGroupAction() {
+
+    }
+
 }
