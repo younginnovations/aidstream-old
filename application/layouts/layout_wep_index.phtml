@@ -85,7 +85,13 @@
 			<?php   if ($auth->hasIdentity()):?>
 			<div class="nav_container">
 			    <?php $identity = $auth->getIdentity();?>
-			    <?php $session = new Zend_Session_Namespace('superadmin')?>
+			    <?php 
+                    if(Zend_Session::namespaceIsset('superadmin')): 
+                        $session = new Zend_Session_Namespace('superadmin');
+                    elseif (Zend_Session::namespaceIsset('groupadmin')):
+                        $session = new Zend_Session_Namespace('groupadmin');
+                    endif;
+                ?>
 			    <?php if($session->identity): ?>
 				<?php echo $this->l('Switch back', 'user/user/switch-back')?>
 				You are masquerading as  <?php echo $this->l($identity->user_name, 'user/user/myaccount',array('attributes' => array('class' => 'user-name')));?>
