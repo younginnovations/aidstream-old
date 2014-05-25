@@ -91,5 +91,14 @@ class User_Model_DbTable_Account extends Zend_Db_Table_Abstract {
     {
         return parent::update(array('username' => $username), array('id = ?' => $accountId));        
     }
+
+    public function getAllOrganisationNameWithId() 
+    {
+        $select = $this->select()
+            ->from($this, array('id', 'name'))
+            ->where("name NOT LIKE '%test%'")
+            ->order("name");
+        return $this->fetchAll($select)->toArray();
+    }
 }
 

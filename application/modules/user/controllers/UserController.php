@@ -98,9 +98,10 @@ class User_UserController extends Zend_Controller_Action
                 $this->_redirect('admin/dashboard');
             } elseif ($identity->role == 'admin') {
                 $this->_redirect('wep/dashboard');
-            }
-            elseif ($identity->role == "user") {
+            } elseif ($identity->role == "user") {
                 $this->_redirect('wep/dashboard');
+            } elseif ($identity->role == "groupadmin") {
+                $this->_redirect('group/dashboard');
             }
         }
 
@@ -157,8 +158,10 @@ class User_UserController extends Zend_Controller_Action
                         $this->_redirect('admin/dashboard');
                     } elseif ($identity->role == 'admin') {
                         $this->_redirect('wep/dashboard');
-                    }elseif ($identity->role == 'user'){
+                    } elseif ($identity->role == 'user') {
                         $this->_redirect('wep/dashboard');
+                    } elseif ($identity->role == 'groupadmin') {
+                        $this->_redirect('group/dashboard');
                     }
                 }
                 else
@@ -523,20 +526,13 @@ class User_UserController extends Zend_Controller_Action
         return $authAdapter;
     }
 
-    public function testAction()
-    {
-        $test = new Model_Test();
-        $role = $test->required();
-        $this->view->userRole = $role;
-    }
-
     public function masqueradeAction()
     {
         $accountAuth = Zend_Auth::getInstance();
         if($accountAuth->hasIdentity()){
             $identity = $accountAuth->getIdentity();
-            if($identity->role == 'superadmin') {
-
+            if($identity->role == 'superadmin' || $identity->role == 'groupadmin') {
+                $identity_role = $identity->role;
                 $account_id = $this->_getParam('org_id');
                 $user_id = $this->_getParam('user_id');
                 if(!$account_id || !$user_id){
@@ -544,7 +540,7 @@ class User_UserController extends Zend_Controller_Action
                         ->addMessage(array('error' => 'Could not masquerade. User information missing'));
                     $this->_redirect('/wep/dashboard');
                 }
-                $superAdminIdentity = $identity;
+                $adminIdentity = $identity;
                 $authAdapter = new Zend_Auth_Adapter_DbTable(Zend_Db_Table::getDefaultAdapter());
                 $authAdapter->setTableName('user')
                     ->setIdentityColumn('user_id')
@@ -567,8 +563,13 @@ class User_UserController extends Zend_Controller_Action
                 $simplified = new Zend_Session_Namespace('simplified');
                 $simplified->simplified = $account->simplified;
 
-                $session = new Zend_Session_Namespace('superadmin');
-                $session->identity = serialize($superAdminIdentity);
+                if ($identity_role == 'superadmin') {
+                    $session = new Zend_Session_Namespace('superadmin');
+                    $session->identity = serialize($adminIdentity);
+                } elseif ($identity_role == 'groupadmin') {
+                    $session = new Zend_Session_Namespace('groupadmin');
+                    $session->identity = serialize($adminIdentity);
+                }
                 $this->_redirect('/wep/dashboard');
 
             } else {
@@ -584,10 +585,23 @@ class User_UserController extends Zend_Controller_Action
         $auth = Zend_Auth::getInstance();
         if($auth->hasIdentity()){
             $session = new Zend_Session_Namespace('superadmin');
-            if(isset($session->identity)){
-                $auth->getStorage()->write(unserialize($session->identity));
-                Zend_Session::namespaceUnset('superadmin');
-                $this->_redirect('/admin/list-organisation');
+            if (!isset($session->identity)) $session = new Zend_Session_Namespace('groupadmin');
+            if (Zend_Session::namespaceIsset('superadmin')) {
+                if(isset($session->identity)){
+                    $auth->getStorage()->write(unserialize($session->identity));
+                    Zend_Session::namespaceUnset('superadmin');
+                    $this->_redirect('/admin/list-organisation');
+                } else {
+                    $this->_redirect('/wep/dashboard');
+                }
+            } elseif (Zend_Session::namespaceIsset('groupadmin')) {
+                if(isset($session->identity)){
+                    $auth->getStorage()->write(unserialize($session->identity));
+                    Zend_Session::namespaceUnset('groupadmin');
+                    $this->_redirect('/group/list-organisation');
+                } else {
+                    $this->_redirect('/group/dashboard');
+                }
             } else {
                 $this->_redirect('/wep/dashboard');
             }
