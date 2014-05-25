@@ -1,0 +1,33 @@
+<table class="activity-list-table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>S.N.</th>
+            <th>Group Name</th>
+            <th>No. of Organisations</th>
+            <th colspan="2">Action</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+<?php $index = 1; ?>
+<?php foreach($this->groups as $group): ?>
+        <tr>
+            <td></td>
+            <td><?php print $index; ?></td>
+            <td><?php print $group['name']; ?></td>
+            <td><?php print $this->orgCount[$index-1] ?></td>
+            <td colspan="2">
+                <a href="<?php echo $this->baseUrl();?>/admin/edit-group?group_id=<?php echo $group['group_id'];?>">Edit</a> |
+                <a href="<?php echo $this->baseUrl();?>/admin/delete-group?group_id=<?php echo $group['group_id'];?>">Delete</a>
+            </td>
+            <td></td>
+        </tr>
+<?php $index++; ?>
+<?php endforeach; ?>
+    </tbody>
+</table>
+
+<div id="create-organisation-group">
+    <?php echo $this->l('Create Organisation Group', "admin/create-organisation-group");?>
+</div>
