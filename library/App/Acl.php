@@ -21,23 +21,24 @@ class App_Acl extends Zend_Acl
                 ->add(new Zend_Acl_Resource('default:activity'), 'default')
                 ->add(new Zend_Acl_Resource('default:ajax'), 'default')
                 ->add(new Zend_Acl_Resource('default:admin'), 'default')
-                ->add(new Zend_Acl_Resource('default:iatixmlController'), 'default');
+                ->add(new Zend_Acl_Resource('default:iatixmlController'), 'default')
+                ->add(new Zend_Acl_Resource('default:group'), 'default');
 
         $this->add(new Zend_Acl_Resource('nullresources'));
-
-
 
         $this->add(new Zend_Acl_Resource('user'))
                 ->add(new Zend_Acl_Resource('user:user'), 'user');
         //user controller of user module has been inherited from user module
         
+        $this->add(new Zend_Acl_Resource('group'));
+
         $this->add(new Zend_Acl_Resource('simplified'))
             ->add(new Zend_Acl_Resource('simplified:default') , 'simplified');
-
 
         $this->addRole(new Zend_Acl_Role('guest'));
         $this->addRole(new Zend_Acl_Role('user'), 'guest');
         $this->addRole(new Zend_Acl_Role('admin'), 'user');
+        $this->addRole(new Zend_Acl_Role('groupadmin'), 'user');
         $this->addRole(new Zend_Acl_Role('superadmin'), 'admin');
 
 
@@ -116,7 +117,12 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'default:ajax', 'document-upload');
         $this->allow('user', 'default:ajax', 'get-country');
         $this->allow('user', 'default:ajax', 'change-state');
-        $this->allow('user' , 'simplified:default');
+        $this->allow('user', 'simplified:default');
+
+        $this->deny('groupadmin', 'default:wep', 'dashboard');
+        $this->allow('groupadmin', 'default:group');
+        $this->allow('groupadmin', 'default:group', 'list-organisations');
+        $this->allow('groupadmin', 'user:user', 'masquerade');
 
         $this->allow('admin', 'user');
         $this->allow('admin', 'default:code-list');
@@ -140,12 +146,14 @@ class App_Acl extends Zend_Acl
 
         $this->allow('superadmin', 'default:admin');
         $this->allow('superadmin', 'default:admin', 'register');
-        $this->allow('superadmin', 'default:admin', 'change-organisation-status');
         $this->allow('superadmin', 'default:admin', 'set-simplified');
         $this->allow('superadmin', 'default:admin', 'edit-help-message');
         $this->allow('superadmin', 'default:admin', 'change-footer-display');
         $this->allow('superadmin', 'default:admin', 'list-activity-states');
+        $this->allow('superadmin', 'default:admin', 'create-organisation-group');
         $this->allow('superadmin', 'default:admin', 'validate-xml-files');
+        $this->allow('superadmin', 'default:admin', 'group-organisations');
+        $this->allow('superadmin', 'default:admin', 'change-organisation-status');
     }
 
     public function isAllowed($role = null, $resource = null, $privilege = null)
