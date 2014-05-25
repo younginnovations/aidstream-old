@@ -1,0 +1,33 @@
+<table id="list-org">
+	<caption>
+		<?php echo $this->groupRow['name']; ?>
+	</caption>
+	<thead>
+		<tr>
+		    <th>S.N.</th>
+		    <th>Organisation Name</th>
+		    <th>Users</th>
+		    <th>Activities</th>
+		    <th>Status</th>
+		    <th>Action</th>
+		</tr>
+	</thead>
+	<?php $i = 1;?>
+	<tbody>
+	    <?php foreach($this->rowSet as $key=>$row):?>
+	    <?php $newStatus = ($row['status'])? 0: 1; ?>
+	    <tr>
+		    <td><?php print $i;?></td>
+		    <td><?php print $row['name']?></td>
+		    <td><?php print $row['users_count']?></td>
+		    <td><?php print $row['activity_count']?></td>
+		    <td class='toggle-status' value='<?php echo $row['status'] ?>'><?php print ($row['status'])?'Enabled': 'Disabled';?></td>
+		    <td>
+		        <?php print $this->l('Masquerade', "user/user/masquerade?org_id=".$row['id']."&user_id=".$row['user_id']);?>	
+		    </td>
+
+	    </tr>
+	    <?php $i++;?>
+	    <?php endforeach;?>
+	</tbody>
+</table>
