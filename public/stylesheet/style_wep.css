@@ -61,6 +61,13 @@ p {
 table {
     border-collapse: collapse;
 }
+table caption {
+    background: #dfe6ec;
+    text-transform:uppercase;
+    padding:3px 0;
+    text-align:center;
+    font-weight: bold;
+}
 /**
 * Markup free clearing.
 *
@@ -2737,7 +2744,7 @@ td.activity_view_label {
 .add-more-link {
     float: left;
 }
-#transaction-upload {
+#transaction-upload, #create-organisation-group {
     float: left;
 }
 .add-more-link a, #transaction-upload a, .download-format a, .back-link a {
