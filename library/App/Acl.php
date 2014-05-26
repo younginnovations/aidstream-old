@@ -144,6 +144,8 @@ class App_Acl extends Zend_Acl
         $this->allow('admin', 'default:admin', 'delete-user');
         $this->allow('admin', 'default:admin', 'edit-user-permission');
         $this->allow('admin', 'default:admin', 'reset-user-password');
+        $this->allow('admin', 'default:admin', 'edit-group');
+        $this->allow('admin', 'default:admin', 'delete-group');        
 
         $this->allow('superadmin', 'default:admin');
         $this->allow('superadmin', 'default:admin', 'register');
