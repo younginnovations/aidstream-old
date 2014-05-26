@@ -25,7 +25,7 @@
 			$activityModel = new Model_ActivityCollection();
 			
 			$group = $userGroupModel->getRowByUserId($userId);
-			$orgs = $groupModel->getAllOrganisationsByGroupId($group['id']);
+			$orgs = $groupModel->getAllOrganisationsByGroupId($group['group_id']);
 			$org_data = array();
 
 			foreach($orgs as $organisation)

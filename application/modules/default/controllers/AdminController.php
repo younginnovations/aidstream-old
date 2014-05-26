@@ -865,11 +865,12 @@ class AdminController extends Zend_Controller_Action
         $groupModel = new User_Model_DbTable_Group();
         
         $row = $userGroupModel->getRowByGroupId($groupId);
-        if (!count($row)) {
+        if(!$row) {
             $this->_helper->FlashMessenger
                 ->addMessage(array('error' => "Invalid Group Id."));
-            $this->_redirect('/admin/group-organisations'); 
+            $this->_redirect('/admin/group-organisations');
         }
+
         $userId = $row['user_id'];
         $row1 = $userModel->getUserById($userId);
         $row2 = $profileModel->getProfileByUserId($userId);
