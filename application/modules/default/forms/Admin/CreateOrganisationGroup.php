@@ -38,14 +38,15 @@
 	        					  We recommend that you use a short abbreviation that uniquely identifies 
 	        					  your organisation group. If your group identifier is 'abc' the username 
 	        					  for the group created with this registration will be 'abc_group'.")
-	        	->addValidator('Db_NoRecordExists', false, array('table' => 'user_group',
-	        	                                                'field' => 'username'))
 	        	->setRequired();
 
 	        $form['user_name'] = new Zend_Form_Element_Text('user_name');
 	        $form['user_name']->setLabel('User Name')
-	            ->addValidator('Db_NoRecordExists', false, array('table' => 'user',
-	                                                            'field' => 'user_name'))
+	            ->addValidator('Db_NoRecordExists', false, 
+					array('table' => 'user', 'field' => 'user_name',
+						'messages' => array(
+			        		Zend_Validate_Db_NoRecordExists::ERROR_RECORD_FOUND => 'Username already in use. Please change your Group Identifier.'
+			        	)))
 			    ->setAttrib('class', 'form-text')
 			    ->setAttrib('readonly','true')
 			    ->setDescription("User Name is a combination of Group Identifier and '_group'.
@@ -68,6 +69,11 @@
 	        $form['email'] = new Zend_Form_Element_Text('email');
 	                $form['email']->setLabel('Email')
 	                ->addValidator('emailAddress', false)
+	                ->addValidator('Db_NoRecordExists', false, 
+	                	array('table' => 'user', 'field' => 'email',
+	                	'messages' => array(
+	                			Zend_Validate_Db_NoRecordExists::ERROR_RECORD_FOUND => 'Email address already in use.'
+	                		)))
 	                ->addFilter('stringTrim')
 	                ->setAttrib('class', 'form-text')
 	                ->setRequired();

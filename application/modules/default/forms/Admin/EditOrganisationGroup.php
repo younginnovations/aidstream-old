@@ -1,10 +1,14 @@
 <?php
 	class Form_Admin_EditOrganisationGroup extends App_Form
 	{
-		public function init($groupId) {
+		public function init() {
 			$this->setName('create_organisation_group');
 			$form = array();
 
+			$userId = $this->getAttrib('user_id');
+			$db = Zend_Db_Table_Abstract::getDefaultAdapter();
+			$clause = $db->quoteInto('user_id != ?', $userId);
+			
 			$form['group_name'] = new Zend_Form_Element_Text('group_name');
 			$form['group_name']->setLabel('Group Name')
 				->setRequired()
@@ -38,8 +42,6 @@
 	        					  We recommend that you use a short abbreviation that uniquely identifies 
 	        					  your organisation group. If your group identifier is 'abc' the username 
 	        					  for the group created with this registration will be 'abc_group'.")
-	        	->addValidator('Db_NoRecordExists', false, array('table' => 'user_group',
-	        	                                                'field' => 'username'))
 	        	->setRequired();
 
 	        $form['user_name'] = new Zend_Form_Element_Text('user_name');
@@ -48,6 +50,11 @@
 			    ->setAttrib('readonly','true')
 			    ->setDescription("User Name is a combination of Group Identifier and '_group'.
                              You may only change Group Identifier portion of the username.")
+                ->addValidator('Db_NoRecordExists', false, 
+    				array('table' => 'user', 'field' => 'user_name', 'exclude' => $clause,
+    					'messages' => array(
+    		        		Zend_Validate_Db_NoRecordExists::ERROR_RECORD_FOUND => 'Username already in use. Please change your Group Identifier.'
+    		        	)))
 			    ->setRequired();
 
 	        $form['email'] = new Zend_Form_Element_Text('email');
@@ -55,6 +62,11 @@
 	                ->addValidator('emailAddress', false)
 	                ->addFilter('stringTrim')
 	                ->setAttrib('class', 'form-text')
+	                ->addValidator('Db_NoRecordExists', false, 
+	                	array('table' => 'user', 'field' => 'email', 'exclude' => $clause,
+	                	'messages' => array(
+	                			Zend_Validate_Db_NoRecordExists::ERROR_RECORD_FOUND => 'Email address already in use.'
+	                		)))
 	                ->setRequired();
 
             $account_model = new User_Model_DbTable_Account();
