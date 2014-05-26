@@ -4887,3 +4887,7 @@ a {
     margin: 0 0 30px 20px;
     line-height: 17px;
 }
+
+#user-login {
+    height: auto!important;
+}
