@@ -71,6 +71,7 @@ class User_Model_DbTable_User extends Zend_Db_Table_Abstract {
 
   	public function updateUser($data, $user_id)
     {
+        if($data['user_name']) $value['user_name'] = $data['user_name'];
         $value['email'] = $data['email'];
         return parent::update($value, array('user_id = ?' => $user_id));
     }

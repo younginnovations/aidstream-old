@@ -858,7 +858,7 @@ class AdminController extends Zend_Controller_Action
                 ->addMessage(array('error' => "No Group Id Provided."));
             $this->_redirect('/admin/group-organisations');  
         }
-        $form = new Form_Admin_EditOrganisationGroup();
+
         $userModel = new User_Model_DbTable_User();
         $profileModel = new User_Model_DbTable_Profile();
         $userGroupModel = new User_Model_DbTable_UserGroup();
@@ -881,6 +881,7 @@ class AdminController extends Zend_Controller_Action
         $row['group_identifier'] = $row['username'];
         $row['group_name'] = $row['name'];
 
+        $form = new Form_Admin_EditOrganisationGroup(array('user_id' => $userId));
         $this->view->form = $form;
 
         if ($this->getRequest()->isPost()) {
