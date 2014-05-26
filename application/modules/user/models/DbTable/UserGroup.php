@@ -4,7 +4,7 @@ class User_Model_DbTable_UserGroup extends Zend_Db_Table_Abstract {
 
     protected $_name = 'user_group';
 
-    public function insertUserGroup($data){
+    public function insertUserGroup($data) {
         return $this->insert($data);
     }
 
@@ -15,16 +15,24 @@ class User_Model_DbTable_UserGroup extends Zend_Db_Table_Abstract {
 
     public function getRowByGroupId($groupId) {
         $query = $this->select()->where('group_id = ?', $groupId);
-        return $this->fetchRow($query)->toArray();
+        $result = $this->fetchRow($query);
+        if (count($result)) {
+            return $result->toArray();
+        }
+        return false;
     }
     
-    public function deleteUserGroup($groupId){
+    public function deleteUserGroup($groupId) {
         $where = $this->getAdapter()->quoteInto('group_id = ?', $groupId);
         return $this->delete($where);
     }
     
-    public function updateUserGroup($data, $groupId){
+    public function updateUserGroup($data, $groupId) {
         return $this->update($data, array('group_id = ?' => $groupId));
+    }
+
+    public function updateUsername($username, $userId) {
+        return $this->update(array('username' => $username), array('user_id = ?' => $userId));        
     }
 
     public function getAllUserGroups() {

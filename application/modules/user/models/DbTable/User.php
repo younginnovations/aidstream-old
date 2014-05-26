@@ -75,9 +75,8 @@ class User_Model_DbTable_User extends Zend_Db_Table_Abstract {
         return parent::update($value, array('user_id = ?' => $user_id));
     }
 
-    public function changeUsername($old_account_identifier, $account_identifier, $account_id)
+    public function changeAdminUsername($old_account_identifier, $account_identifier, $account_id)
     {
-        
         $select = $this->select()
                     ->from($this,array('user_name'))
                     ->where('account_id = ?', $account_id); 
@@ -90,6 +89,15 @@ class User_Model_DbTable_User extends Zend_Db_Table_Abstract {
         $accountModel = new User_Model_DbTable_Account();
         $accountModel->updateUsername($account_identifier, $account_id);
     } 
+
+    public function changeGroupadminUsername($old_group_identifier, $group_identifier, $user_id) {
+        $old_username = $old_group_identifier . '_group';
+        $data['user_name'] = $group_identifier . '_group';
+        parent::update($data, array('user_name = ?' => $old_username));
+
+        $userGroupModel = new User_Model_DbTable_UserGroup();
+        $userGroupModel->updateUsername($group_identifier, $user_id);
+    }
 }
 
 ?>
