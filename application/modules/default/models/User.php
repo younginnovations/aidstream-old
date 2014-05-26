@@ -23,7 +23,12 @@ class Model_User extends Zend_Db_Table_Abstract
     
     public function updateStatusByAccount($accountId , $status)
     {
-        return $this->update(array('status' => $status) , array('account_id = ?' => $accountId));
+        return $this->update(array('status' => $status), array('account_id = ?' => $accountId));
+    }
+
+    public function updateStatusByUser($userId, $status) 
+    {
+        return $this->update(array('status' => $status), array('user_id = ?' => $userId));
     }
     
     public function getUserByAccountId($account_id,$filter = null)
