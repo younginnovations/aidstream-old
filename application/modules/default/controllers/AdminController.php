@@ -921,6 +921,34 @@ class AdminController extends Zend_Controller_Action
     }
 
     public function deleteGroupAction() {
+        $groupId = $this->_getParam('group_id');
+        if (!isset($groupId)) {
+            $this->_helper->FlashMessenger
+                ->addMessage(array('error' => "No Group Id Provided."));
+            $this->_redirect('/admin/group-organisations');  
+        }
+
+        $userModel = new Model_User();
+        $groupModel = new User_Model_DbTable_Group();
+        $userGroupModel = new User_Model_DbTable_UserGroup();
+
+        $row = $userGroupModel->getRowByGroupId($groupId);
+        if (!$row) {
+            $this->_helper->FlashMessenger
+                ->addMessage(array('message' => "Cannot Delete Group. Invalid Group Id."));
+            $this->_redirect('/admin/group-organisations');
+        }
+
+        // Disable User
+        $data['status'] = 0;
+        $userModel->updateStatusByUser($row['user_id'] , $data['status']);
+
+        $groupModel->deleteGroup($groupId);
+        $userGroupModel->deleteUserGroup($groupId);
+
+        $this->_helper->FlashMessenger
+            ->addMessage(array('message' => "Group Deleted Successfully."));
+        $this->_redirect('/admin/group-organisations');
 
     }
 
