@@ -455,7 +455,7 @@ h2.form-title {
     clear: both;
     margin-top: 10px;
 }
-.user-nav a {
+.user-nav a,#create-organisation-group a {
     background: #009ada;
     display: inline-block;
     padding: 5px 20px;
@@ -466,7 +466,7 @@ h2.form-title {
     -moz-border-radius: 4px;
     border-radius: 4px;
 }
-.user-nav a:hover {
+.user-nav a:hover,#create-organisation-group a:hover {
     background: #037bac;
 }
 .user-nav .user-change-defaults {
@@ -533,7 +533,7 @@ h2.form-title {
     padding-top: 0;
     margin-top: 0;
 }
-#block-list-menu .action-icon a, #block-add-menu .action-icon a, #block-list-published-files .action-icon a, #block-list-activity-states .action-icon a, #block-list-help .action-icon a, #block-download-data-menu .action-icon a, #block-uploaded-doc-menu .action-icon a, #block-validate-xml-files .action-icon a, #block-generate-published-xml-files .action-icon a {
+#block-list-menu .action-icon a, #block-add-menu .action-icon a, #block-list-published-files .action-icon a, #block-list-activity-states .action-icon a, #block-list-help .action-icon a, #block-download-data-menu .action-icon a, #block-uploaded-doc-menu .action-icon a, #block-validate-xml-files .action-icon a, #block-generate-published-xml-files .action-icon a,#block-create-organisation-group .action-icon a {
     display: block;
     width: 48px;
     height: 48px;
@@ -543,7 +543,7 @@ h2.form-title {
     margin-right: 12px;
     background-color: transparent;
 }
-#block-list-menu a, #block-add-menu a, #block-list-published-files a, #block-list-menu a, #block-list-activity-states-menu a, #block-list-help a, #block-list-activity-states a, #block-download-data-menu a, #block-uploaded-doc-menu a, #block-validate-xml-files a, #block-generate-published-xml-files a {
+#block-list-menu a, #block-add-menu a, #block-list-published-files a, #block-list-menu a, #block-list-activity-states-menu a, #block-list-help a, #block-list-activity-states a, #block-download-data-menu a, #block-uploaded-doc-menu a, #block-validate-xml-files a, #block-generate-published-xml-files a,#block-create-organisation-group a {
     font-weight: bold;
     font-size: 13px;
 }
@@ -2417,6 +2417,12 @@ button#cd-cancel, button#cd-ok {
 }
 #block-generate-published-xml-files:hover .action-icon a {
     background-position: 0 -2295px;
+}
+#block-create-organisation-group .action-icon a {
+    background-position: 0 -2395px;
+}
+#block-create-organisation-group:hover .action-icon a {
+    background-position: 0 -2495px;
 }
 /* change Default Page */
 

@@ -62,4 +62,6 @@ $(document).ready(function () {
             $('#organisation-xml input').attr('checked', false);
         }
     });
+    
+    $('#contain-body').css('min-height', $(window).height() - 170 + 'px');
 });
