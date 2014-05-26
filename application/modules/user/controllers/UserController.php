@@ -210,7 +210,7 @@ class User_UserController extends Zend_Controller_Action
             }
         }
         $this->view->blockManager()->enable('partial/dashboard.phtml');
-        if($identity->role != 'superadmin'){
+        if($identity->role == 'user' || $identity->role == 'admin'){
             $this->view->blockManager()->enable('partial/primarymenu.phtml');
             $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
             $this->view->blockManager()->enable('partial/published-list.phtml');
@@ -232,6 +232,8 @@ class User_UserController extends Zend_Controller_Action
                     $this->view->blockManager()->disable('partial/published-list.phtml');
                 }
             }
+        } elseif($identity->role == 'groupadmin') {
+            $this->view->blockManager()->enable('partial/groupadmin-menu.phtml');
         } else {
             $this->view->blockManager()->enable('partial/superadmin-menu.phtml');
         }
@@ -275,6 +277,7 @@ class User_UserController extends Zend_Controller_Action
                 $data['telephone'] = $form->getValue('telephone');
                 $data['twitter'] = (!$form->getValue('twitter')) ? $form->getValue('twitter') : '@' . preg_replace("/@/", "", $form->getValue('twitter'), 1);
                 $data['first_name'] = $form->getValue('first_name');
+                $data['middle_name'] = $form->getValue('middle_name');
                 $data['last_name'] = $form->getValue('last_name');
                 $data['email'] = $form->getValue('email');
                 $data['url'] = $form->getValue('url');
@@ -309,7 +312,7 @@ class User_UserController extends Zend_Controller_Action
         }else {
                 $form->populate($row->toArray());
                 $form->populate($row1->toArray());
-                if($roleName != 'superadmin')
+                if($roleName != 'superadmin' && $roleName != 'groupadmin')
                 {
                     $form->populate($account->toArray());
                 }
@@ -330,7 +333,7 @@ class User_UserController extends Zend_Controller_Action
             }
         }
         $this->view->blockManager()->enable('partial/dashboard.phtml');
-        if($identity->role != 'superadmin'){
+        if($identity->role == 'user' || $identity->role == 'admin'){
             $this->view->blockManager()->enable('partial/primarymenu.phtml');
             $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
             $this->view->blockManager()->enable('partial/published-list.phtml');
@@ -350,6 +353,8 @@ class User_UserController extends Zend_Controller_Action
                     $this->view->blockManager()->disable('partial/published-list.phtml');
                 }
             }
+        } elseif ($identity->role == 'groupadmin') {
+            $this->view->blockManager()->enable('partial/groupadmin-menu.phtml');
         } else {
             $this->view->blockManager()->enable('partial/superadmin-menu.phtml');
         }
@@ -481,21 +486,27 @@ class User_UserController extends Zend_Controller_Action
 
             if ($form->isValid($formdata)) {
                 try {
-                    $old_account_identifier = strstr($user->user_name, '_', TRUE);
-                    $account_identifier = $this->getRequest()->getParam('account_identifier');
+                    if ($auth->role == 'admin') {
+                        $old_account_identifier = strstr($user->user_name, '_', TRUE);
+                        $account_identifier = $this->_getParam('account_identifier');
 
-                    $userModel->changeUsername($old_account_identifier, $account_identifier, $auth->account_id);
-                    $auth->user_name = $account_identifier . '_admin';
-
+                        $userModel->changeAdminUsername($old_account_identifier, $account_identifier, $auth->account_id);
+                        $auth->user_name = $account_identifier . '_admin';
+                    } elseif ($auth->role == 'groupadmin') {
+                        $old_group_identifier = strstr($user->user_name, '_', TRUE);
+                        $group_identifier = $this->_getParam('group_identifier');
+                        
+                        $userModel->changeGroupadminUsername($old_group_identifier, $group_identifier, $auth->user_id);
+                        $auth->user_name = $group_identifier . '_group';
+                    }
                     $this->_helper->FlashMessenger
                         ->addMessage(array('message' => 'Username changed successfully. Please use the new username next time you log in.'));
 
                     $this->_redirect('user/user/myaccount');
                     
                 } catch (Exception $e) {
-                    print 'Error Occured';
-                    print $e->getMessage();
-                }//end of try catch
+                    print 'Cannot update username. Error Occured.';
+                }//end of try catch*/
             }
         }
         $this->view->user = $user;
