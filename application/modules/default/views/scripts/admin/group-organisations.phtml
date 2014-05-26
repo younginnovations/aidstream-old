@@ -11,20 +11,27 @@
     </thead>
     <tbody>
 <?php $index = 1; ?>
-<?php foreach($this->groups as $group): ?>
-        <tr>
-            <td></td>
-            <td><?php print $index; ?></td>
-            <td><?php print $group['name']; ?></td>
-            <td><?php print $this->orgCount[$index-1] ?></td>
-            <td colspan="2">
-                <a href="<?php echo $this->baseUrl();?>/admin/edit-group?group_id=<?php echo $group['group_id'];?>">Edit</a> |
-                <a href="<?php echo $this->baseUrl();?>/admin/delete-group?group_id=<?php echo $group['group_id'];?>">Delete</a>
-            </td>
-            <td></td>
-        </tr>
-<?php $index++; ?>
-<?php endforeach; ?>
+<?php if(!$this->groups): ?>
+    <tr>
+        <td colspan="7"><em>There are currently no organisation groups.</em></td>
+    </tr>
+<?php else: ?>
+    <?php foreach($this->groups as $group): ?>
+            <tr>
+                <td></td>
+                <td><?php print $index; ?></td>
+                <td><?php print $group['name']; ?></td>
+                <td><?php print $this->orgCount[$index-1] ?></td>
+                <td colspan="2">
+                    <a href="<?php echo $this->baseUrl();?>/admin/edit-group?group_id=<?php echo $group['group_id'];?>">Edit</a> |
+                    <a href="<?php echo $this->baseUrl();?>/admin/delete-group?group_id=<?php echo $group['group_id'];?>">Delete</a>
+                </td>
+                <td></td>
+            </tr>
+    <?php $index++; ?>
+    <?php endforeach; ?>
+        
+<?php endif; ?>
     </tbody>
 </table>
 
