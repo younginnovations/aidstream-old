@@ -66,6 +66,7 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'default:wep', 'transaction');
         $this->allow('user', 'user:user', 'logout');
         $this->allow('user', 'user:user', 'changepassword');
+        $this->allow('user', 'user:user', 'changeusername');
         $this->allow('user', 'user:user', 'myaccount');
         $this->allow('user', 'user:user', 'edit');
         $this->allow('user', 'default:activity', 'add-element');
