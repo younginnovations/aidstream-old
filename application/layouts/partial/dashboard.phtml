@@ -1,8 +1,12 @@
 <?php if($this->userInfo()->role == 'superadmin'){
     $link = 'admin/dashboard';
     //$link2 = 'wep/register';
-}
-?>
+} ?>
+
+<?php if($this->userInfo()->role == 'groupadmin'){
+	$link = 'group/dashboard';
+} ?>
+
 <?php if($this->userInfo()->role == 'admin'){
     $link = 'wep/dashboard';
     $link1 = 'wep/settings';
@@ -13,7 +17,7 @@
     $link = 'wep/dashboard';
    // $link1 = 'wep/settings';
     
-}?>
+} ?>
 <div class="user-nav-inner"><?php print $this->l('Dashboard', $link, array('attributes'=>array('class'=>'user-dashboard')));?>
 <?php if($link1):?>
 <?php print $this->l('Settings', $link1, array('attributes'=> array('class'=>'user-change-defaults')));?>
