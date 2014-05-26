@@ -4,10 +4,10 @@
     $role = $oRole->getRoleById($this->row['role_id'])->toArray();
     $roleName = $role['role'];
     $accountObj = new User_Model_DbTable_Account();
-    if($roleName != 'superadmin'){
+    if($roleName != 'superadmin' && $roleName != 'groupadmin'){
         $fileName = $accountObj->getFileName($userName);
         $baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
-        $filePath = $baseUrl.'/uploads/image/'.$fileName['file_name'] ;
+        $filePath = $baseUrl.'/uploads/image/'.$fileName['file_name'] ; 
     }
 ?>
 
@@ -17,7 +17,7 @@
     <span class = "edit-this"><?php print $this->l('Edit','user/user/edit/user_id/'.$this->row->user_id)?></span>
     <?php endif;?>
     
-    <?php if($roleName == 'admin'):?>
+    <?php if($roleName == 'admin' || $roleName == 'groupadmin'):?>
     <span>|</span>
     <span class="change-username"><?php print $this->l('Change Username','user/user/changeusername/user_id/'.$this->row->user_id)?></span>
     <?php endif; ?>
@@ -52,7 +52,7 @@
     </div>
 </div>
 
-<?php if($roleName != 'superadmin'): ?>
+<?php if($roleName != 'superadmin' && $roleName != 'groupadmin'): ?>
 
     <div id="organization-info">
 
@@ -102,5 +102,3 @@
     </div>
 
 <?php endif ?>
-
-
