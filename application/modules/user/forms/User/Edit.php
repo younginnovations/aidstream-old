@@ -22,10 +22,16 @@ class User_Form_User_Edit extends App_Form
         $form['first_name']->setLabel('First Name')
             ->setRequired()
             ->setAttrib('class', 'form-text');
+
+        $form['middle_name'] = new Zend_Form_Element_Text('middle_name');
+        $form['middle_name']->setLabel('Middle Name')
+           ->setAttrib('class', 'form-text'); 
+
         $form['last_name'] = new Zend_Form_Element_Text('last_name');
         $form['last_name']->setLabel('Last Name')
            ->setRequired()
-           ->setAttrib('class', 'form-text');   
+           ->setAttrib('class', 'form-text'); 
+
         $form['email'] = new Zend_Form_Element_Text('email');
         $form['email']->setLabel('Email')
            ->setRequired()
@@ -35,8 +41,8 @@ class User_Form_User_Edit extends App_Form
                  array('table' => 'user', 'field' => 'email', 'exclude' => $clause,
                  'messages' => array(
                  Zend_Validate_Db_NoRecordExists::ERROR_RECORD_FOUND => 'Email Address already exists.')));
-        
-        if($roleName != 'superadmin')
+
+        if($roleName != 'superadmin' && $roleName != 'groupadmin')
         {
             $form['name'] = new Zend_Form_Element_Text('name');
             $form['name']->setLabel('Organisation Name')
