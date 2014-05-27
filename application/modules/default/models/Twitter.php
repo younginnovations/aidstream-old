@@ -45,9 +45,11 @@ class Model_Twitter {
 		$twitter = $this->verifyCredentials();
 		if (is_object($twitter)) {
 			if (strlen($row['twitter']) != 0) {
-				$status = $row['name'] . ' ' . $row['twitter'] . ' has published their aid-data. View the data here: http://iatiregistry.org' . $registryUrl . ' #AidStream #IATI';
+				$status = $row['name'] . ' ' . $row['twitter'] . ' has published their #IATIData. View the 
+							data here: http://iatiregistry.org' . $registryUrl . ' #AidStream';
 			} else {
-				$status = $row['name'] . ' has published their aid-data. View the data here: http://iatiregistry.org' . $registryUrl . ' #AidStream #IATI';
+				$status = $row['name'] . ' has published their #IATIData. View the 
+							data here: http://iatiregistry.org' . $registryUrl . ' #AidStream';
 			}
 			$twitter->statuses->update($status);
 		} else {
