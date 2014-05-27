@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.6deb1
+-- version 4.0.10deb1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 07, 2014 at 08:13 PM
--- Server version: 5.5.35-0ubuntu0.13.10.2
--- PHP Version: 5.5.3-1ubuntu2.2
+-- Generation Time: May 27, 2014 at 11:20 AM
+-- Server version: 5.5.37-0ubuntu0.14.04.1
+-- PHP Version: 5.5.9-1ubuntu4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -16,28 +16,32 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
+--
+-- Database: `iati_aims_db`
+--
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `account`
 --
 
-CREATE TABLE IF NOT EXISTS `account` (
+CREATE TABLE `account` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(256) NOT NULL,
-  `address` text NOT NULL,
-  `telephone` varchar(100) NOT NULL,
-  `twitter` varchar(100) NOT NULL,
-  `username` varchar(100) NOT NULL,
-  `uniqid` varchar(35) NOT NULL,
+  `name` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
+  `address` mediumtext COLLATE utf8_unicode_ci NOT NULL,
+  `telephone` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `twitter` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `username` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `uniqid` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
   `status` int(11) NOT NULL DEFAULT '1',
-  `file_name` varchar(255) DEFAULT NULL,
+  `file_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `display_in_footer` tinyint(1) DEFAULT '1',
-  `url` text,
+  `url` mediumtext COLLATE utf8_unicode_ci,
   `simplified` int(11) NOT NULL DEFAULT '0',
-  `disqus_comments` enum('1','0') NOT NULL DEFAULT '1',
+  `disqus_comments` enum('1','0') COLLATE utf8_unicode_ci NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=317 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=337 ;
 
 -- --------------------------------------------------------
 
@@ -45,14 +49,14 @@ CREATE TABLE IF NOT EXISTS `account` (
 -- Table structure for table `ActivityDateType`
 --
 
-CREATE TABLE IF NOT EXISTS `ActivityDateType` (
+CREATE TABLE `ActivityDateType` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Code` varchar(255) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
-  `Description` text,
+  `Code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Description` mediumtext COLLATE utf8_unicode_ci,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
 
 -- --------------------------------------------------------
 
@@ -60,13 +64,13 @@ CREATE TABLE IF NOT EXISTS `ActivityDateType` (
 -- Table structure for table `ActivityScope`
 --
 
-CREATE TABLE IF NOT EXISTS `ActivityScope` (
+CREATE TABLE `ActivityScope` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Code` varchar(50) NOT NULL,
-  `Name` varchar(255) NOT NULL,
+  `Code` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `lang_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
 
 -- --------------------------------------------------------
 
@@ -74,13 +78,13 @@ CREATE TABLE IF NOT EXISTS `ActivityScope` (
 -- Table structure for table `ActivityStatus`
 --
 
-CREATE TABLE IF NOT EXISTS `ActivityStatus` (
+CREATE TABLE `ActivityStatus` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Code` int(11) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=16 ;
 
 -- --------------------------------------------------------
 
@@ -88,12 +92,12 @@ CREATE TABLE IF NOT EXISTS `ActivityStatus` (
 -- Table structure for table `activity_hash`
 --
 
-CREATE TABLE IF NOT EXISTS `activity_hash` (
+CREATE TABLE `activity_hash` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `activity_id` int(11) NOT NULL,
-  `hash` text NOT NULL,
+  `hash` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1189 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1221 ;
 
 -- --------------------------------------------------------
 
@@ -101,14 +105,14 @@ CREATE TABLE IF NOT EXISTS `activity_hash` (
 -- Table structure for table `AdministrativeAreaCode(First-level)`
 --
 
-CREATE TABLE IF NOT EXISTS `AdministrativeAreaCode(First-level)` (
+CREATE TABLE `AdministrativeAreaCode(First-level)` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Code` varchar(20) DEFAULT NULL,
-  `Country` varchar(40) DEFAULT NULL,
-  `Name` varchar(50) DEFAULT NULL,
+  `Code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Country` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -116,15 +120,15 @@ CREATE TABLE IF NOT EXISTS `AdministrativeAreaCode(First-level)` (
 -- Table structure for table `AdministrativeAreaCode(Second-level)`
 --
 
-CREATE TABLE IF NOT EXISTS `AdministrativeAreaCode(Second-level)` (
+CREATE TABLE `AdministrativeAreaCode(Second-level)` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Code` varchar(20) DEFAULT NULL,
-  `Country` varchar(40) DEFAULT NULL,
-  `First-Level Administrative Area` varchar(50) DEFAULT NULL,
-  `Name` varchar(50) DEFAULT NULL,
+  `Code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Country` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `First-Level Administrative Area` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -132,15 +136,15 @@ CREATE TABLE IF NOT EXISTS `AdministrativeAreaCode(Second-level)` (
 -- Table structure for table `AidType`
 --
 
-CREATE TABLE IF NOT EXISTS `AidType` (
+CREATE TABLE `AidType` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Code` char(3) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
-  `Description` text,
-  `CategoryCode` char(1) DEFAULT NULL,
+  `Code` char(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Description` mediumtext COLLATE utf8_unicode_ci,
+  `CategoryCode` char(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=46 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=46 ;
 
 -- --------------------------------------------------------
 
@@ -148,14 +152,14 @@ CREATE TABLE IF NOT EXISTS `AidType` (
 -- Table structure for table `AidTypeCategory`
 --
 
-CREATE TABLE IF NOT EXISTS `AidTypeCategory` (
+CREATE TABLE `AidTypeCategory` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Code` char(1) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
-  `Description` text,
+  `Code` char(1) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Description` mediumtext COLLATE utf8_unicode_ci,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=25 ;
 
 -- --------------------------------------------------------
 
@@ -163,15 +167,15 @@ CREATE TABLE IF NOT EXISTS `AidTypeCategory` (
 -- Table structure for table `BudgetIdentifier`
 --
 
-CREATE TABLE IF NOT EXISTS `BudgetIdentifier` (
+CREATE TABLE `BudgetIdentifier` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Code` varchar(25) NOT NULL,
-  `Name` varchar(255) NOT NULL,
-  `Category` varchar(255) NOT NULL,
-  `Sector` varchar(255) NOT NULL,
+  `Code` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `Category` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `Sector` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `lang_id` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=154 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=154 ;
 
 -- --------------------------------------------------------
 
@@ -179,13 +183,13 @@ CREATE TABLE IF NOT EXISTS `BudgetIdentifier` (
 -- Table structure for table `BudgetIdentifierVocabulary`
 --
 
-CREATE TABLE IF NOT EXISTS `BudgetIdentifierVocabulary` (
+CREATE TABLE `BudgetIdentifierVocabulary` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Code` varchar(25) NOT NULL,
-  `Name` varchar(255) NOT NULL,
+  `Code` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `lang_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -193,13 +197,13 @@ CREATE TABLE IF NOT EXISTS `BudgetIdentifierVocabulary` (
 -- Table structure for table `BudgetType`
 --
 
-CREATE TABLE IF NOT EXISTS `BudgetType` (
+CREATE TABLE `BudgetType` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Code` int(11) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -207,15 +211,15 @@ CREATE TABLE IF NOT EXISTS `BudgetType` (
 -- Table structure for table `ChangeLog`
 --
 
-CREATE TABLE IF NOT EXISTS `ChangeLog` (
+CREATE TABLE `ChangeLog` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `table_name` varchar(100) NOT NULL,
-  `action` enum('INSERT','UPDATE','DELETE') NOT NULL,
-  `value` text NOT NULL,
+  `table_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `action` enum('INSERT','UPDATE','DELETE') COLLATE utf8_unicode_ci NOT NULL,
+  `value` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `updated_datetime` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `updated_datetime` (`updated_datetime`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -223,14 +227,14 @@ CREATE TABLE IF NOT EXISTS `ChangeLog` (
 -- Table structure for table `CodeLists`
 --
 
-CREATE TABLE IF NOT EXISTS `CodeLists` (
+CREATE TABLE `CodeLists` (
   `codelist_id` int(11) NOT NULL AUTO_INCREMENT,
-  `codelist` varchar(50) NOT NULL,
-  `description` text NOT NULL,
-  `used_in` text NOT NULL,
+  `codelist` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `description` mediumtext COLLATE utf8_unicode_ci NOT NULL,
+  `used_in` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`codelist_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=103 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=103 ;
 
 -- --------------------------------------------------------
 
@@ -238,14 +242,14 @@ CREATE TABLE IF NOT EXISTS `CodeLists` (
 -- Table structure for table `CollaborationType`
 --
 
-CREATE TABLE IF NOT EXISTS `CollaborationType` (
+CREATE TABLE `CollaborationType` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Code` int(11) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
-  `Description` text,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Description` mediumtext COLLATE utf8_unicode_ci,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
 
 -- --------------------------------------------------------
 
@@ -253,13 +257,13 @@ CREATE TABLE IF NOT EXISTS `CollaborationType` (
 -- Table structure for table `ConditionType`
 --
 
-CREATE TABLE IF NOT EXISTS `ConditionType` (
+CREATE TABLE `ConditionType` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Code` int(11) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -267,14 +271,14 @@ CREATE TABLE IF NOT EXISTS `ConditionType` (
 -- Table structure for table `Contact`
 --
 
-CREATE TABLE IF NOT EXISTS `Contact` (
+CREATE TABLE `Contact` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `message` text NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `message` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `created_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=576 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=576 ;
 
 -- --------------------------------------------------------
 
@@ -282,13 +286,13 @@ CREATE TABLE IF NOT EXISTS `Contact` (
 -- Table structure for table `Country`
 --
 
-CREATE TABLE IF NOT EXISTS `Country` (
+CREATE TABLE `Country` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Code` char(2) DEFAULT NULL,
-  `Name` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `Code` char(2) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=651 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=651 ;
 
 -- --------------------------------------------------------
 
@@ -296,13 +300,13 @@ CREATE TABLE IF NOT EXISTS `Country` (
 -- Table structure for table `Currency`
 --
 
-CREATE TABLE IF NOT EXISTS `Currency` (
+CREATE TABLE `Currency` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Code` char(3) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
+  `Code` char(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=499 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=499 ;
 
 -- --------------------------------------------------------
 
@@ -310,12 +314,12 @@ CREATE TABLE IF NOT EXISTS `Currency` (
 -- Table structure for table `default_field_groups`
 --
 
-CREATE TABLE IF NOT EXISTS `default_field_groups` (
+CREATE TABLE `default_field_groups` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `object` text NOT NULL,
+  `object` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `account_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=317 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=337 ;
 
 -- --------------------------------------------------------
 
@@ -323,12 +327,12 @@ CREATE TABLE IF NOT EXISTS `default_field_groups` (
 -- Table structure for table `default_field_values`
 --
 
-CREATE TABLE IF NOT EXISTS `default_field_values` (
+CREATE TABLE `default_field_values` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `object` text NOT NULL,
+  `object` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `account_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=317 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=337 ;
 
 -- --------------------------------------------------------
 
@@ -336,12 +340,12 @@ CREATE TABLE IF NOT EXISTS `default_field_values` (
 -- Table structure for table `default_user_field`
 --
 
-CREATE TABLE IF NOT EXISTS `default_user_field` (
+CREATE TABLE `default_user_field` (
   `default_user_field_id` int(11) NOT NULL AUTO_INCREMENT,
-  `object` text NOT NULL,
+  `object` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`default_user_field_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -349,14 +353,14 @@ CREATE TABLE IF NOT EXISTS `default_user_field` (
 -- Table structure for table `DescriptionType`
 --
 
-CREATE TABLE IF NOT EXISTS `DescriptionType` (
+CREATE TABLE `DescriptionType` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Code` int(11) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
-  `Description` text,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Description` mediumtext COLLATE utf8_unicode_ci,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
 
 -- --------------------------------------------------------
 
@@ -364,13 +368,13 @@ CREATE TABLE IF NOT EXISTS `DescriptionType` (
 -- Table structure for table `DisbursementChannel`
 --
 
-CREATE TABLE IF NOT EXISTS `DisbursementChannel` (
+CREATE TABLE `DisbursementChannel` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Code` int(11) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
 
 -- --------------------------------------------------------
 
@@ -378,12 +382,12 @@ CREATE TABLE IF NOT EXISTS `DisbursementChannel` (
 -- Table structure for table `displayed_subelements`
 --
 
-CREATE TABLE IF NOT EXISTS `displayed_subelements` (
+CREATE TABLE `displayed_subelements` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `elements` text NOT NULL,
+  `elements` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `org_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -391,14 +395,14 @@ CREATE TABLE IF NOT EXISTS `displayed_subelements` (
 -- Table structure for table `DocumentCategory`
 --
 
-CREATE TABLE IF NOT EXISTS `DocumentCategory` (
+CREATE TABLE `DocumentCategory` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Code` char(3) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
-  `CategoryCode` char(1) DEFAULT NULL,
+  `Code` char(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CategoryCode` char(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=60 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=60 ;
 
 -- --------------------------------------------------------
 
@@ -406,13 +410,13 @@ CREATE TABLE IF NOT EXISTS `DocumentCategory` (
 -- Table structure for table `DocumentCategoryCategory`
 --
 
-CREATE TABLE IF NOT EXISTS `DocumentCategoryCategory` (
+CREATE TABLE `DocumentCategoryCategory` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Code` char(1) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
+  `Code` char(1) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -420,13 +424,13 @@ CREATE TABLE IF NOT EXISTS `DocumentCategoryCategory` (
 -- Table structure for table `FileFormat`
 --
 
-CREATE TABLE IF NOT EXISTS `FileFormat` (
+CREATE TABLE `FileFormat` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Code` varchar(255) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
+  `Code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=28 ;
 
 -- --------------------------------------------------------
 
@@ -434,14 +438,14 @@ CREATE TABLE IF NOT EXISTS `FileFormat` (
 -- Table structure for table `FinanceType`
 --
 
-CREATE TABLE IF NOT EXISTS `FinanceType` (
+CREATE TABLE `FinanceType` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Code` int(11) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `CategoryCode` int(11) DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=133 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=133 ;
 
 -- --------------------------------------------------------
 
@@ -449,14 +453,14 @@ CREATE TABLE IF NOT EXISTS `FinanceType` (
 -- Table structure for table `FinanceTypeCategory`
 --
 
-CREATE TABLE IF NOT EXISTS `FinanceTypeCategory` (
+CREATE TABLE `FinanceTypeCategory` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Code` int(11) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
-  `Description` text,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Description` mediumtext COLLATE utf8_unicode_ci,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=31 ;
 
 -- --------------------------------------------------------
 
@@ -464,14 +468,14 @@ CREATE TABLE IF NOT EXISTS `FinanceTypeCategory` (
 -- Table structure for table `FlowType`
 --
 
-CREATE TABLE IF NOT EXISTS `FlowType` (
+CREATE TABLE `FlowType` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Code` int(11) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
-  `Description` text,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Description` mediumtext COLLATE utf8_unicode_ci,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=16 ;
 
 -- --------------------------------------------------------
 
@@ -479,13 +483,13 @@ CREATE TABLE IF NOT EXISTS `FlowType` (
 -- Table structure for table `GazetteerAgency`
 --
 
-CREATE TABLE IF NOT EXISTS `GazetteerAgency` (
+CREATE TABLE `GazetteerAgency` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Code` varchar(255) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
+  `Code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
 
 -- --------------------------------------------------------
 
@@ -493,14 +497,27 @@ CREATE TABLE IF NOT EXISTS `GazetteerAgency` (
 -- Table structure for table `GeographicalPrecision`
 --
 
-CREATE TABLE IF NOT EXISTS `GeographicalPrecision` (
+CREATE TABLE `GeographicalPrecision` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Code` int(11) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
-  `Description` text,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Description` mediumtext COLLATE utf8_unicode_ci,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=28 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `group`
+--
+
+CREATE TABLE `group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `account_id` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=37 ;
 
 -- --------------------------------------------------------
 
@@ -508,12 +525,12 @@ CREATE TABLE IF NOT EXISTS `GeographicalPrecision` (
 -- Table structure for table `Help`
 --
 
-CREATE TABLE IF NOT EXISTS `Help` (
+CREATE TABLE `Help` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `element_name` varchar(100) NOT NULL,
-  `message` text NOT NULL,
+  `element_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `message` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=332 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=332 ;
 
 -- --------------------------------------------------------
 
@@ -521,12 +538,12 @@ CREATE TABLE IF NOT EXISTS `Help` (
 -- Table structure for table `Help-local`
 --
 
-CREATE TABLE IF NOT EXISTS `Help-local` (
+CREATE TABLE `Help-local` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `element_name` varchar(100) NOT NULL,
-  `message` text NOT NULL,
+  `element_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `message` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -534,15 +551,15 @@ CREATE TABLE IF NOT EXISTS `Help-local` (
 -- Table structure for table `iati_activities`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_activities` (
+CREATE TABLE `iati_activities` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@generated_datetime` varchar(25) NOT NULL,
-  `@version` varchar(10) NOT NULL,
-  `unqid` varchar(256) NOT NULL,
+  `@generated_datetime` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `@version` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `unqid` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
   `user_id` int(10) NOT NULL,
   `account_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=316 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=335 ;
 
 -- --------------------------------------------------------
 
@@ -550,17 +567,17 @@ CREATE TABLE IF NOT EXISTS `iati_activities` (
 -- Table structure for table `iati_activity`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_activity` (
+CREATE TABLE `iati_activity` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@xml_lang` varchar(5) NOT NULL,
-  `@default_currency` varchar(5) NOT NULL,
+  `@xml_lang` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
+  `@default_currency` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
   `@hierarchy` int(3) NOT NULL,
-  `@last_updated_datetime` varchar(25) NOT NULL,
-  `@linked_data_uri` varchar(255) DEFAULT NULL,
+  `@last_updated_datetime` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `@linked_data_uri` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `activities_id` int(10) NOT NULL,
   `status_id` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1201 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1233 ;
 
 -- --------------------------------------------------------
 
@@ -568,15 +585,15 @@ CREATE TABLE IF NOT EXISTS `iati_activity` (
 -- Table structure for table `iati_activity_date`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_activity_date` (
+CREATE TABLE `iati_activity_date` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@iso_date` varchar(10) DEFAULT NULL,
-  `@type` varchar(25) NOT NULL,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `text` text,
+  `@iso_date` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@type` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1762 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1805 ;
 
 -- --------------------------------------------------------
 
@@ -584,14 +601,14 @@ CREATE TABLE IF NOT EXISTS `iati_activity_date` (
 -- Table structure for table `iati_activity_scope`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_activity_scope` (
+CREATE TABLE `iati_activity_scope` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@code` varchar(10) DEFAULT NULL,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `text` text,
+  `@code` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -599,14 +616,14 @@ CREATE TABLE IF NOT EXISTS `iati_activity_scope` (
 -- Table structure for table `iati_activity_status`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_activity_status` (
+CREATE TABLE `iati_activity_status` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@code` varchar(10) DEFAULT NULL,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `text` text,
+  `@code` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=991 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1015 ;
 
 -- --------------------------------------------------------
 
@@ -614,12 +631,12 @@ CREATE TABLE IF NOT EXISTS `iati_activity_status` (
 -- Table structure for table `iati_activity_website`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_activity_website` (
+CREATE TABLE `iati_activity_website` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `text` text NOT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=233 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=237 ;
 
 -- --------------------------------------------------------
 
@@ -627,14 +644,14 @@ CREATE TABLE IF NOT EXISTS `iati_activity_website` (
 -- Table structure for table `iati_aid_type`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_aid_type` (
+CREATE TABLE `iati_aid_type` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@code` varchar(10) NOT NULL,
-  `@xml_lang` varchar(3) NOT NULL,
-  `text` text NOT NULL,
+  `@code` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -642,12 +659,12 @@ CREATE TABLE IF NOT EXISTS `iati_aid_type` (
 -- Table structure for table `iati_budget`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_budget` (
+CREATE TABLE `iati_budget` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@type` varchar(25) DEFAULT NULL,
+  `@type` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1256 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1295 ;
 
 -- --------------------------------------------------------
 
@@ -655,13 +672,13 @@ CREATE TABLE IF NOT EXISTS `iati_budget` (
 -- Table structure for table `iati_budget/period_end`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_budget/period_end` (
+CREATE TABLE `iati_budget/period_end` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@iso_date` varchar(25) DEFAULT NULL,
-  `text` text,
+  `@iso_date` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `budget_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1256 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1295 ;
 
 -- --------------------------------------------------------
 
@@ -669,13 +686,13 @@ CREATE TABLE IF NOT EXISTS `iati_budget/period_end` (
 -- Table structure for table `iati_budget/period_start`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_budget/period_start` (
+CREATE TABLE `iati_budget/period_start` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@iso_date` varchar(25) DEFAULT NULL,
-  `text` text,
+  `@iso_date` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `budget_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1256 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1295 ;
 
 -- --------------------------------------------------------
 
@@ -683,14 +700,14 @@ CREATE TABLE IF NOT EXISTS `iati_budget/period_start` (
 -- Table structure for table `iati_budget/value`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_budget/value` (
+CREATE TABLE `iati_budget/value` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@value_date` varchar(20) NOT NULL,
-  `@currency` varchar(20) DEFAULT NULL,
-  `text` text NOT NULL,
+  `@value_date` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `@currency` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `budget_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1256 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1295 ;
 
 -- --------------------------------------------------------
 
@@ -698,12 +715,12 @@ CREATE TABLE IF NOT EXISTS `iati_budget/value` (
 -- Table structure for table `iati_capital_spend`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_capital_spend` (
+CREATE TABLE `iati_capital_spend` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@percentage` varchar(25) DEFAULT NULL,
+  `@percentage` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -711,14 +728,14 @@ CREATE TABLE IF NOT EXISTS `iati_capital_spend` (
 -- Table structure for table `iati_collaboration_type`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_collaboration_type` (
+CREATE TABLE `iati_collaboration_type` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@code` varchar(10) NOT NULL,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `text` text,
+  `@code` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=391 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=400 ;
 
 -- --------------------------------------------------------
 
@@ -726,12 +743,12 @@ CREATE TABLE IF NOT EXISTS `iati_collaboration_type` (
 -- Table structure for table `iati_conditions`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_conditions` (
+CREATE TABLE `iati_conditions` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@attached` varchar(3) NOT NULL,
+  `@attached` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -739,14 +756,14 @@ CREATE TABLE IF NOT EXISTS `iati_conditions` (
 -- Table structure for table `iati_conditions/condition`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_conditions/condition` (
+CREATE TABLE `iati_conditions/condition` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `@type` int(11) DEFAULT NULL,
   `@xml_lang` int(11) DEFAULT NULL,
-  `text` text,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `conditions_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -754,13 +771,13 @@ CREATE TABLE IF NOT EXISTS `iati_conditions/condition` (
 -- Table structure for table `iati_contact_info`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_contact_info` (
+CREATE TABLE `iati_contact_info` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `activity_id` int(10) NOT NULL,
-  `@type` text NOT NULL,
-  `@xml_lang` varchar(25) NOT NULL,
+  `@type` mediumtext COLLATE utf8_unicode_ci NOT NULL,
+  `@xml_lang` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=574 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=587 ;
 
 -- --------------------------------------------------------
 
@@ -768,12 +785,12 @@ CREATE TABLE IF NOT EXISTS `iati_contact_info` (
 -- Table structure for table `iati_contact_info/email`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_contact_info/email` (
+CREATE TABLE `iati_contact_info/email` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `text` text,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `contact_info_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=534 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=547 ;
 
 -- --------------------------------------------------------
 
@@ -781,13 +798,13 @@ CREATE TABLE IF NOT EXISTS `iati_contact_info/email` (
 -- Table structure for table `iati_contact_info/job_title`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_contact_info/job_title` (
+CREATE TABLE `iati_contact_info/job_title` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `text` text,
-  `@xml_lang` varchar(25) NOT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
+  `@xml_lang` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
   `contact_info_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=87 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=97 ;
 
 -- --------------------------------------------------------
 
@@ -795,12 +812,12 @@ CREATE TABLE IF NOT EXISTS `iati_contact_info/job_title` (
 -- Table structure for table `iati_contact_info/mailing_address`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_contact_info/mailing_address` (
+CREATE TABLE `iati_contact_info/mailing_address` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `text` text NOT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `contact_info_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=461 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=468 ;
 
 -- --------------------------------------------------------
 
@@ -808,12 +825,12 @@ CREATE TABLE IF NOT EXISTS `iati_contact_info/mailing_address` (
 -- Table structure for table `iati_contact_info/organisation`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_contact_info/organisation` (
+CREATE TABLE `iati_contact_info/organisation` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `text` text,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `contact_info_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=542 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=554 ;
 
 -- --------------------------------------------------------
 
@@ -821,12 +838,12 @@ CREATE TABLE IF NOT EXISTS `iati_contact_info/organisation` (
 -- Table structure for table `iati_contact_info/person_name`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_contact_info/person_name` (
+CREATE TABLE `iati_contact_info/person_name` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `text` text,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `contact_info_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=419 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=428 ;
 
 -- --------------------------------------------------------
 
@@ -834,12 +851,12 @@ CREATE TABLE IF NOT EXISTS `iati_contact_info/person_name` (
 -- Table structure for table `iati_contact_info/telephone`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_contact_info/telephone` (
+CREATE TABLE `iati_contact_info/telephone` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `text` text,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `contact_info_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=379 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=385 ;
 
 -- --------------------------------------------------------
 
@@ -847,12 +864,12 @@ CREATE TABLE IF NOT EXISTS `iati_contact_info/telephone` (
 -- Table structure for table `iati_contact_info/website`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_contact_info/website` (
+CREATE TABLE `iati_contact_info/website` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `text` text,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `contact_info_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=68 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=77 ;
 
 -- --------------------------------------------------------
 
@@ -860,12 +877,12 @@ CREATE TABLE IF NOT EXISTS `iati_contact_info/website` (
 -- Table structure for table `iati_country_budget_items`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_country_budget_items` (
+CREATE TABLE `iati_country_budget_items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `@vocabulary` varchar(25) NOT NULL,
+  `@vocabulary` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
   `activity_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -873,13 +890,13 @@ CREATE TABLE IF NOT EXISTS `iati_country_budget_items` (
 -- Table structure for table `iati_country_budget_items/budget_item`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_country_budget_items/budget_item` (
+CREATE TABLE `iati_country_budget_items/budget_item` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `@code` varchar(50) NOT NULL,
-  `@percentage` varchar(25) NOT NULL,
+  `@code` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `@percentage` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
   `country_budget_items_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -887,14 +904,14 @@ CREATE TABLE IF NOT EXISTS `iati_country_budget_items/budget_item` (
 -- Table structure for table `iati_country_budget_items/budget_item/description`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_country_budget_items/budget_item/description` (
+CREATE TABLE `iati_country_budget_items/budget_item/description` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@type` varchar(25) DEFAULT NULL,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `text` text NOT NULL,
+  `@type` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `budget_item_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -902,14 +919,14 @@ CREATE TABLE IF NOT EXISTS `iati_country_budget_items/budget_item/description` (
 -- Table structure for table `iati_default_aid_type`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_default_aid_type` (
+CREATE TABLE `iati_default_aid_type` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `@code` int(11) NOT NULL,
-  `text` varchar(255) DEFAULT NULL,
+  `text` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `@xml_lang` int(11) DEFAULT NULL,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=773 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=784 ;
 
 -- --------------------------------------------------------
 
@@ -917,14 +934,14 @@ CREATE TABLE IF NOT EXISTS `iati_default_aid_type` (
 -- Table structure for table `iati_default_finance_type`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_default_finance_type` (
+CREATE TABLE `iati_default_finance_type` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@code` varchar(10) NOT NULL,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `text` text,
+  `@code` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=382 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=388 ;
 
 -- --------------------------------------------------------
 
@@ -932,14 +949,14 @@ CREATE TABLE IF NOT EXISTS `iati_default_finance_type` (
 -- Table structure for table `iati_default_flow_type`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_default_flow_type` (
+CREATE TABLE `iati_default_flow_type` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@code` varchar(10) NOT NULL,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `text` text,
+  `@code` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=736 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=748 ;
 
 -- --------------------------------------------------------
 
@@ -947,14 +964,14 @@ CREATE TABLE IF NOT EXISTS `iati_default_flow_type` (
 -- Table structure for table `iati_default_tied_status`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_default_tied_status` (
+CREATE TABLE `iati_default_tied_status` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@code` varchar(10) NOT NULL,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `text` text,
+  `@code` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=369 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=375 ;
 
 -- --------------------------------------------------------
 
@@ -962,14 +979,14 @@ CREATE TABLE IF NOT EXISTS `iati_default_tied_status` (
 -- Table structure for table `iati_description`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_description` (
+CREATE TABLE `iati_description` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@type` varchar(25) DEFAULT NULL,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `text` text NOT NULL,
+  `@type` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1101 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1132 ;
 
 -- --------------------------------------------------------
 
@@ -977,13 +994,13 @@ CREATE TABLE IF NOT EXISTS `iati_description` (
 -- Table structure for table `iati_document_link`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_document_link` (
+CREATE TABLE `iati_document_link` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@url` text NOT NULL,
-  `@format` varchar(25) DEFAULT NULL,
+  `@url` mediumtext COLLATE utf8_unicode_ci NOT NULL,
+  `@format` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=881 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=898 ;
 
 -- --------------------------------------------------------
 
@@ -991,14 +1008,14 @@ CREATE TABLE IF NOT EXISTS `iati_document_link` (
 -- Table structure for table `iati_document_link/category`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_document_link/category` (
+CREATE TABLE `iati_document_link/category` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@code` varchar(25) NOT NULL,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `text` text,
+  `@code` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `document_link_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=948 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=968 ;
 
 -- --------------------------------------------------------
 
@@ -1006,12 +1023,12 @@ CREATE TABLE IF NOT EXISTS `iati_document_link/category` (
 -- Table structure for table `iati_document_link/language`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_document_link/language` (
+CREATE TABLE `iati_document_link/language` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `text` text,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `document_link_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=576 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=594 ;
 
 -- --------------------------------------------------------
 
@@ -1019,13 +1036,13 @@ CREATE TABLE IF NOT EXISTS `iati_document_link/language` (
 -- Table structure for table `iati_document_link/title`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_document_link/title` (
+CREATE TABLE `iati_document_link/title` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@xml_lang` varchar(3) NOT NULL,
-  `text` text,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `document_link_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=952 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=971 ;
 
 -- --------------------------------------------------------
 
@@ -1033,13 +1050,13 @@ CREATE TABLE IF NOT EXISTS `iati_document_link/title` (
 -- Table structure for table `iati_gazetteer_entry`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_gazetteer_entry` (
+CREATE TABLE `iati_gazetteer_entry` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@ref` varchar(255) CHARACTER SET utf8 NOT NULL,
-  `text` text NOT NULL,
+  `@ref` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `location_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1047,13 +1064,13 @@ CREATE TABLE IF NOT EXISTS `iati_gazetteer_entry` (
 -- Table structure for table `iati_identifier`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_identifier` (
+CREATE TABLE `iati_identifier` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `text` text NOT NULL,
-  `activity_identifier` varchar(255) NOT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
+  `activity_identifier` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1201 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1233 ;
 
 -- --------------------------------------------------------
 
@@ -1061,14 +1078,14 @@ CREATE TABLE IF NOT EXISTS `iati_identifier` (
 -- Table structure for table `iati_indicator/actual`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_indicator/actual` (
+CREATE TABLE `iati_indicator/actual` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@year` varchar(25) NOT NULL,
-  `@value` varchar(25) NOT NULL,
-  `text` text NOT NULL,
+  `@year` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `@value` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `indicator_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1076,14 +1093,14 @@ CREATE TABLE IF NOT EXISTS `iati_indicator/actual` (
 -- Table structure for table `iati_indicator/baseline`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_indicator/baseline` (
+CREATE TABLE `iati_indicator/baseline` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@year` varchar(25) NOT NULL,
-  `@value` varchar(25) NOT NULL,
-  `text` text NOT NULL,
+  `@year` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `@value` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `indicator_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1091,13 +1108,13 @@ CREATE TABLE IF NOT EXISTS `iati_indicator/baseline` (
 -- Table structure for table `iati_indicator/description`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_indicator/description` (
+CREATE TABLE `iati_indicator/description` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@xml_lang` varchar(3) NOT NULL,
-  `text` text NOT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `indicator_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1105,14 +1122,14 @@ CREATE TABLE IF NOT EXISTS `iati_indicator/description` (
 -- Table structure for table `iati_indicator/target`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_indicator/target` (
+CREATE TABLE `iati_indicator/target` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@year` varchar(25) NOT NULL,
-  `@value` varchar(25) NOT NULL,
-  `text` text NOT NULL,
+  `@year` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `@value` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `indicator_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1120,13 +1137,13 @@ CREATE TABLE IF NOT EXISTS `iati_indicator/target` (
 -- Table structure for table `iati_indicator/title`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_indicator/title` (
+CREATE TABLE `iati_indicator/title` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@xml_lang` varchar(3) NOT NULL,
-  `text` text NOT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `indicator_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1134,14 +1151,14 @@ CREATE TABLE IF NOT EXISTS `iati_indicator/title` (
 -- Table structure for table `iati_legacy_data`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_legacy_data` (
+CREATE TABLE `iati_legacy_data` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `@name` varchar(255) NOT NULL,
-  `@value` varchar(255) NOT NULL,
-  `@iati_equivalent` text,
+  `@name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `@value` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `@iati_equivalent` mediumtext COLLATE utf8_unicode_ci,
   `activity_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -1149,13 +1166,13 @@ CREATE TABLE IF NOT EXISTS `iati_legacy_data` (
 -- Table structure for table `iati_location`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_location` (
+CREATE TABLE `iati_location` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@percentage` varchar(25) DEFAULT NULL,
-  `text` text,
+  `@percentage` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=113 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=122 ;
 
 -- --------------------------------------------------------
 
@@ -1163,15 +1180,15 @@ CREATE TABLE IF NOT EXISTS `iati_location` (
 -- Table structure for table `iati_location/administrative`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_location/administrative` (
+CREATE TABLE `iati_location/administrative` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@country` varchar(25) DEFAULT NULL,
-  `@adm1` varchar(25) DEFAULT NULL,
-  `@adm2` varchar(25) DEFAULT NULL,
-  `text` text,
+  `@country` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@adm1` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@adm2` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `location_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=63 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=73 ;
 
 -- --------------------------------------------------------
 
@@ -1179,14 +1196,14 @@ CREATE TABLE IF NOT EXISTS `iati_location/administrative` (
 -- Table structure for table `iati_location/coordinates`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_location/coordinates` (
+CREATE TABLE `iati_location/coordinates` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@latitude` varchar(25) NOT NULL,
-  `@longitude` varchar(25) NOT NULL,
-  `@precision` varchar(25) DEFAULT NULL,
+  `@latitude` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `@longitude` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `@precision` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
   `location_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=61 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=70 ;
 
 -- --------------------------------------------------------
 
@@ -1194,13 +1211,13 @@ CREATE TABLE IF NOT EXISTS `iati_location/coordinates` (
 -- Table structure for table `iati_location/description`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_location/description` (
+CREATE TABLE `iati_location/description` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `text` text NOT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `location_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=93 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=94 ;
 
 -- --------------------------------------------------------
 
@@ -1208,13 +1225,13 @@ CREATE TABLE IF NOT EXISTS `iati_location/description` (
 -- Table structure for table `iati_location/gazetteer_entry`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_location/gazetteer_entry` (
+CREATE TABLE `iati_location/gazetteer_entry` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `@gazetteer_ref` int(11) NOT NULL,
-  `text` varchar(50) NOT NULL,
+  `text` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `location_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=14 ;
 
 -- --------------------------------------------------------
 
@@ -1222,14 +1239,14 @@ CREATE TABLE IF NOT EXISTS `iati_location/gazetteer_entry` (
 -- Table structure for table `iati_location/location_type`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_location/location_type` (
+CREATE TABLE `iati_location/location_type` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@code` varchar(25) NOT NULL,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `text` text,
+  `@code` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `location_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=109 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=114 ;
 
 -- --------------------------------------------------------
 
@@ -1237,13 +1254,13 @@ CREATE TABLE IF NOT EXISTS `iati_location/location_type` (
 -- Table structure for table `iati_location/name`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_location/name` (
+CREATE TABLE `iati_location/name` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `text` text NOT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `location_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=159 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=169 ;
 
 -- --------------------------------------------------------
 
@@ -1251,16 +1268,16 @@ CREATE TABLE IF NOT EXISTS `iati_location/name` (
 -- Table structure for table `iati_organisation`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_organisation` (
+CREATE TABLE `iati_organisation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `@xml_lang` varchar(25) DEFAULT NULL,
-  `@last_updated_datetime` varchar(25) NOT NULL,
-  `@default_currency` varchar(25) DEFAULT NULL,
+  `@xml_lang` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@last_updated_datetime` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `@default_currency` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
   `account_id` int(11) NOT NULL,
   `state_id` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `account_id` (`account_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=178 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=187 ;
 
 -- --------------------------------------------------------
 
@@ -1268,13 +1285,13 @@ CREATE TABLE IF NOT EXISTS `iati_organisation` (
 -- Table structure for table `iati_organisation/document_link`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_organisation/document_link` (
+CREATE TABLE `iati_organisation/document_link` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `@url` text,
-  `@format` varchar(25) DEFAULT NULL,
+  `@url` mediumtext COLLATE utf8_unicode_ci,
+  `@format` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
   `organisation_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=92 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=103 ;
 
 -- --------------------------------------------------------
 
@@ -1282,14 +1299,14 @@ CREATE TABLE IF NOT EXISTS `iati_organisation/document_link` (
 -- Table structure for table `iati_organisation/document_link/category`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_organisation/document_link/category` (
+CREATE TABLE `iati_organisation/document_link/category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `@code` varchar(25) DEFAULT NULL,
-  `@xml_lang` varchar(25) DEFAULT NULL,
-  `text` text,
+  `@code` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@xml_lang` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `document_link_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=73 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=78 ;
 
 -- --------------------------------------------------------
 
@@ -1297,12 +1314,12 @@ CREATE TABLE IF NOT EXISTS `iati_organisation/document_link/category` (
 -- Table structure for table `iati_organisation/document_link/language`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_organisation/document_link/language` (
+CREATE TABLE `iati_organisation/document_link/language` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `text` varchar(25) DEFAULT NULL,
+  `text` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
   `document_link_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=69 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=78 ;
 
 -- --------------------------------------------------------
 
@@ -1310,13 +1327,13 @@ CREATE TABLE IF NOT EXISTS `iati_organisation/document_link/language` (
 -- Table structure for table `iati_organisation/document_link/title`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_organisation/document_link/title` (
+CREATE TABLE `iati_organisation/document_link/title` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `@xml_lang` varchar(25) DEFAULT NULL,
-  `text` text,
+  `@xml_lang` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `document_link_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=92 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=103 ;
 
 -- --------------------------------------------------------
 
@@ -1324,12 +1341,12 @@ CREATE TABLE IF NOT EXISTS `iati_organisation/document_link/title` (
 -- Table structure for table `iati_organisation/identifier`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_organisation/identifier` (
+CREATE TABLE `iati_organisation/identifier` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `text` text NOT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `organisation_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=178 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=187 ;
 
 -- --------------------------------------------------------
 
@@ -1337,13 +1354,13 @@ CREATE TABLE IF NOT EXISTS `iati_organisation/identifier` (
 -- Table structure for table `iati_organisation/name`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_organisation/name` (
+CREATE TABLE `iati_organisation/name` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `text` text,
-  `@xml_lang` varchar(25) DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
+  `@xml_lang` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
   `organisation_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=108 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=117 ;
 
 -- --------------------------------------------------------
 
@@ -1351,11 +1368,11 @@ CREATE TABLE IF NOT EXISTS `iati_organisation/name` (
 -- Table structure for table `iati_organisation/recipient_country_budget`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_organisation/recipient_country_budget` (
+CREATE TABLE `iati_organisation/recipient_country_budget` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `organisation_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=73 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=87 ;
 
 -- --------------------------------------------------------
 
@@ -1363,13 +1380,13 @@ CREATE TABLE IF NOT EXISTS `iati_organisation/recipient_country_budget` (
 -- Table structure for table `iati_organisation/recipient_country_budget/period_end`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_organisation/recipient_country_budget/period_end` (
+CREATE TABLE `iati_organisation/recipient_country_budget/period_end` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `@iso_date` varchar(25) DEFAULT NULL,
-  `text` text,
+  `@iso_date` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `recipient_country_budget_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=73 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=87 ;
 
 -- --------------------------------------------------------
 
@@ -1377,13 +1394,13 @@ CREATE TABLE IF NOT EXISTS `iati_organisation/recipient_country_budget/period_en
 -- Table structure for table `iati_organisation/recipient_country_budget/period_start`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_organisation/recipient_country_budget/period_start` (
+CREATE TABLE `iati_organisation/recipient_country_budget/period_start` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `@iso_date` varchar(25) DEFAULT NULL,
-  `text` text,
+  `@iso_date` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `recipient_country_budget_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=73 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=87 ;
 
 -- --------------------------------------------------------
 
@@ -1391,14 +1408,14 @@ CREATE TABLE IF NOT EXISTS `iati_organisation/recipient_country_budget/period_st
 -- Table structure for table `iati_organisation/recipient_country_budget/recipient_country`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_organisation/recipient_country_budget/recipient_country` (
+CREATE TABLE `iati_organisation/recipient_country_budget/recipient_country` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `@code` varchar(25) DEFAULT NULL,
-  `@xml_lang` varchar(25) DEFAULT NULL,
-  `text` text,
+  `@code` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@xml_lang` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `recipient_country_budget_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=73 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=87 ;
 
 -- --------------------------------------------------------
 
@@ -1406,14 +1423,14 @@ CREATE TABLE IF NOT EXISTS `iati_organisation/recipient_country_budget/recipient
 -- Table structure for table `iati_organisation/recipient_country_budget/value`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_organisation/recipient_country_budget/value` (
+CREATE TABLE `iati_organisation/recipient_country_budget/value` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `@currency` varchar(25) DEFAULT NULL,
-  `@value_date` varchar(25) DEFAULT NULL,
-  `text` text,
+  `@currency` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@value_date` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `recipient_country_budget_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=73 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=87 ;
 
 -- --------------------------------------------------------
 
@@ -1421,11 +1438,11 @@ CREATE TABLE IF NOT EXISTS `iati_organisation/recipient_country_budget/value` (
 -- Table structure for table `iati_organisation/recipient_org_budget`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_organisation/recipient_org_budget` (
+CREATE TABLE `iati_organisation/recipient_org_budget` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `organisation_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=44 ;
 
 -- --------------------------------------------------------
 
@@ -1433,13 +1450,13 @@ CREATE TABLE IF NOT EXISTS `iati_organisation/recipient_org_budget` (
 -- Table structure for table `iati_organisation/recipient_org_budget/period_end`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_organisation/recipient_org_budget/period_end` (
+CREATE TABLE `iati_organisation/recipient_org_budget/period_end` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `@iso_date` varchar(25) DEFAULT NULL,
-  `text` text,
+  `@iso_date` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `recipient_org_budget_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=44 ;
 
 -- --------------------------------------------------------
 
@@ -1447,13 +1464,13 @@ CREATE TABLE IF NOT EXISTS `iati_organisation/recipient_org_budget/period_end` (
 -- Table structure for table `iati_organisation/recipient_org_budget/period_start`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_organisation/recipient_org_budget/period_start` (
+CREATE TABLE `iati_organisation/recipient_org_budget/period_start` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `@iso_date` varchar(25) DEFAULT NULL,
-  `text` text,
+  `@iso_date` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `recipient_org_budget_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=44 ;
 
 -- --------------------------------------------------------
 
@@ -1461,14 +1478,14 @@ CREATE TABLE IF NOT EXISTS `iati_organisation/recipient_org_budget/period_start`
 -- Table structure for table `iati_organisation/recipient_org_budget/recipient_org`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_organisation/recipient_org_budget/recipient_org` (
+CREATE TABLE `iati_organisation/recipient_org_budget/recipient_org` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `@ref` varchar(25) DEFAULT NULL,
-  `@xml_lang` varchar(25) DEFAULT NULL,
-  `text` text,
+  `@ref` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@xml_lang` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `recipient_org_budget_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=44 ;
 
 -- --------------------------------------------------------
 
@@ -1476,14 +1493,14 @@ CREATE TABLE IF NOT EXISTS `iati_organisation/recipient_org_budget/recipient_org
 -- Table structure for table `iati_organisation/recipient_org_budget/value`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_organisation/recipient_org_budget/value` (
+CREATE TABLE `iati_organisation/recipient_org_budget/value` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `@currency` varchar(25) DEFAULT NULL,
-  `@value_date` varchar(25) DEFAULT NULL,
-  `text` text,
+  `@currency` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@value_date` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `recipient_org_budget_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=44 ;
 
 -- --------------------------------------------------------
 
@@ -1491,15 +1508,15 @@ CREATE TABLE IF NOT EXISTS `iati_organisation/recipient_org_budget/value` (
 -- Table structure for table `iati_organisation/reporting_org`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_organisation/reporting_org` (
+CREATE TABLE `iati_organisation/reporting_org` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@ref` varchar(255) NOT NULL,
-  `@type` varchar(25) NOT NULL,
-  `@xml_lang` varchar(3) NOT NULL,
-  `text` text NOT NULL,
+  `@ref` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `@type` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `organisation_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=178 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=187 ;
 
 -- --------------------------------------------------------
 
@@ -1507,11 +1524,11 @@ CREATE TABLE IF NOT EXISTS `iati_organisation/reporting_org` (
 -- Table structure for table `iati_organisation/total_budget`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_organisation/total_budget` (
+CREATE TABLE `iati_organisation/total_budget` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `organisation_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=49 ;
 
 -- --------------------------------------------------------
 
@@ -1519,13 +1536,13 @@ CREATE TABLE IF NOT EXISTS `iati_organisation/total_budget` (
 -- Table structure for table `iati_organisation/total_budget/period_end`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_organisation/total_budget/period_end` (
+CREATE TABLE `iati_organisation/total_budget/period_end` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `@iso_date` varchar(25) DEFAULT NULL,
-  `text` text,
+  `@iso_date` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `total_budget_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=49 ;
 
 -- --------------------------------------------------------
 
@@ -1533,13 +1550,13 @@ CREATE TABLE IF NOT EXISTS `iati_organisation/total_budget/period_end` (
 -- Table structure for table `iati_organisation/total_budget/period_start`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_organisation/total_budget/period_start` (
+CREATE TABLE `iati_organisation/total_budget/period_start` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `@iso_date` varchar(25) DEFAULT NULL,
-  `text` text,
+  `@iso_date` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `total_budget_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=49 ;
 
 -- --------------------------------------------------------
 
@@ -1547,14 +1564,14 @@ CREATE TABLE IF NOT EXISTS `iati_organisation/total_budget/period_start` (
 -- Table structure for table `iati_organisation/total_budget/value`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_organisation/total_budget/value` (
+CREATE TABLE `iati_organisation/total_budget/value` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `@currency` varchar(25) DEFAULT NULL,
-  `@value_date` varchar(25) DEFAULT NULL,
-  `text` text,
+  `@currency` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@value_date` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `total_budget_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=49 ;
 
 -- --------------------------------------------------------
 
@@ -1562,14 +1579,14 @@ CREATE TABLE IF NOT EXISTS `iati_organisation/total_budget/value` (
 -- Table structure for table `iati_other_identifier`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_other_identifier` (
+CREATE TABLE `iati_other_identifier` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@owner_ref` varchar(255) CHARACTER SET utf8 NOT NULL,
-  `@owner_name` varchar(255) NOT NULL,
-  `text` text NOT NULL,
+  `@owner_ref` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `@owner_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=55 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=55 ;
 
 -- --------------------------------------------------------
 
@@ -1577,16 +1594,16 @@ CREATE TABLE IF NOT EXISTS `iati_other_identifier` (
 -- Table structure for table `iati_participating_org`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_participating_org` (
+CREATE TABLE `iati_participating_org` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@role` varchar(25) NOT NULL,
-  `@type` varchar(25) DEFAULT NULL,
-  `@ref` varchar(255) CHARACTER SET utf8 NOT NULL,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `text` text CHARACTER SET utf8,
+  `@role` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `@type` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@ref` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` text COLLATE utf8_unicode_ci,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2779 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2848 ;
 
 -- --------------------------------------------------------
 
@@ -1594,12 +1611,12 @@ CREATE TABLE IF NOT EXISTS `iati_participating_org` (
 -- Table structure for table `iati_planned_disbursement`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_planned_disbursement` (
+CREATE TABLE `iati_planned_disbursement` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@updated` varchar(25) DEFAULT NULL,
+  `@updated` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=80 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=81 ;
 
 -- --------------------------------------------------------
 
@@ -1607,13 +1624,13 @@ CREATE TABLE IF NOT EXISTS `iati_planned_disbursement` (
 -- Table structure for table `iati_planned_disbursement/period_end`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_planned_disbursement/period_end` (
+CREATE TABLE `iati_planned_disbursement/period_end` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@iso_date` varchar(25) DEFAULT NULL,
-  `text` text,
+  `@iso_date` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `planned_disbursement_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=80 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=81 ;
 
 -- --------------------------------------------------------
 
@@ -1621,13 +1638,13 @@ CREATE TABLE IF NOT EXISTS `iati_planned_disbursement/period_end` (
 -- Table structure for table `iati_planned_disbursement/period_start`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_planned_disbursement/period_start` (
+CREATE TABLE `iati_planned_disbursement/period_start` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@iso_date` varchar(25) DEFAULT NULL,
-  `text` text,
+  `@iso_date` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `planned_disbursement_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=80 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=81 ;
 
 -- --------------------------------------------------------
 
@@ -1635,14 +1652,14 @@ CREATE TABLE IF NOT EXISTS `iati_planned_disbursement/period_start` (
 -- Table structure for table `iati_planned_disbursement/value`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_planned_disbursement/value` (
+CREATE TABLE `iati_planned_disbursement/value` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@value_date` varchar(25) NOT NULL,
-  `@currency` varchar(25) DEFAULT NULL,
-  `text` text NOT NULL,
+  `@value_date` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `@currency` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `planned_disbursement_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=80 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=81 ;
 
 -- --------------------------------------------------------
 
@@ -1650,16 +1667,16 @@ CREATE TABLE IF NOT EXISTS `iati_planned_disbursement/value` (
 -- Table structure for table `iati_policy_marker`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_policy_marker` (
+CREATE TABLE `iati_policy_marker` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@significance` varchar(10) DEFAULT NULL,
-  `@vocabulary` varchar(25) DEFAULT NULL,
-  `@code` varchar(10) DEFAULT NULL,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `text` text,
+  `@significance` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@vocabulary` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@code` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=33 ;
 
 -- --------------------------------------------------------
 
@@ -1667,15 +1684,15 @@ CREATE TABLE IF NOT EXISTS `iati_policy_marker` (
 -- Table structure for table `iati_recipient_country`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_recipient_country` (
+CREATE TABLE `iati_recipient_country` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@code` varchar(25) DEFAULT NULL,
-  `@percentage` varchar(25) DEFAULT NULL,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `text` text,
+  `@code` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@percentage` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1093 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1130 ;
 
 -- --------------------------------------------------------
 
@@ -1683,16 +1700,16 @@ CREATE TABLE IF NOT EXISTS `iati_recipient_country` (
 -- Table structure for table `iati_recipient_region`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_recipient_region` (
+CREATE TABLE `iati_recipient_region` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@code` varchar(25) DEFAULT NULL,
-  `@vocabulary` varchar(25) NOT NULL,
-  `@percentage` varchar(25) DEFAULT NULL,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `text` text,
+  `@code` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@vocabulary` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `@percentage` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=454 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=465 ;
 
 -- --------------------------------------------------------
 
@@ -1700,15 +1717,15 @@ CREATE TABLE IF NOT EXISTS `iati_recipient_region` (
 -- Table structure for table `iati_related_activity`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_related_activity` (
+CREATE TABLE `iati_related_activity` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@type` varchar(25) NOT NULL,
-  `@ref` varchar(255) CHARACTER SET utf8 NOT NULL,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `text` text,
+  `@type` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `@ref` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=56 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=56 ;
 
 -- --------------------------------------------------------
 
@@ -1716,15 +1733,15 @@ CREATE TABLE IF NOT EXISTS `iati_related_activity` (
 -- Table structure for table `iati_reporting_org`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_reporting_org` (
+CREATE TABLE `iati_reporting_org` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@ref` varchar(255) CHARACTER SET utf8 NOT NULL,
-  `@type` varchar(25) NOT NULL,
-  `@xml_lang` varchar(3) NOT NULL,
-  `text` text NOT NULL,
+  `@ref` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `@type` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1201 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1233 ;
 
 -- --------------------------------------------------------
 
@@ -1732,13 +1749,13 @@ CREATE TABLE IF NOT EXISTS `iati_reporting_org` (
 -- Table structure for table `iati_result`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_result` (
+CREATE TABLE `iati_result` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@type` varchar(25) NOT NULL,
-  `@aggregation_status` varchar(5) DEFAULT NULL,
+  `@type` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `@aggregation_status` varchar(5) COLLATE utf8_unicode_ci DEFAULT NULL,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=45 ;
 
 -- --------------------------------------------------------
 
@@ -1746,14 +1763,14 @@ CREATE TABLE IF NOT EXISTS `iati_result` (
 -- Table structure for table `iati_result/description`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_result/description` (
+CREATE TABLE `iati_result/description` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `@type` varchar(25) DEFAULT NULL,
-  `text` text NOT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@type` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `result_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=39 ;
 
 -- --------------------------------------------------------
 
@@ -1761,13 +1778,13 @@ CREATE TABLE IF NOT EXISTS `iati_result/description` (
 -- Table structure for table `iati_result/indicator`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_result/indicator` (
+CREATE TABLE `iati_result/indicator` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `@measure` int(11) NOT NULL,
-  `@ascending` varchar(5) NOT NULL DEFAULT 'true',
+  `@ascending` varchar(5) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'true',
   `result_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=42 ;
 
 -- --------------------------------------------------------
 
@@ -1775,14 +1792,14 @@ CREATE TABLE IF NOT EXISTS `iati_result/indicator` (
 -- Table structure for table `iati_result/indicator/actual`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_result/indicator/actual` (
+CREATE TABLE `iati_result/indicator/actual` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@year` varchar(20) NOT NULL,
-  `@value` varchar(20) NOT NULL,
-  `text` text,
+  `@year` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `@value` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `indicator_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -1790,14 +1807,14 @@ CREATE TABLE IF NOT EXISTS `iati_result/indicator/actual` (
 -- Table structure for table `iati_result/indicator/baseline`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_result/indicator/baseline` (
+CREATE TABLE `iati_result/indicator/baseline` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@year` varchar(20) NOT NULL,
-  `@value` varchar(20) NOT NULL,
-  `text` text,
+  `@year` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `@value` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `indicator_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
 
 -- --------------------------------------------------------
 
@@ -1805,13 +1822,13 @@ CREATE TABLE IF NOT EXISTS `iati_result/indicator/baseline` (
 -- Table structure for table `iati_result/indicator/baseline/comment`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_result/indicator/baseline/comment` (
+CREATE TABLE `iati_result/indicator/baseline/comment` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `text` text NOT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `baseline_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
 
 -- --------------------------------------------------------
 
@@ -1819,14 +1836,14 @@ CREATE TABLE IF NOT EXISTS `iati_result/indicator/baseline/comment` (
 -- Table structure for table `iati_result/indicator/description`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_result/indicator/description` (
+CREATE TABLE `iati_result/indicator/description` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `text` text NOT NULL,
-  `@xml_lang` varchar(20) DEFAULT NULL,
-  `@type` varchar(25) DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
+  `@xml_lang` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@type` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
   `indicator_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
 
 -- --------------------------------------------------------
 
@@ -1834,11 +1851,11 @@ CREATE TABLE IF NOT EXISTS `iati_result/indicator/description` (
 -- Table structure for table `iati_result/indicator/period`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_result/indicator/period` (
+CREATE TABLE `iati_result/indicator/period` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `indicator_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=22 ;
 
 -- --------------------------------------------------------
 
@@ -1846,12 +1863,12 @@ CREATE TABLE IF NOT EXISTS `iati_result/indicator/period` (
 -- Table structure for table `iati_result/indicator/period/actual`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_result/indicator/period/actual` (
+CREATE TABLE `iati_result/indicator/period/actual` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@value` varchar(20) NOT NULL,
+  `@value` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `period_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=20 ;
 
 -- --------------------------------------------------------
 
@@ -1859,13 +1876,13 @@ CREATE TABLE IF NOT EXISTS `iati_result/indicator/period/actual` (
 -- Table structure for table `iati_result/indicator/period/actual/comment`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_result/indicator/period/actual/comment` (
+CREATE TABLE `iati_result/indicator/period/actual/comment` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `text` text NOT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `actual_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
 
 -- --------------------------------------------------------
 
@@ -1873,13 +1890,13 @@ CREATE TABLE IF NOT EXISTS `iati_result/indicator/period/actual/comment` (
 -- Table structure for table `iati_result/indicator/period/period-end`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_result/indicator/period/period-end` (
+CREATE TABLE `iati_result/indicator/period/period-end` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `@iso_date` varchar(25) DEFAULT NULL,
-  `text` text,
+  `@iso_date` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `period_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=16 ;
 
 -- --------------------------------------------------------
 
@@ -1887,13 +1904,13 @@ CREATE TABLE IF NOT EXISTS `iati_result/indicator/period/period-end` (
 -- Table structure for table `iati_result/indicator/period/period-start`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_result/indicator/period/period-start` (
+CREATE TABLE `iati_result/indicator/period/period-start` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `@iso_date` varchar(25) DEFAULT NULL,
-  `text` text,
+  `@iso_date` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `period_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
 
 -- --------------------------------------------------------
 
@@ -1901,12 +1918,12 @@ CREATE TABLE IF NOT EXISTS `iati_result/indicator/period/period-start` (
 -- Table structure for table `iati_result/indicator/period/target`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_result/indicator/period/target` (
+CREATE TABLE `iati_result/indicator/period/target` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@value` varchar(20) NOT NULL,
+  `@value` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `period_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=14 ;
 
 -- --------------------------------------------------------
 
@@ -1914,13 +1931,13 @@ CREATE TABLE IF NOT EXISTS `iati_result/indicator/period/target` (
 -- Table structure for table `iati_result/indicator/period/target/comment`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_result/indicator/period/target/comment` (
+CREATE TABLE `iati_result/indicator/period/target/comment` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `text` text NOT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `target_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
 
 -- --------------------------------------------------------
 
@@ -1928,14 +1945,14 @@ CREATE TABLE IF NOT EXISTS `iati_result/indicator/period/target/comment` (
 -- Table structure for table `iati_result/indicator/target`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_result/indicator/target` (
+CREATE TABLE `iati_result/indicator/target` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@year` varchar(20) NOT NULL,
-  `@value` varchar(20) NOT NULL,
-  `text` text,
+  `@year` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `@value` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `indicator_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -1943,13 +1960,13 @@ CREATE TABLE IF NOT EXISTS `iati_result/indicator/target` (
 -- Table structure for table `iati_result/indicator/title`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_result/indicator/title` (
+CREATE TABLE `iati_result/indicator/title` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `text` text NOT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `@xml_lang` int(11) DEFAULT NULL,
   `indicator_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=23 ;
 
 -- --------------------------------------------------------
 
@@ -1957,13 +1974,13 @@ CREATE TABLE IF NOT EXISTS `iati_result/indicator/title` (
 -- Table structure for table `iati_result/title`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_result/title` (
+CREATE TABLE `iati_result/title` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `text` text NOT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `result_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=34 ;
 
 -- --------------------------------------------------------
 
@@ -1971,16 +1988,16 @@ CREATE TABLE IF NOT EXISTS `iati_result/title` (
 -- Table structure for table `iati_sector`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_sector` (
+CREATE TABLE `iati_sector` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@vocabulary` varchar(255) DEFAULT NULL,
-  `@code` varchar(255) DEFAULT NULL,
-  `@percentage` varchar(255) DEFAULT NULL,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `text` text,
+  `@vocabulary` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@percentage` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1385 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1408 ;
 
 -- --------------------------------------------------------
 
@@ -1988,13 +2005,13 @@ CREATE TABLE IF NOT EXISTS `iati_sector` (
 -- Table structure for table `iati_title`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_title` (
+CREATE TABLE `iati_title` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `text` text,
-  `@xml_lang` varchar(3) DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1103 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1128 ;
 
 -- --------------------------------------------------------
 
@@ -2002,12 +2019,12 @@ CREATE TABLE IF NOT EXISTS `iati_title` (
 -- Table structure for table `iati_transaction`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_transaction` (
+CREATE TABLE `iati_transaction` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@ref` varchar(25) DEFAULT NULL,
+  `@ref` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
   `activity_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6183 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7816 ;
 
 -- --------------------------------------------------------
 
@@ -2015,14 +2032,14 @@ CREATE TABLE IF NOT EXISTS `iati_transaction` (
 -- Table structure for table `iati_transaction/aid_type`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_transaction/aid_type` (
+CREATE TABLE `iati_transaction/aid_type` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@code` varchar(25) NOT NULL,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `text` text,
+  `@code` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `transaction_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2580 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2690 ;
 
 -- --------------------------------------------------------
 
@@ -2030,13 +2047,13 @@ CREATE TABLE IF NOT EXISTS `iati_transaction/aid_type` (
 -- Table structure for table `iati_transaction/description`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_transaction/description` (
+CREATE TABLE `iati_transaction/description` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `text` text,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `transaction_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3405 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4528 ;
 
 -- --------------------------------------------------------
 
@@ -2044,14 +2061,14 @@ CREATE TABLE IF NOT EXISTS `iati_transaction/description` (
 -- Table structure for table `iati_transaction/disbursement_channel`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_transaction/disbursement_channel` (
+CREATE TABLE `iati_transaction/disbursement_channel` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@code` varchar(25) NOT NULL,
-  `text` text,
-  `@xml_lang` varchar(20) DEFAULT NULL,
+  `@code` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
+  `@xml_lang` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `transaction_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1726 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1830 ;
 
 -- --------------------------------------------------------
 
@@ -2059,13 +2076,13 @@ CREATE TABLE IF NOT EXISTS `iati_transaction/disbursement_channel` (
 -- Table structure for table `iati_transaction/distribution_channel`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_transaction/distribution_channel` (
+CREATE TABLE `iati_transaction/distribution_channel` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@code` varchar(25) NOT NULL,
-  `text` text NOT NULL,
+  `@code` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `transaction_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2073,14 +2090,14 @@ CREATE TABLE IF NOT EXISTS `iati_transaction/distribution_channel` (
 -- Table structure for table `iati_transaction/finance_type`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_transaction/finance_type` (
+CREATE TABLE `iati_transaction/finance_type` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@code` varchar(20) NOT NULL,
-  `text` text,
-  `@xml_lang` varchar(20) DEFAULT NULL,
+  `@code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
+  `@xml_lang` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `transaction_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1904 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2007 ;
 
 -- --------------------------------------------------------
 
@@ -2088,14 +2105,14 @@ CREATE TABLE IF NOT EXISTS `iati_transaction/finance_type` (
 -- Table structure for table `iati_transaction/flow_type`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_transaction/flow_type` (
+CREATE TABLE `iati_transaction/flow_type` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@code` varchar(25) NOT NULL,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `text` text,
+  `@code` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `transaction_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2688 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2807 ;
 
 -- --------------------------------------------------------
 
@@ -2103,14 +2120,14 @@ CREATE TABLE IF NOT EXISTS `iati_transaction/flow_type` (
 -- Table structure for table `iati_transaction/provider_org`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_transaction/provider_org` (
+CREATE TABLE `iati_transaction/provider_org` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@ref` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
-  `@provider_activity_id` text,
-  `text` text,
+  `@ref` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@provider_activity_id` mediumtext COLLATE utf8_unicode_ci,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `transaction_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4426 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5490 ;
 
 -- --------------------------------------------------------
 
@@ -2118,14 +2135,14 @@ CREATE TABLE IF NOT EXISTS `iati_transaction/provider_org` (
 -- Table structure for table `iati_transaction/receiver_org`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_transaction/receiver_org` (
+CREATE TABLE `iati_transaction/receiver_org` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@ref` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
-  `@receiver_activity_id` text,
-  `text` text,
+  `@ref` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@receiver_activity_id` mediumtext COLLATE utf8_unicode_ci,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `transaction_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4692 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5685 ;
 
 -- --------------------------------------------------------
 
@@ -2133,14 +2150,14 @@ CREATE TABLE IF NOT EXISTS `iati_transaction/receiver_org` (
 -- Table structure for table `iati_transaction/tied_status`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_transaction/tied_status` (
+CREATE TABLE `iati_transaction/tied_status` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@code` varchar(25) NOT NULL,
-  `@xml_lang` varchar(3) DEFAULT NULL,
-  `text` text,
+  `@code` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `@xml_lang` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `transaction_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1651 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1762 ;
 
 -- --------------------------------------------------------
 
@@ -2148,13 +2165,13 @@ CREATE TABLE IF NOT EXISTS `iati_transaction/tied_status` (
 -- Table structure for table `iati_transaction/transaction_date`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_transaction/transaction_date` (
+CREATE TABLE `iati_transaction/transaction_date` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@iso_date` varchar(25) NOT NULL,
-  `text` text,
+  `@iso_date` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `transaction_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5872 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7499 ;
 
 -- --------------------------------------------------------
 
@@ -2162,14 +2179,14 @@ CREATE TABLE IF NOT EXISTS `iati_transaction/transaction_date` (
 -- Table structure for table `iati_transaction/transaction_type`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_transaction/transaction_type` (
+CREATE TABLE `iati_transaction/transaction_type` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@code` varchar(25) DEFAULT NULL,
-  `@type` varchar(25) DEFAULT NULL,
-  `text` text,
+  `@code` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@type` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `transaction_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6214 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7847 ;
 
 -- --------------------------------------------------------
 
@@ -2177,14 +2194,14 @@ CREATE TABLE IF NOT EXISTS `iati_transaction/transaction_type` (
 -- Table structure for table `iati_transaction/value`
 --
 
-CREATE TABLE IF NOT EXISTS `iati_transaction/value` (
+CREATE TABLE `iati_transaction/value` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `@currency` varchar(25) DEFAULT NULL,
-  `@value_date` varchar(25) DEFAULT NULL,
-  `text` text,
+  `@currency` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `@value_date` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci,
   `transaction_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6215 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7848 ;
 
 -- --------------------------------------------------------
 
@@ -2192,13 +2209,13 @@ CREATE TABLE IF NOT EXISTS `iati_transaction/value` (
 -- Table structure for table `IndicatorMeasure`
 --
 
-CREATE TABLE IF NOT EXISTS `IndicatorMeasure` (
+CREATE TABLE `IndicatorMeasure` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Code` int(11) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -2206,11 +2223,11 @@ CREATE TABLE IF NOT EXISTS `IndicatorMeasure` (
 -- Table structure for table `Lang`
 --
 
-CREATE TABLE IF NOT EXISTS `Lang` (
+CREATE TABLE `Lang` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Lang` varchar(11) NOT NULL,
+  `Lang` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -2218,13 +2235,13 @@ CREATE TABLE IF NOT EXISTS `Lang` (
 -- Table structure for table `Language`
 --
 
-CREATE TABLE IF NOT EXISTS `Language` (
+CREATE TABLE `Language` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Code` char(2) DEFAULT NULL,
-  `Name` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `Code` char(2) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=544 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=544 ;
 
 -- --------------------------------------------------------
 
@@ -2232,13 +2249,13 @@ CREATE TABLE IF NOT EXISTS `Language` (
 -- Table structure for table `LocationType`
 --
 
-CREATE TABLE IF NOT EXISTS `LocationType` (
+CREATE TABLE `LocationType` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Code` varchar(255) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
+  `Code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=31 ;
 
 -- --------------------------------------------------------
 
@@ -2246,10 +2263,10 @@ CREATE TABLE IF NOT EXISTS `LocationType` (
 -- Table structure for table `organisation/annual_planning_budget`
 --
 
-CREATE TABLE IF NOT EXISTS `organisation/annual_planning_budget` (
+CREATE TABLE `organisation/annual_planning_budget` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2257,13 +2274,13 @@ CREATE TABLE IF NOT EXISTS `organisation/annual_planning_budget` (
 -- Table structure for table `organisation/annual_planning_budget/period_end`
 --
 
-CREATE TABLE IF NOT EXISTS `organisation/annual_planning_budget/period_end` (
+CREATE TABLE `organisation/annual_planning_budget/period_end` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `date` int(11) NOT NULL,
-  `text` varchar(255) DEFAULT NULL,
+  `text` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `annual_planning_budget_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2271,13 +2288,13 @@ CREATE TABLE IF NOT EXISTS `organisation/annual_planning_budget/period_end` (
 -- Table structure for table `organisation/annual_planning_budget/period_start`
 --
 
-CREATE TABLE IF NOT EXISTS `organisation/annual_planning_budget/period_start` (
+CREATE TABLE `organisation/annual_planning_budget/period_start` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `date` int(11) NOT NULL,
-  `text` varchar(255) DEFAULT NULL,
+  `text` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `annual_planning_budget_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2285,13 +2302,13 @@ CREATE TABLE IF NOT EXISTS `organisation/annual_planning_budget/period_start` (
 -- Table structure for table `organisation/annual_planning_budget/period_start/test`
 --
 
-CREATE TABLE IF NOT EXISTS `organisation/annual_planning_budget/period_start/test` (
+CREATE TABLE `organisation/annual_planning_budget/period_start/test` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `date` int(11) NOT NULL,
-  `text` varchar(255) DEFAULT NULL,
+  `text` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `period_start_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2299,13 +2316,13 @@ CREATE TABLE IF NOT EXISTS `organisation/annual_planning_budget/period_start/tes
 -- Table structure for table `organisation/name`
 --
 
-CREATE TABLE IF NOT EXISTS `organisation/name` (
+CREATE TABLE `organisation/name` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `text` text NOT NULL,
-  `xml_lang` varchar(11) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
+  `xml_lang` varchar(11) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2313,15 +2330,15 @@ CREATE TABLE IF NOT EXISTS `organisation/name` (
 -- Table structure for table `OrganisationIdentifier`
 --
 
-CREATE TABLE IF NOT EXISTS `OrganisationIdentifier` (
+CREATE TABLE `OrganisationIdentifier` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Code` varchar(255) DEFAULT NULL,
-  `Country` varchar(50) DEFAULT NULL,
-  `Abbreviation` varchar(255) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
+  `Code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Country` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Abbreviation` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2329,15 +2346,15 @@ CREATE TABLE IF NOT EXISTS `OrganisationIdentifier` (
 -- Table structure for table `OrganisationIdentifierBilateral`
 --
 
-CREATE TABLE IF NOT EXISTS `OrganisationIdentifierBilateral` (
+CREATE TABLE `OrganisationIdentifierBilateral` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Code` varchar(255) DEFAULT NULL,
-  `Country` varchar(50) DEFAULT NULL,
-  `Abbreviation` varchar(255) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
+  `Code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Country` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Abbreviation` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2345,15 +2362,15 @@ CREATE TABLE IF NOT EXISTS `OrganisationIdentifierBilateral` (
 -- Table structure for table `OrganisationIdentifierIngo`
 --
 
-CREATE TABLE IF NOT EXISTS `OrganisationIdentifierIngo` (
+CREATE TABLE `OrganisationIdentifierIngo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Code` varchar(255) DEFAULT NULL,
-  `Country` varchar(50) DEFAULT NULL,
-  `Abbreviation` varchar(255) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
+  `Code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Country` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Abbreviation` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2361,15 +2378,15 @@ CREATE TABLE IF NOT EXISTS `OrganisationIdentifierIngo` (
 -- Table structure for table `OrganisationIdentifierMultilateral`
 --
 
-CREATE TABLE IF NOT EXISTS `OrganisationIdentifierMultilateral` (
+CREATE TABLE `OrganisationIdentifierMultilateral` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Code` varchar(255) DEFAULT NULL,
-  `Country` varchar(50) DEFAULT NULL,
-  `Abbreviation` varchar(255) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
+  `Code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Country` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Abbreviation` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2377,14 +2394,14 @@ CREATE TABLE IF NOT EXISTS `OrganisationIdentifierMultilateral` (
 -- Table structure for table `OrganisationRole`
 --
 
-CREATE TABLE IF NOT EXISTS `OrganisationRole` (
+CREATE TABLE `OrganisationRole` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Code` varchar(255) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
-  `Description` text,
+  `Code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Description` mediumtext COLLATE utf8_unicode_ci,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
 
 -- --------------------------------------------------------
 
@@ -2392,13 +2409,13 @@ CREATE TABLE IF NOT EXISTS `OrganisationRole` (
 -- Table structure for table `OrganisationType`
 --
 
-CREATE TABLE IF NOT EXISTS `OrganisationType` (
+CREATE TABLE `OrganisationType` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Code` int(11) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=31 ;
 
 -- --------------------------------------------------------
 
@@ -2406,12 +2423,12 @@ CREATE TABLE IF NOT EXISTS `OrganisationType` (
 -- Table structure for table `organisation_hash`
 --
 
-CREATE TABLE IF NOT EXISTS `organisation_hash` (
+CREATE TABLE `organisation_hash` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `organisation_id` int(11) NOT NULL,
-  `hash` text NOT NULL,
+  `hash` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=178 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=187 ;
 
 -- --------------------------------------------------------
 
@@ -2419,17 +2436,17 @@ CREATE TABLE IF NOT EXISTS `organisation_hash` (
 -- Table structure for table `organisation_published`
 --
 
-CREATE TABLE IF NOT EXISTS `organisation_published` (
+CREATE TABLE `organisation_published` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `publishing_org_id` int(11) NOT NULL,
-  `filename` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `filename` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `data_updated_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `published_date` datetime NOT NULL,
   `status` int(11) NOT NULL DEFAULT '1',
   `pushed_to_registry` int(11) NOT NULL DEFAULT '0',
   `organisation_count` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=122 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=131 ;
 
 -- --------------------------------------------------------
 
@@ -2437,14 +2454,14 @@ CREATE TABLE IF NOT EXISTS `organisation_published` (
 -- Table structure for table `organisation_registry_published_data`
 --
 
-CREATE TABLE IF NOT EXISTS `organisation_registry_published_data` (
+CREATE TABLE `organisation_registry_published_data` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `publisher_org_id` int(11) NOT NULL,
   `file_id` int(11) NOT NULL,
-  `filename` varchar(255) NOT NULL,
-  `response` text NOT NULL,
+  `filename` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `response` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=257 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=262 ;
 
 -- --------------------------------------------------------
 
@@ -2452,14 +2469,14 @@ CREATE TABLE IF NOT EXISTS `organisation_registry_published_data` (
 -- Table structure for table `PercisionCode`
 --
 
-CREATE TABLE IF NOT EXISTS `PercisionCode` (
+CREATE TABLE `PercisionCode` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Code` varchar(11) NOT NULL,
-  `Name` varchar(25) NOT NULL,
-  `Description` text NOT NULL,
+  `Code` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
+  `Name` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `Description` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `lang_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=28 ;
 
 -- --------------------------------------------------------
 
@@ -2467,13 +2484,13 @@ CREATE TABLE IF NOT EXISTS `PercisionCode` (
 -- Table structure for table `PolicyMarker`
 --
 
-CREATE TABLE IF NOT EXISTS `PolicyMarker` (
+CREATE TABLE `PolicyMarker` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Code` int(11) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=25 ;
 
 -- --------------------------------------------------------
 
@@ -2481,14 +2498,14 @@ CREATE TABLE IF NOT EXISTS `PolicyMarker` (
 -- Table structure for table `PolicySignificance`
 --
 
-CREATE TABLE IF NOT EXISTS `PolicySignificance` (
+CREATE TABLE `PolicySignificance` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Code` int(11) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
-  `Description` text,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Description` mediumtext COLLATE utf8_unicode_ci,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
 
 -- --------------------------------------------------------
 
@@ -2496,12 +2513,12 @@ CREATE TABLE IF NOT EXISTS `PolicySignificance` (
 -- Table structure for table `Privilege`
 --
 
-CREATE TABLE IF NOT EXISTS `Privilege` (
+CREATE TABLE `Privilege` (
   `privilege_id` int(10) NOT NULL AUTO_INCREMENT,
-  `resource` text NOT NULL,
+  `resource` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `owner_id` int(10) NOT NULL,
   PRIMARY KEY (`privilege_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=140 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=142 ;
 
 -- --------------------------------------------------------
 
@@ -2509,14 +2526,14 @@ CREATE TABLE IF NOT EXISTS `Privilege` (
 -- Table structure for table `profile`
 --
 
-CREATE TABLE IF NOT EXISTS `profile` (
+CREATE TABLE `profile` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(25) NOT NULL,
-  `middle_name` varchar(25) DEFAULT NULL,
-  `last_name` varchar(25) NOT NULL,
+  `first_name` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `middle_name` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `last_name` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
   `user_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=455 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=490 ;
 
 -- --------------------------------------------------------
 
@@ -2524,18 +2541,18 @@ CREATE TABLE IF NOT EXISTS `profile` (
 -- Table structure for table `published`
 --
 
-CREATE TABLE IF NOT EXISTS `published` (
+CREATE TABLE `published` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `publishing_org_id` int(11) NOT NULL,
-  `filename` varchar(255) CHARACTER SET utf8 NOT NULL,
-  `country_name` varchar(255) DEFAULT NULL,
+  `filename` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `country_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `activity_count` int(11) DEFAULT NULL,
   `data_updated_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `published_date` datetime NOT NULL,
   `status` int(11) NOT NULL DEFAULT '1',
   `pushed_to_registry` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=393 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=406 ;
 
 -- --------------------------------------------------------
 
@@ -2543,13 +2560,13 @@ CREATE TABLE IF NOT EXISTS `published` (
 -- Table structure for table `PublisherType`
 --
 
-CREATE TABLE IF NOT EXISTS `PublisherType` (
+CREATE TABLE `PublisherType` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Code` int(11) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
 
 -- --------------------------------------------------------
 
@@ -2557,13 +2574,13 @@ CREATE TABLE IF NOT EXISTS `PublisherType` (
 -- Table structure for table `Region`
 --
 
-CREATE TABLE IF NOT EXISTS `Region` (
+CREATE TABLE `Region` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Code` int(11) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=49 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=49 ;
 
 -- --------------------------------------------------------
 
@@ -2571,13 +2588,13 @@ CREATE TABLE IF NOT EXISTS `Region` (
 -- Table structure for table `RegionVocabulary`
 --
 
-CREATE TABLE IF NOT EXISTS `RegionVocabulary` (
+CREATE TABLE `RegionVocabulary` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Code` varchar(25) NOT NULL,
-  `Name` varchar(25) NOT NULL,
+  `Code` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `Name` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
   `lang_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -2585,15 +2602,15 @@ CREATE TABLE IF NOT EXISTS `RegionVocabulary` (
 -- Table structure for table `registry_info`
 --
 
-CREATE TABLE IF NOT EXISTS `registry_info` (
+CREATE TABLE `registry_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `publisher_id` varchar(255) NOT NULL,
-  `api_key` varchar(255) NOT NULL,
+  `publisher_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `api_key` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `publishing_type` int(11) NOT NULL,
   `org_id` int(11) NOT NULL,
   `update_registry` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=249 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=263 ;
 
 -- --------------------------------------------------------
 
@@ -2601,14 +2618,14 @@ CREATE TABLE IF NOT EXISTS `registry_info` (
 -- Table structure for table `registry_published_data`
 --
 
-CREATE TABLE IF NOT EXISTS `registry_published_data` (
+CREATE TABLE `registry_published_data` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `publisher_org_id` int(11) NOT NULL,
   `file_id` int(11) NOT NULL,
-  `filename` varchar(255) NOT NULL,
-  `response` text NOT NULL,
+  `filename` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `response` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=329 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=333 ;
 
 -- --------------------------------------------------------
 
@@ -2616,14 +2633,14 @@ CREATE TABLE IF NOT EXISTS `registry_published_data` (
 -- Table structure for table `RelatedActivityType`
 --
 
-CREATE TABLE IF NOT EXISTS `RelatedActivityType` (
+CREATE TABLE `RelatedActivityType` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Code` int(11) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
-  `Description` text,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Description` mediumtext COLLATE utf8_unicode_ci,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
 
 -- --------------------------------------------------------
 
@@ -2631,13 +2648,13 @@ CREATE TABLE IF NOT EXISTS `RelatedActivityType` (
 -- Table structure for table `reset`
 --
 
-CREATE TABLE IF NOT EXISTS `reset` (
+CREATE TABLE `reset` (
   `reset_id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) NOT NULL,
-  `value` varchar(50) NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `value` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `reset_flag` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`reset_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=123 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=130 ;
 
 -- --------------------------------------------------------
 
@@ -2645,13 +2662,13 @@ CREATE TABLE IF NOT EXISTS `reset` (
 -- Table structure for table `ResultType`
 --
 
-CREATE TABLE IF NOT EXISTS `ResultType` (
+CREATE TABLE `ResultType` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Code` int(11) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
 
 -- --------------------------------------------------------
 
@@ -2659,11 +2676,11 @@ CREATE TABLE IF NOT EXISTS `ResultType` (
 -- Table structure for table `role`
 --
 
-CREATE TABLE IF NOT EXISTS `role` (
+CREATE TABLE `role` (
   `role_id` int(10) NOT NULL AUTO_INCREMENT,
-  `role` varchar(15) NOT NULL,
+  `role` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`role_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -2671,15 +2688,15 @@ CREATE TABLE IF NOT EXISTS `role` (
 -- Table structure for table `Sector`
 --
 
-CREATE TABLE IF NOT EXISTS `Sector` (
+CREATE TABLE `Sector` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Code` int(11) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
-  `Description` text,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Description` mediumtext COLLATE utf8_unicode_ci,
   `CategoryCode` int(11) DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=583 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=583 ;
 
 -- --------------------------------------------------------
 
@@ -2687,15 +2704,15 @@ CREATE TABLE IF NOT EXISTS `Sector` (
 -- Table structure for table `SectorCategory`
 --
 
-CREATE TABLE IF NOT EXISTS `SectorCategory` (
+CREATE TABLE `SectorCategory` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Code` int(11) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
-  `Description` text,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Description` mediumtext COLLATE utf8_unicode_ci,
   `ParentCode` int(11) DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=130 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=130 ;
 
 -- --------------------------------------------------------
 
@@ -2703,14 +2720,14 @@ CREATE TABLE IF NOT EXISTS `SectorCategory` (
 -- Table structure for table `support`
 --
 
-CREATE TABLE IF NOT EXISTS `support` (
+CREATE TABLE `support` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `query` text NOT NULL,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `query` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `created_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=170 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=174 ;
 
 -- --------------------------------------------------------
 
@@ -2718,14 +2735,14 @@ CREATE TABLE IF NOT EXISTS `support` (
 -- Table structure for table `TiedStatus`
 --
 
-CREATE TABLE IF NOT EXISTS `TiedStatus` (
+CREATE TABLE `TiedStatus` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Code` int(11) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
-  `Description` text,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Description` mediumtext COLLATE utf8_unicode_ci,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
 
 -- --------------------------------------------------------
 
@@ -2733,14 +2750,14 @@ CREATE TABLE IF NOT EXISTS `TiedStatus` (
 -- Table structure for table `TransactionType`
 --
 
-CREATE TABLE IF NOT EXISTS `TransactionType` (
+CREATE TABLE `TransactionType` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Code` varchar(255) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
-  `Description` text,
+  `Code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Description` mediumtext COLLATE utf8_unicode_ci,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=23 ;
 
 -- --------------------------------------------------------
 
@@ -2748,16 +2765,17 @@ CREATE TABLE IF NOT EXISTS `TransactionType` (
 -- Table structure for table `user`
 --
 
-CREATE TABLE IF NOT EXISTS `user` (
+CREATE TABLE `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_name` varchar(255) NOT NULL,
+  `user_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `role_id` int(10) NOT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `password` varchar(50) NOT NULL,
+  `email` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `password` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `account_id` int(10) NOT NULL,
   `status` int(2) NOT NULL,
+  `help_state` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=456 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=491 ;
 
 -- --------------------------------------------------------
 
@@ -2765,14 +2783,28 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Table structure for table `user_documents`
 --
 
-CREATE TABLE IF NOT EXISTS `user_documents` (
+CREATE TABLE `user_documents` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `filename` varchar(255) NOT NULL,
+  `filename` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `activity_id` int(11) NOT NULL,
   `org_id` int(11) NOT NULL,
   `uploaded_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=51 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=58 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_group`
+--
+
+CREATE TABLE `user_group` (
+  `group_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
+  `username` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`group_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=14 ;
 
 -- --------------------------------------------------------
 
@@ -2780,12 +2812,12 @@ CREATE TABLE IF NOT EXISTS `user_documents` (
 -- Table structure for table `user_permission`
 --
 
-CREATE TABLE IF NOT EXISTS `user_permission` (
+CREATE TABLE `user_permission` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `object` text NOT NULL,
+  `object` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=136 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=138 ;
 
 -- --------------------------------------------------------
 
@@ -2793,19 +2825,19 @@ CREATE TABLE IF NOT EXISTS `user_permission` (
 -- Table structure for table `user_register`
 --
 
-CREATE TABLE IF NOT EXISTS `user_register` (
+CREATE TABLE `user_register` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `org_name` varchar(255) NOT NULL,
-  `org_address` text NOT NULL,
-  `first_name` varchar(255) NOT NULL,
-  `middle_name` varchar(255) DEFAULT NULL,
-  `last_name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `api_key` varchar(255) DEFAULT NULL,
-  `publisher_id` varchar(255) DEFAULT NULL,
+  `org_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `org_address` mediumtext COLLATE utf8_unicode_ci NOT NULL,
+  `first_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `middle_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `last_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `api_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `publisher_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2813,13 +2845,13 @@ CREATE TABLE IF NOT EXISTS `user_register` (
 -- Table structure for table `VerificationStatus`
 --
 
-CREATE TABLE IF NOT EXISTS `VerificationStatus` (
+CREATE TABLE `VerificationStatus` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Code` int(11) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -2827,13 +2859,13 @@ CREATE TABLE IF NOT EXISTS `VerificationStatus` (
 -- Table structure for table `Vocabulary`
 --
 
-CREATE TABLE IF NOT EXISTS `Vocabulary` (
+CREATE TABLE `Vocabulary` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Code` varchar(255) DEFAULT NULL,
-  `Name` varchar(255) DEFAULT NULL,
+  `Code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=22 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
