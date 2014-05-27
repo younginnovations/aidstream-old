@@ -337,6 +337,7 @@ class User_UserController extends Zend_Controller_Action
             $this->view->blockManager()->enable('partial/primarymenu.phtml');
             $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
             $this->view->blockManager()->enable('partial/published-list.phtml');
+            $this->view->blockManager()->enable('partial/organisation-data.phtml');
             $this->view->blockManager()->enable('partial/download-my-data.phtml');
             $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
             $this->view->blockManager()->enable('partial/uploaded-docs.phtml');
