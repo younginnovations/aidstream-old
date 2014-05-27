@@ -3247,7 +3247,8 @@ CREATE TABLE IF NOT EXISTS `role` (
 INSERT INTO `role` (`role_id`, `role`) VALUES
 (1, 'admin'),
 (2, 'user'),
-(3, 'superadmin');
+(3, 'superadmin'),
+(4, 'groupadmin');
 
 -- --------------------------------------------------------
 
