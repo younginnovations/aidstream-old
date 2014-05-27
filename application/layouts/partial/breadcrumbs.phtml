@@ -56,6 +56,12 @@ switch($identity->role){
                                 'module' => 'default',
                                 'controller' => 'admin',
                                 'action' => 'create-organisation-group'
+                            ),
+                            array(
+                                'label' => 'Edit Organisation Group',
+                                'module' => 'default',
+                                'controller' => 'admin',
+                                'action' => 'edit-group'
                             )
                         )
                     ),
@@ -103,11 +109,37 @@ switch($identity->role){
                         'module' => 'default',
                         'controller' => 'group',
                         'action' => 'list-organisation'
+                    ),
+                    array(
+                        'label' => 'My Profile',
+                        'module' => 'user',
+                        'controller' => 'user',
+                        'action' => 'myaccount',
+                        'pages' => array(
+                            array(
+                                'label' => 'Edit Profile',
+                                'module' => 'user',
+                                'controller' => 'user',
+                                'action' => 'edit',
+                            ),
+                            array(
+                                'label' => 'Change Password',
+                                'module' => 'user',
+                                'controller' => 'user',
+                                'action' => 'changepassword',
+                            ),
+                            array(
+                                'label' => 'Change Username',
+                                'module' => 'user',
+                                'controller' => 'user',
+                                'action' => 'changeusername'
+                            )
+                        )
                     )
                 )
             )
         );
-    break;
+        break;
     case 'admin':
         $container->addPage(
             array(
@@ -390,7 +422,7 @@ switch($identity->role){
                                 'controller' => 'user',
                                 'action' => 'edit',
                             ),
-                            ),
+                        ),
                     ),
                     array(
                         'label' => 'Change Password',
