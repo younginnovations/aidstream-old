@@ -1715,6 +1715,16 @@ var validEmail = function (email) {
                     });
                 }
             },
+            '#delete-group': {
+                "onclick": function (evt) {
+                    evt.preventDefault();
+                    var msg = "Are you sure you want to delete this group?";
+                    new confirmDialog('', msg, 'Yes', 'Cancel', function(){
+                        var url = dojo.query(getTarget(evt)).attr('href');
+                        window.location = url;
+                    });
+                }
+            },
             "#block-generate-published-xml-files a": {
                 "onclick": function (evt) {
                     evt.preventDefault();

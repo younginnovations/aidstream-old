@@ -24,7 +24,7 @@
                 <td><?php print $this->orgCount[$index-1] ?></td>
                 <td colspan="2">
                     <a href="<?php echo $this->baseUrl();?>/admin/edit-group?group_id=<?php echo $group['group_id'];?>">Edit</a> |
-                    <a href="<?php echo $this->baseUrl();?>/admin/delete-group?group_id=<?php echo $group['group_id'];?>">Delete</a>
+                    <a id="delete-group" href="<?php echo $this->baseUrl();?>/admin/delete-group?group_id=<?php echo $group['group_id'];?>">Delete</a>
                 </td>
                 <td></td>
             </tr>
