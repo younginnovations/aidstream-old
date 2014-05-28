@@ -148,6 +148,7 @@ class Model_CsvUpload
 
             case 'iso_date':
             case 'value_date':
+                $value = str_replace('/', '-', $value);
                 $date = date_parse($value);
                 if (!checkdate($date["month"], $date["day"], $date["year"])){ 
                     $this->error[$count][]['message'] = $parent . "-" . $child . " must be in date format.";
@@ -186,6 +187,7 @@ class Model_CsvUpload
     {
         $count = array();
         $count['total'] = $this->prepareDetailTransactionData();
+        //exit();
         $element = new Iati_Aidstream_Element_Activity_Transaction();
         
         $result = $element->fetchData($activityId, true);
@@ -327,7 +329,8 @@ class Model_CsvUpload
                 $value = $transactionData[$keys['commitment']];
                 $type =1;
             }
-            $transactionDate = date( 'Y-m-d' , strtotime($transactionData[$keys['transactiondate']]));
+            $transactionDate = str_replace('/', '-', trim($transactionData[$keys['transactiondate']]));
+            $transactionDate = date( 'Y-m-d' , strtotime($transactionDate));
             
             $this->elementData[$count]['ref'] = trim($transactionData[$keys['internalreference']]);
             $this->elementData[$count]['id'] = null;
@@ -405,7 +408,8 @@ class Model_CsvUpload
             if(!$transactionData[$keys['transactiondate']]){
                 $this->error[$count][]['message'] = "Transaction Date cannot be empty";
             } else {
-                $date = date_parse($transactionData[$keys['transactiondate']]);
+                $value = str_replace('/', '-', trim($transactionData[$keys['transactiondate']]));
+                $date = date_parse($value);
                 if (!checkdate($date["month"], $date["day"], $date["year"])){ 
                     $this->error[$count][]['message'] = "Transaction Date must be in date format";
                 }
