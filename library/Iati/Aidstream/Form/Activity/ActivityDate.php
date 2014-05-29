@@ -16,7 +16,7 @@ class Iati_Aidstream_Form_Activity_ActivityDate extends Iati_Core_BaseForm
             ->setValue($this->data['@iso_date'])
             ->setAttrib('class' , 'datepicker' );
         
-        $activityDateType = $model->getCodeArray('ActivityDateType', null, '1' , true);
+        $activityDateType = $model->getCodeandName('ActivityDateType', '1' , true);
         $form['type'] = new Zend_Form_Element_Select('type');
         $form['type']->setLabel('Activity Date Type')  
             ->setValue($this->data['@type'])

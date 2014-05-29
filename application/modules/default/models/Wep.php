@@ -149,13 +149,16 @@ class Model_Wep extends Zend_Db_Table_Abstract
         return $finalResult;
     }
 
-    public function getCodeandName($tblName, $lang_id)
+    public function getCodeandName($tblName, $lang_id, $nullOption = false)
     {
         $this->_name = $tblName;
         $rowSet = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART)->setIntegrityCheck(false)
         ->where('lang_id = ?',$lang_id)
         ->order(array('id ASC'));
         $results = $this->fetchAll($rowSet)->toArray();
+        if ($nullOption) {
+            $return[''] = 'Select Anyone';
+        }
         foreach ($results as $result) {
             $return[$result['id']] = $result['Code'];
         }
