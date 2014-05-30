@@ -90,7 +90,7 @@ class Iati_Snapshot_Lib_DataHandler
         if($this->getData()){
             $activities = $this->get('activities');
             $activityCount = 0;
-            foreach ($activities as $activity) {
+            foreach ((array)$activities as $activity) {
                 $activityCount += 1;
             }
             return $activityCount;
@@ -103,7 +103,7 @@ class Iati_Snapshot_Lib_DataHandler
         if($this->getData()){
             $sectors = $this->get('sectors');
             $sectorCount = 0;
-            foreach ($sectors as $sector) {
+            foreach ((array)$sectors as $sector) {
                 $sectorCount += 1;
             }
             return $sectorCount;
