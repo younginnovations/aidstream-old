@@ -1,18 +1,19 @@
+<!DOCTYPE html>
+<html>
 Hi <?php echo $this->first_name." "; ?>
-<?php
-if($this->middle_name){ echo $this->middle_name." ";}
-?>
+<?php if($this->middle_name){ echo $this->middle_name." ";} ?>
 <?php echo $this->last_name;?>,
-<br />
-<br />
-Thank you for registering with AidStream. Your registration request has been confirmed.
-<br />
-<br />
+<br>
+<br>
+Your registration request has been confirmed.
+<br>
+<br>
 Your AidStream username is: <b><?php echo $this->username;?></b>
-<br />
-<br />
-Thank you for registering with AidStream. You can visit the site at <a href="<?php echo $this->url?>" ><?php echo $this->url?></a><br />
-<br />
-<br />
-------<br />
+<br>
+<br>
+Thank you for registering with AidStream. You can visit the site at <a href="<?php echo $this->url?>" ><?php echo $this->url?></a><br>
+<br>
+------
+<br>
 AidStream
+</html>
