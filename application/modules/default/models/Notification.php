@@ -42,13 +42,12 @@ class Model_Notification{
     {
         $to = array($data['email'] => '');
         
-        $mailParams['subject'] = 'Account registration confirmed';
+        $mailParams['subject'] = 'Account Registration Confirmed';
         
         $mailParams['first_name'] = $data['first_name'];
         $mailParams['middle_name'] = $data['middle_name'];
         $mailParams['last_name'] = $data['last_name'];
         $mailParams['username'] = trim($data['user_name']);
-        $mailParams['password'] = $data['password'];
         $mailParams['url'] = "http://".$_SERVER['SERVER_NAME'].Zend_Controller_Front::getInstance()->getBaseUrl();
         
         $config = new Zend_Config_Ini(APPLICATION_PATH.'/configs/application.ini', APPLICATION_ENV);
@@ -73,7 +72,7 @@ class Model_Notification{
         $account = $model->getRowById('account', 'id', Zend_Auth::getInstance()->getIdentity()->account_id);
         
         //Send Support Mail
-        $mailParams['subject'] = 'Support request';
+        $mailParams['subject'] = 'Support Request';
         $mailParams['support_name'] = $data['support_name'];
         $mailParams['support_email'] = $data['support_email'];
         $mailParams['support_query'] = $data['support_query'];
