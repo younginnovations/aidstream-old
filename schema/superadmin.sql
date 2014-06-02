@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'superadmin',3,'admin@mail.com','964980fb514fb6c74369759fde2062a1',0,1);
+INSERT INTO `user` VALUES (1,'superadmin',3,'admin@mail.com','964980fb514fb6c74369759fde2062a1',0,1,'');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
