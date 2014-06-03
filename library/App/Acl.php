@@ -144,9 +144,7 @@ class App_Acl extends Zend_Acl
         $this->allow('admin', 'default:admin', 'delete-user');
         $this->allow('admin', 'default:admin', 'edit-user-permission');
         $this->allow('admin', 'default:admin', 'reset-user-password');
-        $this->allow('admin', 'default:admin', 'edit-group');
-        $this->allow('admin', 'default:admin', 'delete-group');        
-
+        
         $this->allow('superadmin', 'default:admin');
         $this->allow('superadmin', 'default:admin', 'register');
         $this->allow('superadmin', 'default:admin', 'set-simplified');
@@ -157,6 +155,9 @@ class App_Acl extends Zend_Acl
         $this->allow('superadmin', 'default:admin', 'validate-xml-files');
         $this->allow('superadmin', 'default:admin', 'group-organisations');
         $this->allow('superadmin', 'default:admin', 'change-organisation-status');
+        $this->allow('superadmin', 'default:admin', 'edit-group');
+        $this->allow('superadmin', 'default:admin', 'delete-group');        
+
     }
 
     public function isAllowed($role = null, $resource = null, $privilege = null)
