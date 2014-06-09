@@ -3,8 +3,10 @@
     <div class="element-title element-current ">Transaction</div>
 
     <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/list-elements/?classname=Activity_Transaction&activity_id=<?php echo $this->activityInfo['id'] ?>">Edit</a></div>
-   
-    <?php foreach ($this->transactions as $key=>$transaction): ?>
+
+    <?php $data = Iati_ElementSorter::sortElementsData($this->transactions , array('TransactionDate' =>'@iso_date') , array('TransactionValue' => '@value_date')); ?>
+    
+    <?php foreach ($data as $key=>$transaction): ?>
     <div class="current">
             <ul class="style-2 arrow">
                 <li>
