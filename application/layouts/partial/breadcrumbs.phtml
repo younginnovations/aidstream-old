@@ -197,6 +197,12 @@ switch($identity->role){
                         'action'     => 'edit-element',
                     ),
                     array(
+                        'label' => 'Duplicate Activity',
+                        'module' => 'default',
+                        'controller' => 'activity',
+                        'action' => 'duplicate-activity',
+                    ),
+                    array(
                         'label' => 'View Organisation Data',
                         'module'     => 'default',
                         'controller' => 'organisation',
@@ -266,7 +272,7 @@ switch($identity->role){
                                 'action'     => 'edit-element',
                             ),
                             array(
-                                'label' => 'List elements',
+                                'label' => 'List Elements',
                                 'module'     => 'default',
                                 'controller' => 'activity',
                                 'action'     => 'list-elements',
@@ -385,7 +391,49 @@ switch($identity->role){
                         'action'     => 'edit-activity',
                     ),
                     array(
-                        'label' => 'List',
+                        'label' => 'Add Activity',
+                        'module'     => 'default',
+                        'controller' => 'activity',
+                        'action'     => 'add-element',
+                    ),
+                    array(
+                        'label' => 'Edit Activity',
+                        'module'     => 'default',
+                        'controller' => 'activity',
+                        'action'     => 'edit-element',
+                    ),
+                    array(
+                        'label' => 'Edit Elements',
+                        'module'     => 'default',
+                        'controller' => 'organisation',
+                        'action'     => 'edit-elements',
+                    ),
+                    array(
+                        'label' => 'Duplicate Activity',
+                        'module' => 'default',
+                        'controller' => 'activity',
+                        'action' => 'duplicate-activity',
+                    ),
+                    array(
+                        'label' => 'Download My Data',
+                        'module' => 'default',
+                        'controller' => 'wep',
+                        'action' => 'download-my-data'
+                    ),
+                    array(
+                        'label' => 'View Organisation Data',
+                        'module'     => 'default',
+                        'controller' => 'organisation',
+                        'action'     => 'view-elements',
+                    ),
+                    array(
+                        'label' => 'Uploaded Docs',
+                        'module'     => 'default',
+                        'controller' => 'wep',
+                        'action'     => 'list-uploaded-documents',
+                    ),
+                    array(
+                        'label' => 'List Activities',
                         'module'     => 'default',
                         'controller' => 'wep',
                         'action'     => 'view-activities',
@@ -408,6 +456,12 @@ switch($identity->role){
                                 'controller' => 'wep',
                                 'action'     => 'view-activity',
                             ),
+                            array(
+                                'label' => 'View Activity',
+                                'module' => 'default',
+                                'controller' => 'activity',
+                                'action' => 'view-activity-info',
+                            )
                         ),
                     ),
                     array(
@@ -422,16 +476,15 @@ switch($identity->role){
                                 'controller' => 'user',
                                 'action' => 'edit',
                             ),
+                            array(
+                                'label' => 'Change Password',
+                                'module' => 'user',
+                                'controller' => 'user',
+                                'action' => 'changepassword'
+                            )
                         ),
-                    ),
-                    array(
-                        'label' => 'Change Password',
-                        'module' => 'user',
-                        'controller' => 'user',
-                        'action' => 'changepassword',
-                    ),
-
-                ),
+                    )
+                )
             )
         );
         break;
