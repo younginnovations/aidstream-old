@@ -144,7 +144,7 @@ INSERT INTO `Help` (`id`, `element_name`, `message`) VALUES
 (104, 'Activity_RecipientCountry-text', 'This is the name of the country.'),
 (105, 'Activity_RecipientCountry-xml_lang', 'The ISO 639-1 code for the language used for the text should be provided unless it is in the default language.'),
 (106, 'Activity_RecipientCountry-percentage', 'If the activity occurs in more than one country, the percentage of activity commitment allocated to each country should be provided if available. Percentages should add up to 100% of the activity being reported if they are shown for each country.'),
-(107, 'Activity_RecipientCountry-code', 'The two-digit iso code should be used for each country. The only one currently missing from the list is Kosovo, for which the code XK should be used.'),
+(107, 'Activity_RecipientCountry-code', 'The two-digit iso code should be used for each country.'),
 (108, 'Activity_RecipientRegion', 'This identifies the region in which the activity takes place. Regions can be supra-national (a geographical or administrative grouping of countries into a region - e.g. Sub-Saharan Africa, Mekong Delta) or ''global'' (activities benefiting substantially all developing countries).'),
 (109, 'Activity_RecipientRegion-text', 'The name of the region - this should align to the DAC regions (although this is an area under review).'),
 (110, 'Activity_RecipientRegion-xml_lang', 'The ISO 639-1 code for the language used for the text should be provided unless it is in the default language.'),
