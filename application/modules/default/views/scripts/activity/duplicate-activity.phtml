@@ -1,0 +1,65 @@
+<div class="default-info">
+    You are duplicating activity: 
+    <?php if (count($this->activity_info['Title'])): ?> 
+        <a href="/activity/view-activity-info/?activity_id=<?php print $this->activity_info['Title'][0]['text']; ?>">
+        <u><i><?php print $this->activity_info['Title'][0]['text']; ?></i></u></a>
+    <?php else: ?>
+        <a href="/activity/view-activity-info/?activity_id=<?php print $this->activity_info['Title'][0]['text']; ?>">
+        <u><i>No Title</i></u></a>
+    <?php endif; ?>
+    <br>
+    Please note that Transactions are not duplicated. You have to manually add Transactions to the duplicated activity.
+</div>
+<div class = "activity-info-wrapper">
+  <div class="title">Activity Default</div>
+    <div class = "activity-info">
+        <table class ="activity-detail-table add-activity">
+            
+            <tr class='element-value element-value-even'>
+                <td class="attrib-label" >Default Language:</td><td class="attrib-value"><?php echo $this->activity_info['@xml_lang'];?></td>
+            </tr>
+            <tr class='element-value element-value-odd'>
+                <td class="attrib-label" >Default Currency:</td><td><?php echo $this->activity_info['@default_currency'];?></td>
+            </tr>
+            <tr class='element-value element-value-even'>
+                <td class="attrib-label" >Hierarchy:</th><td><?php echo $this->activity_info['@hierarchy'];?></td>
+            </tr>
+            <!-- Hide Linked Data Default (v1.2.4) --> 
+            <tr class='element-value element-value-even' style='display:none'>
+                <td class="attrib-label" >Linked Data Uri:</th><td><?php echo $this->activity_info['@linked_data_uri'];?></td>
+            </tr>
+            <tr class='element-value element-value-odd'>
+                <td class="attrib-label" >Reporting Organisation Identifier:</td><td><?php echo $this->activity_info['ReportingOrg']['@ref'];?></td>
+            </tr>
+            <tr class='element-value element-value-even'>
+                <td class="attrib-label" >Reporting Organisation Type:</td><td><?php echo $this->activity_info['ReportingOrg']['@type'];?></td>
+            </tr>
+            <tr class='element-value element-value-odd'>
+                <td class="attrib-label" >Reporting Organisation Name:</td><td><?php echo $this->activity_info['ReportingOrg']['text'];?></td>
+            </tr>
+            <tr class='element-value element-value-even'>
+                <td class="attrib-label" >Reporting Organisation Language:</td><td><?php echo $this->activity_info['ReportingOrg']['@xml_lang'];?></td>
+            </tr>
+            <tr class='element-value element-value-odd'>
+                <td class="attrib-label" >Collaboration Type:</td><td><?php echo $this->activity_info['CollaborationType']['text'];?></td>
+            </tr>
+            <tr class='element-value element-value-even'>
+                <td class="attrib-label" >Default Flow Type:</td><td><?php echo $this->activity_info['DefaultFlowType']['text'];?></td>
+            </tr>
+            <tr class='element-value element-value-odd'>
+                <td class="attrib-label" >Default Finance Type:</td><td><?php echo $this->activity_info['DefaultFinanceType']['text'];?></td>
+            </tr>
+            <tr class='element-value element-value-even'>
+                <td class="attrib-label" >Default Aid Type:</td><td><?php echo $this->activity_info['DefaultAidType']['text'];?></td>
+            </tr>
+            <tr class='element-value element-value-odd'>
+                <td class="attrib-label" >Default Tied Status:</td><td><?php echo $this->activity_info['DefaultTiedStatus']['text'];?></td>
+            </tr>
+        </table>
+    
+    </div>
+</div>
+
+<div>
+<?php echo $this->form;?>
+</div> 

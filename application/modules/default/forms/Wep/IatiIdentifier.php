@@ -77,7 +77,7 @@ class Form_Wep_IatiIdentifier extends App_Form
             array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'default-activity-list'))
         ));
         
-        $save = new Zend_Form_Element_Submit('save');
+        $save = new Zend_Form_Element_Submit('Save');
         $save->setValue('Save')->setAttrib('class','form-submit');
         $this->addElement($save);
         $this->setMethod('post');

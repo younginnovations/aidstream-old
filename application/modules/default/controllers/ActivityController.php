@@ -16,6 +16,8 @@ class ActivityController extends Zend_Controller_Action
         $this->view->blockManager()->enable('partial/primarymenu.phtml');
         $this->view->blockManager()->enable('partial/add-activity-menu.phtml');
         $this->view->blockManager()->enable('partial/published-list.phtml');
+        $this->view->blockManager()->enable('partial/organisation-data.phtml');
+        $this->view->blockManager()->enable('partial/download-my-data.phtml');
 
         // for role user check if the user has permission to add, publish ,if not disable menu.
         if($identity->role == 'user'){
@@ -31,6 +33,9 @@ class ActivityController extends Zend_Controller_Action
             }
         }
         $this->view->blockManager()->enable('partial/usermgmtmenu.phtml');
+        if(!Simplified_Model_Simplified::isSimplified()){
+            $this->view->blockManager()->enable('partial/uploaded-docs.phtml');
+        }
     }
         
     public function addElementAction()
@@ -122,6 +127,9 @@ class ActivityController extends Zend_Controller_Action
         $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
         $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
         $this->view->blockManager()->disable('partial/published-list.phtml');
+        $this->view->blockManager()->disable('partial/organisation-data.phtml');
+        $this->view->blockManager()->disable('partial/download-my-data.phtml');
+        $this->view->blockManager()->disable('partial/uploaded-docs.phtml');
     }
     
     public function listElementsAction()
@@ -153,6 +161,9 @@ class ActivityController extends Zend_Controller_Action
         $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
         $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
         $this->view->blockManager()->disable('partial/published-list.phtml');
+        $this->view->blockManager()->disable('partial/organisation-data.phtml');
+        $this->view->blockManager()->disable('partial/download-my-data.phtml');
+        $this->view->blockManager()->disable('partial/uploaded-docs.phtml');
     }
     
     public function editElementAction()
@@ -177,7 +188,7 @@ class ActivityController extends Zend_Controller_Action
         
         if($data = $this->getRequest()->getPost()){
             $element->setData($data[$element->getClassName()]);
-            $form = $element->getForm(); 
+            $form = $element->getForm();
             if($form->validate()){
                 //$eleId will be null is element is deleted or in case of db error
                 $eleId = $element->save($data[$element->getClassName()] , $activityId);
@@ -238,7 +249,7 @@ class ActivityController extends Zend_Controller_Action
                 } else {  
                     if($element->getClassName() == 'Activity'){   
                         $data = $element->fetchData($activityId);  
-                    } else {    
+                    } else {
                         $data[$element->getClassName()] = $element->fetchData($activityId,true);
                     }                  
                 }    
@@ -276,6 +287,9 @@ class ActivityController extends Zend_Controller_Action
         $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
         $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
         $this->view->blockManager()->disable('partial/published-list.phtml');
+        $this->view->blockManager()->disable('partial/organisation-data.phtml');
+        $this->view->blockManager()->disable('partial/download-my-data.phtml');
+        $this->view->blockManager()->disable('partial/uploaded-docs.phtml');
     }
     
     public function deleteElementAction()
@@ -362,6 +376,9 @@ class ActivityController extends Zend_Controller_Action
         $this->view->blockManager()->disable('partial/add-activity-menu.phtml');
         $this->view->blockManager()->disable('partial/usermgmtmenu.phtml');
         $this->view->blockManager()->disable('partial/published-list.phtml');
+        $this->view->blockManager()->disable('partial/organisation-data.phtml');
+        $this->view->blockManager()->disable('partial/download-my-data.phtml');
+        $this->view->blockManager()->disable('partial/uploaded-docs.phtml');
 
     }
     
@@ -383,5 +400,51 @@ class ActivityController extends Zend_Controller_Action
             ->addMessage(array('message' => "Activity Deleted sucessfully."));
         $this->_redirect("/wep/view-activities");
 
+    }
+
+    public function duplicateActivityAction() 
+    {
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        $activityId = $this->_getParam('activity_id');
+        if (!$activityId) {
+            $this->_helper->FlashMessenger->addMessage(array('error' => "No id provided."));
+            $this->_redirect('wep/view-activities');
+        }
+
+        $activityClassObj = new Iati_Aidstream_Element_Activity();
+        $activityModel = new Model_Activity();
+        $wepModel = new Model_Wep();
+
+        $activities = $wepModel->listAll('iati_activities', 'account_id', $identity->account_id);
+        $activities_id = $activities[0]['id'];
+        $activityData = $activityClassObj->fetchData($activityId, false);
+
+        $form = new Form_Wep_IatiIdentifier('add', $identity->account_id);
+        $form->add('add', $identity->account_id);
+        $form->populate(array('reporting_org'=>$activityData['Activity']['ReportingOrg']['@ref']));
+        
+        if($data = $this->getRequest()->getPost()){
+            if (!$form->isValid($data)) {
+                $form->populate($data);
+            } else {
+                $iatiIdentifier = array();
+                $iatiIdentifier['iati_identifier'] = $data['iati_identifier_text'];
+                $iatiIdentifier['activity_identifier'] = $data['activity_identifier'];
+
+                $newActivityId = $activityModel->duplicateActivity($activities_id, $activityId, $activityData['Activity'], $iatiIdentifier);
+            }
+
+            if ($newActivityId) {
+                $this->_helper->FlashMessenger->addMessage(array('message' => "Activity duplication successful. View duplicated 
+                    <a href='{$this->view->baseUrl()}/activity/view-activity-info/?activity_id={$newActivityId}'>activity</a>."));
+                $this->_redirect('/wep/view-activities');
+            } else {
+                $this->_helper->FlashMessenger->addMessage(array('error' => 'Activity duplication failed.'));
+                $this->_redirect('/wep/view-activities');
+            }
+        }
+
+        $this->view->form = $form;
+        $this->view->activity_info = $activityData['Activity'];
     }
 }
