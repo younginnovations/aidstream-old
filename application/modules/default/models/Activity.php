@@ -101,6 +101,7 @@ class Model_Activity
     public function duplicateActivity($orgId, $oldActivityId, $activityData, $iatiIdentifier) {
         $wepModel = new Model_Wep();
 
+        $activityInfo['@xml_lang'] = $activityData['@xml_lang'];
         $activityInfo['@default_currency'] = $activityData['@default_currency'];
         $activityInfo['@hierarchy'] = $activityData['@hierarchy'];
         $activityInfo['@linked_data_uri'] = $activityData['linked_data_default'];
