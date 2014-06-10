@@ -1108,7 +1108,8 @@ INSERT INTO `Country` (`id`, `Code`, `Name`, `lang_id`) VALUES
 (647, 'ZM', 'ZAMBIE', 3),
 (648, 'ZW', 'ZIMBABWE', 3),
 (649, 'SS', 'SOUTH SUDAN', 1),
-(650, 'AN', 'NETHERLAND ANTILLES', 1);
+(650, 'AN', 'NETHERLAND ANTILLES', 1)
+(651, 'XK', 'KOSOVO', 1);
 
 -- --------------------------------------------------------
 
