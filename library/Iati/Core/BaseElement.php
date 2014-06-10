@@ -33,6 +33,7 @@ class Iati_Core_BaseElement
     protected $count;
     protected $viewScriptEnabled = false;
     protected $viewScript;
+    protected $duplicate = false;
 
 
     public function __construct()
@@ -92,6 +93,11 @@ class Iati_Core_BaseElement
     public function getAttribs()
     {
         return $this->attribs;
+    }
+
+    public function setDuplicate($duplicate)
+    {
+        $this->duplicate = (bool) $duplicate;
     }
     
     /**
@@ -286,16 +292,17 @@ class Iati_Core_BaseElement
      * creates child elements if present and calls save for the child elements
      * @param $data data of the element and its childrens
      * @param Integer $parentId Id of the parent of the element for fetching the data
+     * @param Bool $duplicate for duplication of activity 
      */
-    public function save($data , $parentId = null)
+    public function save($data , $parentId = null, $duplicate = false)
     {  
         if($this->isMultiple){
             if(!$data) return;
             foreach($data as $elementData){ 
-                $eleId = $this->saveSingleElement($elementData , $parentId);
+                $eleId = $this->saveSingleElement($elementData , $parentId, $duplicate);
             }
         } else {
-            $eleId = $this->saveSingleElement($data , $parentId);
+            $eleId = $this->saveSingleElement($data , $parentId, $duplicate);
         }
         return $eleId;
     }
@@ -303,7 +310,7 @@ class Iati_Core_BaseElement
     /**
      * Internal function to save single element. Called by save function.
      */
-    protected function saveSingleElement($elementData , $parentId = null)
+    protected function saveSingleElement($elementData , $parentId = null, $duplicate = false)
     {
         if($parentId){
             $parentColumnName = $this->getParentCoulmn();
@@ -314,6 +321,10 @@ class Iati_Core_BaseElement
             if($parentId){
                 $elementsData[$parentColumnName] = $parentId;
             }
+
+            // If duplicate is true, set element id as empty
+            if ($duplicate) $elementsData['id'] = '';
+
             // If no id is present, insert the data else update the data using the id.
             if(!$elementsData['id']){
                 $elementsData['id'] = null;
@@ -345,11 +356,15 @@ class Iati_Core_BaseElement
     /**
      * Function to get the data for the elements attribs form the elements and its childrens data.
      */
-    public function getElementsData($data)
+    public function getElementsData($data, $duplicate = false)
     {
         foreach($this->attribs as $attrib){
             // @todo remove the replace once the @ is removed from columnname.
-            $elementsData[$attrib] = $data[preg_replace('/^@/' , '' , $attrib)];
+            if (!$this->duplicate) {
+                $elementsData[$attrib] = $data[preg_replace('/^@/' , '' , $attrib)];
+            } elseif ($this->duplicate) {
+                $elementsData[$attrib] = $data[$attrib];
+            }
         }
         return $elementsData;
     }
