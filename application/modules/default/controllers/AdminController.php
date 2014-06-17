@@ -793,7 +793,7 @@ class AdminController extends Zend_Controller_Action
         fwrite($fp,$xml->asXML());
         fclose($fp);
         if (file_exists($xmlPath.$fileName)) {
-            $this->_redirect('/files/$xml/' . $fileName);
+            $this->_redirect('/files/xml/' . $fileName);
         }
     }
 
