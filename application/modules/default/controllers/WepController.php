@@ -125,6 +125,9 @@ class WepController extends Zend_Controller_Action
                         ->addMessage(array('error' => "You have some error in your data"));
                     $form->populate($data);
                 } else {
+                    //Trim reporting_org_ref
+                    $data['reporting_org_ref'] = trim($data['reporting_org_ref']);
+
                     //Get default fields values for reporting org
                     $defaultFieldsValues = $model->getDefaults('default_field_values', 'account_id', $identity->account_id);
                     $defaults = $defaultFieldsValues->getDefaultFields();
@@ -132,7 +135,6 @@ class WepController extends Zend_Controller_Action
                     $reportingOrgOld['@type'] = $defaults['reporting_org_type'];
                     $reportingOrgOld['@xml_lang'] = $defaults['reporting_org_lang'];
                     $reportingOrgOld['text'] = $defaults['reporting_org'];
-
                     $reportingOrgOld = serialize($reportingOrgOld);
 
                     //Get values from settings form
@@ -140,7 +142,6 @@ class WepController extends Zend_Controller_Action
                     $reportingOrgNew['@type'] = $data['reporting_org_type'];
                     $reportingOrgNew['@xml_lang'] = $data['reporting_org_lang'];
                     $reportingOrgNew['text'] = $data['default_reporting_org'];
-
                     $reportingOrgNew = serialize($reportingOrgNew);
 
                     //Update Publishing Info
@@ -157,8 +158,8 @@ class WepController extends Zend_Controller_Action
                     //If reporting org change
                     if ($reportingOrgNew != $reportingOrgOld) {
                         if ($save == "ok") {
-                            $model->settingsChange();
                             $model->updateIatiIdentifiers($data['reporting_org_ref']);
+                            $model->settingsChange();
                             //Check push_to_registry for activity
                             $modelPublished = new Model_Published();
                             $activityPublish = $modelPublished->isPushedToRegistry($identity->account_id);
