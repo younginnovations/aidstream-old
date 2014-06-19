@@ -311,10 +311,9 @@ class Model_Wep extends Zend_Db_Table_Abstract
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
         //Get Activities
-        $model = new Model_Wep();
-        $activities = $model->listAll('iati_activities', 'account_id', $identity->account_id);
+        $activities = $this->listAll('iati_activities', 'account_id', $identity->account_id);
         $activities_id = $activities[0]['id'];
-        $activityArray = $model->listAll('iati_activity', 'activities_id', $activities_id);
+        $activityArray = $this->listAll('iati_activity', 'activities_id', $activities_id);
         
         //Update Each Activity Reporting Org
         $activityReportingOrg = new Model_ReportingOrg();
@@ -349,9 +348,8 @@ class Model_Wep extends Zend_Db_Table_Abstract
             if ($update) {
                 //Update organisation: last updated time
                 $wepModel = new Model_Wep();
-                $organisationData = array();
-                $organisationData['@last_updated_datetime'] = date('Y-m-d h:i:s');
                 $organisationData['id'] = $organisationId;
+                $organisationData['@last_updated_datetime'] = date('Y-m-d h:i:s');
                 $wepModel->updateRowsToTable('iati_organisation' , $organisationData);                        
             }
         }
