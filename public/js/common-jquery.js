@@ -62,6 +62,14 @@ $(document).ready(function () {
             $('#organisation-xml input').attr('checked', false);
         }
     });
+
+    $('.selectalltransaction').click(function(){
+        if ($(this).is(':checked')) {
+            $('.activity-list-table input').attr('checked', true);
+        } else {
+            $('.activity-list-table input').attr('checked', false);
+        }
+    })
     
     $('#contain-body').css('min-height', $(window).height() - 170 + 'px');
 });

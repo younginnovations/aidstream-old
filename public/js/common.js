@@ -519,6 +519,25 @@ var validEmail = function (email) {
                 }
             },
 
+            "#delete-transactions": {
+                "onclick": function (evt) {
+                    var transactions = new Array();
+                    dojo.query('.activity-list-table td input[type=checkbox]:checked').forEach(function (tag) {
+                        transactions.push(tag.value);
+                    });
+                    dojo.query('#transactions').attr('value', transactions.join(","));
+
+                    if (transactions.length > 0) {
+                        var msg = "Are you sure you want to delete the selected transactions?";
+                        new confirmDialog('', msg, 'Yes', "Cancel", function () {
+                            dojo.byId('transactions_form').submit();
+                        });
+                    } else {
+                        evt.preventDefault();
+                    }
+                }
+            }, 
+
             "#push_to_registry": {
                 "onclick": function (evt) {
                     var ids = new Array();

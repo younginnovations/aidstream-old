@@ -318,6 +318,44 @@ class ActivityController extends Zend_Controller_Action
         $this->_redirect("activity/list-elements?classname={$elementClass}"
                         ."&activity_id={$activityId}");
     }
+
+    public function deleteElementsAction() {
+        if ($this->getRequest()->getPost()) {
+            $elementClass = $this->_getParam('classname');
+            $eleIds = $this->_getParam('id');
+            $activityId = $this->_getParam('activity_id');
+            
+            if(!$elementClass){
+                $this->_helper->FlashMessenger
+                    ->addMessage(array('error' => "Could not fetch element."));
+                $this->_redirect("/wep/dashboard");           
+            }
+            
+            if(!count($eleIds)){
+                $this->_helper->FlashMessenger
+                    ->addMessage(array('error' => "No id provided."));
+                $this->_redirect("/wep/dashboard");  
+            }
+
+            $elementName =  "Iati_Aidstream_Element_".$elementClass;
+            $element = new $elementName();
+            $eleIds = explode(",", $eleIds);
+            
+            foreach ($eleIds as $eleId) {
+                $element->deleteElement($eleId , false);
+            }
+
+            $this->_helper->FlashMessenger
+                ->addMessage(array('message' => 'Elements deleted successfully.'));
+            $this->_redirect("activity/list-elements?classname={$elementClass}"
+                            ."&activity_id={$activityId}");
+        } else {
+            $this->_helper->FlashMessenger
+                ->addMessage(array('error' => "Unknown action."));
+            $this->_redirect("/wep/dashboard");
+        }
+        
+    }
     
     public function viewElementAction()
     {
