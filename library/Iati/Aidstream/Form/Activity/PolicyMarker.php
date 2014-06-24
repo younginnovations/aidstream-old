@@ -18,13 +18,17 @@ class Iati_Aidstream_Form_Activity_PolicyMarker extends Iati_Core_BaseForm
             ->setAttrib('class' , 'form-select')
             ->setMultioptions($policySignificance);
 
-        $vocabulary = $model->getCodeArray('Vocabulary', null, '1' , true);
-        $form['vocabulary'] = new Zend_Form_Element_Select('vocabulary');
-        $form['vocabulary']->setLabel('Vocabulary')  
-            ->setValue($this->data['@vocabulary'])   
-            ->setAttrib('class' , 'form-select')
-            ->setMultioptions($vocabulary);
-        
+        /**
+         *  Hide Vocabulary (v1.2.7)
+         *  
+            $vocabulary = $model->getCodeArray('Vocabulary', null, '1' , true);
+            $form['vocabulary'] = new Zend_Form_Element_Select('vocabulary');
+            $form['vocabulary']->setLabel('Vocabulary')  
+                ->setValue($this->data['@vocabulary'])   
+                ->setAttrib('class' , 'form-select')
+                ->setMultioptions($vocabulary);
+        */
+       
         $code = $model->getCodeArray('PolicyMarker', null, '1' , true);
         $form['code'] = new Zend_Form_Element_Select('code');
         $form['code']->setLabel('Policy Marker')  

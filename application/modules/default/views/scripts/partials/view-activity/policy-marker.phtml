@@ -30,7 +30,8 @@
                             <span class="name">Code:</span>
                             <span class="infom"><?php if ($element['@code']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('PolicyMarker' , '@code' , $element['@code'],'Name'),Iati_Core_Codelist::getCodeByAttrib('PolicyMarker' , '@code' , $element['@code']))) ?></span>
                         </li>
-                        <li>
+                        <!-- Hide Vocabulary (v1.2.7) --> 
+                        <li style="display:none">
                             <span class="name">Vocabulary:</span>
                             <span class="infom"><?php if ($element['@vocabulary']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('PolicyMarker' , '@vocabulary' , $element['@vocabulary'],'Name'),Iati_Core_Codelist::getCodeByAttrib('PolicyMarker' , '@vocabulary' , $element['@vocabulary']))) ?></span>
                         </li>
