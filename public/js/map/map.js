@@ -9,8 +9,8 @@ function initMap(ele, latlng) {
         zoom: 3
     }).addLayer(new L.TileLayer(
         'http://api.tiles.mapbox.com/v3/younginnovations.ijg2d43b/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="http://osm.org/copyright" title="Map powered by OSM">OSM</a> | ' +
-                '<a href="http://www.mapquest.com/" target="_blank" title="Nominatim Search Courtesy of Mapquest">MapQuest</a>'
+            attribution: "<a href='https://www.mapbox.com/about/maps/' target='_blank'>&copy; Mapbox &copy; OpenStreetMap</a> | " +
+                "<a href='http://www.mapquest.com/' target='_blank' title='Nominatim Search Courtesy of Mapquest'>MapQuest</a>"
         }
     ));
     if (latlng) {
