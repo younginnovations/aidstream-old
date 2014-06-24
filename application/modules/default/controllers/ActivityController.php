@@ -346,7 +346,7 @@ class ActivityController extends Zend_Controller_Action
             }
 
             $this->_helper->FlashMessenger
-                ->addMessage(array('message' => 'Elements deleted successfully.'));
+                ->addMessage(array('message' => 'Element(s) deleted successfully.'));
             $this->_redirect("activity/list-elements?classname={$elementClass}"
                             ."&activity_id={$activityId}");
         } else {
