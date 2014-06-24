@@ -8,7 +8,7 @@ function initMap(ele, latlng) {
         center: center,
         zoom: 3
     }).addLayer(new L.TileLayer(
-        'http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        'http://api.tiles.mapbox.com/v3/younginnovations.ijg2d43b/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="http://osm.org/copyright" title="Map powered by OSM">OSM</a> | ' +
                 '<a href="http://www.mapquest.com/" target="_blank" title="Nominatim Search Courtesy of Mapquest">MapQuest</a>'
         }
