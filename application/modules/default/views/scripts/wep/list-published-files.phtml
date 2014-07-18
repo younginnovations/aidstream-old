@@ -1,9 +1,12 @@
+<div class="default-info">
+If you are looking to download the XML files ensure that your activities are published then right click on the XML link below and select "<b>Save Link As...</b>" to save the IATI XML file in your computer.
+</div>
 <?php if(!Simplified_Model_Simplified::isSimplified()) : ?>
 <!--Starts of Displaying Published Files of an Organisation-->
 <?php echo $this->partial("partials/published-files/organisation-published-files.phtml" , array(
                                                                                             'published_files_organisation'=>$this->published_files_organisation,
                                                                                             'publish_permission' => $this->publish_permission,
-                                                                                            'formForOrganisation' => $this->formForOrganisation  
+                                                                                            'formForOrganisation' => $this->formForOrganisation
                                                                                             )
                           );
 ?>
@@ -15,7 +18,7 @@
 <?php echo $this->partial("partials/published-files/activities-published-files.phtml" , array(
                                                                                             'published_files_activities'=>$this->published_files_activities,
                                                                                             'publish_permission' => $this->publish_permission,
-                                                                                            'formForActivities' => $this->formForActivities 
+                                                                                            'formForActivities' => $this->formForActivities
                                                                                             )
                           );
 ?>
