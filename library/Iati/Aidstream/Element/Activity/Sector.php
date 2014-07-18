@@ -8,7 +8,7 @@ class Iati_Aidstream_Element_Activity_Sector extends Iati_Core_BaseElement
     protected $displayName = 'Sector';
     protected $tableName = 'iati_sector';
     protected $attribs = array('id' , 'text' , '@xml_lang' , '@code' , '@percentage' , '@vocabulary');
-    protected $iatiAttribs = array('text' , '@xml_lang' , '@code' , '@percentage' , '@vocabulary');
+    protected $iatiAttribs = array('text' , '@xml_lang' , '@vocabulary', '@code' , '@percentage');
 
     public function save($data , $parentId = null)
     {
@@ -27,16 +27,16 @@ class Iati_Aidstream_Element_Activity_Sector extends Iati_Core_BaseElement
                     {
                         $elementsData[$parentColumnName] = $parentId;
                     }
-                    
+
                     if(($elementsData['@vocabulary']) && $elementsData['@vocabulary'] != '3')
-                    {   
+                    {
                         $elementsData['@code'] = $elementData['non_dac_code'];
                     }
-                    
+
                     // If no id is present, insert the data else update the data using the id.
                     if (!$elementsData['id'])
                     {
-                        $elementsData['id'] = null;                        
+                        $elementsData['id'] = null;
                         $eleId = $this->db->insert($elementsData);
                     } else
                     {
@@ -54,7 +54,7 @@ class Iati_Aidstream_Element_Activity_Sector extends Iati_Core_BaseElement
                     }
                 }
 
-                // If children are present create children elements and call their save function.                
+                // If children are present create children elements and call their save function.
                 if (!empty($this->childElements))
                 {
                     foreach ($this->childElements as $childElementClass)
@@ -65,7 +65,7 @@ class Iati_Aidstream_Element_Activity_Sector extends Iati_Core_BaseElement
                     }
                 }
             }
-        } 
+        }
         return $eleId;
     }
 
