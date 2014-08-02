@@ -436,7 +436,7 @@ class OrganisationController extends Zend_Controller_Action
         $next_state = Iati_WEP_ActivityState::getNextStatus($state);
         if ($next_state && Iati_WEP_ActivityState::hasPermissionForState($next_state))
         {
-            $status_form = new Form_Wep_ActivityChangeState();
+            $status_form = new Form_Organisation_OrganisationDataChangeState();
             $status_form->setAction($this->view->baseUrl() . "/organisation/update-state");
             $status_form->ids->setValue($organisationId);
             $status_form->status->setValue($next_state);
