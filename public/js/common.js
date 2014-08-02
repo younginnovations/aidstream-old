@@ -536,7 +536,7 @@ var validEmail = function (email) {
                         evt.preventDefault();
                     }
                 }
-            }, 
+            },
 
             "#push_to_registry": {
                 "onclick": function (evt) {
@@ -950,7 +950,7 @@ var validEmail = function (email) {
                     var identifier = getTarget(evt).value.replace(/ /g, '');
                     dojo.query('#user_name').attr('value', identifier + "_group");
                 }
-            },  
+            },
 
             ".delete-item": {
                 'onclick': function (evt) {
@@ -1578,23 +1578,22 @@ var validEmail = function (email) {
             "#change_state": {
                 "onclick": function (evt) {
                     var node = getTarget(evt);
-                    var baseURI = node.baseURI;
                     if (node.value == 'Published') {
                         evt.preventDefault();
-                        match = baseURI.match('/organisation/');
-                        if (!match) {
+                        var form = node.form.name;
+                        if (form == 'iati_activity_change_status') {
                             var msg = "The activity will be published. The already published activities will ";
-                            msg += "be republished. Are you sure you want to publish the activities?";
+                                msg += "be republished. Are you sure you want to publish the activities?";
 
                             new confirmDialog('', msg, 'Yes, publish the activities', "Don't publish", function () {
                                 dojo.byId('iati_activity_change_status').submit();
                             });
                         } else {
                             var msg = "The organisation data will be published. The already published organisation data will ";
-                            msg += "be republished. Are you sure you want to publish the organisation data?";
-                        
+                                msg += "be republished. Are you sure you want to publish the organisation data?";
+
                             new confirmDialog('', msg, 'Yes, publish the organisation data', "Don't publish", function () {
-                                dojo.byId('iati_activity_change_status').submit();
+                                dojo.byId('iati_organisationdata_change_status').submit();
                             });
                         }
                     }
