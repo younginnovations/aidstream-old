@@ -1804,7 +1804,7 @@ margin-left: 124px;
     background: #009ada url(../images/arrow-hover.png) no-repeat right 6px;
     color: #fff;
 }
-#iati_activity_change_status #status-label, #iati_activity_change_status #ids-label, #iati_activity_change_status #change_state-label, #iati_activity_status #status-label, #iati_activity_status #ids-label, #register_registry_info-label, #reset_password-label, #forgotpassword-label, #loginform-label, #login-label, #user_info-label, #organisation_info-label, #create_new_account-label, #reporting_org_info-label, #default_field_values-label, #default_field_groups-label, #file_ids-label, #push_to_registry-label, #iati_activity_status #change-label, #reporting_org-label {
+#iati_activity_change_status #status-label, #iati_organisationdata_change_status #status-label, #iati_activity_change_status #ids-label, #iati_organisationdata_change_status #ids-label, #iati_activity_change_status #change_state-label, #iati_organisationdata_change_status #change_state-label, #iati_activity_status #status-label, #iati_activity_status #ids-label, #register_registry_info-label, #reset_password-label, #forgotpassword-label, #loginform-label, #login-label, #user_info-label, #organisation_info-label, #create_new_account-label, #reporting_org_info-label, #default_field_values-label, #default_field_groups-label, #file_ids-label, #push_to_registry-label, #iati_activity_status #change-label, #reporting_org-label {
     display: none;
 }
 .clearfix {
@@ -3731,7 +3731,7 @@ ul.level-4.none span {
     margin: 6px 20px;
 }
 /*.sub-element-activity-level-3 .activity-element-level-4 .element-level li dt {
-width: 100px; 
+width: 100px;
 }
 */
 
