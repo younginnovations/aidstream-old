@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `backup`
+-- Database: `aidstream`
 --
 
 -- --------------------------------------------------------
@@ -52,6 +52,34 @@ INSERT INTO `ActivityDateType` (`id`, `Code`, `Name`, `Description`, `lang_id`) 
 (10, 'end-planned', 'end-planned', 'The planned end date as recorded in project documentation', 3),
 (11, 'start-actual', 'start-actual', 'The actual start date, such as date of first disbursement', 3),
 (12, 'end-actual', 'end-actual', 'The actual end date, such as date of last disbursement', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ActivityScope`
+--
+
+CREATE TABLE IF NOT EXISTS `ActivityScope` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Code` varchar(50) NOT NULL,
+  `Name` varchar(255) NOT NULL,
+  `lang_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 ;
+
+--
+-- Dumping data for table `ActivityScope`
+--
+
+INSERT INTO `ActivityScope` (`id`, `Code`, `Name`, `lang_id`) VALUES
+(1, '1', 'Global', 1),
+(2, '2', 'Regional', 1),
+(3, '3', 'Multi-national', 1),
+(4, '4', 'National', 1),
+(5, '5', 'Sub-national: Multi-first-level administrative areas', 1),
+(6, '6', 'Sub-national: Single-first-level administrative area', 1),
+(7, '7', 'Sub-national: Single-second-level administrative area', 1),
+(8, '8', 'Single location', 1);
 
 -- --------------------------------------------------------
 
@@ -411,8 +439,10 @@ INSERT INTO `CollaborationType` (`id`, `Code`, `Name`, `Description`, `lang_id`)
 (9, 1, 'Bilateral', 'Bilateral transactions are those undertaken by a donor, excluding core contributions to other organisations (codes 2 and 3 below). It includes transactions channelled through other organisations.', 3),
 (10, 2, 'Multilateral', 'Multilateral contributions are those made to a recipient institution which: \ni. conducts all or part of its activities in favour of development; \nii. is an international agency, institution or organisation whose members are governments, or a fund managed autonomously by such an agency; and \niii. pools contributions so that they lose their identity and become an integral part of its financial assets.', 3),
 (11, 3, 'Bilateral, core contributions to NGOs and other private bodies / PPPs', 'Bilateral funds paid over to national and international non-governmental organisations (NGOs), Public Private Partnerships (PPPs), or other private bodies for use at their discretion.', 3),
-(12, 4, 'Multilateral outflows', 'Aid activities financed from the multilateral institutions'' regular budgets.', 3);
-
+(12, 4, 'Multilateral outflows', 'Aid activities financed from the multilateral institutions'' regular budgets.', 3),
+(13, 6, 'Private sector outflow', '', 1),
+(14, 6, 'Private sector outflow', '', 2),
+(15, 6, 'Private sector outflow', '', 3);
 -- --------------------------------------------------------
 
 --
@@ -437,7 +467,10 @@ INSERT INTO `ConditionType` (`id`, `Code`, `Name`, `lang_id`) VALUES
 (3, 1, 'Policy', 2),
 (4, 2, 'Performance', 2),
 (5, 1, 'Policy', 3),
-(6, 2, 'Performance', 3);
+(6, 2, 'Performance', 3),
+(7, 3, 'Fiduciary', 1),
+(8, 3, 'Fiduciary', 2),
+(9, 3, 'Fiduciary', 3);
 
 -- --------------------------------------------------------
 
@@ -2082,7 +2115,10 @@ INSERT INTO `FlowType` (`id`, `Code`, `Name`, `Description`, `lang_id`) VALUES
 (12, 20, 'OOF', 'Other Official Flows\nOfficial sector transactions that do not meet the ODA criteria, e.g.\n-- Grants to developing countries for representational or essentially commercial purposes.\n-- Official bilateral transactions intended to promote development but having a grant element of less than 25 per cent.\n-- Official bilateral transactions, whatever their grant element, that are primarily export-facilitating in purpose.\n-- The net acquisition by governments and central monetary institutions of securities issued by multilateral development banks at market terms.\n-- Subsidies (grants) to the private sector to soften its credits to developing countries.\n-- Funds in support of private investment.', 3),
 (13, 30, 'Private Grants', 'Grants made by private non-governmental organisations and other private sources (including foundations and other private bodies).\nGrants by private non-profit-making agencies, including co-operative societies and trade unions, which are active in development and national in the sense that their funds are fully or mainly obtained from sources in the donor economy.', 3),
 (14, 35, 'Private Market', 'Private long-term (i.e. over one-year maturity) capital transactions.\nDirect investment (new capital outflows and reinvested earnings), other securities and claims (bonds, export credits, equities) by banks and nonbanks, multilateral private flows.', 3),
-(15, 50, 'Other flows', 'Non-ODA component of peacebuilding operations.', 3);
+(15, 50, 'Other flows', 'Non-ODA component of peacebuilding operations.', 3),
+(16, 40, 'Non flow eg GNI', '', 1),
+(17, 40, 'Non flow eg GNI', '', 2),
+(18, 40, 'Non flow eg GNI', '', 3);
 
 -- --------------------------------------------------------
 
