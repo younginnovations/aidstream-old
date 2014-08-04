@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.5
+-- version 4.0.10deb1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 18, 2013 at 03:59 AM
--- Server version: 5.5.32-cll
--- PHP Version: 5.3.17
+-- Generation Time: Aug 04, 2014 at 09:52 AM
+-- Server version: 5.5.38-0ubuntu0.14.04.1
+-- PHP Version: 5.5.9-1ubuntu4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `aidstrm_stage`
+-- Database: `aidstream`
 --
 
 -- --------------------------------------------------------
@@ -28,10 +28,10 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `Help` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `element_name` varchar(100) NOT NULL,
-  `message` text NOT NULL,
+  `element_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `message` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=332 ;
 
 --
 -- Dumping data for table `Help`
@@ -81,7 +81,7 @@ INSERT INTO `Help` (`id`, `element_name`, `message`) VALUES
 (41, 'Activity_Conditions-attached', 'This should be a yes/no (1/0) value, stating whether or not there are conditions attached to the activity'),
 (42, 'Activity_Conditions_Condition-text', 'The description of the condition attached to the activity.'),
 (43, 'Activity_Conditions_Condition-xml_lang', 'The ISO 639-1 code for the language used for the text should be provided unless it is in the default language.'),
-(44, 'Activity_Conditions_Condition-type', 'This is the code for the condition type, and is either: 1 - Policy or 2 - Performance.'),
+(44, 'Activity_Conditions_Condition-type', 'This is the code for the condition type, and is either: 1 - Policy or 2 - Performance or 3 - Fiduciary.'),
 (45, 'Activity_DocumentLink', 'This provides a link to published documents related to the activity being reported.'),
 (46, 'Activity_DocumentLink-url', 'The web (URL) address from where the document can be downloaded.'),
 (47, 'Activity_DocumentLink-format', 'This provides the code for the Internet Media Type (''MIME type'') of the document, and includes pdf, msword, rtf, xml, csv, etc.'),
@@ -183,10 +183,10 @@ INSERT INTO `Help` (`id`, `element_name`, `message`) VALUES
 (142, 'Activity_PolicyMarker-vocabulary', 'This is the code for the vocabulary used to describe the policy marker. This differentiates between DAC, ISO, COFOG, ADT (AidData) or WB (World Bank) vocabulary. '),
 (143, 'Activity_CollaborationType', 'This identifies the type of collaboration. For official donors it shows if the activity is bilateral, earmarked multilateral, core multilateral, core contributions to NGOs, core contributions to PPPs, or multilateral outflow. It also allows for additional types that might apply to foundations and NGOs.'),
 (144, 'Activity_CollaborationType-text', 'The name of the collaboration type.'),
-(145, 'Activity_CollaborationType-code', 'This is the code for the collaboration type. There are six of these: 1 - Bilateral, 2 - Multilateral, 4 - Multilateral outflows, 5 - Aid through NGOs, 6 - Aid to NGOs, 7 - Aid through PPPs.'),
+(145, 'Activity_CollaborationType-code', 'This is the code for the collaboration type. There are five of these: 1 - Bilateral, 2 - Multilateral, 3 - Bilateral, core contributions to NGOs and other private bodies / PPPs, 4 - Multilateral outflows, and 6 - Private sector outflow.'),
 (146, 'Activity_CollaborationType-xml_lang', 'The ISO 639-1 code for the language used for the text should be provided unless it is in the default language.'),
 (147, 'Activity_DefaultFlowType', 'This identifies the classification of the flow. For official donors this is whether the activity is Official Development Assistance (ODA) or Other Official Flows (OOF). Allows for any types that might apply to foundations and NGOs. Default flow type can be overridden by flow type on any specific transaction within the activity.'),
-(148, 'Activity_DefaultFlowType-code', 'This is the code for the flow type. There are four of these: 10 - ODA, 20 - OOF, 30 - Private NGO, and 35 - Private Market.'),
+(148, 'Activity_DefaultFlowType-code', 'This is the code for the flow type. There are six of these: 10 - ODA, 20 - OOF, 30 - Private NGO, 35 - Private Market, 40 - Non flow eg GNI, and 50 - Other flows.'),
 (149, 'Activity_DefaultFlowType-text', 'The name of the flow type.'),
 (150, 'Activity_DefaultFlowType-xml_lang', 'The ISO 639-1 code for the language used for the text should be provided unless it is in the default language.'),
 (151, 'Activity_DefaultFinanceType', 'This identifies the financing mechanism of the aid activity (e.g. grant, loan, capital subscription, export credit, debt relief, equity). Default finance type can be overridden by finance type on any specific transaction within the activity.'),
