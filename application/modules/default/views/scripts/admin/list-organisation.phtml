@@ -1,3 +1,6 @@
+<?php $this->headScript()->appendFile($this->baseUrl() . '/js/jquery.livefilter.min.js', $type = 'text/javascript'); ?>
+
+Filter: <input type="text" name="organisation-filter" placeholder="Organisation Name"><br>
 <table id="list-org">
 <thead>
 <tr>
@@ -6,7 +9,6 @@
 </tr>
 </thead>
 
-<?php //print_r($this->rowSet);exit;?>
 <?php $i = 1;?>
 <tbody>
     <?php foreach($this->rowSet as $key=>$row):?>
