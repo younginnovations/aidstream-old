@@ -53,8 +53,9 @@
 	    $this->headScript()->appendFile($this->baseUrl() . '/js/jquery-migrate-1.2.1.min.js', $type = 'text/javascript');
 	    $this->headScript()->appendFile($this->baseUrl() . '/js/jquery.easing.1.3.js', $type = 'text/javascript');
 	    $this->headScript()->appendFile($this->baseUrl() . '/js/jcarousellite.js', $type = 'text/javascript');
-	    $this->headScript()->appendFile($this->baseUrl() . '/js/common-jquery.js', $type = 'text/javascript');
-	    $this->headScript()->appendFile($this->baseUrl() . '/js/home.js', $type = 'text/javascript');
+	    $this->headScript()->appendFile($this->baseUrl() . '/js/jquery.livefilter.min.js', $type = 'text/javascript');
+        $this->headScript()->appendFile($this->baseUrl() . '/js/common-jquery.js', $type = 'text/javascript');
+        $this->headScript()->appendFile($this->baseUrl() . '/js/home.js', $type = 'text/javascript');
 	    $this->headScript()->appendFile($this->baseUrl() . '/js/bjqs-1.3.js', $type = 'text/javascript');
 	    $this->headScript()->appendFile($this->baseUrl() . '/js/jquery.secret-source.min.js', $type = 'text/javascript');
 		if ($controller == "index" && $action == "organisation") {
