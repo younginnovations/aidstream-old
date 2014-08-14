@@ -74,5 +74,5 @@ $(document).ready(function () {
     $('#contain-body').css('min-height', $(window).height() - 170 + 'px');
 
     // List Organisation Live Filter
-    $('input').livefilter({selector: '#list-org tbody tr'});
+    $('#organisation-input').livefilter({selector: '#list-org tbody tr'});
 });
