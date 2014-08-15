@@ -27,7 +27,12 @@ class IndexController extends Zend_Controller_Action
     public function aboutAction(){}
 
     /**
-     * Users list page
+     * Changelog page.
+     */
+    public function changelogAction(){}
+
+    /**
+     * Users list page.
      */
     public function organisationsAction()
     {
