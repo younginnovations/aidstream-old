@@ -3910,27 +3910,35 @@ a:hover {
     line-height: 160%;
     padding-bottom: 20px;
 }
+
 .tagline {
     font-size: 31px;
     color: #fff;
     line-height: 160%;
     padding-bottom: 20px;
 }
-.tagline a, .email a, .fork a {
+.tagline a, .email a, .fork a,.learn-more  {
     border-bottom: 2px solid #009AEA;
     line-height: 160%;
     color: #fff;
 }
-.learn-more {
-    background: #00A8FF;
-    border-radius: 3px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
+.register-now,.try-demo {
     line-height: 44px;
-    display: block;
+    display: inline-block;
     font-size: 20px;
-    padding: 0 22px;
+    border-radius: 3px;
+    padding: 0 16px;
+    background: #84B400;
     color: #fff;
+    margin-right: 6px;
+}
+
+.register-now:hover {
+    background: #7AA20B;
+}
+
+.try-demo {
+    background:#00A6FF;
 }
 #banner-slide {
     position: absolute!important;
@@ -4112,11 +4120,15 @@ button.next:hover {
     float: right;
     margin-top: -33px;
 }
+
+.about-tagline-wrapper {
+    padding: 185px 0 70px;
+}
 .about-tagline {
     font: normal 34px Arial, sans-serif;
     color: #999;
-    padding: 185px 0 70px;
-    text-align: center;
+    width: 940px;
+    margin: 0 auto;
 }
 .about-tagline span {
     color: #018CFF;
@@ -4919,4 +4931,53 @@ a {
     content: " ";
     width: 38px;
     height: 22px;
+}
+
+.changelog-wrapper {
+    background: #eee;
+}
+
+.changelog {
+    width: 940px;
+    margin: 0 auto;
+    padding: 60px 0;
+}
+
+#current-version {
+    font-size: 12px;
+    color: #999;
+}
+
+#version {
+    color: #777;
+    font-size: 34px;
+    line-height: 40px;
+}
+
+.current #version {
+    color: #333;
+}
+
+.release-date {
+    font-size: 17px;
+    color: #999;
+    margin: 4px 0 8px;
+}
+
+.release {
+    padding-bottom: 40px;
+    margin-bottom: 40px;
+}
+
+.current {
+    border-bottom: 1px dashed #bbb;
+}
+
+.release li {
+    font-size: 18px;
+    color: #333;
+    line-height: 28px;
+    list-style: none;
+    padding-left: 20px;
+    background: url(../images/list.png) no-repeat 0 9px;
 }
