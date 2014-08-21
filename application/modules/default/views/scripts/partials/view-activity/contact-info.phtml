@@ -21,7 +21,8 @@
                         <li>
                             <span class="name">Type: </span>
                                 <span class="infom">
-                                    <?php print $type; ?>
+                                    <?php if(!empty($element["@type"])) printf ("%s [%s]",Iati_Core_Codelist::getCodeByAttrib('ContactInfo' , '@type' , $element["@type"],'Name'),Iati_Core_Codelist::getCodeByAttrib('ContactInfo' , '@type' , $element["@type"])); ?>
+                                </span>
                                      <?php if ($element['@xml_lang'])
                                                             {
                                                                 printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('ContactInfo' , '@xml_lang' , $element['@xml_lang']));

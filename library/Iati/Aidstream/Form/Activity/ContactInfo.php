@@ -10,10 +10,12 @@ class Iati_Aidstream_Form_Activity_ContactInfo extends Iati_Core_BaseForm
         $form['id'] = new Zend_Form_Element_Hidden('id');
         $form['id']->setValue($this->data['id']);
         
-        $form['type'] = new Zend_Form_Element_Text('type');
+        $type = $model->getCodeArray('ContactType', null, '1', true);
+        $form['type'] = new Zend_Form_Element_Select('type');
         $form['type']->setLabel('Type')  
             ->setValue($this->data['@type'])
-            ->setAttrib('class' , 'form-text');
+            ->setAttrib('class' , 'form-select')
+            ->setMultioptions($type);
             
         $lang = $model->getCodeArray('Language', null, '1' , true);
         $form['xml_lang'] = new Zend_Form_Element_Select('xml_lang');
