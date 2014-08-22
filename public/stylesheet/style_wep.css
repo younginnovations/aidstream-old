@@ -4981,3 +4981,16 @@ a {
     padding-left: 20px;
     background: url(../images/list.png) no-repeat 0 9px;
 }
+
+.filter-org {
+    padding: 5px 0 10px;
+}
+
+.filter-org input {
+    width: 200px;
+    padding: 5px;
+    border-radius: 3px;
+    box-shadow: none;
+    outline: 0;
+    border: 1px solid #bbb;
+}
