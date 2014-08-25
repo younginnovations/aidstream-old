@@ -4081,6 +4081,10 @@ button.next:hover {
     font-style: italic;
     display: inline-block;
     padding: 0 10px 0 20px;
+    background: #00A8FF;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
 }
 .guide span {
     background: url(../images/use-arrow.png) no-repeat right;
