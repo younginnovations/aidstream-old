@@ -4125,14 +4125,12 @@ button.next:hover {
     margin-top: -33px;
 }
 
-.about-tagline-wrapper {
-    padding: 162px 0 66px;
-}
 .about-tagline {
     font: normal 34px Arial, sans-serif;
     color: #999;
     width: 940px;
     margin: 0 auto;
+    padding: 185px 0 70px;
 }
 .about-tagline span {
     color: #018CFF;
