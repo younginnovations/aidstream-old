@@ -329,12 +329,11 @@ var validEmail = function (email) {
                 }
             },
             /*
-        ".datepicker" : {
-            "found" : function (element) {
-                createDateTextBox()
-            }
-        },
-        */
+            ".datepicker" : {
+                "found" : function (element) {
+                    createDateTextBox()
+                }
+            },
             "#suffix": {
                 "onmouseover": function (evt) {
                     dojo.query('.popup').style('display', 'block');
@@ -343,6 +342,7 @@ var validEmail = function (email) {
                     dojo.query('.popup').style('display', 'none');
                 }
             },
+            */
             ".remove-this": {
                 "onmouseover": function (evt) {
                     var node = getTarget(evt).parentNode.parentNode;

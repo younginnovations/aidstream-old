@@ -19,21 +19,16 @@ class Form_Wep_Accountregister extends App_Form
             ->setAttrib('class', 'form-textarea');
 
         $form['organisation_username'] = new Zend_Form_Element_Text('organisation_username');
-        $form['organisation_username']->setLabel("Username Prefix <a href='#' id='suffix'>?</a>")
+        $form['organisation_username']->setLabel("Organisation User Identifier")
             ->setRequired()
             ->addValidator('Db_NoRecordExists', false, array('table' => 'account','field' => 'username'))
-            ->addErrorMessage('Prefix is already used')
-            ->setDescription('<div class="popup">This name will be prefixed to all the usernames'
-                    .'created for the organisation (eg if the prefix is ABC then the username will'
-                    .'be ABC_admin for admin user.)</div>')
-            ->setAttrib('class', 'form-text')
-            ->setDecorators(array(
-                    'ViewHelper',
-                    array('Description', array('escape' => false, 'tag' => false)),
-                    array('HtmlTag', array('tag' => 'dd')),
-                    array('Label', array('tag' => 'dt')),
-                    'Errors',
-                ));
+            ->addErrorMessage('This Organisation User Identifier is already used.')
+            ->setDescription("Your organisation user identifier will be used as a prefix for all the 
+                              AidStream users in your organisation. We recommend that you use a short 
+                              abbreviation that uniquely identifies your organisation. If your organisation 
+                              is 'Acme Bellus Foundation', your organisation user identifier should be 
+                              'abf', depending upon it's availability.")
+            ->setAttrib('class', 'form-text');
 
         $form['first_name'] = new Zend_Form_Element_Text('first_name');
         $form['first_name']->setLabel('First Name')
@@ -52,7 +47,11 @@ class Form_Wep_Accountregister extends App_Form
 
         $form['admin_username'] = new Zend_Form_Element_Text('admin_username');
         $form['admin_username']->setLabel('Username')
-            ->setAttrib('class','form-text');
+            ->setAttrib('class','form-text')
+            ->setDescription("AidStream will create a default username with your Organisation User 
+                              Identifier as prefix. You will not be able to change '_admin' part of the 
+                              username. This user will have administrative privilege and can create 
+                              multiple AidStream users with different set of permissions.");
 
         $passwordConfirmation = new App_PasswordConfirmation();
         $form['password'] = new Zend_Form_Element_Password('password');
