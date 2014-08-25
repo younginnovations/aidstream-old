@@ -170,23 +170,15 @@ class Iati_Core_Codelist
                 case "GazetteerEntry_gazetteer_ref":
                     $return = 'GazetteerAgency';
                     break;
-
                 case "Budget_type":
                     $return = 'BudgetType';
                     break;
-
                 case "CountryBudgetItems_vocabulary":
                     $return = 'BudgetIdentifierVocabulary';
                     break;
-
                 case "BudgetItem_code":
                     $return = 'BudgetIdentifier';
                     break;
-
-                case "ContactInfo_type":
-                    $return = 'ContactType';
-                    break;
-
                 default:
                     $return = false;
                     break;    
