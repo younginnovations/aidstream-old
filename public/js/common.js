@@ -1727,7 +1727,7 @@ var validEmail = function (email) {
                 "onclick": function (evt) {
                     evt.preventDefault();
                     var msg = "This action will affect all your users. Are you sure you want to "
-                    msg += "change your <b>Account Identifier</b> and in turn your organisation Username prefix?";
+                    msg += "change your <b>Organisation User Identifier</b> and in turn your organisation Username prefix?";
                     new confirmDialog('', msg, 'Yes', 'Cancel', function () {
                         dojo.byId('changeusername').submit();
                     });

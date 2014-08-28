@@ -14,22 +14,25 @@ class User_Form_User_Changeusername extends App_Form
         // For Admin
         if ($auth->role == 'admin'):
             $account_identifier = new Zend_Form_Element_Text('account_identifier');
-            $account_identifier->setLabel('Account Identifier')
+            $account_identifier->setLabel('Organisation User Identifier')
                 ->setRequired()
                 ->addValidator('Db_NoRecordExists', false, array('table' => 'account','field' => 'username'))
-                ->addErrorMessage('This account identifier is already used')
-                ->setDescription("Your account identifier will be used as a prefix for all the users in your organisation. We recommend that you use a short abbreviation that uniquely identifies your organisation. If your account identifier is 'abc' the administrator will be 'abc_admin' and the other users be 'abc'_name.")
+                ->addErrorMessage('This Organisation User Identifier is already used.')
+                ->setDescription("Your organisation user identifier will be used as a prefix for all the 
+                              AidStream users in your organisation. We recommend that you use a short 
+                              abbreviation that uniquely identifies your organisation. If your organisation 
+                              is 'Acme Bellus Foundation', your organisation user identifier should be 
+                              'abf', depending upon it's availability.")
                 ->setAttrib('class', 'form-text');
 
             $user_name = new Zend_Form_Element_Text('user_name');
             $user_name->setLabel('New Username')
                 ->setRequired()
                 ->setAttrib('class', 'form-text')
-                ->setValue('_admin')
                 ->setAttrib('readonly' , true)
-                ->addValidator('Db_NoRecordExists', false, array('table' => 'account','field' => 'username'))
-                ->addErrorMessage('This account identifier is already used');
-
+                ->setDescription("This will be your new username with Organisation User 
+                              Identifier as a prefix. You will not be able to change '_admin' part of the 
+                              username.");
 
             $submit = new Zend_Form_Element_Submit('Submit');
             $submit->setValue('change')
