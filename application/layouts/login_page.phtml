@@ -14,6 +14,7 @@
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/reset.css');
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style.css');
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style_wep.css');
+            $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style_demo.css');
             $this->headLink()->appendStylesheet('http://fonts.googleapis.com/css?family=Roboto:400,300');
 
             print $this->headLink();
@@ -88,21 +89,6 @@
 				<a href="<?php print($this->baseUrl()) ?>/"><img alt="logo" src="<?php print($this->baseUrl());?>/images/logo.png" alt="Aidstream"></a>
 			</div>
 			<?php $url = $_SERVER['REQUEST_URI'];?>
-			<div class="nav">
-				<ul>
-					<li class="<?php echo ($url === $this->baseUrl().'/about')? 'active-menu':'';?>"><?php echo $this->l(' About', 'about');?></li>
-					<li><?php echo $this->l("How to Use", 'how-to');?></li>
-					<li class="<?php echo ($url === $this->baseUrl().'/organisations')? 'active-menu':'';?>"><?php echo $this->l("Who's Using", 'organisations');?></li>
-					<li class="<?php echo ($url === $this->baseUrl().'/organisation?reporting_org=all')? 'active-menu':'';?>"><?php echo $this->l('Snapshot', 'snapshot');?></li>
-					<li><a href='http://blog.aidstream.org' target="_blank">Blog</a></li> 
-					<li id="demo-link"><a href='http://demo.aidstream.org' target="_blank">Demo</a></li>
-				</ul>
-				<?php if(!$auth->hasIdentity()):?>
-				<div class="login" id="login-register-popup">
-					<?php echo $this->l('Login / Register', 'user/user/login');?>
-				</div>
-				<?php endif;?>
-			</div>
 		</div>
 	</div>	
         <div class="login-wrapper">
@@ -125,22 +111,26 @@
     </div><!--Close login-form-container-->
     </div>
     </div>
-            <!--search div start-->
+    
+    <div class="clear"></div>
 
-            <div class="clear"></div>
-
-         <div id="content-section"><!--Start content-section--->
+        <div id="content-section"><!--Start content-section--->
             <div class="container_12">
                 <div class="grid_12">
                     <!--contain div start-->
                     <div id="main-content-top"></div>
                     <div id="contain-body">
+        			<div id="flash-messages"><?php $flashMessenger = $this->flashMessages();
+                                                print $flashMessenger->getMessages();?>
+                                            </div>
+                    <div id="demo-welcome">
+                        <div id="login-welcome-message">Welcome to the demo version of AidStream.</div>
+                    </div>
+
                         <div id="contain-left">
                             <div id="contain-area">
                                 <div id="contain">
-                                    <div id="flash-messages"><?php $flashMessenger = $this->flashMessages();
-                                        print $flashMessenger->getMessages();?>
-                                    </div>
+                                    
                                    
                                     <?php if ($this->placeholder('title') != ""):?>
                                     <h1><?php print $this->placeholder('title')?></h1>
@@ -152,9 +142,18 @@
 
                         <div id="sidebar-right">
                             <div id="sidebar-right-inner">
-                                <?php if ($auth->hasIdentity())
-                                    print $this->partial('partial/section/left-bar.phtml');
-                                ?>
+                                <div class="login-info-wrapper">
+                                    <div id="login-info-title">Use the following login credentials for this DEMO:</div>
+                                    <div id="login-info-details">
+                                        <div class="login-info"><span class="login-info-label">Username: </span><span class="login-info-">testorg_admin</span></div>
+                                        <div class="login-info"><span class="login-info-label">Password: </span><span class="login-info-">test123</span></div>
+                                        
+                                        <div id="login-info-simplified-title">For Simplified AidStream, use the following:</div>
+                                        
+                                        <div class="login-info"><span class="login-info-label">Username: </span><span class="login-info-">simplified_admin</span></div>
+                                        <div class="login-info"><span class="login-info-label">Password: </span><span class="login-info-">simplified123</span></div>
+                                    </div>
+                                </div>
                             </div>
                         </div><!--Close sidebar-right-->
                         <div class="clear"></div>

@@ -15,6 +15,9 @@ class IndexController extends Zend_Controller_Action
      */
     public function indexAction()
     {
+        // Redirect to Demo Login Page
+        $this->_redirect('user/user/login');
+
     	$model = new User_Model_DbTable_Account();
     	$count = $model->getAccountCount();
 

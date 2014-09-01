@@ -71,8 +71,18 @@ $(document).ready(function () {
         }
     })
     
-    $('#contain-body').css('min-height', $(window).height() - 170 + 'px');
+    //$('#contain-body').css('min-height', $(window).height() - 170 + 'px');
 
     // List Organisation Live Filter
     $('#organisation-input').livefilter({selector: '#list-org tbody tr'});
+
+    // Demo Info Display
+    $(window).scroll(function(e){ 
+        $el = $('#demo-info-display'); 
+        if ($(this).scrollTop() > 102 && $el.css('position') != 'fixed') { 
+            $('#demo-info-display').css({'position': 'fixed', 'top': '0px'}); 
+        } else if ($(this).scrollTop() < 102 && $el.css('position') == 'fixed') { 
+            $('#demo-info-display').css({'position': 'static', 'top': '0px'}); 
+        }
+    });
 });

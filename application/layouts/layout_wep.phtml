@@ -14,6 +14,7 @@
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style.css');
             $this->headLink()->appendStylesheet($this->baseUrl() . '/js/dojo-1.6.1/dijit/themes/claro/claro.css');
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style_wep.css');
+            $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style_demo.css');
             $this->headLink()->appendStylesheet($this->baseUrl() . '/js/select2/select2.css');
 			$this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/print.css','print');
             $this->headLink()->appendStylesheet('http://fonts.googleapis.com/css?family=Roboto:400,300');
@@ -132,6 +133,15 @@
                 <!--search div start-->
 
             </div><!--header closed-->
+
+            <div class="clear"></div>
+
+            <div id="demo-info-display">
+                <div class="demo-inner-info">
+                    You are using the demo version of AidStream. Use this if you wish to familiarize yourself with the system before entering real project data.
+                    <span id="delete-message">The data you will enter here will be deleted every end of the week.</span>
+                </div>
+            </div>
 
             <div class="clear"></div>
 

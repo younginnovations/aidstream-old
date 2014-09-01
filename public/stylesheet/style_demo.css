@@ -1,0 +1,63 @@
+@charset"utf-8";
+
+#login-welcome-message {
+    font-size: 23px;
+    margin: 20px 18px 30px;
+}
+
+.login-info-wrapper {
+    background: #f6f6f6;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow:    0px 0px 4px rgba(0, 0, 0, 0.3);
+    box-shadow:         0px 0px 4px rgba(0, 0, 0, 0.3);
+    padding-bottom: 14px;
+}
+
+#login-info-title {
+    font-size: 13px;
+    font-weight: bold;
+    border: 1px solid #DEDFE1;
+    padding: 6px 10px;
+    margin-bottom: 8px;
+}
+
+#login-info-details {
+    padding: 0 10px;
+    font-size: 14px;
+}
+
+.login-info-label {
+    color: #878787;
+}
+
+#login-info-simplified-title {
+    font-size: 13px;
+    font-weight:bold;
+    font-style: italic;
+    margin: 24px 0 10px;
+}
+
+#demo-info-display {
+    padding: 10px 0;
+    background: #565656;
+    font-size: 13px;
+    color: #ccc;
+    width: 100%;
+    z-index: 100;
+}
+
+#delete-message {
+    color: #fff;
+    font-weight: bold;
+    font-size: 15px;
+    display: block;
+    padding-top: 5px;
+}
+
+.demo-inner-info {
+    width: 940px;
+    margin: 0 auto;
+}

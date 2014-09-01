@@ -14,6 +14,7 @@
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/reset.css');
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style.css');
             $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style_wep.css');
+            $this->headLink()->appendStylesheet($this->baseUrl() . '/stylesheet/style_demo.css');
             $this->headLink()->appendStylesheet('http://fonts.googleapis.com/css?family=Roboto:400,300');
     
             print $this->headLink();
@@ -136,7 +137,14 @@
 	</div><!--header closed-->
 
 	<div class="clear"></div>
-	</div>
+	
+    <div id="demo-info-display">
+        <div class="demo-inner-info">
+            You are using the demo version of AidStream. Use this if you wish to familiarize yourself with the system before entering real project data.
+            <span id="delete-message">The data you will enter here will be deleted every end of the week.</span>
+        </div>
+    </div>
+    
          <div id="content-section"><!--Start content-section--->
             <div class="container_12">
                 <div class="grid_12">
