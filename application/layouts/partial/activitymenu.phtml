@@ -40,7 +40,7 @@ $fieldGroup = $fieldGroups->getProperties();
                 $i = '0';
                 foreach ($elements as $value)
                 {
-                    if(!hasGroupSet($fieldGroup, $elements[$i])) {
+                    if(!hasGroupSet($fieldGroup, $elements[$i]) && $i!=0) {
                         $i++;
                         continue;
                     }
