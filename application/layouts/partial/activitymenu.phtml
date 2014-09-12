@@ -2,7 +2,17 @@
 $identity = Zend_Auth::getInstance()->getIdentity();
 $url = Zend_Controller_Front::getInstance()->getRequest()->getParams();
 $paramValue = str_replace("Activity_" , "" , $url['className']);
-$titleArray = array('Identification' , 'Basic Activity Information','Participating Organisations','Geopolitical Information','Classifications','Financial','Related Documents','Relations','Performance');
+$titleArray = array('Identification',
+                    'Basic Activity Information',
+                    'Participating Organisations',
+                    'Geopolitical Information',
+                    'Classifications',
+                    'Financial',
+                    'Related Documents',
+                    'Relations',
+                    'Performance'
+                );
+
 $elements = array(
                 array('ReportingOrg' , 'IatiIdentifier' , 'OtherActivityIdentifier' ),
                 array('Title','Description','ActivityStatus','ActivityDate','ContactInfo' , 'ActivityScope'),
@@ -30,6 +40,11 @@ $fieldGroup = $fieldGroups->getProperties();
                 $i = '0';
                 foreach ($elements as $value)
                 {
+                    if(!hasGroupSet($fieldGroup, $elements[$i])) {
+                        $i++;
+                        continue;
+                    }
+                    
                     // show groups only if any of the elements should be shown as per field group
                     $empty = true;
                     foreach($value as $element){
@@ -40,7 +55,7 @@ $fieldGroup = $fieldGroups->getProperties();
                         }
                     }
                     if($empty) continue;
-                    
+                     
                     print "<li>";
                     print '<div class="menu-category-title">' . $titleArray[$i] . '</div>';
                     print '<ul class="menu-leaf">';
@@ -106,6 +121,27 @@ function getRowSet($name , $id)
     else
         $rowSet = true;
     return $rowSet;
-
 }
+
+/**
+ * Check if group elements are selected or not.
+ * @param  [array]  $fieldGroup
+ * @param  [array]  $elements
+ * @return boolean
+ */
+function hasGroupSet($fieldGroup, $elements)
+{
+    //var_dump($elements);
+    $selected = false; 
+    foreach ($elements as $element) 
+    {
+        $name = strtolower(preg_replace('/([^A-Z_])([A-Z])/', '$1_$2', $element));
+        if ($fieldGroup[$name]) {   
+            $selected = true;
+            break;
+        }   
+    }
+    return $selected;
+}
+
 ?>

@@ -640,7 +640,6 @@ var validEmail = function (email) {
                 "onclick": function (evt) {
                     var value = dojo.query(".check-uncheck").html();
                     var checklist = dojo.query('input[type=checkbox]');
-                    //console.log(checklist);
                     if (value === "Check All") {
                         var a = dojo.query(".check-uncheck").html('Uncheck All');
                         checkUncheck(evt, checklist, true);
@@ -1761,6 +1760,11 @@ var validEmail = function (email) {
 dojo.addOnLoad(initialize);
 
 dojo.ready(function () {
+    var checklist = dojo.query('.default-activity-list input[type=checkbox]:checked');
+    if (checklist.length == 29) {
+        dojo.query(".check-uncheck").html('Uncheck All');
+    }
+
     dojo.query('.currency').forEach(function (node) {
         var amount = dojo.query(node).val();
         if (amount) {
