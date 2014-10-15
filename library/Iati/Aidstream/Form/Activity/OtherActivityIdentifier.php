@@ -13,7 +13,7 @@ class Iati_Aidstream_Form_Activity_OtherActivityIdentifier extends Iati_Core_Bas
         $form['id']->setValue($this->data['id']);
         
         $form['text'] = new Zend_Form_Element_Textarea('text');
-        $form['text']->setLabel('Activity Identifier')
+        $form['text']->setLabel('Identifier')
                 ->setValue($this->data['text'])
                 ->setRequired()
                 ->setAttrib('cols', '40')
