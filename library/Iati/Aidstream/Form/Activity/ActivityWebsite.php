@@ -13,6 +13,7 @@ class Iati_Aidstream_Form_Activity_ActivityWebsite extends Iati_Core_BaseForm
         $form['text']->setLabel('Text')  
             ->setValue($this->data['text'])
             ->addValidator(new App_Validate_Url())
+            ->addFilter('stringTrim')
             ->setRequired()    
             ->setAttribs(array('rows'=>'2' , 'cols'=> '20'));
 
