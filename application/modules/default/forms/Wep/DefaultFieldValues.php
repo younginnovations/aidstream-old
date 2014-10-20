@@ -5,7 +5,11 @@ class Form_Wep_DefaultFieldValues extends App_Form
     public function load($defaults){
         $form = array();
         $model = new Model_Wep();
-        
+
+        $form['default_info'] = new Zend_Form_Element_Note('default_info');
+        $form['default_info']->setValue("<p>Changing these default values will have no impact on existing 
+            activities. If you want to change these values on existing activities, change it manually by going through each activity.</p>");
+
         $currency = $model->getCodeArray('Currency',null,'1');
         $form['default_currency'] = new Zend_Form_Element_Select('default_currency');
         $form['default_currency']->setRequired()
@@ -95,7 +99,7 @@ class Form_Wep_DefaultFieldValues extends App_Form
         $this->addElements($form);
         
         $this->addDisplayGroup(
-            array('default_currency', 'default_language', 'hierarchy',
+            array('default_info', 'default_currency', 'default_language', 'hierarchy',
                   'linked_data_default' , 'default_collaboration_type' ,
                   'default_flow_type', 'default_finance_type' ,
                   'default_aid_type', 'default_tied_status'),
@@ -119,6 +123,7 @@ class Form_Wep_DefaultFieldValues extends App_Form
                 array( 'tag' => 'div','class'=>'default-activity-list')
             )
         ));                            
+        
         foreach($form as $item_name=>$element)
         {
             $form[$item_name]->addDecorators( array(
@@ -136,5 +141,8 @@ class Form_Wep_DefaultFieldValues extends App_Form
                     )
             );
         }
+
+        $form['default_info']->removeDecorator('HtmlTag')
+            ->removeDecorator('Label');
     }   
 }
