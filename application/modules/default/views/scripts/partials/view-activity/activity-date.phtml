@@ -15,7 +15,7 @@
                     <ul class="style-2-drop first">
                         <li>
                             <span class="name">Text:</span>
-                            <span class="infom"><?php if ($element['text']) print ($element['text']); ?>
+                            <span class="infom"><?php if ($element['text'] != "") print ($element['text']); ?>
                                                 <?php if($element['@xml_lang'])
                                                       {
                                                             printf(" [%s]" , Iati_Core_Codelist::getCodeByAttrib('ActivityDate' , '@xml_lang' , $element['@xml_lang']));

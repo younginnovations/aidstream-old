@@ -16,7 +16,7 @@ if (!empty($transaction["TransactionType"])):
         <h2>Transaction Type</h2>
             <li>
                 <span class="name">Text:</span>
-                <span class="infom"><?php if ($transactiontype["text"]) print ($transactiontype["text"]); ?></span>
+                <span class="infom"><?php if ($transactiontype["text"] != "") print ($transactiontype["text"]); ?></span>
             </li>
             <li>
                 <span class="name">Code:</span>
@@ -42,7 +42,7 @@ if (!empty($transaction["ProviderOrg"])):
         <?php $providerorg = $transaction["ProviderOrg"];  ?>
             <li>
                 <span class="name">Text:</span>
-                <span class="infom"><?php if ($providerorg['text']) print ($providerorg['text']); ?></span>
+                <span class="infom"><?php if ($providerorg['text'] != "") print ($providerorg['text']); ?></span>
             </li>
             <li>
                 <span class="name">Ref:</span>
@@ -68,7 +68,7 @@ if (!empty($transaction["ReceiverOrg"])):
         <?php $receiverorg = $transaction["ReceiverOrg"]; ?>
             <li>
                 <span class="name">Text:</span>
-                <span class="infom"><?php if ($receiverorg['text']) print ($receiverorg['text']); ?></span>
+                <span class="infom"><?php if ($receiverorg['text'] != "") print ($receiverorg['text']); ?></span>
             </li>
             <li>
                 <span class="name">Ref:</span>
@@ -119,7 +119,7 @@ if (!empty($transaction["Description"])):
         <?php $description = $transaction["Description"]; ?>
             <li>
                 <span class="name">Text:</span>
-                <span class="infom"><?php if ($description["text"]) print ($description["text"]);
+                <span class="infom"><?php if ($description["text"] != "") print ($description["text"]);
                                     if($description["@xml_lang"])
                                      {
                                         printf(" [%s]",Iati_Core_Codelist::getCodeByAttrib('Transaction_Description' , '@xml_lang' , $description["@xml_lang"]));
@@ -140,7 +140,7 @@ if (!empty($transaction["TransactionDate"])):
         <?php $transactionDate = $transaction["TransactionDate"]; ?>
             <li>
                 <span class="name">Text:</span>
-                <span class="infom"><?php if ($transactionDate["text"]) print ($transactionDate["text"]); ?></span>
+                <span class="infom"><?php if ($transactionDate["text"] != "") print ($transactionDate["text"]); ?></span>
             </li>
             <li>
                 <span class="name">Iso Date:</span>
@@ -159,7 +159,7 @@ if (!empty($transaction["FlowType"])):
         <?php $flowType = $transaction["FlowType"]; ?>
             <li>
                 <span class="name">Text:</span>
-                <span class="infom"><?php if ($flowType["text"]) print ($flowType["text"]); 
+                <span class="infom"><?php if ($flowType["text"] != "") print ($flowType["text"]); 
                                     if($flowType["@xml_lang"])
                                      {
                                         printf(" [%s]",Iati_Core_Codelist::getCodeByAttrib('Transaction_FlowType' , '@xml_lang' , $flowType["@xml_lang"]));
@@ -190,7 +190,7 @@ if (!empty($transaction["FinanceType"])):
         <?php $financeType = $transaction["FinanceType"]; ?>
             <li>
                 <span class="name">Text:</span>
-                <span class="infom"><?php if ($financeType["text"]) print ($financeType["text"]); 
+                <span class="infom"><?php if ($financeType["text"] != "") print ($financeType["text"]); 
                                      if($financeType["@xml_lang"])
                                      {
                                         printf(" [%s]",Iati_Core_Codelist::getCodeByAttrib('Transaction_FinanceType' , '@xml_lang' , $financeType["@xml_lang"]));
@@ -221,7 +221,7 @@ if (!empty($transaction["AidType"])):
         <?php $aidType = $transaction["AidType"]; ?>
             <li>
                 <span class="name">Text:</span>
-                <span class="infom"><?php if ($aidType["text"]) print ($aidType["text"]); 
+                <span class="infom"><?php if ($aidType["text"] != "") print ($aidType["text"]); 
                                     if($aidType["@xml_lang"])
                                      {
                                         printf(" [%s]",Iati_Core_Codelist::getCodeByAttrib('Transaction_AidType' , '@xml_lang' , $aidType["@xml_lang"]));
@@ -252,7 +252,7 @@ if (!empty($transaction["AidType"])):
         <?php $disbursementChannel = $transaction["DisbursementChannel"]; ?>
             <li>
                 <span class="name">Text:</span>
-                <span class="infom"><?php if ($disbursementChannel["text"]) print ($disbursementChannel["text"]); 
+                <span class="infom"><?php if ($disbursementChannel["text"] != "") print ($disbursementChannel["text"]); 
                                      if($disbursementChannel["@xml_lang"])
                                      {
                                         printf(" [%s]",Iati_Core_Codelist::getCodeByAttrib('Transaction_DisbursementChannel' , '@xml_lang' , $disbursementChannel["@xml_lang"]));
@@ -283,7 +283,7 @@ if (!empty($transaction["TiedStatus"])):
         <?php $tiedStatus = $transaction["TiedStatus"]; ?>
             <li>
                 <span class="name">Text:</span>
-                <span class="infom"><?php if ($tiedStatus["text"]) print ($tiedStatus["text"]); 
+                <span class="infom"><?php if ($tiedStatus["text"] != "") print ($tiedStatus["text"]); 
                                      if($tiedStatus["@xml_lang"])
                                      {
                                         printf(" [%s]",Iati_Core_Codelist::getCodeByAttrib('Transaction_TiedStatus' , '@xml_lang' , $tiedStatus["@xml_lang"]));

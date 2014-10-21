@@ -17,7 +17,7 @@
                             <?php foreach ($result['Title'] as $title): ?>
                                 <li>
                                 <span class="name">Text: </span>
-                                <span class="infom"><?php if (!empty($title["text"])) print ($title["text"] ); ?><?php if (!empty($title["@xml_lang"])) printf (" [%s]",Iati_Core_Codelist::getCodeByAttrib('Title' , '@xml_lang' , $title["@xml_lang"])); ?></span>
+                                <span class="infom"><?php if ($title["text"] != "") print ($title["text"] ); ?><?php if (!empty($title["@xml_lang"])) printf (" [%s]",Iati_Core_Codelist::getCodeByAttrib('Title' , '@xml_lang' , $title["@xml_lang"])); ?></span>
                                 </li>
                             <?php endforeach; ?>
                         </ul><!--Ends .style-1-->         
@@ -31,7 +31,7 @@
                         <?php foreach ($result['Description'] as $description): ?>
                             <li>
                                 <span class="name">Text: </span>
-                                <span class="infom"><?php if (!empty($description["text"])) print ($description["text"]); ?><?php if (!empty($description["@xml_lang"])) printf (" [%s]",Iati_Core_Codelist::getCodeByAttrib('Description' , '@xml_lang' , $description["@xml_lang"])); ?></span>
+                                <span class="infom"><?php if ($description["text"] != "") print ($description["text"]); ?><?php if (!empty($description["@xml_lang"])) printf (" [%s]",Iati_Core_Codelist::getCodeByAttrib('Description' , '@xml_lang' , $description["@xml_lang"])); ?></span>
 
                             </li>
                             <li>
@@ -67,7 +67,7 @@
                                 <?php foreach ($indicator['Title']as $title): ?>
                                     <li>
                                         <span class="name">Text: </span>
-                                        <span class="infom"><?php if (!empty($title["text"])) print ($title["text"]); ?><?php if (!empty($title["@xml_lang"])) printf (" [%s]",Iati_Core_Codelist::getCodeByAttrib('Title' , '@xml_lang' , $title["@xml_lang"])); ?></span>
+                                        <span class="infom"><?php if ($title["text"] != "") print ($title["text"]); ?><?php if (!empty($title["@xml_lang"])) printf (" [%s]",Iati_Core_Codelist::getCodeByAttrib('Title' , '@xml_lang' , $title["@xml_lang"])); ?></span>
                                     </li>
                                 <?php endforeach; ?>
                             </ul>         
@@ -81,7 +81,7 @@
                                 <?php foreach ($indicator['Description'] as $description): ?>
                                     <li>
                                         <span class="name">Text: </span>
-                                        <span class="infom"><?php if (!empty($description["text"])) print ($description["text"]); ?><?php if (!empty($description["@xml_lang"])) printf (" [%s]",Iati_Core_Codelist::getCodeByAttrib('Description' , '@xml_lang' , $description["@xml_lang"])); ?></span>
+                                        <span class="infom"><?php if ($description["text"] != "") print ($description["text"]); ?><?php if (!empty($description["@xml_lang"])) printf (" [%s]",Iati_Core_Codelist::getCodeByAttrib('Description' , '@xml_lang' , $description["@xml_lang"])); ?></span>
 
                                     </li>
                                     <li>
@@ -105,7 +105,7 @@
                                     </li>
                                     <li>
                                         <span class="name">Value: </span>
-                                        <span class="infom"><?php if (!empty($baseline["@value"])) print ($baseline["@value"]); ?></span>
+                                        <span class="infom"><?php if ($baseline["@value"] != "") print ($baseline["@value"]); ?></span>
                                     </li> 
                                   </ul>
                              
@@ -116,7 +116,7 @@
                                                 <?php foreach ($baseline['Comment'] as $comment): ?>
                                                     <li>
                                                         <span class="name">Text: </span>
-                                                        <span class="infom"><?php if (!empty($comment["text"])) print ($comment["text"]); ?><?php if (!empty($comment["@xml_lang"])) printf (" [%s]",Iati_Core_Codelist::getCodeByAttrib('Comment' , '@xml_lang' , $comment["@xml_lang"])); ?></span>
+                                                        <span class="infom"><?php if ($comment["text"] != "") print ($comment["text"]); ?><?php if (!empty($comment["@xml_lang"])) printf (" [%s]",Iati_Core_Codelist::getCodeByAttrib('Comment' , '@xml_lang' , $comment["@xml_lang"])); ?></span>
                                                     </li>
                                                 <?php endforeach; ?>
                                             </ul>         
@@ -140,7 +140,7 @@
                                             <?php foreach ($period['PeriodStart'] as $periodStart): ?>
                                             <li>
                                                 <span class="name">Text: </span>
-                                                <span class="infom"><?php if (!empty($periodStart["text"])) print ($periodStart["text"]); ?></span>
+                                                <span class="infom"><?php if ($periodStart["text"] != "") print ($periodStart["text"]); ?></span>
                                             </li>
                                             <li>
                                                 <span class="name">Iso Date: </span>
@@ -158,7 +158,7 @@
                                         <?php foreach ($period['PeriodEnd'] as $periodEnd): ?>
                                             <li>
                                                 <span class="name">Text: </span>
-                                                <span class="infom"><?php if (!empty($periodEnd["text"])) print ($periodEnd["text"]); ?></span>
+                                                <span class="infom"><?php if ($periodEnd["text"] != "") print ($periodEnd["text"]); ?></span>
                                             </li>
                                             <li>
                                                 <span class="name">Iso Date: </span>
@@ -177,7 +177,7 @@
                                             <li>
                                                 <span class="name">Value: </span>
                                                 <span class="infom">
-                                                    <?php if (!empty($target["@value"]))
+                                                    <?php if ($target["@value"] != "")
                                                           { 
                                                                 print $target["@value"];                                                             
                                                           }   
@@ -193,7 +193,7 @@
                                             <?php foreach ($target['Comment'] as $comment): ?>
                                                 <li>
                                                     <span class="name">Text: </span>
-                                                    <span class="infom"><?php if (!empty($comment["text"])) print ($comment["text"]); ?><?php if (!empty($comment["@xml_lang"])) printf (" [%s]",Iati_Core_Codelist::getCodeByAttrib('Comment' , '@xml_lang' , $comment["@xml_lang"])); ?></span>
+                                                    <span class="infom"><?php if ($comment["text"] != "") print ($comment["text"]); ?><?php if (!empty($comment["@xml_lang"])) printf (" [%s]",Iati_Core_Codelist::getCodeByAttrib('Comment' , '@xml_lang' , $comment["@xml_lang"])); ?></span>
                                                 </li>
                                             <?php endforeach; ?>
                                         </ul>
@@ -211,7 +211,7 @@
                                            <h2>Actual</h2>
                                             <li>
                                                 <span class="name">Value: </span>
-                                                <span class="infom"><?php if (!empty($actual["@value"])) print ($actual["@value"]); ?></span>
+                                                <span class="infom"><?php if ($actual["@value"] != "") print ($actual["@value"]); ?></span>
                                             </li>
                                         </ul> 
                                       
@@ -222,7 +222,7 @@
                                             <?php foreach ($actual['Comment'] as $comment): ?>
                                                 <li>
                                                     <span class="name">Text: </span>
-                                                    <span class="infom"><?php if (!empty($comment["text"])) print ($comment["text"]); ?><?php if (!empty($comment["@xml_lang"])) printf (" [%s]",Iati_Core_Codelist::getCodeByAttrib('Comment' , '@xml_lang' , $comment["@xml_lang"])); ?></span>
+                                                    <span class="infom"><?php if ($comment["text"] != "") print ($comment["text"]); ?><?php if (!empty($comment["@xml_lang"])) printf (" [%s]",Iati_Core_Codelist::getCodeByAttrib('Comment' , '@xml_lang' , $comment["@xml_lang"])); ?></span>
                                                     </li>
                                             <?php endforeach; ?>
                                         </ul>

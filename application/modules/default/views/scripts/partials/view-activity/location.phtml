@@ -16,7 +16,7 @@
                 <ul class="style-4 first">
                     <li>
                         <span class="name">Percentage: </span>
-                        <span class="infom sub-details"><?php if ($element['@percentage']) print ($element['@percentage']); ?></span>
+                        <span class="infom sub-details"><?php if ($element['@percentage'] != "") print ($element['@percentage']); ?></span>
                     </li>
 
                 </ul>
@@ -30,7 +30,7 @@
                         <h2>Location Type</h2>
                             <li>
                                 <span class="name">Text:</span>
-                                <span class="infom"><?php if ($locationtype['text']) print ($locationtype['text']); ?>
+                                <span class="infom"><?php if ($locationtype['text'] != "") print ($locationtype['text']); ?>
                                     <?php
                                                 if ($locationtype['@xml_lang'])
                                                 {
@@ -57,7 +57,7 @@
                         <?php foreach ($names as $name): ?>
                             <li>
                                 <span class="name">Text:</span>
-                                <span class="infom"><?php if ($name['text']) print ($name['text']); ?>
+                                <span class="infom"><?php if ($name['text'] != "") print ($name['text']); ?>
                                     <?php
                                                 if ($name['@xml_lang'])
                                                 {
@@ -81,7 +81,7 @@
                         <?php foreach ($descriptions as $description): ?>
                             <li>
                                 <span class="name">Text:</span>
-                                <span class="infom"><?php if ($description['text']) print ($description['text']); ?>
+                                <span class="infom"><?php if ($description['text'] != "") print ($description['text']); ?>
                                     <?php
                                                 if ($description['@xml_lang'])
                                                 {
@@ -104,7 +104,7 @@
                         <h2>Administrative</h2>
                             <li>
                                 <span class="name">Text:</span>
-                                <span class="infom"><?php if ($administrative['text']) print ($administrative['text']); ?>
+                                <span class="infom"><?php if ($administrative['text'] != "") print ($administrative['text']); ?>
                                     <?php
                                                 if ($administrative['@xml_lang'])
                                                 {
@@ -162,7 +162,7 @@
                         <?php foreach($gazetteerentrys as $gazetteerentry): ?>
                             <li>
                                 <span class="name">Text:</span>
-                                <span class="infom"><?php if($gazetteerentry['text']) print ($gazetteerentry['text']);?></span>
+                                <span class="infom"><?php if($gazetteerentry['text'] != "") print ($gazetteerentry['text']);?></span>
                             </li>
                             <li>
                                 <span class="name">Gazetteer_ref:</span>

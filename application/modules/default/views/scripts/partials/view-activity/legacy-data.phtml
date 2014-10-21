@@ -12,21 +12,21 @@
                 <li>
                     <span class="down-arrow">
                     <?php if ($element['@name']) print $element['@name']; ?>
-                    <?php if ($element['@name'] && $element['@value']) print ";";?>
-                    <?php if ($element['@value']) print $element['@value']; ?>
+                    <?php if ($element['@name'] && $element['@value'] != "") print ";";?>
+                    <?php if ($element['@value'] != "") print $element['@value']; ?>
                     </span> 
                     <ul class="style-2-drop first">
                         <li>
                             <span class="name">Name:</span>
-                            <span class="infom"><?php if ($element['@name']) print $element['@name']; ?></span>
+                            <span class="infom"><?php if ($element['@name'] != "") print $element['@name']; ?></span>
                         </li>
                         <li>
                             <span class="name">Value:</span>
-                            <span class="infom"><?php if ($element['@value']) print $element['@value']; ?></span>
+                            <span class="infom"><?php if ($element['@value'] != "") print $element['@value']; ?></span>
                         </li>
                         <li>
                             <span class="name">Iati Equivalent:</span>
-                            <span class="infom"><?php if ($element['@iati_equivalent']) print $element['@iati_equivalent']; ?></span>
+                            <span class="infom"><?php if ($element['@iati_equivalent'] != "") print $element['@iati_equivalent']; ?></span>
                         </li>
                     </ul>
                 </li>

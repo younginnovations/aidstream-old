@@ -11,12 +11,12 @@
             <ul class="style-2 arrow">
                 <li>
                     <span class="down-arrow">
-                    <?php if ($element['@percentage']) print ($this->length()->adjustDoubleTitleLength($element['@percentage'])); ?>
+                    <?php if ($element['@percentage'] != "") print ($this->length()->adjustDoubleTitleLength($element['@percentage'])); ?>
                     </span> 
                     <ul class="style-2-drop first">
                         <li>
                             <span class="name">Percentage:</span>
-                            <span class="infom"><?php if ($element['@percentage']) print $element['@percentage']; ?></span>
+                            <span class="infom"><?php if ($element['@percentage'] != "") print $element['@percentage']; ?></span>
                         </li>
                     </ul>
                 </li>

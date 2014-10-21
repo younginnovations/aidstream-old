@@ -7,7 +7,7 @@
                 <div class="element-values">
                     <?php if($this->elements['text']): ?>
                         <span class="attrib-label">Text:</span>					
-                        <span class="attrib-value"><?php if ($this->elements['text']) printf("%s [%s]", $this->length()->adjustDoubleLength($this->elements['text']),Iati_Core_Codelist::getCodeByAttrib('ActivityDefault' , '@xml_lang' , $this->elements['@xml_lang'])); ?></span>
+                        <span class="attrib-value"><?php if ($this->elements['text'] != "") printf("%s [%s]", $this->length()->adjustDoubleLength($this->elements['text']),Iati_Core_Codelist::getCodeByAttrib('ActivityDefault' , '@xml_lang' , $this->elements['@xml_lang'])); ?></span>
                     <?php endif; ?>
                 </div>
                 <div class="element-values">
@@ -23,7 +23,7 @@
             <ul class="style-1">
                 <li>
                     <span class="name">Text:</span>
-                    <span class="infom"><?php if ($this->elements['text']) print ($this->elements['text']); ?>
+                    <span class="infom"><?php if ($this->elements['text'] != "") print ($this->elements['text']); ?>
                                         <?php if ($this->elements['@xml_lang'])
                                                 {
                                                     printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('ActivityDefault' , '@xml_lang' , $this->elements['@xml_lang']));

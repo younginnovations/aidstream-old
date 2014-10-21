@@ -26,7 +26,7 @@
                         <?php foreach ($sub_conditions as $condition): ?>
                             <li>
                                 <span class="name">Text:</span>
-                                <span class="infom"><?php if ($condition['text']) print ($condition['text']); ?>
+                                <span class="infom"><?php if ($condition['text'] != "") print ($condition['text']); ?>
                                                     <?php if ($condition['@xml_lang'])
                                                             {
                                                                 printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('Condition' , '@xml_lang' , $condition['@xml_lang']));
