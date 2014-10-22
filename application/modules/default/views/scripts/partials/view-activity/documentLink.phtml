@@ -52,7 +52,7 @@
                     <?php foreach ($categorys as $category): ?>
                         <li>
                             <span class="name">Text:</span>
-                            <span class="infom"><?php if ($category['text']) print ($category['text']); ?>
+                            <span class="infom"><?php if ($category['text'] != "") print ($category['text']); ?>
                                                 <?php if ($category['@xml_lang'])
                                                     {
                                                         printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('Category' , '@xml_lang' , $category['@xml_lang']));
@@ -77,7 +77,7 @@
                     <?php foreach ($titles as $title): ?>
                         <li>
                             <span class="name">Text:</span>
-                            <span class="infom"><?php if ($title['text']) print ($title['text']); ?>
+                            <span class="infom"><?php if ($title['text'] != "") print ($title['text']); ?>
                                                 <?php if ($title['@xml_lang'])
                                                     {
                                                         printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('Title' , '@xml_lang' , $title['@xml_lang']));

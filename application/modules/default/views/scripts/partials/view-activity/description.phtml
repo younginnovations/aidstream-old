@@ -9,11 +9,11 @@
     <?php foreach ($this->elements as $element): ?>
         <div class="current">
             <ul class="style-2 arrow">
-                <li> <span class="down-arrow"><?php if ($element['text']) print ($this->length()->adjustSingleTitleLength($element['text'])); ?><?php if ($element['@xml_lang']) printf(" [%s]" , Iati_Core_Codelist::getCodeByAttrib('Description' , '@xml_lang' , $element['@xml_lang'])); ?></span>
+                <li> <span class="down-arrow"><?php if ($element['text'] != "") print ($this->length()->adjustSingleTitleLength($element['text'])); ?><?php if ($element['@xml_lang']) printf(" [%s]" , Iati_Core_Codelist::getCodeByAttrib('Description' , '@xml_lang' , $element['@xml_lang'])); ?></span>
                     <ul class="style-2-drop first">
                         <li>
                             <span class="name">Text:</span>
-                            <span class="infom"> <?php if ($element['text']) print ($element['text']); ?>
+                            <span class="infom"> <?php if ($element['text'] != "") print ($element['text']); ?>
                                 <?php
                                                 if ($element['@xml_lang'])
                                                 {

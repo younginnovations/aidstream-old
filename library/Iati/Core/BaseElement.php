@@ -1,7 +1,7 @@
 <?php
 /**
  * Base class for iati elements
- * Coantains all the attributes of the element and the methods for functionalities that can be done
+ * Contains all the attributes of the element and the methods for functionalities that can be done
  * for the elements like creating form, saving, retrieving, generating xml etc.
  *
  * boolen $isMultiple Should be true if the element can be multiple.
@@ -390,7 +390,7 @@ class Iati_Core_BaseElement
         }
         foreach($data as $key=>$values){
             if($key && ($key == 'id' || $key == 'add' || $key == 'remove' || $key == 'save' || $key == 'save_and_view')) {continue;}// check for empty excluding these elements
-            if($values){
+            if($values != ""){
                 if(is_array($values)){
                     $hasData = $this->hasData($values);
                     if($hasData) return true;
@@ -637,13 +637,11 @@ class Iati_Core_BaseElement
     {
         if(!is_array($data)) return $xmlObj;
         $sectorCode = false;
-        echo "<pre>";
-        var_dump($data);
-        echo "</pre>";
+        
         foreach($data as $name=>$value){
             if(in_array($name , $this->iatiAttribs) && $name != 'text')
             {
-                if(!$value) continue;
+                if($value == "") continue;
                 $name = preg_replace("/^@/" , '' , $name);
                 if($name == "xml_lang"){
                     $value = Iati_Core_Codelist::getCodeByAttrib($this->className, '@xml_lang' , $value);

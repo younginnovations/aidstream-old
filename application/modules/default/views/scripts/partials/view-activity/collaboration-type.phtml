@@ -24,7 +24,7 @@
                 </li>
                 <li>
                     <span class="name">Text:</span>
-                    <span class="infom"><?php if ($this->elements['text']) print ($this->elements['text']); ?>
+                    <span class="infom"><?php if ($this->elements['text'] != "") print ($this->elements['text']); ?>
                                         <?php if ($this->elements['@xml_lang'])
                                                 {
                                                     printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('CollaborationType' , '@xml_lang' , $this->elements['@xml_lang']));

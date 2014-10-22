@@ -16,8 +16,8 @@
                         if (!empty($value)):
                             ?>
                                 <?php  ($value['@currency']) ? (printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('Activity' , '@default_currency' , $value['@currency']))) : (printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('Activity' , '@default_currency' , $this->activityInfo['@default_currency']))) ?> 
-                                <?php if ($value['text']) print ($this->length()->adjustDoubleTitleLength($this->numberFormat()->localization($value['text']))); ?> 
-                                <?php if ($value['text'] && $value['@value_date']) print "; "; ?>
+                                <?php if ($value['text'] != "") print ($this->length()->adjustDoubleTitleLength($this->numberFormat()->localization($value['text']))); ?> 
+                                <?php if ($value['text'] != "" && $value['@value_date']) print "; "; ?>
                                 <?php if ($value['@value_date']) print ($this->length()->adjustDoubleTitleLength($value['@value_date'])); ?>
                         <?php endif; ?>
                     </span>
@@ -37,7 +37,7 @@
                             <h2>Period End</h2>
                                 <li>
                                     <span class="name">Text:</span>
-                                    <span class="infom"><?php if ($periodend['text']) print ($periodend['text']); ?></span>
+                                    <span class="infom"><?php if ($periodend['text'] != "") print ($periodend['text']); ?></span>
                                 </li>
                                 <li>
                                     <span class="name">Iso_date:</span>
@@ -57,7 +57,7 @@
                             <h2>Period Start</h2>
                                 <li>
                                     <span class="name">Text:</span>
-                                    <span class="infom"><?php if ($periodstart['text']) print ($periodstart['text']); ?></span>
+                                    <span class="infom"><?php if ($periodstart['text'] != "") print ($periodstart['text']); ?></span>
                                 </li>
                                 <li>
                                     <span class="name">Iso_date:</span>
@@ -77,7 +77,7 @@
                             <h2>Value</h2>
                                 <li>
                                     <span class="name">Text:</span>
-                                    <span class="infom"><?php if ($value['text']) print ($this->numberFormat()->localization($value['text'])); ?></span>
+                                    <span class="infom"><?php if ($value['text'] != "") print ($this->numberFormat()->localization($value['text'])); ?></span>
                                 </li>
                                 <li>
                                     <span class="name">Value_date:</span>

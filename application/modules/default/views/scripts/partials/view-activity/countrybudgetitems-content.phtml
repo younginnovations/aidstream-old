@@ -21,7 +21,7 @@
                                 </li>
                                 <li>
                                     <span class="name">Percentage:</span>
-                                    <span class="infom"><?php if ($budgetItem['@percentage']) print $budgetItem['@percentage'] ?></span>
+                                    <span class="infom"><?php if ($budgetItem['@percentage'] != "") print $budgetItem['@percentage'] ?></span>
                                 </li>
                         </ul>
                         
@@ -35,7 +35,7 @@
                                     <h2>Description</h2>
                                     <li>
                                         <span class="name">Text:</span>
-                                        <span class="infom"> <?php if ($descriptionItem['text']) print ($descriptionItem['text']); ?>
+                                        <span class="infom"> <?php if ($descriptionItem['text'] != "") print ($descriptionItem['text']); ?>
                                             <?php
                                                             if ($descriptionItem['@xml_lang'])
                                                             {

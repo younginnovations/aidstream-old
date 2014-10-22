@@ -114,7 +114,10 @@ INSERT INTO `ActivityStatus` (`id`, `Code`, `Name`, `lang_id`) VALUES
 (12, 2, 'Implementation', 3),
 (13, 3, 'Completion', 3),
 (14, 4, 'Post-completion', 3),
-(15, 5, 'Cancelled', 3);
+(15, 5, 'Cancelled', 3),
+(16, 6, 'Suspended', 1),
+(17, 6, 'Suspended', 2),
+(18, 6, 'Suspended', 3);
 
 -- --------------------------------------------------------
 
@@ -1690,7 +1693,10 @@ INSERT INTO `DescriptionType` (`id`, `Code`, `Name`, `Description`, `lang_id`) V
 (6, 3, 'Target Groups', 'Statement of groups targeted to benefit from the activity', 2),
 (7, 1, 'General', 'Long description of the activity with no particular structure', 3),
 (8, 2, 'Objectives', 'Objectives for the activity, for example from a logical framework', 3),
-(9, 3, 'Target Groups', 'Statement of groups targeted to benefit from the activity', 3);
+(9, 3, 'Target Groups', 'Statement of groups targeted to benefit from the activity', 3),
+(10, 4, 'Other', 'For miscellaneous use. A further classification or breakdown may be included in the narrative.', 1),
+(11, 4, 'Other', 'For miscellaneous use. A further classification or breakdown may be included in the narrative.', 2),
+(12, 4, 'Other', 'For miscellaneous use. A further classification or breakdown may be included in the narrative.', 3);
 
 -- --------------------------------------------------------
 
@@ -1802,7 +1808,22 @@ INSERT INTO `DocumentCategory` (`id`, `Code`, `Name`, `CategoryCode`, `lang_id`)
 (56, 'B07', 'Country Audit Report', 'B', 3),
 (57, 'B08', 'Exclusions Policy', 'B', 3),
 (58, 'B09', 'Institutional Evaluation Report', 'B', 3),
-(59, 'B10', 'Country Evaluation Report', 'B', 3);
+(59, 'B10', 'Country Evaluation Report', 'B', 3),
+(60, 'B11', 'Sector Strategy', 'B', 1),
+(61, 'B11', 'Sector Strategy', 'B', 2),
+(62, 'B11', 'Sector Strategy', 'B', 3),
+(63, 'B12', 'Thematic Strategy', 'B', 1),
+(64, 'B12', 'Thematic Strategy', 'B', 2),
+(65, 'B12', 'Thematic Strategy', 'B', 3),
+(66, 'B13', 'Country-level Memorandum of Understanding', 'B', 1),
+(67, 'B13', 'Country-level Memorandum of Understanding', 'B', 2),
+(68, 'B13', 'Country-level Memorandum of Understanding', 'B', 3),
+(69, 'B14', 'Evaluations policy', 'B', 1),
+(70, 'B14', 'Evaluations policy', 'B', 2),
+(71, 'B14', 'Evaluations policy', 'B', 3),
+(72, 'B15', 'General Terms and Conditions', 'B', 1),
+(73, 'B15', 'General Terms and Conditions', 'B', 2),
+(74, 'B15', 'General Terms and Conditions', 'B', 3);
 
 -- --------------------------------------------------------
 
@@ -3072,7 +3093,10 @@ INSERT INTO `PolicyMarker` (`id`, `Code`, `Name`, `lang_id`) VALUES
 (21, 5, 'Aid Targeting the Objectives of the Convention on Biological Diversity', 3),
 (22, 6, 'Aid Targeting the Objectives of the Framework Convention on Climate Change - Mitigation', 3),
 (23, 7, 'Aid Targeting the Objectives of the Framework Convention on Climate Change - Adaptation', 3),
-(24, 8, 'Aid Targeting the Objectives of the Convention to Combat Desertification', 3);
+(24, 8, 'Aid Targeting the Objectives of the Convention to Combat Desertification', 3),
+(25, 9, 'Reproductive, Maternal, Newborn and Child Health (RMNCH)', 1),
+(26, 9, 'Reproductive, Maternal, Newborn and Child Health (RMNCH)', 2),
+(27, 9, 'Reproductive, Maternal, Newborn and Child Health (RMNCH)', 3);
 
 -- --------------------------------------------------------
 
@@ -3105,7 +3129,10 @@ INSERT INTO `PolicySignificance` (`id`, `Code`, `Name`, `Description`, `lang_id`
 (9, 0, 'not targeted', 'The score "not targeted" means that the activity was examined but found not to target the policy objective.', 3),
 (10, 1, 'significant objective', 'Significant (secondary) policy objectives are those which, although important, were not the prime motivation for undertaking the activity.', 3),
 (11, 2, 'principal objective', 'Principal (primary) policy objectives are those which can be identified as being fundamental in the design and impact of the activity and which are an explicit objective of the activity. They may be selected by answering the question "Would the activity have been undertaken without this objective?', 3),
-(12, 3, 'principal objective AND in support of an action programme', 'For desertification-related aid only', 3);
+(12, 3, 'principal objective AND in support of an action programme', 'For desertification-related aid only', 3),
+(13, 4, 'explicit primary objective', '', 1), 
+(14, 4, 'explicit primary objective', '', 2),
+(15, 4, 'explicit primary objective', '', 3);
 
 
 --
@@ -3226,15 +3253,18 @@ INSERT INTO `RelatedActivityType` (`id`, `Code`, `Name`, `Description`, `lang_id
 (1, 1, 'Parent', 'An activity that contains sub-activities (sub-components)', 1),
 (2, 2, 'Child', 'A sub-activity (sub-component) of a larger activity (the parent)', 1),
 (3, 3, 'Sibling', 'A sub-activity (sub-component) related to another sub-activity of the same parent', 1),
-(4, 4, 'Multifunded', 'A multifunded, or co-funded activity. The identifier should be globally unique and shared by all reporters of this activity.', 1),
+(4, 4, 'Co-funded', 'An activity that receives funding from more than one organisation.', 1),
 (5, 1, 'Parent', 'An activity that contains sub-activities (sub-components)', 2),
 (6, 2, 'Child', 'A sub-activity (sub-component) of a larger activity (the parent)', 2),
 (7, 3, 'Sibling', 'A sub-activity (sub-component) related to another sub-activity of the same parent', 2),
-(8, 4, 'Multifunded', 'A multifunded, or co-funded activity. The identifier should be globally unique and shared by all reporters of this activity.', 2),
+(8, 4, 'Co-funded', 'An activity that receives funding from more than one organisation.', 2),
 (9, 1, 'Parent', 'An activity that contains sub-activities (sub-components)', 3),
 (10, 2, 'Child', 'A sub-activity (sub-component) of a larger activity (the parent)', 3),
 (11, 3, 'Sibling', 'A sub-activity (sub-component) related to another sub-activity of the same parent', 3),
-(12, 4, 'Multifunded', 'A multifunded, or co-funded activity. The identifier should be globally unique and shared by all reporters of this activity.', 3);
+(12, 4, 'Co-funded', 'An activity that receives funding from more than one organisation.', 3),
+(13, 5, 'Third Party', 'A report by another organisation on the same activity (excluding activities reported as part of financial transactions - eg. provider-activity-id - or a co-funded activity using code = 4).', 1),
+(14, 5, 'Third Party', 'A report by another organisation on the same activity (excluding activities reported as part of financial transactions - eg. provider-activity-id - or a co-funded activity using code = 4).', 2),
+(15, 5, 'Third Party', 'A report by another organisation on the same activity (excluding activities reported as part of financial transactions - eg. provider-activity-id - or a co-funded activity using code = 4).', 3);
 
 -- --------------------------------------------------------
 
@@ -4098,7 +4128,7 @@ INSERT INTO `TransactionType` (`id`, `Code`, `Name`, `Description`, `lang_id`) V
 (2, 'D', 'Disbursement', 'The amount placed at the disposal of a recipient country or agency (in the case of internal development-related expenditures, the outlay of funds)', 1),
 (3, 'R', 'Reimbursement', 'A disbursement that covers funds already spent by the recipient, as agreed in the terms of the loan or grant.', 1),
 (4, 'E', 'Expenditure', 'The outlay by the implementing agency on goods and services for the activity', 1),
-(5, 'IF', 'Incoming Funds', 'Funds received from an external funding source (eg a donor).', 1),
+(5, 'IF', 'Incoming Funds', 'Funds received (whether from an external source or through internal accounting) for specific use on this activity.', 1),
 (6, 'LR', 'Loan Repayment', 'The actual amount of principal (amortisation) repaid, including any arrears.', 1),
 (7, 'IR', 'Interest Repayment', 'The actual amount of interest repaid, including fees.', 1),
 (8, 'C', 'Commitment', 'A firm written obligation by the donor to provide resources of a specified amount under specified financial terms and conditions and for specified purposes for the benefit of the recipient', 2),
@@ -4182,7 +4212,10 @@ INSERT INTO `Vocabulary` (`id`, `Code`, `Name`, `lang_id`) VALUES
 (18, 'ISO', 'International Organization for Standardization', 3),
 (19, 'NTEE', 'National Taxonomy for Exempt Entities (USA)', 3),
 (20, 'RO', 'Reporting Organisation (i.e. maintained by the organisation referred to in the <reporting-org> element.', 3),
-(21, 'WB', 'World Bank', 3);
+(21, 'WB', 'World Bank', 3),
+(22, 'RO2', 'Reporting Organisation (2)', 1),
+(23, 'RO2', 'Reporting Organisation (2)', 2),
+(24, 'RO2', 'Reporting Organisation (2)', 3);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

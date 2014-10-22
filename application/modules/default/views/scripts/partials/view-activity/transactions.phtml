@@ -36,7 +36,7 @@
                             ?>   
                                 <?php if ($code && $transaction["TransactionValue"]["text"]) print "; "; ?>
                                 <?php  ($transaction["TransactionValue"]["@currency"]) ? (printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('Activity' , '@default_currency' , $transaction["TransactionValue"]["@currency"]))) : (printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('Activity' , '@default_currency' , $this->activityInfo['@default_currency']))) ?> 
-                                <?php if ($transaction["TransactionValue"]["text"]) 
+                                <?php if ($transaction["TransactionValue"]["text"] != "") 
                                       {
                                        $text = $transaction["TransactionValue"]["text"];
                                        print ($this->length()->adjustTripleTitleLength($this->numberFormat()->localization($transaction["TransactionValue"]["text"]))); 
@@ -49,7 +49,7 @@
                         <?php
                         if (!empty($transaction["TransactionDate"])):
                             ?>    
-                                <?php if ($text && $transaction["TransactionDate"]["@iso_date"]) print "; "; ?>
+                                <?php if ($text != "" && $transaction["TransactionDate"]["@iso_date"]) print "; "; ?>
                                 <?php if ($transaction["TransactionDate"]["@iso_date"]) print ($this->length()->adjustTripleTitleLength($transaction["TransactionDate"]["@iso_date"])); ?> 
                            
                         <?php endif; ?>

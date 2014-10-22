@@ -9,19 +9,19 @@
     <?php foreach ($this->elements as $element): ?>
         <div class="current">
             <ul class="style-2 arrow">
-                <li> <span class="down-arrow"><?php if ($element['text']) print ($this->length()->adjustSingleTitleLength($element['text'])); ?></span>
+                <li> <span class="down-arrow"><?php if ($element['text'] != "") print ($this->length()->adjustSingleTitleLength($element['text'])); ?></span>
                     <ul class="style-2-drop first">
                         <li>
                             <span class="name">Text:</span>
-                            <span class="infom"><?php if ($element['text']) print ($element['text']); ?></span>
+                            <span class="infom"><?php if ($element['text'] != "") print ($element['text']); ?></span>
                         </li>
                         <li>
                             <span class="name">Owner_ref:</span>
-                            <span class="infom"><?php if ($element['@owner_ref']) (print $element['@owner_ref']) ?></span>
+                            <span class="infom"><?php if ($element['@owner_ref'] != "") (print $element['@owner_ref']) ?></span>
                         </li>
                         <li>
                             <span class="name">Owner_name:</span>
-                            <span class="infom"><?php if ($element['@owner_name']) (print $element['@owner_name'])   ?></span>
+                            <span class="infom"><?php if ($element['@owner_name'] != "") (print $element['@owner_name'])   ?></span>
                         </li>
                     </ul>
                 </li>
