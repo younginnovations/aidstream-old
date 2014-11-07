@@ -25,15 +25,19 @@
         </tr>
     </thead>
     <tbody>
-        <?php $count = 1;?>
-        <?php foreach($this->docs as $document):?>
-        <?php $url = "http://" . $_SERVER['HTTP_HOST']. $this->baseUrl().'/files/documents/'.$document['filename'];?>
-        <tr>
-            <td><?php echo $count;?></td>
-            <td><?php echo $url?></td>
-            <td><a href="<?php echo $url; ?>" class="use-this">Use this</a></td>
-        </tr>
-        <?php $count++;?>
+        <?php 
+            $count = 1;
+            $path = "http://" . $_SERVER['HTTP_HOST']. $this->baseUrl().'/files/documents/';
+            foreach($this->docs as $document):
+                $url = $path . $document['filename'];
+                $encoded_url = $path . rawurlencode($document['filename']);
+        ?>
+                <tr>
+                    <td><?php echo $count;?></td>
+                    <td><?php echo $url?></td>
+                    <td><a href="<?php echo $encoded_url; ?>" class="use-this">Use this</a></td>
+                </tr>
+            <?php $count++;?>
         <?php endforeach;?>
     </tbody>
 </table>
