@@ -1,10 +1,10 @@
 <div class="filter-org">
-Filter: <input id="organisation-input" type="text" name="organisation-filter" placeholder="Organisation Name">
+Filter: <input id="organisation-input" type="text" name="organisation-filter" placeholder="Organisation Name, Email">
 </div>
 <table id="list-org">
 <thead>
 <tr>
-    <th>S.N.</th><th>Organisation Name</th><th>Users</th><th>Activities</th><th>Status</th><th>Simplified</th><th>Displayed In Organisations Page</th><th>Action</th>
+    <th>S.N.</th><th>Organisation Name</th><th>Users</th><th>Activities</th><th>Status</th><th>Simplified</th><th>Display</th><th>Action</th>
 <!--    <th>Action</th>-->
 </tr>
 </thead>
@@ -17,7 +17,7 @@ Filter: <input id="organisation-input" type="text" name="organisation-filter" pl
     <?php $newSimplified = ($row['simplified'])? 0:1;?>
     <tr>
     <td><?php print $i;?></td>
-    <td><?php print $row['name']?></td>
+    <td><?php print $row['name']?><br><?php print $row['email'];?></td>
     <td><?php print $row['users_count']?></td>
     <td><?php print $row['activity_count']?></td>
     <td class='toggle-status' value='<?php echo $row['status'] ?>'><?php print ($row['status'])?'Enabled': 'Disabled';?></td>

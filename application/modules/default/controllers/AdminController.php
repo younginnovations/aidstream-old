@@ -58,6 +58,7 @@ class AdminController extends Zend_Controller_Action
             $organisation['activity_count'] = $activities[0]['activity_count'];
             $user = $userModel->getUserByAccountId($organisation['id'],array('role_id'=>1));
             $organisation['user_id'] = $user['user_id'];
+            $organisation['email'] = $user['email'];
             $org_data[] = $organisation;
         }
 
