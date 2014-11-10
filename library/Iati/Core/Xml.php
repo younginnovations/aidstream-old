@@ -57,7 +57,8 @@ class Iati_Core_Xml
             }
         }
 
-        return $this->xml->asXML();
+        $prettyXml = $this->formatXml($this->xml);
+        return $prettyXml;
     }
     
     /**
@@ -75,5 +76,23 @@ class Iati_Core_Xml
         fclose($fp);
         
         return $fileName;
-    }     
+    }
+
+    /**
+     * Prettify xml from simpleXmlObject, format XML to save indented tree rather than one line
+     * @param  object $simpleXmlObject
+     * @return string xml
+     */
+    public function formatXml($simpleXmlObject) {
+        if(!is_object($simpleXmlObject) ){
+            return;
+        }
+
+        $dom = new DOMDocument('1.0');
+        $dom->preserveWhiteSpace = false;
+        $dom->formatOutput = true;
+        $dom->loadXML($simpleXmlObject->asXML());
+
+        return $dom->saveXML();
+    }   
 }
