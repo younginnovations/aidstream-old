@@ -1751,6 +1751,18 @@ var validEmail = function (email) {
                     });
                 }
             },
+            ".use-reporting-org": {
+                "onclick": function (evt) {
+                    evt.preventDefault();
+                    var node = getTarget(evt);
+                    var reporting_org_name = dojo.attr(node, 'reporting-org-name');
+                    var reporting_org_ref = dojo.attr(node, 'reporting-org-ref');
+                    var providerOrgTextNode = dojo.query(dojo.byId('Transaction-ProviderOrg-text'));
+                    var providerOrgIdentifierCodeNode = dojo.query(dojo.byId('Transaction-ProviderOrg-ref'));
+                    providerOrgTextNode.attr('value', reporting_org_name);
+                    providerOrgIdentifierCodeNode.attr('value', reporting_org_ref);                    
+                }
+            },
         });
 
         // End of dojo.behavior.add

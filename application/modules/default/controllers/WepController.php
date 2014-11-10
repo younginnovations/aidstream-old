@@ -125,7 +125,8 @@ class WepController extends Zend_Controller_Action
                         ->addMessage(array('error' => "You have some error in your data"));
                     $form->populate($data);
                 } else {
-                    //Trim reporting_org_ref
+                    //Trim
+                    $data['default_reporting_org'] = trim($data['default_reporting_org']); 
                     $data['reporting_org_ref'] = trim($data['reporting_org_ref']);
 
                     //Get default fields values for reporting org
