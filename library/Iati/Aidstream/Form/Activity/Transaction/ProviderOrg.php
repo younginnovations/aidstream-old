@@ -25,7 +25,7 @@ class Iati_Aidstream_Form_Activity_Transaction_ProviderOrg extends Iati_Core_Bas
             ->setRequired()
             ->setValue($this->data['text'])
             ->setAttribs(array('rows'=>'3' , 'cols'=> '20'))
-            ->setDescription('Use your reporting organistaion info? <a class="use-reporting-org" reporting-org-name="' . $defaults['reporting_org'] . '" reporting-org-ref="' . $defaults['reporting_org_ref'] .'">Click here.</a>')
+            ->setDescription('Use your reporting organisation info? <a class="use-reporting-org" reporting-org-name="' . $defaults['reporting_org'] . '" reporting-org-ref="' . $defaults['reporting_org_ref'] .'">Click here.</a>')
             ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help transaction-provider_org-text' , 'placement' => 'PREPEND')), array('Description' , array('escape' => false , 'class' => 'description'))));
 
         $form['ref'] = new Zend_Form_Element_Text('ref');
