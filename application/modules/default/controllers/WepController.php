@@ -1051,4 +1051,39 @@ class WepController extends Zend_Controller_Action
         $this->view->usedDocs = $usedDocs;
     }
 
+    public function downloadXmlAction()
+    {
+        $name = $this->_getParam('name');
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        
+        $obj = new Iati_Core_Xml();
+
+        if ($name == 'Activity') {
+            $wepModel = new Model_Wep();
+            $activities = $wepModel->listAll('iati_activities', 'account_id', $identity->account_id);
+            $activities_id = $activities[0]['id'];
+            $activityArray = $wepModel->listAll('iati_activity', 'activities_id', $activities_id);
+            $index = 0;
+            foreach ($activityArray as $key => $activity) {
+                $activity_array[$index] = $activity['id'];
+                $index++;
+            }
+            $xmlOutput = $obj->generateXml($name, $activity_array);
+            $filename = 'iati_activity';
+        } elseif ($name == 'Organisation') {
+            $organisationModelObj = new Model_Organisation();
+            $organisationId = $organisationModelObj->checkOrganisationPresent($identity->account_id);
+            $organisationIds = explode(',', $organisationId);
+            $xmlOutput = $obj->generateXml($name, $organisationIds);
+            $filename = 'iati_organisation_data';
+        } else {
+            exit('Invalid name for download.');
+        }
+
+        header( 'Content-Type: text/xml' );
+        header( 'Content-Disposition: attachment;filename='.$filename.'.xml');
+        echo $xmlOutput;
+        exit;
+    }
+
 }
