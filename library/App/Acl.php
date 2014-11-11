@@ -85,6 +85,7 @@ class App_Acl extends Zend_Acl
         $this->allow('user', 'default:wep', 'activitybar');
         $this->allow('user', 'default:wep', 'upload-transaction');
         $this->allow('user', 'default:wep', 'download-csv');
+        $this->allow('user', 'default:wep', 'download-xml');
         $this->allow('user', 'default:wep', 'download-my-data');
         $this->allow('user', 'default:wep', 'list-uploaded-documents');
         $this->allow('user', 'default:wep', 'add-activity-elements', new App_ActionAssertion('add_activity_elements'));

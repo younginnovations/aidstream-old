@@ -125,7 +125,8 @@ class WepController extends Zend_Controller_Action
                         ->addMessage(array('error' => "You have some error in your data"));
                     $form->populate($data);
                 } else {
-                    //Trim reporting_org_ref
+                    //Trim
+                    $data['default_reporting_org'] = trim($data['default_reporting_org']); 
                     $data['reporting_org_ref'] = trim($data['reporting_org_ref']);
 
                     //Get default fields values for reporting org
@@ -1048,6 +1049,41 @@ class WepController extends Zend_Controller_Action
 
         $this->view->docs = $docs;
         $this->view->usedDocs = $usedDocs;
+    }
+
+    public function downloadXmlAction()
+    {
+        $name = $this->_getParam('name');
+        $identity = Zend_Auth::getInstance()->getIdentity();
+        
+        $obj = new Iati_Core_Xml();
+
+        if ($name == 'Activity') {
+            $wepModel = new Model_Wep();
+            $activities = $wepModel->listAll('iati_activities', 'account_id', $identity->account_id);
+            $activities_id = $activities[0]['id'];
+            $activityArray = $wepModel->listAll('iati_activity', 'activities_id', $activities_id);
+            $index = 0;
+            foreach ($activityArray as $key => $activity) {
+                $activity_array[$index] = $activity['id'];
+                $index++;
+            }
+            $xmlOutput = $obj->generateXml($name, $activity_array);
+            $filename = 'iati_activity';
+        } elseif ($name == 'Organisation') {
+            $organisationModelObj = new Model_Organisation();
+            $organisationId = $organisationModelObj->checkOrganisationPresent($identity->account_id);
+            $organisationIds = explode(',', $organisationId);
+            $xmlOutput = $obj->generateXml($name, $organisationIds);
+            $filename = 'iati_organisation_data';
+        } else {
+            exit('Invalid name for download.');
+        }
+
+        header( 'Content-Type: text/xml' );
+        header( 'Content-Disposition: attachment;filename='.$filename.'.xml');
+        echo $xmlOutput;
+        exit;
     }
 
 }

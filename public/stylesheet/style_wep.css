@@ -1012,6 +1012,7 @@ dt#save_and_view-label {
 #contain p.description {
     color: #696969;
     font-style: italic;
+    font-size: small;
     width: 100%;
     text-align: left;
 }
@@ -4995,4 +4996,25 @@ a {
     box-shadow: none;
     outline: 0;
     border: 1px solid #bbb;
+}
+
+.org-name {
+    max-width: 166px;
+    text-align: left!important;
+    word-wrap: break-word;
+}
+
+#list-org th,#list-org td {
+    text-align: center;
+    vertical-align: top;
+}
+
+#list-org tr td:last-child {
+    text-align: left!important;
+}
+
+.org-email {
+    font-size: 12px;
+    color: #666;
+    display: block;
 }
