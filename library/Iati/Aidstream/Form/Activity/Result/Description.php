@@ -11,13 +11,6 @@ class Iati_Aidstream_Form_Activity_Result_Description extends Iati_Core_BaseForm
 
         $form['id'] = new Zend_Form_Element_Hidden('id');
         $form['id']->setValue($this->data['id']);
-        
-        $types = $model->getCodeArray('DescriptionType', null, '1' , true);
-        $form['type'] = new Zend_Form_Element_Select('type');
-        $form['type']->setLabel('Description Type')
-            ->setValue($this->data['@type'])
-            ->setAttrib('class' , 'form-select')
-            ->setMultioptions($types);
 
         $form['text'] = new Zend_Form_Element_Textarea('text');
         $form['text']->setLabel('Description')
