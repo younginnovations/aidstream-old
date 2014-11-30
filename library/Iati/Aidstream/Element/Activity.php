@@ -34,7 +34,6 @@ class Iati_Aidstream_Element_Activity extends Iati_Core_BaseElement
                                         'Transaction' ,
                                         'CapitalSpend' , 
                                         'DocumentLink' ,
-                                        'ActivityWebsite' ,
                                         'RelatedActivity' ,
                                         'Conditions' ,
                                         'Result' ,
