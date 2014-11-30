@@ -45,6 +45,20 @@
                     <?php endif; ?>
                     <!-- Organisation Ends -->
 
+                    <!-- Department Starts -->
+                    <?php
+                    $department = $element['Department'];
+                    ?>
+                    <?php if (!empty($department)): ?>  
+                        <li>
+                            <span class="name">Department:</span>
+                                <span class="infom">
+                                    <?php if ($department['text'] != "") print ($department['text']); ?>
+                                </span>
+                        </li>              
+                    <?php endif; ?>
+                    <!-- Department Ends -->
+
 
                     <!-- PersonName Starts -->
                     <?php
