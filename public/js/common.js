@@ -1690,18 +1690,16 @@ var validEmail = function (email) {
                 }
             },
 
-            ".administrative-map": {
+            ".pos-map": {
                 "found": function (ele) {
                     var id = dojo.attr(ele, 'id');
-                    var lat = dojo.attr(id + '-Coordinates-latitude', 'value');
-                    var lng = dojo.attr(id + '-Coordinates-longitude', 'value');
+                    var lat = dojo.attr(id + '-latitude', 'value');
+                    var lng = dojo.attr(id + '-longitude', 'value');
                     if (lat && lng) {
                         var map = initMap(ele, [lat, lng]);
                     } else {
                         var map = initMap(ele, '');
                     }
-
-                    addCountryChange(id + '-Administrative-country', map);
                 }
             },
             ".element-default-toogle-button": {
