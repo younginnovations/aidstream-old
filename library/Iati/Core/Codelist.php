@@ -170,15 +170,35 @@ class Iati_Core_Codelist
                 case "GazetteerEntry_gazetteer_ref":
                     $return = 'GazetteerAgency';
                     break;
+
                 case "Budget_type":
                     $return = 'BudgetType';
                     break;
+
                 case "CountryBudgetItems_vocabulary":
                     $return = 'BudgetIdentifierVocabulary';
                     break;
+
                 case "BudgetItem_code":
                     $return = 'BudgetIdentifier';
                     break;
+
+                case "GeographicVocabulary_code":
+                    $return = 'GeographicVocabulary';
+                    break;
+
+                case "GeographicLocationReach_code":
+                    $return = 'GeographicLocationReach';
+                    break;
+
+                case "GeographicExactness_code":
+                    $return = 'GeographicExactness';
+                    break;
+
+                case "GeographicLocationClass_code":
+                    $return = 'GeographicLocationClass';
+                    break;
+
                 default:
                     $return = false;
                     break;    
