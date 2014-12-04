@@ -1,6 +1,6 @@
 <?php
 
-class Iati_Aidstream_Form_Activity_Location_Administrative extends Iati_Core_BaseForm
+class Iati_Aidstream_Form_Activity_Location_LocationId extends Iati_Core_BaseForm
 {  
     public function getFormDefination()
     {
@@ -9,7 +9,7 @@ class Iati_Aidstream_Form_Activity_Location_Administrative extends Iati_Core_Bas
         
         $form['id'] = new Zend_Form_Element_Hidden('id');
         $form['id']->setValue($this->data['id']);
-
+            
         $vocabulary = $model->getCodeArray('GeographicVocabulary', null, '1' , true);
         $form['vocabulary'] = new Zend_Form_Element_Select('vocabulary');
         $form['vocabulary']->setLabel('Vocabulary')

@@ -1,10 +1,10 @@
 <?php
 
-class Iati_Aidstream_Form_Activity_Location_Coordinates extends Iati_Core_BaseForm
+class Iati_Aidstream_Form_Activity_Location_Point_Pos extends Iati_Core_BaseForm
 {  
     public function getFormDefination()
-    {
-        $model = new Model_Wep();
+    {   
+        $this->setAttrib('class' , 'simplified-sub-element');
         
         $form['id'] = new Zend_Form_Element_Hidden('id');
         $form['id']->setValue($this->data['id']);
@@ -16,17 +16,10 @@ class Iati_Aidstream_Form_Activity_Location_Coordinates extends Iati_Core_BaseFo
             ->setAttribs(array('class' => 'form-text'));
         
         $form['longitude'] = new Zend_Form_Element_Text('longitude');
-        $form['longitude']->setLabel('longitude')
+        $form['longitude']->setLabel('Longitude')
             ->setRequired()    
             ->setValue($this->data['@longitude'])
             ->setAttribs(array('class' => 'form-text'));
-        
-        $precisionCode = $model->getCodeArray('PercisionCode', null, '1' , true);
-        $form['precision'] = new Zend_Form_Element_Select('precision');
-        $form['precision']->setLabel('Precision')  
-            ->setValue($this->data['@precision'])
-            ->setAttrib('class' , 'form-select')
-            ->setMultioptions($precisionCode);
 
         $this->addElements($form);
         return $this;

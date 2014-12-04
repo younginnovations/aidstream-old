@@ -4,11 +4,11 @@
 
 <?php $form = $this->element;?>
 <?php $belongsTo = $form->getElement('id')->getId();?>
-<?php $formId = preg_replace('/-Administrative-id/' , '' , $belongsTo);?>
+<?php $formId = preg_replace('/-id/', '', $belongsTo);?>
 
 <div class="element-wrapper">
-    <fieldset id='fieldset-Administrative'>
-        <legend>Administrative</legend>
+    <fieldset id='fieldset-Pos'>
+        <legend>Position</legend>
         <div>
             <div class='form-wrapper'>
                 <?php foreach($form->getElements() as $element):?>
@@ -18,4 +18,4 @@
         </div>
     </fieldset>
 </div>
-<div id='<?php echo $formId;?>' class='administrative-map' style="height:400px;"></div>
+<div id='<?php echo $formId;?>' class='pos-map' style="height:400px;"></div>

@@ -6,7 +6,7 @@ class Iati_Aidstream_Element_Activity_Location extends Iati_Core_BaseElement
     protected $className = 'Location';
     protected $displayName = 'Location';
     protected $tableName = 'iati_location';
-    protected $attribs = array('id','@percentage');
-    protected $iatiAttribs = array('@percentage');
-    protected $childElements = array('LocationType','Name' , 'Description','Administrative','Coordinates','GazetteerEntry');
+    protected $attribs = array('id','@ref');
+    protected $iatiAttribs = array('@ref');
+    protected $childElements = array('LocationReach', 'LocationId', 'Name', 'Description', 'ActivityDescription', 'Administrative', 'Point', 'Exactness', 'LocationClass', 'FeatureDesignation');
 }
