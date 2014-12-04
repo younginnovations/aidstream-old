@@ -6,173 +6,209 @@
 
     <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/edit-element/?activity_id=<?php echo $this->activity_id; ?>&className=Activity_Location">Edit</a></div>
 
-    <?php $i = 0; ?>
     <?php foreach ($this->elements as $element): ?>
-       <?php if ($i == '1'): ?>
+        <?php if ($i == '1'): ?>
             <div class="highlight">
             <?php else: ?>
                 <div class="highlight first">
                 <?php endif; ?>
-                <ul class="style-4 first">
-                    <li>
-                        <span class="name">Percentage: </span>
-                        <span class="infom sub-details"><?php if ($element['@percentage'] != "") print ($element['@percentage']); ?></span>
-                    </li>
+                <?php if (!empty($element['@ref'])): ?>
+                    <ul class="style-4 first">
+                        <li>
+                            <span class="name">Reference: </span>
+                            <span class="infom sub-details"><?php if ($element['@ref'] != "") print ($element['@ref']); ?></span>
+                        </li>
+                    </ul>
+                <?php endif; ?>
 
-                </ul>
-
-                <!-- LocationType Starts -->
+                <!-- LocationReach Starts -->
                 <?php
-                $locationtype = $element['LocationType'];
+                $locationreach = $element['LocationReach'];
                 ?>
-                <?php if (!empty($locationtype)): ?>
+                <?php if (!empty($locationreach)): ?>
                     <ul class="style-1 style-4">
-                        <h2>Location Type</h2>
-                            <li>
-                                <span class="name">Text:</span>
-                                <span class="infom"><?php if ($locationtype['text'] != "") print ($locationtype['text']); ?>
-                                    <?php
-                                                if ($locationtype['@xml_lang'])
-                                                {
-                                                    printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('LocationType' , '@xml_lang' , $locationtype['@xml_lang']));
-                                                }
-                                            ?> 
-                                </span>
-                            </li>
+                        <h2>Location Reach</h2>
                             <li>
                                 <span class="name">Code:</span>
-                                <span class="infom"><?php if ($locationtype['@code']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('LocationType' , '@code' , $locationtype['@code'],'Name'),Iati_Core_Codelist::getCodeByAttrib('LocationType' , '@code' , $locationtype['@code']))) ?></span>
+                                <span class="infom"><?php if ($locationreach['@code']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('LocationType' , '@code' , $locationreach['@code'],'Name'),Iati_Core_Codelist::getCodeByAttrib('LocationType' , '@code' , $locationreach['@code']))) ?></span>
                             </li>
                     </ul>
                 <?php endif; ?>
-                <!-- LocationType Ends -->
+                <!-- LocationReach Ends -->
+
+                <!-- LocationId Starts -->
+                <?php
+                $locationids = $element['LocationId'];
+                ?>
+                <?php if (!empty($locationids)): ?>
+                    <ul class="style-1 style-4">
+                        <h2>Location Id</h2>
+                        <?php foreach ($locationids as $locationid): ?>
+                            <li>
+                                <span class="name">Code:</span>
+                                <span class="infom"><?php if ($locationid['@code']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('LocationType' , '@code' , $locationid['@code'],'Name'),Iati_Core_Codelist::getCodeByAttrib('LocationType' , '@code' , $locationid['@code']))) ?></span>
+                            </li>
+                            <li>
+                                <span class="name">Vocabulary:</span>
+                                <span class="infom"><?php if ($locationid['@code']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('LocationType' , '@code' , $locationid['@code'],'Name'),Iati_Core_Codelist::getCodeByAttrib('LocationType' , '@code' , $locationid['@code']))) ?></span>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+                <!-- LocationReach Ends -->
 
                 <!-- Name Starts -->
                 <?php
-                $names = $element['Name'];
+                $name = $element['Name'];
                 ?>
-                <?php if (!empty($names)): ?>
+                <?php if (!empty($name)): ?>
                     <ul class="style-1 style-4">
                         <h2>Name</h2>
-                        <?php foreach ($names as $name): ?>
-                            <li>
-                                <span class="name">Text:</span>
-                                <span class="infom"><?php if ($name['text'] != "") print ($name['text']); ?>
-                                    <?php
-                                                if ($name['@xml_lang'])
-                                                {
-                                                    printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('Name' , '@xml_lang' , $name['@xml_lang']));
-                                                }
-                                            ?>
-                                </span>
-                            </li>
-                        <?php endforeach; ?>
+                        <li>
+                            <span class="name">Text:</span>
+                            <span class="infom"><?php if ($name['text'] != "") print ($name['text']); ?>
+                                <?php
+                                            if ($name['@xml_lang'])
+                                            {
+                                                printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('Name' , '@xml_lang' , $name['@xml_lang']));
+                                            }
+                                        ?>
+                            </span>
+                        </li>
                     </ul>
                 <?php endif; ?>
                 <!-- Name Ends -->
 
                 <!-- Description Starts -->
                 <?php
-                $descriptions = $element['Description'];
+                $description = $element['Description'];
                 ?>
-                <?php if (!empty($descriptions)): ?>
+                <?php if (!empty($description)): ?>
                     <ul class="style-1 style-4">
                         <h2>Description</h2>
-                        <?php foreach ($descriptions as $description): ?>
-                            <li>
-                                <span class="name">Text:</span>
-                                <span class="infom"><?php if ($description['text'] != "") print ($description['text']); ?>
-                                    <?php
-                                                if ($description['@xml_lang'])
-                                                {
-                                                    printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('Location' , '@xml_lang' , $description['@xml_lang']));
-                                                }
-                                            ?>
-                                </span>
-                            </li>
-                        <?php endforeach; ?>
+                        <li>
+                            <span class="name">Text:</span>
+                            <span class="infom"><?php if ($description['text'] != "") print ($description['text']); ?>
+                                <?php
+                                            if ($description['@xml_lang'])
+                                            {
+                                                printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('Location' , '@xml_lang' , $description['@xml_lang']));
+                                            }
+                                        ?>
+                            </span>
+                        </li>
                     </ul>
                 <?php endif; ?>
                 <!-- Description Ends -->
 
-                <!-- Administrative Starts -->
+                <!-- ActivityDescription Starts -->
                 <?php
-                $administrative = $element['Administrative'];
+                $activitydescription = $element['ActivityDescription'];
                 ?>
-                <?php if (!empty($administrative)): ?>
+                <?php if (!empty($activitydescription)): ?>
                     <ul class="style-1 style-4">
-                        <h2>Administrative</h2>
+                        <h2>Activity Description</h2>
                             <li>
                                 <span class="name">Text:</span>
-                                <span class="infom"><?php if ($administrative['text'] != "") print ($administrative['text']); ?>
-                                    <?php
-                                                if ($administrative['@xml_lang'])
-                                                {
-                                                    printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('Administrative' , '@xml_lang' , $administrative['@xml_lang']));
-                                                }
-                                            ?> 
+                                <span class="infom"><?php if ($activitydescription['text'] != "") print ($activitydescription['text']); ?>
                                 </span>
                             </li>
-                            <li>
-                                <span class="name">Country:</span>
-                                <span class="infom"><?php if ($administrative['@country']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('Administrative' , '@country' , $administrative['@country'],'Name'),Iati_Core_Codelist::getCodeByAttrib('Administrative' , '@country' , $administrative['@country']))) ?></span>
-                            </li>
-                            <li>
-                                <span class="name">Adm-1:</span>
-                                <span class="infom"><?php if ($administrative['@adm1']) (print $administrative['@adm1']) ?></span>
-                            </li>
-                            <li>
-                                <span class="name">Adm-2:</span>
-                                <span class="infom"><?php if ($administrative['@adm2']) (print $administrative['@adm2']) ?></span>
-                            </li>
                     </ul>
                 <?php endif; ?>
-                <!-- Description Ends -->
-                
-                <!-- Coordinates Starts -->
+                <!-- ActivityDescription Ends -->
+
+                <!-- Administrative Starts -->
                 <?php
-                $coordinates=$element['Coordinates'];
+                $administratives = $element['Administrative'];
                 ?>
-                <?php if (!empty($coordinates)): ?>
+                <?php if (!empty($administratives)): ?>
                     <ul class="style-1 style-4">
-                        <h2>Coordinates</h2>
+                        <h2>Administrative</h2>
+                        <?php foreach ($administratives as $administrative): ?>
                             <li>
-                                <span class="name">Latitude:</span>
-                                <span class="infom"><?php if($coordinates['@latitude'])(print $coordinates['@latitude']) ?></span>
+                                <span class="name">Code:</span>
+                                <span class="infom"></span>
                             </li>
                             <li>
-                                <span class="name">Longitude:</span>
-                                <span class="infom"><?php if($coordinates['@longitude']) ( print $coordinates['@longitude'])?></span>
+                                <span class="name">Vocabulary:</span>
+                                <span class="infom"></span>
                             </li>
                             <li>
-                                <span class="name">Precision:</span>
-                                <span class="infom"> <?php if($coordinates['@precision']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('Coordinates' , '@precision' , $coordinates['@precision'],'Name'),Iati_Core_Codelist::getCodeByAttrib('Coordinates' , '@precision' , $coordinates['@precision']))) ?></span>
+                                <span class="name">Level:</span>
+                                <span class="infom"></span>
                             </li>
+                    <?php endforeach; ?>
                     </ul>
                 <?php endif; ?>
-                <!-- Coordinates Ends -->
+                <!-- Administrative Ends -->
                 
-                <!-- GazetteerEntry Starts -->
+                <!-- Point Starts -->
                 <?php
-                $gazetteerentrys=$element['GazetteerEntry']
+                $point=$element['Point'];
                 ?>
-                <?php if (!empty($gazetteerentrys)): ?>
+                <?php if (!empty($point)): ?>
                     <ul class="style-1 style-4">
-                        <h2>Gazetteer Entry</h2>
-                        <?php foreach($gazetteerentrys as $gazetteerentry): ?>
+                        <h2>Point</h2>
                             <li>
-                                <span class="name">Text:</span>
-                                <span class="infom"><?php if($gazetteerentry['text'] != "") print ($gazetteerentry['text']);?></span>
+                                <span class="name">srsName:</span>
+                                <span class="infom"><?php if($point['@srsName'])(print $point['@srsName']) ?></span>
                             </li>
-                            <li>
-                                <span class="name">Gazetteer_ref:</span>
-                                <span class="infom"><?php if($gazetteerentry['@gazetteer_ref']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('GazetteerEntry' , '@gazetteer_ref' , $gazetteerentry['@gazetteer_ref'],'Name'),Iati_Core_Codelist::getCodeByAttrib('GazetteerEntry' , '@gazetteer_ref' , $gazetteerentry['@gazetteer_ref'])))?></span>
-                            </li>
-                        <?php endforeach; ?>
+                            <?php $pos = $point['Pos']; ?>
+                            <?php if (!empty($pos)): ?>
+                                <li>
+                                    <span class="name">Position:</span>
+                                    <span class="infom"><?php if($pos['@latitude'] && $pos['@longitude']) print $pos['@latitude'] . ', ' . $pos['@longitude'] ?></span>
+                                </li>
+                            <?php endif; ?>
                     </ul>
                 <?php endif; ?>
-                <!-- GazetteerEntry Ends -->
+                <!-- Point Ends -->
                 
+                <!-- Exactness Starts -->
+                <?php
+                $exactness=$element['Exactness'];
+                ?>
+                <?php if (!empty($exactness)): ?>
+                    <ul class="style-1 style-4">
+                        <h2>Exactness</h2>
+                            <li>
+                                <span class="name">Code:</span>
+                                <span class="infom"></span>
+                            </li>
+                    </ul>
+                <?php endif; ?>
+                <!-- Exactness Ends -->
+
+                <!-- LocationClass Starts -->
+                <?php
+                $locationclass=$element['LocationClass'];
+                ?>
+                <?php if (!empty($locationclass)): ?>
+                    <ul class="style-1 style-4">
+                        <h2>Location Class</h2>
+                            <li>
+                                <span class="name">Code:</span>
+                                <span class="infom"></span>
+                            </li>
+                    </ul>
+                <?php endif; ?>
+                <!-- LocationClass Ends -->
+
+                <!-- FeatureDesignation Starts -->
+                <?php
+                $featuredesignation=$element['FeatureDesignation'];
+                ?>
+                <?php if (!empty($featuredesignation)): ?>
+                    <ul class="style-1 style-4">
+                        <h2>Feature Designation</h2>
+                            <li>
+                                <span class="name">Code:</span>
+                                <span class="infom"></span>
+                            </li>
+                    </ul>
+                <?php endif; ?>
+                <!-- FeatureDesignation Ends -->
+
             </div>
             <?php $i = $i + 1; ?>
         <?php endforeach; ?>
