@@ -183,7 +183,7 @@ class Iati_Core_Codelist
                     $return = 'BudgetIdentifier';
                     break;
 
-                case "GeographicVocabulary_code":
+                case "GeographicVocabulary_vocabulary":
                     $return = 'GeographicVocabulary';
                     break;
 

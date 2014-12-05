@@ -30,7 +30,7 @@
                         <h2>Location Reach</h2>
                             <li>
                                 <span class="name">Code:</span>
-                                <span class="infom"><?php if ($locationreach['@code']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('LocationType' , '@code' , $locationreach['@code'],'Name'),Iati_Core_Codelist::getCodeByAttrib('LocationType' , '@code' , $locationreach['@code']))) ?></span>
+                                <span class="infom"><?php if ($locationreach['@code']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('GeographicLocationReach' , '@code' , $locationreach['@code'],'Name'),Iati_Core_Codelist::getCodeByAttrib('GeographicLocationReach' , '@code' , $locationreach['@code']))) ?></span>
                             </li>
                     </ul>
                 <?php endif; ?>
@@ -46,11 +46,11 @@
                         <?php foreach ($locationids as $locationid): ?>
                             <li>
                                 <span class="name">Code:</span>
-                                <span class="infom"><?php if ($locationid['@code']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('LocationType' , '@code' , $locationid['@code'],'Name'),Iati_Core_Codelist::getCodeByAttrib('LocationType' , '@code' , $locationid['@code']))) ?></span>
+                                <span class="infom"><?php if ($locationid['@code'] != "") print ($locationid['@code']); ?></span>
                             </li>
                             <li>
                                 <span class="name">Vocabulary:</span>
-                                <span class="infom"><?php if ($locationid['@code']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('LocationType' , '@code' , $locationid['@code'],'Name'),Iati_Core_Codelist::getCodeByAttrib('LocationType' , '@code' , $locationid['@code']))) ?></span>
+                                <span class="infom"><?php if ($locationid['@vocabulary']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('GeographicVocabulary' , '@vocabulary' , $locationid['@vocabulary'],'Name'),Iati_Core_Codelist::getCodeByAttrib('GeographicVocabulary' , '@vocabulary' , $locationid['@vocabulary']))) ?></span>
                             </li>
                         <?php endforeach; ?>
                     </ul>
@@ -66,14 +66,7 @@
                         <h2>Name</h2>
                         <li>
                             <span class="name">Text:</span>
-                            <span class="infom"><?php if ($name['text'] != "") print ($name['text']); ?>
-                                <?php
-                                            if ($name['@xml_lang'])
-                                            {
-                                                printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('Name' , '@xml_lang' , $name['@xml_lang']));
-                                            }
-                                        ?>
-                            </span>
+                            <span class="infom"><?php if ($name['text'] != "") print ($name['text']); ?></span>
                         </li>
                     </ul>
                 <?php endif; ?>
@@ -88,14 +81,7 @@
                         <h2>Description</h2>
                         <li>
                             <span class="name">Text:</span>
-                            <span class="infom"><?php if ($description['text'] != "") print ($description['text']); ?>
-                                <?php
-                                            if ($description['@xml_lang'])
-                                            {
-                                                printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('Location' , '@xml_lang' , $description['@xml_lang']));
-                                            }
-                                        ?>
-                            </span>
+                            <span class="infom"><?php if ($description['text'] != "") print ($description['text']); ?> </span>
                         </li>
                     </ul>
                 <?php endif; ?>
@@ -127,11 +113,11 @@
                         <?php foreach ($administratives as $administrative): ?>
                             <li>
                                 <span class="name">Code:</span>
-                                <span class="infom"></span>
+                                <span class="infom"><?php if ($administrative['@code'] != "") print ($administrative['@code']); ?></span>
                             </li>
                             <li>
-                                <span class="name">Vocabulary:</span>
-                                <span class="infom"></span>
+                                <span class="name">Adminstrative:</span>
+                                <span class="infom"><?php if ($administrative['@vocabulary']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('GeographicVocabulary' , '@vocabulary' , $administrative['@vocabulary'],'Name'),Iati_Core_Codelist::getCodeByAttrib('GeographicVocabulary' , '@vocabulary' , $administrative['@vocabulary']))) ?></span>
                             </li>
                             <li>
                                 <span class="name">Level:</span>
@@ -173,7 +159,7 @@
                         <h2>Exactness</h2>
                             <li>
                                 <span class="name">Code:</span>
-                                <span class="infom"></span>
+                                <span class="infom"><?php if ($exactness['@code']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('GeographicExactness' , '@code' , $exactness['@code'],'Name'),Iati_Core_Codelist::getCodeByAttrib('GeographicExactness' , '@code' , $exactness['@code']))) ?></span>
                             </li>
                     </ul>
                 <?php endif; ?>
@@ -188,7 +174,7 @@
                         <h2>Location Class</h2>
                             <li>
                                 <span class="name">Code:</span>
-                                <span class="infom"></span>
+                                <span class="infom"><?php if ($locationclass['@code']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('GeographicLocationClass' , '@code' , $locationclass['@code'],'Name'),Iati_Core_Codelist::getCodeByAttrib('GeographicLocationClass' , '@code' , $locationclass['@code']))) ?></span>
                             </li>
                     </ul>
                 <?php endif; ?>
@@ -203,7 +189,7 @@
                         <h2>Feature Designation</h2>
                             <li>
                                 <span class="name">Code:</span>
-                                <span class="infom"></span>
+                                <span class="infom"><?php if ($featuredesignation['@code']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('LocationType' , '@code' , $featuredesignation['@code'],'Name'),Iati_Core_Codelist::getCodeByAttrib('LocationType' , '@code' , $featuredesignation['@code']))) ?></span>
                             </li>
                     </ul>
                 <?php endif; ?>
