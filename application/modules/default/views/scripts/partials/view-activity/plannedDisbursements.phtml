@@ -22,12 +22,10 @@
                         <?php endif; ?>
                     </span>
                     <ul class="style-4 none">
-                        <li>
-                            <span class="name">Updated:</span>
-                            <span class="infom"><?php if ($value['@updated']) print ($value['@updated']); ?></span>
-                        </li>
+                        <li><span class="name">Type:</span>
+                            <span class="infom"><?php if ($element['@type']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('Budget' , '@type' , $element['@type'],'Name'),Iati_Core_Codelist::getCodeByAttrib('Budget' , '@type' , $element['@type']))) ?></span>
+                        </li></ul>
 
-                    </ul>
                     <!-- PeriodEnd Starts -->
                     <?php
                     $periodend = $element['PeriodEnd'];
@@ -35,10 +33,6 @@
                         ?>
                         <ul class="style-1 style-4">
                             <h2>Period End</h2>
-                                <li>
-                                    <span class="name">Text:</span>
-                                    <span class="infom"><?php if ($periodend['text'] != "") print ($periodend['text']); ?></span>
-                                </li>
                                 <li>
                                     <span class="name">Iso_date:</span>
                                     <span class="infom"><?php if ($periodend['@iso_date']) print ($periodend['@iso_date']); ?></span>
@@ -56,10 +50,6 @@
                         <ul class="style-1 style-4">
                             <h2>Period Start</h2>
                                 <li>
-                                    <span class="name">Text:</span>
-                                    <span class="infom"><?php if ($periodstart['text'] != "") print ($periodstart['text']); ?></span>
-                                </li>
-                                <li>
                                     <span class="name">Iso_date:</span>
                                     <span class="infom"><?php if ($periodstart['@iso_date']) print ($periodstart['@iso_date']); ?></span>
                                 </li>
@@ -76,10 +66,6 @@
                         <ul class="style-1 style-4">
                             <h2>Value</h2>
                                 <li>
-                                    <span class="name">Text:</span>
-                                    <span class="infom"><?php if ($value['text'] != "") print ($this->numberFormat()->localization($value['text'])); ?></span>
-                                </li>
-                                <li>
                                     <span class="name">Value_date:</span>
                                     <span class="infom"><?php if ($value['@value_date']) print ($value['@value_date']); ?></span>
                                 </li>
@@ -87,6 +73,11 @@
                                     <span class="name">Currency:</span>
                                     <span class="infom"><?php if ($value['@currency'])(printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('Activity' , '@default_currency', $value['@currency'],'Name'),Iati_Core_Codelist::getCodeByAttrib('Activity' , '@default_currency', $value['@currency']))) ?></span>
                                 </li>
+                                <li>
+                                    <span class="name">Amount:</span>
+                                    <span class="infom"><?php if ($value['text']) print ($value['text']); ?></span>
+                                </li>
+
                         </ul>
                     <?php endif; ?>
                     <!-- Value Ends -->

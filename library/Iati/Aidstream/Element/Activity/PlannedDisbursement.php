@@ -6,7 +6,7 @@ class Iati_Aidstream_Element_Activity_PlannedDisbursement extends Iati_Core_Base
     protected $className = 'PlannedDisbursement';
     protected $displayName = 'Planned Disbursement';
     protected $tableName = 'iati_planned_disbursement';
-    protected $attribs = array('id','@updated');
-    protected $iatiAttribs = array('@updated');
-    protected $childElements = array('PeriodStart' , 'PeriodEnd','Value');
+    protected $attribs = array('id','@type');
+    protected $iatiAttribs = array('@type');
+    protected $childElements = array('PeriodStart' ,'PeriodEnd', 'Value');
 }

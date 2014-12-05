@@ -15,12 +15,13 @@ class Iati_Aidstream_Form_Activity_PlannedDisbursement_Value extends Iati_Core_B
         $form['id'] = new Zend_Form_Element_Hidden('id');
         $form['id']->setValue($this->data['id']);
 
-        $form['text'] = new Zend_Form_Element_Text('text');
-        $form['text']->setLabel('Amount')
-            ->setValue($this->data['text'])
+
+        $form['value_date'] = new Zend_Form_Element_Text('value_date');
+        $form['value_date']->setLabel('Value Date')
+            ->setValue($this->data['@value_date'])
             ->setRequired()
-            ->addValidator(new App_Validate_NumericValue())
-            ->setAttribs(array('class' => 'currency form-text')) ;
+            ->setAttrib('class' , 'datepicker' );
+            
 
         $currency = $model->getCodeArray('Currency', null, '1' , true);
         $form['currency'] = new Zend_Form_Element_Select('currency');
@@ -29,11 +30,12 @@ class Iati_Aidstream_Form_Activity_PlannedDisbursement_Value extends Iati_Core_B
             ->setAttrib('class' , 'form-select')
             ->setMultioptions($currency);
 
-        $form['value_date'] = new Zend_Form_Element_Text('value_date');
-        $form['value_date']->setLabel('Value Date')
-            ->setValue($this->data['@value_date'])
-            ->setRequired()
-            ->setAttrib('class' , 'datepicker' );
+        $form['text'] = new Zend_Form_Element_Text('text');
+        $form['text']->setLabel('Amount')
+           ->setValue($this->data['text'])
+           ->setAttrib('class','form-text');
+    
+
 
         $this->addElements($form);
         return $this;

@@ -5,14 +5,17 @@ class Iati_Aidstream_Form_Activity_PlannedDisbursement extends Iati_Core_BaseFor
     public function getFormDefination()
     {
         $form = array();
+        $model = new Model_Wep();
 
         $form['id'] = new Zend_Form_Element_Hidden('id');
-        $form['id']->setValue($this->data['id']);  
+        $form['id']->setValue($this->data['id']); 
 
-        $form['updated'] = new Zend_Form_Element_Text('updated');
-        $form['updated']->setLabel('Updated Date')
-            ->setValue($this->data['@updated'])
-            ->setAttrib('class' , 'datepicker' );
+        $budgetType = $model->getCodeArray('BudgetType', null, '1' , true);
+        $form['type'] = new Zend_Form_Element_Select('type');
+        $form['type']->setLabel('Type')  
+            ->setValue($this->data['@type'])
+            ->setAttrib('class' , 'form-select')
+            ->setMultioptions($budgetType);
 
         $this->addElements($form);
         return $this;
