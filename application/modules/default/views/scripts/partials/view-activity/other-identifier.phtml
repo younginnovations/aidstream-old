@@ -9,23 +9,42 @@
     <?php foreach ($this->elements as $element): ?>
         <div class="current">
             <ul class="style-2 arrow">
-                <li> <span class="down-arrow"><?php if ($element['text'] != "") print ($this->length()->adjustSingleTitleLength($element['text'])); ?></span>
+                <li><span class="down-arrow"><?php if ($element['text'] != "") print ($this->length()->adjustSingleTitleLength($element['text'])); ?></span>
                     <ul class="style-2-drop first">
                         <li>
-                            <span class="name">Text:</span>
-                            <span class="infom"><?php if ($element['text'] != "") print ($element['text']); ?></span>
+                            <span class="name">Reference:</span>
+                            <span class="infom"><?php if ($element['@ref'] != "") print ($element['@ref']); ?></span>
                         </li>
                         <li>
-                            <span class="name">Owner_ref:</span>
-                            <span class="infom"><?php if ($element['@owner_ref'] != "") (print $element['@owner_ref']) ?></span>
+                            <span class="name">Type:</span>
+                            <span class="infom"><?php if ($element['@type']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('OtherIdentifierType' , '@type' , $element['@type'],'Name'),Iati_Core_Codelist::getCodeByAttrib('OtherIdentifierType' , '@type' , $element['@type']))) ?></span>
                         </li>
-                        <li>
-                            <span class="name">Owner_name:</span>
-                            <span class="infom"><?php if ($element['@owner_name'] != "") (print $element['@owner_name'])   ?></span>
-                        </li>
+                        
                     </ul>
+
+
+                <!-- OwnerOrg Starts -->
+                <?php
+                $ownerorg=$element['OwnerOrg'];
+                ?>
+                <?php if (!empty($ownerorg)): ?>
+                    <ul class="style-1 style-4">
+                        <h2>Owner Org</h2>
+                            <li>
+                                <span class="name">Owner Org:</span>
+                                <span class="infom"><?php if ($ownerorg['@ref'] != "") print ($ownerorg['@ref']); ?></span>
+                                
+                            </li>
+                            <li>
+                                <span class="name">Text:</span>
+                                <span class="infom"><?php if ($ownerorg['text'] != "") (print $ownerorg['text'])   ?></span>
+                            </li>
+                    </ul>
+                <?php endif; ?>
+                <!-- OwnerOrg Ends -->
                 </li>
             </ul>
+        
         </div>    
     <?php endforeach; ?>
 

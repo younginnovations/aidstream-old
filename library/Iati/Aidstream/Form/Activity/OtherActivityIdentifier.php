@@ -6,30 +6,26 @@ class Iati_Aidstream_Form_Activity_OtherActivityIdentifier extends Iati_Core_Bas
     public function getFormDefination()
     {   
         $baseurl = Zend_Controller_Front::getInstance()->getBaseUrl();
-        
-        $form = array();
+        $model = new Model_Wep();
 
         $form['id'] = new Zend_Form_Element_Hidden('id');
         $form['id']->setValue($this->data['id']);
         
-        $form['text'] = new Zend_Form_Element_Textarea('text');
-        $form['text']->setLabel('Identifier')
-                ->setValue($this->data['text'])
+        $form['ref'] = new Zend_Form_Element_Text('ref');
+        $form['ref']->setLabel('Reference')
                 ->setRequired()
-                ->setAttrib('cols', '40')
-                ->setAttrib('rows', '2');
-        
-        $form['owner_name'] = new Zend_Form_Element_Text('owner_name');
-        $form['owner_name']->setLabel('Owner Name')
-                ->setValue($this->data['@owner_name'])
+                ->setValue($this->data['@ref'])
                 ->setAttrib('class' , 'form-text');
         
-        $form['owner_ref'] = new Zend_Form_Element_Text('owner_ref');
-        $form['owner_ref']->setLabel('Organisation Identifier')
-                ->setValue($this->data['@owner_ref'])
-                ->setAttrib('class' , 'form-text');
-                
-        
+        $otherIdentifierType = $model->getCodeArray('OtherIdentifierType', null, '1' , true);
+        $form['type'] = new Zend_Form_Element_Select('type');
+        $form['type']->setLabel('Type')  
+            ->setValue($this->data['@type'])
+            ->setRequired()    
+            ->setAttrib('class', 'form-select')
+            ->setMultioptions($otherIdentifierType);
+  
+  
         $this->addElements($form);
         return $this;
 

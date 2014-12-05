@@ -7,6 +7,7 @@ class Iati_Aidstream_Element_Activity_OtherActivityIdentifier extends Iati_Core_
     protected $displayName = 'Other Identifier';
     protected $xmlName = 'otherIdentifier';
     protected $tableName = 'iati_other_identifier';
-    protected $attribs = array('id','@owner_ref','@owner_name','text');
-    protected $iatiAttribs = array('@owner_ref','@owner_name','text');
+    protected $attribs = array('id','@ref','@type');
+    protected $iatiAttribs = array('@ref','@type');
+    protected $childElements = array('OwnerOrg');
 }
