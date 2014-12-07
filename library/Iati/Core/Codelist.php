@@ -201,6 +201,10 @@ class Iati_Core_Codelist
 
                 case "OtherIdentifierType_type":
                     $return = 'OtherIdentifierType';
+                    break;
+
+                case "SectorVocabulary_vocabulary":
+                    $return = 'SectorVocabulary';
                     break;    
 
                 default:

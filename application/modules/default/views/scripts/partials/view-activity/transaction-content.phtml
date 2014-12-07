@@ -304,3 +304,88 @@ if (!empty($transaction["TiedStatus"])):
     </ul>
 <?php endif; ?>
 <!-- TiedStatus Ends -->
+
+<!-- Sector Starts -->
+<?php
+if (!empty($transaction["Sector"])):
+    ?>
+    <ul class="style-1 style-4">
+        <h2>Sector</h2>
+        <?php $sectors = $transaction["Sector"]; ?>
+        <?php foreach ($sectors as $sector): ?>
+            <li>
+                <span class="name">Code:</span>
+                <span class="infom"><?php 
+                                        if($sector["@code"])
+                                        {
+                                            printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('Sector' , '@code' , $sector["@code"],'Name'),Iati_Core_Codelist::getCodeByAttrib('Sector' , '@code' , $sector["@code"]));
+                                        }    
+                                    ?>
+                </span> 
+            </li>
+            <li>
+                <span class="name">Vocabulary:</span>
+                <span class="infom"><?php 
+                                     if($sector["@vocabulary"])
+                                     {
+                                        printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('SectorVocabulary' , '@vocabulary' , $sector["@vocabulary"],'Name'),Iati_Core_Codelist::getCodeByAttrib('SectorVocabulary' , '@vocabulary' , $sector["@vocabulary"]));
+                                     }
+                                     ?>
+                </span>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
+<!-- Sector Ends -->
+
+<!-- Recipient Country Starts -->
+<?php
+if (!empty($transaction["RecipientCountry"])):
+    ?>
+    <ul class="style-1 style-4">
+        <h2>Recipient Country</h2>
+        <?php $recipientCountry = $transaction["RecipientCountry"]; ?>
+            <li>
+                <span class="name">Code:</span>
+                <span class="infom"><?php 
+                                        if($recipientCountry["@code"])
+                                        {
+                                            printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('RecipientCountry' , '@code' , $recipientCountry["@code"],'Name'),Iati_Core_Codelist::getCodeByAttrib('RecipientCountry' , '@code' , $recipientCountry["@code"]));
+                                        }    
+                                    ?>
+                </span> 
+            </li>
+    </ul>
+<?php endif; ?>
+<!-- Recipient Country Ends -->
+
+<!-- Recipient Region Starts -->
+<?php
+if (!empty($transaction["RecipientRegion"])):
+    ?>
+    <ul class="style-1 style-4">
+        <h2>Recipient Region</h2>
+        <?php $recipientRegion = $transaction["RecipientRegion"]; ?>
+            <li>
+                <span class="name">Code:</span>
+                <span class="infom"><?php 
+                                        if($recipientRegion["@code"])
+                                        {
+                                            printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('RecipientRegion' , '@code' , $recipientRegion["@code"],'Name'),Iati_Core_Codelist::getCodeByAttrib('RecipientRegion' , '@code' , $recipientRegion["@code"]));
+                                        }    
+                                    ?>
+                </span> 
+            </li>
+            <li>
+                <span class="name">Vocabulary:</span>
+                <span class="infom"><?php 
+                                     if($recipientRegion["@vocabulary"])
+                                     {
+                                        printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('RecipientRegion' , '@vocabulary' , $recipientRegion["@vocabulary"],'Name'),Iati_Core_Codelist::getCodeByAttrib('RecipientRegion' , '@vocabulary' , $recipientRegion["@vocabulary"]));
+                                     }
+                                     ?>
+                </span>
+            </li>
+    </ul>
+<?php endif; ?>
+<!-- Recipient Region Ends -->

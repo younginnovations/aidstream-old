@@ -19,6 +19,9 @@ class Iati_Aidstream_Element_Activity_Transaction extends Iati_Core_BaseElement
                                         'AidType' ,          
                                         'DisbursementChannel' ,
                                         'TiedStatus',
+                                        'Sector',
+                                        'RecipientCountry',
+                                        'RecipientRegion'
                                      );
     protected $tableName = 'iati_transaction';
 }
