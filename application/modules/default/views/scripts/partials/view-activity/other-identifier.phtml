@@ -1,7 +1,7 @@
 <li class="element-activity">
 
     <div class="element-title element-current">
-        Other Activity Identifier     
+        Other Identifier     
     </div>     
 
     <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/edit-element/?activity_id=<?php echo $this->activity_id ?>&className=Activity_OtherActivityIdentifier">Edit</a></div>	
@@ -9,7 +9,7 @@
     <?php foreach ($this->elements as $element): ?>
         <div class="current">
             <ul class="style-2 arrow">
-                <li><span class="down-arrow"><?php if ($element['text'] != "") print ($this->length()->adjustSingleTitleLength($element['text'])); ?></span>
+                <li><span class="down-arrow"><?php if ($element['@ref'] != "") print ($this->length()->adjustSingleTitleLength($element['@ref'])); ?></span>
                     <ul class="style-2-drop first">
                         <li>
                             <span class="name">Reference:</span>
