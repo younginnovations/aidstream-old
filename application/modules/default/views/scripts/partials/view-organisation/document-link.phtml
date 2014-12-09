@@ -51,16 +51,6 @@
                     <ul class="style-1 style-4">
                         <h2>Category</h2>
                         <?php foreach ($element['Category'] as $category): ?>
-                            <li> 
-                                <span class="name">Text:</span>
-                                <span class="infom"><?php echo $category["text"]; 
-                                                     if($category["@xml_lang"])
-                                                     {
-                                                         printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('DocumentLink_Category' , '@xml_lang' , $category["@xml_lang"]));
-                                                     }
-                                                    ?>
-                                </span>
-                            </li>
                             <li>
                                 <span class="name">Code:</span>
                                 <span class="infom"><?php if($category["@code"])
