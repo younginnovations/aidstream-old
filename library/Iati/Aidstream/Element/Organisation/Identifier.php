@@ -3,8 +3,8 @@
 class Iati_Aidstream_Element_Organisation_Identifier extends Iati_Core_BaseElement
 {
     protected $className = 'Identifier';
-    protected $displayName = 'Identifier';
-    protected $xmlName = 'iati-identifier';
+    protected $displayName = ' Organisation Identifier';
+    protected $xmlName = 'organisation-identifier';
     protected $isRequired = true;
     protected $tableName = 'iati_organisation/identifier';
     protected $attribs = array('id' ,'text');

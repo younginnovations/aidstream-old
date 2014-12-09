@@ -13,7 +13,7 @@ class Iati_Aidstream_Form_Organisation_Identifier extends Iati_Core_BaseForm
         $form['id']->setValue($this->data['id']);
         
         $form['text'] = new Zend_Form_Element_Textarea('text');
-        $form['text']->setLabel('Iati Identifier')
+        $form['text']->setLabel('Organisation Identifier')
                 ->setValue($this->data['text'])
                 ->setRequired()
                 ->setAttrib('cols', '40')
