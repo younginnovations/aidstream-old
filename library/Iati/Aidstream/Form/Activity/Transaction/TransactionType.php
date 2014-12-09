@@ -24,11 +24,7 @@ class Iati_Aidstream_Form_Activity_Transaction_TransactionType extends Iati_Core
             ->setMultioptions($codes)
             ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help transaction-transaction_type-code' , 'placement' => 'PREPEND'))));
 
-        $form['text'] = new Zend_Form_Element_Textarea('text');
-        $form['text']->setLabel('Text')
-            ->setValue($this->data['text'])
-            ->setAttribs(array('rows'=>'3' , 'cols'=> '20'))
-            ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help transaction-transaction_type-text' , 'placement' => 'PREPEND'))));
+        
 
         $this->addElements($form);
         return $this;

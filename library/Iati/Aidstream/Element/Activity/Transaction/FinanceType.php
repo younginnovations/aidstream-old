@@ -4,7 +4,7 @@ class Iati_Aidstream_Element_Activity_Transaction_FinanceType extends Iati_Core_
 {
     protected $className = 'FinanceType';
     protected $displayName = 'Finance Type';
-    protected $attribs = array('id' , '@code' , 'text' , '@xml_lang');
-    protected $iatiAttribs = array('@code' , 'text' , '@xml_lang');
+    protected $attribs = array('id' , '@code');
+    protected $iatiAttribs = array('@code');
     protected $tableName = 'iati_transaction/finance_type';
 }
