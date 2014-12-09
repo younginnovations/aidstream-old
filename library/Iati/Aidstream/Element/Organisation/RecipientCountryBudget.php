@@ -7,5 +7,5 @@ class Iati_Aidstream_Element_Organisation_RecipientCountryBudget extends Iati_Co
     protected $displayName = 'Recipient Country Budget';
     protected $tableName = 'iati_organisation/recipient_country_budget';
     protected $attribs = array('id');
-    protected $childElements = array('RecipientCountry' , 'Value' , 'PeriodStart' , 'PeriodEnd');
+    protected $childElements = array('RecipientCountry' , 'Value' , 'PeriodStart' , 'PeriodEnd','BudgetLine');
 }

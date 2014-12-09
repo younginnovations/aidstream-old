@@ -110,6 +110,54 @@
                         </ul>            
                     <?php endif; ?>
                     <!--PeriodStart Ends-->
+                    <!--BudgetLine Starts-->
+                <?php
+                $budgetlines = $element['BudgetLine'];
+                ?>
+                <?php if (!empty($budgetlines)): ?>
+                    <?php foreach ($budgetlines as $budgetline): ?>
+                        <ul class="style-1 style-4"> 
+
+                            <h2>Budget Line</h2>
+                            <li>
+                                <span class="name">Reference:</span>
+                                <span class="infom"><?php if ($budgetline['@ref'] != "") print ($budgetline['@ref']); ?></span>
+                            </li>
+                            <li>
+                                <span class="name">Text:</span>
+                                <span class="infom"><?php if ($budgetline['text'] != "") print ($budgetline['text']); ?></span>
+                            </li>
+
+                            <?php $value = $budgetline['Value']; ?>
+                            <?php if (!empty($value)): ?>
+                                <h2>Value</h2>
+                                <li>
+                                    <span class="name">Value Date:</span>
+                                    <span class="infom"><?php if ($value['@value_date'] != "") print ($value['@value_date']); ?></span>
+                                </li>
+                                <li>
+                                    <span class="name">Amount:</span>
+                                    <span class="infom"><?php if ($value['text'] != "") print ($value['text']); ?></span>
+                                </li>
+                                <li>
+                                <span class="name">Currency:</span>
+                                <span class="infom"><?php echo Iati_Core_Codelist::getCodeByAttrib('Activity_default' , '@currency' , $value["@currency"],"Name");
+                                                          if($value["@currency"]) 
+                                                          {
+                                                              printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('Activity_default' , '@currency' , $value["@currency"])); 
+                                                          } 
+                                                     ?>
+                                                
+                                </span>                                
+                            </li>
+
+                            <?php endif; ?>
+                       
+                        </ul>
+                    <?php endforeach; ?>    
+                <?php endif; ?>
+                <!--BudgetLine Ends-->
+
                 </li>
             </ul><!--Ends .style-2-->
 
