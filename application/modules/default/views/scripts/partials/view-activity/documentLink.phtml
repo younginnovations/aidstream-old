@@ -31,10 +31,10 @@
                     <h2>Language</h2>
                     <?php foreach ($languages as $language): ?>
                         <li>
-                            <span class="name">Text:</span>
-                            <span class="infom"><?php if ($language['text'])
+                            <span class="name">Code</span>
+                            <span class="infom"><?php if ($language['@code'])
                                                         {
-                                                            printf("%s [%s]" ,Iati_Core_Codelist::getCodeByAttrib('Language' , '@xml_lang' , $language['text'],'Name'), Iati_Core_Codelist::getCodeByAttrib('Language' , '@xml_lang' , $language['text']));
+                                                            printf("%s [%s]" ,Iati_Core_Codelist::getCodeByAttrib('Language' , '@xml_lang' , $language['@code'],'Name'), Iati_Core_Codelist::getCodeByAttrib('Language' , '@xml_lang' , $language['@code']));
                                                         }
                                                 ?> 
                             </span>
@@ -50,16 +50,6 @@
                 <ul class="style-1 style-4">
                     <h2>Category</h2>
                     <?php foreach ($categorys as $category): ?>
-                        <li>
-                            <span class="name">Text:</span>
-                            <span class="infom"><?php if ($category['text'] != "") print ($category['text']); ?>
-                                                <?php if ($category['@xml_lang'])
-                                                    {
-                                                        printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('Category' , '@xml_lang' , $category['@xml_lang']));
-                                                    }
-                                                ?> 
-                            </span>
-                        </li>
                         <li>
                             <span class="name">Code:</span>
                             <span class="infom"><?php if ($category['@code']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('Category' , '@code' , $category['@code'],'Name'),Iati_Core_Codelist::getCodeByAttrib('Category' , '@code' , $category['@code']))) ?></span>

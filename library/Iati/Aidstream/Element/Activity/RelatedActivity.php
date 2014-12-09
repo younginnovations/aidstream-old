@@ -6,6 +6,6 @@ class Iati_Aidstream_Element_Activity_RelatedActivity extends Iati_Core_BaseElem
     protected $className = 'RelatedActivity';
     protected $displayName = 'Related Activity';
     protected $tableName = 'iati_related_activity';
-    protected $attribs = array('id','text','@xml_lang','@type','@ref');
-    protected $iatiAttribs = array('text','@xml_lang','@type','@ref');
+    protected $attribs = array('id', '@ref', '@type');
+    protected $iatiAttribs = array('@ref', '@type');
 }
