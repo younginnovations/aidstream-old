@@ -22,16 +22,6 @@
                     <span class="name">Code:</span>
                     <span class="infom"><?php if ($this->elements['@code']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('CollaborationType' , '@code' , $this->elements['@code'],'Name'),Iati_Core_Codelist::getCodeByAttrib('CollaborationType' , '@code' , $this->elements['@code']))) ?></span>
                 </li>
-                <li>
-                    <span class="name">Text:</span>
-                    <span class="infom"><?php if ($this->elements['text'] != "") print ($this->elements['text']); ?>
-                                        <?php if ($this->elements['@xml_lang'])
-                                                {
-                                                    printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('CollaborationType' , '@xml_lang' , $this->elements['@xml_lang']));
-                                                }
-                                        ?>
-                    </span>
-                </li>
             </ul>
         </div>
 
