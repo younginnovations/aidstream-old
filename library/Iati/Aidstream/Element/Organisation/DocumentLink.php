@@ -8,5 +8,5 @@ class Iati_Aidstream_Element_Organisation_DocumentLink extends Iati_Core_BaseEle
     protected $tableName = 'iati_organisation/document_link';
     protected $attribs = array('id' , '@url' , '@format');
     protected $iatiAttribs = array('@url' , '@format');
-    protected $childElements = array('Language' , 'Category' , 'Title');
+    protected $childElements = array('Language' , 'Category' , 'Title', 'RecipientCountry');
 }
