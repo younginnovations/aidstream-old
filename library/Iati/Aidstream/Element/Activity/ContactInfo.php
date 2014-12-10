@@ -6,7 +6,7 @@ class Iati_Aidstream_Element_Activity_ContactInfo extends Iati_Core_BaseElement
     protected $className = 'ContactInfo';
     protected $displayName = 'Contact Info';
     protected $tableName = 'iati_contact_info';
-    protected $attribs = array('id' , '@type' , '@xml_lang');
-    protected $iatiAttribs = array('@type' , '@xml_lang');
+    protected $attribs = array('id', '@type');
+    protected $iatiAttribs = array('@type');
     protected $childElements = array('Organisation', 'Department', 'PersonName', 'JobTitle', 'Telephone', 'Email', 'MailingAddress', 'Website');
 }

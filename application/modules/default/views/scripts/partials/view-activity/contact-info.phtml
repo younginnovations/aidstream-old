@@ -14,23 +14,16 @@
                 <div class="highlight first">
                 <?php endif; ?>
 
-                <ul class="style-3">
-                     <!-- contact info type -->
-                    <?php $type = $element['@type']; ?>
-                    <?php if ($type || $element['@xml_lang']): ?>                        
-                        <li>
-                            <span class="name">Type: </span>
-                                <span class="infom">
-                                    <?php print $type; ?>
-                                     <?php if ($element['@xml_lang'])
-                                                            {
-                                                                printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('ContactInfo' , '@xml_lang' , $element['@xml_lang']));
-                                                            }
-                                                    ?> 
-                                </span>
-                        </li>
-                    <?php endif; ?>
-                    
+                <ul class="style-1">
+                    <!-- contact info type starts -->                   
+                    <li>
+                        <span class="name">Type: </span>
+                            <span class="infom">
+                                <?php if (!empty($element['@type'])) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('ContactType' , '@type' , $element['@type'],'Name'),Iati_Core_Codelist::getCodeByAttrib('ContactType' , '@type' , $element['@type']))) ?>
+                            </span>
+                    </li>
+                    <!-- contact info type ends -->                   
+                
                     <!-- Organisation Starts -->
                     <?php
                     $organisation = $element['Organisation'];

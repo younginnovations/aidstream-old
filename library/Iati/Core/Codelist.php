@@ -205,6 +205,10 @@ class Iati_Core_Codelist
 
                 case "SectorVocabulary_vocabulary":
                     $return = 'SectorVocabulary';
+                    break;
+
+                case "ContactType_type":
+                    $return = 'ContactType';
                     break;    
 
                 default:
