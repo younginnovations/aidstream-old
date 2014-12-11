@@ -5,7 +5,7 @@ class Iati_Aidstream_Element_Activity_Budget_PeriodEnd extends Iati_Core_BaseEle
     protected $className = 'PeriodEnd';
     protected $displayName = 'Period End';
     protected $isRequired = true;
-    protected $attribs = array('id' , '@iso_date', 'text');
-    protected $iatiAttribs = array('@iso_date' , 'text');
+    protected $attribs = array('id' , '@iso_date');
+    protected $iatiAttribs = array('@iso_date');
     protected $tableName = 'iati_budget/period_end';
 }

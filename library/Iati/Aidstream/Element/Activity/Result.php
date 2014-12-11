@@ -6,8 +6,8 @@ class Iati_Aidstream_Element_Activity_Result extends Iati_Core_BaseElement
     protected $className = 'Result';
     protected $displayName = 'Result';
     protected $tableName = 'iati_result';
-    protected $attribs = array('id' , '@type' , '@aggregation_status');
-    protected $iatiAttribs = array('@type' , '@aggregation_status');
-    protected $childElements = array('Title' , 'Description' , 'Indicator');
+    protected $attribs = array('id', '@type' ,'@aggregation_status');
+    protected $iatiAttribs = array('@type', '@aggregation_status');
+    protected $childElements = array('Title' ,'Description', 'Indicator');
     protected $viewScriptEnabled = true;
 }

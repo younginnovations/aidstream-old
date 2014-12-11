@@ -8,5 +8,5 @@ class Iati_Aidstream_Element_Activity_ContactInfo extends Iati_Core_BaseElement
     protected $tableName = 'iati_contact_info';
     protected $attribs = array('id', '@type');
     protected $iatiAttribs = array('@type');
-    protected $childElements = array('Organisation', 'Department', 'PersonName', 'JobTitle', 'Telephone', 'Email', 'MailingAddress', 'Website');
+    protected $childElements = array('Organisation', 'Department', 'PersonName', 'JobTitle', 'Telephone', 'Email', 'Website', 'MailingAddress');
 }

@@ -18,11 +18,6 @@ class Iati_Aidstream_Form_Activity_Result_Indicator_Period_PeriodStart extends I
             ->setValue($this->data['@iso_date'])
             ->setAttrib('class' , 'datepicker' );
 
-        $form['text'] = new Zend_Form_Element_Textarea('text');
-        $form['text']->setLabel('Text')
-            ->setValue($this->data['text'])
-            ->setAttribs(array('rows'=>'3' , 'cols'=> '20'));
-
         $this->addElements($form);
         return $this;
     }

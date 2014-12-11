@@ -7,8 +7,8 @@ class Iati_Aidstream_Element_Activity_Sector extends Iati_Core_BaseElement
     protected $className = 'Sector';
     protected $displayName = 'Sector';
     protected $tableName = 'iati_sector';
-    protected $attribs = array('id' , 'text' , '@xml_lang' , '@code' , '@percentage' , '@vocabulary');
-    protected $iatiAttribs = array('text' , '@xml_lang' , '@vocabulary', '@code' , '@percentage');
+    protected $attribs = array('id', '@vocabulary', '@code', '@percentage', '@xml_lang', 'text');
+    protected $iatiAttribs = array('@vocabulary', '@code', '@percentage', '@xml_lang', 'text');
 
     public function save($data , $parentId = null)
     {

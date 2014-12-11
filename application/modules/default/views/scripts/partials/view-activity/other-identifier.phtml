@@ -37,7 +37,13 @@
                             </li>
                             <li>
                                 <span class="name">Text:</span>
-                                <span class="infom"><?php if ($ownerorg['text'] != "") (print $ownerorg['text'])   ?></span>
+                                <span class="infom"><?php if ($ownerorg['text'] != "") (print $ownerorg['text'])   ?>
+                                    <?php if ($ownerorg['@xml_lang'])
+                                        {
+                                            printf(" [%s]" , Iati_Core_Codelist::getCodeByAttrib('Title' , '@xml_lang' , $ownerorg['@xml_lang']));
+                                        }
+                                    ?>
+                                </span>  
                             </li>
                     </ul>
                 <?php endif; ?>

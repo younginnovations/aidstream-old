@@ -135,10 +135,6 @@ if (!empty($transaction["TransactionDate"])):
         <h2>Transaction Date</h2>
         <?php $transactionDate = $transaction["TransactionDate"]; ?>
             <li>
-                <span class="name">Text:</span>
-                <span class="infom"><?php if ($transactionDate["text"] != "") print ($transactionDate["text"]); ?></span>
-            </li>
-            <li>
                 <span class="name">Iso Date:</span>
                 <span class="infom"><?php if ($transactionDate["@iso_date"]) print ($transactionDate["@iso_date"]); ?></span>
             </li>

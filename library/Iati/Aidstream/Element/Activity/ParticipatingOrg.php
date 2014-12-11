@@ -6,6 +6,6 @@ class Iati_Aidstream_Element_Activity_ParticipatingOrg extends Iati_Core_BaseEle
     protected $className = 'ParticipatingOrg';
     protected $displayName = 'Participating Organisation';
     protected $tableName = 'iati_participating_org';
-    protected $attribs = array('id','text','@xml_lang','@type','@role','@ref');
-    protected $iatiAttribs = array('text','@xml_lang','@type','@role','@ref');
+    protected $attribs = array('id','@ref','@role','@type','@xml_lang','text');
+    protected $iatiAttribs = array('@ref','@role','@type','@xml_lang','text');
 }

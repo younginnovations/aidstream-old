@@ -9,20 +9,21 @@ class Iati_Aidstream_Element_Activity extends Iati_Core_BaseElement
     protected $xmlName = 'iati-activity';
     protected $tableName = 'iati_activity';
     protected $childElements = array(
-                                        'ReportingOrg' ,
                                         'IatiIdentifier' ,
-                                        'OtherActivityIdentifier' ,
+                                        'ReportingOrg' ,
                                         'Title' ,
                                         'Description' ,
+                                        'ParticipatingOrg' ,
+                                        'OtherActivityIdentifier' ,
                                         'ActivityStatus' ,
                                         'ActivityDate' ,
                                         'ContactInfo' ,
-                                        'ParticipatingOrg' ,
                                         'ActivityScope' ,
                                         'RecipientCountry' ,
                                         'RecipientRegion' ,
                                         'Location' ,
                                         'Sector' ,
+                                        'CountryBudgetItems',
                                         'PolicyMarker' ,
                                         'CollaborationType' ,
                                         'DefaultFlowType' ,
@@ -31,17 +32,16 @@ class Iati_Aidstream_Element_Activity extends Iati_Core_BaseElement
                                         'DefaultTiedStatus' ,
                                         'Budget' ,
                                         'PlannedDisbursement' ,
+                                        'CapitalSpend' ,
                                         'Transaction' ,
-                                        'CapitalSpend' , 
                                         'DocumentLink' ,
                                         'RelatedActivity' ,
+                                        'LegacyData' ,
                                         'Conditions' ,
-                                        'Result' ,
-                                        'CountryBudgetItems',
-                                        'LegacyData'
+                                        'Result'
                                     );
-    protected $attribs = array('id' , '@xml_lang' , '@default_currency' , '@hierarchy','@last_updated_datetime', '@linked_data_uri');
-    protected $iatiAttribs = array('@xml_lang' , '@default_currency' ,'@hierarchy', '@last_updated_datetime' , '@linked_data_uri');
+    protected $attribs = array('id' , '@xml_lang', '@default_currency', '@last_updated_datetime', '@linked_data_uri', '@hierarchy');
+    protected $iatiAttribs = array('@xml_lang', '@default_currency', '@last_updated_datetime', '@linked_data_uri', '@hierarchy');
     
     public function getForm($ajax = false)
     {

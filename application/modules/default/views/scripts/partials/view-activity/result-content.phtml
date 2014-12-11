@@ -131,10 +131,6 @@
                                         <h2>PeriodStart</h2>
                                             <?php foreach ($period['PeriodStart'] as $periodStart): ?>
                                             <li>
-                                                <span class="name">Text: </span>
-                                                <span class="infom"><?php if ($periodStart["text"] != "") print ($periodStart["text"]); ?></span>
-                                            </li>
-                                            <li>
                                                 <span class="name">Iso Date: </span>
                                                 <span class="infom"><?php if (!empty($periodStart["@iso_date"])) print ($periodStart["@iso_date"]); ?></span>
                                             </li>
@@ -148,10 +144,6 @@
                                     <ul class="style-1 style-4">
                                         <h2>PeriodEnd</h2>
                                         <?php foreach ($period['PeriodEnd'] as $periodEnd): ?>
-                                            <li>
-                                                <span class="name">Text: </span>
-                                                <span class="infom"><?php if ($periodEnd["text"] != "") print ($periodEnd["text"]); ?></span>
-                                            </li>
                                             <li>
                                                 <span class="name">Iso Date: </span>
                                                 <span class="infom"><?php if (!empty($periodEnd["@iso_date"])) print ($periodEnd["@iso_date"]); ?></span>
