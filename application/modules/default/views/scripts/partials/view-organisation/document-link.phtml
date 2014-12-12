@@ -38,8 +38,13 @@
                             <h2>Language</h2>
                             <?php foreach ($element['Language'] as $language): ?>
                                 <li>
-                                    <span class="name">Text:</span>
-                                    <span class="infom"><?php echo Iati_Core_Codelist::getCodeByAttrib('DocumentLink_Language' , '@xml_lang' , $language["text"]); ?></span>
+                                    <span class="name">Code</span>
+                                    <span class="infom"><?php if ($language['@code'])
+                                                                {
+                                                                    printf("%s [%s]" ,Iati_Core_Codelist::getCodeByAttrib('Language' , '@xml_lang' , $language['@code'],'Name'), Iati_Core_Codelist::getCodeByAttrib('Language' , '@xml_lang' , $language['@code']));
+                                                                }
+                                                        ?> 
+                                    </span>
                                 </li>
                             <?php endforeach; ?>
                         </ul> 

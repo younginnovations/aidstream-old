@@ -16,9 +16,9 @@ class Iati_Aidstream_Form_Organisation_DocumentLink_Language extends Iati_Core_B
         $form['id']->setValue($this->data['id']);
             
         $lang = $model->getCodeArray('Language', null, '1' , true);
-        $form['text'] = new Zend_Form_Element_Select('text');
-        $form['text']->setLabel('Language')
-            ->setValue($this->data['text'])
+        $form['code'] = new Zend_Form_Element_Select('code');
+        $form['code']->setLabel('Language Code')
+            ->setValue($this->data['@code'])
             ->setAttrib('class' , 'form-select')
             ->setMultioptions($lang);
 
