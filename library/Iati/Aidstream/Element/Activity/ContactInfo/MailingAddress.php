@@ -6,6 +6,6 @@ class Iati_Aidstream_Element_Activity_ContactInfo_MailingAddress extends Iati_Co
     protected $className = 'MailingAddress';
     protected $displayName = 'Mailing Address';
     protected $tableName = 'iati_contact_info/mailing_address';
-    protected $attribs = array('id','text');
-    protected $iatiAttribs = array('text');    
+    protected $attribs = array('id');
+    protected $childElements = array('Narrative');
 }
