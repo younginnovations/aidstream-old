@@ -43,11 +43,14 @@ class AjaxController extends Zend_Controller_Action
             } else if(preg_match("/^\w+/" , $parents , $matches)) {
                 $belongsTo = $belongsTo . $matches[0];
                 $parents = preg_replace("/^\w+/" , '' , $parents);
-            }
-            if(preg_match_all("/\w+-\d+/" , $parents , $matches)){
+            } 
+            if(preg_match_all("/\w+-\d+|\w+/" , $parents , $matches)){
                 foreach($matches[0] as $parent){
                     $parentCount = explode('-' , $parent);
-                    $belongsTo = $belongsTo . "[{$parentCount[0]}][{$parentCount[1]}]";
+                    $belongsTo = $belongsTo . "[{$parentCount[0]}]";
+                    if ($parentCount[1]) {
+                        $belongsTo = $belongsTo . "[{$parentCount[1]}]";
+                    }
                 }
             }
             $formBelongsTo = $form->getElementsBelongTo();
