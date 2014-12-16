@@ -2,6 +2,7 @@
 class Iati_Aidstream_Element_Activity_PolicyMarker_Narrative extends Iati_Core_BaseElement
 {
     protected $isMultiple = true;
+    protected $isRequired = true;
     protected $className = 'Narrative';
     protected $displayName = 'Narrative';
     protected $tableName = 'iati_policy_marker/narrative';

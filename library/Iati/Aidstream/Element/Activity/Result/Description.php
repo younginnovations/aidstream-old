@@ -6,7 +6,7 @@ class Iati_Aidstream_Element_Activity_Result_Description extends Iati_Core_BaseE
     protected $className = 'Description';
     protected $displayName = 'Description';
     protected $tableName = 'iati_result/description';
-    protected $attribs = array('id', '@xml_lang', 'text');
-    protected $iatiAttribs = array('@xml_lang', 'text');
+    protected $attribs = array('id');
+    protected $childElements  = array('Narrative');
     protected $viewScriptEnabled = true;
 }

@@ -15,11 +15,7 @@ class Iati_Aidstream_Form_Activity_Conditions_Condition extends Iati_Core_BaseFo
         $form['id'] = new Zend_Form_Element_Hidden('id');
         $form['id']->setValue($this->data['id']);
         
-        $form['text'] = new Zend_Form_Element_Textarea('text');
-        $form['text']->setLabel('Description')
-            ->setRequired()
-            ->setValue($this->data['text'])
-            ->setAttribs(array('rows'=>'2' , 'cols'=> '20'));
+        
         
         $conditionType= $model->getCodeArray('ConditionType', null, '1' , true);
         $form['type'] = new Zend_Form_Element_Select('type');

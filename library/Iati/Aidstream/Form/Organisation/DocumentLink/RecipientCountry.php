@@ -22,12 +22,7 @@ class Iati_Aidstream_Form_Organisation_DocumentLink_RecipientCountry extends Iat
             ->setValue($this->data['@code'])
             ->setAttrib('class' , 'form-select')
             ->setMultioptions($lang);
-        
-        
-        $form['text'] = new Zend_Form_Element_Textarea('text');
-        $form['text']->setLabel('Title')
-            ->setValue($this->data['text'])
-            ->setAttribs(array('rows'=>'3' , 'cols'=> '20'));    
+           
 
         $this->addElements($form);
         return $this;
