@@ -33,17 +33,20 @@
                                 <?php foreach($descriptions as $descriptionItem):?>
                                 <ul class="style-1 style-4">
                                     <h2>Description</h2>
-                                    <li>
-                                        <span class="name">Text:</span>
-                                        <span class="infom"> <?php if ($descriptionItem['text'] != "") print ($descriptionItem['text']); ?>
-                                            <?php
-                                                            if ($descriptionItem['@xml_lang'])
+                                     <?php $narratives = $descriptionItem['Narrative']; ?>
+                                        <?php foreach ($narratives as $narrative): ?>
+                                            <li>
+                                                <span class="name">Text:</span>
+                                                <span class="infom"> <?php if ($narrative['text'] != "") print ($narrative['text']); ?>
+                                                    <?php
+                                                        if ($narrative['@xml_lang'])
                                                             {
-                                                                printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('Description' , '@xml_lang' , $descriptionItem['@xml_lang']));
-                                                            }
-                                                        ?> 
-                                        </span>
-                                    </li>
+                                                                printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('Description' , '@xml_lang' , $narrative['@xml_lang']));
+                                                                    }
+                                                    ?> 
+                                                </span>
+                                            </li>
+                                        <?php endforeach; ?>   
                                 </ul>
                                 
                                 
