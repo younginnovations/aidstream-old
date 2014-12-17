@@ -30,24 +30,12 @@ class Iati_Aidstream_Form_Activity_Sector extends Iati_Core_BaseForm
             ->setValue($this->data['@code'])    
             ->setAttrib('class' , 'form-text non_dac_code');
         
-        $form['text'] = new Zend_Form_Element_Textarea('text');
-        $form['text']->setLabel('Text')  
-            ->setValue($this->data['text'])
-            ->setAttribs(array('rows'=>'2' , 'cols'=> '20'));
-        
         $form['percentage'] = new Zend_Form_Element_Text('percentage');
         $form['percentage']->setLabel('Percentage')  
             ->setValue($this->data['@percentage'])
             ->addValidator(new Zend_Validate_Int())    
             ->setAttrib('class' , 'form-text');
         
-        $lang = $model->getCodeArray('Language', null, '1' , true);
-        $form['xml_lang'] = new Zend_Form_Element_Select('xml_lang');
-        $form['xml_lang']->setLabel('Language')
-            ->setValue($this->data['@xml_lang'])
-            ->setAttrib('class' , 'form-select')
-            ->setMultioptions($lang);
-
         $this->addElements($form);
         return $this;
     }
