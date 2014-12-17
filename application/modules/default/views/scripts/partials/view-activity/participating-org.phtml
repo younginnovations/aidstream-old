@@ -7,6 +7,7 @@
     <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/edit-element/?activity_id=<?php echo $this->activity_id; ?>&className=Activity_ParticipatingOrg">Edit</a></div>
 
     <?php foreach ($this->elements as $element): ?>
+        <?php $narratives = $element['Narrative']; ?>
         <div class="current">
             <ul class="style-2 arrow">
                 <li> <span class="down-arrow"><?php if ($element['@role']) ( printf("%s " , $this->length()->adjustDoubleLength(Iati_Core_Codelist::getCodeByAttrib('ParticipatingOrg' , '@role' , $element['@role'],'Name'))))?>
@@ -16,17 +17,6 @@
                     </span>
 
                     <ul class="style-2-drop first">
-                        <li>
-                            <span class="name">Text:</span>
-                            <span class="infom"><?php print $element['text']; ?>
-                                                <?php
-                                                if ($element['@xml_lang'])
-                                                {
-                                                    printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('Participating' , '@xml_lang' , $element['@xml_lang']));
-                                                }
-                                            ?>
-                            </span>
-                        </li>
                         <li>
                             <span class="name">Ref:</span>
                             <span class="infom"><?php if ($element['@ref']) (printf(" %s ",Iati_Core_Codelist::getCodeByAttrib('ParticipatingOrg' , '@ref' , $element['@ref'],'Name'))) ?></span>
@@ -39,6 +29,20 @@
                             <span class="name">Role:</span>
                             <span class="infom"><?php if ($element['@role']) (printf(" %s ",Iati_Core_Codelist::getCodeByAttrib('ParticipatingOrg' , '@role' , $element['@role'],'Name'))) ?></span>
                         </li>
+                        <?php foreach ($narratives as $narrative): ?>
+                            <li>
+                                <span class="name">Organisation Name:</span>
+                                <span class="infom"><?php print $narrative['text']; ?>
+                                                    <?php
+                                                    if ($narrative['@xml_lang'])
+                                                    {
+                                                        printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('Participating' , '@xml_lang' , $narrative['@xml_lang']));
+                                                    }
+                                                ?>
+                                </span>
+                            </li>
+                        <?php endforeach; ?>
+                        
                     </ul>
                 </li>
             </ul>

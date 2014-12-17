@@ -7,22 +7,13 @@
     <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/edit-element/?activity_id=<?php echo $this->activity_id ?>&className=Activity_ActivityDate">Edit</a></div>	
 
     <?php foreach ($this->elements as $element): ?>
+        <?php $narratives = $element['Narrative']; ?>
         <div class="current">
             <ul class="style-2 arrow">
-                <li> <span class="down-arrow"><?php if ($element['@type']) (printf("%s" , $this->length()->adjustDoubleTitleLength(Iati_Core_Codelist::getCodeByAttrib('ActivityDate' , '@type' , $element['@type'])))) ?>
+                <li> <span class="down-arrow"><?php if ($element['@type']) (printf("%s [%s]",Iati_Core_Codelist::getCodeByAttrib('ActivityDate' , '@type' , $element['@type'],'Name'),Iati_Core_Codelist::getCodeByAttrib('ActivityDate' , '@type' , $element['@type']))) ?>
                                               <?php if ($element['@type'] && $element['@iso_date']) print "; "; ?>
                                               <?php if ($element['@iso_date']) print ($element['@iso_date']); ?></span> 
                     <ul class="style-2-drop first">
-                        <li>
-                            <span class="name">Text:</span>
-                            <span class="infom"><?php if ($element['text'] != "") print ($element['text']); ?>
-                                                <?php if($element['@xml_lang'])
-                                                      {
-                                                            printf(" [%s]" , Iati_Core_Codelist::getCodeByAttrib('ActivityDate' , '@xml_lang' , $element['@xml_lang']));
-                                                      }
-                                                ?>
-                            </span>
-                        </li>
                         <li>
                             <span class="name">Type:</span>
                             <span class="infom"><?php if ($element['@type']) (printf("%s ",Iati_Core_Codelist::getCodeByAttrib('ActivityDate' , '@type' , $element['@type']))); ?></span>
@@ -31,6 +22,20 @@
                             <span class="name">Date:</span>
                             <span class="infom"><?php if ($element['@iso_date']) print ($element['@iso_date']); ?></span>
                         </li>
+                        <?php foreach ($narratives as $narrative): ?>
+                            <li>
+                            
+                                <span class="name">Text:</span>
+                                <span class="infom"><?php if ($narrative['text'] != "") print ($narrative['text']); ?>
+                                                    <?php if($narrative['@xml_lang'])
+                                                          {
+                                                                printf(" [%s]" , Iati_Core_Codelist::getCodeByAttrib('ActivityDate' , '@xml_lang' , $narrative['@xml_lang']));
+                                                          }
+                                                    ?>
+                                </span>
+                            </li>
+                        <?php endforeach; ?>   
+                        
                     </ul>
                 </li>
             </ul>
