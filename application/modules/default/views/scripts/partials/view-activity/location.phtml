@@ -61,13 +61,24 @@
                 <?php
                 $name = $element['Name'];
                 ?>
+                <?php $narratives = $name['Narrative']; ?>
                 <?php if (!empty($name)): ?>
                     <ul class="style-1 style-4">
                         <h2>Name</h2>
-                        <li>
-                            <span class="name">Text:</span>
-                            <span class="infom"><?php if ($name['text'] != "") print ($name['text']); ?></span>
-                        </li>
+                        <?php foreach ($narratives as $narrative): ?>    
+                            <li>
+                                <span class="name">Text:</span>
+                                <span class="infom"> <?php if ($narrative['text'] != "") print ($narrative['text']); ?>
+                                    <?php
+                                        if ($narrative['@xml_lang'])
+                                            {
+                                                printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib(
+                                                    'Name' , '@xml_lang' , $narrative['@xml_lang']));
+                                            }
+                                    ?> 
+                                </span>
+                            </li>
+                        <?php endforeach; ?>    
                     </ul>
                 <?php endif; ?>
                 <!-- Name Ends -->
@@ -76,13 +87,25 @@
                 <?php
                 $description = $element['Description'];
                 ?>
+                <?php $narratives = $description['Narrative']; ?>
                 <?php if (!empty($description)): ?>
                     <ul class="style-1 style-4">
                         <h2>Description</h2>
-                        <li>
-                            <span class="name">Text:</span>
-                            <span class="infom"><?php if ($description['text'] != "") print ($description['text']); ?> </span>
-                        </li>
+                        <?php foreach ($narratives as $narrative): ?> 
+                            <li>
+                                <span class="name">Text:</span>
+                                <span class="infom"> <?php if ($narrative['text'] != "") print ($narrative['text']); ?>
+                                        <?php
+                                            if ($narrative['@xml_lang'])
+                                                {
+                                                    printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib(
+                                                        'Description' , '@xml_lang' , $narrative['@xml_lang']));
+                                                }
+                                        ?> 
+                                </span>
+                                
+                            </li>
+                        <?php endforeach; ?>    
                     </ul>
                 <?php endif; ?>
                 <!-- Description Ends -->
@@ -91,14 +114,25 @@
                 <?php
                 $activitydescription = $element['ActivityDescription'];
                 ?>
+                <?php $narratives = $activitydescription['Narrative']; ?>
                 <?php if (!empty($activitydescription)): ?>
                     <ul class="style-1 style-4">
                         <h2>Activity Description</h2>
-                            <li>
-                                <span class="name">Text:</span>
-                                <span class="infom"><?php if ($activitydescription['text'] != "") print ($activitydescription['text']); ?>
-                                </span>
-                            </li>
+                            <?php foreach ($narratives as $narrative): ?>
+                                <li>
+                                    <span class="name">Text:</span>
+                                    <span class="infom"> <?php if ($narrative['text'] != "") print ($narrative['text']); ?>
+                                        <?php
+                                            if ($narrative['@xml_lang'])
+                                                {
+                                                    printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib(
+                                                        'ActivityDescription' , '@xml_lang' , $narrative['@xml_lang']));
+                                                }
+                                        ?> 
+                                    </span>
+                                    
+                                </li>
+                            <?php endforeach; ?>    
                     </ul>
                 <?php endif; ?>
                 <!-- ActivityDescription Ends -->
@@ -121,7 +155,7 @@
                             </li>
                             <li>
                                 <span class="name">Level:</span>
-                                <span class="infom"></span>
+                                <span class="infom"><?php if ($administrative['@level'] != "") print ($administrative['@level']); ?></span>
                             </li>
                     <?php endforeach; ?>
                     </ul>
