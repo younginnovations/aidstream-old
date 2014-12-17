@@ -12,7 +12,7 @@ class Iati_Aidstream_Form_Activity_Title_Narrative extends Iati_Core_BaseForm
         $form['id']->setValue($this->data['id']);
         
         $form['text'] = new Zend_Form_Element_Textarea('text');
-        $form['text']->setLabel('Text')
+        $form['text']->setLabel('Title')
             ->setRequired()    
             ->setValue($this->data['text'])
             ->setAttribs(array('rows'=>'3' , 'cols'=> '20'));
