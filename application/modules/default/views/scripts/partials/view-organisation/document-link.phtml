@@ -72,19 +72,24 @@
 
 
                 <!--Title Starts-->
-                <?php if (isset($element['Title'])): ?> 
+                <?php $title = $element['Title'];  ?>
+                <?php if (isset($title)): ?> 
+                    <?php $narratives = $title['Narrative']; ?>
                     <ul class="style-1 style-4">
                         <h2>Title</h2>
-                        <li>
-                            <span class="name">Text:</span>
-                            <span class="infom"><?php echo $element['Title']["text"]; 
-                                                   if($element['Title']["@xml_lang"])
-                                                   {
-                                                       printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('DocumentLink_Title' , '@xml_lang' , $element['Title']["@xml_lang"]));
-                                                   }
-                                                ?>
-                            </span>
-                        </li>
+                        <?php foreach ($narratives as $narrative): ?>
+                                <li>
+                                    <span class="name">Text:</span>
+                                    <span class="infom"> <?php if ($narrative['text'] != "") print ($narrative['text']); ?>
+                                        <?php
+                                            if ($narrative['@xml_lang'])
+                                            {
+                                                printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('DocumentLink_Title' , '@xml_lang' , $narrative['@xml_lang']));
+                                            }
+                                        ?> 
+                                    </span>
+                                </li>
+                            <?php endforeach; ?>    
                     </ul>            
                 <?php endif; ?>
                 <!--Recipient Country Ends-->
