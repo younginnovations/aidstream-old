@@ -6,51 +6,44 @@
 
     <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/edit-element/?activity_id=<?php echo $this->activity_id; ?>&className=Activity_Conditions">Edit</a></div>
 
-    <?php foreach ($this->elements as $element): ?>
-            <div class="highlight">
-                <ul class="style-4">
+    <div class="highlight">
+        <ul class="style-4">
+            <li>
+                <span class="name">Attached:</span>
+                <span class="infom sub-details"><?php ($this->elements['@attached']) ? print('Yes')  : print('No'); ?></span>
+            </li>
+        </ul>
+            
+        <!-- Condition Starts -->
+        <?php
+        $sub_conditions = $this->elements['Condition'];
+            if (!empty($sub_conditions)):
+        ?>                       
+            <ul class="style-1 style-4">
+                <h2>Description</h2>  
+                <?php foreach ($sub_conditions as $condition): ?>
                     <li>
-                        <span class="name">Attached:</span>
-                        <span class="infom sub-details"><?php ($element['@attached']) ? print('Yes')  : print('No'); ?></span>
+                        <span class="name">Type:</span>
+                        <span class="infom"><?php if ($condition['@type'])(printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('Condition' , '@type' , $condition['@type'],'Name'),Iati_Core_Codelist::getCodeByAttrib('Condition' , '@type' , $condition['@type']))) ?></span>
                     </li>
+                    <?php $narratives = $condition['Narrative']; ?>
+                    <?php foreach ($narratives as $narrative): ?>
+                        <li>
+                            <span class="name">Text:</span>
+                            <span class="infom"><?php if ($narrative['text'] != "") print ($narrative['text']); ?>
+                                    <?php if ($narrative['@xml_lang'])
+                                        {
+                                            printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('Condition' , '@xml_lang' , $narrative['@xml_lang']));
+                                        }
+                                    ?> 
+                            </span>
+                        </li>
+                    <?php endforeach; ?>    
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
+        <!-- Condition Ends -->
 
-                </ul>
-
-                <!-- Condition Starts -->
-                <?php
-                $sub_conditions = $element['Condition'];
-                if (!empty($sub_conditions)):
-                    ?>                       
-                    <ul class="style-1 style-4">
-                        <h2>Description</h2>  
-                        <?php foreach ($sub_conditions as $condition): ?>
-                            <li>
-                                <span class="name">Text:</span>
-                                <span class="infom"><?php if ($condition['text'] != "") print ($condition['text']); ?>
-                                                    <?php if ($condition['@xml_lang'])
-                                                            {
-                                                                printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('Condition' , '@xml_lang' , $condition['@xml_lang']));
-                                                            }
-                                                    ?> 
-                                </span>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
-
-                    <ul class="style-1 style-4">
-                        <h2>Condition Type</h2>
-                        <?php foreach ($sub_conditions as $condition): ?>
-                            <li>
-                                <span class="name">Type:</span>
-                                <span class="infom"><?php if ($condition['@type'])(printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('Condition' , '@type' , $condition['@type'],'Name'),Iati_Core_Codelist::getCodeByAttrib('Condition' , '@type' , $condition['@type']))) ?></span>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
-                <?php endif; ?>
-                <!-- Condition Ends -->
-
-
-            </div>
-        <?php endforeach; ?>
+    </div>
 
 </li><!-- end of element-activity -->

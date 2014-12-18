@@ -2,7 +2,6 @@
 
 class Iati_Aidstream_Element_Activity_Conditions extends Iati_Core_BaseElement
 {   
-    protected $isMultiple = true;
     protected $className = 'Conditions';
     protected $displayName = 'Conditions';
     protected $tableName = 'iati_conditions';
