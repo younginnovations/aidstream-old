@@ -32,16 +32,20 @@
                                     <span class="name">Ref:</span>
                                     <span class="infom"><?php echo $element['RecipientOrg']["@ref"]; ?></span>
                                 </li>
-                                <li>
-                                    <span class="name">Text:</span>
-                                    <span class="infom"><?php echo $element['RecipientOrg']["text"];
-                                                   if($element['RecipientOrg']["@xml_lang"])
-                                                   {
-                                                       printf("[%s]",Iati_Core_Codelist::getCodeByAttrib('RecipientOrgBudget_RecipientOrg' , '@xml_lang' , $element['RecipientOrg']["@xml_lang"]));
-                                                   }
-                                                ?>
-                                    </span>
-                                </li>
+                                <?php $narratives = $element['RecipientOrg']['Narrative']; ?>
+                                <?php foreach ($narratives as $narrative): ?>
+                                     <li>
+                                        <span class="name">Text:</span>
+                                        <span class="infom"> <?php if ($narrative['text'] != "") print ($narrative['text']); ?>
+                                            <?php
+                                                if ($narrative['@xml_lang'])
+                                                    {
+                                                     printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('RecipientipientOrg' , '@xml_lang' , $narrative['@xml_lang']));
+                                                    }
+                                            ?> 
+                                        </span>
+                                    </li>
+                                <?php endforeach; ?>
                         </ul>            
                     <?php endif; ?>
                     <!--Recipient Organisation Ends-->
