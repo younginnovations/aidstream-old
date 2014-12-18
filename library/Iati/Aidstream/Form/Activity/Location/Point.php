@@ -14,7 +14,7 @@ class Iati_Aidstream_Form_Activity_Location_Point extends Iati_Core_BaseForm
             ->setRequired()
             ->setValue("http://www.opengis.net/def/crs/EPSG/0/4326")
             ->setAttribs(array('class' => 'form-text'))
-            ->setAttribs(array('disabled' => 'disabled'));
+            ->setAttribs(array('readonly' => 'readonly'));
 
         $this->addElements($form);
         return $this;

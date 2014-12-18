@@ -11,13 +11,15 @@ class Iati_Aidstream_Form_Activity_Location_Point_Pos extends Iati_Core_BaseForm
             
         $form['latitude'] = new Zend_Form_Element_Text('latitude');
         $form['latitude']->setLabel('Latitude')
-            ->setRequired()    
+            ->setRequired()
+            ->addValidator(new App_Validate_Numeric())    
             ->setValue($this->data['@latitude'])
             ->setAttribs(array('class' => 'form-text'));
         
         $form['longitude'] = new Zend_Form_Element_Text('longitude');
         $form['longitude']->setLabel('Longitude')
-            ->setRequired()    
+            ->setRequired()
+            ->addValidator(new App_Validate_Numeric())    
             ->setValue($this->data['@longitude'])
             ->setAttribs(array('class' => 'form-text'));
 
