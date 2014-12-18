@@ -38,16 +38,20 @@
                                                     ?>
                                 </span>
                             </li>
-                            <li>
-                                <span class="name">Text:</span>
-                                <span class="infom"><?php echo $element['RecipientCountry']["text"]; 
-                                                      if($element['RecipientCountry']["@xml_lang"])
-                                                      {
-                                                        printf(" [%s]",Iati_Core_Codelist::getCodeByAttrib('RecipientCountryBudget_RecipientCountry' , '@xml_lang' , $element['RecipientCountry']["@xml_lang"]));
-                                                      }
-                                                    ?>
-                                </span>
-                            </li>
+                            <?php $narratives = $element['RecipientCountry']['Narrative']; ?>
+                            <?php foreach ($narratives as $narrative): ?>
+                                <li>
+                                    <span class="name">Text:</span>
+                                    <span class="infom"> <?php if ($narrative['text'] != "") print ($narrative['text']); ?>
+                                            <?php
+                                                if ($narrative['@xml_lang'])
+                                                {
+                                                    printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('RecipientCountry' , '@xml_lang' , $narrative['@xml_lang']));
+                                                }
+                                            ?> 
+                                    </span>
+                                </li>
+                            <?php endforeach; ?>    
                         </ul>            
                     <?php endif; ?>
                     <!--Recipient Country Ends-->
