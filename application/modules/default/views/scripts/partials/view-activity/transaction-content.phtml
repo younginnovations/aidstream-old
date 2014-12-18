@@ -107,22 +107,26 @@ if (!empty($transaction["TransactionValue"])):
 <!-- Value Ends -->
 
 <!-- Description Starts -->
+
 <?php
 if (!empty($transaction["Description"])):
     ?>
     <ul class="style-1 style-4">
         <h2>Description</h2>
         <?php $description = $transaction["Description"]; ?>
-            <li>
-                <span class="name">Text:</span>
-                <span class="infom"><?php if ($description["text"] != "") print ($description["text"]);
-                                    if($description["@xml_lang"])
-                                     {
-                                        printf(" [%s]",Iati_Core_Codelist::getCodeByAttrib('Transaction_Description' , '@xml_lang' , $description["@xml_lang"]));
-                                     }
-                                    ?>
-                </span>               
-            </li>
+            <?php $narratives = $description['Narrative']; ?>
+            <?php foreach ($narratives as $narrative): ?>
+                <li>
+                    <span class="name">Text:</span>
+                    <span class="infom"><?php if ($narrative["text"] != "") print ($narrative["text"]);
+                                        if($narrative["@xml_lang"])
+                                         {
+                                            printf(" [%s]",Iati_Core_Codelist::getCodeByAttrib('Transaction_Description' , '@xml_lang' , $narrative["@xml_lang"]));
+                                         }
+                                        ?>
+                    </span>               
+                </li>
+            <?php endforeach; ?>    
     </ul>
 <?php endif; ?>
 <!-- Description Ends -->
@@ -251,32 +255,45 @@ if (!empty($transaction["TiedStatus"])):
 <?php
 if (!empty($transaction["Sector"])):
     ?>
-    <ul class="style-1 style-4">
-        <h2>Sector</h2>
-        <?php $sectors = $transaction["Sector"]; ?>
-        <?php foreach ($sectors as $sector): ?>
-            <li>
-                <span class="name">Code:</span>
-                <span class="infom"><?php 
-                                        if($sector["@code"])
-                                        {
-                                            printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('Sector' , '@code' , $sector["@code"],'Name'),Iati_Core_Codelist::getCodeByAttrib('Sector' , '@code' , $sector["@code"]));
-                                        }    
-                                    ?>
-                </span> 
-            </li>
-            <li>
-                <span class="name">Vocabulary:</span>
-                <span class="infom"><?php 
-                                     if($sector["@vocabulary"])
-                                     {
-                                        printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('SectorVocabulary' , '@vocabulary' , $sector["@vocabulary"],'Name'),Iati_Core_Codelist::getCodeByAttrib('SectorVocabulary' , '@vocabulary' , $sector["@vocabulary"]));
-                                     }
-                                     ?>
-                </span>
-            </li>
-        <?php endforeach; ?>
-    </ul>
+    <?php $sectors = $transaction["Sector"]; ?>
+    <?php foreach ($sectors as $sector): ?>
+        <ul class="style-1 style-4">
+            <h2>Sector</h2>
+             <li>
+                    <span class="name">Code:</span>
+                    <span class="infom"><?php 
+                                            if($sector["@code"])
+                                            {
+                                                printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('Sector' , '@code' , $sector["@code"],'Name'),Iati_Core_Codelist::getCodeByAttrib('Sector' , '@code' , $sector["@code"]));
+                                            }    
+                                        ?>
+                    </span> 
+                </li>
+                <li>
+                    <span class="name">Vocabulary:</span>
+                    <span class="infom"><?php 
+                                         if($sector["@vocabulary"])
+                                         {
+                                            printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('SectorVocabulary' , '@vocabulary' , $sector["@vocabulary"],'Name'),Iati_Core_Codelist::getCodeByAttrib('SectorVocabulary' , '@vocabulary' , $sector["@vocabulary"]));
+                                         }
+                                         ?>
+                    </span>
+                </li>
+                <?php $narratives = $sector['Narrative']; ?>
+                <?php foreach ($narratives as $narrative): ?>
+                    <li>
+                        <span class="name">Text:</span>
+                        <span class="infom"><?php if ($narrative["text"] != "") print ($narrative["text"]);
+                                            if($narrative["@xml_lang"])
+                                             {
+                                                printf(" [%s]",Iati_Core_Codelist::getCodeByAttrib('Transaction_Sector' , '@xml_lang' , $narrative["@xml_lang"]));
+                                             }
+                                            ?>
+                        </span>               
+                    </li>
+                <?php endforeach; ?>
+        </ul> 
+    <?php endforeach; ?>
 <?php endif; ?>
 <!-- Sector Ends -->
 
@@ -287,6 +304,7 @@ if (!empty($transaction["RecipientCountry"])):
     <ul class="style-1 style-4">
         <h2>Recipient Country</h2>
         <?php $recipientCountry = $transaction["RecipientCountry"]; ?>
+        <?php $narratives = $recipientCountry['Narrative']; ?>
             <li>
                 <span class="name">Code:</span>
                 <span class="infom"><?php 
@@ -297,6 +315,19 @@ if (!empty($transaction["RecipientCountry"])):
                                     ?>
                 </span> 
             </li>
+            <?php foreach ($narratives as $narrative): ?>
+                <li>
+                    <span class="name">Text:</span>
+                    <span class="infom"><?php if ($narrative["text"] != "") print ($narrative["text"]);
+                        if($narrative["@xml_lang"])
+                         {
+                            printf(" [%s]",Iati_Core_Codelist::getCodeByAttrib('Transaction_RecipientCountry' , '@xml_lang' , $narrative["@xml_lang"]));
+                         }
+                        ?>
+                    </span>               
+                </li>
+            <?php endforeach; ?>
+
     </ul>
 <?php endif; ?>
 <!-- Recipient Country Ends -->
@@ -308,6 +339,7 @@ if (!empty($transaction["RecipientRegion"])):
     <ul class="style-1 style-4">
         <h2>Recipient Region</h2>
         <?php $recipientRegion = $transaction["RecipientRegion"]; ?>
+        <?php $narratives = $recipientRegion['Narrative']; ?>
             <li>
                 <span class="name">Code:</span>
                 <span class="infom"><?php 
@@ -328,6 +360,18 @@ if (!empty($transaction["RecipientRegion"])):
                                      ?>
                 </span>
             </li>
+            <?php foreach ($narratives as $narrative): ?>
+                <li>
+                    <span class="name">Text:</span>
+                    <span class="infom"><?php if ($narrative["text"] != "") print ($narrative["text"]);
+                        if($narrative["@xml_lang"])
+                        {
+                            printf(" [%s]",Iati_Core_Codelist::getCodeByAttrib('Transaction_RecipientRegion' , '@xml_lang' , $narrative["@xml_lang"]));
+                        }
+                        ?>
+                    </span>               
+                </li>
+            <?php endforeach; ?>
     </ul>
 <?php endif; ?>
 <!-- Recipient Region Ends -->
