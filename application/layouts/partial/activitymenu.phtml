@@ -14,15 +14,15 @@ $titleArray = array('Identification',
                 );
 
 $elements = array(
-                array('ReportingOrg' , 'IatiIdentifier' , 'OtherActivityIdentifier' ),
+                array('ReportingOrg', 'IatiIdentifier', 'OtherActivityIdentifier'),
                 array('Title','Description','ActivityStatus','ActivityDate','ContactInfo' , 'ActivityScope'),
                 array('ParticipatingOrg'),
                 array('RecipientCountry','RecipientRegion','Location'),
-                array('Sector','PolicyMarker','CollaborationType','DefaultFlowType','DefaultFinanceType','DefaultAidType','DefaultTiedStatus' , 'CountryBudgetItems'),
-                array('Budget','PlannedDisbursement' , 'Transaction' , 'CapitalSpend'),
+                array('Sector', 'CountryBudgetItems', 'PolicyMarker', 'CollaborationType', 'DefaultFlowType', 'DefaultFinanceType', 'DefaultAidType', 'DefaultTiedStatus'),
+                array('Budget', 'PlannedDisbursement' , 'CapitalSpend', 'Transaction'),
                 array('DocumentLink'),
                 array('RelatedActivity'),
-                array('Conditions','Result','LegacyData'),
+                array('LegacyData', 'Conditions', 'Result'),
             );
 
 $model = new Model_Wep();
