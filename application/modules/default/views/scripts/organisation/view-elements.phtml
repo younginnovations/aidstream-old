@@ -76,7 +76,7 @@
         <!--Identifer Ends-->
         
         <!--Name Starts-->
-        <?php if(isset($organisation['Name'][0])) : ?>
+        <?php if(isset($organisation['Name'])) : ?>
               <?php echo $this->partial("partials/view-organisation/name.phtml" , array(
                                                                                 'parentId' => $organisation['id'] ,  
                                                                                 'elements' => $organisation['Name'] ,

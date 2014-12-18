@@ -3,9 +3,9 @@
         <?php echo "Name"; ?>
         <div class="element-info">
             <div class="element-values">
-                <?php if($this->elements[0]['text']):?>
+                <?php if($this->elements['Narrative'][0]['text']):?>
                     <span class="attrib-label">Text:</span>                 
-                    <span class="attrib-value"><?php echo $this->length()->adjustSingleLength($this->elements[0]['text']); ?></span>
+                    <span class="attrib-value"><?php echo $this->length()->adjustSingleLength($this->elements['Narrative'][0]['text']); ?></span>
                 <?php endif; ?>
             </div>
         </div>
@@ -16,15 +16,16 @@
     <div class="highlight">
         <ul class="style-1">
             <?php if (!empty($this->elements)): ?>
-                <?php foreach ($this->elements as $element): ?>
+                <?php $narratives = $this->elements['Narrative']; ?>
+                <?php foreach ($narratives as $narrative): ?>
                     <li>
                         <span class="name">Text:</span>
-                        <span class="infom"><?php echo $element['text'];
-                                                if ($element['@xml_lang'])
-                                                {
-                                                    printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('Name' , '@xml_lang' , $element['@xml_lang']));
-                                                }
-                                            ?>                            
+                        <span class="infom"><?php echo $narrative['text'];
+                                    if ($narrative['@xml_lang'])
+                                    {
+                                        printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('Name' , '@xml_lang' , $narrative['@xml_lang']));
+                                    }
+                            ?>                            
                         </span>
                     </li>
                 <?php endforeach; ?>
