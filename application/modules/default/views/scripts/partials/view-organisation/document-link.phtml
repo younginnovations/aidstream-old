@@ -93,25 +93,39 @@
                     </ul>            
                 <?php endif; ?>
                 <!--Recipient Country Ends-->
-                <?php if (!empty($element['RecipientCountry'])): ?> 
+                <?php $recipientcountrys = $element['RecipientCountry']; ?>
+                <?php if (!empty($recipientcountrys)): ?>
+                <?php foreach ($recipientcountrys as $recipientcountry): ?>
+                    
                     <ul class="style-1 style-4">
                         <h2>Recipient Country</h2>
-                        <?php foreach ($element['RecipientCountry'] as $recipientcountry): ?>
-                            <li> 
-                                <span class="name">Text:</span>
-                                <span class="infom"><?php if ($recipientcountry['text'] != "") print ($recipientcountry['text']); ?></span>
-                            </li>
                             <li>
                                 <span class="name">Code:</span>
                                 <span class="infom"><?php if($recipientcountry["@code"])
-                                                          {
-                                                              printf("%s [%s]",Iati_Core_Codelist::getCodeByAttrib('RecipientCountry' , '@code' , $recipientcountry["@code"],'Name'),Iati_Core_Codelist::getCodeByAttrib('RecipientCountry' , '@code' , $recipientcountry["@code"]));
-                                                          } 
-                                                    ?>
+                                      {
+                                        printf("%s [%s]",Iati_Core_Codelist::getCodeByAttrib('RecipientCountry' , '@code' , $recipientcountry["@code"],'Name'),Iati_Core_Codelist::getCodeByAttrib('RecipientCountry' , '@code' , $recipientcountry["@code"]));
+                                      } 
+                                    ?>
                                 </span>
                             </li>
-                        <?php endforeach; ?>
-                    </ul>            
+                            <?php $narratives = $recipientcountry['Narrative']; ?>
+                            <?php foreach ($narratives as $narrative): ?>
+                                <li>
+                                    <span class="name">Text:</span>
+                                    <span class="infom"> <?php if ($narrative['text'] != "") print ($narrative['text']); ?>
+                                        <?php
+                                            if ($narrative['@xml_lang'])
+                                            {
+                                                printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('DocumentLink_Title' , '@xml_lang' , $narrative['@xml_lang']));
+                                            }
+                                        ?> 
+                                    </span>
+                                </li>
+                            <?php endforeach; ?> 
+                           
+                    </ul>          
+                <?php endforeach; ?>
+                              
                 <?php endif; ?>
                 <!--Recipient Country Ends-->
 

@@ -6,7 +6,7 @@ class Iati_Aidstream_Element_Organisation_DocumentLink_RecipientCountry extends 
     protected $className = 'RecipientCountry';
     protected $displayName = 'Recipient Country';
     protected $tableName = 'iati_organisation/document_link/recipient_country';
-    protected $attribs = array('id');
+    protected $attribs = array('id', '@code');
     protected $iatiAttribs = array('@code');
     protected $childElements = array('Narrative');
    
