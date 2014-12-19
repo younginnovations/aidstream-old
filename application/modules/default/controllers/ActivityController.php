@@ -1,7 +1,7 @@
 <?php
 /**
- * Controller to handle actions to organisation data. It handles all CRUD and
- * other operations for organisation.
+ * Controller to handle actions to activity data. It handles all CRUD and
+ * other operations for activity.
  * 
  * @author YIPL Dev team
  */
@@ -11,6 +11,19 @@ class ActivityController extends Zend_Controller_Action
     public function init()
     {
         $identity  = Zend_Auth::getInstance()->getIdentity();
+        $activityId = $this->_getParam('activity_id');
+        
+        // Check activity access
+        if ($activityId) {
+            $model = new Model_ActivityCollection();
+            $access = $model->getActivityAccess($activityId, $identity->account_id);
+            if (!$access) {
+                $this->_helper->FlashMessenger
+                    ->addMessage(array('error' => "Access denied."));
+                $this->_redirect("/wep/dashboard");
+            }
+        }
+
         $this->_helper->layout()->setLayout('layout_wep');
         $this->view->blockManager()->enable('partial/dashboard.phtml');
         $this->view->blockManager()->enable('partial/primarymenu.phtml');
@@ -39,7 +52,7 @@ class ActivityController extends Zend_Controller_Action
     }
         
     public function addElementAction()
-    {
+    { 
         $elementClass = $this->_getParam('className');
         $parentId = $this->_getParam('activity_id');
         $isMultiple = $this->_getParam('isMultiple' , 1);
@@ -422,7 +435,7 @@ class ActivityController extends Zend_Controller_Action
     
     public function deleteActivityAction()
     {
-        $activityId = $this->_getParam('activityId');
+        $activityId = $this->_getParam('activity_id');
 
         if (!$activityId)
         {

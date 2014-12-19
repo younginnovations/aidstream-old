@@ -122,4 +122,16 @@ class Model_ActivityCollection extends Zend_Db_Table_Abstract
         $activitiesCount = $this->fetchRow($rowSet)->activityCount;
         return $activitiesCount;
     }
+
+    public function getActivityAccess($activityId, $accountId) {
+        $activityList = array();
+        $activityArray = $this->getActivityIdsByAccount($accountId);
+        foreach ($activityArray as $activity) {
+            array_push($activityList, $activity['id']);
+        }
+        if (in_array($activityId, $activityList)) {
+            return true;
+        }
+        return false;
+    }
 }
