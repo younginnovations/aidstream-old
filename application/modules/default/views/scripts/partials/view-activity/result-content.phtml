@@ -13,12 +13,24 @@
                     <!--Title Starts -->
                     <?php if (!empty($result['Title'])): ?>
                         <ul class="style-1 style-4">
-                            <h2>Title</h2>
                             <?php foreach ($result['Title'] as $title): ?>
-                                <li>
-                                <span class="name">Text: </span>
-                                <span class="infom"><?php if ($title["text"] != "") print ($title["text"] ); ?><?php if (!empty($title["@xml_lang"])) printf (" [%s]",Iati_Core_Codelist::getCodeByAttrib('Title' , '@xml_lang' , $title["@xml_lang"])); ?></span>
-                                </li>
+                                <h2>Title</h2>
+                                    <?php $narratives  = $title['Narrative']; ?>
+                                    <?php foreach ($narratives as $narrative): ?>
+                                        <li>
+                                            <span class="name">Text:</span>
+                                            <span class="infom"> <?php if ($narrative['text'] != "") print ($narrative['text']); ?>
+                                                <?php
+                                                    if ($narrative['@xml_lang'])
+                                                    {
+                                                     printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('Title' , '@xml_lang' , $narrative['@xml_lang']));
+                                                    }
+                                                ?> 
+                                            </span>
+                                        </li>
+                                    <?php endforeach; ?>
+                                        
+                                       
                             <?php endforeach; ?>
                         </ul><!--Ends .style-1-->         
                     <?php endif; ?>
@@ -27,13 +39,22 @@
                     <!--  Description Starts -->
                     <?php if (!empty($result['Description'])): ?>
                     <ul class="style-1 style-4">
-                        <h2>Description</h2>
                         <?php foreach ($result['Description'] as $description): ?>
-                            <li>
-                                <span class="name">Text: </span>
-                                <span class="infom"><?php if ($description["text"] != "") print ($description["text"]); ?><?php if (!empty($description["@xml_lang"])) printf (" [%s]",Iati_Core_Codelist::getCodeByAttrib('Description' , '@xml_lang' , $description["@xml_lang"])); ?></span>
-
-                            </li>
+                            <h2>Description</h2>
+                            <?php $narratives = $description['Narrative']; ?>
+                            <?php foreach ($narratives as $narrative): ?>
+                                <li>
+                                    <span class="name">Text:</span>
+                                    <span class="infom"> <?php if ($narrative['text'] != "") print ($narrative['text']); ?>
+                                        <?php
+                                            if ($narrative['@xml_lang'])
+                                            {
+                                             printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('Title' , '@xml_lang' , $narrative['@xml_lang']));
+                                            }
+                                        ?> 
+                                    </span>
+                                </li>
+                            <?php endforeach; ?>
                         <?php endforeach; ?>
                     </ul><!--Ends .style-1-->          
                     <?php endif;?>
@@ -59,12 +80,15 @@
                             <!--Indicator Title Starts -->
                             <?php if (!empty($indicator['Title'])): ?> 
                             <ul class="style-1 style-4 res-style-1">
-                                <h2>Title</h2>
-                                <?php foreach ($indicator['Title']as $title): ?>
-                                    <li>
-                                        <span class="name">Text: </span>
-                                        <span class="infom"><?php if ($title["text"] != "") print ($title["text"]); ?><?php if (!empty($title["@xml_lang"])) printf (" [%s]",Iati_Core_Codelist::getCodeByAttrib('Title' , '@xml_lang' , $title["@xml_lang"])); ?></span>
-                                    </li>
+                                <?php foreach ($indicator['Title'] as $title): ?>
+                                  <h2>Title</h2>
+                                    <?php $narratives = $title['Narrative']; ?>
+                                    <?php foreach ($narratives as $narrative): ?>
+                                        <li>
+                                            <span class="name">Text: </span>
+                                            <span class="infom"><?php if ($narrative["text"] != "") print ($narrative["text"]); ?><?php if (!empty($narrative["@xml_lang"])) printf (" [%s]",Iati_Core_Codelist::getCodeByAttrib('Title' , '@xml_lang' , $narrative["@xml_lang"])); ?></span>
+                                        </li>
+                                    <?php endforeach; ?>
                                 <?php endforeach; ?>
                             </ul>         
                             <?php endif; ?>
@@ -73,13 +97,16 @@
                             <!--Indicator Description Starts -->
                             <?php if (!empty($indicator['Description'])): ?>
                             <ul class="style-1 style-4">
-                                <h2>Description</h2>
                                 <?php foreach ($indicator['Description'] as $description): ?>
-                                    <li>
-                                        <span class="name">Text: </span>
-                                        <span class="infom"><?php if ($description["text"] != "") print ($description["text"]); ?><?php if (!empty($description["@xml_lang"])) printf (" [%s]",Iati_Core_Codelist::getCodeByAttrib('Description' , '@xml_lang' , $description["@xml_lang"])); ?></span>
+                                    <h2>Description</h2>
+                                    <?php $narratives = $description['Narrative']; ?>
+                                    <?php foreach ($narratives as $narrative): ?>
+                                        <li>
+                                            <span class="name">Text: </span>
+                                            <span class="infom"><?php if ($narrative["text"] != "") print ($narrative["text"]); ?><?php if (!empty($narrative["@xml_lang"])) printf (" [%s]",Iati_Core_Codelist::getCodeByAttrib('Description' , '@xml_lang' , $narrative["@xml_lang"])); ?></span>
 
-                                    </li>
+                                        </li>
+                                    <?php endforeach; ?>    
                                 <?php endforeach; ?>
                             </ul>         
                             <?php endif;?>
@@ -104,12 +131,15 @@
                                             <!--Indicator Baseline Comment Starts -->
                                             <?php if (!empty($baseline['Comment'])): ?>
                                             <ul class="style-1 style-4 res-style-1">
-                                                <h2>Comment</h2>
                                                 <?php foreach ($baseline['Comment'] as $comment): ?>
-                                                    <li>
-                                                        <span class="name">Text: </span>
-                                                        <span class="infom"><?php if ($comment["text"] != "") print ($comment["text"]); ?><?php if (!empty($comment["@xml_lang"])) printf (" [%s]",Iati_Core_Codelist::getCodeByAttrib('Comment' , '@xml_lang' , $comment["@xml_lang"])); ?></span>
-                                                    </li>
+                                                    <h2>Comment</h2>
+                                                    <?php $narratives = $comment['Narrative']; ?>
+                                                    <?php foreach ($narratives as $narrative): ?>
+                                                        <li>
+                                                            <span class="name">Text: </span>
+                                                            <span class="infom"><?php if ($narrative["text"] != "") print ($narrative["text"]); ?><?php if (!empty($narrative["@xml_lang"])) printf (" [%s]",Iati_Core_Codelist::getCodeByAttrib('Comment' , '@xml_lang' , $narrative["@xml_lang"])); ?></span>
+                                                        </li>
+                                                    <?php endforeach; ?>    
                                                 <?php endforeach; ?>
                                             </ul>         
                                             <?php endif;?>
@@ -173,13 +203,16 @@
                                         <!--Period Target Comment Starts-->
                                         <?php if (!empty($target['Comment'])): ?>
                                         <ul class="style-1 style-4 comment-style">
-                                            <h2>Comment</h2>
                                             <?php foreach ($target['Comment'] as $comment): ?>
-                                                <li>
-                                                    <span class="name">Text: </span>
-                                                    <span class="infom"><?php if ($comment["text"] != "") print ($comment["text"]); ?><?php if (!empty($comment["@xml_lang"])) printf (" [%s]",Iati_Core_Codelist::getCodeByAttrib('Comment' , '@xml_lang' , $comment["@xml_lang"])); ?></span>
-                                                </li>
-                                            <?php endforeach; ?>
+                                                <h2>Comment</h2>
+                                                <?php $narratives = $comment['Narrative']; ?>
+                                                <?php foreach ($narratives as $narrative): ?>
+                                                    <li>
+                                                        <span class="name">Text: </span>
+                                                        <span class="infom"><?php if ($narrative["text"] != "") print ($narrative["text"]); ?><?php if (!empty($narrative["@xml_lang"])) printf (" [%s]",Iati_Core_Codelist::getCodeByAttrib('Comment' , '@xml_lang' , $narrative["@xml_lang"])); ?></span>
+                                                    </li>
+                                                <?php endforeach; ?>
+                                            <?php endforeach; ?>    
                                         </ul>
                                         <?php endif; ?>
                                         <!--Indicator Period Target Comment Ends-->
@@ -202,13 +235,16 @@
                                         <!--Period Actual Comment Starts-->
                                         <?php if (!empty($actual['Comment'])): ?>
                                         <ul class="style-1 style-4 none-comment">
-                                            <h2>Comment</h2>
                                             <?php foreach ($actual['Comment'] as $comment): ?>
-                                                <li>
-                                                    <span class="name">Text: </span>
-                                                    <span class="infom"><?php if ($comment["text"] != "") print ($comment["text"]); ?><?php if (!empty($comment["@xml_lang"])) printf (" [%s]",Iati_Core_Codelist::getCodeByAttrib('Comment' , '@xml_lang' , $comment["@xml_lang"])); ?></span>
+                                                <h2>Comment</h2>
+                                                <?php $narratives = $comment['Narrative']; ?>
+                                                <?php foreach ($narratives as $narrative): ?>
+                                                    <li>
+                                                        <span class="name">Text: </span>
+                                                        <span class="infom"><?php if ($narrative["text"] != "") print ($narrative["text"]); ?><?php if (!empty($narrative["@xml_lang"])) printf (" [%s]",Iati_Core_Codelist::getCodeByAttrib('Comment' , '@xml_lang' , $narrative["@xml_lang"])); ?></span>
                                                     </li>
-                                            <?php endforeach; ?>
+                                                <?php endforeach; ?>
+                                            <?php endforeach; ?>    
                                         </ul>
                                         <?php endif; ?>
                                         <!--Indicator Period Actual Comment Ends-->
