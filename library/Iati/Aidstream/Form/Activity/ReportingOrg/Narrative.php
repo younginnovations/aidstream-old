@@ -1,7 +1,6 @@
 <?php
 
-class Iati_Aidstream_Form_Organisation_ReportingOrg_Narrative extends Iati_Core_BaseForm
-
+class Iati_Aidstream_Form_Activity_ReportingOrg_Narrative extends Iati_Core_BaseForm
 {
     public function getFormDefination()
     {
