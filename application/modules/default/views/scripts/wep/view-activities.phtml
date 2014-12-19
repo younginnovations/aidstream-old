@@ -39,7 +39,7 @@
                 <td class="title"><div class='title-activity'><?php print $eachActivity['title'];?></div>
                 <?php if($userPermission):?>
                     <div class = "list-action">
-                        <?php $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::EDIT_ACTIVITY_ELEMENTS);
+                        <?php $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::VIEW_ACTIVITIES);
                         if($permission == '1'){
                             print $this->l('View', 'activity/view-activity-info/?activity_id='.$eachActivity['id']);
                         }
@@ -49,7 +49,7 @@
                         }
                         $permission = $userPermission->hasPermission(Iati_WEP_PermissionConts::DELETE_ACTIVITY);
                         if($permission == '1'){
-                            print $this->l('Delete', 'activity/delete-activity/?className=Activity&activityId='.$eachActivity['id'],
+                            print $this->l('Delete', 'activity/delete-activity/?className=Activity&activity_id='.$eachActivity['id'],
                            array('attributes' => array('onclick' => "javascript: return confirm('Do you really want to delete?')")));
                         }
                         ?>
@@ -62,7 +62,7 @@
                 <?php print $this->l('View', 'activity/view-activity-info/?activity_id='.$eachActivity['id'])?>
                 <?php //print $this->l('Edit', 'wep/edit-activity/?activity_id='.$eachActivity['id'])?>
                 <?php print $this->l('Duplicate', 'activity/duplicate-activity/?activity_id='.$eachActivity['id'])?>
-                <?php print $this->l('Delete', 'activity/delete-activity/?className=Activity&activityId='.$eachActivity['id'],
+                <?php print $this->l('Delete', 'activity/delete-activity/?className=Activity&activity_id='.$eachActivity['id'],
                                      array('attributes' => array('onclick' => "javascript: return confirm('Do you really want to delete?')")))?>
                 </div>
                 <?php endif; ?>
