@@ -250,12 +250,19 @@ class User_UserController extends Zend_Controller_Action
 
     public function editAction()
     {
+        $user_id = $this->getRequest()->getParam('user_id');
         $auth = Zend_Auth::getInstance()->getIdentity();
+
         $roleName = $auth->role;
         $uploadDir = Zend_Registry::get('config')->upload_dir."/image/";
         //$uploadDir = APPLICATION_PATH.'/../public/uploads/image/';
 
-        $user_id = $this->getRequest()->getParam('user_id');
+        if ($user_id != $auth->user_id) {
+            $this->_helper->FlashMessenger
+                ->addMessage(array('error' => 'Access denied.'));
+            $this->_redirect('/user/user/myaccount');
+        }
+
         $userModel = new User_Model_DbTable_User();
         $row = $userModel->getUserById($user_id);
         $profileModel = new User_Model_DbTable_Profile();
@@ -412,14 +419,12 @@ class User_UserController extends Zend_Controller_Action
     public function changepasswordAction()
     {
         $user_id = $this->getRequest()->getParam('user_id');
-
-        if (!$user_id) {
-            throw new Exception('Invalid Request');
-        }
         $auth = Zend_Auth::getInstance()->getIdentity();
 
         if ($user_id != $auth->user_id) {
-            throw new Exception('Access Denied');
+            $this->_helper->FlashMessenger
+                ->addMessage(array('error' => 'Access denied.'));
+            $this->_redirect('/user/user/myaccount');
         }
 
         $model = new User_Model_DbTable_User();
@@ -466,15 +471,12 @@ class User_UserController extends Zend_Controller_Action
     public function changeusernameAction()
     {
         $user_id = $this->getRequest()->getParam('user_id');
-
-        if (!$user_id) {
-            throw new Exception('Invalid Request');
-        }
-        
         $auth = Zend_Auth::getInstance()->getIdentity();
 
         if ($user_id != $auth->user_id) {
-            throw new Exception('Access Denied');
+            $this->_helper->FlashMessenger
+                ->addMessage(array('error' => 'Access denied.'));
+            $this->_redirect('/user/user/myaccount');
         }
 
         $userModel = new User_Model_DbTable_User();
