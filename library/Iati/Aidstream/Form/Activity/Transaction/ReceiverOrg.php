@@ -13,12 +13,7 @@ class Iati_Aidstream_Form_Activity_Transaction_ReceiverOrg extends Iati_Core_Bas
         $form['id'] = new Zend_Form_Element_Hidden('id');
         $form['id']->setValue($this->data['id']);
 
-        $form['text'] = new Zend_Form_Element_Textarea('text');
-        $form['text']->setLabel('Text')
-            ->setRequired()
-            ->setValue($this->data['text'])
-            ->setAttribs(array('rows'=>'3' , 'cols'=> '20'))
-            ->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help transaction-receiver_org-text' , 'placement' => 'PREPEND'))));
+            
 
         $form['ref'] = new Zend_Form_Element_Text('ref');
         $form['ref']->setLabel('Organisation Identifier Code')

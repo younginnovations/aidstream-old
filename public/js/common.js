@@ -1755,7 +1755,7 @@ var validEmail = function (email) {
                     var node = getTarget(evt);
                     var reporting_org_name = dojo.attr(node, 'reporting-org-name');
                     var reporting_org_ref = dojo.attr(node, 'reporting-org-ref');
-                    var providerOrgTextNode = dojo.query(dojo.byId('Transaction-ProviderOrg-text'));
+                    var providerOrgTextNode = dojo.query(evt.target.parentElement.previousElementSibling);
                     var providerOrgIdentifierCodeNode = dojo.query(dojo.byId('Transaction-ProviderOrg-ref'));
                     providerOrgTextNode.attr('value', reporting_org_name);
                     providerOrgIdentifierCodeNode.attr('value', reporting_org_ref);                    
