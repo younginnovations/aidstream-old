@@ -37,10 +37,6 @@ if (!empty($transaction["ProviderOrg"])):
         <h2>Provider Organisation</h2>
         <?php $providerorg = $transaction["ProviderOrg"];  ?>
             <li>
-                <span class="name">Text:</span>
-                <span class="infom"><?php if ($providerorg['text'] != "") print ($providerorg['text']); ?></span>
-            </li>
-            <li>
                 <span class="name">Ref:</span>
                 <span class="infom"><?php if ($providerorg["@ref"]) print ($providerorg["@ref"]); ?></span>
             </li>
@@ -48,6 +44,20 @@ if (!empty($transaction["ProviderOrg"])):
                 <span class="name">Provider_activity_id:</span>
                 <span class="infom"><?php if ($providerorg['@provider_activity_id']) print ($providerorg['@provider_activity_id']); ?></span>
             </li>
+            <?php $narratives = $providerorg['Narrative']; ?>
+            <?php foreach ($narratives as $narrative): ?>
+                <li>
+                    <span class="name">Narrative Text:</span>
+                    <span class="infom"><?php if ($narrative["text"] != "") print ($narrative["text"]);
+                                        if($narrative["@xml_lang"])
+                                         {
+                                            printf(" [%s]",Iati_Core_Codelist::getCodeByAttrib('ProviderOrg' , '@xml_lang' , $narrative["@xml_lang"]));
+                                         }
+                                        ?>
+                    </span>               
+                </li>
+            <?php endforeach; ?>  
+
     </ul>
 
 <?php endif; ?>
@@ -63,10 +73,6 @@ if (!empty($transaction["ReceiverOrg"])):
         <h2>Receiver Organisation</h2>
         <?php $receiverorg = $transaction["ReceiverOrg"]; ?>
             <li>
-                <span class="name">Text:</span>
-                <span class="infom"><?php if ($receiverorg['text'] != "") print ($receiverorg['text']); ?></span>
-            </li>
-            <li>
                 <span class="name">Ref:</span>
                 <span class="infom"><?php if ($receiverorg['@ref']) print ($receiverorg['@ref']);?></span>
             </li>
@@ -74,6 +80,19 @@ if (!empty($transaction["ReceiverOrg"])):
                 <span class="name">Receiver_activity_id:</span>
                 <span class="infom"><?php if ($receiverorg['@receiver_activity_id']) print ($receiverorg['@receiver_activity_id']); ?></span>
             </li>
+            <?php $narratives = $receiverorg['Narrative']; ?>
+            <?php foreach ($narratives as $narrative): ?>
+                <li>
+                    <span class="name">Narrative Text:</span>
+                    <span class="infom"><?php if ($narrative["text"] != "") print ($narrative["text"]);
+                                        if($narrative["@xml_lang"])
+                                         {
+                                            printf(" [%s]",Iati_Core_Codelist::getCodeByAttrib('ReceiverOrg' , '@xml_lang' , $narrative["@xml_lang"]));
+                                         }
+                                        ?>
+                    </span>               
+                </li>
+            <?php endforeach; ?> 
     </ul>
 
 <?php endif; ?>
