@@ -6,8 +6,7 @@
 
     <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/edit-element/?activity_id=<?php echo $this->activity_id; ?>&className=Activity_Title">Edit</a></div>
 
-    <?php foreach ($this->elements as $element): ?>
-        <?php $narratives = $element['Narrative']; ?>
+        <?php $narratives = $this->elements['Narrative']; ?>
         <?php foreach ($narratives as $narrative): ?>
             <div class="current">
                 <ul class="style-2 arrow">
@@ -28,7 +27,6 @@
                 </ul>
             </div>
         <?php endforeach; ?>
-    <?php endforeach; ?>
     
 </li><!-- end of element-activity -->
 
