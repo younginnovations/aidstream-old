@@ -60,11 +60,10 @@
             <!-- Category Ends -->
 
             <!-- Title Starts -->
-            <?php $titles = $element['Title']; ?>
-            <?php foreach ($titles as $title): ?>
+            <?php $title = $element['Title']; ?>
                 <ul class="style-1 style-4"> 
                     <h2>Title</h2>
-                    <?php if (!empty($titles)): ?>
+                    <?php if (!empty($title)): ?>
                         <?php $narratives = $title['Narrative']; ?>
                             <?php foreach ($narratives as $narrative): ?>
                                     <li>
@@ -82,7 +81,7 @@
                            
                     <?php endif; ?>
                 </ul>   
-            <?php endforeach; ?>    
+                
             <!-- Title Ends -->
 
         </div>

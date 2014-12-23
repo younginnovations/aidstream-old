@@ -4,6 +4,7 @@ class Iati_Aidstream_Element_Activity_DocumentLink_Language extends Iati_Core_Ba
 {
 
     protected $isMultiple = true;
+    protected $isRequired = true;
     protected $className = 'Language';
     protected $displayName = 'Language';
     protected $attribs = array('id' , '@code');

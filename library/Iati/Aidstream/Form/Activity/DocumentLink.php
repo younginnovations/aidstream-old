@@ -29,6 +29,7 @@ class Iati_Aidstream_Form_Activity_DocumentLink extends Iati_Core_BaseForm
         $format = $model->getCodeArray('FileFormat', null, '1' , true);
         $form['format'] = new Zend_Form_Element_Select('format');
         $form['format']->setLabel('Document Format')
+            ->setRequired()
             ->setValue($this->data['@format'])
             ->setAttrib('class' , 'form-select')
             ->setMultioptions($format);
