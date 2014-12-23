@@ -13,7 +13,8 @@ class Iati_Aidstream_Form_Activity_PolicyMarker extends Iati_Core_BaseForm
         
         $policySignificance = $model->getCodeArray('PolicySignificance', null, '1' , true);
         $form['significance'] = new Zend_Form_Element_Select('significance');
-        $form['significance']->setLabel('Significance')  
+        $form['significance']->setLabel('Significance')
+            ->setRequired()  
             ->setValue($this->data['@significance'])   
             ->setAttrib('class' , 'form-select')
             ->setMultioptions($policySignificance);
@@ -31,7 +32,8 @@ class Iati_Aidstream_Form_Activity_PolicyMarker extends Iati_Core_BaseForm
        
         $code = $model->getCodeArray('PolicyMarker', null, '1' , true);
         $form['code'] = new Zend_Form_Element_Select('code');
-        $form['code']->setLabel('Policy Marker')  
+        $form['code']->setLabel('Policy Marker')
+            ->setRequired()   
             ->setValue($this->data['@code'])    
             ->setAttrib('class' , 'form-select')
             ->setMultioptions($code);

@@ -1,7 +1,6 @@
 <?php
 class Iati_Aidstream_Element_Activity_Transaction_Description extends Iati_Core_BaseElement
 {
-	protected $isRequired = true;
     protected $className = 'Description';
     protected $displayName = 'Description';
     protected $tableName = 'iati_transaction/description';
