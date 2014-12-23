@@ -25,8 +25,7 @@ class Iati_Aidstream_Form_Activity_Location_Administrative extends Iati_Core_Bas
             ->setAttrib('class' , 'form-text code');
 
         $form['level'] = new Zend_Form_Element_Text('level');
-        $form['level']->setLabel('Level')  
-            ->setRequired()
+        $form['level']->setLabel('Level')
             ->setValue($this->data['@level'])    
             ->setAttrib('class' , 'form-text level');    
 

@@ -13,7 +13,8 @@ class Iati_Aidstream_Form_Activity_RecipientRegion extends Iati_Core_BaseForm
         
         $countryCode = $model->getCodeArray('Region', null, '1' , true);
         $form['code'] = new Zend_Form_Element_Select('code');
-        $form['code']->setLabel('Region Code')  
+        $form['code']->setLabel('Region Code')
+            ->setRequired()  
             ->setValue($this->data['@code'])    
             ->setAttrib('class' , 'form-select')
             ->setMultioptions($countryCode);

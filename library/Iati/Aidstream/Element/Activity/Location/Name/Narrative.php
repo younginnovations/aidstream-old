@@ -3,7 +3,6 @@
 class Iati_Aidstream_Element_Activity_Location_Name_Narrative extends Iati_Core_BaseElement
 {
     protected $isMultiple = true;
-    protected $isRequired = true;
     protected $className = 'Narrative';
     protected $displayName = 'Narrative';
     protected $tableName = 'iati_location/name/narrative';
