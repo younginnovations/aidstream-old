@@ -20,7 +20,8 @@ class Iati_Aidstream_Form_Activity_Sector extends Iati_Core_BaseForm
         
         $sector = $model->getCodeArray('Sector', null, '1' , true);
         $form['code'] = new Zend_Form_Element_Select('code');
-        $form['code']->setLabel('Sector')  
+        $form['code']->setLabel('Sector')
+            ->setRequired()  
             ->setValue($this->data['@code'])    
             ->setAttrib('class' , 'form-select sector_value')   
             ->setMultioptions($sector);

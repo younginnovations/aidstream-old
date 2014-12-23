@@ -98,10 +98,11 @@
                     <?php
                     $jobtitle = $element['JobTitle'];
                     ?>
-                    <?php $narratives = $$jobtitle['Narrative']; ?>
-                    <?php if (!empty($jobtitle)): ?>                        
-                        <li>
-                            <?php foreach ($narratives as $narrative): ?>
+                    <?php $narratives = $jobtitle['Narrative']; ?>
+                    <?php if (!empty($jobtitle)): ?> 
+                        <?php foreach ($narratives as $narrative): ?>                       
+                            <li>
+                                
                                 <span class="name">Job Title: </span>
                                 <span class="infom"><?php if ($narrative['text'] != "") print ($narrative['text']); ?>
                                         <?php if ($narrative['@xml_lang'])
@@ -111,8 +112,9 @@
                                             }
                                         ?> 
                                 </span>
-                            <?php endforeach; ?>        
-                        </li>
+                                       
+                            </li>
+                        <?php endforeach; ?>     
                     <?php endif; ?>
                     <!-- JobTitle Ends -->
 
