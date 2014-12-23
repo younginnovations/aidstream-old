@@ -20,8 +20,7 @@ class Iati_Aidstream_Form_Activity_ParticipatingOrg extends Iati_Core_BaseForm
             ->setMultioptions($organisationRole);
         
         $form['ref'] = new Zend_Form_Element_Text('ref');
-        $form['ref']->setLabel('Organisation Identifer')
-            ->setRequired()  
+        $form['ref']->setLabel('Organisation Identifer') 
             ->setValue($this->data['@ref'])
             ->setAttrib('class' , 'form-text');
         

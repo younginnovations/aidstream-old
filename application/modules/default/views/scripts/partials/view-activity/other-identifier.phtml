@@ -35,16 +35,19 @@
                                 <span class="infom"><?php if ($ownerorg['@ref'] != "") print ($ownerorg['@ref']); ?></span>
                                 
                             </li>
-                            <li>
-                                <span class="name">Text:</span>
-                                <span class="infom"><?php if ($ownerorg['text'] != "") (print $ownerorg['text'])   ?>
-                                    <?php if ($ownerorg['@xml_lang'])
-                                        {
-                                            printf(" [%s]" , Iati_Core_Codelist::getCodeByAttrib('Title' , '@xml_lang' , $ownerorg['@xml_lang']));
-                                        }
-                                    ?>
-                                </span>  
-                            </li>
+                            <?php $narratives = $ownerorg['Narrative']; ?>
+                            <?php foreach ($narratives as $narrative): ?>
+                                <li>
+                                    <span class="name">Text:</span>
+                                    <span class="infom"><?php if ($narrative['text'] != "") (print $narrative['text'])   ?>
+                                        <?php if ($narrative['@xml_lang'])
+                                            {
+                                                printf(" [%s]" , Iati_Core_Codelist::getCodeByAttrib('Title' , '@xml_lang' , $narrative['@xml_lang']));
+                                            }
+                                        ?>
+                                    </span>  
+                                </li>
+                            <?php endforeach; ?>    
                     </ul>
                 <?php endif; ?>
                 <!-- OwnerOrg Ends -->

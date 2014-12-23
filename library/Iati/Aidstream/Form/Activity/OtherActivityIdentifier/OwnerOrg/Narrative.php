@@ -1,6 +1,6 @@
 <?php
+class Iati_Aidstream_Form_Activity_OtherActivityIdentifier_OwnerOrg_Narrative extends Iati_Core_BaseForm
 
-class Iati_Aidstream_Form_Activity_ReportingOrg_Narrative extends Iati_Core_BaseForm
 {
     public function getFormDefination()
     {
@@ -12,7 +12,7 @@ class Iati_Aidstream_Form_Activity_ReportingOrg_Narrative extends Iati_Core_Base
         $form['id']->setValue($this->data['id']);
         
         $form['text'] = new Zend_Form_Element_Textarea('text');
-        $form['text']->setLabel('Organisation Name')
+        $form['text']->setLabel('Text')
             ->setRequired()    
             ->setValue($this->data['text'])
             ->setAttribs(array('rows'=>'3' , 'cols'=> '20'));
