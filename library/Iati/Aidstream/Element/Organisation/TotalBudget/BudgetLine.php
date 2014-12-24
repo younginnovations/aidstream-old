@@ -8,5 +8,5 @@ class Iati_Aidstream_Element_Organisation_TotalBudget_BudgetLine extends Iati_Co
     protected $tableName = 'iati_organisation/total_budget/budget_line';
     protected $attribs = array('id' , '@ref', 'text');
     protected $iatiAttribs = array('@ref' , 'text');
-    protected $childElements = array('Value');
+    protected $childElements = array('Value','Narrative');
 }
