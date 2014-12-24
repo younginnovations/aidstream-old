@@ -17,6 +17,7 @@ class Iati_Aidstream_Form_Organisation_RecipientCountryBudget_BudgetLine_Value e
      
         $form['value_date'] = new Zend_Form_Element_Text('value_date');
         $form['value_date']->setLabel('Date')
+            ->setRequired()
             ->setValue($this->data['@value_date'])
             ->setAttrib('class' , 'datepicker' );
 
@@ -24,6 +25,7 @@ class Iati_Aidstream_Form_Organisation_RecipientCountryBudget_BudgetLine_Value e
         //var_dump($this->data['text']);exit;
         $form['text'] = new Zend_Form_Element_Text('text');
         $form['text']->setLabel('Amount')
+            ->setRequired()
             ->setValue($this->data['text'])
             ->addValidator(new App_Validate_NumericValue())
             ->setAttribs(array('class' => 'currency form-text'));   
@@ -32,6 +34,7 @@ class Iati_Aidstream_Form_Organisation_RecipientCountryBudget_BudgetLine_Value e
         $currency = $model->getCodeArray('Currency', null, '1' , true);
         $form['currency'] = new Zend_Form_Element_Select('currency');
         $form['currency']->setLabel('Currency')
+            ->setRequired()
             ->setValue($this->data['@currency'])
             ->setAttrib('class' , 'form-select')
             ->setMultioptions($currency);

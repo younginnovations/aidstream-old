@@ -6,8 +6,8 @@ class Iati_Aidstream_Element_Organisation_RecipientCountryBudget_BudgetLine exte
     protected $className = 'BudgetLine';
     protected $displayName = 'Budget Line';
     protected $tableName = 'iati_organisation/recipient_country_budget/budget_line';
-    protected $attribs = array('id', '@ref', 'text');
-    protected $iatiAttribs = array('@ref', 'text');
-    protected $childElements = array('Value');
+    protected $attribs = array('id', '@ref');
+    protected $iatiAttribs = array('@ref');
+    protected $childElements = array('Value', 'Narrative');
    
 }

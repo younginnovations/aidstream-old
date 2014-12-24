@@ -2,6 +2,7 @@
 
 class Iati_Aidstream_Element_Organisation_RecipientCountryBudget_BudgetLine_Value extends Iati_Core_BaseElement
 {
+    protected $isRequired = true;
     protected $className = 'Value';
     protected $displayName = 'Value';
     protected $tableName = 'iati_organisation/recipient_country_budget/budget_line/value';
