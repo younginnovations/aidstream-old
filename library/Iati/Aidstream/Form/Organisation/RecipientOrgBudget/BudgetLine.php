@@ -18,11 +18,6 @@ class Iati_Aidstream_Form_Organisation_RecipientOrgBudget_BudgetLine extends Iat
            ->setValue($this->data['@ref'])
            ->setAttrib('class','form-text');
 
-        $form['text'] = new Zend_Form_Element_Text('text');
-        $form['text']->setLabel('Text')
-           ->setValue($this->data['text'])
-           ->setAttrib('class','form-text');
-
         $this->addElements($form);
         return $this;
     }

@@ -22,18 +22,21 @@ class Iati_Aidstream_Form_Organisation_RecipientOrgBudget_Value extends Iati_Cor
             ->addValidator(new App_Validate_NumericValue())
             ->setAttribs(array('class' => 'currency form-text')) ;
 
-        $currency = $model->getCodeArray('Currency', null, '1' , true);
-        $form['currency'] = new Zend_Form_Element_Select('currency');
-        $form['currency']->setLabel('Currency')
-            ->setValue($this->data['@currency'])
-            ->setAttrib('class' , 'form-select')
-            ->setMultioptions($currency);
-
+        
         $form['value_date'] = new Zend_Form_Element_Text('value_date');
         $form['value_date']->setLabel('Value Date')
             ->setValue($this->data['@value_date'])
             ->setRequired()
             ->setAttrib('class' , 'datepicker' );
+
+
+        $currency = $model->getCodeArray('Currency', null, '1' , true);
+        $form['currency'] = new Zend_Form_Element_Select('currency');
+        $form['currency']->setLabel('Currency')
+            ->setRequired()
+            ->setValue($this->data['@currency'])
+            ->setAttrib('class' , 'form-select')
+            ->setMultioptions($currency);    
 
         $this->addElements($form);
         return $this;

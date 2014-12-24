@@ -114,10 +114,6 @@
                                 <span class="name">Reference:</span>
                                 <span class="infom"><?php if ($budgetline['@ref'] != "") print ($budgetline['@ref']); ?></span>
                             </li>
-                            <li>
-                                <span class="name">Text:</span>
-                                <span class="infom"><?php if ($budgetline['text'] != "") print ($budgetline['text']); ?></span>
-                            </li>
 
                             <?php $value = $budgetline['Value']; ?>
                             <?php if (!empty($value)): ?>
@@ -143,6 +139,24 @@
                             </li>
 
                             <?php endif; ?>
+
+                            <?php $narratives = $budgetline['Narrative']; ?>
+                                <?php if (!empty($narratives)): ?>
+                                    <h2>Narrative</h2>
+                                    <?php foreach ($narratives as $narrative):  ?>
+                                         <li>
+                                            <span class="name">Text:</span>
+                                            <span class="infom"> <?php if ($narrative['text'] != "") print ($narrative['text']); ?>
+                                                <?php
+                                                        if ($narrative['@xml_lang'])
+                                                        {
+                                                            printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('BudgetLine_Narrative' , '@xml_lang' , $narrative['@xml_lang']));
+                                                        }
+                                                ?> 
+                                            </span>
+                                        </li>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
                        
                         </ul>
                     <?php endforeach; ?>    

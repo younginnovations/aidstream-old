@@ -8,6 +8,6 @@ class Iati_Aidstream_Element_Organisation_RecipientOrgBudget_BudgetLine extends 
     protected $tableName = 'iati_organisation/recipient_org_budget/budget_line';
     protected $attribs = array('id', '@ref', 'text');
     protected $iatiAttribs = array('@ref', 'text');
-    protected $childElements = array('Value');
+    protected $childElements = array('Value', 'Narrative');
 
 }
