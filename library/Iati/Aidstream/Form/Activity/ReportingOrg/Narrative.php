@@ -15,6 +15,7 @@ class Iati_Aidstream_Form_Activity_ReportingOrg_Narrative extends Iati_Core_Base
         $form['text']->setLabel('Organisation Name')
             ->setRequired()    
             ->setValue($this->data['text'])
+            ->setAttribs(array('disabled' => 'disabled'))
             ->setAttribs(array('rows'=>'3' , 'cols'=> '20'));
             
         $lang = $model->getCodeArray('Language', null, '1' , true);
@@ -22,6 +23,7 @@ class Iati_Aidstream_Form_Activity_ReportingOrg_Narrative extends Iati_Core_Base
         $form['xml_lang']->setLabel('Language')
             ->setValue($this->data['@xml_lang'])
             ->setAttrib('class' , 'form-select')
+            ->setAttribs(array('disabled' => 'disabled'))
             ->setMultioptions($lang);
 
         $this->addElements($form);

@@ -321,7 +321,7 @@ class WepController extends Zend_Controller_Action
                                      your organisation admin"
                                     )
                                 );
-                $this->_redirect('wep/dashborad');
+                $this->_redirect('wep/dashboard');
             }
         }
 

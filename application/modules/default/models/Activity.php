@@ -27,11 +27,15 @@ class Model_Activity
         //Save reporting org
         $reporting_org = array();
         $reporting_org['@ref'] = $default['reporting_org_ref'];
-        $reporting_org['text'] = $default['reporting_org'];
         $reporting_org['@type'] = $default['reporting_org_type'];
-        $reporting_org['@xml_lang'] = $default['reporting_org_lang'];
         $reporting_org['activity_Id'] = $activityId;
         $reporting_org_id = $wepModel->insertRowsToTable('iati_reporting_org', $reporting_org);
+        
+        //Save reporting org narrative
+        $reporting_org_narrative['text'] = $default['reporting_org'];
+        $reporting_org_narrative['@xml_lang'] = $default['reporting_org_lang'];
+        $reporting_org_narrative['reporting_org_id'] = $reporting_org_id;
+        $reporting_org_narrative_id = $wepModel->insertRowsToTable('iati_reporting_org/narrative', $reporting_org_narrative);
         
         //Save Iati Identifier
         $iati_identifier = array();

@@ -10,11 +10,4 @@ class Iati_Aidstream_Element_Organisation_ReportingOrg extends Iati_Core_BaseEle
     protected $iatiAttribs = array('@ref','@type');
     protected $childElements = array('Narrative');
     
-    public function getForm($ajax = false)
-    {
-        $formname = preg_replace('/Element/' , 'Form' , get_class($this));
-        $eleForm = new $formname(array('element' => $this));
-        $eleForm->wrapForm($this->getDisplayName() , $this->getIsRequired());
-        return $eleForm->getFormDefination();        
-    }
 }

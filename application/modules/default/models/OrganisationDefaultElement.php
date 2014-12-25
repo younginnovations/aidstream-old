@@ -30,11 +30,15 @@ class Model_OrganisationDefaultElement extends Zend_Db_Table_Abstract
         $reporting_org = array();
         $reporting_org['id'] = $elementId;
         $reporting_org['@ref'] = $defaults['reporting_org_ref'];
-        $reporting_org['text'] = $defaults['reporting_org'];
         $reporting_org['@type'] = $defaults['reporting_org_type'];
-        $reporting_org['@xml_lang'] = $defaults['reporting_org_lang'];
-        
-        $wepModel->updateRowsToTable($tableName,$reporting_org);
+        $reporting_org_id = $wepModel->updateRowsToTable($tableName, $reporting_org);
+        if (!$reporting_org_id)
+            $row = $wepModel->getRowById($tableName, 'id', $reporting_org['id']);
+            $reporting_org_id = $row['id'];
+
+        $reporting_org_narrative['text'] = $defaults['reporting_org'];
+        $reporting_org_narrative['@xml_lang'] = $defaults['reporting_org_lang'];
+        $wepModel->updateRow('iati_organisation/reporting_org/narrative', $reporting_org_narrative, 'reporting_org_id', $reporting_org_id);
     }
     
     public function updateIdentifierData($tableName,$elementId)

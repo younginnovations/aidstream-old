@@ -12,11 +12,16 @@ class Model_ReportingOrg extends Zend_Db_Table_Abstract
         $defaults = $defaultFieldsValues->getDefaultFields();
         
         $reportingOrg['@ref'] = $defaults['reporting_org_ref'];
-        $reportingOrg['@type'] = $defaults['reporting_org_type'];
-        $reportingOrg['@xml_lang'] = $defaults['reporting_org_lang'];
-        $reportingOrg['text'] = $defaults['reporting_org'];
+        $reportingOrg['@type'] = $defaults['reporting_org_type']; 
+        $reportingOrg['id'] = $id; 
+        $reporting_org_id = $model->updateRowsToTable($this->_name, $reportingOrg);
+        if (!$reporting_org_id)
+            $row = $model->getRowById($this->_name, 'id', $reportingOrg['id']);
+            $reporting_org_id = $row['id'];
         
-        $this->update($reportingOrg , array('id = ?'=>$id));
+        $reportingOrgNarrative['@xml_lang'] = $defaults['reporting_org_lang'];
+        $reportingOrgNarrative['text'] = $defaults['reporting_org'];
+        $model->updateRow('iati_reporting_org/narrative', $reportingOrgNarrative, 'reporting_org_id', $reporting_org_id);
     }
     
     public function getActivityIdById($id)
