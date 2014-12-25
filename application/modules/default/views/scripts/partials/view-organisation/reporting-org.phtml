@@ -5,18 +5,6 @@
         
             <div class="element-info">
                 <div class="element-values">
-                    <?php if($this->elements['text']): ?>
-                        <span class="attrib-label">Text:</span>					
-                        <span class="attrib-value"><?php echo $this->length()->adjustDoubleLength($this->elements['text']); ?>
-                                                <?php if($this->elements['@xml_lang'])
-                                                        {
-                                                            printf(" [%s]" , Iati_Core_Codelist::getCodeByAttrib('ReportingOrg' , '@xml_lang' , $this->elements['@xml_lang']));
-                                                        }
-                                                ?>
-                        </span>
-                    <?php endif; ?>
-                </div>
-                <div class="element-values">
                     <?php if($this->elements['@ref']): ?>
                         <span class="attrib-label">Ref:</span>
                         <span class="attrib-value"><?php echo $this->length()->adjustDoubleLength($this->elements['@ref']); ?></span>  
@@ -27,16 +15,6 @@
     
         <div class="highlight">
             <ul class="style-1">
-                <li>
-                    <span class="name">Text:</span>
-                    <span class="infom"><?php echo $this->elements['text']; ?>
-                                        <?php if($this->elements['@xml_lang'])
-                                                {
-                                                    printf(" [%s]" , Iati_Core_Codelist::getCodeByAttrib('ReportingOrg' , '@xml_lang' , $this->elements['@xml_lang']));
-                                                }
-                                        ?> 
-                    </span>
-                </li>
                 <li>
                     <span class="name">Ref:</span>
                     <span class="infom"><?php echo $this->elements['@ref']; ?></span>
@@ -52,6 +30,21 @@
                                         ?> 
                     </span>
                 </li>
+                <?php $narratives = $this->elements['Narrative']; ?>
+                <?php foreach ($narratives as $narrative): ?>
+                    <li>
+                        <span class="name"> Narrative Text:</span>
+                        <span class="infom"> <?php if ($narrative['text'] != "") print ($narrative['text']); ?>
+                            <?php
+                                if ($narrative['@xml_lang'])
+                                {
+                                    printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('ReportingOrg' , '@xml_lang' , $narrative['@xml_lang']));
+                                }
+                            ?> 
+                        </span>
+                    </li>
+                <?php endforeach; ?>
+
             </ul>
         </div>
    
