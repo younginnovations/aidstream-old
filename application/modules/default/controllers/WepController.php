@@ -476,8 +476,13 @@ class WepController extends Zend_Controller_Action
                 $title = $wepModel->getRowById('iati_title', 'activity_id', $activity['id']);
                 if ($title['id'])
                     $narrative_title = $wepModel->listAll('iati_title/narrative', 'title_id', $title['id']);
+                
                 $identifier = $wepModel->listAll('iati_identifier', 'activity_id', $activity['id']);
-                $activity_array[$i]['title'] = ($narrative_title[0]['text'])?$narrative_title[0]['text']:'No title';
+                if (is_array($narrative_title)) { 
+                    $activity_array[$i]['title'] = ($narrative_title[0]['text'])?$narrative_title[0]['text']:'No title';
+                } else {
+                    $activity_array[$i]['title'] = 'No title';
+                }
                 $activity_array[$i]['identifier'] = ($identifier[0]['activity_identifier'])?
                     $identifier[0]['activity_identifier']:'No Activity Identifier';
                 $activity_array[$i]['last_updated_datetime'] = $activity['@last_updated_datetime'];
