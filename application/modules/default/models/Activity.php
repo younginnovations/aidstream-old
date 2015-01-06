@@ -194,7 +194,13 @@ class Model_Activity
         $activity['iati_identifier'] = $iati_identifier_row['text'];
         $activity['activity_identifier'] = $iati_identifier_row['activity_identifier'];
         $title_row = $model->getRowById('iati_title', 'activity_id', $activityId);
-        $activity['iati_title'] = $title_row['text'];
+        $title_id = $title_row['id'];
+        if ($title_id) {
+            $title_name = $model->getRowById('iati_title/narrative', 'title_id', $title_id);
+            $activity['iati_title'] = $title_name['text'];
+        } else {
+            $activity['iati_tile'] = '';
+        }
         
         return $activity;
     }
