@@ -2,6 +2,7 @@
 
 class Iati_Aidstream_Element_Activity_Transaction_TransactionDate extends Iati_Core_BaseElement
 {
+    protected $isRequired = true;
     protected $className = 'TransactionDate';
     protected $displayName = 'Transaction Date';
     protected $attribs = array('id' , '@iso_date');

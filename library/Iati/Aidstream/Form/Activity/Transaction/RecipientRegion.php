@@ -23,7 +23,7 @@ class Iati_Aidstream_Form_Activity_Transaction_RecipientRegion extends Iati_Core
             ->setAttrib('class' , 'form-select')
             ->setMultioptions($region);
 
-        $regionVocabulary = $model->getCodeArray('RegionVocabulary', null, '1');
+        $regionVocabulary = $model->getCodeArray('RegionVocabulary', null, '1', true);
         $form['vocabulary'] = new Zend_Form_Element_Select('vocabulary');
         $form['vocabulary']->setLabel('Vocabulary')
             ->setValue($this->data['@vocabulary'])
