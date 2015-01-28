@@ -429,7 +429,8 @@ class Iati_Core_BaseElement
                     foreach($this->childElements as $childElementClass){
                         $childElementName = get_class($this)."_$childElementClass";
                         $childElement = new $childElementName();
-                        $data[$key][$childElement->getClassName()] = $childElement->fetchData($elementData['id'] , true);
+                        $result = $childElement->fetchData($elementData['id'] , true);
+                        if ($result) $data[$key][$childElement->getClassName()] = $result;
                     }
                 }
             }
@@ -447,7 +448,8 @@ class Iati_Core_BaseElement
                 foreach($this->childElements as $childElementClass){
                     $childElementName = get_class($this)."_$childElementClass";
                     $childElement = new $childElementName();
-                    $data[$childElement->getClassName()] = $childElement->fetchData($data['id'] , true);
+                    $result = $childElement->fetchData($data['id'] , true);
+                    if ($result) $data[$childElement->getClassName()] = $result;
                 }
             }
         }
