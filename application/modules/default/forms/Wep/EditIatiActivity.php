@@ -13,7 +13,7 @@ class Form_Wep_EditIatiActivity extends App_Form
         $form['xml_lang'] = new Zend_Form_Element_Select('xml_lang');
         $form['xml_lang']->setLabel('Language')
         ->setAttrib('class', 'form-select')
-        ->addMultiOption('', 'Select anyone')->setRequired();
+        ->addMultiOption('', 'Select one of the following option:')->setRequired();
        
         
         foreach($language as $key => $eachLanguage){
@@ -23,7 +23,7 @@ class Form_Wep_EditIatiActivity extends App_Form
         $form['default_currency'] = new Zend_Form_Element_Select('default_currency');
         $form['default_currency']->setAttrib('class', 'form-select')
                                 ->setLabel('Default Currency')
-                                ->setRequired()->addMultiOption('', 'Select anyone');
+                                ->setRequired()->addMultiOption('', 'Select one of the following option:');
       
         
         foreach($currency as $key => $eachCurrency){

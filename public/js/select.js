@@ -11,11 +11,11 @@ function loadSelect2() {
 
 
     $("select#sector").select2({
-        placeholder: "Select Anyone"
+        placeholder: "Select one of the following option:"
     });
 
     $("select.form-select").select2({
-        placeholder: "Select Anyone"
+        placeholder: "Select one of the following option:"
     });
 
     $(".vocabulary_value").bind('change', function (event) {

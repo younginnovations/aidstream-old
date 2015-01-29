@@ -14,7 +14,7 @@ class Iati_Aidstream_Form_Activity_Conditions extends Iati_Core_BaseForm
             ->setValue($this->data['@attached']) 
             ->setRequired()    
             ->setAttrib('class' , 'form-select')
-            ->setMultioptions(array(''=>'Select Anyone','0' => 'No', '1' => 'Yes'));
+            ->setMultioptions(array(''=>'Select one of the following option:','0' => 'No', '1' => 'Yes'));
 
         $this->addElements($form);
         return $this;

@@ -132,7 +132,7 @@ class Model_Wep extends Zend_Db_Table_Abstract
         $result = $this->fetchAll($rowSet)->toArray();
         $finalResult = array();
         if($nullOption){
-            $finalResult[''] = 'Select Anyone';
+            $finalResult[''] = 'Select one of the following option:';
         }   
         foreach($result as $key => $eachResult)
         {
@@ -157,7 +157,7 @@ class Model_Wep extends Zend_Db_Table_Abstract
         ->order(array('id ASC'));
         $results = $this->fetchAll($rowSet)->toArray();
         if ($nullOption) {
-            $return[''] = 'Select Anyone';
+            $return[''] = 'Select one of the following option:';
         }
         foreach ($results as $result) {
             $return[$result['id']] = $result['Code'];

@@ -10,7 +10,7 @@ class Simplified_Form_Default_DefaultFieldValues extends App_Form
         $form['default_currency'] = new Zend_Form_Element_Select('default_currency');
         $form['default_currency']->setRequired()
             ->setLabel('Default Currency')
-            ->addMultiOption('', 'Select anyone')
+            ->addMultiOption('', 'Select one of the following option:')
             ->setValue($defaults['field_values']['currency'])
             ->setAttrib('class', 'form-select');
         foreach($currency as $key => $eachCurrency){
@@ -21,7 +21,7 @@ class Simplified_Form_Default_DefaultFieldValues extends App_Form
         $form['default_language'] = new Zend_Form_Element_Select('default_language');
         $form['default_language']->setRequired()
             ->setLabel('Default Language')
-            ->addMultiOption('', 'Select anyone')
+            ->addMultiOption('', 'Select one of the following option:')
             ->setValue($defaults['field_values']['language'])
             ->setAttrib('class', 'form-select');
         foreach($language as $key => $eachLanguage){
@@ -36,7 +36,7 @@ class Simplified_Form_Default_DefaultFieldValues extends App_Form
         $form['default_collaboration_type'] = new Zend_Form_Element_Select('default_collaboration_type');
         $form['default_collaboration_type']->setLabel('Default Collaboration Type')
             ->setValue($defaults['field_values']['collaboration_type'])
-            ->addMultiOption('','Select Anyone')
+            ->addMultiOption('','Select one of the following option:')
             ->setAttrib('class', 'form-select');
         $collaborationTypes = $model->getCodeArray('CollaborationType',null,'1');
         foreach($collaborationTypes as $key => $collaborationType){
@@ -46,7 +46,7 @@ class Simplified_Form_Default_DefaultFieldValues extends App_Form
         $form['default_flow_type'] = new Zend_Form_Element_Select('default_flow_type');
         $form['default_flow_type']->setLabel('Default Flow Type')
             ->setValue($defaults['field_values']['flow_type'])
-            ->addMultiOption('','Select Anyone')
+            ->addMultiOption('','Select one of the following option:')
             ->setAttrib('class', 'form-select');
         $flowTypes = $model->getCodeArray('FlowType',null,'1');
         foreach($flowTypes as $key => $flowType){
@@ -56,7 +56,7 @@ class Simplified_Form_Default_DefaultFieldValues extends App_Form
         $form['default_finance_type'] = new Zend_Form_Element_Select('default_finance_type');
         $form['default_finance_type']->setLabel('Default Finance Type')
             ->setValue($defaults['field_values']['finance_type'])
-            ->addMultiOption('','Select Anyone')
+            ->addMultiOption('','Select one of the following option:')
             ->setAttrib('class', 'form-select');
         $financeTypes = $model->getCodeArray('FinanceType',null,'1');
         foreach($financeTypes as $key => $financeType){
@@ -66,7 +66,7 @@ class Simplified_Form_Default_DefaultFieldValues extends App_Form
         $form['default_aid_type'] = new Zend_Form_Element_Select('default_aid_type');
         $form['default_aid_type']->setLabel('Default Aid Type')
             ->setValue($defaults['field_values']['aid_type'])
-            ->addMultiOption('','Select Anyone')
+            ->addMultiOption('','Select one of the following option:')
             ->setAttrib('class', 'form-select');
         $aidTypes = $model->getCodeArray('AidType',null,'1');
         foreach($aidTypes as $key => $aidType){
@@ -76,7 +76,7 @@ class Simplified_Form_Default_DefaultFieldValues extends App_Form
         $form['default_tied_status'] = new Zend_Form_Element_Select('default_tied_status');
         $form['default_tied_status']->setLabel('Default Tied Status')
             ->setValue($defaults['field_values']['tied_status'])
-            ->addMultiOption('','Select Anyone')
+            ->addMultiOption('','Select one of the following option:')
             ->setAttrib('class', 'form-select');
         $tiedStatuses = $model->getCodeArray('TiedStatus',null,'1');
         foreach($tiedStatuses as $key => $tiedStatus){

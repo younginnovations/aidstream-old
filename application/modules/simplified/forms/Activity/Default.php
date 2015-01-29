@@ -109,7 +109,7 @@ class Simplified_Form_Activity_Default extends Iati_SimplifiedForm
         $statuses = $model->getCodeArray('ActivityStatus' , '' , 1);
         $form['status'] = new Zend_Form_Element_Select('status');
         $form['status']->setLabel('Activity Status')
-            ->addMultiOption('', 'Select anyone')
+            ->addMultiOption('', 'Select one of the following option:')
             ->addMultiOptions($statuses)
             ->setValue($this->data['status'])
             ->setRegisterInArrayValidator(false)

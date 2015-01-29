@@ -40,7 +40,7 @@
             var eleValue = ele.val();
 
             ele.html('');
-            ele.append($("<option>").attr('value', '').text('Select Anyone'));
+            ele.append($("<option>").attr('value', '').text('Select one of the following option:'));
             $.each(divisions, function (key, division) {
                 ele.append($("<option>").attr('value', division.name).text(division.name));
             });

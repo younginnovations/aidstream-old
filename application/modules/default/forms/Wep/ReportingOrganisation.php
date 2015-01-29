@@ -24,7 +24,7 @@ class Form_Wep_ReportingOrganisation extends App_Form
         $form['reporting_org_type']->setLabel('Reporting Organisation Type')
             ->setRequired()
             ->setValue($defaults['field_values']['reporting_org_type'])
-            ->addMultiOption('','Select anyone')
+            ->addMultiOption('','Select one of the following option:')
             ->addMultiOptions($reportingOrgType)
             ->setAttrib('width','20px')
             ->setAttrib('class', 'form-select');
@@ -32,7 +32,7 @@ class Form_Wep_ReportingOrganisation extends App_Form
         $language = $model->getCodeArray('Language',null,'1');
         $form['reporting_org_lang'] = new Zend_Form_Element_Select('reporting_org_lang');
         $form['reporting_org_lang']->setLabel('Reporting Organisation Language')
-            ->addMultiOption('', 'Select anyone')->setValue($defaults['field_values']['reporting_org_lang'])
+            ->addMultiOption('', 'Select one of the following option:')->setValue($defaults['field_values']['reporting_org_lang'])
             ->setAttrib('class', 'form-select')
             ->addMultiOptions($language);
             

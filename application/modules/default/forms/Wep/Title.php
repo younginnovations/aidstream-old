@@ -12,7 +12,7 @@ class Form_Wep_Title extends App_Form
         $form['iati_title_text']->setLabel('Name')->setRequired();
         
         $form["iati_title_xmllang"] = new Zend_Form_Element_Select("iati_title_xmllang");
-        $form['iati_title_xmllang']->setLabel('Language')->addMultiOption('', 'Select anyone');
+        $form['iati_title_xmllang']->setLabel('Language')->addMultiOption('', 'Select one of the following option:');
       $form['iati_title_xmllang']->setValue($default['language']);
 //        foreach($language as $eachL){
         foreach($language[0] as $eachLanguage){

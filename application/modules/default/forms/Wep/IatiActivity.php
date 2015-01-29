@@ -19,7 +19,7 @@ class Form_Wep_IatiActivity extends App_Form
         $form['xml_lang']->setLabel('Language')
             ->setAttrib('class', 'form-select')
             ->setRequired()
-            ->addMultiOption('', 'Select anyone');
+            ->addMultiOption('', 'Select one of the following option:');
         if($status != 'edit'){
             $form['xml_lang']->setValue($default['language']);
         }
@@ -32,7 +32,7 @@ class Form_Wep_IatiActivity extends App_Form
         $form['default_currency']->setLabel('Default Currency')
             ->setRequired()
             ->setAttrib('class', 'form-select')
-            ->addMultiOption('', 'Select anyone');
+            ->addMultiOption('', 'Select one of the following option:');
          if($status != 'edit'){
             $form['default_currency']->setValue($default['currency']);
         }
