@@ -18,3 +18,4 @@ application/configs/application.ini
 public/captcha
 complete.csv
 Config.php
+.idea/
