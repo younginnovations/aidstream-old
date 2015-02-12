@@ -160,16 +160,9 @@
                     ?>
                         <?php if (!empty($mailingaddresss)): ?>                       
                             <li>
-                                <span class="name">Mailing Address:</span>
-                                <span class="infom">
-                                        <?php if ($mailingaddress['text'] != "") print ($mailingaddress['text']); ?>
-                                </span>    
-                                    
+                                <span class="name">Mailing Address:</span>      
                                 <?php $narratives = $mailingaddress['Narrative']; ?>
                                 <?php foreach ($narratives as $narrative): ?>                         
-                                    <span class="infom">
-                                        <?php if ($narrative['text'] != "") print ($narrative['text']); ?>
-                                    </span>
                                     <span class="infom"><?php if ($narrative['text'] != "") print ($narrative['text']); ?>
                                         <?php if ($narrative['@xml_lang'])
                                             {
