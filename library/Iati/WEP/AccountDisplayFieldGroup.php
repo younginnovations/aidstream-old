@@ -23,7 +23,6 @@ class Iati_WEP_AccountDisplayFieldGroup
     protected $budget = '0';
     protected $planned_disbursement = '0';
     protected $document_link = '0';
-    protected $activity_website = '0';
     protected $related_activity = '0';
     protected $conditions = '0';
     protected $result = '0';
