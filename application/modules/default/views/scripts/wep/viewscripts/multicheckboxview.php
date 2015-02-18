@@ -14,7 +14,7 @@
                         array('recipient_country','recipient_region','location'),
                         array('sector','policy_marker','collaboration_type','default_flow_type','default_finance_type','default_aid_type','default_tied_status' , 'country_budget_items'),
                         array('budget','planned_disbursement', 'transaction' , 'capital_spend'),
-                        array('document_link','activity_website'),
+                        array('document_link'),
                         array('related_activity'),
                         array('conditions','result','legacy_data'),
                     );
