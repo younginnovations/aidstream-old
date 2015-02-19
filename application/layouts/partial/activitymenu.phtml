@@ -30,7 +30,7 @@ $fieldGroupsData = $model->getRowById('default_field_groups' , 'account_id' , $i
 $fieldGroups = unserialize($fieldGroupsData['object']);
 $fieldGroup = $fieldGroups->getProperties();
 ?>
-<!--Starts Displaying elements menu of an activity-->
+<!--Start Displaying elements menu of an activity-->
 <div id="block-activity-menu" class="block">
     <div class="block-inner">
         <h2 class="title">Element Menu</h2>
@@ -40,7 +40,7 @@ $fieldGroup = $fieldGroups->getProperties();
                 $i = '0';
                 foreach ($elements as $value)
                 {
-                    if(!hasGroupSet($fieldGroup, $elements[$i]) && $i!=0) {
+                    if(!Iati_WEP_ElementValueCheck::hasGroupSet($fieldGroup, $elements[$i]) && $i!=0) {
                         $i++;
                         continue;
                     }
@@ -60,19 +60,23 @@ $fieldGroup = $fieldGroups->getProperties();
                     print '<div class="menu-category-title">' . $titleArray[$i] . '</div>';
                     print '<ul class="menu-leaf">';
                     foreach ($value as $element)
-                    {
+                    {   
                         $name = strtolower(preg_replace('/([^A-Z_])([A-Z])/', '$1_$2', $element));
                         if(!$fieldGroup[$name] && $element != 'ReportingOrg' && $element != 'IatiIdentifier') continue;
-                        if (getRowSet($element , $url['activity_id']))
+                        $rowSet = Iati_Wep_ElementValueCheck::getRowSet($element , $url['activity_id']);
+                        if ($rowSet['content'] && $rowSet['value'])
                         {
                             $attributes = 'class = "active"';
+                            $href = $this->baseUrl() . "/activity/edit-element/?activity_id=" . $url['activity_id'] . "&className=Activity_" . $element;
+                        } elseif ($rowSet['content'] && !$rowSet['value'])
+                        {
                             $href = $this->baseUrl() . "/activity/edit-element/?activity_id=" . $url['activity_id'] . "&className=Activity_" . $element;
                         } else
                         {
                             $attributes = '';
                             $href = $this->baseUrl() . "/activity/add-element/?activity_id=" . $url['activity_id'] . "&className=Activity_" . $element;
                         }
-                        $className = "Iati_Aidstream_Element_activity_" . $element;
+                        $className = "Iati_Aidstream_Element_Activity_" . $element;
                         $classObj = new $className;
                         $displayName = $classObj->getDisplayName();
                         $key = $displayName;
@@ -101,47 +105,4 @@ $fieldGroup = $fieldGroups->getProperties();
         </div><!-- End .content-->
     </div><!-- End .block-inner-->
 </div><!-- End #block-activity-menu-->
-<!--Endss Displaying elements menu of an activity-->
-
-<?php
-
-/**
- * Check If Value Exist For An Element Of An Activity
- * @param type $name, className
- * @param type $id, parentId
- * @return boolean 
- */
-function getRowSet($name , $id)
-{
-    $string = "Iati_Aidstream_Element_Activity_" . $name;
-    $obj = new $string;
-    $rowSet = $obj->fetchData($id , true);
-    if (!$rowSet)
-        $rowSet = false;
-    else
-        $rowSet = true;
-    return $rowSet;
-}
-
-/**
- * Check if group elements are selected or not.
- * @param  [array]  $fieldGroup
- * @param  [array]  $elements
- * @return boolean
- */
-function hasGroupSet($fieldGroup, $elements)
-{
-    //var_dump($elements);
-    $selected = false; 
-    foreach ($elements as $element) 
-    {
-        $name = strtolower(preg_replace('/([^A-Z_])([A-Z])/', '$1_$2', $element));
-        if ($fieldGroup[$name]) {   
-            $selected = true;
-            break;
-        }   
-    }
-    return $selected;
-}
-
-?>
+<!--End Displaying elements menu of an activity-->

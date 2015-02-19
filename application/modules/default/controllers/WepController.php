@@ -762,7 +762,18 @@ class WepController extends Zend_Controller_Action
                 }
             }
         } else {
-            $db->updateActivityStatus($activity_ids,(int)$state);
+            if ($state == Iati_WEP_ActivityState::STATUS_COMPLETED){
+                $errors = Iati_WEP_ElementValueCheck::checkDefaults($activity_ids);
+                if ($errors) {
+                    $errors = implode(", ", (reset($errors)));
+                    $this->_helper->FlashMessenger
+                        ->addMessage(array('error' => $errors));
+                } else {
+                    $db->updateActivityStatus($activity_ids,(int)$state);
+                }
+            } else {
+                $db->updateActivityStatus($activity_ids,(int)$state);
+            }
         }
         if($redirect){
             $this->_redirect($redirect , array('prependBase'=>false));

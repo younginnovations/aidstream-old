@@ -9,7 +9,7 @@ class Iati_Aidstream_ElementSettings
     */
     static $individuallyHandledElement = array('Transaction' , 'Result' , 'CountryBudgetItems');
 
-    static $defaultFields = array('xml_lang','currency');
+    static $defaultFields = array('currency');
     
     public static function isHandledIndividually($classname)
     {
