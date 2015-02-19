@@ -2440,6 +2440,7 @@ button#cd-cancel, button#cd-ok {
 .default-info a {
     color: rgb(114,114,56);
     font-weight: bold;
+    text-decoration: underline;
 }
 
 .default-info a:hover {
