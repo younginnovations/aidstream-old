@@ -135,9 +135,17 @@
 
             <div class="clear"></div>
 
-            <div id="content-section"><!--Start content-section--->
+            <div id="content-section"><!--Start content-section-->
                 <div class="container_12">
                     <div class="grid_12">
+                        <?php if ($identity->role == 'admin'): ?>
+                        <div class="default-info default-notification">
+                            Please note this version of AidStream is for viewing purpose only. Any changes 
+                            to your activities here will not be reflected in your published XML files. If 
+                            you want to update your activities please use <a href="http://aidstream.org" 
+                            target="_blank">aidstream.org</a> to update your activities.
+                        </div>
+                        <?php endif; ?>
                         <!--contain div start-->
                         <div id="main-content-top"></div>
                         <div id="contain-body">

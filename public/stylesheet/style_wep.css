@@ -2436,15 +2436,18 @@ button#cd-cancel, button#cd-ok {
     clear: both;
     color: rgb(114,114,56);
 }
-
 .default-info a {
     color: rgb(114,114,56);
     font-weight: bold;
 }
-
 .default-info a:hover {
     background: none;
     color: rgb(114,114,56);
+}
+.default-notification {
+    background: #fff88d url(../images/default-notification.png) no-repeat 18px;
+    padding-left: 70px;  
+    padding-right: 110px; 
 }
 dd#captcha-element {
     margin-left: 208px;
