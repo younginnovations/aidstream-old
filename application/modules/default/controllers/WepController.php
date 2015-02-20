@@ -767,7 +767,11 @@ class WepController extends Zend_Controller_Action
                 if ($errors) {
                     $errors = implode(", ", (reset($errors)));
                     $this->_helper->FlashMessenger
-                        ->addMessage(array('error' => $errors));
+                        ->addMessage(array(
+                                'error' => 'Please make sure that you have following elements: <em>' . $errors  . '</em> entered before changing to completed state. IATI Standard v2.01 
+                                            <a href="http://support.iatistandard.org/entries/52502089-Upgrading-to-2-01-What-s-involved-A-non-technical-summary">requires</a> 
+                                            that you have those minimum elements.'
+                            ));
                 } else {
                     $db->updateActivityStatus($activity_ids,(int)$state);
                 }

@@ -70,6 +70,7 @@ $fieldGroup = $fieldGroups->getProperties();
                             $href = $this->baseUrl() . "/activity/edit-element/?activity_id=" . $url['activity_id'] . "&className=Activity_" . $element;
                         } elseif ($rowSet['content'] && !$rowSet['value'])
                         {
+                            $attributes = '';
                             $href = $this->baseUrl() . "/activity/edit-element/?activity_id=" . $url['activity_id'] . "&className=Activity_" . $element;
                         } else
                         {
