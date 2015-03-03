@@ -35,6 +35,11 @@ class Iati_WEP_ElementValueCheck {
                 }
             }
         }
+
+        $check = self::checkRecipients($activityId);
+        if (!$check) {
+            $errors[$activityId][] = 'Recipient Country or Recipient Region';
+        }
         
         return $errors;
     }
@@ -73,6 +78,31 @@ class Iati_WEP_ElementValueCheck {
                 'content' => $content,
                 'value'   => $value
             );
+    }
+
+    /**
+     * Check if recipient country or recipient region value exists.
+     *
+     * @param type $id
+     * @return boolean
+     */
+    public static function checkRecipients($id)
+    {
+        $recipientCountry = new Iati_Aidstream_Element_Activity_RecipientCountry;
+        $recipientRegion = new Iati_Aidstream_Element_Activity_RecipientRegion;
+
+        $recipientCountryData = $recipientCountry->fetchData($id, true);
+        $recipientRegionData = $recipientRegion->fetchData($id, true);
+
+        if ($recipientCountryData && $recipientRegionData) {
+            $value = false;
+        } elseif (!$recipientCountryData && !$recipientRegionData) {
+            $value = false;
+        } else {
+            $value = true;
+        }
+
+        return $value;
     }
 
     /**
