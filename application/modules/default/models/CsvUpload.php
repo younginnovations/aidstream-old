@@ -115,6 +115,8 @@ class Model_CsvUpload
                         $this->validateDetailTransactionData($header, $key, $count, $value);
                     } elseif (!in_array($key, $this->requiredInputs[$header]) && $value && $state) {
                         $this->error[$count][]['message'] = 'Cannot set ' . $header . '-' . $key . ' without setting ' . $header . '-' . $this->requiredInputs[$header][0] . '.';
+                    } elseif ($value) {
+                        $this->validateDetailTransactionData($header, $key, $count, $value);
                     }
                 }
             }
