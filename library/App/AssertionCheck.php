@@ -13,13 +13,11 @@ class App_AssertionCheck extends Zend_Db_Table_Abstract
             $rows = $rows->toArray();
             foreach($rows as $row){
             	$unserializedRow = unserialize($row['resource']);
-            	$inArray = in_array($resource, $unserializedRow);
-
-            	if($inArray)
-            	return true;
+            	if($unserializedRow) $inArray = in_array($resource, $unserializedRow);
+            	if($inArray) return true;
             }
         }
-        return FALSE;
+        return false;
     }
 
 }

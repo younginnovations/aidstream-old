@@ -12,6 +12,20 @@ class OrganisationController extends Zend_Controller_Action
     public function init()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
+        $parentId = $this->_getParam('parentId');
+        
+        // Check organisation-data access
+        if ($parentId) {
+            $model = new Model_Organisation();
+            $id = $model->checkOrganisationPresent($identity->account_id);
+            if ($id != $parentId) {
+                $this->_helper->FlashMessenger
+                    ->addMessage(array('error' => "Access denied."));
+                $this->_redirect("/wep/dashboard");
+            }
+        }
+
+
         $this->_helper->layout()->setLayout('layout_wep');
         $this->view->blockManager()->enable('partial/dashboard.phtml');
         $this->view->blockManager()->enable('partial/primarymenu.phtml');
