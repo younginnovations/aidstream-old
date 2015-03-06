@@ -34,7 +34,9 @@ class Model_CsvDownload
           $csvOutput = '';
           foreach($data as $row){
                   foreach($row as $value){
-                          $csvOutput .= $enclosure.$value.$enclosure.$seperator;
+                        $value = preg_replace('/\s+/', ' ', trim($value));
+                        $value = str_replace('"', '\'', $value);
+                        $csvOutput .= $enclosure.$value.$enclosure.$seperator;
                   }
                   $csvOutput .= $lineBreak;
           }
