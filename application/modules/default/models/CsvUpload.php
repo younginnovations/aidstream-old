@@ -103,7 +103,8 @@ class Model_CsvUpload
                     if (in_array($key, $this->requiredInputs[$header]) && $value) {
                         $this->validateDetailTransactionData($header, $key, $count, $value);
                     } elseif (!in_array($key, $this->requiredInputs[$header]) && ($value || !$value)) {
-                        $this->validateDetailTransactionData($header, $key, $count, $value);
+                        if ($value)
+                            $this->validateDetailTransactionData($header, $key, $count, $value);
                     } else {
                         $this->error[$count][]['message'] = $header . '-' . $key .' is a required field.';
                     }
@@ -156,6 +157,15 @@ class Model_CsvUpload
                     $this->error[$count][]['message'] = $parent . "-" . $child . " must be in date format.";
                 } else {
                     $this->elementData[$count][$parent][$child] = date('Y-m-d', strtotime($value));
+                }
+                break;
+
+            case 'currency';
+                $currency = $model->getCodeandName('Currency', 1);
+                if (in_array(strtoupper($value), $currency)) {
+                    $this->elementData[$count][$parent][$child] = array_search(strtoupper($value), $currency);
+                } else {
+                    $this->error[$count][]['message'] = "Invalid " . $parent . "-currency code. Please use a valid currency code.";
                 }
                 break;
 
