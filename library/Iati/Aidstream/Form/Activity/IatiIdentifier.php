@@ -26,11 +26,6 @@ class Iati_Aidstream_Form_Activity_IatiIdentifier extends Iati_Core_BaseForm
         $form['activity_identifier']->setLabel('Activity Identifier')
                 ->setValue($this->data['activity_identifier'])
                 ->setRequired()
-                ->addValidator('Db_NoRecordExists', false, 
-                    array('table' => 'iati_identifier', 'field' => 'activity_identifier', 'exclude' => $clause,
-                        'messages' => array(
-                            Zend_Validate_Db_NoRecordExists::ERROR_RECORD_FOUND => 'Activity identifier already in use.'
-                        )))
                 ->setAttribs(array('class' => 'form-text'))
                 ->setAttrib('cols', '40')
                 ->setAttrib('rows', '2');
@@ -39,6 +34,11 @@ class Iati_Aidstream_Form_Activity_IatiIdentifier extends Iati_Core_BaseForm
         $form['text']->setLabel('IATI Activity Identifier')
                 ->setValue($this->data['text'])
                 ->setRequired()
+                 ->addValidator('Db_NoRecordExists', false, 
+                    array('table' => 'iati_identifier', 'field' => 'text', 'exclude' => $clause,
+                        'messages' => array(
+                            Zend_Validate_Db_NoRecordExists::ERROR_RECORD_FOUND => 'IATI Activity Identifier already in use, change above.'
+                        )))
                 ->setAttrib('cols', '40')
                 ->setAttrib('rows', '2')
                 ->setAttribs(array('readonly' => 'True'));

@@ -10,11 +10,6 @@ class Form_Wep_IatiIdentifier extends App_Form
         $form['activity_identifier'] = new Zend_Form_Element_Text('activity_identifier');
         $form['activity_identifier']->setLabel('Activity Identifier')
                                     ->setRequired()
-                                    ->addValidator('Db_NoRecordExists', false, 
-                                        array('table' => 'iati_identifier', 'field' => 'activity_identifier',
-                                            'messages' => array(
-                                                Zend_Validate_Db_NoRecordExists::ERROR_RECORD_FOUND => 'Activity Identifier already in use.'
-                                            )))
                                     ->setAttrib('class', 'form-text')
                                     ->setDecorators(
                                         array(
@@ -42,6 +37,11 @@ class Form_Wep_IatiIdentifier extends App_Form
         $form['iati_identifier_text'] = new Zend_Form_Element_Text('iati_identifier_text');
         $form['iati_identifier_text']->setLabel('IATI Identifier')
                                     ->setRequired()
+                                    ->addValidator('Db_NoRecordExists', false, 
+                                        array('table' => 'iati_identifier', 'field' => 'text',
+                                            'messages' => array(
+                                                Zend_Validate_Db_NoRecordExists::ERROR_RECORD_FOUND => 'IATI Activity Identifier already in use, change above.'
+                                            )))
                                     ->setAttrib('class', 'form-text')
                                     ->setAttrib('readonly', true)
                                     ->setDecorators(
