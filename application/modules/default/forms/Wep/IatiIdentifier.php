@@ -1,17 +1,20 @@
 <?php
 class Form_Wep_IatiIdentifier extends App_Form
-{
+{   
+
     public function add($state = 'add', $account_id = '')
     {
         
         $form = array();
-        
-        //$form1 = new Form_Wep_ReportingOrganisation();
-        //$form1->add('add', $account_id);
-        
+                
         $form['activity_identifier'] = new Zend_Form_Element_Text('activity_identifier');
         $form['activity_identifier']->setLabel('Activity Identifier')
                                     ->setRequired()
+                                    ->addValidator('Db_NoRecordExists', false, 
+                                        array('table' => 'iati_identifier', 'field' => 'activity_identifier',
+                                            'messages' => array(
+                                                Zend_Validate_Db_NoRecordExists::ERROR_RECORD_FOUND => 'Activity Identifier already in use.'
+                                            )))
                                     ->setAttrib('class', 'form-text')
                                     ->setDecorators(
                                         array(
@@ -62,9 +65,7 @@ class Form_Wep_IatiIdentifier extends App_Form
                                     );
         
         $form['reporting_org'] = new Zend_Form_Element_Hidden('reporting_org');
-        
-        //$this->addSubForm($form1, 'Reporting Organisation');
-        
+                       
         $this->addElements($form);
         $this->addDisplayGroup(
             array('reporting_org' , 'activity_identifier' , 'iati_identifier_text'),
