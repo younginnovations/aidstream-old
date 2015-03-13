@@ -198,7 +198,8 @@ class Iati_Core_BaseElement
 
             // add add button to wrapper form;
             $form->addAddLink($this->getFullName());
-
+            if ($this->getFullName() == 'Activity_Transaction_Sector')
+                $form->addShowAdvance($this->getFullName());
         } else {
             $eleForm = new $formname(array('element' => $this));
             $form = $eleForm->getForm();
@@ -207,6 +208,7 @@ class Iati_Core_BaseElement
                 $form = $this->addChildForms($childElements , $form , $this->data);
             }
             $form->prepare();
+            
         }
         return $form;
     }
@@ -246,6 +248,9 @@ class Iati_Core_BaseElement
             // add add button to wrapper form;
             $form->addAddLink($this->getFullName());
 
+            if ($this->getFullName() == 'Activity_Transaction_Sector')
+                $form->addShowAdvance($this->getFullName());
+
         } else {
             $eleForm = new $formname(array('element' => $this));
             if($this->count){
@@ -257,6 +262,8 @@ class Iati_Core_BaseElement
                 $form = $this->addChildForms($childElements , $form);
             }
             $form->prepare();
+            if ($this->getFullName() == 'Activity_Transaction_Sector')
+                $form->addShowAdvance($this->getFullName());
         }
         return $form;
     }

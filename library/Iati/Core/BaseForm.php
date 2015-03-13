@@ -219,7 +219,16 @@ abstract class Iati_Core_BaseForm extends Zend_Form
         $add->setValue("<a href='#' class='button' value='{$className}'> Add more</a>");
         $this->addElement($add);        
     }
-    
+
+    public function addShowAdvance()
+    {
+        $add = new Iati_Form_Element_Note('add');
+        $add->addDecorator('HtmlTag', array('tag' => 'span'));
+        $add->setValue("<a href='#show-advance' class='show_advance' id='show-advance'> Show Advance Elements</a>");
+        $this->addElement($add);        
+    }
+
+        
      /**
      * Function to add fieldset and wrapper div to the form
      * @param String $displayName The name of the element to be used for fieldset legend.
