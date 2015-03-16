@@ -27,7 +27,8 @@ class Iati_Aidstream_Form_Activity_Sector extends Iati_Core_BaseForm
             ->setMultioptions($sector);
         
         $form['non_dac_code'] = new Zend_Form_Element_Text('non_dac_code');
-        $form['non_dac_code']->setLabel('Sector')  
+        $form['non_dac_code']->setLabel('Sector') 
+            ->setRequired() 
             ->setValue($this->data['@code'])    
             ->setAttrib('class' , 'form-text non_dac_code');
         
@@ -35,8 +36,8 @@ class Iati_Aidstream_Form_Activity_Sector extends Iati_Core_BaseForm
         $form['percentage']->setLabel('Percentage')  
             ->setValue($this->data['@percentage'])
             ->addValidator(new Zend_Validate_Int())    
-            ->setAttrib('class' , 'form-text');
-        
+            ->setAttrib('class' , 'form-text');        
+
         $this->addElements($form);
         return $this;
     }

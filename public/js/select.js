@@ -23,13 +23,14 @@ function loadSelect2() {
         var vocab = vocabulary.val();
         var wrapperEle = vocabulary.parents('.form-wrapper').first();
         if (vocab == '' || vocab == 3) {
-            $('.non_dac_code', wrapperEle).val('');
+            $('.non_dac_code', wrapperEle).val('text');
             $('select.sector_value', wrapperEle).parent().css('display', 'block');
             $('.non_dac_code', wrapperEle).parent().css('display', 'none');
         } else {
-            $('.non_dac_code', wrapperEle).val('');
+            $('.non_dac_code', wrapperEle).val();
             $('div.sector_value .select2-choice span', wrapperEle).html('');
             $('select.sector_value option:selected', wrapperEle).removeAttr("selected");
+            $('.sector_value', wrapperEle).val('1');
             $('select.sector_value', wrapperEle).parent().css('display', 'none');
             $('.non_dac_code', wrapperEle).parent().css('display', 'block');
         }
@@ -58,3 +59,38 @@ function loadSelect2() {
 function setSelect2Data(id, value) {
     $('#' + id).select2('val', value);
 }
+
+$(document).ready(function(){
+    $('form input.non_dac_code').each(function(){
+        var dis = $(this);
+        var main = dis.parent().parent().find('select.sector_value');
+         if(dis.val() == 'Null' || dis.val().length <= 1 || dis.val() == null)
+        {
+            dis.val('text');
+        }else{
+         
+           $(main).find('option:last-child').attr("selected", "selected");
+                 
+        }
+       
+    });
+
+    //js for transaction
+    var hideElement = $("#transaction div:nth-of-type(10)").nextAll("#transaction div");
+    $(hideElement).hide();
+    $(".show_advance").click(function(){
+        if($.trim($(this).html()) == "Show Advance Elements" ){
+           $(hideElement).show();
+            $(this).removeClass(); 
+            $(this).html('Hide Advance Elements');
+        }
+        else{
+           $(hideElement).hide();            
+            $(this).html('Show Advance Elements');
+        }       
+    });  
+
+});
+
+
+
