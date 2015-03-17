@@ -15,7 +15,7 @@ class Iati_Aidstream_Form_Activity_Description extends Iati_Core_BaseForm
         $form['type'] = new Zend_Form_Element_Select('type');
         $form['type']->setLabel('Description Type')  
             ->setValue($this->data['@type'])
-            ->setAttrib('class' , 'form-select')
+            ->setAttrib('class' , 'form-select description-type')
             ->setMultioptions($descriptionType);
             
         $this->addElements($form);

@@ -75,4 +75,27 @@ $(document).ready(function () {
 
     // List Organisation Live Filter
     $('#organisation-input').livefilter({selector: '#list-org tbody tr'});
+
+    // Check the duplication of Description Type in the Activity.
+    $('#Activity_Description').submit(function(event){
+        //stop form from submitting normally
+        var description_type = [];
+        $(".description-type").each(function() {
+            var value = $(this).val();
+            if(value) {
+                description_type.push(value);
+            }
+        });    
+            var description_type_duplication = !description_type.every(function(v,i){
+                return description_type.indexOf(v) == i;
+            });
+        
+        if(description_type_duplication){
+            alert("Please do not repeat the Description Type");
+            event.preventDefault();
+        }  
+
+    });    
+   
+
 });

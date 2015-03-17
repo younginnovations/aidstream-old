@@ -178,9 +178,10 @@ class Iati_Core_BaseElement
     protected function getFormWithData()
     {
         $formname = preg_replace('/Element/' , 'Form' , get_class($this));
-
+        $classname = preg_replace('/Iati_Aidstream_Form_/', '', $formname);
         if($this->isMultiple){
             $form = new Iati_Core_WrapperForm();
+            $form->setName($classname);
             foreach($this->data as $data){
                 $eleForm = new $formname(array('element' => $this));
                 $eleForm->setData($data);
@@ -203,6 +204,7 @@ class Iati_Core_BaseElement
         } else {
             $eleForm = new $formname(array('element' => $this));
             $form = $eleForm->getForm();
+            $form->setName($classname);
             $childElements = $this->getChildElements();
             if(!empty($childElements)){
                 $form = $this->addChildForms($childElements , $form , $this->data);
@@ -221,9 +223,11 @@ class Iati_Core_BaseElement
     protected function getFormWithoutData($ajax = false)
     {
         $formname = preg_replace('/Element/' , 'Form' , get_class($this));
+        $classname = preg_replace('/Iati_Aidstream_Form_/', '', $formname);
 
         if($this->isMultiple){
             $form = new Iati_Core_WrapperForm();
+            $form->setName($classname);
             $eleForm = new $formname(array('element' => $this));
             if($this->count){
                 $eleForm->setCount($this->count);
@@ -253,6 +257,7 @@ class Iati_Core_BaseElement
 
         } else {
             $eleForm = new $formname(array('element' => $this));
+            $eleForm->setName($classname);
             if($this->count){
                 $eleForm->setCount($this->count);
             }
@@ -646,7 +651,7 @@ class Iati_Core_BaseElement
     {
         if(!is_array($data)) return $xmlObj;
         $sectorCode = false;
-        
+
         foreach($data as $name=>$value){
             if(in_array($name , $this->iatiAttribs) && $name != 'text')
             {
