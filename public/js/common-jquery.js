@@ -76,7 +76,7 @@ $(document).ready(function () {
     // List Organisation Live Filter
     $('#organisation-input').livefilter({selector: '#list-org tbody tr'});
 
-    // Check the duplication of Description Type in the Activity.
+    //Check the duplication of Description Type in the Activity.
     $('#Activity_Description').submit(function(event){
         //stop form from submitting normally
         var description_type = [];
@@ -95,7 +95,25 @@ $(document).ready(function () {
             event.preventDefault();
         }  
 
-    });    
-   
+    });   
 
+    $("form").submit(function(event) {
+        $("form > .form-wrapper").each(function (key,value) {
+            var $inputs = $(value).find('.xml_lang :input');
+            var xml_lang_type = [];
+            $inputs.each(function() {
+                var xml_val = $(this).val()
+                if (xml_val) {
+                    xml_lang_type.push(xml_val);
+                }
+            });
+                var xml_lang_type_duplication = !xml_lang_type.every(function(v,i){
+                    return xml_lang_type.indexOf(v) == i;
+                });
+            if(xml_lang_type_duplication){
+                alert("Please do not repeat the Language");
+                event.preventDefault();
+            }
+        });
+    });
 });

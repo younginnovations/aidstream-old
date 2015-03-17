@@ -382,6 +382,9 @@ abstract class Iati_Core_BaseForm extends Zend_Form
                         $wrapperClass.=' hidden';
                     }
                  }
+                if($element->getName()=='xml_lang')
+                    $wrapperClass = 'form-item clearfix xml_lang';
+
                  $element->addDecorators(array(
                             array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>$wrapperClass))
                         )
