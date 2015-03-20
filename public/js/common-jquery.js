@@ -4,7 +4,7 @@ $(document).ready(function () {
         if (!ele.is('input') && ele.attr('id') != 'login-register-popup' && ele.closest('div').attr('id') != 'login-register-popup') {
             $('#login-form-wrapper').css('display', 'none');
         }
-    })
+    });
 
     $('#login-register-popup').click(function (evt) {
         evt.preventDefault();
@@ -35,7 +35,7 @@ $(document).ready(function () {
                 event.preventDefault();
                 var confirmDialog = confirm('You have changed the reporting organisation information. Your changes are saved in the settings. Do you want to update your activities and publish them?');
                 if (confirmDialog == true) {
-                    $(this).attr("action", "settings?btn=ok")
+                    $(this).attr("action", "settings?btn=ok");
                     $(this).submit();
                 } else {
                     $(this).submit();
@@ -69,7 +69,7 @@ $(document).ready(function () {
         } else {
             $('.activity-list-table input').attr('checked', false);
         }
-    })
+    });
     
     $('#contain-body').css('min-height', $(window).height() - 170 + 'px');
 
@@ -101,16 +101,21 @@ $(document).ready(function () {
         $("form > .form-wrapper").each(function (key,value) {
             var $inputs = $(value).find('.xml_lang :input');
             var xml_lang_type = [];
+            var count = 0;
             $inputs.each(function() {
-                var xml_val = $(this).val()
+                var xml_val = $(this).val();
                 if (xml_val) {
                     xml_lang_type.push(xml_val);
+                }
+                else if (!xml_val)
+                {
+                    count++;
                 }
             });
                 var xml_lang_type_duplication = !xml_lang_type.every(function(v,i){
                     return xml_lang_type.indexOf(v) == i;
                 });
-            if(xml_lang_type_duplication){
+            if(xml_lang_type_duplication || count > 0){
                 alert("Please do not repeat the Language");
                 event.preventDefault();
             }
