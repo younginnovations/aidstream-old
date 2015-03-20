@@ -99,7 +99,7 @@ $(document).ready(function () {
 
     $("form").submit(function(event) {
         $("form > .form-wrapper").each(function (key,value) {
-            var $inputs = $(value).find('.xml_lang :input');
+            var $inputs = $(value).find('.xml_lang > :input');
             var xml_lang_type = [];
             var count = 0;
             $inputs.each(function() {
@@ -107,15 +107,14 @@ $(document).ready(function () {
                 if (xml_val) {
                     xml_lang_type.push(xml_val);
                 }
-                else if (!xml_val)
-                {
+                else{
                     count++;
                 }
             });
                 var xml_lang_type_duplication = !xml_lang_type.every(function(v,i){
                     return xml_lang_type.indexOf(v) == i;
                 });
-            if(xml_lang_type_duplication || count > 0){
+            if(xml_lang_type_duplication || count > 1){
                 alert("Please do not repeat the Language");
                 event.preventDefault();
             }
