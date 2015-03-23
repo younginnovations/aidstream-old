@@ -80,8 +80,14 @@ class Model_CsvUpload
                 
                 if ($parent == "Transaction") { 
                     $this->elementData[$count][$child] = $value;
-                } else {
-                    $this->elementData[$count][$parent][$child] = $value;
+                } else if($parent == "ProviderOrg"){
+                       $this->elementData[$count][$parent]['Narrative'][2]['text'] = $value;
+                } else if($parent == "ReceiverOrg"){
+                       $this->elementData[$count][$parent]['Narrative'][3]['text'] = $value;
+                } else if($parent == "Description"){
+                       $this->elementData[$count][$parent]['Narrative'][1]['text'] = $value;
+                } else{
+                    $this->elementData[$count][$parent][$child] = $value;                
                 }
             }
 
@@ -354,21 +360,22 @@ class Model_CsvUpload
             $this->elementData[$count]['TransactionValue']['value_date'] = $transactionDate;
             
             //Provider Organisation
-            $this->elementData[$count]['ProviderOrg']['text'] = $transactionData[$keys['providerorgname']];
+            $this->elementData[$count]['ProviderOrg']['Narrative'][2]['text'] = $transactionData[$keys['providerorgname']];
             $this->elementData[$count]['ProviderOrg']['ref'] = $transactionData[$keys['providerorgreference']];
             
             //Receiver Organisation
-            $this->elementData[$count]['ReceiverOrg']['text'] = $transactionData[$keys['receiverorgname']];
+            $this->elementData[$count]['ReceiverOrg']['Narrative'][3]['text'] = $transactionData[$keys['receiverorgname']];
             $this->elementData[$count]['ReceiverOrg']['ref'] = $transactionData[$keys['receiverorgreference']];
             
             //Transaction date
             $this->elementData[$count]['TransactionDate']['iso_date'] = $transactionDate;
 
             //Description
-            $this->elementData[$count]['Description']['text'] = $transactionData[$keys['description']];
+            $this->elementData[$count]['Description']['Narrative'][1]['text'] = $transactionData[$keys['description']];
             $count++;
         }
-        
+        // var_dump($this->elementData);
+        // exit();
         return $count;
     }
     
