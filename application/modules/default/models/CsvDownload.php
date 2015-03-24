@@ -124,6 +124,7 @@ class Model_CsvDownload
                $parent = true;
           }
           
+
           foreach($activitiesId as $activityId){
                $data = array();
                $elementData = $eleObj->fetchData($activityId , $parent);
@@ -303,7 +304,7 @@ class Model_CsvDownload
                if(!$titleText[$activityId]){// fetch title for activity Id
                    $titleEle = new Iati_Aidstream_Element_Activity_Title();
                    $titleData = $titleEle->fetchData($activityId , true);
-                   $titleText[$activityId] = $titleData[0]['text'];
+                   $titleText[$activityId] = $titleData['Narrative'][0]['text'];
                }
                
                $data = $this->prepareCsvDataForElement($element , $transactionElementData , false);
@@ -311,7 +312,8 @@ class Model_CsvDownload
                $extras = array(
                                    'Activity_Identifier' => $identifierText[$activityId] ,
                                    'Activity_Title' => $titleText[$activityId],
-                                   'Default_currency' => $currency
+                                   'Default_currency' => $currency,
+                                   'Description_text'=> $transactionElementData['Description']['Narrative'][0]['text']
                               );
                $data = array_merge($extras , $data);// Add identifier and title to csv data
                
@@ -418,7 +420,7 @@ class Model_CsvDownload
           $element = new Iati_Aidstream_Element_Activity_Description();
           $data = $element->fetchData($activityId , true);
           $csvData = $this->prepareCsvDataForElement($element , $data , false);
-          $returnData['description'] = $csvData['Description-text'];
+          $returnData['description'] = $csvData['Narrative-text'];
           return $returnData;
      }
      
