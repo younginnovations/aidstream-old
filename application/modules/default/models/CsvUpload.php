@@ -373,9 +373,7 @@ class Model_CsvUpload
             //Description
             $this->elementData[$count]['Description']['Narrative'][1]['text'] = $transactionData[$keys['description']];
             $count++;
-        }
-        // var_dump($this->elementData);
-        // exit();
+        }        
         return $count;
     }
     
