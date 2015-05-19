@@ -31,6 +31,11 @@ class Iati_WEP_ElementValueCheck {
             foreach (self::$requiredElements as $element => $fullName) {
                 $row = self::getRowSet($element, $activityId);
                 if (!$row['value']) {
+                     if($fullName == "Participating Organisation"){
+                        if(isset($row['message']['participatingOrg'])){
+                            $fullName = "Participating Organisation(either Planning or Implementing)";
+                        }
+                     }
                     $errors[$activityId][] = $fullName;
                 }
             }
@@ -66,6 +71,7 @@ class Iati_WEP_ElementValueCheck {
                 if ($name == 'ParticipatingOrg') {
                     if ($rowSet[0]['@role'] != 1 && $rowSet[0]['@role'] != 4) {
                         $value = false;
+                        $message['participatingOrg'] = 'fail';
                     }
                 } elseif ($name == 'ActivityDate') {
                     if (!$rowSet[0]['@iso_date'])
@@ -76,7 +82,8 @@ class Iati_WEP_ElementValueCheck {
 
         return array(
                 'content' => $content,
-                'value'   => $value
+                'value'   => $value,
+                'message' => $message
             );
     }
 
