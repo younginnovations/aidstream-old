@@ -67,17 +67,20 @@ class Iati_WEP_ElementValueCheck {
         } else {
             $content = true;
             $value = true;
+            $count;
             if (array_key_exists($name, self::$requiredElementValues)) {
-                if ($name == 'ParticipatingOrg') {
-                    if ($rowSet[0]['@role'] != 1 && $rowSet[0]['@role'] != 4) {
+                if ($name == 'ParticipatingOrg') {        
+                    if(!self::ifExistsParticipatingRole($rowSet)) {
                         $value = false;
                         $message['participatingOrg'] = 'fail';
                     }
+                    $i++;
+                }
                 } elseif ($name == 'ActivityDate') {
                     if (!$rowSet[0]['@iso_date'])
                         $value = false;
                 }
-            }
+            
         }
 
         return array(
@@ -133,5 +136,17 @@ class Iati_WEP_ElementValueCheck {
         return $selected;
     }
 
+    public static function ifExistsParticipatingRole($rowSet)
+    {
+        foreach($rowSet as $row)
+        {
+            //check funding or implementing
+            if($row['@role'] == 1 || $row['@role'] == 4)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 ?>
