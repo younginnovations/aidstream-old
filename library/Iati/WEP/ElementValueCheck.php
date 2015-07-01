@@ -74,7 +74,6 @@ class Iati_WEP_ElementValueCheck {
                         $value = false;
                         $message['participatingOrg'] = 'fail';
                     }
-                    $i++;
                 }
                 } elseif ($name == 'ActivityDate') {
                     if (!$rowSet[0]['@iso_date'])
