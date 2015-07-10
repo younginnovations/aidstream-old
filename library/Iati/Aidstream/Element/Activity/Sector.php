@@ -10,7 +10,7 @@ class Iati_Aidstream_Element_Activity_Sector extends Iati_Core_BaseElement
     protected $attribs = array('id' , 'text' , '@xml_lang' , '@code' , '@percentage' , '@vocabulary');
     protected $iatiAttribs = array('text' , '@xml_lang' , '@vocabulary', '@code' , '@percentage');
 
-    public function save($data , $parentId = null)
+    public function saveSector($data , $parentId = null)
     {
         if ($parentId)
         {

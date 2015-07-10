@@ -80,7 +80,11 @@ class ActivityController extends Zend_Controller_Action
                     $this->_redirect("/activity/add-element?className={$elementClass}"
                                     ."&activity_id={$parentId}&isMultiple={$isMultiple}");    
                 }
-                $id = $element->save($data[$element->getClassName()] , $parentId);
+                if($elementClass == 'Activity_Sector'){
+                    $id = $element->saveSector($data[$element->getClassName()] , $parentId);
+                }else{
+                    $id = $element->save($data[$element->getClassName()] , $parentId);
+                }
                 
                 Model_Activity::updateActivityUpdatedInfo($parentId);
                 $type = 'message';
@@ -204,7 +208,11 @@ class ActivityController extends Zend_Controller_Action
             $form = $element->getForm();
             if($form->validate()){
                 //$eleId will be null is element is deleted or in case of db error
-                $eleId = $element->save($data[$element->getClassName()] , $activityId);
+                if($elementClass == 'Activity_Sector'){
+                    $eleId = $element->saveSector($data[$element->getClassName()] , $activityId);
+                }else{
+                    $eleId = $element->save($data[$element->getClassName()] , $activityId);
+                }
                 
                 $activityHashModel = new Model_ActivityHash();
                 $updated = $activityHashModel->updateActivityHash($activityId);
@@ -469,7 +477,6 @@ class ActivityController extends Zend_Controller_Action
         $activities = $wepModel->listAll('iati_activities', 'account_id', $identity->account_id);
         $activities_id = $activities[0]['id'];
         $activityData = $activityClassObj->fetchData($activityId, false);
-
         $form = new Form_Wep_IatiIdentifier('add', $identity->account_id);
         $form->add('add', $identity->account_id);
         $form->populate(array('reporting_org'=>$activityData['Activity']['ReportingOrg']['@ref']));
@@ -481,7 +488,6 @@ class ActivityController extends Zend_Controller_Action
                 $iatiIdentifier = array();
                 $iatiIdentifier['iati_identifier'] = $data['iati_identifier_text'];
                 $iatiIdentifier['activity_identifier'] = $data['activity_identifier'];
-
                 $newActivityId = $activityModel->duplicateActivity($activities_id, $activityId, $activityData['Activity'], $iatiIdentifier);
             }
 
@@ -494,7 +500,6 @@ class ActivityController extends Zend_Controller_Action
                 $this->_redirect('/wep/view-activities');
             }
         }
-
         $this->view->form = $form;
         $this->view->activity_info = $activityData['Activity'];
     }
