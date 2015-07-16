@@ -1704,13 +1704,14 @@ var validEmail = function (email) {
             },
             ".element-default-toogle-button": {
                 "onclick": function (evt) {
+                    var elementName = dojo.query(this).attr('value');
                     if (dojo.hasClass(this, 'show')) {
-                        dojo.query(evt.target.parentNode.previousElementSibling).removeClass('hidden').addClass('visible');
+                        dojo.query(this).parents('form').first().query('.default-item.element-' + elementName).removeClass('hidden').addClass('visible');
                         dojo.query(this).removeClass('show');
                         dojo.query(this).addClass('hide');
                         dojo.query(this).innerHTML('Hide Defaults');
                     } else if (dojo.hasClass(this, 'hide')) {
-                        dojo.query(evt.target.parentNode.previousElementSibling).removeClass('visible').addClass('hidden');
+                        dojo.query(this).parents('form').first().query('.default-item.element-' + elementName).removeClass('visible').addClass('hidden');
                         dojo.query(this).removeClass('hide');
                         dojo.query(this).addClass('show');
                         dojo.query(this).innerHTML('Show Defaults');

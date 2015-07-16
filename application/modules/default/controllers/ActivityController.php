@@ -244,7 +244,8 @@ class ActivityController extends Zend_Controller_Action
                     $this->_redirect("activity/add-element?className={$elementClass}"
                                     ."&activity_id={$activityId}");
                 }
-                
+               $this->_redirect("activity/edit-element?className={$elementClass}"
+                                    ."&activity_id={$activityId}"); 
             } else {
                 $form->populate($data);
                 $this->_helper->FlashMessenger

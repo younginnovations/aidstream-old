@@ -83,8 +83,7 @@ class OrganisationController extends Zend_Controller_Action
                 {
                     $this->_helper->FlashMessenger
                         ->addMessage(array('message' => "You have not entered any data."));
-                    $this->_redirect("/organisation/add-elements/?className=$elementClass
-                                     &parentId=$parentId");
+                    $this->_redirect("/organisation/add-elements/?className=$elementClass&parentId=$parentId");
                 }
                 $id = $element->save($data[$element->getClassName()] , $parentId);
 
@@ -197,8 +196,7 @@ class OrganisationController extends Zend_Controller_Action
                 {
                     $this->_helper->FlashMessenger
                         ->addMessage(array('message' => "You have not entered any data."));
-                    $this->_redirect("/organisation/add-elements/?className=$elementClass
-                                     &parentId=$parentId");
+                    $this->_redirect("/organisation/add-elements/?className=$elementClass&parentId=$parentId");
                 }
                 $element->save($data[$element->getClassName()] , $parentId);
 
@@ -224,9 +222,8 @@ class OrganisationController extends Zend_Controller_Action
                     $type = 'message';
                     $message = $element->getDisplayName() . " successfully updated.";
                 }
-                $this->_helper->FlashMessenger->addMessage(array($type => $message));
-
-                if ($_POST['save_and_view'])
+                $this->_helper->FlashMessenger->addMessage(array($type => $message)); 
+                if($data['save_and_view'] || $data[$element->getClassName()]['save_and_view'])
                 {
                     $this->_redirect('organisation/view-elements/?parentId=' . $parentId);
                 }
@@ -237,6 +234,7 @@ class OrganisationController extends Zend_Controller_Action
                     ->addMessage(array('error' => "You have some problem in your
                                        data. Please correct and save again"));
             }
+            $this->_redirect("/organisation/edit-elements/?className=$elementClass&parentId=$parentId");
         } else
         {
             if ($parentId)
@@ -261,8 +259,7 @@ class OrganisationController extends Zend_Controller_Action
             }
             if (empty($data[$element->getClassName()]))
             {
-                $this->_redirect("/organisation/add-elements/?className=$elementClass
-                                 &parentId=$parentId");
+                $this->_redirect("/organisation/add-elements/?className=$elementClass&parentId=$parentId");
             } 
             $element->setData($data[$element->getClassName()]);
             $form = $element->getForm();
