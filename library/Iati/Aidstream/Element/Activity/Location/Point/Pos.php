@@ -1,7 +1,7 @@
 <?php
 
 class Iati_Aidstream_Element_Activity_Location_Point_Pos extends Iati_Core_BaseElement
-{   
+{
     protected $className = 'Pos';
     protected $displayName = 'Position';
     protected $tableName = 'iati_location/point/pos';
@@ -15,7 +15,7 @@ class Iati_Aidstream_Element_Activity_Location_Point_Pos extends Iati_Core_BaseE
         $data = $this->getElementsIatiData($elementData, true);
 
         if(!$this->hasData($data) && empty($this->childElements)) return;  //Donot generate xml if no iati data and no child
-        
+
         // Lat Lng as single string
         if ($data['@latitude'] != "" && $data['@longitude'] != "") {
             $coordinates = $data['@latitude'] . ' ' . $data['@longitude'];
@@ -24,7 +24,28 @@ class Iati_Aidstream_Element_Activity_Location_Point_Pos extends Iati_Core_BaseE
         }
 
         $xmlObj = $parent->addChild($eleName, $coordinates);
-        
+
         return $xmlObj;
+    }
+
+    public function save($data , $parentId = null, $duplicate = false)
+    {
+        if(!$duplicate)
+        {
+            return parent::save($data, $parentId);
+        }
+        else
+        {
+            if ($this->hasData($data))
+            {
+                if($duplicate == true)
+                {
+                    $data['id'] = '';
+                    $data['point_id'] = $parentId;
+                    $eleId = $this->db->insert($data);
+                }
+            }
+            return $eleId;
+        }
     }
 }

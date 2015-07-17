@@ -65,8 +65,14 @@ class Iati_Aidstream_Element_Activity extends Iati_Core_BaseElement
         return $form;
     }
     
-     public function save($data , $parentId = null)
+     public function save($data , $parentId = null, $duplicate = false)
     { 
+        if(!duplicate)
+        {
+            return parent::save($data, $parentId);
+        }
+        else
+        {
             $elementsData = $this->getElementsData($data);
             $elementsData['@last_updated_datetime'] = date('Y-m-d H:i:s');
             
@@ -82,7 +88,8 @@ class Iati_Aidstream_Element_Activity extends Iati_Core_BaseElement
                 }
             }
        
-        return $eleId;
+            return $eleId;
+        }
     }
     
 }// Ends class

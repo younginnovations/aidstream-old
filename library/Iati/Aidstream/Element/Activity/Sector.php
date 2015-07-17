@@ -11,63 +11,100 @@ class Iati_Aidstream_Element_Activity_Sector extends Iati_Core_BaseElement
     protected $iatiAttribs = array('@vocabulary', '@code', '@percentage');
     protected $childElements = array('Narrative');
 
-    public function save($data , $parentId = null)
+    public function save($data , $parentId = null, $duplicate = false)
     {
-        if ($parentId)
-        {
-            $parentColumnName = $this->getParentCoulmn();
-        }
-        if ($this->isMultiple)
-        {
-            foreach ($data as $elementData)
+        if(!$duplicate){
+            if ($parentId)
             {
-                $elementsData = $this->getElementsData($elementData);
-                if ($this->hasData($elementData))
+                $parentColumnName = $this->getParentCoulmn();
+            }
+            if ($this->isMultiple)
+            {
+                foreach ($data as $elementData)
                 {
-                    if ($parentId)
+                    $elementsData = $this->getElementsData($elementData);
+                    if ($this->hasData($elementData))
                     {
-                        $elementsData[$parentColumnName] = $parentId;
-                    }
+                        if ($parentId)
+                        {
+                            $elementsData[$parentColumnName] = $parentId;
+                        }
 
-                    if(($elementsData['@vocabulary']) && $elementsData['@vocabulary'] != '3')
-                    {
-                        $elementsData['@code'] = $elementData['non_dac_code'];
-                    }
+                        if(($elementsData['@vocabulary']) && $elementsData['@vocabulary'] != '3')
+                        {
+                            $elementsData['@code'] = $elementData['non_dac_code'];
+                        }
 
-                    // If no id is present, insert the data else update the data using the id.
-                    if (!$elementsData['id'])
-                    {
-                        $elementsData['id'] = null;
-                        $eleId = $this->db->insert($elementsData);
+                        // If no id is present, insert the data else update the data using the id.
+                        if (!$elementsData['id'])
+                        {
+                            $elementsData['id'] = null;
+                            $eleId = $this->db->insert($elementsData);
+                        } else
+                        {
+                            $eleId = $elementsData['id'];
+                            unset($elementsData['id']);
+                            $this->db->update($elementsData , array('id = ?' => $eleId));
+                        }
                     } else
                     {
-                        $eleId = $elementsData['id'];
-                        unset($elementsData['id']);
-                        $this->db->update($elementsData , array('id = ?' => $eleId));
+                        if ($elementData['id'])
+                        {
+                            $where = $this->db->getAdapter()->quoteInto('id = ?' , $elementData['id']);
+                            $this->db->delete($where);
+                            return;
+                        }
                     }
-                } else
-                {
-                    if ($elementData['id'])
-                    {
-                        $where = $this->db->getAdapter()->quoteInto('id = ?' , $elementData['id']);
-                        $this->db->delete($where);
-                        return;
-                    }
-                }
 
-                // If children are present create children elements and call their save function.
-                if (!empty($this->childElements))
-                {
-                    foreach ($this->childElements as $childElementClass)
+                    // If children are present create children elements and call their save function.
+                    if (!empty($this->childElements))
                     {
-                        $childElementName = get_class($this) . "_$childElementClass";
-                        $childElement = new $childElementName();
-                        $childElement->save($elementData[$childElement->getClassName()] , $eleId);
+                        foreach ($this->childElements as $childElementClass)
+                        {
+                            $childElementName = get_class($this) . "_$childElementClass";
+                            $childElement = new $childElementName();
+                            $childElement->save($elementData[$childElement->getClassName()] , $eleId);
+                        }
                     }
                 }
             }
+            return $eleId;
         }
-        return $eleId;
+        else
+        {
+            if ($parentId)
+            {
+                $parentColumnName = $this->getParentCoulmn();
+            }
+            if ($this->isMultiple)
+            {
+                foreach ($data as $elementData)
+                {
+                    if ($this->hasData($elementData))
+                    {
+                        $elementsData = $this->getElementsData($elementData);
+                        if ($parentId)
+                        {
+                            $elementsData[$parentColumnName] = $parentId;
+                        }
+                        $elementsData['id'] = '';
+                        $eleId = $this->db->insert($elementsData);
+                    }
+
+                    // If children are present create children elements and call their save function.
+                    if (!empty($this->childElements))
+                    {
+                        foreach ($this->childElements as $childElementClass)
+                        {
+                            $childElementName = get_class($this) . "_$childElementClass";
+                            $childElement = new $childElementName();
+                            $childElement->save($elementData[$childElement->getClassName()] , $eleId, true);
+                        }
+                    }
+                }
+            }
+            return $eleId;
+        }
     }
 
 }
