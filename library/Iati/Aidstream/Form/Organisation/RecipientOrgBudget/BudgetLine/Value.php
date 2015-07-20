@@ -33,7 +33,6 @@ class Iati_Aidstream_Form_Organisation_RecipientOrgBudget_BudgetLine_Value exten
         $currency = $model->getCodeArray('Currency', null, '1' , true);
         $form['currency'] = new Zend_Form_Element_Select('currency');
         $form['currency']->setLabel('Currency')
-            ->setRequired()
             ->setValue($this->data['@currency'])
             ->setAttrib('class' , 'form-select')
             ->setMultioptions($currency);      

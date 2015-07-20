@@ -21,7 +21,6 @@ class Iati_Aidstream_Form_Activity_PlannedDisbursement_Value extends Iati_Core_B
             ->setValue($this->data['@value_date'])
             ->setRequired()
             ->setAttrib('class' , 'datepicker' );
-
         $form['text'] = new Zend_Form_Element_Text('text');
         $form['text']->setLabel('Amount')
            ->setRequired()

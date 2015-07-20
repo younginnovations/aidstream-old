@@ -80,12 +80,12 @@ $(document).ready(function(){
     $(hideElement).hide();
     $(".show_advance").click(function(){
         if($.trim($(this).html()) == "Show Advance Elements" ){
-           $(hideElement).show();
+           $(hideElement).show("slow");
             $(this).removeClass(); 
             $(this).html('Hide Advance Elements');
         }
         else{
-           $(hideElement).hide();            
+           $(hideElement).hide("slow");            
             $(this).html('Show Advance Elements');
         }       
     });  

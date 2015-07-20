@@ -1100,7 +1100,7 @@ class WepController extends Zend_Controller_Action
         } else {
             exit('Invalid name for download.');
         }
-
+        ob_end_clean(); 
         header( 'Content-Type: text/xml' );
         header( 'Content-Disposition: attachment;filename='.$filename.'.xml');
         echo $xmlOutput;
