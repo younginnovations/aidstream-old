@@ -104,7 +104,7 @@ class Iati_Core_Codelist
                     break;
                 
                 case "Sector_vocabulary":
-                    $return = 'Vocabulary';
+                    $return = 'SectorVocabulary';
                     break;
                 
                 case "Sector_code":
@@ -120,7 +120,7 @@ class Iati_Core_Codelist
                     break;
                 
                 case "PolicyMarker_vocabulary":
-                    $return = 'Vocabulary';
+                    $return = 'PolicyMarkerVocabulary';
                     break;
                 
                 case "DefaultFlowType_code":
