@@ -22,6 +22,7 @@ class Iati_Aidstream_Element_Activity_Location_Point extends Iati_Core_BaseEleme
                 $elementsData = $this->getElementsData($data);
                 $elementsData['id'] = '';
                 $elementsData['location_id'] = $parentId;
+                $elementsData['@srsName'] = $data['@srsName'];
                 $eleId = $this->db->insert($elementsData);
             }
 
