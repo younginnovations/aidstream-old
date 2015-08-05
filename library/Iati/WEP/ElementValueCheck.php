@@ -33,7 +33,7 @@ class Iati_WEP_ElementValueCheck {
                 if (!$row['value']) {
                      if($fullName == "Participating Organisation"){
                         if(isset($row['message']['participatingOrg'])){
-                            $fullName = "Participating Organisation(either Planning or Implementing)";
+                            $fullName = "Participating Organisation(either Funding or Implementing)";
                         }
                      }
                     $errors[$activityId][] = $fullName;
@@ -41,11 +41,34 @@ class Iati_WEP_ElementValueCheck {
             }
         }
 
-        $check = self::checkRecipients($activityId);
-        if (!$check) {
-            $errors[$activityId][] = 'Recipient Country or Recipient Region';
+        $activityLevelCheck = self::checkRecipients($activityId);
+        $transactionLevelCheck = self::checkTransactionCountryRegion($activityId);
+
+        if ($activityLevelCheck == "valid" && $transactionLevelCheck == "valid")
+        {
+            $errors[$activityId][] = "Either Transaction Recipient Country/Region Or Recipient Country/Region in Activity level" ;
         }
-        
+
+        if (($activityLevelCheck == "valid" && $transactionLevelCheck == "invalid") || ($activityLevelCheck == "invalid" && $transactionLevelCheck == "invalid") || ($activityLevelCheck == "nodata" && $transactionLevelCheck == "invalid"))
+        {
+            $errors[$activityId][] = 'Either Transaction Recipient Country/Region to all transactions Or you may choose to delete all your Transaction Recipient Country/Region and use Recipient Country/Region in Activity Level'; 
+        }
+
+        if ($activityLevelCheck == "invalid" && $transactionLevelCheck == "valid")
+        {
+            $errors[$activityId][] = 'Either Transation Recipient Country/Regoin or Recipient Country/Region in Activity level'; 
+        }
+
+        if ($activityLevelCheck == "invalid" && $transactionLevelCheck == "nodata")
+        {
+            $errors[$activityId][] = 'Mention % when using both Recipient Country and Recipient Region Region and % shound sum to 100%'; 
+        }
+
+        if ($activityLevelCheck == "nodata" && $transactionLevelCheck == "nodata")
+        {
+            $errors[$activityId][] = 'Recipient Country Or Recipient Region'; 
+        }
+
         return $errors;
     }
 
@@ -90,7 +113,7 @@ class Iati_WEP_ElementValueCheck {
     }
 
     /**
-     * Check if recipient country or recipient region value exists.
+     * Check if recipient country or recipient region value exists in activity level.
      *
      * @param type $id
      * @return boolean
@@ -102,15 +125,56 @@ class Iati_WEP_ElementValueCheck {
 
         $recipientCountryData = $recipientCountry->fetchData($id, true);
         $recipientRegionData = $recipientRegion->fetchData($id, true);
+        $percentage = $recipientCountryData[0]['@percentage'] + $recipientRegionData[0]['@percentage'];
 
-        if ($recipientCountryData && $recipientRegionData) {
-            $value = false;
+        if ($recipientCountryData && $recipientRegionData && $percentage == 100) {
+            $value = "valid";
         } elseif (!$recipientCountryData && !$recipientRegionData) {
-            $value = false;
-        } else {
-            $value = true;
+            $value = "nodata";
+        } elseif($recipientCountryData && !$recipientRegionData) {
+            $value = "valid";
+        } elseif (!$recipientCountryData && $recipientRegionData) {
+            $value = "valid";
+        } else{
+            $value = "invalid";
         }
 
+        return $value;
+    }
+
+    /**
+    *check if recipient country and region present in transaction level
+    */
+    public static function checkTransactionCountryRegion($id)
+    {
+        $transaction =  new Iati_Aidstream_Element_Activity_Transaction;
+        $transactionData = $transaction->fetchData($id,true);
+        $count = 0;
+        $status = array();
+        foreach ($transactionData as $transactionCountry)
+        {
+            $transctionRecipientConData = $transactionCountry['RecipientCountry'];
+            $transctionRecipientRegData = $transactionCountry['RecipientRegion'];
+
+            if(!empty($transctionRecipientConData) || !empty($transctionRecipientRegData)) {
+                $status[] = $transctionRecipientConData ;
+            }
+        }
+        $totalTransactionData = count($transactionData);
+        $totalStatus = count($status);
+
+        if($totalStatus == 0)
+        {
+            $value = "nodata";
+        }
+        elseif ($totalTransactionData == $totalStatus)
+        {
+            $value = "valid";
+        }
+        else
+        {
+            $value = "invalid" ;
+        }
         return $value;
     }
 

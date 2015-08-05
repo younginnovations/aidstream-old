@@ -2501,7 +2501,18 @@ ul.error {
     padding-left: 40px;
 }
 #flash-messages ul.error {
-    background-position: 15px -425px;
+    background: #fce9b6;
+    position: relative;
+}
+
+#flash-messages ul.error:before {
+    background: url('images/inner-pages-icons.png') 15px -425px;
+    width: 40px;
+    height: 30px;
+    position: absolute;
+    top: 5px;
+    left: 0;
+    content: "";
 }
 .error, span#username-error.error, span#password-error.error {
     color: #FF0000;

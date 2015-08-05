@@ -765,10 +765,10 @@ class WepController extends Zend_Controller_Action
             if ($state == Iati_WEP_ActivityState::STATUS_COMPLETED){
                 $errors = Iati_WEP_ElementValueCheck::checkDefaults($activity_ids);
                 if ($errors) {
-                    $errors = implode(", ", (reset($errors)));
+                    $errors = implode("<br> - ", (reset($errors)));
                     $this->_helper->FlashMessenger
                         ->addMessage(array(
-                                'error' => 'Please make sure that you have following elements: <em>' . $errors  . '</em> entered before changing to completed state. IATI Standard v2.01 
+                                'error' => 'Please make sure that you have following elements before changing to completed state: <br> - ' . $errors  . '<br>IATI Standard v2.01 
                                             <a href="http://support.iatistandard.org/entries/52502089-Upgrading-to-2-01-What-s-involved-A-non-technical-summary">requires</a> 
                                             that you have those minimum elements.'
                             ));
