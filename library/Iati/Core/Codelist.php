@@ -199,7 +199,7 @@ class Iati_Core_Codelist
                     $return = 'GeographicLocationClass';
                     break;
 
-                case "OtherIdentifierType_type":
+                case "OtherActivityIdentifier_type":
                     $return = 'OtherIdentifierType';
                     break;
 
