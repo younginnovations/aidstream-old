@@ -378,9 +378,10 @@ class Model_Wep extends Zend_Db_Table_Abstract
         $activityArray = $this->listAll('iati_activity', 'activities_id', $activitiesId);
         foreach ($activityArray as $key=>$activity) {
             $activityRow = $this->getRowById('iati_identifier', 'activity_id', $activity['id']);
-            $iatiIdentifier = $reportingOrgRef . '-' . $activityRow['activity_identifier']; 
-            $data['text'] = $iatiIdentifier;
-            $this->updateRow('iati_identifier', $data, 'activity_id', $activity['id']);
+            $data['@ref'] = $activityRow['text'];
+            $data['@type'] = 5 ;
+            $data['activity_id'] = $activity['id'];
+            $this->insertRowsToTable('iati_other_identifier', $data);
         }
         // For Organisation Data
         $organisation = $this->getRowById('iati_organisation', 'account_id', $identity->account_id);
