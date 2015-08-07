@@ -27,7 +27,16 @@
                         <ul class="country-budget-item">
                         <li>
                             <span class="name"> Code:</span>
-                            <span class="infom"> <?php if ($budgetItem['@code'] != "") print ($budgetItem['@code']); ?>
+                            <!-- <span class="infom"> <?php if ($budgetItem['@code'] != "") print ($budgetItem['@code']); ?>
+                            </span> -->
+                            <span class="infom">
+                                <?php if ($budgetItem['@code']): ?>
+                                    <?php if ($this->elements['@vocabulary'] == 1): ?>
+                                        <?php (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('BudgetItem' , '@code' , $budgetItem['@code'],'Name'),Iati_Core_Codelist::getCodeByAttrib('BudgetItem' , '@code' , $budgetItem['@code']))) ?>
+                                    <?php else : ?>
+                                        <?php print ($budgetItem['@code']); ?>
+                                    <?php endif; ?>
+                                <?php endif; ?>
                             </span>
                         </li>
                         <li>
