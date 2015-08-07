@@ -36,6 +36,37 @@ function loadSelect2() {
         }
     });
 
+
+    //js for country budget item
+    $(".iati_vocab").on('change', function (event) {
+        var elem = $(this);
+        setupCountryBudgetItemVocab(elem);
+        if (elem.val() == '1') {//vocab
+            $('.non_iati').val('text');
+            $('.iati_value').val('');
+        } else {
+            $('.iati_value').val('1');
+            $('.non_iati').val('');
+        }
+    });
+
+    function setupCountryBudgetItemVocab(elem) {
+        var vocabulary = elem;
+        var vocab = vocabulary.val();
+
+        var wrapperEle = $('.element-title-wrapper');
+        if (vocab == '1') {
+            $('.iati_value').parent().show();
+            $('.non_iati').parent().hide();
+            $('.non_iati').val('text');
+        } else {
+            $('.iati_value').parent().hide();
+            $('.non_iati').parent().show();
+            $('.iati_value').val('1');
+        }
+    }
+    setupCountryBudgetItemVocab($(".iati_vocab"));   
+
     if ($('#funding_org').length != 0) {
         fundingOrgData = null;
         $.ajax({
@@ -70,7 +101,7 @@ $(document).ready(function(){
         }else{
          
            $(main).find('option:last-child').attr("selected", "selected");
-                 
+
         }
        
     });

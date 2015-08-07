@@ -1,27 +1,59 @@
 <li class="element-activity">
 
-    <div class="element-title element-current">
+    <div class="element-title ">
         Country Budget Items
-    </div>
-
-    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/list-elements/?classname=Activity_CountryBudgetItems&activity_id=<?php echo $this->activity_id ?>">Edit</a></div>
-
-    <?php foreach ($this->elements as $key=>$element): ?>
-        <div class="current">
-            <ul class="style-2 arrow">
-                <li>
-                    <span class="ajaxElement-down-arrow">
-                        <div id="get-elementId" style="display:none"><?php echo $element['id'] ; ?></div>
-                        <div id="get-index" style="display:none"><?php echo $key ; ?></div>
-                        <div id="get-className" style="display:none"><?php echo "CountryBudgetItems" ; ?></div> 
-                        <?php if ($element['@vocabulary']): ?>
-                            <?php printf("%s[%s]",Iati_Core_Codelist::getCodeByAttrib('CountryBudgetItems' , '@vocabulary' , $element['@vocabulary'] , 'Name'),Iati_Core_Codelist::getCodeByAttrib('CountryBudgetItems' , '@vocabulary' , $element['@vocabulary'])) ;?> 
-                        <?php endif; ?>
-                    </span>
-                    <div id="view-activity-ajaxElement"style="display:none"></div>
-                </li>
-            </ul><!-- End .style-2 arrow -->
+            <div class="element-info">
+                <div class="element-values">
+                    <?php if($this->elements['@vocabulary']): ?>
+                        <span class="attrib-label">Vocabulary:</span>
+                        <span class="attrib-value"><?php if ($this->elements['@vocabulary']) (printf("%s [%s]",Iati_Core_Codelist::getCodeByAttrib('CountryBudgetItems' , '@vocabulary' , $this->elements['@vocabulary'],'Name'),Iati_Core_Codelist::getCodeByAttrib('CountryBudgetItems' , '@vocabulary' , $this->elements['@vocabulary']))) ?></span>  
+                    <?php endif; ?>
+                </div>
+            </div>
         </div>
-    <?php endforeach; ?>
+
+        <div class="edit"><a href="<?php echo $this->baseUrl() ?>/activity/edit-element/?activity_id=<?php echo $this->activity_id; ?>&className=Activity_CountryBudgetItems">Edit</a></div>
+
+        <div class="highlight">
+            <ul class="style-1">
+                <li>
+                    <span class="name">Vocabulary:</span>
+                    <span class="infom"><?php if ($this->elements['@vocabulary']) (printf("%s [%s]",Iati_Core_Codelist::getCodeByAttrib('CountryBudgetItems' , '@vocabulary' , $this->elements['@vocabulary'],'Name'),Iati_Core_Codelist::getCodeByAttrib('CountryBudgetItems' , '@vocabulary' , $this->elements['@vocabulary']))) ?></span>
+                </li>
+                <li>
+                    <span class="name"><h2>Budget Item:</h2>    </span>
+                    <?php $budgetItems = $this->elements['BudgetItem']; ?>
+                        <?php foreach ($budgetItems as $budgetItem): ?>
+                        <ul class="country-budget-item">
+                        <li>
+                            <span class="name"> Code:</span>
+                            <span class="infom"> <?php if ($budgetItem['@code'] != "") print ($budgetItem['@code']); ?>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="name"> Percentage:</span>
+                            <span class="infom"> <?php if ($budgetItem['@percentage'] != "") print ($budgetItem['@percentage']); ?>
+                            </span>
+                        </li>
+
+                        <?php foreach ($budgetItem['Description'] as $description): ?>
+                            <?php foreach($description['Narrative'] as $nar): ?>
+                                <li>
+                                    <span class="name"> Narrative:</span>
+                                    <span class="infom"> <?php if ($nar['text'] != "") print ($nar['text']); ?>
+                                        <?php
+                                            if ($nar['@xml_lang'])
+                                            {
+                                                printf("[%s]" , Iati_Core_Codelist::getCodeByAttrib('CountryBudgetItems' , '@xml_lang' , $nar['@xml_lang']));
+                                            }
+                                        ?> 
+                                    </span>
+                                </li>
+                            <?php endforeach; ?>
+                        <?php endforeach;?>
+                </ul>
+                <?php endforeach; ?>
+        </div>
+</ul>
 
 </li><!-- end of element-activity -->
