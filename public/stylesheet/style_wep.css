@@ -3021,7 +3021,7 @@ ul.style-1 {
 ul.style-1 li {
     background: #f7f8fa!important;
     width: 530px;
-    padding: 0 0 0 10px!important;
+    padding: 0 10px!important;
     margin: 0 auto;
     border: 1px solid #eee;
     border-width: 0 1px 1px 1px;
@@ -3249,7 +3249,7 @@ span.name {
 span.infom {
     color: #333!important;
     display: inline-block;
-    width: 360px;
+    width: 358px;
     float: right;
 }
 ul.style-4.inner li {
@@ -5031,3 +5031,18 @@ a {
     color: #666;
     display: block;
 }
+
+.country-budget-item {
+    display: block!important;
+    margin-bottom: 14px;
+}
+
+ul.style-1 .country-budget-item li {
+    background: #fefefe!important;
+    width: 100%!important;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-right: 0!important;
+}
+

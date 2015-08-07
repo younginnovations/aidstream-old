@@ -16,10 +16,15 @@ class Iati_Aidstream_Form_Activity_CountryBudgetItems_BudgetItem extends Iati_Co
         $form['code']->setLabel('Code')
             ->setRequired()
             ->setValue($this->data['@code'])    
-            ->setAttrib('class' , 'form-select')
+            ->setAttrib('class' , 'form-select iati_value')
             ->setMultioptions($countryCode);
-            
-        
+
+        $form['non_iati'] = new Zend_Form_Element_Text('non_iati');
+        $form['non_iati']->setLabel('Code')
+            ->setRequired() 
+            ->setValue($this->data['@code'])    
+            ->setAttrib('class' , 'form-text non_iati');
+
         $form['percentage'] = new Zend_Form_Element_Text('percentage');
         $form['percentage']->setLabel('Percentage')
             ->setRequired()

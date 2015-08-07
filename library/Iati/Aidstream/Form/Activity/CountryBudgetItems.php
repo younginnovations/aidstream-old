@@ -15,7 +15,7 @@ class Iati_Aidstream_Form_Activity_CountryBudgetItems extends Iati_Core_BaseForm
         $form['vocabulary'] = new Zend_Form_Element_Select('vocabulary');
         $form['vocabulary']->setLabel('Vocabulary')  
             ->setValue($this->data['@vocabulary'])
-            ->setAttrib('class' , 'form-select')
+            ->setAttrib('class' , 'form-select iati_vocab')
             ->setMultioptions($budgetVocab);
 
         $this->addElements($form);

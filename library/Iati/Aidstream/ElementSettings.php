@@ -7,7 +7,7 @@ class Iati_Aidstream_ElementSettings
     /*
         These elements added/edited one at at time
     */
-    static $individuallyHandledElement = array('Transaction' , 'Result' , 'CountryBudgetItems');
+    static $individuallyHandledElement = array('Transaction' , 'Result');
 
     static $defaultFields = array('currency');
     
