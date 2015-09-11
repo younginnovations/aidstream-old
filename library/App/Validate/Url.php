@@ -9,6 +9,7 @@ class App_Validate_Url extends Zend_Validate_Abstract
 
     public function isValid($value)
     {
+        $value = iconv('UTF-8', 'ASCII//TRANSLIT', $value);
         $valid = Zend_Uri::check($value);
         if ($valid) {
             return true;
