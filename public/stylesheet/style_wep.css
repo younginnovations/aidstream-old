@@ -2446,6 +2446,17 @@ button#cd-cancel, button#cd-ok {
     background: none;
     color: rgb(114,114,56);
 }
+
+.default-notice {
+    border: #FADBD8;
+    color: #E74C3C;
+    background: url("../images/ic_error_notice.png") no-repeat 15px center #FDEDEC;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    padding-left: 60px;
+}
+
 dd#captcha-element {
     margin-left: 208px;
 }
@@ -2453,7 +2464,7 @@ dd#captcha-element {
 
 .errors, p.error {
     font-size: 12px;
-    background: url(../images/wrong-icon.gif) no-repeat center left;
+    background: url("../images/wrong-icon.gif") no-repeat center left;
     color: #FF0000;
     margin-left: 100px;
     padding: 1px 0 1px 20px;
