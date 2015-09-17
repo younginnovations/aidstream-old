@@ -356,15 +356,6 @@ class Model_Wep extends Zend_Db_Table_Abstract
 
         $modelRegistryInfo = new Model_RegistryInfo();
         $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($identity->account_id);
-        if($registryInfo && $registryInfo->publisher_id){
-            $pub = new Iati_WEP_Publish(
-                    $identity->account_id,
-                    $registryInfo->publisher_id ,
-                    $registryInfo->publishing_type
-                );
-            $pub->publish();
-        }
-
     }
 
     /**
