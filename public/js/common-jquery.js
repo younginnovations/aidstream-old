@@ -33,14 +33,7 @@ $(document).ready(function () {
             var newData = $('#fieldset-reporting_org_info :input').serialize();
             if (oldData != newData) {
                 event.preventDefault();
-                var confirmDialog = confirm('You have changed the reporting organisation information. Your changes are saved in the settings. Do you want to update your activities and publish them?');
-                if (confirmDialog == true) {
-                    $(this).attr("action", "settings?btn=ok")
-                    $(this).submit();
-                } else {
-                    $(this).submit();
-                }
-            } else {
+                var confirmDialog = alert('You have changed the reporting organisation information. Your changes are saved in the settings. Your activities will be now updated and you need to republish them to reflect in your XML files.');
                 $(this).submit();
             }
         });
