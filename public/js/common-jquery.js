@@ -34,6 +34,9 @@ $(document).ready(function () {
             if (oldData != newData) {
                 event.preventDefault();
                 var confirmDialog = alert('You have changed the reporting organisation information. Your changes are saved in the settings. Your activities will be now updated and you need to republish them to reflect in your XML files.');
+                    $(this).attr("action", "settings?btn=ok")
+                    $(this).submit();
+            } else {
                 $(this).submit();
             }
         });
