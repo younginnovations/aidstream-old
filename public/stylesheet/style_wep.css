@@ -626,7 +626,6 @@ h2.form-title {
 }
 .form-item .help {
     background-position: 0 3px;
-    margin-right: 12px;
 }
 .form-item .help:hover {
     background-position: 0 -41px;
@@ -1114,6 +1113,7 @@ dt {
     font-weight: bold;
     float: left;
     margin-right: 10px;
+    width: 35%;
 }
 dt#edituserform-label {
     display: none;
@@ -1199,12 +1199,9 @@ fieldset dl {
     z-index: 10;
 }
 .inner-wrapper {} .nested-items {} .activity-list fieldset.innermost-wrapper, .element-wrapper .form-wrapper .element-wrapper {
-    /*padding: 10px;*/
-
     background: #f4f4f4;
     border-bottom: 1px solid #d1d1d1;
-    margin: 1px 0;
-    width: 600px;
+    margin: 10px 0;
 }
 .activity-list fieldset.innermost-wrapper:hover, .element-wrapper .form-wrapper .element-wrapper:hover {
     border-bottom: 1px solid #93d1fd;
@@ -2340,7 +2337,10 @@ button#cd-cancel, button#cd-ok {
     display: block;
     padding: 0 10px;
     clear: both;
-    width: 580px;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 .element-remove-this .button:hover {
     background-position: 0 -27px;
@@ -5046,3 +5046,36 @@ ul.style-1 .country-budget-item li {
     padding-right: 0!important;
 }
 
+.element-wrapper form .form-wrapper {
+    padding: 0 10px;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.element-wrapper form .form-wrapper > .form-item {
+    margin: 10px 0 5px;
+}
+
+.element-wrapper .element-wrapper legend {
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.form-wrapper > .form-wrapper {
+    padding: 0!important;
+}
+
+#fieldset-Organisation_Name > div > .form-wrapper,#fieldset-Activity_Title > div > .form-wrapper {
+    padding: 0 10px;
+}
+
+.form-wrapper >.element-wrapper {
+    border: 1px solid #e5e5e5;
+}
+.form-wrapper > .form-wrapper > .form-item {
+    margin: 10px 0 5px;
+}
