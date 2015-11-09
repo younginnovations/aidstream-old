@@ -575,7 +575,7 @@ var validEmail = function (email) {
             "select.vocabulary_value": {
                 "found": function (ele) {
                     var formWrapper = ele.parentNode.parentNode;
-                    if (ele.value == '' || ele.value == 3) {
+                    if (ele.value == '' || ele.value == 3 || ele.value == 8) {
                         dojo.query('.non_dac_code', formWrapper).attr('value', '');
                         dojo.query('.non_dac_code', formWrapper).parent().style('display', 'none');
                         dojo.query('.sector_value', formWrapper).parent().style('display', 'block');
@@ -589,7 +589,7 @@ var validEmail = function (email) {
                 "onchange": function (evt) {
                     var selected = getTarget(evt);
                     var formWrapper = selected.parentNode.parentNode;
-                    if (selected.value == '' || selected.value == 3) {
+                    if (selected.value == '' || selected.value == 3 || selected.value == 8) {
                         dojo.query('.non_dac_code', formWrapper).attr('value', '');
                         dojo.query('.non_dac_code', formWrapper).parent().style('display', 'none');
                         dojo.query('.sector_value', formWrapper).parent().style('display', 'block');

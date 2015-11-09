@@ -21,7 +21,7 @@ function loadSelect2() {
         var vocabulary = $(this);
         var vocab = vocabulary.val();
         var wrapperEle = vocabulary.parents('.form-wrapper').first();
-        if (vocab == '' || vocab == 3) {
+        if (vocab == '' || vocab == 3 || vocab == 8) {
             $('.non_dac_code', wrapperEle).val('text');
             $('select.sector_value', wrapperEle).parent().css('display', 'block');
             $('.non_dac_code', wrapperEle).parent().css('display', 'none');
