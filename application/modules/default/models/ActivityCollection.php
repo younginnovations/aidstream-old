@@ -70,9 +70,15 @@ class Model_ActivityCollection extends Zend_Db_Table_Abstract
             $sectorData = $model->listAll('iati_sector', 'activity_id', $activity['id']);
             if($sectorData){
                 foreach($sectorData as $sectorValue){
-                    if(!$sectorValue['@vocabulary'] || $sectorValue['@vocabulary'] == 3){
-			if(!$sectorValue['@code']) continue;
-                        $sectorName = $model->fetchValueById('Sector', $sectorValue['@code'] , 'Name');
+                    if(!$sectorValue['@vocabulary'] || $sectorValue['@vocabulary'] == 3 || $sectorValue['@vocabulary'] == 8){
+			        if(!$sectorValue['@code']) continue;
+
+                        if($sectorValue['@vocabulary'] == 8)
+                            $sectorName = $model->fetchValueById('SectorDacThree', $sectorValue['@code'] , 'Name');
+                        else
+                            $sectorName = $model->fetchValueById('Sector', $sectorValue['@code'] , 'Name');
+
+
                         if(strlen($sectorName) > 35){
                             $sectorName = substr($sectorName, 0 , 32)."...";
                         }

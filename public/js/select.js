@@ -21,17 +21,35 @@ function loadSelect2() {
         var vocabulary = $(this);
         var vocab = vocabulary.val();
         var wrapperEle = vocabulary.parents('.form-wrapper').first();
-        if (vocab == '' || vocab == 3) {
+        if (vocab == '' || vocab == 3 || vocab == 8) {
             $('.non_dac_code', wrapperEle).val('text');
-            $('select.sector_value', wrapperEle).parent().css('display', 'block');
             $('.non_dac_code', wrapperEle).parent().css('display', 'none');
+            if (vocab == '' || vocab == 3){
+                $('div.dac_three_code .select2-choice span', wrapperEle).html('');
+                $('select.dac_three_code option:selected', wrapperEle).removeAttr("selected");
+                $('.dac_three_code', wrapperEle).val('1');
+                $('select.dac_three_code', wrapperEle).parent().css('display', 'none');
+                $('select.sector_value', wrapperEle).parent().css('display', 'block');
+            }else if (vocab == 8){
+                $('div.sector_value .select2-choice span', wrapperEle).html('');
+                $('select.sector_value option:selected', wrapperEle).removeAttr("selected");
+                $('.sector_value', wrapperEle).val('1');
+                $('select.sector_value', wrapperEle).parent().css('display', 'none');
+                $('select.dac_three_code', wrapperEle).parent().css('display', 'block');
+            }
+
         } else {
             $('.non_dac_code', wrapperEle).val();
+            $('.non_dac_code', wrapperEle).parent().css('display', 'block');
             $('div.sector_value .select2-choice span', wrapperEle).html('');
             $('select.sector_value option:selected', wrapperEle).removeAttr("selected");
             $('.sector_value', wrapperEle).val('1');
             $('select.sector_value', wrapperEle).parent().css('display', 'none');
-            $('.non_dac_code', wrapperEle).parent().css('display', 'block');
+
+            $('div.dac_three_code .select2-choice span', wrapperEle).html('');
+            $('select.dac_three_code option:selected', wrapperEle).removeAttr("selected");
+            $('.dac_three_code', wrapperEle).val('1');
+            $('select.dac_three_code', wrapperEle).parent().css('display', 'none');
         }
     });
 
@@ -94,10 +112,18 @@ $(document).ready(function(){
     $('form input.non_dac_code').each(function(){
         var dis = $(this);
         var main = dis.parent().parent().find('select.sector_value');
+        var main_dac_three = dis.parent().parent().find('select.dac_three_code');
+        var vocab = dis.parent().parent().find('select.vocabulary_value').val();
         if(dis.val() == 'Null' || dis.val().length <= 1 || dis.val() == null) {
             dis.val('text');
-        } else {
+            if(vocab == 3){
+                $(main_dac_three).find('option:last-child').attr("selected", "selected");
+            }else if (vocab == 8){
+                $(main).find('option:last-child').attr("selected", "selected");
+            }
+        } else{
             $(main).find('option:last-child').attr("selected", "selected");
+            $(main_dac_three).find('option:last-child').attr("selected", "selected");
         }
     });
 

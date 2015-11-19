@@ -30,8 +30,11 @@ class Iati_Aidstream_Element_Activity_Sector extends Iati_Core_BaseElement
                             $elementsData[$parentColumnName] = $parentId;
                         }
 
-                        if(($elementsData['@vocabulary']) && $elementsData['@vocabulary'] != '3')
-                        {
+                        if(($elementsData['@vocabulary']) && $elementsData['@vocabulary']== '3'){
+                            $elementsData['@code'] = $elementData['code'];
+                        }else if(($elementsData['@vocabulary']) && $elementsData['@vocabulary']== '8'){
+                            $elementsData['@code'] = $elementData['dac_three_code'];
+                        } else {
                             $elementsData['@code'] = $elementData['non_dac_code'];
                         }
 

@@ -10,12 +10,17 @@
         <?php $narratives = $element['Narrative']; ?>
         <div class="current">
             <ul class="style-2 arrow">
-                <li> <span class="down-arrow"><?php if ($element['@vocabulary']) ( printf("%s [%s]" , $this->length()->adjustDoubleTitleLength(Iati_Core_Codelist::getCodeByAttrib('Sector' , '@vocabulary' , $element['@vocabulary'],'Name')),Iati_Core_Codelist::getCodeByAttrib('Sector' , '@vocabulary' , $element['@vocabulary'])))?>
+                <li> <span class="down-arrow"><?php if ($element['@vocabulary']!=8) ( printf("%s [%s]" , $this->length()->adjustDoubleTitleLength(Iati_Core_Codelist::getCodeByAttrib('Sector' , '@vocabulary' , $element['@vocabulary'],'Name')),Iati_Core_Codelist::getCodeByAttrib('Sector' , '@vocabulary' , $element['@vocabulary'])));
+                        else if($element['@vocabulary']==8){
+                            printf("%s [%s]" , $this->length()->adjustDoubleTitleLength(Iati_Core_Codelist::getCodeByAttrib('SectorDacThree' , '@vocabulary' , $element['@vocabulary'],'Name')),Iati_Core_Codelist::getCodeByAttrib('SectorDacThree' , '@vocabulary' , $element['@vocabulary']));
+                        }?>
                          <?php if ( $element['@vocabulary'] && $element['@code'] ) print "; "; ?>
                                <?php if ($element['@code']): ?>
                                     <?php if (!$element['@vocabulary'] || $element['@vocabulary'] == 3): ?>
                                         <?php  ( printf("%s [%s]" , $this->length()->adjustDoubleTitleLength(Iati_Core_Codelist::getCodeByAttrib('Sector' , '@code' , $element['@code'],'Name')) , Iati_Core_Codelist::getCodeByAttrib('Sector' , '@code' , $element['@code'])))  ?>
-                                    <?php else : ?>
+                                    <?php elseif(!$element['@vocabulary'] || $element['@vocabulary'] == 8):?>
+                                <?php  ( printf("%s [%s]" , $this->length()->adjustDoubleTitleLength(Iati_Core_Codelist::getCodeByAttrib('SectorDacThree' , '@code' , $element['@code'],'Name')) , Iati_Core_Codelist::getCodeByAttrib('SectorDacThree' , '@code' , $element['@code'])))  ?>
+                                <?php else : ?>
                                         <?php print ($element['@code']); ?>
                                     <?php endif; ?>
                                 <?php endif; ?>
@@ -23,14 +28,17 @@
                     <ul class="style-2-drop first">
                         <li>
                             <span class="name">Vocabulary:</span>
-                            <span class="infom"><?php if ($element['@vocabulary']) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('Sector' , '@vocabulary' , $element['@vocabulary'],'Name'),Iati_Core_Codelist::getCodeByAttrib('Sector' , '@vocabulary' , $element['@vocabulary']))) ?></span>
+                            <span class="infom"><?php if ($element['@vocabulary'] !=8 ) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('Sector' , '@vocabulary' , $element['@vocabulary'],'Name'),Iati_Core_Codelist::getCodeByAttrib('Sector' , '@vocabulary' , $element['@vocabulary'])));
+                                else if ($element['@vocabulary'] ==8 ) (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('SectorDacThree' , '@vocabulary' , $element['@vocabulary'],'Name'),Iati_Core_Codelist::getCodeByAttrib('SectorDacThree' , '@vocabulary' , $element['@vocabulary'])));?></span>
                         </li>
                         <li>
                             <span class="name">Code:</span>
                             <span class="infom">
                                 <?php if ($element['@code']): ?>
-                                    <?php if (!$element['@vocabulary'] || $element['@vocabulary'] == 3): ?>
-                                        <?php (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('Sector' , '@code' , $element['@code'],'Name'),Iati_Core_Codelist::getCodeByAttrib('Sector' , '@code' , $element['@code']))) ?>
+                                    <?php if (!$element['@vocabulary'] || $element['@vocabulary'] == 3):{ ?>
+                                        <?php (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('Sector' , '@code' , $element['@code'],'Name'),Iati_Core_Codelist::getCodeByAttrib('Sector' , '@code' , $element['@code']))); }?>
+                                        <?php elseif ($element['@vocabulary'] == 8): {?>
+                                            <?php (printf(" %s [%s] ",Iati_Core_Codelist::getCodeByAttrib('SectorDacThree' , '@code' , $element['@code'],'Name'),Iati_Core_Codelist::getCodeByAttrib('SectorDacThree' , '@code' , $element['@code'])));} ?>
                                     <?php else : ?>
                                         <?php print ($element['@code']); ?>
                                     <?php endif; ?>

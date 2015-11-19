@@ -676,6 +676,7 @@ class Iati_Core_BaseElement
                 }elseif ($name == 'vocabulary') {
                     // For DAC vocabulary
                     if ($value == 3) $sectorCode = true;
+                    if ($value == 8) $sector3DigitCode = true;
                     $value = Iati_Core_Codelist::getCodeByAttrib($this->className, $name , $value);
                     $name = preg_replace('/_/','-',$name);
                     $xmlObj->addAttribute($name,$value);
@@ -684,6 +685,10 @@ class Iati_Core_BaseElement
                     if ($this->className == 'Sector') {
                         if ($sectorCode):
                             $value = Iati_Core_Codelist::getCodeByAttrib($this->className, $name , $value);
+                            $name = preg_replace('/_/','-',$name);
+                            $xmlObj->addAttribute($name,$value);
+                        elseif ($sector3DigitCode):
+                            $value = Iati_Core_Codelist::getCodeByAttrib("SectorDacThree", $name , $value);
                             $name = preg_replace('/_/','-',$name);
                             $xmlObj->addAttribute($name,$value);
                         else:
