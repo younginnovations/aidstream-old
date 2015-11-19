@@ -271,8 +271,7 @@ class Model_CsvUpload
 
         if(empty($this->error)){
           $elem = $this->elementData;
-          foreach ($elem as $key => $data)
-             {
+          foreach ($elem as $key => $data) {
                 $array = $elem[$key];
                 $elem[$key]['RecipientCountry'] = $elem[$key]['Country'];
                 $elem[$key]['RecipientRegion'] = $elem[$key]['Region'];
