@@ -210,6 +210,8 @@ class Iati_Core_BaseElement
                 $form = $this->addChildForms($childElements , $form , $this->data);
             }
             $form->prepare();
+            if ($this->getFullName() == 'Activity_Transaction_Sector')
+                $form->addShowAdvance();
             
         }
         return $form;
@@ -253,7 +255,7 @@ class Iati_Core_BaseElement
             $form->addAddLink($this->getFullName());
 
             if ($this->getFullName() == 'Activity_Transaction_Sector')
-                $form->addShowAdvance($this->getFullName());
+                $form->addShowAdvance();
 
         } else {
             $eleForm = new $formname(array('element' => $this));

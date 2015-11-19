@@ -21,13 +21,17 @@ class Model_CsvUpload
                                         'FinanceType' => array('code'),
                                         'AidType' => array('code'),
                                         'DisbursementChannel' => array('code'),
-                                        'TiedStatus' => array('code')
+                                        'Sector' => array('code'),
+                                        'Country' => array('code'),
+                                        'Region' => array('code'),
                                     );
 
     
     /**
      * Set Input file
      */
+
+
     public function setInputFile($file)
     {
         $this->inputFile = $file;
@@ -68,6 +72,7 @@ class Model_CsvUpload
     {
         $header = array_flip(array_shift($this->data));
         $headerKeys = array_keys($header);
+
         $count = 0;
         foreach ($this->data as $data) {
             foreach ($data as $key => $value) {
@@ -90,12 +95,11 @@ class Model_CsvUpload
                     $this->elementData[$count][$parent][$child] = $value;                
                 }
             }
-
             $this->checkRequiredFields($count, $this->elementData[$count]);
             $count++;
         }
-
         $this->checkRefDuplication();
+
         return $count;
     }
 
@@ -136,7 +140,20 @@ class Model_CsvUpload
     public function validateDetailTransactionData($parent, $child, $count, $value)
     {
         $model = new Model_Wep();
+
         switch ($child) {
+            case 'vocabulary':
+                if($parent=='Sector') {
+                    $vocabulary = $model->getCodeandName('SectorVocabulary', 1);
+                } else {
+                     $vocabulary = $model->getCodeandName('RegionVocabulary', 1);
+                }
+                if (in_array(strtoupper($value), $vocabulary)) {
+                    $this->elementData[$count][$parent][$child] = array_search(strtoupper($value), $vocabulary);
+                } else {
+                    $this->error[$count][]['message'] = "Invalid " . $parent . "-vocabulary. Please use proper vocabulary.";
+                }
+                break;
             case 'code':
                 $code = $model->getCodeandName($parent, 1);
                 if (in_array(strtoupper($value), $code)) {
@@ -174,7 +191,6 @@ class Model_CsvUpload
                     $this->error[$count][]['message'] = "Invalid " . $parent . "-currency code. Please use a valid currency code.";
                 }
                 break;
-
             default:
                 break;
         }
@@ -205,9 +221,7 @@ class Model_CsvUpload
     {
         $count = array();
         $count['total'] = $this->prepareDetailTransactionData();
-        //exit();
         $element = new Iati_Aidstream_Element_Activity_Transaction();
-        
         $result = $element->fetchData($activityId, true);
         $result = Iati_ElementSorter::sortElementsData($result, array('TransactionDate' =>'@iso_date'), array('TransactionValue' => '@value_date'));
         
@@ -232,13 +246,16 @@ class Model_CsvUpload
                         $this->elementData[$key]['AidType']['id'] = $row['AidType']['id'];
                         $this->elementData[$key]['DisbursementChannel']['id'] = $row['DisbursementChannel']['id'];
                         $this->elementData[$key]['TiedStatus']['id'] = $row['TiedStatus']['id'];
-                        
+                        $this->elementData[$key]['Sector']['id'] = $row['Sector']['id'];
+                        $this->elementData[$key]['Country']['id'] = $row['RecipientCountry']['id'];
+                        $this->elementData[$key]['Region']['id'] = $row['RecipientRegion']['id'];
+
                         $count['update'] += 1;  // Transaction Update count
                         $refCount = 1;
                     } elseif ($refCount == 1) {
                         $duplicate += 1;
                         $transactionKey = $key;
-                    }        
+                    }
                 }
             }
         }
@@ -251,10 +268,18 @@ class Model_CsvUpload
                                                         existing transactions. Please use a different internal reference or 
                                                         check your existing transactions.";
         }
-        
+
         if(empty($this->error)){
-            $element->save($this->elementData , $activityId);
-            
+          $elem = $this->elementData;
+          foreach ($elem as $key => $data)
+             {
+                $array = $elem[$key];
+                $elem[$key]['RecipientCountry'] = $elem[$key]['Country'];
+                $elem[$key]['RecipientRegion'] = $elem[$key]['Region'];
+                unset($elem[$key]['Country']);
+                unset($elem[$key]['Region']);
+            }
+            $element->save($elem , $activityId);
             return $count;
         } else {
             return false;
@@ -272,7 +297,6 @@ class Model_CsvUpload
         
         $result = $element->fetchData($activityId, true);
         $result = Iati_ElementSorter::sortElementsData($result, array('TransactionDate' =>'@iso_date'), array('TransactionValue' => '@value_date'));
-        
         // Update if existing transaction by compairing 'internal reference'
         $count['update'] = 0;
         $duplicate = 0;
