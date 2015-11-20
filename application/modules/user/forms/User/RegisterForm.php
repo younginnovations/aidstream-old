@@ -111,6 +111,7 @@ class User_Form_User_RegisterForm extends App_Form
         $publickey = '6Ld6RM0SAAAAANYtQD4j-0THK1HBXLUhAsQCXyiH';
         $privatekey = '6Ld6RM0SAAAAAJlk5mZV9tZ65xfrmHEoXtmYdyHz';
         $recaptcha = new Zend_Service_ReCaptcha($publickey, $privatekey);
+        $recaptcha->setParams(array('ssl'=>true));
 
         $captcha = new Zend_Form_Element_Captcha('captcha',
             array(
