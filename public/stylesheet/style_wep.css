@@ -3894,7 +3894,6 @@ a:hover {
     padding-top: 192px;
     overflow: hidden;
     height: 400px;
-    margin-bottom: 70px;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -5078,4 +5077,25 @@ ul.style-1 .country-budget-item li {
 }
 .form-wrapper > .form-wrapper > .form-item {
     margin: 10px 0 5px;
+}
+
+.section-video {
+    margin-top: 26px;
+}
+
+.section-video .guideline {
+    display: inline;
+}
+
+.section-video a {
+    display: inline-block;
+    background: url("../images/ic_youtube.png") no-repeat 0 8px;
+    margin-left: 4px;
+    padding-left: 24px;
+}
+
+.section-video a:hover {
+    background: url("../images/ic_youtube.png") no-repeat 0 8px;
+    color: #008cff;
+    text-decoration: none;
 }
