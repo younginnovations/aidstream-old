@@ -33,7 +33,7 @@ class Iati_WEP_Publish
     public function publish()
     {
         $activitiesCollection = $this->getDataToPublish();
-        if($this->segmented){ 
+        if($this->segmented){
             // reset existing published info
             $this->resetPublishedInfo();
             

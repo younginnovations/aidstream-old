@@ -46,7 +46,7 @@ class Iati_Core_Xml
         }
         $this->xml->addAttribute('generated-datetime',gmdate('c'));
         $this->xml->addAttribute('version',self::SCHEMA_VERSION);
-        
+
         if(!empty($this->childrenIds)){
             foreach($this->childrenIds as $childId){
                 $childElementClass = "Iati_Aidstream_Element_".ucfirst($name);
@@ -70,7 +70,7 @@ class Iati_Core_Xml
      */
     public function generateFile($name , $ids = array(), $publisherId)
     {  
-        $fileName = $publisherId."-org.xml"; 
+        $fileName = $publisherId."-org.xml";
         $fp = fopen($this->xmlPath.$fileName,'w');
         fwrite($fp,$this->generateXml($name , $ids));
         fclose($fp);

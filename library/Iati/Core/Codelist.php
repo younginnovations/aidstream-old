@@ -209,7 +209,15 @@ class Iati_Core_Codelist
 
                 case "ContactType_type":
                     $return = 'ContactType';
-                    break;    
+                    break;
+
+                case "SectorDacThree_vocabulary":
+                    $return = 'SectorVocabulary';
+                    break;
+
+                case "SectorDacThree_code":
+                    $return = 'SectorDacThree';
+                    break;
 
                 default:
                     $return = false;
