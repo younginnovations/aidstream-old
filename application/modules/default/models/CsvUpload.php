@@ -87,7 +87,7 @@ class Model_CsvUpload
                     $this->elementData[$count][$child] = $value;
                 } else if($parent == "ProviderOrg" && $child!='provider_activity_id' && $child!='ref') {
                        $this->elementData[$count][$parent]['Narrative'][2]['text'] = $value;
-                } else if($parent == "ReceiverOrg"){
+                } else if($parent == "ReceiverOrg" && $child!='receiver_activity_id' && $child!='ref'){
                        $this->elementData[$count][$parent]['Narrative'][3]['text'] = $value;
                 } else if($parent == "Description"){
                        $this->elementData[$count][$parent]['Narrative'][1]['text'] = $value;
@@ -395,7 +395,8 @@ class Model_CsvUpload
             //Receiver Organisation
             $this->elementData[$count]['ReceiverOrg']['Narrative'][3]['text'] = $transactionData[$keys['receiverorgname']];
             $this->elementData[$count]['ReceiverOrg']['ref'] = $transactionData[$keys['receiverorgreference']];
-            
+            $this->elementData[$count]['ReceiverOrg']['receiver_activity_id'] = $transactionData[$keys['receiveractivityid']];
+
             //Transaction date
             $this->elementData[$count]['TransactionDate']['iso_date'] = $transactionDate;
 

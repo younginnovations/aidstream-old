@@ -985,9 +985,9 @@ class WepController extends Zend_Controller_Action
                         $csvHandler->setInputFile($source);
                         $csvHandler->readCsv();
                         $headerCount = $csvHandler->countHeader();
-                        if ($headerCount == 39) {
+                        if ($headerCount == 25) {
                             $count = $csvHandler->uploadDetailDataToTransaction($activityId);
-                        } elseif ($headerCount == 13) {
+                        } elseif ($headerCount == 14) {
                             $count = $csvHandler->uploadSimpleDataToTransaction($activityId);
                         }
                         if(!$count){
