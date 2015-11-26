@@ -1,12 +1,13 @@
 <?php
+
 /**
  * Base class for Creating element forms, Extends Zend_Form
  *
  * This Class acts as the base for extending by the elements' forms. It provides basic functionalities
  * like setting data, element, preparing the form etc.
- * 
+ *
  * To create form for any element only the getFormDefination should be overridden with the element's form defination.
- * 
+ *
  * @param Object $element Object of the element for which the form is defined.
  * @param Array $data Data of the element for which the form is defined.
  * @param boolen $isMultiple true if the multiple element is present else false.
@@ -15,14 +16,12 @@
  */
 abstract class Iati_Core_BaseForm extends Zend_Form
 {
+    public static $count = array();
     protected $_defaultDisplayGroupClass = 'Iati_Form_DisplayGroup';
     protected $element;
     protected $data;
     protected $isMultiple;
-    public static $count = array();
-    
-    abstract public function getFormDefination();
-    
+
     /**
      * Overriding default form decorators.
      */
@@ -36,10 +35,10 @@ abstract class Iati_Core_BaseForm extends Zend_Form
         if (empty($decorators)) {
             $this->addDecorator('FormElements')
                 ->addDecorator('Form')
-                ->addDecorators( array(array(array( 'wrapper' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'form-wrapper'))));
+                ->addDecorators(array(array(array('wrapper' => 'HtmlTag'), array('tag' => 'div', 'class' => 'form-wrapper'))));
         }
     }
-    
+
     /**
      * Overriding zend form render.
      */
@@ -54,7 +53,62 @@ abstract class Iati_Core_BaseForm extends Zend_Form
         $output = parent::render();
         return $output;
     }
-    
+
+    public function decorateElement($element)
+    {
+        $requiredSuffx = '<span title="This field is required." class="form-required">*</span>';
+
+        $decorator = $element->getDecorator('Label');
+        if ($decorator) {
+            if ($element->getLabel()) { // need to check this, since label decorator can be blank
+                $element->setLabel($element->getLabel() . "&nbsp;");
+            }
+            $decorator->setOption('requiredSuffix', $requiredSuffx);
+            $decorator->setOption('escape', false);
+        }
+        if ($element->getErrors()) {
+            $this->addElementClass($element, 'error');
+        }
+
+        // Add a wrapper div to all elements other than add and remove buttons.
+        if ($element->getType() != 'Iati_Form_Element_Note' && $element->getType() != 'Zend_Form_Element_Submit') {
+
+            if ($element->getName() == 'id' || ($element->getType() == 'Zend_Form_Element_Hidden' && preg_match('/_id/', $element->getName()))) {
+                $element->addDecorators(array(
+                        array(array('wrapperAll' => 'HtmlTag'), array('tag' => 'div', 'class' => 'form-item ele-id clearfix'))
+                    )
+                );
+            } else if ($element->getName() == 'save_and_view' || $element->getName() == 'save') {
+                $element->addDecorators(array(
+                        array(array('wrapperAll' => 'HtmlTag'), array('tag' => 'div', 'class' => 'form-item ele-submit-buttons clearfix'))
+                    )
+                );
+            } else {
+                // Add help element
+                $uniqueElementName = $this->element->getFullName() . '-' . $element->getName();
+                $element->addDecorators(array(array('HtmlTag', array('tag' => 'div', 'class' => 'help ' . $uniqueElementName, 'placement' => 'PREPEND'))));
+                $wrapperClass = 'form-item clearfix';
+                //If the current element is a default field then add default-item class to wrapper
+                if (Iati_Aidstream_ElementSettings::isDefaultField($element->getName())) {
+                    $wrapperClass .= ' default-item element-' . $this->element->getFullName();
+                    //if default field has value set wrapper visible else hidden
+                    if ($element->getValue()) {
+                        $wrapperClass .= ' visible';
+                    } else {
+                        $wrapperClass .= ' hidden';
+                    }
+                }
+                $element->addDecorators(array(
+                        array(array('wrapperAll' => 'HtmlTag'), array('tag' => 'div', 'class' => $wrapperClass))
+                    )
+                );
+            }
+        } else {
+            $element->removeDecorator('label');
+        }
+        return $element;
+    }
+
     public function addElementClass(&$element, $className, $decorator = null)
     {
         if (!$element instanceof Zend_Form_Element) {
@@ -75,42 +129,16 @@ abstract class Iati_Core_BaseForm extends Zend_Form
         return $this;
     }
 
-    public function setData($data)
-    {
-        $this->data = $data;
-    }
-    
     public function setCount($count)
     {
         self::$count[$this->element->getClassName()] = $count;
     }
-    
+
     public function getIatiElement()
     {
         return $this->element;
     }
-    
-    public function countElement($element)
-    {
-        if(!self::$count[$element]){
-            self::$count[$element] = 0;
-        }
-        $elecount = self::$count[$element];
-        self::$count[$element] = self::$count[$element] + 1;
-        return $elecount;
-    }
-    
-    public function getCount($element)
-    {
-        $elecount = self::$count[$element];
-        return $elecount;
-    }
-    
-    public function setMultiple($multiple = false)
-    {
-        $this->isMultiple = $multiple;
-    }
-    
+
     /**
      * Function to set the element attribute of the class.
      * It also sets the data and isMultiple attribute from the element's attributes
@@ -121,7 +149,17 @@ abstract class Iati_Core_BaseForm extends Zend_Form
         $this->setData($element->getData());
         $this->setMultiple($element->getIsMultiple());
     }
-    
+
+    public function setData($data)
+    {
+        $this->data = $data;
+    }
+
+    public function setMultiple($multiple = false)
+    {
+        $this->isMultiple = $multiple;
+    }
+
     /**
      * Function to fetch the form for the element.
      *
@@ -130,27 +168,39 @@ abstract class Iati_Core_BaseForm extends Zend_Form
     public function getForm()
     {
         $form = $this->getFormDefination();
-        if($this->data){
+        if ($this->data) {
             $form->populate($this->data);
         }
         $count = $this->countElement($this->element->getClassName());
         return $form;
     }
-    
+
+    abstract public function getFormDefination();
+
+    public function countElement($element)
+    {
+        if (!self::$count[$element]) {
+            self::$count[$element] = 0;
+        }
+        $elecount = self::$count[$element];
+        self::$count[$element] = self::$count[$element] + 1;
+        return $elecount;
+    }
+
     /**
      * Function to prepare the form ,add element names to the form.
      * Uses count and element name for creating array of element.
      */
     public function prepare()
     {
-        if($elementDefaultFields = $this->hasDefaultFields()){
-            if($elementDefaultFields['hasValue']){
-                $this->addDefaultToogleLink('','hide');
+        if ($elementDefaultFields = $this->hasDefaultFields()) {
+            if ($elementDefaultFields['hasValue']) {
+                $this->addDefaultToogleLink('', 'hide');
             } else {
                 $this->addDefaultToogleLink();
             }
         }
-        if($this->isMultiple) {
+        if ($this->isMultiple) {
             $this->addRemoveLink();
             $this->setIsArray(true);
             $this->setElementsBelongTo("{$this->element->getClassName()}
@@ -160,33 +210,35 @@ abstract class Iati_Core_BaseForm extends Zend_Form
         }
     }
 
-    public function hasDefaultFields(){
+    public function hasDefaultFields()
+    {
         $hasField = false;
         $hasValue = false;
         $elementAttribs = $this->element->getAttribs();
         $defaultFields = Iati_Aidstream_ElementSettings::$defaultFields;
-        foreach($defaultFields as $fieldName){
-            $attribName = '@'.$fieldName;
-            if(in_array($attribName,$elementAttribs)){
+        foreach ($defaultFields as $fieldName) {
+            $attribName = '@' . $fieldName;
+            if (in_array($attribName, $elementAttribs)) {
                 $hasField = true;
-                if($this->getElement($fieldName)->getValue()){
+                if ($this->getElement($fieldName)->getValue()) {
                     $hasValue = true;
                 }
             }
         }
-        if($hasField){
-            return array('hasValue'=> $hasValue);
+        if ($hasField) {
+            return array('hasValue' => $hasValue);
         }
         return false;
     }
 
-    public function addDefaultToogleLink($className = '',$toggleState='show'){
-        if(!$className){
+    public function addDefaultToogleLink($className = '', $toggleState = 'show')
+    {
+        if (!$className) {
             $className = $this->element->getFullName();
-        } 
+        }
         $defaultsToggle = new Iati_Form_Element_Note('defaultsToggle');
-        $defaultsToggle->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'element-default-toogle'));
-        $defaultsToggle->setValue("<a href='#' class='element-default-toogle-button {$toggleState}' value='{$className}'>".ucfirst($toggleState)." Defaults</a><br>");  
+        $defaultsToggle->addDecorator('HtmlTag', array('tag' => 'span', 'class' => 'element-default-toogle'));
+        $defaultsToggle->setValue("<a href='#' class='element-default-toogle-button {$toggleState}' value='{$className}'>" . ucfirst($toggleState) . " Defaults</a><br>");
         $this->addElement($defaultsToggle);
     }
 
@@ -198,15 +250,21 @@ abstract class Iati_Core_BaseForm extends Zend_Form
      */
     public function addRemoveLink($className = '')
     {
-        if(!$className){
+        if (!$className) {
             $className = $this->element->getFullName();
         }
         $remove = new Iati_Form_Element_Note('remove');
-        $remove->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'element-remove-this v2-remove-element'));
+        $remove->addDecorator('HtmlTag', array('tag' => 'span', 'class' => 'element-remove-this v2-remove-element'));
         $remove->setValue("<a href='#' class='button' value='{$className}'> Remove this</a>");
-        $this->addElement($remove);        
+        $this->addElement($remove);
     }
-    
+
+    public function getCount($element)
+    {
+        $elecount = self::$count[$element];
+        return $elecount;
+    }
+
     /**
      * Function to add 'add more' link to form for element which can be multiple.
      *
@@ -215,9 +273,9 @@ abstract class Iati_Core_BaseForm extends Zend_Form
     public function addAddLink($className)
     {
         $add = new Iati_Form_Element_Note('add');
-        $add->addDecorator('HtmlTag', array('tag' => 'span' , 'class' => 'add-more element-add-more v2-add-element'));
+        $add->addDecorator('HtmlTag', array('tag' => 'span', 'class' => 'add-more element-add-more v2-add-element'));
         $add->setValue("<a href='#' class='button' value='{$className}'> Add more</a>");
-        $this->addElement($add);        
+        $this->addElement($add);
     }
 
     public function addShowAdvance()
@@ -225,29 +283,28 @@ abstract class Iati_Core_BaseForm extends Zend_Form
         $add = new Iati_Form_Element_Note('add');
         $add->addDecorator('HtmlTag', array('tag' => 'span'));
         $add->setValue("<a href='#show-advance' class='show_advance' id='show-advance'> Show Advance Elements</a>");
-        $this->addElement($add);        
+        $this->addElement($add);
     }
 
-        
-     /**
+    /**
      * Function to add fieldset and wrapper div to the form
      * @param String $displayName The name of the element to be used for fieldset legend.
      * @param Boolen $isRequired Ture if element is required false otherwise
      */
     public function wrapForm($displayName, $isRequired = false)
     {
-        if($isRequired){
+        if ($isRequired) {
             $displayName = $displayName . " *";
         }
-        
-        $this->addDecorators( array(
-                    array( 'wrapper' => 'HtmlTag' ),
-                    array( 'tag' => 'fieldset' , 'options' => array('legend' => $displayName))
-                )
+
+        $this->addDecorators(array(
+                array('wrapper' => 'HtmlTag'),
+                array('tag' => 'fieldset', 'options' => array('legend' => $displayName))
+            )
         );
-        $this->addDecorators( array(array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'element-wrapper'))));
+        $this->addDecorators(array(array(array('wrapperAll' => 'HtmlTag'), array('tag' => 'div', 'class' => 'element-wrapper'))));
     }
-    
+
     /**
      * Function to add submit buttons to the form.
      *
@@ -255,48 +312,50 @@ abstract class Iati_Core_BaseForm extends Zend_Form
      * @param String $label If the label of the save button should be different, an string should be passed.
      * @param String $saveAndViewlabel If the label of the save and view should be different, an string should be passed.
      */
-    public function addSubmitButton($label , $saveAndViewlabel = 'Save and View')
+    public function addSubmitButton($label, $saveAndViewlabel = 'Save and View')
     {
-        if($this->submit){
+        if ($this->submit) {
             $this->removeElement('sumbit');
         }
-        $this->addElement('submit' , 'save_and_view',
+        $this->addElement('submit', 'save_and_view',
             array(
                 'label' => $saveAndViewlabel,
                 'required' => false,
-                'ignore'   => false,
-                'class'    =>'form-submit'
+                'ignore' => false,
+                'class' => 'form-submit'
             )
         );
-        $this->addElement('submit' , 'save',
+        $this->addElement('submit', 'save',
             array(
-                'label'    => $label,
+                'label' => $label,
                 'required' => false,
-                'ignore'   => false,
-                'class'    =>'form-submit'
+                'ignore' => false,
+                'class' => 'form-submit'
             )
         );
     }
-    
+
     /**
      * Custom validation
-     * 
+     *
      * If form has no subform i.e lowest level form, check if form is empty if not then only validate the form
      *  If form has subforms first validate each subform(Subform of each type is wrapped by a wrapper)
      *  Then validate each element.
      */
-    public function validate(){
+    public function validate()
+    {
         $isValid = true;
-        if(!$this->getSubForms()){
-           return $this->validateForm();
-        } else {      
-            foreach($this->getSubForms() as $subform){
-                if(!$subform->validate()){
+        if (!$this->getSubForms()) {
+            return $this->validateForm();
+        } else {
+
+            foreach ($this->getSubForms() as $subform) {
+                if (!$subform->validate()) {
                     $isValid = false;
                 }
-                if (!($this instanceof Iati_Core_WrapperForm)){
+                if (!($this instanceof Iati_Core_WrapperForm)) {
                     $valid = $this->validateForm();
-                    if(!$valid){
+                    if (!$valid) {
                         $isValid = false;
                     }
                 }
@@ -304,35 +363,45 @@ abstract class Iati_Core_BaseForm extends Zend_Form
         }
         return $isValid;
     }
-    
+
     public function validateForm()
     {
         $hasChildData = $this->element->hasData($this->element->getData());
-        if($hasChildData || $this->element->getIsRequired()){
+        if ($this instanceof Iati_Aidstream_Form_Activity_Transaction_Sector) {
+            foreach ($this->getElements() as $element) {
+                $data[$element->getName()] = $element->getValue();
+                ### Hard Coding for Sector Vocabulary being 5 digit or 3 digit
+                ### It takes in text in code column
+                if ($element->getName() == 'vocabulary' && $element->getValue() != 3 && $element->getValue() != 8) {
+                    return true;
+                }
+            }
+        }
+        if ($hasChildData || $this->element->getIsRequired()) {
             $isValid = true;
-            foreach($this->getElements() as $element){
-                if(!$element->isValid($element->getValue())){
+            foreach ($this->getElements() as $element) {
+                if (!$element->isValid($element->getValue())) {
                     $isValid = false;
                 }
             }
             return $isValid;
         } else {
-            foreach ($this->getElements() as $element){
-                if($element->getType() == 'Iati_Form_Element_Note') continue;
+            foreach ($this->getElements() as $element) {
+                if ($element->getType() == 'Iati_Form_Element_Note') continue;
                 $data[$element->getName()] = $element->getValue();
             }
             $empty = true;
-            if(!empty($data)){
-                foreach($data as $key=>$value){
-                    if($value && $key !== 'id'){
+            if (!empty($data)) {
+                foreach ($data as $key => $value) {
+                    if ($value && $key !== 'id') {
                         $empty = false;
                     }
                 }
             }
-            if(!$empty){
+            if (!$empty) {
                 $isValid = true;
-                foreach($this->getElements() as $element){
-                    if(!$element->isValid($element->getValue())){
+                foreach ($this->getElements() as $element) {
+                    if (!$element->isValid($element->getValue())) {
                         $isValid = false;
                     }
                 }
@@ -341,64 +410,9 @@ abstract class Iati_Core_BaseForm extends Zend_Form
         }
         return true;
     }
-    
+
     public function getActivityElement()
     {
         return $this->element;
-    }
-    
-    public function decorateElement($element)
-    {
-        $requiredSuffx = '<span title="This field is required." class="form-required">*</span>';
-
-        $decorator = $element->getDecorator('Label');
-        if ($decorator) {
-            if ($element->getLabel()) { // need to check this, since label decorator can be blank
-                $element->setLabel($element->getLabel() . "&nbsp;");
-            }
-            $decorator->setOption('requiredSuffix', $requiredSuffx);
-            $decorator->setOption('escape', false);
-        }
-        if ($element->getErrors()) {
-            $this->addElementClass($element, 'error');
-        }
-
-        // Add a wrapper div to all elements other than add and remove buttons.
-        if($element->getType() != 'Iati_Form_Element_Note' && $element->getType() != 'Zend_Form_Element_Submit'){
-
-            if($element->getName() == 'id' || ($element->getType() == 'Zend_Form_Element_Hidden' && preg_match('/_id/' , $element->getName()))){
-                $element->addDecorators(array(
-                            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'form-item ele-id clearfix'))
-                        )
-                );
-            } else if($element->getName() == 'save_and_view' || $element->getName() == 'save'){
-                 $element->addDecorators(array(
-                            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>'form-item ele-submit-buttons clearfix'))
-                        )
-                );
-            } else {
-                // Add help element
-                 $uniqueElementName = $this->element->getFullName().'-'.$element->getName();
-                 $element->addDecorators(array(array('HtmlTag' , array('tag' => 'div' , 'class' => 'help '.$uniqueElementName , 'placement' => 'PREPEND'))));
-                 $wrapperClass = 'form-item clearfix';
-                 //If the current element is a default field then add default-item class to wrapper
-                 if(Iati_Aidstream_ElementSettings::isDefaultField($element->getName())){
-                    $wrapperClass.=' default-item element-'.$this->element->getFullName();
-                    //if default field has value set wrapper visible else hidden
-                    if($element->getValue()){
-                        $wrapperClass.=' visible';
-                    } else {
-                        $wrapperClass.=' hidden';
-                    }
-                 }
-                 $element->addDecorators(array(
-                            array(array( 'wrapperAll' => 'HtmlTag' ), array( 'tag' => 'div','class'=>$wrapperClass))
-                        )
-                );
-            }
-        } else {
-            $element->removeDecorator('label');
-        }
-        return $element;
     }
 }
