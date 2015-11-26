@@ -274,8 +274,7 @@ if (!empty($transaction["TiedStatus"])):
 <?php
 if (!empty($transaction["Sector"])):
     ?>
-    <?php $sectors = $transaction["Sector"]; ?>
-    <?php foreach ($sectors as $sector): ?>
+    <?php $sector = $transaction["Sector"]; ?>
         <ul class="style-1 style-4">
             <h2>Sector</h2>
              <li>
@@ -311,8 +310,7 @@ if (!empty($transaction["Sector"])):
                         </span>               
                     </li>
                 <?php endforeach; ?>
-        </ul> 
-    <?php endforeach; ?>
+        </ul>    
 <?php endif; ?>
 <!-- Sector Ends -->
 

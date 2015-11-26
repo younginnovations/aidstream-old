@@ -23,7 +23,8 @@ class AjaxController extends Zend_Controller_Action
 
         preg_match( "/{$element->getClassName()}-\d+/" , $refItem ,  $matches );
         $ele = $matches[0];
-        $count = substr($ele , -1);
+        $count = substr($ele , strrpos($ele, '-') + 1);
+        
         $element->setCount($count);
         
         $form = $element->getForm(true);

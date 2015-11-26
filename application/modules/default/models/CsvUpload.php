@@ -21,13 +21,17 @@ class Model_CsvUpload
                                         'FinanceType' => array('code'),
                                         'AidType' => array('code'),
                                         'DisbursementChannel' => array('code'),
-                                        'TiedStatus' => array('code')
+                                        'Sector' => array('code'),
+                                        'Country' => array('code'),
+                                        'Region' => array('code'),
                                     );
 
     
     /**
      * Set Input file
      */
+
+
     public function setInputFile($file)
     {
         $this->inputFile = $file;
@@ -68,6 +72,7 @@ class Model_CsvUpload
     {
         $header = array_flip(array_shift($this->data));
         $headerKeys = array_keys($header);
+
         $count = 0;
         foreach ($this->data as $data) {
             foreach ($data as $key => $value) {
@@ -80,9 +85,9 @@ class Model_CsvUpload
                 
                 if ($parent == "Transaction") { 
                     $this->elementData[$count][$child] = $value;
-                } else if($parent == "ProviderOrg"){
+                } else if($parent == "ProviderOrg" && $child!='provider_activity_id' && $child!='ref') {
                        $this->elementData[$count][$parent]['Narrative'][2]['text'] = $value;
-                } else if($parent == "ReceiverOrg"){
+                } else if($parent == "ReceiverOrg" && $child!='receiver_activity_id' && $child!='ref'){
                        $this->elementData[$count][$parent]['Narrative'][3]['text'] = $value;
                 } else if($parent == "Description"){
                        $this->elementData[$count][$parent]['Narrative'][1]['text'] = $value;
@@ -90,12 +95,11 @@ class Model_CsvUpload
                     $this->elementData[$count][$parent][$child] = $value;                
                 }
             }
-
             $this->checkRequiredFields($count, $this->elementData[$count]);
             $count++;
         }
-
         $this->checkRefDuplication();
+
         return $count;
     }
 
@@ -136,7 +140,20 @@ class Model_CsvUpload
     public function validateDetailTransactionData($parent, $child, $count, $value)
     {
         $model = new Model_Wep();
+
         switch ($child) {
+            case 'vocabulary':
+                if($parent=='Sector') {
+                    $vocabulary = $model->getCodeandName('SectorVocabulary', 1);
+                } else {
+                     $vocabulary = $model->getCodeandName('RegionVocabulary', 1);
+                }
+                if (in_array(strtoupper($value), $vocabulary)) {
+                    $this->elementData[$count][$parent][$child] = array_search(strtoupper($value), $vocabulary);
+                } else {
+                    $this->error[$count][]['message'] = "Invalid " . $parent . "-vocabulary. Please use proper vocabulary.";
+                }
+                break;
             case 'code':
                 $code = $model->getCodeandName($parent, 1);
                 if (in_array(strtoupper($value), $code)) {
@@ -174,7 +191,6 @@ class Model_CsvUpload
                     $this->error[$count][]['message'] = "Invalid " . $parent . "-currency code. Please use a valid currency code.";
                 }
                 break;
-
             default:
                 break;
         }
@@ -205,9 +221,7 @@ class Model_CsvUpload
     {
         $count = array();
         $count['total'] = $this->prepareDetailTransactionData();
-        //exit();
         $element = new Iati_Aidstream_Element_Activity_Transaction();
-        
         $result = $element->fetchData($activityId, true);
         $result = Iati_ElementSorter::sortElementsData($result, array('TransactionDate' =>'@iso_date'), array('TransactionValue' => '@value_date'));
         
@@ -232,13 +246,16 @@ class Model_CsvUpload
                         $this->elementData[$key]['AidType']['id'] = $row['AidType']['id'];
                         $this->elementData[$key]['DisbursementChannel']['id'] = $row['DisbursementChannel']['id'];
                         $this->elementData[$key]['TiedStatus']['id'] = $row['TiedStatus']['id'];
-                        
+                        $this->elementData[$key]['Sector']['id'] = $row['Sector']['id'];
+                        $this->elementData[$key]['Country']['id'] = $row['RecipientCountry']['id'];
+                        $this->elementData[$key]['Region']['id'] = $row['RecipientRegion']['id'];
+
                         $count['update'] += 1;  // Transaction Update count
                         $refCount = 1;
                     } elseif ($refCount == 1) {
                         $duplicate += 1;
                         $transactionKey = $key;
-                    }        
+                    }
                 }
             }
         }
@@ -251,10 +268,17 @@ class Model_CsvUpload
                                                         existing transactions. Please use a different internal reference or 
                                                         check your existing transactions.";
         }
-        
+
         if(empty($this->error)){
-            $element->save($this->elementData , $activityId);
-            
+          $elem = $this->elementData;
+          foreach ($elem as $key => $data) {
+                $array = $elem[$key];
+                $elem[$key]['RecipientCountry'] = $elem[$key]['Country'];
+                $elem[$key]['RecipientRegion'] = $elem[$key]['Region'];
+                unset($elem[$key]['Country']);
+                unset($elem[$key]['Region']);
+            }
+            $element->save($elem , $activityId);
             return $count;
         } else {
             return false;
@@ -269,10 +293,9 @@ class Model_CsvUpload
         $count = array();
         $count['total'] = $this->prepareSimpleTransactionData();
         $element = new Iati_Aidstream_Element_Activity_Transaction();
-        
+
         $result = $element->fetchData($activityId, true);
         $result = Iati_ElementSorter::sortElementsData($result, array('TransactionDate' =>'@iso_date'), array('TransactionValue' => '@value_date'));
-        
         // Update if existing transaction by compairing 'internal reference'
         $count['update'] = 0;
         $duplicate = 0;
@@ -289,6 +312,7 @@ class Model_CsvUpload
                         $this->elementData[$key]['ReceiverOrg']['id'] = $row['ReceiverOrg']['id'];
                         $this->elementData[$key]['TransactionDate']['id'] = $row['TransactionDate']['id'];
                         $this->elementData[$key]['Description']['id'] = $row['Description']['id'];
+
                         $count['update'] += 1;  // Transaction Update count
                         $refCount = 1;
                     } elseif ($refCount == 1) {
@@ -310,7 +334,6 @@ class Model_CsvUpload
         
         if(empty($this->error)){
             $element->save($this->elementData , $activityId);
-            
             return $count;
         } else {
             return false;
@@ -320,12 +343,13 @@ class Model_CsvUpload
     
     public function prepareSimpleTransactionData()
     {
+        $model = new Model_Wep();
         $count = 0;
         $header = array_shift($this->data);
+        $currency_id = $model->getCodeandName('Currency', 1);
         
         // change header values to keys for later user.
         $this->keys = $keys = array_change_key_case(array_flip(preg_replace('/ /', '', $header)));
-        
         $this->validateSimpleTransactionData(); // @todo Validation can be done by using elements form
         if(!empty($this->error)) return false; // In case of validation failure the error array is set.
         
@@ -358,15 +382,21 @@ class Model_CsvUpload
             //Transaction Value. use transaction date as value date.
             $this->elementData[$count]['TransactionValue']['text'] = $value;
             $this->elementData[$count]['TransactionValue']['value_date'] = $transactionDate;
-            
+
+            $currency_code_val = $transactionData[$keys['transactioncurrency']];
+            if (in_array(strtoupper($currency_code_val), $currency_id)) {
+                $this->elementData[$count]['TransactionValue']['currency'] = array_search(strtoupper($currency_code_val), $currency_id);
+            }
             //Provider Organisation
             $this->elementData[$count]['ProviderOrg']['Narrative'][2]['text'] = $transactionData[$keys['providerorgname']];
             $this->elementData[$count]['ProviderOrg']['ref'] = $transactionData[$keys['providerorgreference']];
-            
+            $this->elementData[$count]['ProviderOrg']['provider_activity_id'] = $transactionData[$keys['provideractivityid']];
+
             //Receiver Organisation
             $this->elementData[$count]['ReceiverOrg']['Narrative'][3]['text'] = $transactionData[$keys['receiverorgname']];
             $this->elementData[$count]['ReceiverOrg']['ref'] = $transactionData[$keys['receiverorgreference']];
-            
+            $this->elementData[$count]['ReceiverOrg']['receiver_activity_id'] = $transactionData[$keys['receiveractivityid']];
+
             //Transaction date
             $this->elementData[$count]['TransactionDate']['iso_date'] = $transactionDate;
 
@@ -379,6 +409,7 @@ class Model_CsvUpload
     
     public function validateSimpleTransactionData($data , $count)
     {
+        $model = new Model_Wep();
         $count = 0;
         $keys = $this->keys;
 
@@ -441,6 +472,13 @@ class Model_CsvUpload
                 $refArray[] = trim($transactionData[$keys['internalreference']]);
             }
 
+            //check if transaction currency code is valid one
+            if($transactionData[$keys['transactioncurrency']]) {
+                $currency_id = $model->getCodeandName('Currency', 1);
+                if (!in_array(strtoupper($transactionData[$keys['transactioncurrency']]), $currency_id)){
+                    $this->error[$count][]['message'] = "Invalid transaction-currency code. Please use a valid currency code.";
+                }
+            }
             $count++;
         }
 
