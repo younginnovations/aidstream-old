@@ -11,14 +11,13 @@ class Iati_Aidstream_Form_Activity_PolicyMarker extends Iati_Core_BaseForm
         $form['id'] = new Zend_Form_Element_Hidden('id');
         $form['id']->setValue($this->data['id']); 
         
-        $policySignificance = $model->getCodeArray('PolicySignificance', null, '1' , true);
-        $form['significance'] = new Zend_Form_Element_Select('significance');
-        $form['significance']->setLabel('Significance')
-            ->setRequired()  
-            ->setValue($this->data['@significance'])   
+        $code = $model->getCodeArray('PolicyMarker', null, '1' , true);
+        $form['code'] = new Zend_Form_Element_Select('code');
+        $form['code']->setLabel('Policy Marker')
+            ->setRequired()
+            ->setValue($this->data['@code'])
             ->setAttrib('class' , 'form-select')
-            ->setMultioptions($policySignificance);
-
+            ->setMultioptions($code);
         /**
          *  Hide Vocabulary (v1.2.7)
          *  
@@ -30,14 +29,13 @@ class Iati_Aidstream_Form_Activity_PolicyMarker extends Iati_Core_BaseForm
                 ->setMultioptions($vocabulary);
         */
        
-        $code = $model->getCodeArray('PolicyMarker', null, '1' , true);
-        $form['code'] = new Zend_Form_Element_Select('code');
-        $form['code']->setLabel('Policy Marker')
-            ->setRequired()   
-            ->setValue($this->data['@code'])    
+        $policySignificance = $model->getCodeArray('PolicySignificance', null, '1' , true);
+        $form['significance'] = new Zend_Form_Element_Select('significance');
+        $form['significance']->setLabel('Significance')
+            ->setRequired()
+            ->setValue($this->data['@significance'])
             ->setAttrib('class' , 'form-select')
-            ->setMultioptions($code);
-
+            ->setMultioptions($policySignificance);
         $this->addElements($form);
         return $this;
     }

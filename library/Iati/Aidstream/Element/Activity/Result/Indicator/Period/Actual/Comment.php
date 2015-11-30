@@ -8,7 +8,7 @@ class Iati_Aidstream_Element_Activity_Result_Indicator_Period_Actual_Comment ext
     protected $tableName = 'iati_result/indicator/period/actual/comment';
     protected $attribs = array('id');
     protected $childElements = array('Narrative');
-    protected $viewScriptEnabled = true;
+    protected $viewScriptEnabled = false;
 
     public function save($data , $parentId = null, $duplicate = false)
     {

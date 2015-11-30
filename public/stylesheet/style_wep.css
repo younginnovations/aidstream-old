@@ -5080,6 +5080,9 @@ ul.style-1 .country-budget-item li {
     margin: 10px 0 5px;
 }
 
+a[value="Activity_Result_Title"],a[value="Activity_Result_Description"],a[value="Activity_Result_Indicator_Title"],a[value="Activity_Result_Indicator_Period_PeriodStart"],a[value="Activity_Result_Indicator_Period_PeriodEnd"],a[value="Activity_Result_Indicator_Period_Actual"],a[value="Activity_Result_Indicator_Period_Target"] {
+    display: none;
+}
 .section-video {
     margin-top: 26px;
 }
