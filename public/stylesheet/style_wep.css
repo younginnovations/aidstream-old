@@ -3894,6 +3894,7 @@ a:hover {
     padding-top: 192px;
     overflow: hidden;
     height: 400px;
+    margin-bottom: 70px;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -4044,7 +4045,6 @@ button.next:hover {
     color: #333;
     text-align: center;
     padding-bottom: 70px;
-    padding-top: 50px;
     font-weight: normal;
 }
 .info-block h1 .easy {
