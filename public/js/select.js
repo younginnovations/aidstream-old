@@ -154,15 +154,23 @@ $(document).ready(function () {
 
     var formcheck = document.querySelectorAll('form');
     var saveElement = document.getElementById('save-element');
+    var saveviewElement = document.getElementById('save_and_view-element');
 
     if(saveElement) {
         document.querySelector('#save-element').addEventListener("click", function() {
             window.btn_clicked = true;
         });
-        window.onbeforeunload = function() {
-            if(!window.btn_clicked && changeInput==true) {
-                return 'You have changes left to be saved.';
-            }
-        };
     }
+
+    if(saveviewElement) {
+         document.querySelector('#save_and_view-element').addEventListener("click", function() {
+            window.btn_clicked = true;
+        });
+    }
+
+    window.onbeforeunload = function() {
+        if(!window.btn_clicked && changeInput==true) {
+            return 'You have changes left to be saved.';
+        }
+    };
 });
