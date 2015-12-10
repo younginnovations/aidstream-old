@@ -9,7 +9,7 @@ class Iati_Aidstream_Element_Activity_Result_Indicator_Period_Actual extends Iat
     protected $attribs = array('id' , '@value');
     protected $iatiAttribs = array('@value');
     protected $childElements = array('Comment');
-    protected $viewScriptEnabled = true;
+    protected $viewScriptEnabled = false;
 
     public function save($data , $parentId = null, $duplicate = false)
     {

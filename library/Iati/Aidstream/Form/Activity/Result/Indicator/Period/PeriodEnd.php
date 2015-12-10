@@ -16,6 +16,7 @@ class Iati_Aidstream_Form_Activity_Result_Indicator_Period_PeriodEnd extends Iat
         $form['iso_date'] = new Zend_Form_Element_Text('iso_date');
         $form['iso_date']->setLabel('Date')
             ->setValue($this->data['@iso_date'])
+            ->setRequired()  
             ->setAttrib('class' , 'datepicker' );
 
         $this->addElements($form);

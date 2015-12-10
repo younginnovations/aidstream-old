@@ -108,6 +108,7 @@ function setSelect2Data(id, value) {
 }
 
 $(document).ready(function () {
+
     $('form input.non_dac_code').each(function () {
         var dis = $(this);
         var main = dis.parent().parent().find('select.sector_value');
@@ -141,4 +142,35 @@ $(document).ready(function () {
         }
     });
 
+    //js for form input check and leave page alert
+    var changeInput = false;
+    $("textarea,input").keyup(function(e) {
+        var code = e.keyCode || e.which;
+        if(code!= 13) { //Ignore Enter keycode
+             changeInput = true;
+        }      
+       
+    });
+
+    var formcheck = document.querySelectorAll('form');
+    var saveElement = document.getElementById('save-element');
+    var saveviewElement = document.getElementById('save_and_view-element');
+
+    if(saveElement) {
+        document.querySelector('#save-element').addEventListener("click", function() {
+            window.btn_clicked = true;
+        });
+    }
+
+    if(saveviewElement) {
+         document.querySelector('#save_and_view-element').addEventListener("click", function() {
+            window.btn_clicked = true;
+        });
+    }
+
+    window.onbeforeunload = function() {
+        if(!window.btn_clicked && changeInput==true) {
+            return 'You have unsaved changes.';
+        }
+    };
 });

@@ -8,7 +8,7 @@ class Iati_Aidstream_Element_Activity_Result_Indicator_Description_Narrative ext
     protected $tableName = 'iati_result/indicator/description/narrative';
     protected $attribs = array('id', '@xml_lang', 'text');
     protected $iatiAttribs = array('@xml_lang', 'text');
-    protected $viewScriptEnabled = true;
+    protected $viewScriptEnabled = false;
 
     public function save($data , $parentId = null, $duplicate = false)
     {

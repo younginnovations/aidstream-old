@@ -8,7 +8,8 @@ class Iati_Aidstream_Element_Activity_Result_Title extends Iati_Core_BaseElement
     protected $tableName = 'iati_result/title';
     protected $attribs = array('id');
     protected $childElements = array('Narrative');
-    protected $viewScriptEnabled = true;
+    protected $viewScriptEnabled = false;
+    protected $isRequired = true;
 
     public function save($data , $parentId = null, $duplicate = false)
     {

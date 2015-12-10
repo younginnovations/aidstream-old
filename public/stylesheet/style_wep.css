@@ -1113,7 +1113,7 @@ dt {
     font-weight: bold;
     float: left;
     margin-right: 10px;
-    width: 35%;
+    width: 31%;
 }
 dt#edituserform-label {
     display: none;
@@ -5080,7 +5080,9 @@ ul.style-1 .country-budget-item li {
     margin: 10px 0 5px;
 }
 
-.section-video {
+a[value="Activity_Result_Title"],a[value="Activity_Result_Description"],a[value="Activity_Result_Indicator_Title"],a[value="Activity_Result_Indicator_Period_PeriodStart"],a[value="Activity_Result_Indicator_Period_PeriodEnd"],a[value="Activity_Result_Indicator_Period_Actual"],a[value="Activity_Result_Indicator_Period_Target"],a[value="Activity_Result_Indicator_Period_Actual_Comment"],a[value="Activity_Result_Indicator_Period_Target_Comment"],a[value = "Activity_Result_Indicator_Baseline_Comment"] {
+    display: none;
+}.section-video {
     margin-top: 26px;
 }
 

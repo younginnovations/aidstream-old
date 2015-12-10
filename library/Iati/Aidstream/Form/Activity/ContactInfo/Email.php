@@ -9,11 +9,11 @@ class Iati_Aidstream_Form_Activity_ContactInfo_Email extends Iati_Core_BaseForm
         $form['id'] = new Zend_Form_Element_Hidden('id');
         $form['id']->setValue($this->data['id']);
 
-        $form['text'] = new Zend_Form_Element_Textarea('text');
+        $form['text'] = new Zend_Form_Element_Text('text');
         $form['text']->setLabel('Email Address')  
             ->setValue($this->data['text'])
-            ->addValidator(new Zend_Validate_EmailAddress)    
-            ->setAttribs(array('rows'=>'3' , 'cols'=> '20'));
+            ->addFilter('StringTrim')
+            ->addValidator(new Zend_Validate_EmailAddress);
 
         $this->addElements($form);
         return $this;
