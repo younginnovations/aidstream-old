@@ -170,7 +170,7 @@ $(document).ready(function () {
 
     window.onbeforeunload = function() {
         if(!window.btn_clicked && changeInput==true) {
-            return 'You have changes left to be saved.';
+            return 'You have unsaved changes.';
         }
     };
 });

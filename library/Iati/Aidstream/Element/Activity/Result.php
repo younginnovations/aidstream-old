@@ -10,6 +10,7 @@ class Iati_Aidstream_Element_Activity_Result extends Iati_Core_BaseElement
     protected $iatiAttribs = array('@type', '@aggregation_status');
     protected $childElements = array('Title' ,'Description', 'Indicator');
     protected $viewScriptEnabled = false;
+    protected $isRequired = true;
 
     public function save($data , $parentId = null, $duplicate = false)
     {
