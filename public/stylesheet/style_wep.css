@@ -3250,7 +3250,7 @@ span.infom {
     color: #333!important;
     display: inline-block;
     width: 358px;
-    float: right;
+    overflow: auto;
 }
 ul.style-4.inner li {
     width: 500px;
