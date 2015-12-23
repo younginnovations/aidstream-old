@@ -218,7 +218,7 @@ class Model_Activity
     public function allOrganisationsActivityStates() {
         $model = new Model_Wep();
         $activityCollModel = new Model_ActivityCollection();
-        
+        $orgPublished = new Model_OrganisationPublished();
         // $activityModel = new Model_Activity();
         $orgs = $model->listOrganisation('account');
         $orgData = array();
@@ -231,6 +231,7 @@ class Model_Activity
             $publishedFiles = $regPublishModel->getPublishedInfoByOrg($organisation['id']);
             $publishedActivityCount = $regPublishModel->getActivityCount($publishedFiles);
             $organisation['registry_published_count'] = $publishedActivityCount;
+            $organisation['org_is_pushed_to_registry'] = $orgPublished->isPushedToRegistry($organisation['id']);
             $orgData[] = $organisation;
         }
         return $orgData;

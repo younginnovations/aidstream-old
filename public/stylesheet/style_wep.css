@@ -497,7 +497,7 @@ h2.form-title {
     float: right;
 }
 #contain-right-area {
-    width: 218x;
+    width: 218px;
     border-left: 1px solid #b4aaaa;
     border-right: 1px solid #b4aaaa;
     background: #FFF;
@@ -590,7 +590,7 @@ h2.form-title {
     padding: 0;
     margin-bottom: 0;
 }
-#sidebar-right #block-activity-menu ul.menu-leaf li: last-child {
+#sidebar-right #block-activity-menu ul.menu-leaf li:last-child {
     border-bottom-color: #fff;
 }
 #sidebar-right #block-activity-menu ul.menu-leaf li:hover {
@@ -668,9 +668,9 @@ h2.form-title {
 #contain table {
     width: 100%;
 }
-#contain table.user-list-table {
-    border
-}
+/*#contain table.user-list-table {*/
+    /*border*/
+/*}*/
 #contain tr, #contain td, #contain th {
     background-color: #f2f2f2;
     padding: 5px 5px;
@@ -1169,7 +1169,7 @@ fieldset dl {
     padding: 0 0 10px 10px;
 }
 /** fix legend bug for chrome **/
-}
+/*}*/
 /* Activity page fieldset */
 
 .activity-list, .user-list {
@@ -2006,7 +2006,7 @@ form#support-form {
     margin-bottom: 10px;
 }
 .profile-info {
-    background: -moz-linear-gradient(center top, #F6F4F4 0%, #F8F8F8 100%) repeat scroll 0 0 transparent;
+    background: -moz-linear-gradient(center top,#F6F4F4 0%,#F8F8F8 100%) repeat scroll 0 0 transparent;
     border: 1px solid #E3E3E4;
     border-radius: 4px 4px 4px 4px;
     margin-bottom: 10px;
@@ -3353,7 +3353,7 @@ li.result .result-style h2 {
 li.result .res-style-1 li {
     border-top: 1px solid #EEEEEE !important;
 }
-.comment-style li: nth-child(2) {
+.comment-style li:nth-child(2) {
     border-top: 1px solid #EEEEEE !important;
 }
 .border-heading {
@@ -3530,7 +3530,7 @@ ul.element-level li {
 border-top: 1px solid #eee;
 }*/
 
-ul.element-level li: nth-child(2) {
+ul.element-level li:nth-child(2) {
     border-top: 1px solid #eee;
 }
 /*ul.element-level li span {
@@ -4000,7 +4000,7 @@ a:hover {
     border-radius: 50%;
     color: #fff;
     font: bold 57px Arial, sans-serif;
-    text-transform: center;
+    text-align: center;
     margin: 0 auto 14px;
     position: relative;
 }
@@ -5022,8 +5022,8 @@ a {
     vertical-align: top;
 }
 
-#list-org tr td:last-child {
-    text-align: left!important;
+#list-org td {
+    word-break: break-all;
 }
 
 .org-email {
