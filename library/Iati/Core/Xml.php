@@ -74,7 +74,7 @@ class Iati_Core_Xml
         $fp = fopen($this->xmlPath.$fileName,'w');
         fwrite($fp,$this->generateXml($name , $ids));
         fclose($fp);
-        
+
         return $fileName;
     }
 
@@ -84,15 +84,66 @@ class Iati_Core_Xml
      * @return string xml
      */
     public function formatXml($simpleXmlObject) {
-        if(!is_object($simpleXmlObject) ){
+        if(!is_object($simpleXmlObject) ) {
             return;
         }
-
         $dom = new DOMDocument('1.0');
         $dom->preserveWhiteSpace = false;
         $dom->formatOutput = true;
         $dom->loadXML($simpleXmlObject->asXML());
-
         return $dom->saveXML();
-    }   
+    }
+
+    protected function libxml_display_error($error)
+    {
+        $return = '';
+        switch ($error->level) {
+            case LIBXML_ERR_WARNING:
+                $return .= "Warning $error->code:";
+                break;
+            case LIBXML_ERR_ERROR:
+                $return .= "Error $error->code:";
+                break;
+            case LIBXML_ERR_FATAL:
+                $return .= "Fatal Error $error->code:";
+                break;
+        }
+        $return .= trim($error->message);
+        return $return;
+    }
+
+    protected function libxml_display_errors()
+    {
+        $errors = libxml_get_errors();
+        $messages = [];
+        foreach ($errors as $error) {
+            $messages[] = $this->libxml_display_error($error);
+        }
+        libxml_clear_errors();
+        return $messages;
+    }
+
+    /**
+     *
+     * Generates array xml and checks it against xml schema.
+     * @param $activitiesIds of activity to be published.
+     */
+    public function validateXml($type,$activitiesIds)
+    {
+        if($type=='Activity') {
+            $schemaPath = APPLICATION_PATH .'/XmlSchema/iati-activities-schema.xsd';
+        }else if($type =='organisation') {
+            $schemaPath = APPLICATION_PATH .'/XmlSchema/iati-organisations-schema.xsd';
+        }
+        $g = $this->generateXml($type, $activitiesIds);
+        // Enable user error handling
+        libxml_use_internal_errors(true);
+        $xml = new DOMDocument();
+        $xml->loadXML($g);
+        $message = [];
+        if (!$xml->schemaValidate($schemaPath)) {
+            $message = $this->libxml_display_errors();
+        }
+        return $message;
+    }
 }

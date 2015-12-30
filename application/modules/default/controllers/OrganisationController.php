@@ -572,7 +572,20 @@ class OrganisationController extends Zend_Controller_Action
                             ->addMessage(array('message' => "Organisation xml files created."));
                     }
                 }
-            } else
+            } else if($state == Iati_WEP_ActivityState::STATUS_COMPLETED) {
+                $coreXml = new Iati_Core_Xml();
+                $validate_xml = $coreXml->validateXml('organisation',$organisationIds);
+                if ($validate_xml) {
+                    $xml_error = implode("<br> -",$validate_xml);
+                    $this->_helper->FlashMessenger
+                        ->addMessage(array(
+                                         'error' => 'The organisation has schema validation issues.You need to correct the followings before completion. The errors are generated from <a href = "http://iatistandard.org/201/organisation-standard/">IATI Schema 2.01</a>, please contact support if you dont understand them.<br>- ' . $xml_error
+                                     ));
+                } else {
+                    $db->updateOrganisationState($organisationIds,(int)$state);
+                }
+            }
+            else
             {
                 $db->updateOrganisationState($organisationIds , (int) $state);
             }

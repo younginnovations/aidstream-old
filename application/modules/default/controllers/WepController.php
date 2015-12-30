@@ -706,9 +706,9 @@ class WepController extends Zend_Controller_Action
         if($state == Iati_WEP_ActivityState::STATUS_PUBLISHED){
             $identity = Zend_Auth::getInstance()->getIdentity();
             $account_id = $identity->account_id;
-
             $modelRegistryInfo = new Model_RegistryInfo();
             $registryInfo = $modelRegistryInfo->getOrgRegistryInfo($account_id);
+
             if(!$registryInfo){
                 $this->_helper->FlashMessenger
                     ->addMessage(array('error' => "Registry information not found.
@@ -761,23 +761,31 @@ class WepController extends Zend_Controller_Action
                                            published files</a>"));
                 }
             }
-        } else {
-            if ($state == Iati_WEP_ActivityState::STATUS_COMPLETED){
-                $errors = Iati_WEP_ElementValueCheck::checkDefaults($activity_ids);
-                if ($errors) {
-                    $errors = implode("<br> - ", (reset($errors)));
-                    $this->_helper->FlashMessenger
-                        ->addMessage(array(
-                                'error' => 'Please make sure that you have following elements before changing to completed state: <br> - ' . $errors  . '<br>IATI Standard v2.01 
-                                            <a href="http://support.iatistandard.org/entries/52502089-Upgrading-to-2-01-What-s-involved-A-non-technical-summary">requires</a> 
-                                            that you have those minimum elements.'
-                            ));
-                } else {
-                    $db->updateActivityStatus($activity_ids,(int)$state);
-                }
+        } elseif ($state == Iati_WEP_ActivityState::STATUS_COMPLETED){
+            $identity = Zend_Auth::getInstance()->getIdentity();
+            $account_id = $identity->account_id;
+            $coreXml = new Iati_Core_Xml();
+            $validate_xml = $coreXml->validateXml('Activity',$activity_ids);
+            $errors = Iati_WEP_ElementValueCheck::checkDefaults($activity_ids);
+            if ($errors) {
+                $errors = implode("<br> - ", (reset($errors)));
+                $this->_helper->FlashMessenger
+                    ->addMessage(array(
+                            'error' => 'Please make sure that you have following elements before changing to completed state: <br> - ' . $errors  . '<br>IATI Standard v2.01
+                                        <a href="http://support.iatistandard.org/entries/52502089-Upgrading-to-2-01-What-s-involved-A-non-technical-summary">requires</a>
+                                        that you have those minimum elements.'
+                        ));
+            } elseif ($validate_xml) {
+                $xml_error = implode("<br> -",$validate_xml);
+                $this->_helper->FlashMessenger
+                    ->addMessage(array(
+                                     'error' => 'The activity has schema validation issues.You need to correct the followings before completion. The errors are generated from <a href = "http://iatistandard.org/201/activity-standard/">IATI Schema 2.01</a>, please contact support if you dont understand them.<br>-' . $xml_error
+                                 ));
             } else {
                 $db->updateActivityStatus($activity_ids,(int)$state);
             }
+        } else {
+            $db->updateActivityStatus($activity_ids,(int)$state);
         }
         if($redirect){
             $this->_redirect($redirect , array('prependBase'=>false));
@@ -1106,5 +1114,4 @@ class WepController extends Zend_Controller_Action
         echo $xmlOutput;
         exit;
     }
-
 }
