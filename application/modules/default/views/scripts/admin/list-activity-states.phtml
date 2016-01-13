@@ -1,16 +1,17 @@
 <table id="list-org" class="states">
 <thead>
 <tr>
-    <th>S.N.</th><th>Organisation Name</th><th>Number of Activities</th><th>Editing</th><th>Completed</th>
-    <th>Verified</th><th>Published</th><th>Published to Registry</th>
+    <th>S.N.</th><th width="20%">Org N</th><th width="20%">Add</th></th><th>No. A</th><th>E</th><th>C</th>
+    <th>V</th><th>P</th><th>A P-R</th><th>Org P-R</th>
 <!--    <th>Action</th>-->
 </tr>
 </thead>
 
-<?php //print_r($this->rowSet);exit;?>
+<?php //print_r($this->orgs);exit;?>
 <?php $i = 1;?>
 <?php $total = array(); ?>
 <?php $publishedTotal = 0;?>
+<?php  $org_pushed_to_registryTotal = 0;?>
 <tbody>
     <?php foreach($this->orgs as $key=>$row):?>
     <?php
@@ -21,27 +22,31 @@
         $total['verified'] += $row['states'][Iati_WEP_ActivityState::STATUS_VERIFIED];
         $total['published'] += $row['states'][Iati_WEP_ActivityState::STATUS_PUBLISHED];
         $publishedTotal +=  $row['registry_published_count'];
+        $org_pushed_to_registryTotal += $row['org_is_pushed_to_registry'];
     ?>
     <tr>
     <td><?php print $i;?></td>
-    <td><?php print $row['name']?></td>
+    <td><?php print $row['name']."<br>". (($row['url'])? $row['url'] : '-')?></td>
+    <td><?php print $row['address']?></td>
     <td><?php print array_sum($row['states']);?>
     <td><?php print ($row['states'][Iati_WEP_ActivityState::STATUS_DRAFT])?$row['states'][Iati_WEP_ActivityState::STATUS_DRAFT]:'-'?></td>
     <td><?php print ($row['states'][Iati_WEP_ActivityState::STATUS_COMPLETED])?$row['states'][Iati_WEP_ActivityState::STATUS_COMPLETED]:'-'?></td>
     <td><?php print ($row['states'][Iati_WEP_ActivityState::STATUS_VERIFIED])?$row['states'][Iati_WEP_ActivityState::STATUS_VERIFIED]:'-'?></td>
     <td><?php print ($row['states'][Iati_WEP_ActivityState::STATUS_PUBLISHED])?$row['states'][Iati_WEP_ActivityState::STATUS_PUBLISHED]:'-'?></td>
-    <td><?php print ($row['registry_published_count'])? $row['registry_published_count'] : '-'; ?></td>
+    <td><?php print ($row['registry_published_count'])? $row['registry_published_count'] : '-';?></td>
+    <td><?php print ($row['org_is_pushed_to_registry'])? $row['org_is_pushed_to_registry']: '-';?></td>
     </tr>
     <?php $i++;?>
     <?php endforeach;?>
     <tr class="total">
-        <td colspan=2>Total</td>
+        <td colspan=3>Total</td>
         <td><?php echo ($total['total'])?$total['total']:0; ?></td>
         <td><?php echo ($total['editing'])?$total['editing']:0; ?></td>
         <td><?php echo ($total['completed'])?$total['completed']:0; ?></td>
         <td><?php echo ($total['verified'])?$total['verified']:0; ?></td>
         <td><?php echo ($total['published'])?$total['published']:0; ?></td>
-        <td><?php print $publishedTotal;?>
+        <td><?php print $publishedTotal;?></td>
+        <td><?php print $org_pushed_to_registryTotal;?></td>
     </tr>
 </tbody>
 
