@@ -234,7 +234,6 @@ class OrganisationController extends Zend_Controller_Action
                     ->addMessage(array('error' => "You have some problem in your
                                        data. Please correct and save again"));
             }
-            $this->_redirect("/organisation/edit-elements/?className=$elementClass&parentId=$parentId");
         } else
         {
             if ($parentId)
