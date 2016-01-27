@@ -71,12 +71,11 @@ class ActivityController extends Zend_Controller_Action
 
         if ($data = $this->getRequest()->getPost()) {
             if (is_array($data['Transaction']['Sector'])) {
-                foreach ($data['Transaction']['Sector'] as &$sector) {
-                    if ($sector['vocabulary'] == 8) {
-                        $sector['code'] = $sector['dac_three_code'];
-                    } else if ($sector['vocabulary'] != 3) {
-                        $sector['code'] = $sector['non_dac_code'];
-                    }
+                $sector = &$data['Transaction']['Sector'];
+                if ($sector['vocabulary'] == 8) {
+                    $sector['code'] = $sector['dac_three_code'];
+                } else if ($sector['vocabulary'] != 3) {
+                    $sector['code'] = $sector['non_dac_code'];
                 }
             }
             $element->setData($data[$element->getClassName()]);
@@ -207,12 +206,11 @@ class ActivityController extends Zend_Controller_Action
         }
         if ($data = $this->getRequest()->getPost()) {
             if (is_array($data['Transaction']['Sector'])) {
-                foreach ($data['Transaction']['Sector'] as &$sector) {
-                    if ($sector['vocabulary'] == 8) {
-                        $sector['code'] = $sector['dac_three_code'];
-                    } else if ($sector['vocabulary'] != 3) {
-                        $sector['code'] = $sector['non_dac_code'];
-                    }
+                $sector = &$data['Transaction']['Sector'];
+                if ($sector['vocabulary'] == 8) {
+                    $sector['code'] = $sector['dac_three_code'];
+                } else if ($sector['vocabulary'] != 3) {
+                    $sector['code'] = $sector['non_dac_code'];
                 }
             }
             $element->setData($data[$element->getClassName()]);
