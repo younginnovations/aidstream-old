@@ -5102,3 +5102,8 @@ a[value="Activity_Result_Title"],a[value="Activity_Result_Description"],a[value=
     color: #008cff;
     text-decoration: none;
 }
+
+.readonly-info-message {
+    padding: 4px 10px 4px 18px;
+    font-size: 14px;
+}
