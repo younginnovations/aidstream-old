@@ -1,3 +1,5 @@
+## [Deprecated] Please use [new AidStream repo](https://github.com/younginnovations/aidstream-new) to report issues.
+
 ### ABOUT
 
 AidStream is a web platform that can be used to enter aid related data compliant
